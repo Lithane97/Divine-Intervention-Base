@@ -1,0 +1,171 @@
+window = {
+	name = "DI_religion_window"
+	parentanchor = top|right
+	position = { -600 100 }
+	size = { 500 700 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+    
+    datacontext = "[GetVariableSystem]"
+	
+	visible = "[GetVariableSystem.Exists('DI_religion_window_visible')]"
+	
+	state = {
+		name = init
+		trigger_on_create = yes
+		
+		on_start = "[GetScriptedGui('DI_religion_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	}
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		restrictparent_min = yes
+		using = Window_Margins
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_religion_menu_title
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
+                
+			}
+		}
+		
+		scrollbox = {
+			layoutpolicy_vertical = expanding
+			layoutpolicy_horizontal = expanding
+			minimumsize = { 400 100% }
+
+			blockoverride "scrollbox_content"
+			{
+				vbox = {
+					name = "religions"
+					layoutpolicy_horizontal = expanding
+					datamodel = "[GetGlobalList('DI_religion_list')]"
+
+					item = {
+						vbox = {
+							name = "religion"
+							datacontext = "[Scope.Religion]"
+							layoutpolicy_horizontal = expanding
+
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								tooltip = "RULER_DESIGNER_LIST_FAITH_ENTRY_TOOLTIP"
+
+								button_standard_hover = {
+									layoutpolicy_horizontal = expanding
+									onclick = "[VariableSystem.Toggle(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
+
+									hbox = {
+										margin = { 5 0 }
+										spacing = 10
+
+										button_list_expand = {
+											checked = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
+											onclick = "[VariableSystem.Toggle(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
+										}
+
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											text = "[Religion.GetNameNoTooltip]"
+											size = { 0 40 }
+											align = nobaseline
+											default_format = "#clickable"
+											autoresize = no
+										}
+									}
+								}
+							}
+
+							vbox = {
+								name = "faiths"
+								datamodel = "[Religion.GetFaiths]"
+								visible = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
+								layoutpolicy_horizontal = expanding
+
+								item = {
+									hbox = {
+										layoutpolicy_horizontal = expanding
+
+										button_standard_hover = {
+											name = "faith_item"
+											layoutpolicy_horizontal = expanding
+											size = { 0 55 }
+											using = Button_Select_Faith
+											onclick = "[GetScriptedGui('DI_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+
+											hbox = {
+												margin = { 5 0 }
+												margin_left = 30
+												spacing = 10
+
+												button_religion_icon_ruler_designer = {
+													name = "faith_icon"
+													size = { 50 50 }
+													using = Button_Select_Faith
+													onclick = "[GetScriptedGui('DI_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+												}
+
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													text = "[Faith.GetNameNoTooltip]"
+													default_format = "#clickable"
+													autoresize = no
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+				
+		vbox = {
+			margin = { 10 10 }
+			size = {300 45}
+			spacing = 10
+			hbox = {
+				spacing = 10
+				button_standard = {
+					size = {200 35}
+					text =  DI_change_to_my_religion
+					tooltip =  DI_change_to_my_religion_tt
+					onclick = "[GetScriptedGui('DI_change_myreligion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+				
+				button_standard = {
+					size = {200 35}
+					text = DI_change_counties_to_my_religion
+					tooltip = DI_change_counties_to_my_religion_tt
+					onclick = "[GetScriptedGui('DI_change_myreligion_county').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}	
+		}
+    }
+}

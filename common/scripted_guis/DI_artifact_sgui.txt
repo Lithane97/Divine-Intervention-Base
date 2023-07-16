@@ -1,0 +1,1248 @@
+﻿DI_artifact_select_char = {
+	scope = character
+	
+	effect = {
+		scope:target = {
+			set_variable = {
+				name = DI_artifact_selected_char
+				value = prev
+			}
+		}
+	}
+}
+
+DI_take_artifact = {
+	scope = character
+	
+	effect = {
+		save_scope_as = new_owner
+		
+		scope:selected_artifact = {
+			set_owner = scope:new_owner
+		}
+	}
+}
+
+DI_destroy_artifact = {
+	scope = character
+	
+	effect = {
+		scope:selected_artifact = { save_scope_as = selected_artifact }
+		destroy_artifact = scope:selected_artifact
+	}
+}
+
+DI_edit_artifact_desc = {
+	scope = character
+	
+	effect = {
+		trigger_event = { id = DI_char_editor.4 }
+	}
+}
+
+DI_get_artifact_list = {
+	scope = character
+	
+	effect = {
+		save_scope_as = target
+
+		every_in_list = {
+			variable = marked_characters
+
+			every_character_artifact  = {
+				scope:target = {
+					add_to_variable_list = { name = DI_artifact_list target = prev }
+				}
+			}
+		}
+	}
+}
+
+DI_clear_artifact_list = {
+	scope = character
+	
+	effect = {
+		clear_variable_list = DI_artifact_list
+	}
+}
+
+### Artifact Types ###
+### Weapons ###
+# artifact weapon axe
+DI_artifact_weapon_axe = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:axe }
+	}
+}
+
+# artifact weapon dagger
+DI_artifact_weapon_dagger = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:dagger }
+	}
+}
+
+# artifact weapon hammer
+DI_artifact_weapon_hammer = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:hammer }
+	}
+}
+
+# artifact weapon mace
+DI_artifact_weapon_mace = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:mace }
+	}
+}
+
+# artifact weapon spear
+DI_artifact_weapon_spear = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:spear }
+	}
+}
+
+# artifact weapon sword
+DI_artifact_weapon_sword = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:sword }
+	}
+}
+
+### Armor ###
+# artifact armor mail
+DI_artifact_armor_mail = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:armor }
+		set_variable = { name = DI_artifact_armor_type value = flag:armor_type_mail }
+	}
+}
+
+# artifact armor brigandine
+DI_artifact_armor_brigandine = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:armor }
+		set_variable = { name = DI_artifact_armor_type value = flag:armor_type_brigandine }
+	}
+}
+
+# artifact armor laminar
+DI_artifact_armor_laminar = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:armor }
+		set_variable = { name = DI_artifact_armor_type value = flag:armor_type_laminar }
+	}
+}
+
+# artifact armor lamellar
+DI_artifact_armor_lamellar = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:armor }
+		set_variable = { name = DI_artifact_armor_type value = flag:armor_type_lamellar }
+	}
+}
+
+# artifact armor scale
+DI_artifact_armor_scale = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:armor }
+		set_variable = { name = DI_artifact_armor_type value = flag:armor_type_scale }
+	}
+}
+
+# artifact armor plate
+DI_artifact_armor_plate = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:armor }
+		set_variable = { name = DI_artifact_armor_type value = flag:armor_type_plate }
+	}
+}
+
+### Regalia ###
+# artifact crown
+DI_artifact_crown = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:crown }
+	}
+}
+
+# artifact regalia
+DI_artifact_regalia = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:regalia }
+	}
+}
+
+### Trinkets ###
+# Necklace
+DI_artifact_necklace = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:necklace }
+	}
+}
+
+# Brooch
+DI_artifact_brooch = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:brooch }
+	}
+}
+
+### Throne ###
+# Throne
+DI_artifact_throne = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:throne }
+	}
+}
+
+### Pedestals ###
+# small box
+DI_artifact_small_box = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:small_box }
+	}
+}
+
+# medium box
+DI_artifact_medium_box = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:medium_box }
+	}
+}
+
+# goblet
+DI_artifact_goblet = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:goblet }
+	}
+}
+
+### Furniture ###
+# cabinet
+DI_artifact_cabinet = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:cabinet }
+	}
+}
+
+# chest
+DI_artifact_chest = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:chest }
+	}
+}
+
+# divan
+DI_artifact_divan = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:divan }
+	}
+}
+
+# table
+DI_artifact_table = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:table }
+	}
+}
+
+### Ornament ###
+# small shield
+DI_artifact_small_shield = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:small_shield }
+	}
+}
+
+# large shield
+DI_artifact_large_shield = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:large_shield }
+	}
+}
+
+# tapestry
+DI_artifact_tapestry = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_type value = flag:tapestry }
+	}
+}
+
+### Artifact Quality ###
+# common
+DI_artifact_quality_common = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_quality value = flag:common }
+	}
+}
+
+# mastework
+DI_artifact_quality_masterwork = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_quality value = flag:masterwork }
+	}
+}
+
+# famed
+DI_artifact_quality_famed = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_quality value = flag:famed }
+	}
+}
+
+# illustrious
+DI_artifact_quality_illustrious = {
+	scope = character
+	
+	effect = {
+		set_variable = { name = DI_artifact_quality value = flag:illustrious }
+	}
+}
+
+### Artifact Creation Scripts ###
+DI_create_artifact = {
+	scope = character
+	
+	effect = {
+		# Common Artifact Check
+		if = {
+			limit = {
+				var:DI_artifact_quality = flag:common
+			}
+
+			# Weapon
+			if = {
+				limit = {
+					var:DI_artifact_type = flag:axe
+				}
+
+				DI_create_artifact_weapon = { RARITY = common TYPE = axe ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_axe }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:dagger
+				}
+
+				DI_create_artifact_weapon = { RARITY = common TYPE = dagger ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_dagger }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:hammer
+				}
+
+				DI_create_artifact_weapon = { RARITY = common TYPE = hammer ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_hammer }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:mace
+				}
+
+				DI_create_artifact_weapon = { RARITY = common TYPE = mace ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_mace }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:spear
+				}
+
+				DI_create_artifact_weapon = { RARITY = common TYPE = spear ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_spear }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:sword
+				}
+
+				DI_create_artifact_weapon = { RARITY = common TYPE = sword ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_sword }
+			}
+			# Armor
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_mail
+				}
+
+				DI_create_artifact_armor = { RARITY = common TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_mail ARMOR_TYPE = armor_mail }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_brigandine
+				}
+
+				DI_create_artifact_armor = { RARITY = common TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_brigandine ARMOR_TYPE = armor_brigandine }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_laminar
+				}
+
+				DI_create_artifact_armor = { RARITY = common TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_laminar ARMOR_TYPE = armor_laminar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_lamellar
+				}
+
+				DI_create_artifact_armor = { RARITY = common TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_lamellar ARMOR_TYPE = armor_lamellar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_scale
+				}
+
+				DI_create_artifact_armor = { RARITY = common TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_scale ARMOR_TYPE = armor_scale }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_plate
+				}
+
+				DI_create_artifact_armor = { RARITY = common TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_plate ARMOR_TYPE = armor_plate }
+			}
+			# crown
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:crown
+				}
+
+				DI_create_artifact_crown = { RARITY = common TYPE = crown }
+			}
+			# regalia
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:regalia
+				}
+
+				DI_create_artifact_regalia = { RARITY = common TYPE = regalia }
+			}
+			# necklace
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:necklace
+				}
+
+				DI_create_artifact_necklace = { RARITY = common TYPE = necklace }
+			}
+			# brooch
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:brooch
+				}
+
+				DI_create_artifact_brooch = { RARITY = common TYPE = brooch }
+			}
+			# throne
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:throne
+				}
+
+				DI_create_artifact_throne = { RARITY = common TYPE = throne }
+			}
+			# small box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_small_name RARITY = common VISUALS = small_box TYPE = box DESC = artifact_box_small_description }
+			}
+			# medium box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:medium_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_medium_name RARITY = common VISUALS = medium_box TYPE = box DESC = artifact_box_medium_description }
+			}
+			# goblet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:goblet
+				}
+
+				DI_create_artifact_goblet = { NAME = artifact_goblet_name RARITY = common TYPE = goblet VISUALS = goblet }
+			}
+			# cabinet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:cabinet
+				}
+
+				DI_create_artifact_cabinet = { NAME = artifact_cabinet_name RARITY = common TYPE = cabinet VISUALS = cabinet }
+			}
+			# chest
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:chest
+				}
+
+				DI_create_artifact_chest = { NAME = artifact_chest_name RARITY = common TYPE = chest VISUALS = chest }
+			}
+			# divan
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:divan
+				}
+
+				DI_create_artifact_divan = { NAME = artifact_diwan_name RARITY = common TYPE = cabinet VISUALS = diwan }
+			}
+			# table
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:table
+				}
+
+				DI_create_artifact_table = { NAME = artifact_table_name RARITY = common TYPE = cabinet VISUALS = table }
+			} 
+			# small shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = common TYPE = wall_shield VISUALS = wall_shield DESC = artifact_wall_shield_description }
+			}
+			# large shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:large_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = common TYPE = wall_shield_special VISUALS = wall_shield_medi DESC = artifact_wall_shield_description }
+			}
+			# tapestry
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:tapestry
+				}
+
+				DI_create_artifact_tapestry = { NAME = artifact_wall_tapestry_name RARITY = common TYPE = tapestry VISUALS = tapestry }
+			}
+		}
+		# Masterwork Artifact Check
+		else_if = {
+			limit = {
+				var:DI_artifact_quality = flag:masterwork
+			}
+
+			# Weapon
+			if = {
+				limit = {
+					var:DI_artifact_type = flag:axe
+				}
+
+				DI_create_artifact_weapon = { RARITY = masterwork TYPE = axe ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_axe }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:dagger
+				}
+
+				DI_create_artifact_weapon = { RARITY = masterwork TYPE = dagger ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_dagger }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:hammer
+				}
+
+				DI_create_artifact_weapon = { RARITY = masterwork TYPE = hammer ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_hammer }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:mace
+				}
+
+				DI_create_artifact_weapon = { RARITY = masterwork TYPE = mace ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_mace }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:spear
+				}
+
+				DI_create_artifact_weapon = { RARITY = masterwork TYPE = spear ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_spear }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:sword
+				}
+
+				DI_create_artifact_weapon = { RARITY = masterwork TYPE = sword ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_sword }
+			}
+			# Armor
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_mail
+				}
+
+				DI_create_artifact_armor = { RARITY = masterwork TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_mail ARMOR_TYPE = armor_mail }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_brigandine
+				}
+
+				DI_create_artifact_armor = { RARITY = masterwork TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_brigandine ARMOR_TYPE = armor_brigandine }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_laminar
+				}
+
+				DI_create_artifact_armor = { RARITY = masterwork TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_laminar ARMOR_TYPE = armor_laminar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_lamellar
+				}
+
+				DI_create_artifact_armor = { RARITY = masterwork TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_lamellar ARMOR_TYPE = armor_lamellar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_scale
+				}
+
+				DI_create_artifact_armor = { RARITY = masterwork TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_scale ARMOR_TYPE = armor_scale }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_plate
+				}
+
+				DI_create_artifact_armor = { RARITY = masterwork TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_plate ARMOR_TYPE = armor_plate }
+			}
+			# crown
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:crown
+				}
+
+				DI_create_artifact_crown = { RARITY = masterwork TYPE = crown }
+			}
+			# regalia
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:regalia
+				}
+
+				DI_create_artifact_regalia = { RARITY = masterwork TYPE = regalia }
+			}
+			# necklace
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:necklace
+				}
+
+				DI_create_artifact_necklace = { RARITY = masterwork TYPE = necklace }
+			}
+			# brooch
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:brooch
+				}
+
+				DI_create_artifact_brooch = { RARITY = masterwork TYPE = brooch }
+			}
+			# throne
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:throne
+				}
+
+				DI_create_artifact_throne = { RARITY = masterwork TYPE = throne }
+			}
+			# small box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_small_name RARITY = masterwork VISUALS = small_box TYPE = box DESC = artifact_box_small_description }
+			}
+			# medium box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:medium_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_medium_name RARITY = masterwork VISUALS = medium_box TYPE = box DESC = artifact_box_medium_description }
+			}
+			# goblet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:goblet
+				}
+
+				DI_create_artifact_goblet = { NAME = artifact_goblet_name RARITY = masterwork TYPE = goblet VISUALS = goblet }
+			}
+			# cabinet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:cabinet
+				}
+
+				DI_create_artifact_cabinet = { NAME = artifact_cabinet_name RARITY = masterwork TYPE = cabinet VISUALS = cabinet }
+			}
+			# chest
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:chest
+				}
+
+				DI_create_artifact_chest = { NAME = artifact_chest_name RARITY = masterwork TYPE = chest VISUALS = chest }
+			}
+			# divan
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:divan
+				}
+
+				DI_create_artifact_divan = { NAME = artifact_diwan_name RARITY = masterwork TYPE = cabinet VISUALS = diwan }
+			}
+			# table
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:table
+				}
+
+				DI_create_artifact_table = { NAME = artifact_table_name RARITY = masterwork TYPE = cabinet VISUALS = table }
+			} 
+			# small shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = masterwork TYPE = wall_shield VISUALS = wall_shield DESC = artifact_wall_shield_description }
+			}
+			# large shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:large_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = masterwork TYPE = wall_shield_special VISUALS = wall_shield_medi DESC = artifact_wall_shield_description }
+			}
+			# tapestry
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:tapestry
+				}
+
+				DI_create_artifact_tapestry = { NAME = artifact_wall_tapestry_name RARITY = masterwork TYPE = tapestry VISUALS = tapestry }
+			}			
+		}
+		# Famed Artifact Check
+		else_if = {
+			limit = {
+				var:DI_artifact_quality = flag:famed
+			}
+
+			# Weapon
+			if = {
+				limit = {
+					var:DI_artifact_type = flag:axe
+				}
+
+				DI_create_artifact_weapon = { RARITY = famed TYPE = axe ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_axe }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:dagger
+				}
+
+				DI_create_artifact_weapon = { RARITY = famed TYPE = dagger ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_dagger }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:hammer
+				}
+
+				DI_create_artifact_weapon = { RARITY = famed TYPE = hammer ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_hammer }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:mace
+				}
+
+				DI_create_artifact_weapon = { RARITY = famed TYPE = mace ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_mace }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:spear
+				}
+
+				DI_create_artifact_weapon = { RARITY = famed TYPE = spear ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_spear }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:sword
+				}
+
+				DI_create_artifact_weapon = { RARITY = famed TYPE = sword ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_sword }
+			}
+			# Armor
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_mail
+				}
+
+				DI_create_artifact_armor = { RARITY = famed TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_mail ARMOR_TYPE = armor_mail }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_brigandine
+				}
+
+				DI_create_artifact_armor = { RARITY = famed TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_brigandine ARMOR_TYPE = armor_brigandine }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_laminar
+				}
+
+				DI_create_artifact_armor = { RARITY = famed TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_laminar ARMOR_TYPE = armor_laminar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_lamellar
+				}
+
+				DI_create_artifact_armor = { RARITY = famed TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_lamellar ARMOR_TYPE = armor_lamellar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_scale
+				}
+
+				DI_create_artifact_armor = { RARITY = famed TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_scale ARMOR_TYPE = armor_scale }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_plate
+				}
+
+				DI_create_artifact_armor = { RARITY = famed TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_plate ARMOR_TYPE = armor_plate }
+			}
+			# crown
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:crown
+				}
+
+				DI_create_artifact_crown = { RARITY = famed TYPE = crown }
+			}
+			# regalia
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:regalia
+				}
+
+				DI_create_artifact_regalia = { RARITY = famed TYPE = regalia }
+			}
+			# necklace
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:necklace
+				}
+
+				DI_create_artifact_necklace = { RARITY = famed TYPE = necklace }
+			}
+			# brooch
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:brooch
+				}
+
+				DI_create_artifact_brooch = { RARITY = famed TYPE = brooch }
+			}
+			# throne
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:throne
+				}
+
+				DI_create_artifact_throne = { RARITY = famed TYPE = throne }
+			}
+			# small box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_small_name RARITY = famed VISUALS = small_box TYPE = box DESC = artifact_box_small_description }
+			}
+			# medium box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:medium_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_medium_name RARITY = famed VISUALS = medium_box TYPE = box DESC = artifact_box_medium_description }
+			}
+			# goblet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:goblet
+				}
+
+				DI_create_artifact_goblet = { NAME = artifact_goblet_name RARITY = famed TYPE = goblet VISUALS = goblet }
+			}
+			# cabinet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:cabinet
+				}
+
+				DI_create_artifact_cabinet = { NAME = artifact_cabinet_name RARITY = famed TYPE = cabinet VISUALS = cabinet }
+			}
+			# chest
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:chest
+				}
+
+				DI_create_artifact_chest = { NAME = artifact_chest_name RARITY = famed TYPE = chest VISUALS = chest }
+			}
+			# divan
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:divan
+				}
+
+				DI_create_artifact_divan = { NAME = artifact_diwan_name RARITY = famed TYPE = cabinet VISUALS = diwan }
+			}
+			# table
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:table
+				}
+
+				DI_create_artifact_table = { NAME = artifact_table_name RARITY = famed TYPE = cabinet VISUALS = table }
+			} 
+			# small shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = famed TYPE = wall_shield VISUALS = wall_shield DESC = artifact_wall_shield_description }
+			}
+			# large shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:large_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = famed TYPE = wall_shield_special VISUALS = wall_shield_medi DESC = artifact_wall_shield_description }
+			}
+			# tapestry
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:tapestry
+				}
+
+				DI_create_artifact_tapestry = { NAME = artifact_wall_tapestry_name RARITY = famed TYPE = tapestry VISUALS = tapestry }
+			}			
+		}
+		# Illustrious Artifact Check
+		else_if = {
+			limit = {
+				var:DI_artifact_quality = flag:illustrious
+			}
+
+			# Weapon
+			if = {
+				limit = {
+					var:DI_artifact_type = flag:axe
+				}
+
+				DI_create_artifact_weapon = { RARITY = illustrious TYPE = axe ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_axe }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:dagger
+				}
+
+				DI_create_artifact_weapon = { RARITY = illustrious TYPE = dagger ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_dagger }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:hammer
+				}
+
+				DI_create_artifact_weapon = { RARITY = illustrious TYPE = hammer ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_hammer }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:mace
+				}
+
+				DI_create_artifact_weapon = { RARITY = illustrious TYPE = mace ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_mace }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:spear
+				}
+
+				DI_create_artifact_weapon = { RARITY = illustrious TYPE = spear ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_spear }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:sword
+				}
+
+				DI_create_artifact_weapon = { RARITY = illustrious TYPE = sword ARTIFACT_WEAPON_TYPE = flag:artifact_weapon_type_sword }
+			}
+			# Armor
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_mail
+				}
+
+				DI_create_artifact_armor = { RARITY = illustrious TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_mail ARMOR_TYPE = armor_mail }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_brigandine
+				}
+
+				DI_create_artifact_armor = { RARITY = illustrious TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_brigandine ARMOR_TYPE = armor_brigandine }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_laminar
+				}
+
+				DI_create_artifact_armor = { RARITY = illustrious TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_laminar ARMOR_TYPE = armor_laminar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_lamellar
+				}
+
+				DI_create_artifact_armor = { RARITY = illustrious TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_lamellar ARMOR_TYPE = armor_lamellar }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_scale
+				}
+
+				DI_create_artifact_armor = { RARITY = illustrious TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_scale ARMOR_TYPE = armor_scale }
+			}
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:armor
+					var:DI_artifact_armor_type = flag:armor_type_plate
+				}
+
+				DI_create_artifact_armor = { RARITY = illustrious TYPE = armor ARTIFACT_ARMOR_TYPE = flag:armor_type_plate ARMOR_TYPE = armor_plate }
+			}
+			# crown
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:crown
+				}
+
+				DI_create_artifact_crown = { RARITY = illustrious TYPE = crown }
+			}
+			# regalia
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:regalia
+				}
+
+				DI_create_artifact_regalia = { RARITY = illustrious TYPE = regalia }
+			}
+			#necklace
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:necklace
+				}
+
+				DI_create_artifact_necklace = { RARITY = illustrious TYPE = necklace }
+			}
+			# brooch
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:brooch
+				}
+
+				DI_create_artifact_brooch = { RARITY = illustrious TYPE = brooch }
+			}
+			# throne
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:throne
+				}
+
+				DI_create_artifact_throne = { RARITY = illustrious TYPE = throne }
+			}
+			# small box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_small_name RARITY = illustrious VISUALS = small_box TYPE = box DESC = artifact_box_small_description }
+			}
+			# medium box
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:medium_box
+				}
+
+				DI_create_artifact_box = { NAME = artifact_box_medium_name RARITY = illustrious VISUALS = medium_box TYPE = box DESC = artifact_box_medium_description }
+			}
+			# goblet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:goblet
+				}
+
+				DI_create_artifact_goblet = { NAME = artifact_goblet_name RARITY = illustrious TYPE = goblet VISUALS = goblet }
+			}
+			# cabinet
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:cabinet
+				}
+
+				DI_create_artifact_cabinet = { NAME = artifact_cabinet_name RARITY = illustrious TYPE = cabinet VISUALS = cabinet }
+			}
+			# chest
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:chest
+				}
+
+				DI_create_artifact_chest = { NAME = artifact_chest_name RARITY = illustrious TYPE = chest VISUALS = chest }
+			}
+			# divan
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:divan
+				}
+
+				DI_create_artifact_divan = { NAME = artifact_diwan_name RARITY = illustrious TYPE = cabinet VISUALS = diwan }
+			}
+			# table
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:table
+				}
+
+				DI_create_artifact_table = { NAME = artifact_table_name RARITY = illustrious TYPE = cabinet VISUALS = table }
+			} 
+			# small shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:small_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = illustrious TYPE = wall_shield VISUALS = wall_shield DESC = artifact_wall_shield_description }
+			}
+			# large shield
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:large_shield
+				}
+
+				DI_create_artifact_shield = { NAME = artifact_wall_shield_name RARITY = illustrious TYPE = wall_shield_special VISUALS = wall_shield_medi DESC = artifact_wall_shield_description }
+			}
+			# tapestry
+			else_if = {
+				limit = {
+					var:DI_artifact_type = flag:tapestry
+				}
+
+				DI_create_artifact_tapestry = { NAME = artifact_wall_tapestry_name RARITY = illustrious TYPE = tapestry VISUALS = tapestry }
+			}
+		}
+	}
+}
+
+

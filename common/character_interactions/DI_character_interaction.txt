@@ -1,0 +1,1796 @@
+﻿DI_open_cheat_menu = {
+	interface_priority = 300
+	category = interaction_category_cheat_menu
+	desc = DI_cheat_menu_desc
+	common_interaction = yes
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			NOT = {
+				has_character_flag = DI_cheat_menu
+			}
+		}
+	}
+
+	on_send = {
+		scope:actor = {
+			add_character_flag = DI_cheat_menu
+		}
+	}
+}
+
+DI_close_cheat_menu = {
+	interface_priority = 300
+	category = interaction_category_cheat_menu
+	desc = DI_cheat_menu_desc
+	common_interaction = yes
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+				has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_send = {
+		scope:actor = {
+			remove_character_flag = DI_cheat_menu
+		}
+	}
+}
+
+### Mark Character for Edit ###
+cheat_mark_for_edit_interaction = {
+	interface_priority = 200
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	common_interaction = yes
+	
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+	
+	send_option = {
+		flag = character
+		localization = DI_mark_character
+	}
+	send_option = {
+		flag = vassals
+		localization = DI_mark_vassals
+	}
+	send_option = {
+		flag = courtiers
+		localization = DI_mark_courtiers
+	}
+	send_option = {
+		flag = councillors
+		localization = DI_mark_councillors
+	}
+	send_option = {
+		flag = house
+		localization = DI_mark_house
+	}
+	send_option = {
+		flag = dynasty
+		localization = DI_mark_dynasty
+	}
+	
+	on_accept = {
+		scope:recipient = {
+			if = {
+				limit = {scope:character = yes}
+				
+				add_character_flag = marked_for_edit
+				scope:actor = {
+					add_to_variable_list = { name = marked_characters target = prev }
+				}
+			}
+			
+			if = {
+				limit = {scope:vassals = yes}
+				
+				every_vassal = {
+					add_character_flag = marked_for_edit
+					scope:actor = {
+						add_to_variable_list = { name = marked_characters target = prev }
+					}
+				}
+			}
+			
+			if = {
+				limit = {scope:courtiers = yes}
+				
+				every_courtier = {
+					add_character_flag = marked_for_edit
+					scope:actor = {
+						add_to_variable_list = { name = marked_characters target = prev }
+					}
+				}
+			}
+			
+			if = {
+				limit = {scope:councillors = yes}
+				
+				every_councillor = {
+					add_character_flag = marked_for_edit
+					scope:actor = {
+						add_to_variable_list = { name = marked_characters target = prev }
+					}
+				}
+			}
+			
+			if = {
+				limit = {scope:house = yes}
+				
+				scope:recipient.house = {
+					every_house_member = {
+						add_character_flag = marked_for_edit
+						scope:actor = {
+							add_to_variable_list = { name = marked_characters target = prev }
+						}
+					}
+				}
+			}
+			
+			if = {
+				limit = {scope:dynasty = yes}
+				
+				scope:recipient.dynasty = {
+					every_dynasty_member = {
+						add_character_flag = marked_for_edit
+						scope:actor = {
+							add_to_variable_list = { name = marked_characters target = prev }
+						}
+					}
+				}
+			}
+			
+		}
+	}
+	
+	auto_accept = yes
+}
+
+### Change Character ###
+DI_change_character_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_change_character_desc
+	common_interaction = yes
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			is_ai = yes
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			add_character_flag = DI_cheat_menu
+		}
+		scope:actor = {
+			remove_character_flag = DI_cheat_menu
+			set_player_character = scope:recipient
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Change Character Name ###
+DI_change_character_name_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_change_character_name_desc
+	common_interaction = yes
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = { save_scope_as = change_name }
+		scope:actor = { trigger_event = DI_char_editor.1 }
+	}
+}
+
+### Change Religion ###
+DI_change_religion_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_change_religion_desc
+	common_interaction = yes
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		NOT = { scope:actor.faith = scope:recipient.faith }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			set_character_faith = scope:actor.faith
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Change Culture ###
+DI_change_culture_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_change_culture_desc
+	common_interaction = yes
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		NOT = { scope:actor.culture = scope:recipient.culture }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			set_culture = scope:actor.culture
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Change Dynasty ###
+DI_change_dynasty_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_change_dynasty_desc
+	common_interaction = yes
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		NOT = { scope:actor.house = scope:recipient.house }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			set_house = scope:actor.house
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Modify Vassal Contract | As Liege ###
+DI_char_modify_vassal_contract_interaction = {
+	special_interaction = modify_vassal_contract
+	interface = modify_vassal_contract
+	category = interaction_category_cheat_menu
+	common_interaction = yes
+	icon = icon_contract_modification_single
+
+	send_name = "modify_vassal_contract_interaction_SEND"
+	desc = DI_char_modify_vassal_contract_inter_desc
+
+	force_notification = yes
+	notification_text = MODIFY_VASSAL_CONTRACT_NOTIFICATION_TO_VASSAL
+	
+	is_shown = {
+		scope:recipient = {
+			NOT = { this = scope:actor }
+			exists = liege
+			liege = scope:actor
+			is_ruler = yes
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		NOT = { scope:actor = { is_at_war_with = scope:recipient } } 
+	}
+
+	can_send = {
+	}
+
+	auto_accept = yes
+
+	on_accept = {
+		scope:actor = {
+			send_interface_message = {
+				type = msg_vassal_contract_change
+				title = modify_vassal_contract_interaction_notification
+				right_icon = scope:recipient
+				every_in_list = {
+					list = changed_obligations
+
+					save_scope_as = obligation
+
+					scope:recipient = {
+						vassal_contract_set_obligation_level = {
+							type = scope:obligation.vassal_contract_type
+							level = scope:obligation
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### Modify Vassal Contract | As Vassal ###
+DI_modify_vassal_mod_vassal_contract_interaction = {
+	special_interaction = modify_vassal_contract
+	interface = modify_vassal_contract
+	category = interaction_category_cheat_menu
+	common_interaction = yes
+	icon = icon_contract_modification_single
+
+	send_name = "modify_vassal_contract_interaction_SEND"
+	desc = DI_modify_vassal_mod_vassal_contract_desc
+
+	force_notification = yes
+	notification_text = MODIFY_VASSAL_CONTRACT_NOTIFICATION_TO_LIEGE
+
+	redirect = {
+		# need to reverse the role for the UI to work properly
+		scope:recipient = {
+			save_scope_as = secondary_recipient
+		}
+		scope:actor = {
+			save_scope_as = recipient
+		}
+
+		scope:secondary_recipient = {
+			save_scope_as = actor
+		}
+	}
+	
+	is_shown = {
+		scope:recipient = {
+			is_independent_ruler = no
+			NOT = { this = scope:actor }
+			liege = scope:actor
+		}
+		scope:recipient = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		NOT = { scope:recipient = { is_at_war_with = scope:actor } } 
+	}
+
+	can_send = {
+	}
+
+	auto_accept = yes
+
+	on_accept = {
+		# Enact changes.
+		scope:recipient = {
+			send_interface_message = {
+				type = msg_vassal_contract_change
+				title = modify_vassal_contract_interaction_notification
+				right_icon = scope:actor
+				if = {
+					limit = { always = scope:hook }
+					use_hook = scope:actor
+				}
+
+				every_in_list = {
+					list = changed_obligations
+
+					save_scope_as = obligation
+
+					scope:recipient = {
+						vassal_contract_set_obligation_level = {
+							type = scope:obligation.vassal_contract_type
+							level = scope:obligation
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### Arrange Marriage ###
+DI_arrange_marriage_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_arrange_marriage_desc
+	common_interaction = no
+	auto_accept = yes
+	
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	special_interaction = arrange_marriage_interaction
+	interface = marriage
+	
+	redirect = {
+		scope:actor = {
+			if = {
+				limit = {
+					exists = matchmaker
+					NOT = { this = matchmaker }
+				}
+				save_scope_as = secondary_actor
+				matchmaker = {
+					save_scope_as = actor
+				}
+			}
+			if = {
+				limit = {
+					is_betrothed = yes
+					betrothed = scope:recipient
+				}
+
+				save_scope_as = secondary_actor
+			}
+		}
+
+		scope:recipient = {
+			if = {
+				limit = {
+					is_betrothed = yes
+					betrothed.matchmaker = scope:actor
+					is_adult = yes
+					betrothed = {
+						is_adult = yes
+					}
+				}
+
+				save_scope_as = secondary_recipient
+				matchmaker = {
+					save_scope_as = recipient
+				}
+				betrothed = {
+					save_scope_as = secondary_actor
+				}
+			}
+			if = {
+				limit = {
+					exists = matchmaker
+					NOT = { this = matchmaker }
+				}
+				save_scope_as = secondary_recipient
+				matchmaker = {
+					save_scope_as = recipient
+				}
+			}
+		}
+	}
+
+	populate_actor_list = {
+		scope:actor = {
+			add_to_list = characters
+			every_courtier = {
+				limit = {
+					NOT = { is_in_list = characters }
+				}
+				add_to_list = characters
+			}
+			every_child = {
+				limit = {
+					NOT = { is_in_list = characters }
+				}
+				add_to_list = characters
+			}
+		}
+	}
+
+	populate_recipient_list = {
+		scope:recipient = {
+			add_to_list = characters
+			every_courtier = {
+				limit = {
+					NOT = { is_in_list = characters }
+				}
+				add_to_list = characters
+			}
+			every_child = {
+				limit = {
+					NOT = { is_in_list = characters }
+				}
+				add_to_list = characters
+			}
+		}
+	}
+
+	is_shown = {
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+		
+		#If you're interacting with someone who isn't their own matchmaker, only show the interaction if they can get married. (If someone isn't their own matchmaker, they will be set as secondary_recipient by code and their matchmaker becomes recipient)
+		trigger_if = {
+			limit = { exists = scope:secondary_recipient }
+			scope:secondary_recipient = {
+				OR = {
+					marriage_interaction_can_be_picked_trigger = yes #Can marry anyone
+					AND = {
+						ready_to_marry_betrothed_trigger = yes
+						OR = {
+							betrothed = scope:secondary_actor
+							trigger_if = {
+								limit = { exists = betrothed.liege }
+								betrothed.liege = scope:actor
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+	}
+	
+	can_be_picked = {
+	}
+
+	has_valid_target_showing_failures_only = {
+	}
+	
+	on_accept = {
+		marriage_interaction_on_accept_effect = yes		
+	}
+
+	on_decline = {
+	}
+	
+	ai_accept = {
+		base = 100
+	}
+	
+	on_send = {
+	}
+	
+	send_option = {
+		flag = matrilineal
+		localization = MATRILINEAL_OFFER
+		current_description = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:secondary_actor
+					scope:secondary_actor = {
+						betrothed = scope:secondary_recipient
+						matrilinear_betrothal = yes
+					}
+				}
+				desc = "MATRILINEAL_OFFER_BETROTHAL_INFO"
+			}
+		}
+		can_be_changed = {
+		}
+		starts_enabled = {
+			trigger_if = {
+				limit = {
+					exists = scope:secondary_actor
+					scope:secondary_actor = {
+						betrothed = scope:secondary_recipient
+					}
+				}
+				scope:secondary_actor = {
+					matrilinear_betrothal = yes
+				}
+			}
+		}
+	}
+	
+	send_option = {
+		is_shown = {
+			scope:secondary_actor = {
+				NOT = {
+					betrothed = scope:secondary_recipient
+				}
+			}
+		}
+		flag = marriage_hook
+		localization = MARRIAGE_HOOK
+	}
+	
+	send_options_exclusive = no
+	
+	show_effects_in_notification = no
+	greeting = positive
+}
+
+### Divorce Character ###
+DI_divorce_character_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_divorce_character_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+
+	is_shown = {
+		scope:recipient = {
+			is_spouse_of = scope:actor
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			divorce_effect = {
+				DIVORCER = scope:actor
+				DIVORCEE = scope:recipient
+			}
+		}
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}
+
+### Designate Heir ###
+DI_designate_heir_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_designate_heir_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		NOR = {
+			scope:recipient = scope:actor
+			scope:recipient = scope:actor.designated_heir
+			scope:recipient = scope:actor.father
+			scope:recipient = scope:actor.mother
+		}
+	}
+
+	on_accept = {
+		scope:actor = { set_designated_heir = scope:recipient }
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Adopt Male ###
+DI_adopt_male_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_adopt
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			is_female = no
+			has_character_flag = DI_cheat_menu
+			NOT = { scope:recipient.house = scope:actor.house }
+		}
+		NOR = {
+			scope:recipient = scope:actor
+			scope:recipient = scope:actor.designated_heir
+			scope:recipient = scope:actor.father
+			scope:recipient = scope:actor.mother
+		}
+	}
+
+	on_accept = {
+		scope:recipient = { set_father = scope:actor }
+		scope:actor = {
+			scope:recipient = { set_house = scope:actor.house }
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Adopt Female ###
+DI_adopt_female_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_adopt
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			is_female = yes
+			has_character_flag = DI_cheat_menu
+			NOT = { scope:recipient.house = scope:actor.house }
+		}
+		NOR = {
+			scope:recipient = scope:actor
+			scope:recipient = scope:actor.designated_heir
+			scope:recipient = scope:actor.father
+			scope:recipient = scope:actor.mother
+		}
+	}
+
+	on_accept = {
+		scope:recipient = { set_mother = scope:actor }
+		scope:actor = {
+			scope:recipient = { set_house = scope:actor.house }
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Disown ###
+DI_disown_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_disown_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			scope:recipient.house = scope:actor.house
+		}
+		NOR = {
+			scope:recipient = scope:actor
+			scope:recipient = scope:actor.designated_heir
+			scope:recipient = scope:actor.father
+			scope:recipient = scope:actor.mother
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			scope:recipient = { set_to_lowborn = yes }
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
+	desc = DI_cadetBranch_interaction_1.desc
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			is_dynast = yes
+		}		
+		scope:recipient = {
+			is_dynast = no
+			is_house_head = no
+			dynasty = scope:actor.dynasty
+			NOT = {
+				scope:recipient = scope:actor
+				has_trait = bastard
+			}
+		}
+	}	
+	auto_accept = yes
+	on_accept = {
+		scope:actor = {
+			trigger_event = DI_char_editor.3
+		}
+		show_as_tooltip = {
+            scope:recipient = {
+				custom_tooltip = DI_cadetBranch_event_tooltip.1
+				create_cadet_branch = yes
+            }            
+		}
+	}
+}
+
+### Murder ###
+DI_murder_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_murder_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {	
+			death = {
+				killer = scope:actor
+				death_reason = "death_murder"
+			}
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Imprison ###
+DI_imprison_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_imprison_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			imprison = {
+				target = scope:recipient
+				type = dungeon
+			}
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Claim Title ###
+DI_claim_title_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_claim_title_desc
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	target_type = title
+	target_filter = recipient_domain_titles
+	
+	is_shown = {
+		NOT = { scope:actor = scope:recipient }
+		scope:recipient = {
+			is_landed = yes
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+		scope:actor = { is_ai = no }
+	}
+	
+	can_be_picked_title = {
+		scope:target = {
+			holder = scope:recipient
+			tier >= tier_county
+		}
+	}
+	
+	auto_accept = yes
+	
+	on_auto_accept = {
+		scope:recipient = {
+			trigger_event = char_interaction.0110
+		}
+	}
+	
+	on_send = {
+		scope:actor = {
+			add_pressed_claim = scope:target
+		}
+	}
+}
+
+### Remove Claims on Player ###
+DI_remove_claims_on_player_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_claims_on_player_desc
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		NOT = { scope:actor = scope:recipient }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			any_held_title = {
+				tier >= tier_county
+				scope:recipient = {
+					has_claim_on = prev
+				}
+			}
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+		scope:actor = { is_ai = no }
+	}
+	
+	auto_accept = yes
+	
+	on_auto_accept = {
+		scope:recipient = {
+			every_claim = {
+				explicit = yes
+				limit = {
+					save_temporary_scope_as = temp_claim
+					OR = {
+						holder = scope:actor
+						AND = {
+							exists = holder
+							NOT = { prev = { target_is_liege_or_above = scope:actor } }
+							holder = { target_is_liege_or_above = scope:actor }
+						}
+						scope:actor = {
+							any_held_title = {
+								is_de_jure_liege_or_above_target = scope:temp_claim
+							}
+						}
+					}
+				}
+				scope:recipient = { remove_claim = prev }
+			}
+		}
+	}
+	
+	on_send = {
+
+	}
+}
+
+### Remove All Claims ###
+DI_remove_all_claims_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_all_claims_desc
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		NOT = { scope:actor = scope:recipient }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			any_claim = { explicit = yes }
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+		scope:actor = { is_ai = no }
+	}
+	
+	auto_accept = yes
+	
+	on_auto_accept = {
+		scope:recipient = {
+			every_claim = {
+				explicit = yes
+				scope:recipient = { remove_claim = prev }
+			}
+		}
+	}
+	
+	on_send = {
+
+	}
+}
+
+### Take Title ###
+DI_take_title_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_take_title_desc
+	
+	use_diplomatic_range = no
+	auto_accept = yes
+	ignores_pending_interaction_block = yes
+	special_interaction = revoke_title_interaction
+	target_type = title
+	target_filter = recipient_domain_titles
+	icon = revoke_title
+	
+	is_shown = {
+		NOT = { scope:actor = scope:recipient }
+		scope:recipient = {
+			is_landed = yes
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+		scope:actor = { is_ai = no }
+	}
+	
+	can_be_picked_title = {
+		scope:target = {
+			holder = scope:recipient
+		}
+	}
+	
+	on_auto_accept = {
+	}
+	
+	on_accept = {
+	}
+}
+
+### Revoke Title ###
+DI_revoke_title_interaction = {
+	category = interaction_category_cheat_menu
+	common_interaction = yes
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	desc = DI_revoke_title_desc
+
+	special_interaction = revoke_title_interaction
+	interface = revoke_title
+	target_type = title
+	target_filter = recipient_domain_titles
+
+	is_shown = {
+		scope:recipient = {
+			is_landed = yes
+			# should be shown but be disabled for indirect vassals
+			target_is_liege_or_above = scope:actor
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+	}
+
+	can_send = {
+	}
+	
+	# whether a character can be picked for the interaction, interface only (e.g. picking the first character in the marriage interaction)
+	# in character scope, actor and recipient event tagets can be used, but not the secondary characters
+	
+	has_valid_target_showing_failures_only = {
+	}
+
+	send_options_exclusive = no
+
+	on_auto_accept = {
+		scope:recipient = {
+			trigger_event = char_interaction.0200
+		}
+	}
+
+	on_send = {
+		save_scope_value_as = {
+			name = revoke_title_interaction
+			value = yes
+		}
+	}
+
+	on_decline = {
+	}
+	
+	ai_accept = {
+		base = 100 # Try to make it 0 for most interactions
+	}
+	
+	ai_frequency = 0 # This is handled via code instead; see REVOKE_TITLE_TICK in the AI defines. All the logic for *if* to send a revoke though is scripted below
+
+	ai_potential = {
+	}
+
+	ai_will_do = {
+		base = -1000
+	}
+}
+
+### Vassalize Character ###
+DI_vassalize_interaction = {
+	category = interaction_category_cheat_menu
+	
+	common_interaction = yes
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	desc = DI_vassalize_desc
+	
+	is_shown = {
+		scope:recipient = {
+			NOT = { this = scope:actor }
+			is_landed = yes
+			highest_held_title_tier < scope:actor.highest_held_title_tier
+			NOT = { government_has_flag = can_not_be_vassal_or_liege }
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	is_valid_showing_failures_only = {
+	}
+	ai_accept = {
+		base = 100
+	}
+
+	on_accept = {
+		offer_vassalization_interaction_effect = yes
+	}
+
+	on_decline = {
+	}
+
+	ai_will_do = {
+		base = 0
+	}
+}
+
+### Add Character to Court ###
+DI_add_to_court_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_add_to_court_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:recipient = {
+			is_landed = no
+			NOT = {
+				is_courtier_of = scope:actor
+			}
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			is_landed = yes
+		}
+	}
+	
+	on_accept = {
+		scope:actor = {
+			add_courtier = scope:recipient
+		}
+	}
+}
+
+### Befriend Character ###
+DI_befriend_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_befriend_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			NOT = { has_relation_friend = scope:recipient }
+		}
+	}
+
+	on_accept = {
+		scope:actor = {		
+			set_relation_friend = scope:recipient
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Unfriend Character ###
+DI_unfriend_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_unfriend_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			has_relation_friend = scope:recipient
+		}
+	}
+
+	on_accept = {
+		scope:actor = {		
+			remove_relation_friend = scope:recipient
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Add Character as Lover ###
+DI_make_lover_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_make_lover_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		NOT = { scope:recipient = { age < 16 } }
+		NOT = {
+			OR ={
+				scope:actor = {
+					has_relation_lover = scope:recipient
+				}
+				scope:actor = {
+					has_relation_soulmate = scope:recipient
+				}
+			}
+		}
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			set_relation_lover = scope:recipient
+		}
+	}
+}
+
+### Remove Character as Lover ###
+DI_remove_lover_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_lover_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			has_relation_lover = scope:recipient
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			remove_relation_lover = scope:recipient
+		}
+	}
+}
+
+### Add Character as Soulmate ###
+DI_add_soulmate_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_add_soulmate_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:recipient = {
+			is_spouse_of = scope:actor
+		}
+		NOT = { scope:recipient = scope:actor }
+		NOT = { scope:recipient = { age < 16 } }
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			has_relation_lover = scope:recipient
+			is_ai = no
+		}
+		NOT = {
+			scope:actor = {
+				has_relation_soulmate = scope:recipient
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			set_relation_soulmate = scope:recipient
+			remove_relation_lover = scope:recipient
+		}
+	}
+}
+
+### Remove Character as Soulmate ###
+DI_remove_soulmate_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_soulmate_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:recipient = {
+			is_spouse_of = scope:actor
+		}
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+		scope:actor = {
+			has_relation_soulmate = scope:recipient
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			remove_relation_soulmate = scope:recipient
+		}
+	}
+}
+
+### Add Character as Rival ###
+DI_make_rival_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_make_rival_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+		NOT = { scope:recipient = scope:actor }
+		NOT = {
+			scope:actor = {
+				any_relation = {
+				type = rival
+					this = scope:recipient
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			set_relation_rival = scope:recipient
+		}
+	}
+}
+
+### Remove Character as Rival ###
+DI_remove_rival_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_rival_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			has_relation_rival = scope:recipient
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			remove_relation_rival = scope:recipient
+		}
+	}
+}
+
+### Add Character as Concubine ###
+DI_add_concubine_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_add_concubine_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		NOT = { scope:actor = scope:recipient }
+		NOT = { scope:recipient = { age < 16 } }
+		scope:recipient = {
+			sex_opposite_of = scope:actor
+			is_concubine = no
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			allowed_concubines = yes
+			allowed_more_concubines = yes
+		}
+	}
+	
+	on_send = {
+		scope:actor = {
+			make_concubine = scope:recipient
+		}
+	}
+}
+
+### Impregnate Character ###
+DI_impregnate_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_impregnate_cheat_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		NOT = { scope:actor = scope:recipient }
+		scope:recipient = {
+			is_pregnant = no
+			is_female = yes
+		}
+		NOT = { scope:recipient = { age < 16 } }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			is_male = yes 
+		}
+	}
+
+	send_option = {
+		flag = one_child
+		localization = DI_impregnate_one_child
+	}
+	send_option = {
+		flag = twins
+		localization = DI_impregnate_twins
+	}
+	send_option = {
+		flag = triplets
+		localization = DI_impregnate_triplets
+	}
+
+	on_send = {
+		scope:recipient = {
+			switch = {
+				trigger = yes
+				scope:one_child = {
+					make_pregnant = {
+						father = scope:actor
+						number_of_children = 1
+					}
+				}
+				scope:twins = {
+					make_pregnant = {
+						father = scope:actor
+						number_of_children = 2
+					}
+				}
+				scope:triplets = {
+					make_pregnant = {
+						father = scope:actor
+						number_of_children = 3
+					}
+				}
+			}
+		}
+	}
+}
+
+### Have sex with character ###
+DI_sleep_with_character = {
+	icon = seducer
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+	
+	on_accept = { 
+		scope:actor = { 
+			trigger_event = DI_char_editor.2
+		} 
+	}
+	auto_accept = yes
+}
+
+### Change Every County Control / Development
+DI_change_every_county = {
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	icon = "gfx/interface/icon_holding_city" # todo_cd this should work, but currently is not functional (this is why the one above just copied over the icon)
+	
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = { # Set Control to Max (100)
+		flag = debug_change_every_county_max_control
+		localization = DI_change_every_county_control
+	}
+	send_option = { # Set Development to Max (100)
+		flag = debug_change_every_county_max_development
+		localization = DI_change_every_county_development
+	}
+
+	on_accept = {
+		scope:recipient = {
+			switch = {
+				trigger = yes
+				scope:debug_change_every_county_max_control = {
+					every_realm_county = {
+						change_county_control = 100
+					}
+				}
+				scope:debug_change_every_county_max_development = {
+					every_realm_county = { 
+						change_development_level = 100
+					} 
+				}
+			}
+		}
+	}
+	
+	
+	auto_accept = yes
+	ai_accept = {
+		base = 100
+	}
+}
+
+### Add Loyalty Hook on Character ###
+DI_add_hook_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_add_hook_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = {
+		flag = weak_hook
+		localization = add_weak_hook_interaction
+	}
+	send_option = {
+		flag = strong_hook
+		localization = add_strong_hook_interaction
+	}
+	send_option = {
+		flag = loyalty_hook
+		localization = DI_add_loyalty_hook_interaction
+	}
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+				scope:weak_hook = {
+					add_hook = {
+						target = scope:recipient
+						type = favor_hook
+					}
+				}
+				scope:strong_hook = {
+					add_hook = {
+						target = scope:recipient
+						type = strong_test_hook
+					}
+				}
+				scope:loyalty_hook = {
+					add_hook = {
+						target = scope:recipient
+						type = loyalty_hook
+					}
+				}
+			}
+		}
+	}
+}
+
+### Add Excommunitcated to Character ###
+DI_excommunicate_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_excommunicate_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		NOT = {
+			scope:recipient = {
+				has_trait = excommunicated
+			}
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			add_trait = excommunicated
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Remove Excommunicated from Character ###
+DI_remove_excommunication_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_excommunication_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		scope:recipient = {
+			has_trait = excommunicated
+		}
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			remove_trait = excommunicated
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+
+### Commit Suicide ###
+DI_commit_suicide_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_commit_suicide_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:recipient = scope:actor
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:actor = {		
+			death = {
+				killer = scope:actor
+				death_reason = "death_murder"
+			}
+		}
+	}
+
+	ai_will_do = { base = 0 }
+}
+

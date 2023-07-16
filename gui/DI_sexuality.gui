@@ -1,0 +1,426 @@
+
+
+# Sexuality Window
+
+
+window = {
+	name = "DI_sexuality_window"
+	parentanchor = top|right
+	position = { -50 100 }
+	size = { 150 %100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_sexuality_window_visible')]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	
+	vbox = {
+		using = Window_Margins
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = DI_sexuality
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_sexuality_window_visible')]"
+			}
+		}
+		
+
+		
+		widget = {
+            size = { 175 205 }
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 5
+                margin = { 0 5 }
+                margin_top = 10
+                margin_left = 0
+                margin_right = 0
+                margin_bottom = 100
+                
+                expand = {}
+                
+                
+                hbox = {
+                    
+                    spacing = 2
+                
+
+                
+                    button_standard = {
+                        name = "DI_heterosexual_button"
+                        onclick = "[GetScriptedGui('DI_sexuality_heterosexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        button_ignore = none
+                        using = tooltip_ne
+                        size = { 70 40 }
+                        icon = {
+								visible = "[GetPlayer.IsFemale]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "1"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_heterosexual_tooltip
+                                }
+                        }
+						
+						icon = {
+								visible = "[Not(GetPlayer.IsFemale)]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "1"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_heterosexual_tooltip
+                                }
+                        }
+                 
+                    }
+                    
+                }
+                
+                hbox = {
+                    
+                    spacing = 2
+                
+                
+                    button_standard = {
+                        name = "DI_homosexual_button"
+                        onclick = "[GetScriptedGui('DI_sexuality_homosexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        button_ignore = none
+                        using = tooltip_ne
+                        size = { 70 40 }
+                        icon = {
+								visible = "[GetPlayer.IsFemale]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "2"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_homosexual_tooltip
+                                }
+                        }
+						
+						icon = {
+								visible = "[Not(GetPlayer.IsFemale)]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "2"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_homosexual_tooltip
+                                }
+                        }
+                    }
+                    
+                }
+                
+                hbox = {
+                    
+                    spacing = 2
+                
+                
+                    button_standard = {
+                        name = "DI_bisexual_button"
+                        onclick = "[GetScriptedGui('DI_sexuality_bisexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        button_ignore = none
+                        using = tooltip_ne
+                        size = { 70 40 }
+                        icon = {
+								visible = "[GetPlayer.IsFemale]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "3"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_bisexual_tooltip
+                                }
+                        }
+						
+						icon = {
+								visible = "[Not(GetPlayer.IsFemale)]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "3"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_bisexual_tooltip
+                                }
+                        }
+					}
+   
+                }
+                
+                hbox = {
+                    
+                    spacing = 2
+                
+
+                
+                    button_standard = {
+                        name = "DI_asexual_button"
+                        onclick = "[GetScriptedGui('DI_sexuality_asexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        button_ignore = none
+                        tooltip = "[LobbyView.StartToolTip]"
+                        using = tooltip_ne
+                        size = { 70 40 }
+                        icon = {
+								visible = "[GetPlayer.IsFemale]"
+								parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "4"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_asexual_tooltip
+                                }
+                        }
+						
+						icon = {
+								visible = "[Not(GetPlayer.IsFemale)]"
+                                parentanchor = center
+                                position = { 0 0 }
+                                size = { 35 35 }
+								framesize = { 40 40 }
+								frame = "4"
+                                texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+								tooltipwidget = {
+                                        using = sexuality_DI_asexual_tooltip
+                                }
+                        }
+                    }
+                    
+                }
+                
+            
+            }
+        }
+	}
+}
+
+template sexuality_DI_heterosexual_tooltip {
+	object_tooltip_pop_out = {
+		blockoverride "header_tt" {}
+
+		blockoverride "header_additions" {
+			hbox = {
+				margin_right = 5
+				margin_top = -10
+				icon = {
+					visible = "[GetPlayer.IsFemale]"
+					size = { 52 52 }
+					frame = "1"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+				
+				icon = {
+					visible = "[Not(GetPlayer.IsFemale)]"
+					size = { 52 52 }
+					frame = "1"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+			}
+		}
+
+		blockoverride "title_text" {
+			text = "game_concept_heterosexual"
+		}
+
+		blockoverride "concept_link" {
+			text = "[sexuality|E]"
+		}
+
+		blockoverride "description_text" {
+			text = "game_concept_heterosexual_desc"
+			max_width = 400
+		}
+
+		blockoverride "bg_texture"
+		{
+			texture = "gfx/interface/tooltips/tooltip_bg_gameconcept.dds"
+		}
+	}
+}
+
+template sexuality_DI_homosexual_tooltip {
+	object_tooltip_pop_out = {
+		blockoverride "header_tt" {}
+
+		blockoverride "header_additions" {
+			hbox = {
+				margin_right = 5
+				margin_top = -10
+				icon = {
+					visible = "[GetPlayer.IsFemale]"
+					size = { 52 52 }
+					frame = "2"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+				
+				icon = {
+					visible = "[Not(GetPlayer.IsFemale)]"
+					size = { 52 52 }
+					frame = "2"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+			}
+		}
+
+		blockoverride "title_text" {
+			text = "game_concept_homosexual"
+		}
+
+		blockoverride "concept_link" {
+			text = "[sexuality|E]"
+		}
+
+		blockoverride "description_text" {
+			text = "game_concept_homosexual_desc"
+			max_width = 400
+		}
+
+		blockoverride "bg_texture"
+		{
+			texture = "gfx/interface/tooltips/tooltip_bg_gameconcept.dds"
+		}
+	}
+}
+
+template sexuality_DI_bisexual_tooltip {
+	object_tooltip_pop_out = {
+		blockoverride "header_tt" {}
+
+		blockoverride "header_additions" {
+			hbox = {
+				margin_right = 5
+				margin_top = -10
+				icon = {
+					visible = "[GetPlayer.IsFemale]"
+					size = { 52 52 }
+					frame = "3"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+				
+				icon = {
+					visible = "[Not(GetPlayer.IsFemale)]"
+					size = { 52 52 }
+					frame = "3"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+			}
+		}
+
+		blockoverride "title_text" {
+			text = "game_concept_bisexual"
+		}
+
+		blockoverride "concept_link" {
+			text = "[sexuality|E]"
+		}
+
+		blockoverride "description_text" {
+			text = "game_concept_bisexual_desc"
+			max_width = 400
+		}
+
+		blockoverride "bg_texture"
+		{
+			texture = "gfx/interface/tooltips/tooltip_bg_gameconcept.dds"
+		}
+	}
+}
+
+template sexuality_DI_asexual_tooltip {
+	object_tooltip_pop_out = {
+		blockoverride "header_tt" {}
+
+		blockoverride "header_additions" {
+			hbox = {
+				margin_right = 5
+				margin_top = -10
+				icon = {
+					visible = "[GetPlayer.IsFemale]"
+					size = { 52 52 }
+					frame = "4"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+				
+				icon = {
+					visible = "[Not(GetPlayer.IsFemale)]"
+					size = { 52 52 }
+					frame = "4"
+					framesize = {40 40}
+					texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+			}
+		}
+
+		blockoverride "title_text" {
+			text = "game_concept_asexual"
+		}
+
+		blockoverride "concept_link" {
+			text = "[sexuality|E]"
+		}
+
+		blockoverride "description_text" {
+			text = "game_concept_asexual_desc"
+			max_width = 400
+		}
+
+		blockoverride "bg_texture"
+		{
+			texture = "gfx/interface/tooltips/tooltip_bg_gameconcept.dds"
+		}
+	}
+}

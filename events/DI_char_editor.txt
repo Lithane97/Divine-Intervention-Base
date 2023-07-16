@@ -1,0 +1,120 @@
+﻿
+namespace = DI_char_editor
+
+#Character Naming
+DI_char_editor.1 = {
+	type = character_event
+	title = DI_char_editor.1.title
+	desc = DI_char_editor.1.desc
+	theme = default
+	left_portrait = {
+		character = scope:change_name
+		animation = personality_bold
+	}
+
+	widgets = {
+		widget = {
+			gui = "event_window_widget_name_child"
+			container = "dynamic_birth_name"
+			controller = name_character
+			setup_scope = { scope:change_name = { save_scope_as = name_character_target } }
+		}
+	}
+
+	option = {
+		name = DI_char_editor.1.option
+	}
+}
+
+### Sex Event
+DI_char_editor.2 = {
+	hidden = yes
+	immediate = {
+		send_interface_message = {
+			type = sway_good_message
+			title = debug_sex_interaction
+			left_icon = scope:recipient
+			right_icon = ROOT # References root instead of scope:actor to verify that root is defined
+		
+			had_sex_with_effect = {
+				CHARACTER = scope:recipient
+				PREGNANCY_CHANCE = pregnancy_chance
+			}
+		}
+	}
+}
+
+DI_char_editor.3 = {
+	type = character_event
+	title = DI_cadetBranch_event_1.t
+	desc = DI_cadetBranch_event_1.desc
+	theme = family
+	override_background = { reference = throne_room }
+		
+	left_portrait = {
+		character = scope:recipient
+		animation = personality_honorable
+	}
+	right_portrait = {
+		character = root
+		animation = personality_rational
+	}		
+	option = {
+		name = DI_cadetBranch_event_option.1
+		scope:recipient = {
+			custom_tooltip = DI_cadetBranch_event_tooltip.1
+			create_cadet_branch = yes
+		}
+	}
+}
+
+DI_char_editor.4 = {
+	type = character_event
+	title = DI_edit_artifact_desc.t
+	desc = DI_edit_artifact_desc.desc
+	theme = default
+
+	right_portrait = root
+
+	artifact = {
+		target = scope:selected_artifact
+		position = lower_center_portrait
+	}
+
+	widget = {
+		gui = "event_window_widget_enter_text"
+		container = "dynamic_birth_name"
+		controller = {
+			type = text
+			data = {
+				key = test_saved_text
+				default = DI_default_text
+			}
+		}
+		setup_scope = {
+			root = { save_scope_as = text_target }
+		}
+	}
+
+	option = {
+		name = artifact_new_desc
+		store_localized_text_in_death = test_saved_text
+		scope:selected_artifact = {
+			set_artifact_description = DI_artifact_desc
+		}
+		remove_variable = test_saved_text
+	}
+	
+	option = {
+		name = artifact_append_desc
+		store_localized_text_in_death = test_saved_text
+		scope:selected_artifact = {
+			set_artifact_description = DI_artifact_desc_append
+		}
+		remove_variable = test_saved_text
+	}
+
+	option = {
+		name = artifact_return
+	}
+}

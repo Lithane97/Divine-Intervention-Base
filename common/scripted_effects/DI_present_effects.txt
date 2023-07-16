@@ -1,0 +1,811 @@
+﻿personality_trait_randomizer_effect = {
+	random_list = {
+		10 = { add_trait = lustful }
+		10 = { add_trait = chaste }
+		10 = { add_trait = gluttonous }
+		10 = { add_trait = temperate }
+		10 = { add_trait = greedy }
+		10 = { add_trait = generous }
+		10 = { add_trait = lazy }
+		10 = { add_trait = diligent }
+		10 = { add_trait = wrathful }
+		10 = { add_trait = calm }
+		10 = { add_trait = patient }
+		10 = { add_trait = impatient }
+	}
+	random_list = {
+		10 = { add_trait = arrogant }
+		10 = { add_trait = humble }
+		10 = { add_trait = deceitful }
+		10 = { add_trait = honest }
+		10 = { add_trait = craven }
+		10 = { add_trait = brave }
+		10 = { add_trait = shy }
+		10 = { add_trait = gregarious }
+		10 = { add_trait = ambitious }
+		10 = { add_trait = content }
+		10 = { add_trait = arbitrary }
+	}
+	random_list = {
+		10 = { add_trait = just }
+		10 = { add_trait = cynical }
+		10 = { add_trait = zealous }
+		10 = { add_trait = paranoid }
+		10 = { add_trait = trusting }
+		10 = { add_trait = compassionate }
+		10 = { add_trait = callous }
+		10 = { add_trait = sadistic }
+		10 = { add_trait = stubborn }
+		10 = { add_trait = fickle }
+		10 = { add_trait = vengeful }
+		10 = { add_trait = forgiving }
+	}
+}
+
+clear_personality_traits_effect = {
+	if = { limit = { has_trait = lustful } remove_trait = lustful }
+	if = { limit = { has_trait = chaste } remove_trait = chaste }
+	if = { limit = { has_trait = gluttonous } remove_trait = gluttonous }
+	if = { limit = { has_trait = temperate } remove_trait = temperate }
+	if = { limit = { has_trait = greedy } remove_trait = greedy }
+	if = { limit = { has_trait = generous } remove_trait = generous }
+	if = { limit = { has_trait = lazy } remove_trait = lazy }
+	if = { limit = { has_trait = diligent } remove_trait = diligent }
+	if = { limit = { has_trait = wrathful } remove_trait = wrathful }
+	if = { limit = { has_trait = calm } remove_trait = calm }
+	if = { limit = { has_trait = patient } remove_trait = patient }
+	if = { limit = { has_trait = impatient } remove_trait = impatient }
+	if = { limit = { has_trait = arrogant } remove_trait = arrogant }
+	if = { limit = { has_trait = humble } remove_trait = humble }
+	if = { limit = { has_trait = deceitful } remove_trait = deceitful }
+	if = { limit = { has_trait = honest } remove_trait = honest }
+	if = { limit = { has_trait = craven } remove_trait = craven }
+	if = { limit = { has_trait = brave } remove_trait = brave }
+	if = { limit = { has_trait = shy } remove_trait = shy }
+	if = { limit = { has_trait = gregarious } remove_trait = gregarious }
+	if = { limit = { has_trait = ambitious } remove_trait = ambitious }
+	if = { limit = { has_trait = content } remove_trait = content }
+	if = { limit = { has_trait = arbitrary } remove_trait = arbitrary }
+	if = { limit = { has_trait = just } remove_trait = just }
+	if = { limit = { has_trait = cynical } remove_trait = cynical }
+	if = { limit = { has_trait = zealous } remove_trait = zealous }
+	if = { limit = { has_trait = paranoid } remove_trait = paranoid }
+	if = { limit = { has_trait = trusting } remove_trait = trusting }
+	if = { limit = { has_trait = compassionate } remove_trait = compassionate }
+	if = { limit = { has_trait = callous } remove_trait = callous }
+	if = { limit = { has_trait = sadistic } remove_trait = sadistic }
+	if = { limit = { has_trait = stubborn } remove_trait = stubborn }
+	if = { limit = { has_trait = fickle } remove_trait = fickle }
+	if = { limit = { has_trait = vengeful } remove_trait = vengeful }
+	if = { limit = { has_trait = forgiving } remove_trait = forgiving }
+}
+
+set_weight_0 = {
+	change_current_weight = 200
+	change_current_weight = -100
+}
+
+add_commander_traits_effect = {
+	add_trait = logistician
+	add_trait = military_engineer
+	add_trait = aggressive_attacker
+	add_trait = unyielding_defender
+	add_trait = forder
+	add_trait = flexible_leader
+	add_trait = desert_warrior
+	add_trait = jungle_stalker
+	add_trait = reaver
+	add_trait = reckless
+	add_trait = holy_warrior
+	add_trait = open_terrain_expert
+	add_trait = rough_terrain_expert
+	add_trait = forest_fighter
+	add_trait = cautious_leader
+	add_trait = organizer
+}
+
+remove_commander_traits_effect = {
+	if = { limit = { has_trait = logistician } remove_trait = logistician }
+	if = { limit = { has_trait = military_engineer } remove_trait = military_engineer }
+	if = { limit = { has_trait = aggressive_attacker } remove_trait = aggressive_attacker }
+	if = { limit = { has_trait = unyielding_defender } remove_trait = unyielding_defender }
+	if = { limit = { has_trait = forder } remove_trait = forder }
+	if = { limit = { has_trait = flexible_leader } remove_trait = flexible_leader }
+	if = { limit = { has_trait = desert_warrior } remove_trait = desert_warrior }
+	if = { limit = { has_trait = jungle_stalker } remove_trait = jungle_stalker }
+	if = { limit = { has_trait = reaver } remove_trait = reaver }
+	if = { limit = { has_trait = reckless } remove_trait = reckless }
+	if = { limit = { has_trait = holy_warrior } remove_trait = holy_warrior }
+	if = { limit = { has_trait = open_terrain_expert } remove_trait = open_terrain_expert }
+	if = { limit = { has_trait = rough_terrain_expert } remove_trait = rough_terrain_expert }
+	if = { limit = { has_trait = forest_fighter } remove_trait = forest_fighter }
+	if = { limit = { has_trait = cautious_leader } remove_trait = cautious_leader }
+	if = { limit = { has_trait = organizer } remove_trait = organizer }
+}
+
+lifestyle_martial_present_effect = {
+	if = { limit = { NOT = { has_perk = bellum_justum_perk } } add_perk = bellum_justum_perk }
+	if = { limit = { NOT = { has_perk = parthian_tactics_perk } } add_perk = parthian_tactics_perk }
+	if = { limit = { NOT = { has_perk = envelopment_perk } } add_perk = envelopment_perk }
+	if = { limit = { NOT = { has_perk = organized_retreat_perk } } add_perk = organized_retreat_perk }
+	if = { limit = { NOT = { has_perk = hit_and_run_perk } } add_perk = hit_and_run_perk }
+	if = { limit = { NOT = { has_perk = engineered_for_destruction_perk } } add_perk = engineered_for_destruction_perk }
+	if = { limit = { NOT = { has_perk = living_off_the_land_perk } } add_perk = living_off_the_land_perk }
+	if = { limit = { NOT = { has_perk = sappers_perk } } add_perk = sappers_perk }
+	if = { limit = { NOT = { has_perk = strategist_perk } } add_perk = strategist_perk }
+	if = { limit = { NOT = { has_perk = serve_the_crown_perk } } add_perk = serve_the_crown_perk }
+	if = { limit = { NOT = { has_perk = a_mans_home_perk } } add_perk = a_mans_home_perk }
+	if = { limit = { NOT = { has_perk = enduring_hardships_perk } } add_perk = enduring_hardships_perk }
+	if = { limit = { NOT = { has_perk = prepared_conscription_perk } } add_perk = prepared_conscription_perk }
+	if = { limit = { NOT = { has_perk = strict_organization_perk } } add_perk = strict_organization_perk }
+	if = { limit = { NOT = { has_perk = hard_rule_perk } } add_perk = hard_rule_perk }
+	if = { limit = { NOT = { has_perk = soldiers_of_lesser_fortune_perk } } add_perk = soldiers_of_lesser_fortune_perk }
+	if = { limit = { NOT = { has_perk = absolute_control_perk } } add_perk = absolute_control_perk }
+	if = { limit = { NOT = { has_perk = overseer_perk } } add_perk = overseer_perk }
+	if = { limit = { NOT = { has_perk = stalwart_leader_perk } } add_perk = stalwart_leader_perk }
+	if = { limit = { NOT = { has_perk = courtship_perk } } add_perk = courtship_perk }
+	if = { limit = { NOT = { has_perk = promising_prospects_perk } } add_perk = promising_prospects_perk }
+	if = { limit = { NOT = { has_perk = loyalty_and_respect_perk } } add_perk = loyalty_and_respect_perk }
+	if = { limit = { NOT = { has_perk = chivalric_dominance_perk } } add_perk = chivalric_dominance_perk }
+	if = { limit = { NOT = { has_perk = never_back_down_perk } } add_perk = never_back_down_perk }
+	if = { limit = { NOT = { has_perk = kingsguard_perk } } add_perk = kingsguard_perk }
+	if = { limit = { NOT = { has_perk = peacemaker_perk } } add_perk = peacemaker_perk }
+	if = { limit = { NOT = { has_perk = gallant_perk } } add_perk = gallant_perk }
+	add_character_modifier = {
+		modifier = no_lifestyle_martial
+		days = -1
+	}
+}
+
+lifestyle_diplomacy_present_effect = {
+	if = { limit = { NOT = { has_perk = thoughtful_perk } } add_perk = thoughtful_perk }
+	if = { limit = { NOT = { has_perk = ducal_conquest_perk } } add_perk = ducal_conquest_perk }
+	if = { limit = { NOT = { has_perk = forced_vassalage_perk } } add_perk = forced_vassalage_perk }
+	if = { limit = { NOT = { has_perk = adaptive_traditions_perk } } add_perk = adaptive_traditions_perk }
+	if = { limit = { NOT = { has_perk = flexible_truces_perk } } add_perk = flexible_truces_perk }
+	if = { limit = { NOT = { has_perk = defensive_negotiations_perk } } add_perk = defensive_negotiations_perk }
+	if = { limit = { NOT = { has_perk = embassies_perk } } add_perk = embassies_perk }
+	if = { limit = { NOT = { has_perk = accomplished_forger_perk } } add_perk = accomplished_forger_perk }
+	if = { limit = { NOT = { has_perk = diplomat_perk } } add_perk = diplomat_perk }
+	if = { limit = { NOT = { has_perk = benevolent_intent_perk } } add_perk = benevolent_intent_perk }
+	if = { limit = { NOT = { has_perk = inspiring_rule_perk } } add_perk = inspiring_rule_perk }
+	if = { limit = { NOT = { has_perk = firm_hand_perk } } add_perk = firm_hand_perk }
+	if = { limit = { NOT = { has_perk = praetorian_guard_perk } } add_perk = praetorian_guard_perk }
+	if = { limit = { NOT = { has_perk = true_ruler_perk } } add_perk = true_ruler_perk }
+	if = { limit = { NOT = { has_perk = writing_history_perk } } add_perk = writing_history_perk }
+	if = { limit = { NOT = { has_perk = a_life_of_glory_perk } } add_perk = a_life_of_glory_perk }
+	if = { limit = { NOT = { has_perk = dignitas_perk } } add_perk = dignitas_perk }
+	if = { limit = { NOT = { has_perk = august_perk } } add_perk = august_perk }
+	if = { limit = { NOT = { has_perk = befriend_perk } } add_perk = befriend_perk }
+	if = { limit = { NOT = { has_perk = confidants_perk } } add_perk = confidants_perk }
+	if = { limit = { NOT = { has_perk = flatterer_perk } } add_perk = flatterer_perk }
+	if = { limit = { NOT = { has_perk = groomed_to_rule_perk } } add_perk = groomed_to_rule_perk }
+	if = { limit = { NOT = { has_perk = familial_familiar_perk } } add_perk = familial_familiar_perk }
+	if = { limit = { NOT = { has_perk = thicker_than_water_perk } } add_perk = thicker_than_water_perk }
+	if = { limit = { NOT = { has_perk = friendly_counsel_perk } } add_perk = friendly_counsel_perk }
+	if = { limit = { NOT = { has_perk = sound_foundations_perk } } add_perk = sound_foundations_perk }
+	if = { limit = { NOT = { has_perk = family_man_perk } } add_perk = family_man_perk }
+	add_character_modifier = {
+		modifier = no_lifestyle_diplomacy
+		days = -1
+	}
+}
+
+lifestyle_stewardship_present_effect = {
+	if = { limit = { NOT = { has_perk = golden_obligations_perk } } add_perk = golden_obligations_perk }
+	if = { limit = { NOT = { has_perk = heregeld_perk } } add_perk = heregeld_perk }
+	if = { limit = { NOT = { has_perk = detailed_ledgers_perk } } add_perk = detailed_ledgers_perk }
+	if = { limit = { NOT = { has_perk = war_profiteer_perk } } add_perk = war_profiteer_perk }
+	if = { limit = { NOT = { has_perk = fearful_troops_perk } } add_perk = fearful_troops_perk }
+	if = { limit = { NOT = { has_perk = it_is_my_domain_perk } } add_perk = it_is_my_domain_perk }
+	if = { limit = { NOT = { has_perk = golden_aplomb_perk } } add_perk = golden_aplomb_perk }
+	if = { limit = { NOT = { has_perk = at_any_cost_perk } } add_perk = at_any_cost_perk }
+	if = { limit = { NOT = { has_perk = avaricious_perk } } add_perk = avaricious_perk }
+	if = { limit = { NOT = { has_perk = tax_man_perk } } add_perk = tax_man_perk }
+	if = { limit = { NOT = { has_perk = defensive_measures_perk } } add_perk = defensive_measures_perk }
+	if = { limit = { NOT = { has_perk = organized_muster_rolls_perk } } add_perk = organized_muster_rolls_perk }
+	if = { limit = { NOT = { has_perk = cutting_corners_perk } } add_perk = cutting_corners_perk }
+	if = { limit = { NOT = { has_perk = professional_workforce_perk } } add_perk = professional_workforce_perk }
+	if = { limit = { NOT = { has_perk = centralization_perk } } add_perk = centralization_perk }
+	if = { limit = { NOT = { has_perk = popular_figurehead_perk } } add_perk = popular_figurehead_perk }
+	if = { limit = { NOT = { has_perk = divided_attention_perk } } add_perk = divided_attention_perk }
+	if = { limit = { NOT = { has_perk = architect_perk } } add_perk = architect_perk }
+	if = { limit = { NOT = { has_perk = meritocracy_perk } } add_perk = meritocracy_perk }
+	if = { limit = { NOT = { has_perk = chains_of_loyalty_perk } } add_perk = chains_of_loyalty_perk }
+	if = { limit = { NOT = { has_perk = likable_perk } } add_perk = likable_perk }
+	if = { limit = { NOT = { has_perk = positions_of_power_perk } } add_perk = positions_of_power_perk }
+	if = { limit = { NOT = { has_perk = large_levies_perk } } add_perk = large_levies_perk }
+	if = { limit = { NOT = { has_perk = soon_forgiven_perk } } add_perk = soon_forgiven_perk }
+	if = { limit = { NOT = { has_perk = toe_the_line_perk } } add_perk = toe_the_line_perk }
+	if = { limit = { NOT = { has_perk = honored_to_serve_perk } } add_perk = honored_to_serve_perk }
+	if = { limit = { NOT = { has_perk = administrator_perk } } add_perk = administrator_perk }
+	add_character_modifier = {
+		modifier = no_lifestyle_stewardship
+		days = -1
+	}
+}
+
+lifestyle_intrigue_present_effect = {
+	if = { limit = { NOT = { has_perk = truth_is_relative_perk } } add_perk = truth_is_relative_perk }
+	if = { limit = { NOT = { has_perk = digging_for_dirt_perk } } add_perk = digging_for_dirt_perk }
+	if = { limit = { NOT = { has_perk = kidnapper_perk } } add_perk = kidnapper_perk }
+	if = { limit = { NOT = { has_perk = court_of_shadows_perk } } add_perk = court_of_shadows_perk }
+	if = { limit = { NOT = { has_perk = prepared_for_anything_perk } } add_perk = prepared_for_anything_perk }
+	if = { limit = { NOT = { has_perk = swift_execution_perk } } add_perk = swift_execution_perk }
+	if = { limit = { NOT = { has_perk = a_job_done_right_perk } } add_perk = a_job_done_right_perk }
+	if = { limit = { NOT = { has_perk = twice_schemed_perk } } add_perk = twice_schemed_perk }
+	if = { limit = { NOT = { has_perk = schemer_perk } } add_perk = schemer_perk }
+	if = { limit = { NOT = { has_perk = like_weed_in_a_garden_perk } } add_perk = like_weed_in_a_garden_perk }
+	if = { limit = { NOT = { has_perk = unshackled_lust_perk } } add_perk = unshackled_lust_perk }
+	if = { limit = { NOT = { has_perk = subtle_desire_perk } } add_perk = subtle_desire_perk }
+	if = { limit = { NOT = { has_perk = mortal_adoration_perk } } add_perk = mortal_adoration_perk }
+	if = { limit = { NOT = { has_perk = enticing_opportunity_perk } } add_perk = enticing_opportunity_perk }
+	if = { limit = { NOT = { has_perk = home_advantage_perk } } add_perk = home_advantage_perk }
+	if = { limit = { NOT = { has_perk = graceful_recovery_perk } } add_perk = graceful_recovery_perk }
+	if = { limit = { NOT = { has_perk = smooth_operator_perk } } add_perk = smooth_operator_perk }
+	if = { limit = { NOT = { has_perk = seducer_perk } } add_perk = seducer_perk }
+	if = { limit = { NOT = { has_perk = dark_insights_perk } } add_perk = dark_insights_perk }
+	if = { limit = { NOT = { has_perk = divine_retribution_perk } } add_perk = divine_retribution_perk }
+	if = { limit = { NOT = { has_perk = dreadful_perk } } add_perk = dreadful_perk }
+	if = { limit = { NOT = { has_perk = thriving_in_chaos_perk } } add_perk = thriving_in_chaos_perk }
+	if = { limit = { NOT = { has_perk = malice_implicit_perk } } add_perk = malice_implicit_perk }
+	if = { limit = { NOT = { has_perk = fear_tax_perk } } add_perk = fear_tax_perk }
+	if = { limit = { NOT = { has_perk = forever_infamous_perk } } add_perk = forever_infamous_perk }
+	if = { limit = { NOT = { has_perk = prison_feudal_complex_perk } } add_perk = prison_feudal_complex_perk }
+	if = { limit = { NOT = { has_perk = torturer_perk } } add_perk = torturer_perk }
+	add_character_modifier = {
+		modifier = no_lifestyle_intrigue
+		days = -1
+	}
+}
+
+lifestyle_learning_present_effect = {
+	if = { limit = { NOT = { has_perk = anatomical_studies_perk } } add_perk = anatomical_studies_perk }
+	if = { limit = { NOT = { has_perk = carefree_perk } } add_perk = carefree_perk }
+	if = { limit = { NOT = { has_perk = mental_resilience_perk } } add_perk = mental_resilience_perk }
+	if = { limit = { NOT = { has_perk = restraint_perk } } add_perk = restraint_perk }
+	if = { limit = { NOT = { has_perk = know_thyself_perk } } add_perk = know_thyself_perk }
+	if = { limit = { NOT = { has_perk = wash_your_hands_perk } } add_perk = wash_your_hands_perk }
+	if = { limit = { NOT = { has_perk = iron_constitution_perk } } add_perk = iron_constitution_perk }
+	if = { limit = { NOT = { has_perk = healthy_perk } } add_perk = healthy_perk }
+	if = { limit = { NOT = { has_perk = whole_of_body_perk } } add_perk = whole_of_body_perk }
+	if = { limit = { NOT = { has_perk = pedagogy_perk } } add_perk = pedagogy_perk }
+	if = { limit = { NOT = { has_perk = open_minded_perk } } add_perk = open_minded_perk }
+	if = { limit = { NOT = { has_perk = apostate_perk } } add_perk = apostate_perk }
+	if = { limit = { NOT = { has_perk = scientific_perk } } add_perk = scientific_perk }
+	if = { limit = { NOT = { has_perk = planned_cultivation_perk } } add_perk = planned_cultivation_perk }
+	if = { limit = { NOT = { has_perk = scholarly_circles_perk } } add_perk = scholarly_circles_perk }
+	if = { limit = { NOT = { has_perk = learn_on_the_job_perk } } add_perk = learn_on_the_job_perk }
+	if = { limit = { NOT = { has_perk = sanctioned_loopholes_perk } } add_perk = sanctioned_loopholes_perk }
+	if = { limit = { NOT = { has_perk = scholar_perk } } add_perk = scholar_perk }
+	if = { limit = { NOT = { has_perk = faithful_perk } } add_perk = faithful_perk }
+	if = { limit = { NOT = { has_perk = zealous_proselytizer_perk } } add_perk = zealous_proselytizer_perk }
+	if = { limit = { NOT = { has_perk = religious_icon_perk } } add_perk = religious_icon_perk }
+	if = { limit = { NOT = { has_perk = prophet_perk } } add_perk = prophet_perk }
+	if = { limit = { NOT = { has_perk = clerical_justifications_perk } } add_perk = clerical_justifications_perk }
+	if = { limit = { NOT = { has_perk = church_and_state_perk } } add_perk = church_and_state_perk }
+	if = { limit = { NOT = { has_perk = radiant_perk } } add_perk = radiant_perk }
+	if = { limit = { NOT = { has_perk = defender_of_the_faith_perk } } add_perk = defender_of_the_faith_perk }
+	if = { limit = { NOT = { has_perk = theologian_perk } } add_perk = theologian_perk }
+	add_character_modifier = {
+		modifier = no_lifestyle_learning
+		days = -1
+	}
+}
+
+lifestyle_martial_present_no_effect = {
+	if = { limit = { has_perk = bellum_justum_perk } remove_perk = bellum_justum_perk }
+	if = { limit = { has_perk = parthian_tactics_perk } remove_perk = parthian_tactics_perk }
+	if = { limit = { has_perk = envelopment_perk } remove_perk = envelopment_perk }
+	if = { limit = { has_perk = organized_retreat_perk } remove_perk = organized_retreat_perk }
+	if = { limit = { has_perk = hit_and_run_perk } remove_perk = hit_and_run_perk }
+	if = { limit = { has_perk = engineered_for_destruction_perk } remove_perk = engineered_for_destruction_perk }
+	if = { limit = { has_perk = living_off_the_land_perk } remove_perk = living_off_the_land_perk }
+	if = { limit = { has_perk = sappers_perk } remove_perk = sappers_perk }
+	if = { limit = { has_perk = strategist_perk } remove_perk = strategist_perk }
+	if = { limit = { has_perk = serve_the_crown_perk } remove_perk = serve_the_crown_perk }
+	if = { limit = { has_perk = a_mans_home_perk } remove_perk = a_mans_home_perk }
+	if = { limit = { has_perk = enduring_hardships_perk } remove_perk = enduring_hardships_perk }
+	if = { limit = { has_perk = prepared_conscription_perk } remove_perk = prepared_conscription_perk }
+	if = { limit = { has_perk = strict_organization_perk } remove_perk = strict_organization_perk }
+	if = { limit = { has_perk = hard_rule_perk } remove_perk = hard_rule_perk }
+	if = { limit = { has_perk = soldiers_of_lesser_fortune_perk } remove_perk = soldiers_of_lesser_fortune_perk }
+	if = { limit = { has_perk = absolute_control_perk } remove_perk = absolute_control_perk }
+	if = { limit = { has_perk = overseer_perk } remove_perk = overseer_perk }
+	if = { limit = { has_perk = stalwart_leader_perk } remove_perk = stalwart_leader_perk }
+	if = { limit = { has_perk = courtship_perk } remove_perk = courtship_perk }
+	if = { limit = { has_perk = promising_prospects_perk } remove_perk = promising_prospects_perk }
+	if = { limit = { has_perk = loyalty_and_respect_perk } remove_perk = loyalty_and_respect_perk }
+	if = { limit = { has_perk = chivalric_dominance_perk } remove_perk = chivalric_dominance_perk }
+	if = { limit = { has_perk = never_back_down_perk } remove_perk = never_back_down_perk }
+	if = { limit = { has_perk = kingsguard_perk } remove_perk = kingsguard_perk }
+	if = { limit = { has_perk = peacemaker_perk } remove_perk = peacemaker_perk }
+	if = { limit = { has_perk = gallant_perk } remove_perk = gallant_perk }
+	remove_trait = strategist
+	remove_trait = overseer
+	remove_trait = gallant
+	remove_character_modifier = no_lifestyle_martial
+}
+
+
+lifestyle_diplomacy_present_no_effect = {
+	if = { limit = { has_perk = thoughtful_perk } remove_perk = thoughtful_perk }
+	if = { limit = { has_perk = ducal_conquest_perk } remove_perk = ducal_conquest_perk }
+	if = { limit = { has_perk = forced_vassalage_perk } remove_perk = forced_vassalage_perk }
+	if = { limit = { has_perk = adaptive_traditions_perk } remove_perk = adaptive_traditions_perk }
+	if = { limit = { has_perk = flexible_truces_perk } remove_perk = flexible_truces_perk }
+	if = { limit = { has_perk = defensive_negotiations_perk } remove_perk = defensive_negotiations_perk }
+	if = { limit = { has_perk = embassies_perk } remove_perk = embassies_perk }
+	if = { limit = { has_perk = accomplished_forger_perk } remove_perk = accomplished_forger_perk }
+	if = { limit = { has_perk = diplomat_perk } remove_perk = diplomat_perk }
+	if = { limit = { has_perk = benevolent_intent_perk } remove_perk = benevolent_intent_perk }
+	if = { limit = { has_perk = inspiring_rule_perk } remove_perk = inspiring_rule_perk }
+	if = { limit = { has_perk = firm_hand_perk } remove_perk = firm_hand_perk }
+	if = { limit = { has_perk = praetorian_guard_perk } remove_perk = praetorian_guard_perk }
+	if = { limit = { has_perk = true_ruler_perk } remove_perk = true_ruler_perk }
+	if = { limit = { has_perk = writing_history_perk } remove_perk = writing_history_perk }
+	if = { limit = { has_perk = a_life_of_glory_perk } remove_perk = a_life_of_glory_perk }
+	if = { limit = { has_perk = dignitas_perk } remove_perk = dignitas_perk }
+	if = { limit = { has_perk = august_perk } remove_perk = august_perk }
+	if = { limit = { has_perk = befriend_perk } remove_perk = befriend_perk }
+	if = { limit = { has_perk = confidants_perk } remove_perk = confidants_perk }
+	if = { limit = { has_perk = flatterer_perk } remove_perk = flatterer_perk }
+	if = { limit = { has_perk = groomed_to_rule_perk } remove_perk = groomed_to_rule_perk }
+	if = { limit = { has_perk = familial_familiar_perk } remove_perk = familial_familiar_perk }
+	if = { limit = { has_perk = thicker_than_water_perk } remove_perk = thicker_than_water_perk }
+	if = { limit = { has_perk = friendly_counsel_perk } remove_perk = friendly_counsel_perk }
+	if = { limit = { has_perk = sound_foundations_perk } remove_perk = sound_foundations_perk }
+	if = { limit = { has_perk = family_man_perk } remove_perk = family_man_perk }
+	remove_trait = diplomat
+	remove_trait = family_first
+	remove_trait = august
+	remove_character_modifier = no_lifestyle_diplomacy
+}
+
+lifestyle_stewardship_present_no_effect = {
+	if = { limit = { has_perk = golden_obligations_perk } remove_perk = golden_obligations_perk }
+	if = { limit = { has_perk = heregeld_perk } remove_perk = heregeld_perk }
+	if = { limit = { has_perk = detailed_ledgers_perk } remove_perk = detailed_ledgers_perk }
+	if = { limit = { has_perk = war_profiteer_perk } remove_perk = war_profiteer_perk }
+	if = { limit = { has_perk = fearful_troops_perk } remove_perk = fearful_troops_perk }
+	if = { limit = { has_perk = it_is_my_domain_perk } remove_perk = it_is_my_domain_perk }
+	if = { limit = { has_perk = golden_aplomb_perk } remove_perk = golden_aplomb_perk }
+	if = { limit = { has_perk = at_any_cost_perk } remove_perk = at_any_cost_perk }
+	if = { limit = { has_perk = avaricious_perk } remove_perk = avaricious_perk }
+	if = { limit = { has_perk = tax_man_perk } remove_perk = tax_man_perk }
+	if = { limit = { has_perk = defensive_measures_perk } remove_perk = defensive_measures_perk }
+	if = { limit = { has_perk = organized_muster_rolls_perk } remove_perk = organized_muster_rolls_perk }
+	if = { limit = { has_perk = cutting_corners_perk } remove_perk = cutting_corners_perk }
+	if = { limit = { has_perk = professional_workforce_perk } remove_perk = professional_workforce_perk }
+	if = { limit = { has_perk = centralization_perk } remove_perk = centralization_perk }
+	if = { limit = { has_perk = popular_figurehead_perk } remove_perk = popular_figurehead_perk }
+	if = { limit = { has_perk = divided_attention_perk } remove_perk = divided_attention_perk }
+	if = { limit = { has_perk = architect_perk } remove_perk = architect_perk }
+	if = { limit = { has_perk = meritocracy_perk } remove_perk = meritocracy_perk }
+	if = { limit = { has_perk = chains_of_loyalty_perk } remove_perk = chains_of_loyalty_perk }
+	if = { limit = { has_perk = likable_perk } remove_perk = likable_perk }
+	if = { limit = { has_perk = positions_of_power_perk } remove_perk = positions_of_power_perk }
+	if = { limit = { has_perk = large_levies_perk } remove_perk = large_levies_perk }
+	if = { limit = { has_perk = soon_forgiven_perk } remove_perk = soon_forgiven_perk }
+	if = { limit = { has_perk = toe_the_line_perk } remove_perk = toe_the_line_perk }
+	if = { limit = { has_perk = honored_to_serve_perk } remove_perk = honored_to_serve_perk }
+	if = { limit = { has_perk = administrator_perk } remove_perk = administrator_perk }
+	remove_trait = architect
+	remove_trait = administrator
+	remove_trait = avaricious
+	remove_character_modifier = no_lifestyle_stewardship
+}
+
+lifestyle_intrigue_present_no_effect = {
+	if = { limit = { has_perk = truth_is_relative_perk } remove_perk = truth_is_relative_perk }
+	if = { limit = { has_perk = digging_for_dirt_perk } remove_perk = digging_for_dirt_perk }
+	if = { limit = { has_perk = kidnapper_perk } remove_perk = kidnapper_perk }
+	if = { limit = { has_perk = court_of_shadows_perk } remove_perk = court_of_shadows_perk }
+	if = { limit = { has_perk = prepared_for_anything_perk } remove_perk = prepared_for_anything_perk }
+	if = { limit = { has_perk = swift_execution_perk } remove_perk = swift_execution_perk }
+	if = { limit = { has_perk = a_job_done_right_perk } remove_perk = a_job_done_right_perk }
+	if = { limit = { has_perk = twice_schemed_perk } remove_perk = twice_schemed_perk }
+	if = { limit = { has_perk = schemer_perk } remove_perk = schemer_perk }
+	if = { limit = { has_perk = like_weed_in_a_garden_perk } remove_perk = like_weed_in_a_garden_perk }
+	if = { limit = { has_perk = unshackled_lust_perk } remove_perk = unshackled_lust_perk }
+	if = { limit = { has_perk = subtle_desire_perk } remove_perk = subtle_desire_perk }
+	if = { limit = { has_perk = mortal_adoration_perk } remove_perk = mortal_adoration_perk }
+	if = { limit = { has_perk = enticing_opportunity_perk } remove_perk = enticing_opportunity_perk }
+	if = { limit = { has_perk = home_advantage_perk } remove_perk = home_advantage_perk }
+	if = { limit = { has_perk = graceful_recovery_perk } remove_perk = graceful_recovery_perk }
+	if = { limit = { has_perk = smooth_operator_perk } remove_perk = smooth_operator_perk }
+	if = { limit = { has_perk = seducer_perk } remove_perk = seducer_perk }
+	if = { limit = { has_perk = dark_insights_perk } remove_perk = dark_insights_perk }
+	if = { limit = { has_perk = divine_retribution_perk } remove_perk = divine_retribution_perk }
+	if = { limit = { has_perk = dreadful_perk } remove_perk = dreadful_perk }
+	if = { limit = { has_perk = thriving_in_chaos_perk } remove_perk = thriving_in_chaos_perk }
+	if = { limit = { has_perk = malice_implicit_perk } remove_perk = malice_implicit_perk }
+	if = { limit = { has_perk = fear_tax_perk } remove_perk = fear_tax_perk }
+	if = { limit = { has_perk = forever_infamous_perk } remove_perk = forever_infamous_perk }
+	if = { limit = { has_perk = prison_feudal_complex_perk } remove_perk = prison_feudal_complex_perk }
+	if = { limit = { has_perk = torturer_perk } remove_perk = torturer_perk }
+	remove_trait = schemer
+	remove_trait = seducer
+	remove_trait = torturer
+	remove_character_modifier = no_lifestyle_intrigue
+}
+
+lifestyle_learning_present_no_effect = {
+	if = { limit = { has_perk = anatomical_studies_perk } remove_perk = anatomical_studies_perk }
+	if = { limit = { has_perk = carefree_perk } remove_perk = carefree_perk }
+	if = { limit = { has_perk = mental_resilience_perk } remove_perk = mental_resilience_perk }
+	if = { limit = { has_perk = restraint_perk } remove_perk = restraint_perk }
+	if = { limit = { has_perk = know_thyself_perk } remove_perk = know_thyself_perk }
+	if = { limit = { has_perk = wash_your_hands_perk } remove_perk = wash_your_hands_perk }
+	if = { limit = { has_perk = iron_constitution_perk } remove_perk = iron_constitution_perk }
+	if = { limit = { has_perk = healthy_perk } remove_perk = healthy_perk }
+	if = { limit = { has_perk = whole_of_body_perk } remove_perk = whole_of_body_perk }
+	if = { limit = { has_perk = pedagogy_perk } remove_perk = pedagogy_perk }
+	if = { limit = { has_perk = open_minded_perk } remove_perk = open_minded_perk }
+	if = { limit = { has_perk = apostate_perk } remove_perk = apostate_perk }
+	if = { limit = { has_perk = scientific_perk } remove_perk = scientific_perk }
+	if = { limit = { has_perk = planned_cultivation_perk } remove_perk = planned_cultivation_perk }
+	if = { limit = { has_perk = scholarly_circles_perk } remove_perk = scholarly_circles_perk }
+	if = { limit = { has_perk = learn_on_the_job_perk } remove_perk = learn_on_the_job_perk }
+	if = { limit = { has_perk = sanctioned_loopholes_perk } remove_perk = sanctioned_loopholes_perk }
+	if = { limit = { has_perk = scholar_perk } remove_perk = scholar_perk }
+	if = { limit = { has_perk = faithful_perk } remove_perk = faithful_perk }
+	if = { limit = { has_perk = zealous_proselytizer_perk } remove_perk = zealous_proselytizer_perk }
+	if = { limit = { has_perk = religious_icon_perk } remove_perk = religious_icon_perk }
+	if = { limit = { has_perk = prophet_perk } remove_perk = prophet_perk }
+	if = { limit = { has_perk = clerical_justifications_perk } remove_perk = clerical_justifications_perk }
+	if = { limit = { has_perk = church_and_state_perk } remove_perk = church_and_state_perk }
+	if = { limit = { has_perk = radiant_perk } remove_perk = radiant_perk }
+	if = { limit = { has_perk = defender_of_the_faith_perk } remove_perk = defender_of_the_faith_perk }
+	if = { limit = { has_perk = theologian_perk } remove_perk = theologian_perk }
+	remove_trait = whole_of_body
+	remove_trait = scholar
+	remove_trait = theologian
+	remove_character_modifier = no_lifestyle_learning
+}
+
+eliminated_health_problem_effect = {
+	if = { limit = { has_trait = drunkard } remove_trait = drunkard }
+	if = { limit = { has_trait = depressed_1 } remove_trait = depressed_1 }
+	if = { limit = { has_trait = depressed_genetic } remove_trait = depressed_genetic }
+	if = { limit = { has_trait = lunatic_1 } remove_trait = lunatic_1 }
+	if = { limit = { has_trait = lunatic_genetic } remove_trait = lunatic_genetic }
+	if = { limit = { has_trait = possessed_1 } remove_trait = possessed_1 }
+	if = { limit = { has_trait = possessed_genetic } remove_trait = possessed_genetic }
+	if = { limit = { has_trait = ill } remove_trait = ill }
+	if = { limit = { has_trait = pneumonic } remove_trait = pneumonic }
+	if = { limit = { has_trait = great_pox } remove_trait = great_pox }
+	if = { limit = { has_trait = early_great_pox } remove_trait = early_great_pox }
+	if = { limit = { has_trait = lovers_pox } remove_trait = lovers_pox }
+	if = { limit = { has_trait = leper } remove_trait = leper }
+	if = { limit = { has_trait = wounded_1 } remove_trait = wounded_1 }
+	if = { limit = { has_trait = wounded_2 } remove_trait = wounded_2 }
+	if = { limit = { has_trait = wounded_3 } remove_trait = wounded_3 }
+	if = { limit = { has_trait = maimed } remove_trait = maimed }
+	if = { limit = { has_trait = one_eyed } remove_trait = one_eyed }
+	if = { limit = { has_trait = one_legged } remove_trait = one_legged }
+	if = { limit = { has_trait = disfigured } remove_trait = disfigured }
+	if = { limit = { has_trait = infirm } remove_trait = infirm }
+	if = { limit = { has_trait = incapable } remove_trait = incapable }
+	if = { limit = { has_trait = gout_ridden } remove_trait = gout_ridden }
+	if = { limit = { has_trait = consumption } remove_trait = consumption }
+	if = { limit = { has_trait = cancer } remove_trait = cancer }
+	if = { limit = { has_trait = typhus } remove_trait = typhus }
+	if = { limit = { has_trait = bubonic_plague } remove_trait = bubonic_plague }
+	if = { limit = { has_trait = smallpox } remove_trait = smallpox }
+	if = { limit = { has_trait = sickly } remove_trait = sickly }
+	if = { limit = { has_trait = scarred } remove_trait = scarred }
+	if = { limit = { has_trait = eunuch } remove_trait = eunuch }
+	if = { limit = { has_trait = blind } remove_trait = blind }
+	hidden_effect = {
+		if = {
+			limit = {
+				has_character_flag = will_get_scar
+			}
+			remove_character_flag = will_get_scar
+		}
+		if = {
+			limit = {
+				has_character_modifier = infected_wound_modifier 
+			}
+			remove_character_modifier = infected_wound_modifier
+		}
+	}
+}
+
+innovation_tribal_effect = {
+		#culture_group_military
+		if = { limit = { NOT = { has_innovation = innovation_motte } } add_innovation = innovation_motte }
+		if = { limit = { NOT = { has_innovation = innovation_catapult } } add_innovation = innovation_catapult }
+		if = { limit = { NOT = { has_innovation = innovation_barracks } } add_innovation = innovation_barracks }
+		if = { limit = { NOT = { has_innovation = innovation_mustering_grounds } } add_innovation = innovation_mustering_grounds }
+		if = { limit = { NOT = { has_innovation = innovation_bannus } } add_innovation = innovation_bannus }
+		if = { limit = { NOT = { has_innovation = innovation_quilted_armor } } add_innovation = innovation_quilted_armor }
+		if = { limit = { NOT = { has_innovation = innovation_development_01 } } add_innovation = innovation_development_01 }
+		if = { limit = { NOT = { has_innovation = innovation_currency_01 } } add_innovation = innovation_currency_01 }
+
+		#culture_group_civic
+		if = { limit = { NOT = { has_innovation = innovation_gavelkind } } add_innovation = innovation_gavelkind }
+		if = { limit = { NOT = { has_innovation = innovation_crop_rotation } } add_innovation = innovation_crop_rotation }
+		if = { limit = { NOT = { has_innovation = innovation_city_planning } } add_innovation = innovation_city_planning }
+		if = { limit = { NOT = { has_innovation = innovation_casus_belli } } add_innovation = innovation_casus_belli }
+		if = { limit = { NOT = { has_innovation = innovation_plenary_assemblies } } add_innovation = innovation_plenary_assemblies }
+		if = { limit = { NOT = { has_innovation = innovation_ledger } } add_innovation = innovation_ledger }
+}
+
+innovation_tribal_regional_effect = {
+		#culture_group_regional
+		if = { limit = { NOT = { has_innovation = innovation_table_of_princes } } add_innovation = innovation_table_of_princes }
+		if = { limit = { NOT = { has_innovation = innovation_longboats } } add_innovation = innovation_longboats }
+		if = { limit = { NOT = { has_innovation = innovation_elephantry } } add_innovation = innovation_elephantry }
+		if = { limit = { NOT = { has_innovation = innovation_war_camels } } add_innovation = innovation_war_camels }
+		if = { limit = { NOT = { has_innovation = innovation_wootz_steel } } add_innovation = innovation_wootz_steel }
+		if = { limit = { NOT = { has_innovation = innovation_african_canoes } } add_innovation = innovation_african_canoes }
+		if = { limit = { NOT = { has_innovation = innovation_caballeros } } add_innovation = innovation_caballeros }
+		if = { limit = { NOT = { has_innovation = innovation_bamboo_bows } } add_innovation = innovation_bamboo_bows }
+		if = { limit = { NOT = { has_innovation = innovation_sahel_horsemen } } add_innovation = innovation_sahel_horsemen }
+		if = { limit = { NOT = { has_innovation = innovation_varangian_adventurers } } add_innovation = innovation_varangian_adventurers }
+		if = { limit = { NOT = { has_innovation = innovation_all_things } } add_innovation = innovation_all_things }
+		if = { limit = { NOT = { has_innovation = innovation_repeating_crossbow } } add_innovation = innovation_repeating_crossbow }
+		if = { limit = { NOT = { has_innovation = innovation_pole_vault } } add_innovation = innovation_pole_vault }
+}
+
+innovation_early_medival_effect = {
+		#culture_group_military
+		if = { limit = { NOT = { has_innovation = innovation_battlements } } add_innovation = innovation_battlements }
+		if = { limit = { NOT = { has_innovation = innovation_mangonel } } add_innovation = innovation_mangonel }
+		if = { limit = { NOT = { has_innovation = innovation_burhs } } add_innovation = innovation_burhs }
+		if = { limit = { NOT = { has_innovation = innovation_house_soldiers } } add_innovation = innovation_house_soldiers }
+		if = { limit = { NOT = { has_innovation = innovation_horseshoes } } add_innovation = innovation_horseshoes }
+		if = { limit = { NOT = { has_innovation = innovation_arched_saddle } } add_innovation = innovation_arched_saddle }
+
+		#culture_group_civic
+		if = { limit = { NOT = { has_innovation = innovation_hereditary_rule } } add_innovation = innovation_hereditary_rule }
+		if = { limit = { NOT = { has_innovation = innovation_manorialism } } add_innovation = innovation_manorialism }
+		if = { limit = { NOT = { has_innovation = innovation_development_02 } } add_innovation = innovation_development_02 }
+		if = { limit = { NOT = { has_innovation = innovation_currency_02 } } add_innovation = innovation_currency_02 }
+		if = { limit = { NOT = { has_innovation = innovation_royal_prerogative } } add_innovation = innovation_royal_prerogative }
+		if = { limit = { NOT = { has_innovation = innovation_chronicle_writing } } add_innovation = innovation_chronicle_writing }
+		if = { limit = { NOT = { has_innovation = innovation_armilary_sphere } } add_innovation = innovation_armilary_sphere }
+		if = { limit = { NOT = { has_innovation = innovation_baliffs } } add_innovation = innovation_baliffs }
+}
+
+innovation_early_medival_regional_effect = {
+		#culture_group_regional
+		if = { limit = { NOT = { has_innovation = innovation_reconquista } } add_innovation = innovation_reconquista }
+		if = { limit = { NOT = { has_innovation = innovation_stem_duchies } } add_innovation = innovation_stem_duchies }
+		if = { limit = { NOT = { has_innovation = innovation_ghilman } } add_innovation = innovation_ghilman }
+}
+
+innovation_high_medival_effect = {
+		#culture_group_military
+		if = { limit = { NOT = { has_innovation = innovation_hoardings } } add_innovation = innovation_hoardings }
+		if = { limit = { NOT = { has_innovation = innovation_trebuchet } } add_innovation = innovation_trebuchet }
+		if = { limit = { NOT = { has_innovation = innovation_castle_baileys } } add_innovation = innovation_castle_baileys }
+		if = { limit = { NOT = { has_innovation = innovation_men_at_arms } } add_innovation = innovation_men_at_arms }
+		if = { limit = { NOT = { has_innovation = innovation_knighthood } } add_innovation = innovation_knighthood }
+		if = { limit = { NOT = { has_innovation = innovation_advanced_bowmaking } } add_innovation = innovation_advanced_bowmaking }
+
+		#culture_group_civic
+		if = { limit = { NOT = { has_innovation = innovation_heraldry } } add_innovation = innovation_heraldry }
+		if = { limit = { NOT = { has_innovation = innovation_windmills } } add_innovation = innovation_windmills }
+		if = { limit = { NOT = { has_innovation = innovation_divine_right } } add_innovation = innovation_divine_right }
+		if = { limit = { NOT = { has_innovation = innovation_land_grants } } add_innovation = innovation_land_grants }
+		if = { limit = { NOT = { has_innovation = innovation_scutage } } add_innovation = innovation_scutage }
+		if = { limit = { NOT = { has_innovation = innovation_guilds } } add_innovation = innovation_guilds }
+		if = { limit = { NOT = { has_innovation = innovation_development_03 } } add_innovation = innovation_development_03 }
+		if = { limit = { NOT = { has_innovation = innovation_currency_03 } } add_innovation = innovation_currency_03 }
+}
+
+innovation_high_medival_regional_effect = {
+		#culture_group_regional
+		if = { limit = { NOT = { has_innovation = innovation_east_settling } } add_innovation = innovation_east_settling }
+		if = { limit = { NOT = { has_innovation = innovation_seigneurialism } } add_innovation = innovation_seigneurialism }
+		if = { limit = { NOT = { has_innovation = innovation_muladi } } add_innovation = innovation_muladi }
+		if = { limit = { NOT = { has_innovation = innovation_french_peerage } } add_innovation = innovation_french_peerage }
+		if = { limit = { NOT = { has_innovation = innovation_hobbies } } add_innovation = innovation_hobbies }
+		if = { limit = { NOT = { has_innovation = innovation_pike_columns } } add_innovation = innovation_pike_columns }
+		if = { limit = { NOT = { has_innovation = innovation_desert_tactics } } add_innovation = innovation_desert_tactics }
+		if = { limit = { NOT = { has_innovation = innovation_sarawit } } add_innovation = innovation_sarawit }
+}
+
+innovation_late_medival_effect = {
+		#culture_group_military
+		if = { limit = { NOT = { has_innovation = innovation_machicolations } } add_innovation = innovation_machicolations }
+		if = { limit = { NOT = { has_innovation = innovation_bombard } } add_innovation = innovation_bombard }
+		if = { limit = { NOT = { has_innovation = innovation_royal_armory } } add_innovation = innovation_royal_armory }
+		if = { limit = { NOT = { has_innovation = innovation_standing_armies } } add_innovation = innovation_standing_armies }
+		if = { limit = { NOT = { has_innovation = innovation_sappers } } add_innovation = innovation_sappers }
+		if = { limit = { NOT = { has_innovation = innovation_plate_armor } } add_innovation = innovation_plate_armor }
+
+		#culture_group_civic
+		if = { limit = { NOT = { has_innovation = innovation_primogeniture } } add_innovation = innovation_primogeniture }
+		if = { limit = { NOT = { has_innovation = innovation_cranes } } add_innovation = innovation_cranes }
+		if = { limit = { NOT = { has_innovation = innovation_noblesse_oblige } } add_innovation = innovation_noblesse_oblige }
+		if = { limit = { NOT = { has_innovation = innovation_rightful_ownership } } add_innovation = innovation_rightful_ownership }
+		if = { limit = { NOT = { has_innovation = innovation_ermine_cloaks } } add_innovation = innovation_ermine_cloaks }
+		if = { limit = { NOT = { has_innovation = innovation_court_officials } } add_innovation = innovation_court_officials }
+		if = { limit = { NOT = { has_innovation = innovation_development_04 } } add_innovation = innovation_development_04 }
+		if = { limit = { NOT = { has_innovation = innovation_currency_04 } } add_innovation = innovation_currency_04 }
+}
+
+innovation_late_medival_regional_effect = {
+		#culture_group_regional
+		if = { limit = { NOT = { has_innovation = innovation_wierdijks } } add_innovation = innovation_wierdijks }
+		if = { limit = { NOT = { has_innovation = innovation_condottieri } } add_innovation = innovation_condottieri }
+		if = { limit = { NOT = { has_innovation = innovation_deccan_unity } } add_innovation = innovation_deccan_unity }
+		if = { limit = { NOT = { has_innovation = innovation_valets} } add_innovation = innovation_valets }
+		if = { limit = { NOT = { has_innovation = innovation_zweihanders } } add_innovation = innovation_zweihanders }
+		if = { limit = { NOT = { has_innovation = innovation_adaptive_militia } } add_innovation = innovation_adaptive_militia }
+		if = { limit = { NOT = { has_innovation = innovation_legionnaires } } add_innovation = innovation_legionnaires }
+		if = { limit = { NOT = { has_innovation = innovation_rectilinear_schiltron } } add_innovation = innovation_rectilinear_schiltron }
+}
+
+innovation_remove_all_effect = {
+	#culture_group_military
+	if = { limit = { has_innovation = innovation_motte } remove_innovation = innovation_motte }
+	if = { limit = { has_innovation = innovation_catapult } remove_innovation = innovation_catapult }
+	if = { limit = { has_innovation = innovation_barracks } remove_innovation = innovation_barracks }
+	if = { limit = { has_innovation = innovation_mustering_grounds } remove_innovation = innovation_mustering_grounds }
+	if = { limit = { has_innovation = innovation_bannus } remove_innovation = innovation_bannus }
+	if = { limit = { has_innovation = innovation_quilted_armor } remove_innovation = innovation_quilted_armor }
+	if = { limit = { has_innovation = innovation_development_01 } remove_innovation = innovation_development_01 }
+	if = { limit = { has_innovation = innovation_currency_01 } remove_innovation = innovation_currency_01 }
+	if = { limit = { has_innovation = innovation_battlements } remove_innovation = innovation_battlements }
+	if = { limit = { has_innovation = innovation_mangonel } remove_innovation = innovation_mangonel }
+	if = { limit = { has_innovation = innovation_burhs } remove_innovation = innovation_burhs }
+	if = { limit = { has_innovation = innovation_house_soldiers } remove_innovation = innovation_house_soldiers }
+	if = { limit = { has_innovation = innovation_horseshoes } remove_innovation = innovation_horseshoes }
+	if = { limit = { has_innovation = innovation_arched_saddle } remove_innovation = innovation_arched_saddle }
+	if = { limit = { has_innovation = innovation_hoardings } remove_innovation = innovation_hoardings }
+	if = { limit = { has_innovation = innovation_trebuchet } remove_innovation = innovation_trebuchet }
+	if = { limit = { has_innovation = innovation_castle_baileys } remove_innovation = innovation_castle_baileys }
+	if = { limit = { has_innovation = innovation_men_at_arms } remove_innovation = innovation_men_at_arms }
+	if = { limit = { has_innovation = innovation_knighthood } remove_innovation = innovation_knighthood }
+	if = { limit = { has_innovation = innovation_advanced_bowmaking } remove_innovation = innovation_advanced_bowmaking }
+	if = { limit = { has_innovation = innovation_machicolations } remove_innovation = innovation_machicolations }
+	if = { limit = { has_innovation = innovation_bombard } remove_innovation = innovation_bombard }
+	if = { limit = { has_innovation = innovation_royal_armory } remove_innovation = innovation_royal_armory }
+	if = { limit = { has_innovation = innovation_standing_armies } remove_innovation = innovation_standing_armies }
+	if = { limit = { has_innovation = innovation_sappers } remove_innovation = innovation_sappers }
+	if = { limit = { has_innovation = innovation_plate_armor } remove_innovation = innovation_plate_armor }
+	
+	#culture_group_civic
+	if = { limit = { has_innovation = innovation_gavelkind } remove_innovation = innovation_gavelkind }
+	if = { limit = { has_innovation = innovation_crop_rotation } remove_innovation = innovation_crop_rotation }
+	if = { limit = { has_innovation = innovation_city_planning } remove_innovation = innovation_city_planning }
+	if = { limit = { has_innovation = innovation_casus_belli } remove_innovation = innovation_casus_belli }
+	if = { limit = { has_innovation = innovation_plenary_assemblies } remove_innovation = innovation_plenary_assemblies }
+	if = { limit = { has_innovation = innovation_ledger } remove_innovation = innovation_ledger }
+	if = { limit = { has_innovation = innovation_hereditary_rule } remove_innovation = innovation_hereditary_rule }
+	if = { limit = { has_innovation = innovation_manorialism } remove_innovation = innovation_manorialism }
+	if = { limit = { has_innovation = innovation_development_02 } remove_innovation = innovation_development_02 }
+	if = { limit = { has_innovation = innovation_currency_02 } remove_innovation = innovation_currency_02 }
+	if = { limit = { has_innovation = innovation_royal_prerogative } remove_innovation = innovation_royal_prerogative }
+	if = { limit = { has_innovation = innovation_chronicle_writing } remove_innovation = innovation_chronicle_writing }
+	if = { limit = { has_innovation = innovation_armilary_sphere } remove_innovation = innovation_armilary_sphere }
+	if = { limit = { has_innovation = innovation_baliffs } remove_innovation = innovation_baliffs }
+	if = { limit = { has_innovation = innovation_heraldry } remove_innovation = innovation_heraldry }
+	if = { limit = { has_innovation = innovation_windmills } remove_innovation = innovation_windmills }
+	if = { limit = { has_innovation = innovation_divine_right } remove_innovation = innovation_divine_right }
+	if = { limit = { has_innovation = innovation_land_grants } remove_innovation = innovation_land_grants }
+	if = { limit = { has_innovation = innovation_scutage } remove_innovation = innovation_scutage }
+	if = { limit = { has_innovation = innovation_guilds } remove_innovation = innovation_guilds }
+	if = { limit = { has_innovation = innovation_development_03 } remove_innovation = innovation_development_03 }
+	if = { limit = { has_innovation = innovation_currency_03 } remove_innovation = innovation_currency_03 }
+	if = { limit = { has_innovation = innovation_primogeniture } remove_innovation = innovation_primogeniture }
+	if = { limit = { has_innovation = innovation_cranes } remove_innovation = innovation_cranes }
+	if = { limit = { has_innovation = innovation_noblesse_oblige } remove_innovation = innovation_noblesse_oblige }
+	if = { limit = { has_innovation = innovation_rightful_ownership } remove_innovation = innovation_rightful_ownership }
+	if = { limit = { has_innovation = innovation_ermine_cloaks } remove_innovation = innovation_ermine_cloaks }
+	if = { limit = { has_innovation = innovation_court_officials } remove_innovation = innovation_court_officials }
+	if = { limit = { has_innovation = innovation_development_04 } remove_innovation = innovation_development_04 }
+	if = { limit = { has_innovation = innovation_currency_04 } remove_innovation = innovation_currency_04 }
+	
+	#culture_group_regional
+	if = { limit = { has_innovation = innovation_table_of_princes } remove_innovation = innovation_table_of_princes }
+	if = { limit = { has_innovation = innovation_longboats } remove_innovation = innovation_longboats }
+	if = { limit = { has_innovation = innovation_elephantry } remove_innovation = innovation_elephantry }
+	if = { limit = { has_innovation = innovation_war_camels } remove_innovation = innovation_war_camels }
+	if = { limit = { has_innovation = innovation_wootz_steel } remove_innovation = innovation_wootz_steel }
+	if = { limit = { has_innovation = innovation_african_canoes } remove_innovation = innovation_african_canoes }
+	if = { limit = { has_innovation = innovation_caballeros } remove_innovation = innovation_caballeros }
+	if = { limit = { has_innovation = innovation_bamboo_bows } remove_innovation = innovation_bamboo_bows }
+	if = { limit = { has_innovation = innovation_sahel_horsemen } remove_innovation = innovation_sahel_horsemen }
+	if = { limit = { has_innovation = innovation_varangian_adventurers } remove_innovation = innovation_varangian_adventurers }
+	if = { limit = { has_innovation = innovation_all_things } remove_innovation = innovation_all_things }
+	if = { limit = { has_innovation = innovation_repeating_crossbow } remove_innovation = innovation_repeating_crossbow }
+	if = { limit = { has_innovation = innovation_pole_vault } remove_innovation = innovation_pole_vault }
+	if = { limit = { has_innovation = innovation_reconquista } remove_innovation = innovation_reconquista }
+	if = { limit = { has_innovation = innovation_stem_duchies } remove_innovation = innovation_stem_duchies }
+	if = { limit = { has_innovation = innovation_ghilman } remove_innovation = innovation_ghilman }
+	if = { limit = { has_innovation = innovation_east_settling } remove_innovation = innovation_east_settling }
+	if = { limit = { has_innovation = innovation_seigneurialism } remove_innovation = innovation_seigneurialism }
+	if = { limit = { has_innovation = innovation_muladi } remove_innovation = innovation_muladi }
+	if = { limit = { has_innovation = innovation_french_peerage } remove_innovation = innovation_french_peerage }
+	if = { limit = { has_innovation = innovation_hobbies } remove_innovation = innovation_hobbies }
+	if = { limit = { has_innovation = innovation_pike_columns } remove_innovation = innovation_pike_columns }
+	if = { limit = { has_innovation = innovation_desert_tactics } remove_innovation = innovation_desert_tactics }
+	if = { limit = { has_innovation = innovation_sarawit } remove_innovation = innovation_sarawit }
+	if = { limit = { has_innovation = innovation_wierdijks } remove_innovation = innovation_wierdijks }
+	if = { limit = { has_innovation = innovation_condottieri } remove_innovation = innovation_condottieri }
+	if = { limit = { has_innovation = innovation_deccan_unity } remove_innovation = innovation_deccan_unity }
+	if = { limit = { has_innovation = innovation_valets} remove_innovation = innovation_valets }
+	if = { limit = { has_innovation = innovation_zweihanders } remove_innovation = innovation_zweihanders }
+	if = { limit = { has_innovation = innovation_adaptive_militia } remove_innovation = innovation_adaptive_militia }
+	if = { limit = { has_innovation = innovation_legionnaires } remove_innovation = innovation_legionnaires }
+	if = { limit = { has_innovation = innovation_rectilinear_schiltron } remove_innovation = innovation_rectilinear_schiltron }
+}
+
+remove_health_conflict_effect = {
+	if = { limit = { has_trait = beauty_bad_1 } remove_trait = beauty_bad_1 }
+	if = { limit = { has_trait = beauty_bad_2 } remove_trait = beauty_bad_2 }
+	if = { limit = { has_trait = beauty_bad_3 } remove_trait = beauty_bad_3 }
+	if = { limit = { has_trait = beauty_good_1 } remove_trait = beauty_good_1 }
+	if = { limit = { has_trait = beauty_good_2 } remove_trait = beauty_good_2 }
+	if = { limit = { has_trait = intellect_bad_1 } remove_trait = intellect_bad_1 }
+	if = { limit = { has_trait = intellect_bad_2 } remove_trait = intellect_bad_2 }
+	if = { limit = { has_trait = intellect_bad_3 } remove_trait = intellect_bad_3 }
+	if = { limit = { has_trait = intellect_good_1 } remove_trait = intellect_good_1 }
+	if = { limit = { has_trait = intellect_good_2 } remove_trait = intellect_good_2 }
+	if = { limit = { has_trait = physique_bad_1 } remove_trait = physique_bad_1 }
+	if = { limit = { has_trait = physique_bad_2 } remove_trait = physique_bad_2 }
+	if = { limit = { has_trait = physique_bad_3 } remove_trait = physique_bad_3 }
+	if = { limit = { has_trait = physique_good_1 } remove_trait = physique_good_1 }
+	if = { limit = { has_trait = physique_good_2 } remove_trait = physique_good_2 }
+	if = { limit = { has_trait = clubfooted } remove_trait = clubfooted }
+	if = { limit = { has_trait = hunchbacked } remove_trait = hunchbacked }
+	if = { limit = { has_trait = lisping } remove_trait = lisping }
+	if = { limit = { has_trait = stuttering } remove_trait = stuttering }
+	if = { limit = { has_trait = dwarf } remove_trait = dwarf }
+	if = { limit = { has_trait = giant } remove_trait = giant }
+	if = { limit = { has_trait = inbred } remove_trait = inbred }
+	if = { limit = { has_trait = weak } remove_trait = weak }
+	if = { limit = { has_trait = dull } remove_trait = dull }
+	if = { limit = { has_trait = impotent } remove_trait = impotent }
+	if = { limit = { has_trait = spindly } remove_trait = spindly }
+	if = { limit = { has_trait = scaly } remove_trait = scaly }
+	if = { limit = { has_trait = wheezing } remove_trait = wheezing }
+	if = { limit = { has_trait = bleeder } remove_trait = bleeder }
+	if = { limit = { has_trait = infertile } remove_trait = infertile }
+	if = { limit = { has_trait = inbred } remove_trait = inbred }
+}
+
+#remove health conflicts other than worst traits (for bad genes present only)
+remove_health_conflict_forbadgene_effect = {
+	if = { limit = { has_trait = beauty_bad_1 } remove_trait = beauty_bad_1 }
+	if = { limit = { has_trait = beauty_bad_2 } remove_trait = beauty_bad_2 }
+	if = { limit = { has_trait = beauty_good_1 } remove_trait = beauty_good_1 }
+	if = { limit = { has_trait = beauty_good_2 } remove_trait = beauty_good_2 }
+	if = { limit = { has_trait = intellect_bad_1 } remove_trait = intellect_bad_1 }
+	if = { limit = { has_trait = intellect_bad_2 } remove_trait = intellect_bad_2 }
+	if = { limit = { has_trait = intellect_good_1 } remove_trait = intellect_good_1 }
+	if = { limit = { has_trait = intellect_good_2 } remove_trait = intellect_good_2 }
+	if = { limit = { has_trait = physique_bad_1 } remove_trait = physique_bad_1 }
+	if = { limit = { has_trait = physique_bad_2 } remove_trait = physique_bad_2 }
+	if = { limit = { has_trait = physique_good_1 } remove_trait = physique_good_1 }
+	if = { limit = { has_trait = physique_good_2 } remove_trait = physique_good_2 }
+}
+
+remove_education_traits_effect = {
+	if = { limit = { has_trait = education_learning_1 } remove_trait = education_learning_1 }
+	if = { limit = { has_trait = education_learning_2 } remove_trait = education_learning_2 }
+	if = { limit = { has_trait = education_learning_3 } remove_trait = education_learning_3 }
+	if = { limit = { has_trait = education_learning_4 } remove_trait = education_learning_4 }
+	if = { limit = { has_trait = education_intrigue_1 } remove_trait = education_intrigue_1 }
+	if = { limit = { has_trait = education_intrigue_2 } remove_trait = education_intrigue_2 }
+	if = { limit = { has_trait = education_intrigue_3 } remove_trait = education_intrigue_3 }
+	if = { limit = { has_trait = education_intrigue_4 } remove_trait = education_intrigue_4 }
+	if = { limit = { has_trait = education_diplomacy_1 } remove_trait = education_diplomacy_1 }
+	if = { limit = { has_trait = education_diplomacy_2 } remove_trait = education_diplomacy_2 }
+	if = { limit = { has_trait = education_diplomacy_3 } remove_trait = education_diplomacy_3 }
+	if = { limit = { has_trait = education_diplomacy_4 } remove_trait = education_diplomacy_4 }
+	if = { limit = { has_trait = education_stewardship_1 } remove_trait = education_stewardship_1 }
+	if = { limit = { has_trait = education_stewardship_2 } remove_trait = education_stewardship_2 }
+	if = { limit = { has_trait = education_stewardship_3 } remove_trait = education_stewardship_3 }
+	if = { limit = { has_trait = education_stewardship_4 } remove_trait = education_stewardship_4 }
+	if = { limit = { has_trait = education_martial_1 } remove_trait = education_martial_1 }
+	if = { limit = { has_trait = education_martial_2 } remove_trait = education_martial_2 }
+	if = { limit = { has_trait = education_martial_3 } remove_trait = education_martial_3 }
+	if = { limit = { has_trait = education_martial_4 } remove_trait = education_martial_4 }
+}

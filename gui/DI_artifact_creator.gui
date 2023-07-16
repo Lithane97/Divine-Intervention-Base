@@ -1,0 +1,2083 @@
+window = {
+	name = 	"DI_artifact_window"
+	parentanchor = top|right
+	position = { -20 20 }
+	size = { 200 200 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_artifact_window_visible')]"
+
+	datacontext = "[GetPlayer]"
+	datacontext = "[GetVariableSystem]"
+	datacontext = "[InventoryView.GetCharacter]"
+	datacontext = "[InventoryView.GetCharacter.GetInventory]"
+
+	state = {
+		name = init
+		trigger_on_create = yes
+
+		on_start = "[GetVariableSystem.Set('DI_artifact_category', 'type')]"
+		on_start = "[GetVariableSystem.Set('DI_artifact_type_icon', 'axe')]"
+		on_start = "[GetScriptedGui('DI_artifact_weapon_axe').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		on_start = "[GetVariableSystem.Set('DI_artifact_quality', 'common')]"
+		on_start = "[GetScriptedGui('DI_artifact_quality_common').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	}
+
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+
+	vbox = {
+		margin_top = 20
+		margin_left = 40
+		margin_right = 40
+		margin_bottom = 20
+		ignoreinvisible = yes
+		restrictparent_min = yes
+
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "DI_artifact_creator"
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_artifact_window_visible')]"
+				onclick = "[GetVariableSystem.Clear('DI_artifact_char_select_list_visible')]"
+				onclick = "[GetVariableSystem.Clear('DI_artifact_list_window_visible')]"
+			}
+		}
+
+		widget = {
+			size = { 400 160 }
+			datacontext = "[GetPlayer.MakeScope.Var('DI_artifact_selected_char').Char]"
+
+			DI_portrait_shoulders = {
+				visible = "[Character.IsValid]"
+				parentanchor = center
+
+				blockoverride "portrait_button_template_onclick"
+				{
+					onclick = "[GetVariableSystem.Toggle('DI_artifact_char_select_list_visible')]"
+				}
+			}
+
+			DI_portrait_shoulders = {
+				visible = "[Not(Character.IsValid)]"
+				parentanchor = center
+
+				text_label_center = {
+					parentanchor = hcenter|top
+					position = { 0 -5 }
+					text = DI_select_character
+					default_format = "#low;italic"
+					max_width = 235
+				}
+
+				blockoverride "onclick"
+				{
+					onclick = "[GetVariableSystem.Toggle('DI_artifact_char_select_list_visible')]"
+				}
+			}
+		}
+
+		widget = {
+			size = { 80% 80 }
+			vbox = {
+				hbox = {
+					layoutpolicy_horizontal = expanding
+	
+					button_standard = {
+						name = "DI_artifact_list_button"
+						size = { 150 30 }
+						text = DI_artifact_list
+
+						onclick = "[GetVariableSystem.Toggle('DI_artifact_list_window_visible')]"
+						onclick = "[GetScriptedGui('DI_get_artifact_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
+				}
+	
+				hbox = {
+					layoutpolicy_horizontal = expanding
+	
+					button_standard = {
+						name = "DI_artifact_type_button"
+						size = { 150 30 }
+						text = DI_artifact_type
+
+						onclick = "[GetVariableSystem.Set('DI_artifact_category', 'type')]"
+					}
+	
+					button_standard = {
+						name = "DI_artifact_quality_button"
+						size = { 150 30 }
+						text = DI_artifact_quality
+
+						onclick = "[GetVariableSystem.Set('DI_artifact_category', 'quality')]"
+					}
+				}
+			}
+		}
+		
+		widget = {
+			size = { 100% 350 }
+
+			widget = {
+				size = { 80% 100% }
+				parentanchor = bottom|hcenter
+				# artifact type vbox
+				vbox = {
+					visible = "[GetVariableSystem.HasValue('DI_artifact_category', 'type')]"
+					
+					scrollbox = {
+						name = "artifact_type_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+							# artifact type weapon
+							button_standard_hover = {
+								name = DI_artifact_type_weapon_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'weapon')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_axe.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_weapon
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type armor
+							button_standard_hover = {
+								name = DI_artifact_type_armor_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'armor')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type regalia
+							button_standard_hover = {
+								name = DI_artifact_type_regalia_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'regalia')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_regalia.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_regalia
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type trinket
+							button_standard_hover = {
+								name = DI_artifact_type_trinket_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'trinket')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_necklace.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_trinket
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type throne
+							button_standard_hover = {
+								name = DI_artifact_type_throne_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'throne')]"
+								onclick = "[GetScriptedGui('DI_artifact_throne').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_throneroom.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_throne
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type pedestal
+							button_standard_hover = {
+								name = DI_artifact_type_pedestal_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'pedestal')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_small_box.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_pedestal
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type furniture
+							button_standard_hover = {
+								name = DI_artifact_type_furniture_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'furniture')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_cabinet.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_furniture
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact type ornament
+							button_standard_hover = {
+								name = DI_artifact_type_ornament_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetVariableSystem.Set('DI_artifact_type', 'ornament')]"
+								onclick = "[GetVariableSystem.Clear('DI_artifact_category')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_wall_shield.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_ornament
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+				# artifact quality vbox
+				vbox = {
+					visible = "[GetVariableSystem.HasValue('DI_artifact_category', 'quality')]"
+
+					scrollbox = {
+						name = "artifact_quality_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						blockoverride "scrollbox_content" {
+							# artifact quality common
+							button_standard_hover = {
+								name = DI_artifact_quality_common_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_quality_common').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_quality', 'common')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+										frame = 1
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_common
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact quality masterwork
+							button_standard_hover = {
+								name = DI_artifact_quality_masterwork_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_quality_masterwork').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_quality', 'masterwork')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+										frame = 2
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_masterwork
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact quality famed
+							button_standard_hover = {
+								name = DI_artifact_quality_famed_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_quality_famed').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_quality', 'famed')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+										frame = 3
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_famed
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact quality illustrious
+							button_standard_hover = {
+								name = DI_artifact_quality_illustrious_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_quality_illustrious').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_quality', 'illustrious')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+										frame = 4
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_illustrious
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+					
+				# artifact type weapon
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'weapon'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+							# artifact weapon axe
+							button_standard_hover = {
+								name = DI_artifact_weapon_axe_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_weapon_axe').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'axe')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_axe.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_axe
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact weapon dagger
+							button_standard_hover = {
+								name = DI_artifact_weapon_dagger_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_weapon_dagger').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'dagger')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_dagger.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_dagger
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact weapon hammer
+							button_standard_hover = {
+								name = DI_artifact_weapon_hammer_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_weapon_hammer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'hammer')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_hammer.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_hammer
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact weapon mace
+							button_standard_hover = {
+								name = DI_artifact_weapon_mace_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }	
+								onclick = "[GetScriptedGui('DI_artifact_weapon_mace').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'mace')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_mace.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_mace
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact weapon spear
+							button_standard_hover = {
+								name = DI_artifact_weapon_spear_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_weapon_spear').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'spear')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_spear.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_spear
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact weapon sword
+							button_standard_hover = {
+								name = DI_artifact_weapon_sword_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_weapon_sword').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'sword')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_sword.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_sword
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+				# artifact type armor
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'armor'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+
+							# artifact armor mail
+							button_standard_hover = {
+								name = DI_artifact_armor_mail_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_armor_mail').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'armor')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor_mail
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact armor brigandine
+							button_standard_hover = {
+								name = DI_artifact_armor_brigandine_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_armor_brigandine').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'armor')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = "2"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor_brigandine
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact armor laminar
+							button_standard_hover = {
+								name = DI_artifact_armor_laminar_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_armor_laminar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'armor')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = "3"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor_laminar
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact armor lamellar
+							button_standard_hover = {
+								name = DI_artifact_armor_lamellar_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_armor_lamellar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'armor')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = "2"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor_lamellar
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact armor scale
+							button_standard_hover = {
+								name = DI_artifact_armor_scale_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_armor_scale').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'armor')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = "3"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor_scale
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact armor plate
+							button_standard_hover = {
+								name = DI_artifact_armor_plate_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_armor_plate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'armor')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+										frame = "4"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = DI_artifact_armor_plate
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+
+
+				# artifact type regalia
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'regalia'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+
+							# artifact regalia crown
+							button_standard_hover = {
+								name = DI_artifact_regalia_crown_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_crown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'crown')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_crown.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_crown
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact regalia regalia
+							button_standard_hover = {
+								name = DI_artifact_regalia_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_regalia').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'regalia')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_regalia.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_regalia
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+				# artifact type trinket with buttons necklace and brooch
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'trinket'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+
+							# artifact trinket necklace
+							button_standard_hover = {
+								name = DI_artifact_trinket_necklace_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_necklace').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'necklace')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_necklace.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_necklace
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact trinket brooch
+							button_standard_hover = {
+								name = DI_artifact_trinket_brooch_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_brooch').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'brooch')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_brooch.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_brooch
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+				# artifact type pedestal with buttons small_box, medium_box, and goblet
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'pedestal'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+
+							# artifact pedestal small_box
+							button_standard_hover = {
+								name = DI_artifact_pedestal_small_box_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_small_box').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'small_box')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_small_box.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_small_box
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact pedestal medium_box
+							button_standard_hover = {
+								name = DI_artifact_pedestal_medium_box_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_medium_box').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'medium_box')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_medium_box.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_medium_box
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact pedestal goblet
+							button_standard_hover = {
+								name = DI_artifact_pedestal_goblet_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_goblet').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'goblet')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_goblet.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_goblet
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+				# artifact type furniture with buttons cabinet, chest, divan, and table
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'furniture'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+
+							# artifact furniture cabinet
+							button_standard_hover = {
+								name = DI_artifact_furniture_cabinet_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_cabinet').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'cabinet')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_cabinet.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_cabinet
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact furniture chest
+							button_standard_hover = {
+								name = DI_artifact_furniture_chest_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_chest').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'chest')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_chest.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_chest
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact furniture divan
+							button_standard_hover = {
+								name = DI_artifact_furniture_divan_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_divan').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'divan')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_indian_divan.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_divan
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact furniture table
+							button_standard_hover = {
+								name = DI_artifact_furniture_table_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_table').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'table')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_mena_table.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_table
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+
+				# artifact type ornament with buttons small shield, large shield, and tapestry
+				vbox = {
+					visible = "[And(GetVariableSystem.HasValue('DI_artifact_type', 'ornament'), Not(GetVariableSystem.Exists('DI_artifact_category')))]"
+					
+					scrollbox = {
+						name = "artifact_weapon_scrollbox"
+						layoutpolicy_vertical = expanding
+						layoutpolicy_horizontal = expanding
+						minimumsize = { 200 100% }
+
+						
+
+						blockoverride "scrollbox_content" {
+
+							# artifact ornament small shield
+							button_standard_hover = {
+								name = DI_artifact_ornament_small_shield_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_small_shield').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'small_shield')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_wall_shield.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_small_shield
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact ornament large shield
+							button_standard_hover = {
+								name = DI_artifact_ornament_large_shield_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_large_shield').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'large_shield')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_wall_shield.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_large_shield
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# artifact ornament tapestry
+							button_standard_hover = {
+								name = DI_artifact_ornament_tapestry_button
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 0 50 }
+								onclick = "[GetScriptedGui('DI_artifact_tapestry').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onclick = "[GetVariableSystem.Set('DI_artifact_type_icon', 'tapestry')]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+			
+									icon = {
+										size = { 50 50 }
+										texture = "gfx/interface/icons/artifact/artifact_tapestry.dds"
+										frame = "1"
+										framesize = { 240 240 }
+									}
+			
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = artifact_tapestry
+										default_format = "#clickable"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		widget = {
+			size = { 80% 100 }
+
+			hbox = {
+				button_standard = {
+					name = "DI_artifact_create_button"
+					parentanchor = left
+					text = DI_artifact_create
+
+					onclick = "[GetScriptedGui('DI_create_artifact').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+				
+				vbox = {
+					spacing = -85
+					icon = {
+						name = "rarity_icon_common"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_quality', 'common')]"
+						size = { 90 90 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+	
+					icon = {
+						name = "rarity_icon_masterwork"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_quality', 'masterwork')]"
+						size = { 90 90 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+						frame = "2"
+						framesize = { 240 240 }
+					}
+	
+					# rarity icon famed
+					icon = {
+						name = "rarity_icon_famed"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_quality', 'famed')]"
+						size = { 90 90 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+						frame = "3"
+						framesize = { 240 240 }
+					}
+	
+					# rarity icon illustrious
+					icon = {
+						name = "rarity_icon_illustrious"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_quality', 'illustrious')]"
+						size = { 90 90 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_bg.dds"
+						frame = "4"
+						framesize = { 240 240 }
+					}
+
+					icon = {
+						name = "unique_icon"
+						size = { 90 90 }
+						parentanchor = center
+						alwaystransparent = yes
+						texture = "gfx/interface/icons/artifact/artifact_unique.dds"
+					}
+	
+					# type icon axe
+					icon = {
+						name = "type_icon_axe"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'axe')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_axe.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon dagger
+					icon = {
+						name = "type_icon_dagger"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'dagger')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+
+						texture = "gfx/interface/icons/artifact/artifact_dagger.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon hammer
+					icon = {
+						name = "type_icon_hammer"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'hammer')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_hammer.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon mace
+					icon = {
+						name = "type_icon_mace"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'mace')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_mace.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon spear
+					icon = {
+						name = "type_icon_spear"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'spear')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_spear.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon sword
+					icon = {
+						name = "type_icon_sword"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'sword')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_sword.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon armor
+					icon = {
+						name = "type_icon_armor"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'armor')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_armor.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon crown
+					icon = {
+						name = "type_icon_crown"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'crown')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_crown.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon regalia
+					icon = {
+						name = "type_icon_regalia"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'regalia')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_regalia.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon necklace
+					icon = {
+						name = "type_icon_necklace"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'necklace')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_necklace.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon brooch
+					icon = {
+						name = "type_icon_brooch"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'brooch')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_brooch.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon throne
+					icon = {
+						name = "type_icon_throne"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'throne')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_throneroom.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon small box
+					icon = {
+						name = "type_icon_small_box"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'small_box')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_small_box.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon large box
+					icon = {
+						name = "type_icon_medium_box"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'medium_box')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_medium_box.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon goblet
+					icon = {
+						name = "type_icon_goblet"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'goblet')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_goblet.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon cabinet
+					icon = {
+						name = "type_icon_cabinet"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'cabinet')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_cabinet.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon chest
+					icon = {
+						name = "type_icon_chest"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'chest')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_chest.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon divan
+					icon = {
+						name = "type_icon_divan"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'divan')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_indian_divan.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon table
+					icon = {
+						name = "type_icon_table"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'table')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_mena_table.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon small shield
+					icon = {
+						name = "type_icon_small_shield"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'small_shield')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_wall_shield.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon large shield
+					icon = {
+						name = "type_icon_large_shield"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'large_shield')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_wall_shield.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+
+					# type icon tapestry
+					icon = {
+						name = "type_icon_tapestry"
+						visible = "[GetVariableSystem.HasValue('DI_artifact_type_icon', 'tapestry')]"
+						size = { 70 70 }
+						alwaystransparent = yes
+	
+						texture = "gfx/interface/icons/artifact/artifact_tapestry.dds"
+						frame = "1"
+						framesize = { 240 240 }
+					}
+				}
+				
+			}
+			
+		}
+	}
+}
+
+window = {
+	name = "DI_artifact_list_window"
+	parentanchor = top|right
+	position = { -50 100 }
+	size = { 600 725 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	
+	visible = "[GetVariableSystem.Exists('DI_artifact_list_window_visible')]"
+    
+    datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+	
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		restrictparent_min = yes
+		using = Window_Margins
+		ignoreinvisible = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_artifact_list_title
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_artifact_list_window_visible')]"
+				onclick = "[GetScriptedGui('DI_clear_artifact_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+			}
+		}
+		
+		widget = {
+			size = { 600 725 }
+			
+			scrollbox = { # court artifacts
+				name = "court_artifacts"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				minimumsize = { 600 725 }
+
+				blockoverride "scrollbox_content" {
+					vbox = {
+						name = "artifacts_list"
+						datamodel = "[GetPlayer.MakeScope.GetList('DI_artifact_list')]"
+						layoutpolicy_horizontal = expanding
+						spacing = 6
+
+						item = {
+							DI_artifact_widget = {
+								datacontext = "[Scope.Artifact]"
+								datacontext = "[GetPlayer]"
+
+								blockoverride "background_button_overrides"
+								{
+									alwaystransparent = yes
+									enabled = no
+								}
+
+								blockoverride "portrait" {
+									expand = { minimumsize = { 0 0 } }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+types DI_artifact_creator_types
+{
+	type DI_artifact_widget = widget
+	{
+		datacontext = "[GetIllustration( 'artifact_regional_pattern' )]"
+		size = { 560 110 }
+		using = tooltip_above
+		
+		visible = "[Artifact.IsValid]"
+
+		button_standard = {
+			size = { 100% 100% }
+
+			framesize = { 249 78 }
+			spriteType = Corneredtiled
+			spriteborder = { 20 20 }
+
+			icon =  {
+				texture = "[Illustration.GetTexture( Artifact.GetCulture )]"
+				spriteType = Corneredtiled
+				size = { 100% 15% }
+				color = "[Artifact.GetRarityColor]"
+				alpha = 0.2
+				alwaystransparent = yes
+			}
+
+			icon =  {
+				texture = "[Illustration.GetTexture( Artifact.GetCulture )]"
+				spriteType = Corneredtiled
+				size = { 100% 15% }
+				color = "[Artifact.GetRarityColor]"
+				alpha = 0.2
+				alwaystransparent = yes
+				parentanchor = bottom
+			}
+
+			block "button"
+			{
+				enabled = "[Character.IsLocalPlayer]"
+				clicksound = "event:/DLC/EP1/SFX/UI/inventory_artifact_place"
+			}
+
+			block "overlay"
+			{
+				using = default_character_list_overlay
+			}
+
+			block "background_button_overrides" {}
+
+			tooltipwidget = {
+				artifact_tooltip = {}
+			}
+
+			using = tooltip_es
+
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+			vbox = {
+				name = "icon"
+				layoutpolicy_vertical = expanding
+				margin = { 2 2 }
+
+				icon_artifact = {
+					blockoverride "tooltipwidget" {}
+				}
+			}
+
+			vbox = {
+				name = "text"
+				layoutpolicy_vertical = expanding
+				margin_top = 4
+				margin_bottom = 10
+
+				expand = {}
+
+				text_single = {
+					layoutpolicy_horizontal = expanding
+					text = "[Artifact.GetRarityAndSlotType]"
+					max_width = 300
+					using = Font_Size_Small
+				}
+
+				text_multi = {
+					layoutpolicy_horizontal = expanding
+					text = "[Artifact.GetNameNoTooltip]"
+					autoresize = yes
+					max_width = 350
+					using = Font_Size_Medium
+					default_format = "#high"
+					alwaystransparent = yes
+				}
+
+				spacer = {
+					size = { 0 6 }
+				}
+
+				hbox_artifact_durability = {
+					layoutpolicy_horizontal = expanding
+					# simple tooltip override so that the durability tooltip doesnt show up here
+					tooltip = ""
+				}
+
+				expand = {}
+			}
+
+			expand = {}
+		}
+
+		widget = {
+			parentanchor = center
+			position = { 60 5 }
+			allow_outside = yes
+
+			hbox = {
+				
+				layoutpolicy_horizontal = expanding
+				spacing = 2
+
+				button_round = {
+					name = "steal"
+					size = { 50 50 }
+
+					button_icon_highlight = {
+						parentanchor = center
+						size = { 25 25 }
+						texture = "gfx/interface/icons/flat_icons/scheme.dds"
+					}
+
+					onclick = "[GetScriptedGui('DI_take_artifact').Execute(GuiScope.SetRoot(GetPlayer.MakeScope.Var('DI_artifact_selected_char').Char.MakeScope).AddScope('selected_artifact', Artifact.MakeScope).End)]"
+					tooltip = DI_tt_take_artifact
+				}
+
+				button_round = {
+					name = "destroy_artifact"
+					size = { 50 50 }
+
+					button_icon_highlight = {
+						size = { 25 25 }
+						parentanchor = center
+						texture = "gfx/interface/icons/flat_icons/cancel.dds"
+					}
+
+					onclick = "[GetScriptedGui('DI_destroy_artifact').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_artifact', Artifact.MakeScope).End)]"
+					tooltip = DI_destroy_artifact_tt
+				}
+
+				button_round = {
+					name = "edit_desc"
+					size = { 50 50 }
+
+					button_icon_highlight = {
+						parentanchor = center
+						size = { 25 25 }
+						texture = "gfx/interface/icons/flat_icons/edit_text.dds"
+					}
+
+					onclick = "[GetScriptedGui('DI_edit_artifact_desc').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_artifact', Artifact.MakeScope).End)]"
+					tooltip = DI_edit_artifact_tt
+				}
+				
+				button_round = {
+					name = "details"
+					size = { 50 50 }
+
+					button_icon_highlight = {
+						parentanchor = center
+						position = { 0 -6 }
+						size = { 25 25 }
+						texture = "gfx/interface/icons/flat_icons/dots.dds"
+					}
+
+					onclick = "[ToggleGameViewData( 'artifact_details', Artifact.GetID )]"
+					tooltip = "ARTIFACT_DETAILS"
+				}
+
+				expand = {}
+			}
+		}
+	}
+
+	type DI_portrait_shoulders = widget {
+        size = { 125 160 }
+
+        widget = {
+            size = { 100% 100% }
+            block "portrait_glows"
+            {
+                using = Portrait_Background_Glows
+            }
+        }
+
+        portrait_button = {
+            parentanchor = bottom|hcenter
+            size = { 145 175 }
+            using = portrait_base
+            block "portrait_texture"
+            {
+                portrait_texture = "[Character.GetPortrait('environment_shoulders', 'camera_shoulders', 'idle', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+            }
+
+            mask = "gfx/portraits/portrait_mask_shoulders.dds"
+            effectname = "NoHighlight"
+
+            highlight_icon = {
+                name = "prison_bars"
+                visible = "[Character.IsImprisoned]"
+                size = { 100% 100% }
+                effectname = "NoHighlight"
+                texture = "gfx/portraits/portrait_prison_shoulders.dds"
+
+                modify_texture = {
+                    name = "mask"
+                    texture = "gfx/portraits/portrait_mask_shoulders.dds"
+                    spriteType = Corneredstretched
+                    blend_mode = alphamultiply
+                }
+            }
+
+            block "portrait_button" {}
+        }
+
+       
+
+        block "coa" {
+            coa_realm_small_crown = {
+                visible = "[Character.HasLandedTitles]"
+                parentanchor = bottom|left
+                position = { -5 3 }
+            }
+        }
+
+
+        #portrait unknown glow
+        button = {
+            position = { -8 -14 }
+            size = { 141 174 }
+            texture = "gfx/portraits/unknown_portraits/button_unknown_shoulders.dds"
+            framesize = { 471 589 }
+            gfxtype = framedbuttongfx
+            effectname = "NoHighlight"
+            upframe = 1
+            overframe = 2
+
+            block "glow_visible" {
+
+                visible = "[Not(Character.IsValid)]"
+
+            }
+
+            block "glow_flip" {}
+
+            block "onclick" {}
+        }
+    }
+}

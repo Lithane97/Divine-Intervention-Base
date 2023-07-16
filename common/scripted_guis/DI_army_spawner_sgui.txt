@@ -1,0 +1,2762 @@
+﻿### ARMY SPAWNING EFFECTS ###
+### Initialize
+DI_army_spawner_resources_sgui = {
+    scope = character
+    
+    effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_army_spawner_increment_value }
+			}
+			set_variable = {
+				name = DI_army_spawner_increment_value
+				value = 500
+			}
+		}
+	}
+}
+
+DI_army_spawner_add_increment = {
+	is_valid = {
+        	var:DI_army_spawner_increment_value < 100000
+    	}
+
+	effect = {
+		if = {
+			limit = {
+				var:DI_army_spawner_increment_value >= 50000
+			}
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						add = 10000
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					var:DI_army_spawner_increment_value < 50000
+					var:DI_army_spawner_increment_value >= 10000
+				}
+			}
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						add = 5000
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					var:DI_army_spawner_increment_value < 10000
+					var:DI_army_spawner_increment_value >= 5000
+				}
+			}
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						add = 1000
+			}
+		}
+		else = {
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						add = 500
+			}
+		}
+    }
+}
+
+DI_army_spawner_subtract_increment = {
+	is_valid = {
+        	var:DI_army_spawner_increment_value > 500
+    	}
+
+	effect = {
+		if = {
+			limit = {
+				var:DI_army_spawner_increment_value > 50000
+			}
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						subtract = 10000
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					var:DI_army_spawner_increment_value <= 50000
+					var:DI_army_spawner_increment_value > 10000
+				}
+			}
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						subtract = 5000
+			}
+		}
+		else_if = {
+			limit = {
+				AND = {
+					var:DI_army_spawner_increment_value <= 10000
+					var:DI_army_spawner_increment_value > 5000
+				}
+			}
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						subtract = 1000
+			}
+		}
+		else = {
+			change_variable = {
+				name = DI_army_spawner_increment_value
+						subtract = 500
+			}
+		}
+    }
+}
+
+
+### Marked Characters Basic
+DI_spawn_army_effect = {
+	scope = character
+
+	effect = {
+		spawn_army = {
+			
+			men_at_arms = {
+				type = light_footmen
+				men = scope:target.var:DI_increment_value
+		     }
+			 
+			location = root.location
+			
+			inheritable = no
+			
+			name = light_footmen
+		}
+	}
+}
+
+### BASIC MAA ###
+### Light Footmen Spawner
+DI_light_footmen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = light_footmen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = light_footmen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = light_footmen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = light_footmen
+			}
+		}
+	}
+}
+
+### Bowmen Spawner
+DI_bowmen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = bowmen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = bowmen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = bowmen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = bowmen
+			}
+		}
+	}
+}
+
+### Light Horsemen Spawner
+DI_light_horsemen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = light_horsemen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = light_horsemen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = light_horsemen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = light_horsemen
+			}
+		}
+	}
+}
+
+### Pikemen Spawner
+DI_pikemen_unit_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = pikemen_unit
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = pikemen_unit
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = pikemen_unit
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = pikemen_unit
+			}
+		}
+	}
+}
+
+### armored footmen Spawner
+DI_armored_footmen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = armored_footmen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = armored_footmen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = armored_footmen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = armored_footmen
+			}
+		}
+	}
+}
+
+### onager Spawner
+DI_onager_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = onager
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = onager
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = onager
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = onager
+			}
+		}
+	}
+}
+
+### armored horsemen Spawner
+DI_armored_horsemen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = armored_horsemen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = armored_horsemen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = armored_horsemen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = armored_horsemen
+			}
+		}
+	}
+}
+
+### mangonel Spawner
+DI_mangonel_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = mangonel
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = mangonel
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = mangonel
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = mangonel
+			}
+		}
+	}
+}
+
+### crossbowmen Spawner
+DI_crossbowmen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = crossbowmen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = crossbowmen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = crossbowmen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = crossbowmen
+			}
+		}
+	}
+}
+
+### trebuchet Spawner
+DI_trebuchet_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = trebuchet
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = trebuchet
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = trebuchet
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = trebuchet
+			}
+		}
+	}
+}
+
+### bombard Spawner
+DI_bombard_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = bombard
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = bombard
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = bombard
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = bombard
+			}
+		}
+	}
+}
+
+### house guard Spawner
+DI_house_guard_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = house_guard
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = house_guard
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = house_guard
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = house_guard
+			}
+		}
+	}
+}
+
+### CULTURAL ### 
+### Huscarl Spawner
+DI_huscarl_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = huscarl
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = huscarl
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = huscarl
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = huscarl
+			}
+		}
+	}
+}
+
+### Landsknecht Spawner
+DI_landsknecht_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = landsknecht
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = landsknecht
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = landsknecht
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = landsknecht
+			}
+		}
+	}
+}
+
+### Longbowmen Spawner
+DI_longbowmen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = longbowmen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = longbowmen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = longbowmen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = longbowmen
+			}
+		}
+	}
+}
+
+### goedendag Spawner
+DI_goedendag_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = goedendag
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = goedendag
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = goedendag
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = goedendag
+			}
+		}
+	}
+}
+
+### gendarme Spawner
+DI_gendarme_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = gendarme
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = gendarme
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = gendarme
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = gendarme
+			}
+		}
+	}
+}
+
+### chasseur Spawner
+DI_chasseur_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = chasseur
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = chasseur
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = chasseur
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = chasseur
+			}
+		}
+	}
+}
+
+### picchieri Spawner
+DI_picchieri_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = picchieri
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = picchieri
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = picchieri
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = picchieri
+			}
+		}
+	}
+}
+
+### praetorian Spawner
+DI_praetorian_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = praetorian
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = praetorian
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = praetorian
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = praetorian
+			}
+		}
+	}
+}
+
+### caballero Spawner
+DI_caballero_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = caballero
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = caballero
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = caballero
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = caballero
+			}
+		}
+	}
+}
+
+### monaspa Spawner
+DI_monaspa_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = monaspa
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = monaspa
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = monaspa
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = monaspa
+			}
+		}
+	}
+}
+
+### cataphract Spawner
+DI_cataphract_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = cataphract
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = cataphract
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = cataphract
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = cataphract
+			}
+		}
+	}
+}
+
+### hobelar Spawner
+DI_hobelar_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = hobelar
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = hobelar
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = hobelar
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = hobelar
+			}
+		}
+	}
+}
+
+### schiltron Spawner
+DI_schiltron_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = schiltron
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = schiltron
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = schiltron
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = schiltron
+			}
+		}
+	}
+}
+
+### metsanvartija Spawner
+DI_metsanvartija_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = metsanvartija
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = metsanvartija
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = metsanvartija
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = metsanvartija
+			}
+		}
+	}
+}
+
+### horse_archers Spawner
+DI_horse_archers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = horse_archers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = horse_archers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = horse_archers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = horse_archers
+			}
+		}
+	}
+}
+
+### ayyar Spawner
+DI_ayyar_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = ayyar
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = ayyar
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = ayyar
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = ayyar
+			}
+		}
+	}
+}
+
+### mubarizun Spawner
+DI_mubarizun_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = mubarizun
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = mubarizun
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = mubarizun
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = mubarizun
+			}
+		}
+	}
+}
+
+### mulaththamun Spawner
+DI_mulaththamun_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = mulaththamun
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = mulaththamun
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = mulaththamun
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = mulaththamun
+			}
+		}
+	}
+}
+
+### archers_of_the_nile Spawner
+DI_archers_of_the_nile_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = archers_of_the_nile
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = archers_of_the_nile
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = archers_of_the_nile
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = archers_of_the_nile
+			}
+		}
+	}
+}
+
+### paiks Spawner
+DI_paiks_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = paiks
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = paiks
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = paiks
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = paiks
+			}
+		}
+	}
+}
+
+### druzhina Spawner
+DI_druzhina_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = druzhina
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = druzhina
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = druzhina
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = druzhina
+			}
+		}
+	}
+}
+
+### hussar Spawner
+DI_hussar_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = hussar
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = hussar
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = hussar
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = hussar
+			}
+		}
+	}
+}
+
+### horn_warrior Spawner
+DI_horn_warrior_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = horn_warrior
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = horn_warrior
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = horn_warrior
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = horn_warrior
+			}
+		}
+	}
+}
+
+### bush_hunter Spawner
+DI_bush_hunter_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = bush_hunter
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = bush_hunter
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = bush_hunter
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = bush_hunter
+			}
+		}
+	}
+}
+
+### shomer Spawner
+DI_shomer_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = shomer
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = shomer
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = shomer
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = shomer
+			}
+		}
+	}
+}
+
+### garudas Spawner
+DI_garudas_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = garudas
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = garudas
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = garudas
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = garudas
+			}
+		}
+	}
+}
+
+### khandayat Spawner
+DI_khandayat_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = khandayat
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = khandayat
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = khandayat
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = khandayat
+			}
+		}
+	}
+}
+
+### mountaineer Spawner
+DI_mountaineer_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = mountaineer
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = mountaineer
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = mountaineer
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = mountaineer
+			}
+		}
+	}
+}
+
+### sahel_horsemen Spawner
+DI_sahel_horsemen_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = sahel_horsemen
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = sahel_horsemen
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = sahel_horsemen
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = sahel_horsemen
+			}
+		}
+	}
+}
+
+### guinea_warrior Spawner
+DI_guinea_warrior_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = guinea_warrior
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = guinea_warrior
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = guinea_warrior
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = guinea_warrior
+			}
+		}
+	}
+}
+
+### sarawit Spawner
+DI_sarawit_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = sarawit
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = sarawit
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = sarawit
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = sarawit
+			}
+		}
+	}
+}
+
+### abudrar Spawner
+DI_abudrar_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = abudrar
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = abudrar
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = abudrar
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = abudrar
+			}
+		}
+	}
+}
+
+### zbrojnosh Spawner
+DI_zbrojnosh_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = zbrojnosh
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = zbrojnosh
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = zbrojnosh
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = zbrojnosh
+			}
+		}
+	}
+}
+
+### palace_guards Spawner
+DI_palace_guards_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = palace_guards
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = palace_guards
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = palace_guards
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = palace_guards
+			}
+		}
+	}
+}
+
+### chu_ko_nu Spawner
+DI_chu_ko_nu_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = chu_ko_nu
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = chu_ko_nu
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = chu_ko_nu
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = chu_ko_nu
+			}
+		}
+	}
+}
+
+### guanch_vaulter Spawner
+DI_guanch_vaulter_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = guanch_vaulter
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = guanch_vaulter
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = guanch_vaulter
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = guanch_vaulter
+			}
+		}
+	}
+}
+
+### Accolade
+### accolade_maa_archers Spawner
+DI_accolade_maa_archers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_archers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_archers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_archers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_archers
+			}
+		}
+	}
+}
+
+### accolade_maa_skirmishers Spawner
+DI_accolade_maa_skirmishers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_skirmishers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_skirmishers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_skirmishers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_skirmishers
+			}
+		}
+	}
+}
+
+### accolade_maa_pikes Spawner
+DI_accolade_maa_pikes_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_pikes
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_pikes
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_pikes
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_pikes
+			}
+		}
+	}
+}
+
+### accolade_maa_outriders Spawner
+DI_accolade_maa_outriders_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_outriders
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_outriders
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_outriders
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_outriders
+			}
+		}
+	}
+}
+
+### accolade_maa_vanguards Spawner
+DI_accolade_maa_vanguards_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_vanguards
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_vanguards
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_vanguards
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_vanguards
+			}
+		}
+	}
+}
+
+### accolade_maa_lancers Spawner
+DI_accolade_maa_lancers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_lancers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_lancers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_lancers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_lancers
+			}
+		}
+	}
+}
+
+### accolade_maa_crossbowers Spawner
+DI_accolade_maa_crossbowers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_crossbowers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_crossbowers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_crossbowers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_crossbowers
+			}
+		}
+	}
+}
+
+### accolade_maa_cameliers Spawner
+DI_accolade_maa_cameliers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_cameliers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_cameliers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_cameliers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_cameliers
+			}
+		}
+	}
+}
+
+### accolade_maa_elephantiers Spawner
+DI_accolade_maa_elephantiers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_elephantiers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_elephantiers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_elephantiers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_elephantiers
+			}
+		}
+	}
+}
+
+### accolade_maa_horse_archers Spawner
+DI_accolade_maa_horse_archers_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = accolade_maa_horse_archers
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = accolade_maa_horse_archers
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = accolade_maa_horse_archers
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = accolade_maa_horse_archers
+			}
+		}
+	}
+}
+
+### Other
+### camel_rider Spawner
+DI_camel_rider_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = camel_rider
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = camel_rider
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = camel_rider
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = camel_rider
+			}
+		}
+	}
+}
+
+### war_elephant Spawner
+DI_war_elephant_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = war_elephant
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = war_elephant
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = war_elephant
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = war_elephant
+			}
+		}
+	}
+}
+
+### teutonic_knights Spawner
+DI_teutonic_knights_effect = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				spawn_army = {
+					men_at_arms = {
+						type = teutonic_knights
+						men = scope:target.var:DI_army_spawner_increment_value
+					}
+					
+					location = root.location
+					
+					inheritable = no
+					
+					name = teutonic_knights
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				
+				men_at_arms = {
+					type = teutonic_knights
+					men = scope:target.var:DI_army_spawner_increment_value
+				}
+				
+				location = root.location
+				
+				inheritable = no
+				
+				name = teutonic_knights
+			}
+		}
+	}
+}

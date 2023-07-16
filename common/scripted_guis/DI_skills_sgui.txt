@@ -1,0 +1,804 @@
+﻿DI_skills_sgui = {
+    scope = character
+    
+    effect = {
+        if = {
+			limit = {
+				NOT = { has_variable = DI_diplomacy_value }
+			}
+			hidden_effect = {
+				set_variable = {
+					name = DI_diplomacy_value
+					value = 10
+				}
+				set_variable = {
+					name = DI_martial_value
+					value = 10
+				}
+				set_variable = {
+					name = DI_stewardship_value
+					value = 10
+				}
+				set_variable = {
+					name = DI_intrigue_value
+					value = 10
+				}
+				set_variable = {
+					name = DI_learning_value
+					value = 10
+				}
+				set_variable = {
+					name = DI_prowess_value
+					value = 10
+				}
+			}
+		}
+    }
+}
+
+DI_remove_1_dip = {
+    scope = character
+    
+    is_valid = {
+        var:DI_diplomacy_value > 1
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_diplomacy_value
+            subtract = 1
+        }
+    }
+
+}
+
+DI_add_1_dip = {
+    scope = character
+    
+    is_valid = {
+        var:DI_diplomacy_value < 100
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_diplomacy_value
+            add = 1
+        }
+    }
+
+}
+
+DI_remove_1_mar = {
+    scope = character
+    
+    is_valid = {
+        var:DI_martial_value > 1
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_martial_value
+            subtract = 1
+        }
+    }
+
+}
+
+DI_add_1_mar = {
+    scope = character
+    
+    is_valid = {
+        var:DI_martial_value < 100
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_martial_value
+            add = 1
+        }
+    }
+
+}
+
+DI_remove_1_ste = {
+    scope = character
+    
+    is_valid = {
+        var:DI_stewardship_value > 1
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_stewardship_value
+            subtract = 1
+        }
+    }
+
+}
+
+DI_add_1_ste = {
+    scope = character
+    
+    is_valid = {
+        var:DI_stewardship_value < 100
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_stewardship_value
+            add = 1
+        }
+    }
+
+}
+
+DI_remove_1_int = {
+    scope = character
+    
+    is_valid = {
+        var:DI_intrigue_value > 1
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_intrigue_value
+            subtract = 1
+        }
+    }
+
+}
+
+DI_add_1_int = {
+    scope = character
+    
+    is_valid = {
+        var:DI_intrigue_value < 100
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_intrigue_value
+            add = 1
+        }
+    }
+
+}
+
+DI_remove_1_ler = {
+    scope = character
+    
+    is_valid = {
+        var:DI_learning_value > 1
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_learning_value
+            subtract = 1
+        }
+    }
+
+}
+
+DI_add_1_ler = {
+    scope = character
+    
+    is_valid = {
+        var:DI_learning_value < 100
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_learning_value
+            add = 1
+        }
+    }
+
+}
+
+DI_remove_1_pro = {
+    scope = character
+    
+    is_valid = {
+        var:DI_prowess_value > 1
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_prowess_value
+            subtract = 1
+        }
+    }
+
+}
+
+DI_add_1_pro = {
+    scope = character
+    
+    is_valid = {
+        var:DI_prowess_value < 100
+    }
+    
+    effect = {
+        change_variable = {
+            name = DI_prowess_value
+            add = 1
+        }
+    }
+
+}
+
+DI_add_diplomacy = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_diplomacy_skill = root.var:DI_diplomacy_value
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_diplomacy_skill = root.var:DI_diplomacy_value
+			}
+		}
+	}
+}
+
+DI_remove_diplomacy = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_diplomacy_skill = {
+						value = root.var:DI_diplomacy_value
+						multiply = -1
+					}
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_diplomacy_skill = {
+					value = root.var:DI_diplomacy_value
+					multiply = -1
+				}
+			}
+		}
+	}
+}
+
+DI_add_martial = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_martial_skill = root.var:DI_martial_value
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_martial_skill = root.var:DI_martial_value
+			}
+		}
+	}
+}
+
+DI_remove_martial = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_martial_skill = {
+						value = root.var:DI_martial_value
+						multiply = -1
+						
+					}
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_martial_skill = {
+					value = root.var:DI_martial_value
+					multiply = -1
+					
+				}
+			}
+		}
+	}
+}
+
+DI_add_stewardship = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_stewardship_skill = root.var:DI_stewardship_value
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_stewardship_skill = root.var:DI_stewardship_value
+			}
+		}
+	}
+}
+
+DI_remove_stewardship = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_stewardship_skill = {
+						value = root.var:DI_stewardship_value
+						multiply = -1
+						
+					}
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_stewardship_skill = {
+					value = root.var:DI_stewardship_value
+					multiply = -1
+					
+				}
+			}
+		}
+	}
+}
+
+DI_add_intrigue = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_intrigue_skill = root.var:DI_intrigue_value
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_intrigue_skill = root.var:DI_intrigue_value
+			}
+		}
+	}
+}
+
+DI_remove_intrigue = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_intrigue_skill = {
+						value = root.var:DI_intrigue_value
+						multiply = -1
+						
+					}
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_intrigue_skill = {
+					value = root.var:DI_intrigue_value
+					multiply = -1
+					
+				}
+			}
+		}
+	}
+}
+
+DI_add_learning = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_learning_skill = root.var:DI_learning_value
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_learning_skill = root.var:DI_learning_value
+			}
+		}
+	}
+}
+
+DI_remove_learning = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_learning_skill = {
+						value = root.var:DI_learning_value
+						multiply = -1
+						
+					}
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_learning_skill = {
+					value = root.var:DI_learning_value
+					multiply = -1
+					
+				}
+			}
+		}
+	}
+}
+
+DI_add_prowess = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_prowess_skill = root.var:DI_prowess_value
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_prowess_skill = root.var:DI_prowess_value
+			}
+		}
+	}
+}
+
+DI_remove_prowess = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_prowess_skill = {
+						value = root.var:DI_prowess_value
+						multiply = -1
+						
+					}
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_prowess_skill = {
+					value = root.var:DI_prowess_value
+					multiply = -1
+					
+				}
+			}
+		}
+	}
+}
+
+DI_add_diplomacy_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_diplomacy_lifestyle_perk_points = 1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_diplomacy_lifestyle_perk_points = 1
+			}
+		}
+	}
+}
+
+DI_remove_diplomacy_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_diplomacy_lifestyle_perk_points = -1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_diplomacy_lifestyle_perk_points = -1
+			}
+		}
+	}
+}
+
+DI_add_martial_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_martial_lifestyle_perk_points = 1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_martial_lifestyle_perk_points = 1
+			}
+		}
+	}
+}
+
+DI_remove_martial_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_martial_lifestyle_perk_points = -1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_martial_lifestyle_perk_points = -1
+			}
+		}
+	}
+}
+
+DI_add_stewardship_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_stewardship_lifestyle_perk_points = 1
+				}
+			}
+		}
+		else ={
+			hidden_effect = {
+				add_stewardship_lifestyle_perk_points = 1
+			}
+		}
+	}
+}
+
+DI_remove_stewardship_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_stewardship_lifestyle_perk_points = -1
+				}
+			}
+		}
+		else ={
+			hidden_effect = {
+				add_stewardship_lifestyle_perk_points = -1
+			}
+		}
+	}
+}
+
+DI_add_intrigue_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_intrigue_lifestyle_perk_points = 1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_intrigue_lifestyle_perk_points = 1
+			}
+		}
+	}
+}
+
+DI_remove_intrigue_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_intrigue_lifestyle_perk_points = -1
+				}
+			}
+		}
+		else ={
+			hidden_effect = {
+				add_intrigue_lifestyle_perk_points = -1
+			}
+		}
+	}
+}
+
+DI_add_learning_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_learning_lifestyle_perk_points = 1
+				}
+			}
+		}
+		else ={
+			hidden_effect = {
+				add_learning_lifestyle_perk_points = 1
+			}
+		}
+	}
+}
+
+DI_remove_learning_pp = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_learning_lifestyle_perk_points = -1
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_learning_lifestyle_perk_points = -1
+			}
+		}
+	}
+}
+

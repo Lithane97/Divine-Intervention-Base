@@ -1,0 +1,1232 @@
+﻿window = {
+	name = "DI_char_spawner_window"
+	parentanchor = top|right
+	position = { -50 115 }
+	size = { 150 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_char_spawner_window_visible')]"
+    
+    datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		margin_left = 40
+		margin_right = 40
+		margin_top = 20
+		margin_bottom = 20
+		ignoreinvisible = yes
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_char_spawner
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_char_spawner_window_visible')]"
+			}
+		}
+		
+		widget = {
+			size = { 450 80 }
+
+			widget = {
+				size = { 450 60 }
+			
+				widget = {
+				
+					size = { 450 60 }
+					position = { -169 -20 }
+					
+					button_checkbox_label = {
+						max_width = 150
+						
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetScriptedGui('DI_char_spawner_immortal_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						parentanchor = center
+						
+						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetPlayer.MakeScope.Var('DI_char_spawner_immortal').IsSet]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_char_spawner_immortal
+						}
+					}
+				}
+			}
+
+			widget = {
+				size = { 450 100 }
+			
+				widget = {
+				
+					size = { 450 60 }
+					position = { -156 10 }
+					
+					button_checkbox_label = {
+						max_width = 150
+						
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetScriptedGui('DI_char_spawner_100_stat_man_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						parentanchor = center
+						
+						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetPlayer.MakeScope.Var('DI_char_spawner_100_stat_man').IsSet]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_char_spawner_100_stat_man
+						}
+					}
+				}
+			}
+
+			widget = {
+				size = { 450 150 }
+				widget = {
+		
+					size = { 450 60 }
+					position = { -160 40 }
+					
+					button_checkbox_label = {
+						max_width = 150
+						
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetScriptedGui('DI_char_spawner_good_traits_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						parentanchor = center
+						
+						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetPlayer.MakeScope.Var('DI_char_spawner_good_traits').IsSet]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_char_spawner_good_traits
+						}
+					}
+				}
+			}
+			
+			vbox = {
+				hbox = {
+					spacing = 5
+					margin = { 10 0 }
+					margin_bottom = 5		
+
+					button_round = {
+						size = { 28 28 }
+						enabled = "[GetScriptedGui('DI_char_spawner_count_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('DI_char_spawner_count_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						button_minus_small = {
+							name = "decrease_skill"
+							parentanchor = center
+							alwaystransparent = yes
+						}
+					}
+
+					text_label_center = {
+						name = "increment"
+						size = { 30 30 }
+						
+						text = DI_char_spawner_count_increment
+						tooltip = DI_char_spawner_count_increment_tt
+						default_format = "#low"
+					}
+
+					button_round = {
+						size = { 28 28 }
+						enabled = "[GetScriptedGui('DI_char_spawner_count_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('DI_char_spawner_count_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						button_plus_small = {
+							name = "decrease_skill"
+							parentanchor = center
+							alwaystransparent = yes
+						}
+					}					
+				}
+				hbox = {
+					spacing = 5
+					margin = { 10 0 }
+					margin_bottom = 5		
+
+					button_round = {
+						size = { 28 28 }
+						enabled = "[GetScriptedGui('DI_char_spawner_age_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('DI_char_spawner_age_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						button_minus_small = {
+							name = "decrease_skill"
+							parentanchor = center
+							alwaystransparent = yes
+						}
+					}
+
+					text_label_center = {
+						name = "increment"
+						size = { 30 30 }
+						
+						text = DI_char_spawner_age_increment
+						tooltip = DI_char_spawner_age_increment_tt
+						default_format = "#low"
+					}
+
+					button_round = {
+						size = { 28 28 }
+						enabled = "[GetScriptedGui('DI_char_spawner_age_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						onclick = "[GetScriptedGui('DI_char_spawner_age_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+						button_plus_small = {
+							name = "decrease_skill"
+							parentanchor = center
+							alwaystransparent = yes
+						}
+					}					
+				}
+            }
+			widget = {
+				size = { 450 60 }
+			
+				widget = {
+				
+					size = { 450 60 }
+					position = { 154 -15 }
+					
+					button_checkbox_label = {
+						max_width = 150
+						
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetScriptedGui('DI_char_spawner_female_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						parentanchor = center
+						
+						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetPlayer.MakeScope.Var('DI_char_spawner_female').IsSet]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_char_spawner_female
+						}
+					}
+				}
+			}
+
+			widget = {
+				size = { 450 60 }
+			
+				widget = {
+				
+					size = { 450 60 }
+					position = { 156 15 }
+					
+					button_checkbox_label = {
+						max_width = 150
+						
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetScriptedGui('DI_marked_char_var_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						parentanchor = center
+						
+						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetPlayer.MakeScope.Var('DI_marked_char_var').IsSet]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_marked_char_var
+						}
+					}
+				}
+			}
+		}
+
+		widget = {
+			size = { 450 540 }
+				
+			widget = {
+				size = { 450 110 }
+				
+				vbox = {
+					spacing = 5
+					
+					hbox = {
+						spacing = 5
+						ignoreinvisible = yes
+						
+						button_standard = {
+							name = "family_char_spawner_button"
+							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
+							onclick = "[GetVariableSystem.Set('show_char_spawner', 'family')]"
+							text = DI_family_char_spawner
+							tooltip = DI_family_char_spawner_tt
+							using = tooltip_ne
+						
+						}
+						
+						button_standard = {
+							name = "councillors_char_spawner_button"
+							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
+							onclick = "[GetVariableSystem.Set('show_char_spawner', 'councillors')]"
+							text = DI_councillors_char_spawner
+							tooltip = DI_councillors_char_spawner_tt
+							using = tooltip_ne
+						
+						}						
+
+						button_standard = {
+							name = "court_char_spawner_button"
+							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
+							onclick = "[GetVariableSystem.Set('show_char_spawner', 'court')]"
+							text = DI_court_char_spawner
+							tooltip = DI_court_char_spawner_tt
+							using = tooltip_ne
+						
+						}
+					}
+				}
+			}
+			
+			widget = {
+				size = { 450 540 }
+				layoutpolicy_vertical = expanding
+			
+				widget = {
+					size = { 450 600 }
+					vbox = {
+						name = "char_spawner_selection_panel"
+						layoutpolicy_vertical = expanding
+						
+						### FAMILY SPAWNER PANEL ###
+						vbox = {
+							name = "family_char_spawner_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_char_spawner', 'family' )]"
+							flowcontainer = {
+								spacing = 5
+								margin_bottom = 0
+								ignoreinvisible = yes
+
+								button_standard = {
+									layoutpolicy_horizontal = expanding
+									size = { 115 30 }
+									text = "DI_child"
+									onclick = "[GetScriptedGui('DI_child').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									tooltip = "DI_child_tt"
+								}		
+								button_standard = {
+									layoutpolicy_horizontal = expanding
+									size = { 115 30 }
+									text = "DI_sibling"
+									onclick = "[GetScriptedGui('DI_sibling').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									tooltip = "DI_sibling_tt"
+								}		
+							}
+
+							widget = {
+								name = "filler"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 350 100% }
+								size = { 350 400 }
+							}
+						}
+
+						### COUNCILLORS SPAWNER PANEL ###
+						vbox = {	
+							name = "councillors_char_spawner_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_char_spawner', 'councillors' )]"
+
+							scrollbox = {
+								name = "char_spawner_councillor_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 350 100% }
+								size = { 350 400 }
+
+								blockoverride "scrollbox_content" {
+									button_standard_hover = {
+										name = char_spawner_marshal_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_martial_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/marshal_job.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_martial_councillor
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									
+									button_standard_hover = {
+										name = char_spawner_diplomat_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_diplomacy_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/chancellor_job.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_diplomacy_councillor
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = char_spawner_steward_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_stewardship_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/steward_job.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_stewardship_councillor
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = char_spawner_spymaster_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_intrigue_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/spy_master.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_intrigue_councillor
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = char_spawner_chaplain_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_learning_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/religious_councillor_job.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_learning_councillor
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = char_spawner_knight_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_knight').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/icon_knight.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_knight
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = char_spawner_commander_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_commander').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/mercenary.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_commander
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+								}
+							}
+						}
+
+						### COURT SPAWNER PANEL ###
+						vbox = {
+							name = "court_char_spawner_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_char_spawner', 'court' )]"
+
+							flowcontainer = {
+								spacing = 5
+								margin_bottom = 0
+								ignoreinvisible = yes
+
+								button_standard = {
+									layoutpolicy_horizontal = expanding
+									size = { 100 30 }
+									text = "DI_normal_courtier"
+									onclick = "[GetScriptedGui('DI_normal_courtier').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									tooltip = "DI_normal_courtier_tt"
+								}		
+
+								button_standard = {
+									layoutpolicy_horizontal = expanding
+									size = { 100 30 }
+									text = "DI_op_courtier"
+									onclick = "[GetScriptedGui('DI_op_courtier').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									tooltip = "DI_op_courtier_tt"
+								}	
+								button_standard = {
+									layoutpolicy_horizontal = expanding
+									size = { 100 30 }
+									text = "DI_low_normal_courtier"
+									onclick = "[GetScriptedGui('DI_low_normal_courtier').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									tooltip = "DI_low_normal_courtier_tt"
+								}	
+								button_standard = {
+									layoutpolicy_horizontal = expanding
+									size = { 100 30 }
+									text = "DI_low_op_courtier"
+									onclick = "[GetScriptedGui('DI_low_op_courtier').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									tooltip = "DI_low_op_courtier_tt"
+								}	
+							}
+
+							scrollbox = {
+								name = "char_spawner_court_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 350 100% }
+								size = { 350 400 }
+
+								blockoverride "scrollbox_content" {
+									button_standard_hover = {
+										name = char_spawner_court_physician_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_physician').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/court_physician.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_physician
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+																
+									button_standard_hover = {
+										name = char_spawner_court_cultural_emissary_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_cultural_emissary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"		
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/memory_types/diplomacy.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_cultural_emissary
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_keeper_of_swans_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_keeper_of_swans').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"									
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/council_task_types/task_foreign_affairs.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_keeper_of_swans
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_chief_qadi_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_chief_qadi').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"									
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/council_task_types/task_conversion.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_chief_qadi
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_garuda_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_garuda').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/icon_knight.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_garuda
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_gardener_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_gardener').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/gardener.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_gardener
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_lady_in_waiting_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										visible = "[GetVariableSystem.Exists('DI_char_spawner_female')]"
+										onclick = "[GetScriptedGui('DI_court_lady_in_waiting').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/flat_icons/female.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_lady_in_waiting
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_chief_eunuch_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										visible = "[Not(GetVariableSystem.Exists('DI_char_spawner_female'))]"
+										onclick = "[GetScriptedGui('DI_court_eunuch').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/eunuch.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_chief_eunuch
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_antiquarian_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_antiquarian').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/character_interactions/artifact.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_antiquarian
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_tutor_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_tutor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/learning.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_tutor
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_food_taster_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_food_taster').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/event_types/type_feast.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_food_taster
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_master_of_horse_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_master_of_horse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/athletic.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_master_of_horse
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_master_of_hunt_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_master_of_hunt').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/hunter.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_master_of_hunt
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_royal_architect_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_royal_architect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/architect.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_royal_architect
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_high_almoner_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_high_almoner').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/council_task_types/task_conversion.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_high_almoner
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_seneschal_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_seneschal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/message_feed/diplomacy.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_seneschal
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_cupbearer_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_cupbearer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/trait_level_tracks/lifestyle_reveler.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_cupbearer
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_jester_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_jester').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/culture_tradition/4-items/board_gamers.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_jester
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_poet_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_poet').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/poet.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_poet
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_musician_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_musician').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/culture_tradition/4-items/musician.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_musician
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_bodyguard_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_bodyguard').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/illustrations/men_at_arms_small/house_guard.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_bodyguard
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_champion_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_champion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/traits/education_martial_prowess_base.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_champion
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_executioner_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_executioner').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/flat_icons/prison_execute.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_executioner
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									button_standard_hover = {
+										name = char_spawner_court_artificer_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_court_artificer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 35 35 }
+												texture = "gfx/interface/icons/character_interactions/artifact.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_court_artificer
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+    }
+}

@@ -1,0 +1,3469 @@
+
+
+### Character Editor Present Window ###
+
+
+window = {
+	name = "DI_char_editor_present_window"
+	parentanchor = right|vcenter
+	position = { -100 50 }
+	size = { 150 0 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	using = Window_Background
+	using = Window_Decoration
+	alwaystransparent = no
+	
+	movable = yes
+	
+	visible = "[GetVariableSystem.Exists('DI_char_editor_present_window_visible')]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		margin_left = 40
+		margin_right = 40
+		margin_top = 20
+		margin_bottom = 20
+		ignoreinvisible = yes
+		restrictparent_min = yes
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+			
+			blockoverride "header_text"
+			{
+				text = DI_char_editor_present
+			}
+			
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_char_editor_present_window_visible')]"
+				onclick = "[GetVariableSystem.Clear('show_present')]"
+			}
+		}
+		
+		widget = {
+			size = { 460 500 }
+			
+			widget = {
+				size = { 460 30 }
+				
+				vbox = {
+					spacing = 5
+
+					hbox = {
+						spacing = 5
+						ignoreinvisible = yes
+						
+						button_standard = {
+							name = "lifestyle_button"
+							size = { 75 30 }
+							layoutpolicy_horizontal = expanding
+							onclick = "[GetVariableSystem.Set('show_present', 'lifestyle')]"
+							button_ignore = none
+							text = DI_present_lifestyle
+							tooltip = DI_present_lifestyle_TT
+							using = tooltip_ne
+						}
+
+						button_standard = {
+							name = "health_button"
+							size = { 75 30 }
+							layoutpolicy_horizontal = expanding
+							onclick = "[GetVariableSystem.Set('show_present', 'health')]"
+							button_ignore = none
+							text = DI_present_health
+							tooltip = DI_present_health_TT
+							using = tooltip_ne
+						}
+
+						button_standard = {
+							name = "traits_button"
+							size = { 65 30 }
+							layoutpolicy_horizontal = expanding
+							onclick = "[GetVariableSystem.Set('show_present', 'traits')]"
+							button_ignore = none
+							text = DI_present_traits
+							tooltip = DI_present_traits_TT
+							using = tooltip_ne
+						}
+
+						button_standard = {
+							name = "innovation_button"
+							size = { 85 30 }
+							layoutpolicy_horizontal = expanding
+							onclick = "[GetVariableSystem.Set('show_present', 'innovation')]"
+							onclick = "[GetVariableSystem.Set('show_innovation', 'mass')]"
+							button_ignore = none
+							text = DI_present_innovation
+							tooltip = DI_present_innovation_TT
+							using = tooltip_ne
+						}
+					}
+				}
+			}
+
+			widget = {
+				size = { 460 500 }
+				layoutpolicy_vertical = expanding
+
+				widget = {
+					size = { 460 530 }
+					vbox = {
+						name = "present_selection_panel"
+						layoutpolicy_vertical = expanding
+
+						#Present Lifestyle Selection Panel
+						vbox = {	
+							name = "present_lifestyle_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_present', 'lifestyle' )]"
+
+							scrollbox = {
+								name = "present_lifestyle_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 320 100% }
+								size = { 320 400 }
+
+								blockoverride "scrollbox_content" {
+									button_standard_hover = {
+										name = present_lifestyle_all_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_add_lifestyle_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_remove_lifestyle_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_lifestyle_all_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 160 160 }
+												frame = "1"
+												texture = "gfx/interface/icons/event_types/type_majesty.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_add_lifestyle_all											
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									
+									button_standard_hover = {
+										name = present_lifestyle_martial_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_add_lifestyle_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_remove_lifestyle_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_lifestyle_martial_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 160 160 }
+												frame = "1"
+												texture = "gfx/interface/icons/lifestyles/martial_lifestyle.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_lifestyle_martial
+												default_format = "#clickable"
+											}
+										}
+									} 
+
+									button_standard_hover = {
+										name = present_lifestyle_diplomacy_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_add_lifestyle_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_remove_lifestyle_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_lifestyle_diplomacy_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 160 160 }
+												frame = "1"
+												texture = "gfx/interface/icons/lifestyles/diplomacy_lifestyle.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_lifestyle_diplomacy
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = present_lifestyle_stewardship_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_add_lifestyle_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_remove_lifestyle_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_lifestyle_stewardship_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 160 160 }
+												frame = "1"
+												texture = "gfx/interface/icons/lifestyles/stewardship_lifestyle.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_lifestyle_stewardship
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = present_lifestyle_intrigue_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_add_lifestyle_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_remove_lifestyle_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_lifestyle_intrigue_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 160 160 }
+												frame = "1"
+												texture = "gfx/interface/icons/lifestyles/intrigue_lifestyle.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_lifestyle_intrigue
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+
+									button_standard_hover = {
+										name = present_lifestyle_learning_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_add_lifestyle_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_remove_lifestyle_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_lifestyle_learning_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 160 160 }
+												frame = "1"
+												texture = "gfx/interface/icons/lifestyles/learning_lifestyle.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_lifestyle_learning
+												default_format = "#clickable"
+											}
+											
+										}
+									} 
+								}
+							}
+						}
+
+						#Present Health Selection Panel
+						vbox = {
+							name = "present_health_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_present', 'health' )]"
+
+							scrollbox = {
+								name = "present_health_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 300 100% }
+								size = { 300 400 }
+
+								blockoverride "scrollbox_content" {
+									#Eliminate Health Issues
+									button_standard_hover = {
+										name = present_health_eliminate_issues_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_health_eliminate_issues').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+										tooltip = DI_present_health_eliminate_issues_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 60 60 }
+												frame = "1"
+												texture = "gfx/interface/icons/character_status/icon_health.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_health_eliminate_issues
+												default_format = "#clickable"
+											}
+
+										}
+									}
+
+									#Present Health Good Genes
+									button_standard_hover = {
+										name = present_health_good_genes_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_health_add_good_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_health_remove_good_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_health_good_genes_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 60 60 }
+												frame = "1"
+												texture = "gfx/interface/icons/character_status/icon_health.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_health_good_genes
+												default_format = "#clickable"
+											}
+
+										}
+									}
+
+									#Present Health Bad Genes
+									button_standard_hover = {
+										name = present_health_bad_genes_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_health_add_bad_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_health_remove_bad_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_health_bad_genes_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												framesize = { 60 60 }
+												frame = "3"
+												texture = "gfx/interface/icons/character_status/icon_health.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_health_bad_genes
+												default_format = "#clickable"
+											}
+
+										}
+									}
+
+									#Present Health No Stress Change
+									button_standard_hover = {
+										name = present_health_no_stress_change_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_health_add_no_stress_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_health_remove_no_stress_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_health_no_stress_change_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/stress/icon_stress.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_health_no_stress_change
+												default_format = "#clickable"
+											}
+
+										}
+									}
+
+									#Present Health No Tyranny Change
+									button_standard_hover = {
+										name = present_health_no_tyranny_change_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_health_add_no_tyranny_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_health_remove_no_tyranny_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_health_no_tyranny_change_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/icon_tyranny.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_health_no_tyranny_change
+												default_format = "#clickable"
+											}
+
+										}
+									}
+
+									#Present Health No Dread Change
+									button_standard_hover = {
+										name = present_health_no_dread_change_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_health_add_no_dread_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_health_remove_no_dread_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_health_no_dread_change_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/icon_dread.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_health_no_dread_change
+												default_format = "#clickable"
+											}
+
+										}
+									}
+								}
+							}
+						}
+
+						#Present Traits Selection Panel
+						vbox = {
+							name = "present_traits_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_present', 'traits' )]"
+
+							scrollbox = {
+								name = "present_traits_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 300 100% }
+								size = { 300 400 }
+
+								blockoverride "scrollbox_content" {
+									#Present Traits Randomize
+									button_standard_hover = {
+										name = present_traits_randomize_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_traits_randomize').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_traits_randomize_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/message_feed/trait.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_traits_randomize
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Traits Special
+									button_standard_hover = {
+										name = present_traits_special_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_traits_add_special').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_traits_remove_special').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_traits_special_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/traits/100_stat_man.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_traits_special
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Traits Commander
+									button_standard_hover = {
+										name = present_traits_commander_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_traits_add_commander').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_traits_remove_commander').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_traits_commander_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/icon_commander.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_traits_commander
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Traits Giant
+									button_standard_hover = {
+										name = present_traits_giant_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_traits_add_giant').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_traits_remove_giant').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_traits_giant_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/traits/giant.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_traits_giant
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Traits Midget
+									button_standard_hover = {
+										name = present_traits_midget_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_traits_add_midget').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_traits_remove_midget').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_traits_midget_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/traits/dwarf.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_traits_midget
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									
+									#Present Traits Ghostly
+									button_standard_hover = {
+										name = present_traits_ghostly_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_traits_add_ghostly').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										onrightclick = "[GetScriptedGui('DI_present_traits_remove_ghostly').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_traits_ghostly_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/traits/albino.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_traits_ghostly
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+								}
+							}
+						}
+
+						#Present Innovation Selection Panel
+						vbox = {
+							name = "present_innovation_selection_panel"
+							spacing = 5
+							visible = "[GetVariableSystem.HasValue( 'show_present', 'innovation' )]"
+
+							flowcontainer = {
+								spacing = 5
+								margin_bottom = 0
+								ignoreinvisible = yes
+
+								#Present Innovation Mass
+								button_standard = {
+									size = { 85 30 }
+									name = "present_innovation_mass_button"
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetVariableSystem.Set( 'show_innovation', 'mass' )]"
+									button_ignore = none
+									text = DI_present_innovation_mass
+									tooltip = DI_present_innovation_mass_TT
+									using = tooltip_ne
+								}
+
+								#Present Innovation Select Tribal
+								button_standard = {
+									size = { 70 30 }
+									name = "present_innovation_select_tribal_button"
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetVariableSystem.Set( 'show_innovation', 'select_tribal' )]"
+									button_ignore = none
+									text = DI_present_innovation_select_tribal
+									tooltip = DI_present_innovation_select_tribal_TT
+									using = tooltip_ne
+								}
+
+								#Present Innovation Select Early Medival
+								button_standard = {
+									size = { 70 30 }
+									name = "present_innovation_select_early_medival_button"
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetVariableSystem.Set( 'show_innovation', 'select_early_medival' )]"
+									button_ignore = none
+									text = DI_present_innovation_select_early_medival
+									tooltip = DI_present_innovation_select_early_medival_TT
+									using = tooltip_ne
+								}
+
+								#Present Innovation Select High Medival
+								button_standard = {
+									size = { 70 30 }
+									name = "present_innovation_select_high_medival_button"
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetVariableSystem.Set( 'show_innovation', 'select_high_medival' )]"
+									button_ignore = none
+									text = DI_present_innovation_select_high_medival
+									tooltip = DI_present_innovation_select_high_medival_TT
+									using = tooltip_ne
+								}
+
+								#Present Innovation Select Late Medival
+								button_standard = {
+									size = { 70 30 }
+									name = "present_innovation_select_late_medival_button"
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetVariableSystem.Set( 'show_innovation', 'select_late_medival' )]"
+									button_ignore = none
+									text = DI_present_innovation_select_late_medival
+									tooltip = DI_present_innovation_select_late_medival_TT
+									using = tooltip_ne
+								}
+							}
+
+							#Present Innovation Mass Scrollbox
+							scrollbox = {
+								name = "present_innovation_mass_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 300 100% }
+								size = { 360 380 }
+
+								visible = "[GetVariableSystem.HasValue( 'show_innovation', 'mass' )]"
+
+								blockoverride "scrollbox_content" {
+									#Present Innovation Regional Tribal
+									button_standard_hover = {
+										name = present_innovation_regional_tribal_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_regional_tribal').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_regional_tribal_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_00.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_regional_tribal
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Tribal
+									button_standard_hover = {
+										name = present_innovation_tribal_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_tribal').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_tribal_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_00.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_tribal
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Regional Early
+									button_standard_hover = {
+										name = present_innovation_regional_early_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_regional_early').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_regional_early_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_regional_early
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Early
+									button_standard_hover = {
+										name = present_innovation_early_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_early').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_early_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_early
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Regional High
+									button_standard_hover = {
+										name = present_innovation_regional_high_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_regional_high').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_regional_high_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_03.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_regional_high
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation High
+									button_standard_hover = {
+										name = present_innovation_high_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_high').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_high_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_03.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_high
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Regional Late
+									button_standard_hover = {
+										name = present_innovation_regional_late_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_regional_late').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_regional_late_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_05.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_regional_late
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Late
+									button_standard_hover = {
+										name = present_innovation_late_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_late').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_innovation_late_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/currencies/icon_dynasty_prestige_05.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_innovation_late
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+								}
+							}
+
+							#Present Innovation Select Tribal Scrollbox
+							scrollbox = {
+								name = present_innovation_select_tribal_scrollbox
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 360 380 }
+								
+								visible = "[GetVariableSystem.HasValue('show_innovation', 'select_tribal')]"
+
+								blockoverride "scrollbox_content" {
+									#Present Innovation Motte
+									button_standard_hover = {
+										name = present_innovation_motte_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_motte').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_motte
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Catapult
+									button_standard_hover = {
+										name = present_innovation_catapult_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_catapult').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_siege_weapons.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_catapult
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Barracks
+									button_standard_hover = {
+										name = present_innovation_barracks_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_barracks').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_levy_building.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_barracks
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Mustering Grounds
+									button_standard_hover = {
+										name = present_innovation_mustering_grounds_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_mustering_grounds').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_02.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_mustering_grounds
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Bannus
+									button_standard_hover = {
+										name = present_innovation_bannus_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_bannus').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_raised_banner.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_bannus
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Quilted Armor
+									button_standard_hover = {
+										name = present_innovation_quilted_armor_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_quilted_armor').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_02.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_quilted_armor
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation development 01
+									button_standard_hover = {
+										name = present_innovation_development_01_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_development_01').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_development_01
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Currency 01
+									button_standard_hover = {
+										name = present_innovation_currency_01_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_currency_01').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_currency_01
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Gavelkind
+									button_standard_hover = {
+										name = present_innovation_gavelkind_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_gavelkind').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_gavelkind
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Crop Rotation
+									button_standard_hover = {
+										name = present_innovation_crop_rotation_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_crop_rotation').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_levy_building.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_crop_rotation
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation City Planning
+									button_standard_hover = {
+										name = present_innovation_city_planning_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_city_planning').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_city_planning
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Casus Belli
+									button_standard_hover = {
+										name = present_innovation_casus_belli_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_casus_belli').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_casus_belli
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Plenary Assemblies
+									button_standard_hover = {
+										name = present_innovation_plenary_assemblies_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_plenary_assemblies').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_plenary_assemblies
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Ledger
+									button_standard_hover = {
+										name = present_innovation_ledger_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_ledger').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_02.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_ledger
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+									
+									#Present Innovation Princes Innovation
+									button_standard_hover = {
+										name = present_innovation_princes_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_table_of_princes').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_table_of_princes
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Longboats
+									button_standard_hover = {
+										name = present_innovation_longboats_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_longboats').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_longboats.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_longboats
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Elephantry
+									button_standard_hover = {
+										name = present_innovation_elephantry_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_elephantry').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_elephant.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_elephantry
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation War Camels
+									button_standard_hover = {
+										name = present_innovation_war_camels_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_war_camels').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_camel.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_war_camels
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Wootz Steel
+									button_standard_hover = {
+										name = present_innovation_wootz_steel_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_wootz_steel').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_wootz_steel
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation African Canoes
+									button_standard_hover = {
+										name = present_innovation_african_canoes_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_african_canoes').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_african_canoes
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Caballeros
+									button_standard_hover = {
+										name = present_innovation_caballeros_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_caballeros').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_01.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_caballeros
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Bamboo Bows
+									button_standard_hover = {
+										name = present_innovation_bamboo_bows_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_bamboo_bows').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+					
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_bamboo_bows
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									#Present Innovation Sahel Horsemen
+									button_standard_hover = {
+										name = present_innovation_sahel_horsemen
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_sahel_horsemen').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_sahel_horsemen
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Varangian Adventurers
+									button_standard_hover = {
+										name = present_innovation_varangian_adventurers_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_varangian_adventurers').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_hird.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_varangian_adventurers
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation All Things 
+									button_standard_hover = {
+										name = present_innovation_all_things_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_all_things').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_raised_banner.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_all_things
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Repeating Crossbow
+									button_standard_hover = {
+										name = present_innovation_repeating_crossbow_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_repeating_crossbow').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_repeating_crossbow
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Pole Vault
+									button_standard_hover = {
+										name = present_innovation_pole_vault_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_pole_vault').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_pole_vault
+												default_format = "#clickable"
+											}
+										}
+									}
+
+								}
+							}
+
+							#Present Innovation Select Early Scrollbox
+							scrollbox = {
+								name = present_innovation_select_early_scrollbox
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 360 380 }
+								
+								visible = "[GetVariableSystem.HasValue('show_innovation', 'select_early_medival')]"
+
+								blockoverride "scrollbox_content" {
+									#Present Innovation Battlements 
+									button_standard_hover = {
+										name = present_innovation_battlements_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_battlements').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_battlements
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Mangonel
+									button_standard_hover = {
+										name = present_innovation_mangonel_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_mangonel').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_siege_weapons.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_mangonel
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Burhs
+									button_standard_hover = {
+										name = present_innovation_burhs_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_burhs').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_burhs
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation House Soldiers
+									button_standard_hover = {
+										name = present_innovation_house_soldiers_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_house_soldiers').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_maa_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_house_soldiers
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Horseshoes
+									button_standard_hover = {
+										name = present_innovation_horseshoes_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_horseshoes').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_horseshoes
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Arched Saddle
+									button_standard_hover = {
+										name = present_innovation_arched_saddle_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_arched_saddle').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_knight.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_arched_saddle
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Hereditary Rule
+									button_standard_hover = {
+										name = present_innovation_hereditary_rule_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_hereditary_rule').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_hereditary_rule
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Manorialism
+									button_standard_hover = {
+										name = present_innovation_manorialism_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_manorialism').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_manorialism
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Development 02
+									button_standard_hover = {
+										name = present_innovation_development_02_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_development_02').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_development_02
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Currency 02
+									button_standard_hover = {
+										name = present_innovation_currency_02_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_currency_02').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_currency_02
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Royal Prerogative
+									button_standard_hover = {
+										name = present_innovation_royal_prerogative_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_royal_prerogative').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_royal_prerogative
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Chronicle Writing
+									button_standard_hover = {
+										name = present_innovation_chronicle_writing_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_chronicle_writing').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_chronicle_writing
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Armilary Sphere
+									button_standard_hover = {
+										name = present_innovation_armilary_sphere_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_armilary_sphere').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_armilary_sphere
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Baliffs
+									button_standard_hover = {
+										name = present_innovation_baliffs_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_baliffs').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_baliffs
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Reconquista
+									button_standard_hover = {
+										name = present_innovation_reconquista_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_reconquista').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_reconquista
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Stem Duchies
+									button_standard_hover = {
+										name = present_innovation_stem_duchies_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_stem_duchies').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_stem_duchies
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Ghilman
+									button_standard_hover = {
+										name = present_innovation_ghilman_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_ghilman').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_ghilman
+												default_format = "#clickable"
+											}
+										}
+									}
+								}
+							}
+
+							#Present Innovation Select High Medival Scrollbox
+							scrollbox = {
+								name = present_innovation_select_high_medival_scrollbox
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 360 380 }
+
+								visible = "[GetVariableSystem.HasValue('show_innovation', 'select_high_medival')]"
+
+								blockoverride "scrollbox_content" {
+									#Present Innovation Hoardings
+									button_standard_hover = {
+										name = present_innovation_hoardings_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_hoardings').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_hoardings
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Trebuchet
+									button_standard_hover = {
+										name = present_innovation_trebuchet_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_trebuchet').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_siege_weapons.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_trebuchet
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Castle Baileys
+									button_standard_hover = {
+										name = present_innovation_castle_baileys_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_castle_baileys').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_levy_building.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_castle_baileys
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Men At Arms
+									button_standard_hover = {
+										name = innovation_men_at_arms_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_men_at_arms').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_men_at_arms
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Knighthood
+									button_standard_hover = {
+										name = innovation_knighthood_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_knighthood').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_knight.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_knighthood
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Advanced Bowmaking
+									button_standard_hover = {
+										name = innovation_advanced_bowmaking_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_advanced_bowmaking').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_advanced_bowmaking
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Heraldry
+									button_standard_hover = {
+										name = innovation_heraldry_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_heraldry').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_raised_banner.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_heraldry
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Windmills
+									button_standard_hover = {
+										name = innovation_windmills_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_windmills').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_windmills
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Divine Right
+									button_standard_hover = {
+										name = innovation_divine_right_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_divine_right').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_divine_right
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Land Grants
+									button_standard_hover = {
+										name = innovation_land_grants_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_land_grants').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_land_grants
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Scutage
+									button_standard_hover = {
+										name = innovation_scutage_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_scutage').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_scutage
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Guilds
+									button_standard_hover = {
+										name = innovation_guilds_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_guilds').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_guilds
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Development 03
+									button_standard_hover = {
+										name = innovation_development_03_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_development_03').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_development_03
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Currency 03
+									button_standard_hover = {
+										name = innovation_currency_03_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_currency_03').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_currency_03
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation East Settling
+									button_standard_hover = {
+										name = innovation_east_settling_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_east_settling').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_east_settling
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Seigneurialism
+									button_standard_hover = {
+										name = innovation_seigneurialism_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_seigneurialism').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_seigneurialism
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Muladi
+									button_standard_hover = {
+										name = innovation_muladi_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_muladi').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_muladi
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation French Peerage
+									button_standard_hover = {
+										name = innovation_french_peerage_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_french_peerage').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_french_peerage
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Sarawit
+									button_standard_hover = {
+										name = innovation_sarawit_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_sarawit').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_sarawit
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Pike Columns
+									button_standard_hover = {
+										name = innovation_pike_columns_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_pike_columns').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_pike_columns
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Desert Tactics
+									button_standard_hover = {
+										name = innovation_desert_tactics_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_desert_tactics').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_desert_tactics
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Hobbies
+									button_standard_hover = {
+										name = innovation_hobbies_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_hobbies').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_hobbies
+												default_format = "#clickable"
+											}
+										}
+									}
+								}
+							}
+
+							#Present Innovation Select Late Medival Scrollbox
+							scrollbox = {
+								name = present_innovation_select_late_medival_scrollbox
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								size = { 360 380 }
+
+								visible = "[GetVariableSystem.HasValue('show_innovation', 'select_late_medival')]"
+
+								blockoverride "scrollbox_content" {
+									#Present Innovation Machicolations
+									button_standard_hover = {
+										name = innovation_machicolations_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_machicolations').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_machicolations
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Bombard
+									button_standard_hover = {
+										name = innovation_bombard_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_bombard').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_siege_weapons.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_bombard
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Royal Armory
+									button_standard_hover = {
+										name = innovation_royal_armory_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_royal_armory').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_levy_building.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_royal_armory
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Standing Armies
+									button_standard_hover = {
+										name = innovation_standing_armies_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_standing_armies').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_standing_armies
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Sappers
+									button_standard_hover = {
+										name = innovation_sappers_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_sappers').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_sappers
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Plate Armor
+									button_standard_hover = {
+										name = innovation_plate_armor_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_plate_armor').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_weapons_and_armor_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_plate_armor
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Primogeniture
+									button_standard_hover = {
+										name = innovation_primogeniture_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_primogeniture').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_primogeniture
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Cranes
+									button_standard_hover = {
+										name = innovation_cranes_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_cranes').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_cranes
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Noblesse Oblige
+									button_standard_hover = {
+										name = innovation_noblesse_oblige_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_noblesse_oblige').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_noblesse_oblige
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Rightful Ownership
+									button_standard_hover = {
+										name = innovation_rightful_ownership_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_rightful_ownership').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_rightful_ownership
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Ermine Cloaks
+									button_standard_hover = {
+										name = innovation_ermine_cloaks_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_ermine_cloaks').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_ermine_cloaks
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Court Officials
+									button_standard_hover = {
+										name = innovation_court_officials_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_court_officials').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_court_officials
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Development 04
+									button_standard_hover = {
+										name = innovation_development_04_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_development_04').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_development_04
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Currency 04
+									button_standard_hover = {
+										name = innovation_currency_04_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_currency_04').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_currency_04
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Wierdijks
+									button_standard_hover = {
+										name = innovation_wierdijks_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_wierdijks').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_wierdijks
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Condottieri
+									button_standard_hover = {
+										name = innovation_condottieri_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_condottieri').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_maa_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_condottieri
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Deccan Unity
+									button_standard_hover = {
+										name = innovation_deccan_unity_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_deccan_unity').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_nobility_04.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_deccan_unity
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Zweihanders
+									button_standard_hover = {
+										name = innovation_zweihanders_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_zweihanders').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_zweihanders
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Adaptive Militia
+									button_standard_hover = {
+										name = innovation_adaptive_militia_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_adaptive_militia').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_adaptive_militia
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Valets
+									button_standard_hover = {
+										name = innovation_valets_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_valets').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_01.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_valets
+												default_format = "#clickable"
+											}
+										}
+									}
+
+									#Present Innovation Legionnaires
+									button_standard_hover = {
+										name = innovation_legionnaires_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_innovation_legionnaires').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+										button_ignore = none
+
+										hbox = {
+											margin = { 5 0 }
+											spacing = 40
+
+											icon = {
+												size = { 96 46 }
+												texture = "gfx/interface/icons/culture_innovations/innovation_special_maa_02.dds"
+											}
+
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = innovation_legionnaires
+												default_format = "#clickable"
+											}
+										}
+									}
+								}
+							}
+
+							flowcontainer = {
+								#Give All Regional Innovations
+								button_standard = {
+									name = "present_innovation_all_regional_button"
+									size = { 140 30}
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetScriptedGui('DI_present_innovation_regional').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+									button_ignore = none
+									text = DI_present_innovation_regional
+									tooltip = DI_present_innovation_regional_TT
+									using = tooltip_ne
+								}
+	
+								#Give All Local Innovations
+								button_standard = {
+									name = "present_innovation_all_local_button"
+									size = { 140 30}
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetScriptedGui('DI_present_innovation_local').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+									button_ignore = none
+									text = DI_present_innovation_local
+									tooltip = DI_present_innovation_local_TT
+									using = tooltip_ne
+								}
+
+								#Remove All Innovations
+								button_standard = {
+									name = "present_remove_innovation_all_button"
+									size = { 140 30}
+									layoutpolicy_horizontal = expanding
+									onclick = "[GetScriptedGui('DI_present_remove_all_innovations').Execute(GuiScope.SetRoot(GetPlayer.GetCulture.MakeScope).End)]"
+									button_ignore = none
+									text = DI_present_remove_all_innovations
+									tooltip = DI_present_remove_all_innovations_TT
+									using = tooltip_ne
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

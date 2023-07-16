@@ -1,0 +1,170 @@
+window = {
+	name = "DI_culture_window"
+	parentanchor = top|right
+	position = { -600 200 }
+	size = { 500 700 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+    
+    datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+	
+	visible = "[GetVariableSystem.Exists('DI_culture_window_visible')]"
+	
+	state = {
+		name = init
+		trigger_on_create = yes
+		
+		on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	}
+	
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		restrictparent_min = yes
+		using = Window_Margins
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_culture_menu_title
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+                
+			}
+		}
+    
+
+        scrollbox = {
+			layoutpolicy_vertical = expanding
+			layoutpolicy_horizontal = expanding
+			minimumsize = { 400 100% }
+
+
+			blockoverride "scrollbox_content"
+			{
+				vbox = {
+					name = "cultures"
+					layoutpolicy_horizontal = expanding
+					datamodel = "[GetGlobalList('DI_heritage_list')]"
+
+					item = {
+						vbox = {
+							name = "culture_group"
+							layoutpolicy_horizontal = expanding
+
+							datacontext = "[Scope.Culture.GetHeritage]"
+
+							button_standard_hover = {
+								layoutpolicy_horizontal = expanding
+
+								size = { 0 40 }
+								onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+								tooltip = RULER_DESIGNER_LIST_CULTURE_ENTRY_TOOLTIP
+
+								hbox = {
+									margin = { 5 0 }
+									spacing = 10
+
+									button_list_expand = {
+										checked = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+										onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "[CulturePillar.GetNameNoTooltip]"
+										default_format = "#clickable"
+										autoresize = no
+									}
+								}
+							}
+
+
+							vbox = {
+								name = "cultures"
+								layoutpolicy_horizontal = expanding
+								datamodel = "[CulturePillar.GetCulturesWithPillar]"
+								visible = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+
+								item = {
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										datacontext = "[Culture.GetTemplate]"
+
+										button_standard_hover = {
+											name = "culture_item"
+											layoutpolicy_horizontal = expanding
+											size = { 0 35 }
+											tooltipwidget = {
+												ruler_designer_culture_tooltip = {}
+											}
+											using = Button_Select_Culture
+											onclick = "[GetScriptedGui('DI_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
+
+											hbox = {
+												margin_left = 50
+
+												text_single = {
+													margin = { 5 0 }
+													text = "[Culture.GetNameNoTooltip]"
+													default_format = "#clickable"
+													align = nobaseline
+												}
+
+												expand = {}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		vbox = {
+			margin = { 10 10 }
+			size = {300 45}
+			spacing = 10
+			hbox = {
+				spacing = 10
+				button_standard = {
+					size = {200 35}
+					text = DI_change_to_my_culture
+					tooltip = DI_change_to_my_culture
+					onclick = "[GetScriptedGui('DI_change_myculture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+				
+				button_standard = {
+					size = {200 35}
+					text = DI_change_counties_to_my_culture
+					tooltip = DI_change_counties_to_my_culture_tt
+					onclick = "[GetScriptedGui('DI_change_myculture_county').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+    }
+}

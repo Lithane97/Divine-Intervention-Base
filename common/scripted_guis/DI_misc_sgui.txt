@@ -1,0 +1,948 @@
+﻿DI_fp1_check = {
+	scope = culture
+	
+	is_valid = {
+		has_fp1_dlc_trigger = yes
+	}
+}
+
+DI_open_marriage = {
+	scope = character
+	
+	effect = {
+		open_interaction_window = {
+			interaction = DI_marriage_interaction
+			actor = root
+			recipient = scope:target
+		}
+	}
+}
+
+DI_open_vassal_contract = {
+	scope = character
+	
+	effect = {
+		open_interaction_window = {
+			interaction = DI_modify_vassal_contract_interaction
+			recipient = scope:target.liege
+			actor = scope:target
+		}
+	}
+}
+
+### Traits ###
+DI_add_trait = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					add_trait = scope:trait
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				add_trait = scope:trait
+			}
+		}
+	}
+}
+
+DI_remove_trait = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					remove_trait = scope:trait
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				remove_trait = scope:trait
+			}
+		}
+	}
+}
+
+DI_sexuality_heterosexual = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				
+				hidden_effect = {
+					set_sexuality = heterosexual
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_sexuality = heterosexual
+			}
+		}
+	}
+}
+
+DI_sexuality_homosexual = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				
+				hidden_effect = {
+					set_sexuality = homosexual
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_sexuality = homosexual
+			}
+		}
+	}
+}
+
+DI_sexuality_bisexual = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				
+				hidden_effect = {
+					set_sexuality = bisexual
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_sexuality = bisexual
+			}
+		}
+	}
+}
+
+DI_sexuality_asexual = {
+	scope = character
+	
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+				
+				hidden_effect = {
+					set_sexuality = asexual
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_sexuality = asexual
+			}
+		}
+	}
+}
+
+DI_clear_all_marks = {
+	scope = character
+	
+	effect = {
+		every_living_character = {
+			limit = { has_character_flag = marked_for_edit }
+			
+			hidden_effect = {
+				remove_character_flag = marked_for_edit
+			}
+		}
+		if = {
+			limit = {
+				has_variable_list = marked_characters 
+			}
+			clear_variable_list = marked_characters
+		}
+	}
+}
+
+DI_char_spawner_resources_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_char_spawner_count_increment_value }
+			}
+
+			set_variable = {
+				name = DI_char_spawner_count_increment_value
+				value = 1
+			}
+		}
+
+		if = {
+			limit = {
+				NOT = { has_variable = DI_char_spawner_age_increment_value }
+			}
+
+			set_variable = {
+				name = DI_char_spawner_age_increment_value
+				value = 18
+			}
+		}
+	}
+}
+
+DI_modifier_resources_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_modifier_increment_value }
+			}
+			set_variable = {
+				name = DI_modifier_increment_value 
+				value = 1
+			}
+		}
+	}
+}
+
+DI_resources_sgui = {
+    scope = character
+    
+    effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_increment_value }
+			}
+			set_variable = {
+				name = DI_increment_value
+				value = 500
+			}
+		}
+	}
+}
+
+DI_age_add = {
+	scope = character
+	
+	effect = {
+		change_age = 1
+	}
+}
+
+DI_age_subtract = {
+	scope = character
+	
+	is_valid = {
+		age > 1
+	}
+	
+	effect = {
+		change_age = -1
+	}
+}
+
+### INCREMENT BUTTONS ###
+
+DI_add_increment = {
+	is_valid = {
+        	var:DI_increment_value < 10000
+    	}
+
+	effect = {
+		if = {
+			limit = {
+				var:DI_increment_value < 1000
+			}
+			change_variable = {
+				name = DI_increment_value
+						add = 100
+			}
+		}
+		else = {
+			change_variable = {
+				name = DI_increment_value
+						add = 500
+			}
+		}
+    }
+
+}
+
+DI_modifier_add_increment = {
+	is_valid = {
+        	var:DI_modifier_increment_value < 100
+    	}
+
+	effect = {
+		if = {
+			limit = {
+				var:DI_modifier_increment_value < 5
+			}
+			change_variable = {
+				name = DI_modifier_increment_value
+					add = 1
+			}
+		}
+		else = {
+			change_variable = {
+				name = DI_modifier_increment_value
+						add = 5
+			}
+		}
+    }
+}
+
+DI_char_spawner_count_add_increment = {
+	is_valid = {
+        	var:DI_char_spawner_count_increment_value < 10
+    	}
+
+	effect = {
+		change_variable = {
+			name = DI_char_spawner_count_increment_value
+				add = 1
+		}
+    }
+}
+
+DI_char_spawner_age_add_increment = {
+	is_valid = {
+        	var:DI_char_spawner_age_increment_value < 100
+    	}
+
+	effect = {
+		change_variable = {
+			name = DI_char_spawner_age_increment_value
+				add = 1
+		}
+    }
+}
+
+DI_subtract_increment = {
+	is_valid = {
+       		 var:DI_increment_value > 100
+    	}
+	
+	effect = {
+		if = {
+			limit = {
+				var:DI_increment_value > 1000
+			}
+			change_variable = {
+				name = DI_increment_value
+						subtract = 500
+			}
+		}
+		else = {
+			change_variable = {
+				name = DI_increment_value
+						subtract = 100
+			}
+		}
+    }
+}
+
+DI_modifier_subtract_increment = {
+	is_valid = {
+        	var:DI_modifier_increment_value > 1
+    	}
+
+	effect = {
+		if = {
+			limit = {
+				var:DI_modifier_increment_value < 6
+			}
+			change_variable = {
+				name = DI_modifier_increment_value
+					subtract = 1
+			}
+		}
+		else = {
+			change_variable = {
+				name = DI_modifier_increment_value
+						subtract = 5
+			}
+		}
+    }
+}
+
+DI_char_spawner_count_subtract_increment = {
+	is_valid = {
+        	var:DI_char_spawner_count_increment_value > 1
+    	}
+
+	effect = {
+		change_variable = {
+			name = DI_char_spawner_count_increment_value
+				subtract = 1
+		}
+    }
+}
+
+DI_char_spawner_age_subtract_increment = {
+	is_valid = {
+        	var:DI_char_spawner_age_increment_value > 1
+    	}
+
+	effect = {
+		change_variable = {
+			name = DI_char_spawner_age_increment_value
+				subtract = 1
+		}
+    }
+}
+
+add_prestige_effect = {
+	scope = character
+	
+	effect = {
+		add_prestige = scope:target.var:DI_increment_value
+	}
+}
+
+
+remove_prestige_effect = {
+	scope = character
+	
+	effect = {
+		add_prestige = {
+			value = scope:target.var:DI_increment_value
+			multiply = -1
+		}
+	}
+}
+
+
+add_piety_effect = {
+	scope = character
+		
+	effect = {
+		add_piety = scope:target.var:DI_increment_value
+	}
+}
+
+
+remove_piety_effect = {
+	scope = character
+
+	effect = {
+		add_piety = {
+			value = scope:target.var:DI_increment_value
+			multiply = -1
+		}
+	}
+}
+
+add_gold_effect = {
+	scope = character
+		
+	effect = {
+		add_gold = scope:target.var:DI_increment_value
+	}
+}
+
+
+remove_gold_effect = {
+		scope = character
+		
+		effect = {
+			remove_short_term_gold = scope:target.var:DI_increment_value
+        }
+}
+
+
+add_dprestige_effect = {
+	scope = character
+	effect = {
+		dynasty = {
+			add_dynasty_prestige = scope:target.var:DI_increment_value
+		}
+    }
+}
+
+
+remove_dprestige_effect = {
+	scope = character
+		
+	effect = {
+		dynasty = {
+			add_dynasty_prestige = {
+				value = scope:target.var:DI_increment_value
+				multiply = -1
+			}
+		}
+	}
+}
+
+clear_marked_character = {
+	scope = character
+
+	effect = {
+		remove_character_flag = marked_for_edit
+		scope:target = {
+			remove_list_variable = { name = marked_characters target = prev}
+		}
+	}
+}
+
+DI_kill_character = {
+	scope = character
+	
+	effect = {
+		death = natural
+	}
+}
+
+DI_set_designated_heir = {
+	scope = character
+
+	effect = {
+		set_designated_heir = scope:heir
+	}
+}
+
+DI_set_alternate_designated_heir = {
+	scope = character
+
+	effect = {
+		set_designated_heir = scope:heir
+	}
+}
+
+DI_change_name = {
+	scope = character
+
+	effect = {
+		trigger_event = { id = DI_char_editor.1 }
+	}
+}
+
+DI_imprison = {
+	scope = character
+	
+	effect = {
+		imprison = {
+			target = scope:target
+			type = house_arrest
+		}
+	}
+}
+
+DI_imprison_alternate = {
+	scope = character
+	
+	effect = {
+		imprison = {
+			target = scope:target
+			type = dungeon
+		}
+	}
+}
+
+DI_vassalize = {
+	scope = character
+	
+	effect = {
+		create_title_and_vassal_change = {
+			type = swear_fealty
+			save_scope_as = change
+		}
+		
+		scope:target = {
+			change_liege = {
+				liege = root
+				change = scope:change
+			}
+		}
+		
+		resolve_title_and_vassal_change = scope:change
+	}
+}
+
+DI_create_alliance = {
+	scope = character
+	
+	effect = {
+		allow_alliance = scope:target
+		create_alliance = {
+			target = scope:target
+			allied_through_owner = root
+			allied_through_target = scope:target
+		}
+		scope:target = {
+			add_opinion = {
+				modifier = perk_negotiated_alliance_opinion
+				target = root
+			}
+		}
+	}
+}
+
+DI_break_alliance = {
+	scope = character
+	
+	effect = {
+		break_alliance = scope:target
+	}
+	
+}
+
+add_stress_effect = {
+	scope = character
+		
+	effect = {
+		add_stress = 20
+	}
+}
+
+
+remove_stress_effect = {
+		scope = character
+		
+		effect = {
+			add_stress = -20
+        }
+}
+
+DI_get_title_list = {
+
+	scope = character
+	
+	effect = {
+		
+		every_in_global_list = {
+			variable = marked_characters
+			every_held_title = {
+				limit = { this.tier > tier_barony }
+				add_to_global_variable_list = { name = DI_title_list target = this }
+			}
+		}
+		
+		ordered_in_global_list = {
+			variable = DI_title_list
+			order_by = tier
+			min = 0
+			max = 500
+			remove_list_global_variable = { name = DI_title_list target = this }
+			add_to_global_variable_list = { name = DI_title_list target = this }
+		}
+			
+	}
+}
+
+DI_clear_title_list = {
+	scope = character
+	
+	effect = {
+		clear_global_variable_list = DI_title_list
+	}
+}
+
+DI_strong_claim = {
+	scope = character
+
+	effect = {
+		make_claim_strong = scope:claim_title
+	}
+}
+
+DI_weak_claim = {
+	scope = character
+	
+	effect = {
+		make_claim_weak = scope:claim_title
+	}
+}
+
+DI_get_title = {
+	scope = character
+	
+	effect = {
+		get_title = scope:claim_title
+	}
+}
+
+DI_destroy_title = {
+	scope = character
+	
+	effect = {
+		destroy_title = scope:claim_title
+	}
+}
+
+DI_culture_change = {
+	scope = character
+	
+	effect = {
+		scope:selected_culture = { save_scope_as = selected_culture }
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					set_culture = scope:selected_culture
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_culture = scope:selected_culture
+			}
+		}
+	}
+}
+
+DI_culture_list_load = {
+	scope = character
+	
+	effect = {		
+		every_culture_global = {
+			if = {
+			  limit = {
+				NOT = {
+				  any_in_global_list = {
+					variable = DI_heritage_list
+					has_same_culture_heritage = prev
+				  }
+				}
+			  }
+			  add_to_global_variable_list = { name = DI_heritage_list target = this }
+			}
+		}
+	}
+}
+
+DI_change_myculture = {
+	scope = character
+	
+	effect = {
+		every_living_character = {
+			limit = { has_character_flag = marked_for_edit }
+			
+	
+			hidden_effect = {
+				set_culture = root.culture
+			}
+		}
+	}
+}
+
+DI_change_myculture_county = {
+	scope = character
+	
+	effect = {
+		every_living_character = {
+			limit = { has_character_flag = marked_for_edit }
+			
+			every_sub_realm_county = {
+				set_county_culture = root.culture
+			}
+	
+			every_vassal_or_below = {
+				set_culture = root.culture
+			}
+			
+			set_culture = root.culture
+		}
+	}
+}
+
+DI_religion_change = {
+	scope = character
+	
+	effect = {
+		scope:selected_faith = { save_scope_as = selected_faith }
+		
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				hidden_effect = {
+					set_character_faith = scope:selected_faith
+				}
+			}
+		}
+		else = {
+			hidden_effect = {
+				set_character_faith = scope:selected_faith
+			}
+		}
+	}
+}
+
+DI_religion_list_load = {
+	scope = character
+	
+	effect = {
+		every_religion_global = {
+			if = {
+				limit = {
+				  	NOT = {
+						any_in_global_list = {
+							variable = DI_religion_list
+							this = prev
+						}
+					}
+				}
+				add_to_global_variable_list = { name = DI_religion_list target = this }
+			}
+		}
+	}
+}
+
+DI_change_myreligion = {
+	scope = character
+	
+	effect = {
+		every_living_character = {
+			limit = { has_character_flag = marked_for_edit }
+			
+	
+			hidden_effect = {
+				set_character_faith = root.faith
+			}
+		}
+	}
+}
+
+DI_change_myreligion_county = {
+	scope = character
+	
+	effect = {
+		every_living_character = {
+			limit = { has_character_flag = marked_for_edit }
+			
+			every_sub_realm_county = {
+				set_county_faith = root.faith
+			}
+	
+			every_vassal_or_below = {
+				set_character_faith_with_conversion = root.faith
+			}
+			
+			set_character_faith = root.faith
+		}
+	}
+}
+
+### Character Spawner ###
+DI_marked_char_var_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable	= DI_marked_char_var
+			}
+			remove_variable = DI_marked_char_var
+		}
+		else = {
+			set_variable = DI_marked_char_var
+		}
+	}
+}
+
+DI_char_spawner_female_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_female
+			}
+			remove_variable = DI_char_spawner_female
+		}
+		else = {
+			set_variable = DI_char_spawner_female
+		}
+	}
+}
+
+DI_char_spawner_immortal_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable	= DI_char_spawner_immortal
+			}
+			remove_variable = DI_char_spawner_immortal
+		}
+		else = {
+			set_variable = DI_char_spawner_immortal
+		}
+	}
+}
+
+DI_char_spawner_100_stat_man_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_100_stat_man
+			}
+			remove_variable = DI_char_spawner_100_stat_man
+		}
+		else = {
+			set_variable = DI_char_spawner_100_stat_man
+		}
+	}
+}
+
+DI_char_spawner_good_traits_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_good_traits
+			}
+			remove_variable = DI_char_spawner_good_traits
+		}
+		else = {
+			set_variable = DI_char_spawner_good_traits
+		}
+	}
+}

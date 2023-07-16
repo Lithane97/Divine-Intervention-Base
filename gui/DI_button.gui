@@ -1,0 +1,40 @@
+widget = {
+	visible = "[And( Not( IsPauseMenuShown ), And(Not(IsRightWindowOpen), And(IsDefaultGUIMode, And(Not(IsGameViewOpen('barbershop')), Not(IsGameViewOpen('royal_court')) ) ) ) )]"
+	parentanchor = bottom|right
+	layer = top
+	
+	name = DI_button
+	position = { 5 -250 }
+	size = { 40 40 }
+	using = Animation_ShowHide_Quick
+	
+
+	button_round = {
+		name = "DI_shortcut_button"
+		size = { 35 35 }
+		alpha = 0.7
+
+		onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
+		tooltip = DI_button_tt
+		
+		state = {
+			name = _mouse_enter
+			alpha = 1
+			duration = 0.7
+			using = Animation_Curve_Default
+		}
+
+		state = {
+			name = _mouse_leave
+			alpha = 0.7
+			duration = 0.2
+			using = Animation_Curve_Default
+		}
+
+		button_prison_execute = {
+			parentanchor = center
+			alwaystransparent = yes
+			size = { 25 25 }
+		}
+	}
+}
