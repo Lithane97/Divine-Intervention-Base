@@ -166,6 +166,7 @@ cheat_mark_for_edit_interaction = {
 
 ### Change Character ###
 DI_change_character_interaction = {
+	interface_priority = 150
 	category = interaction_category_cheat_menu
 	desc = DI_change_character_desc
 	common_interaction = yes
@@ -199,6 +200,7 @@ DI_change_character_interaction = {
 
 ### Change Character Name ###
 DI_change_character_name_interaction = {
+	interface_priority = 140
 	category = interaction_category_cheat_menu
 	desc = DI_change_character_name_desc
 	common_interaction = yes
@@ -223,6 +225,7 @@ DI_change_character_name_interaction = {
 ### Change Religion ###
 DI_change_religion_interaction = {
 	category = interaction_category_cheat_menu
+	icon = religious
 	desc = DI_change_religion_desc
 	common_interaction = yes
 	
@@ -251,6 +254,7 @@ DI_change_religion_interaction = {
 ### Change Culture ###
 DI_change_culture_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_culture
 	desc = DI_change_culture_desc
 	common_interaction = yes
 	
@@ -279,6 +283,7 @@ DI_change_culture_interaction = {
 ### Change Dynasty ###
 DI_change_dynasty_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_dynasty
 	desc = DI_change_dynasty_desc
 	common_interaction = yes
 	
@@ -302,6 +307,109 @@ DI_change_dynasty_interaction = {
 	}
 
 	ai_will_do = { base = 0 }
+}
+
+DI_change_character_weight_interaction = {
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	icon = activity_feast
+
+	is_shown = { 
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = {
+		flag = gain_weight
+		localization = add_character_weight_interaction
+	}
+	send_option = {
+		flag = lose_weight
+		localization = remove_character_weight_interaction
+	}
+
+	on_accept = {
+		scope:recipient = {
+			switch = {
+				trigger = yes
+				scope:gain_weight = { change_current_weight = 25 }
+				scope:lose_weight = { change_current_weight = -25 }
+			}
+		}
+	}
+	auto_accept = yes
+}
+
+DI_change_opinion_interaction = {
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	icon = debug_good
+	common_interaction = yes
+
+	is_shown = { 
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = {
+		flag = love
+		localization = debug_make_love_me_interaction
+	}
+	send_option = {
+		flag = like
+		localization = debug_make_like_me_interaction
+	}
+	send_option = {
+		flag = dislike
+		localization = debug_make_dislike_me_interaction
+	}
+	send_option = {
+		flag = hate
+		localization = debug_make_hate_me_interaction
+	}
+	on_accept = {
+		scope:recipient = {
+			switch = {
+				trigger = yes
+				scope:love = {
+					add_opinion = {
+						modifier = love_opinion
+						target = scope:actor
+						opinion = 200
+					}
+				}
+				scope:like = {
+					add_opinion = {
+						modifier = friendliness_opinion
+						target = scope:actor
+						opinion = 100
+					}
+				}
+				scope:dislike = {
+					add_opinion = {
+						modifier = angry_opinion
+						target = scope:actor
+						opinion = -100
+					}
+				}
+				scope:hate = {
+					add_opinion = {
+						modifier = hate_opinion
+						target = scope:actor
+						opinion = -200
+					}
+				}
+			}			
+		}
+	}
+	auto_accept = yes
 }
 
 ### Modify Vassal Contract | As Liege ###
@@ -444,6 +552,7 @@ DI_modify_vassal_mod_vassal_contract_interaction = {
 ### Arrange Marriage ###
 DI_arrange_marriage_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_marriage
 	desc = DI_arrange_marriage_desc
 	common_interaction = no
 	auto_accept = yes
@@ -682,6 +791,7 @@ DI_divorce_character_interaction = {
 ### Designate Heir ###
 DI_designate_heir_interaction = {
 	category = interaction_category_cheat_menu
+	icon = heir
 	desc = DI_designate_heir_desc
 	common_interaction = no
 	
@@ -712,6 +822,7 @@ DI_designate_heir_interaction = {
 ### Adopt Male ###
 DI_adopt_male_interaction = {
 	category = interaction_category_cheat_menu
+	icon = child
 	desc = DI_adopt
 	common_interaction = no
 	
@@ -747,6 +858,7 @@ DI_adopt_male_interaction = {
 ### Adopt Female ###
 DI_adopt_female_interaction = {
 	category = interaction_category_cheat_menu
+	icon = child
 	desc = DI_adopt
 	common_interaction = no
 	
@@ -850,6 +962,7 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
 ### Murder ###
 DI_murder_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_hostile
 	desc = DI_murder_desc
 	common_interaction = no
 	
@@ -880,6 +993,7 @@ DI_murder_interaction = {
 ### Imprison ###
 DI_imprison_interaction = {
 	category = interaction_category_cheat_menu
+	icon = prison
 	desc = DI_imprison_desc
 	common_interaction = no
 	
@@ -910,6 +1024,7 @@ DI_imprison_interaction = {
 ### Claim Title ###
 DI_claim_title_interaction = {
 	category = interaction_category_cheat_menu
+	icon = vassal_claim_liege_title_interaction
 	desc = DI_claim_title_desc
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
@@ -1013,6 +1128,7 @@ DI_remove_claims_on_player_interaction = {
 ### Remove All Claims ###
 DI_remove_all_claims_interaction = {
 	category = interaction_category_cheat_menu
+	icon = grant_titles_interaction
 	desc = DI_remove_all_claims_desc
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
@@ -1056,7 +1172,9 @@ DI_take_title_interaction = {
 	use_diplomatic_range = no
 	auto_accept = yes
 	ignores_pending_interaction_block = yes
+	
 	special_interaction = revoke_title_interaction
+	interface = revoke_title
 	target_type = title
 	target_filter = recipient_domain_titles
 	icon = revoke_title
@@ -1089,81 +1207,10 @@ DI_take_title_interaction = {
 	}
 }
 
-### Revoke Title ###
-DI_revoke_title_interaction = {
-	category = interaction_category_cheat_menu
-	common_interaction = yes
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-	
-	desc = DI_revoke_title_desc
-
-	special_interaction = revoke_title_interaction
-	interface = revoke_title
-	target_type = title
-	target_filter = recipient_domain_titles
-
-	is_shown = {
-		scope:recipient = {
-			is_landed = yes
-			# should be shown but be disabled for indirect vassals
-			target_is_liege_or_above = scope:actor
-		}
-		scope:actor = {
-			is_ai = no
-			has_character_flag = DI_cheat_menu
-		}
-	}
-	
-	is_valid_showing_failures_only = {
-	}
-
-	can_send = {
-	}
-	
-	# whether a character can be picked for the interaction, interface only (e.g. picking the first character in the marriage interaction)
-	# in character scope, actor and recipient event tagets can be used, but not the secondary characters
-	
-	has_valid_target_showing_failures_only = {
-	}
-
-	send_options_exclusive = no
-
-	on_auto_accept = {
-		scope:recipient = {
-			trigger_event = char_interaction.0200
-		}
-	}
-
-	on_send = {
-		save_scope_value_as = {
-			name = revoke_title_interaction
-			value = yes
-		}
-	}
-
-	on_decline = {
-	}
-	
-	ai_accept = {
-		base = 100 # Try to make it 0 for most interactions
-	}
-	
-	ai_frequency = 0 # This is handled via code instead; see REVOKE_TITLE_TICK in the AI defines. All the logic for *if* to send a revoke though is scripted below
-
-	ai_potential = {
-	}
-
-	ai_will_do = {
-		base = -1000
-	}
-}
-
 ### Vassalize Character ###
 DI_vassalize_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_vassal
 	
 	common_interaction = yes
 	
@@ -1207,6 +1254,7 @@ DI_vassalize_interaction = {
 ### Add Character to Court ###
 DI_add_to_court_interaction = {
 	category = interaction_category_cheat_menu
+	icon = guest
 	desc = DI_add_to_court_desc
 	common_interaction = no
 	
@@ -1239,6 +1287,7 @@ DI_add_to_court_interaction = {
 ### Befriend Character ###
 DI_befriend_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_scheme_befriend
 	desc = DI_befriend_desc
 	common_interaction = no
 	
@@ -1295,6 +1344,7 @@ DI_unfriend_interaction = {
 ### Add Character as Lover ###
 DI_make_lover_interaction = {
 	category = interaction_category_cheat_menu
+	icon = lover
 	desc = DI_make_lover_desc
 	common_interaction = no
 	
@@ -1424,6 +1474,7 @@ DI_remove_soulmate_interaction = {
 ### Add Character as Rival ###
 DI_make_rival_interaction = {
 	category = interaction_category_cheat_menu
+	icon = irritable
 	desc = DI_make_rival_desc
 	common_interaction = no
 	
@@ -1483,6 +1534,7 @@ DI_remove_rival_interaction = {
 ### Add Character as Concubine ###
 DI_add_concubine_interaction = {
 	category = interaction_category_cheat_menu
+	icon = concubine_icon
 	desc = DI_add_concubine_desc
 	common_interaction = no
 
@@ -1515,6 +1567,7 @@ DI_add_concubine_interaction = {
 ### Impregnate Character ###
 DI_impregnate_interaction = {
 	category = interaction_category_cheat_menu
+	icon = pregnant
 	desc = DI_impregnate_cheat_desc
 	common_interaction = no
 
@@ -1603,7 +1656,7 @@ DI_change_every_county = {
 	category = interaction_category_cheat_menu
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
-	icon = "gfx/interface/icon_holding_city" # todo_cd this should work, but currently is not functional (this is why the one above just copied over the icon)
+	icon = icon_holding_city
 	
 	is_shown = {
 		scope:actor = {
@@ -1649,6 +1702,7 @@ DI_change_every_county = {
 ### Add Loyalty Hook on Character ###
 DI_add_hook_interaction = {
 	category = interaction_category_cheat_menu
+	icon = hook_icon
 	desc = DI_add_hook_desc
 	common_interaction = no
 	
@@ -1707,6 +1761,7 @@ DI_add_hook_interaction = {
 ### Add Excommunitcated to Character ###
 DI_excommunicate_interaction = {
 	category = interaction_category_cheat_menu
+	icon = excommunication
 	desc = DI_excommunicate_desc
 	common_interaction = no
 	
@@ -1767,6 +1822,7 @@ DI_remove_excommunication_interaction = {
 ### Commit Suicide ###
 DI_commit_suicide_interaction = {
 	category = interaction_category_cheat_menu
+	icon = icon_hostile
 	desc = DI_commit_suicide_desc
 	common_interaction = no
 
