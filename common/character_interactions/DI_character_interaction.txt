@@ -835,7 +835,10 @@ DI_adopt_male_interaction = {
 			is_ai = no
 			is_female = no
 			has_character_flag = DI_cheat_menu
-			NOT = { scope:recipient.house = scope:actor.house }
+			NOR = { 
+				scope:recipient.father = scope:actor 
+				scope:recipient.age > scope:actor.age
+			}
 		}
 		NOR = {
 			scope:recipient = scope:actor
@@ -871,7 +874,10 @@ DI_adopt_female_interaction = {
 			is_ai = no
 			is_female = yes
 			has_character_flag = DI_cheat_menu
-			NOT = { scope:recipient.house = scope:actor.house }
+			NOR = { 
+				scope:recipient.mother = scope:actor
+				scope:recipient.age > scope:actor.age 
+			}
 		}
 		NOR = {
 			scope:recipient = scope:actor
@@ -924,6 +930,35 @@ DI_disown_interaction = {
 	ai_will_do = { base = 0 }
 }
 
+DI_remove_child_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_remove_child_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+			OR = {
+				scope:recipient.mother = scope:actor
+				scope:recipient.father = scope:actor
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			scope:recipient = { set_mother = dummy_female }
+			scope:recipient = { set_father = dummy_male }
+		}
+	}
+	auto_accept = yes
+}
+
 DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
 	desc = DI_cadetBranch_interaction_1.desc
 	category = interaction_category_cheat_menu
@@ -933,6 +968,7 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
 	is_shown = {
 		scope:actor = {
 			is_ai = no
+			has_character_flag = DI_cheat_menu
 			is_dynast = yes
 		}		
 		scope:recipient = {
@@ -962,13 +998,10 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
 ### Murder ###
 DI_murder_interaction = {
 	category = interaction_category_cheat_menu
-	icon = icon_hostile
-	desc = DI_murder_desc
-	common_interaction = no
-	
-	auto_accept = yes
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
+	common_interaction = yes
+	icon = icon_dead
 
 	is_shown = {
 		NOT = { scope:recipient = scope:actor }
@@ -978,16 +1011,53 @@ DI_murder_interaction = {
 		}
 	}
 
+	send_option = {
+		flag = random_slayer
+		localization = random_slay_character_interaction
+	}
+	send_option = {
+		flag = no_slayer
+		localization = null_slay_character_interaction
+	}
+	send_option = {
+		is_valid = {
+			NOT = { scope:recipient = scope:actor }
+		}
+		flag = actor_slayer
+		localization = actor_slay_character_interaction
+	}
+
 	on_accept = {
-		scope:recipient = {	
-			death = {
-				killer = scope:actor
-				death_reason = "death_murder"
+		scope:recipient = {
+			switch = {
+				trigger = yes
+				scope:random_slayer = {
+					random_independent_ruler = {
+						limit = {
+							NOT = { this = scope:recipient }
+						}
+						save_scope_as = rando
+					}
+					hidden_effect = {
+						death = {
+							death_reason = death_duel
+							killer = scope:rando
+						}
+					}
+				}
+				scope:no_slayer = {
+					death = { death_reason = death_natural_causes }
+				}
+				scope:actor_slayer = {
+					death = {
+						death_reason = death_duel
+						killer = scope:actor
+					}
+				}
 			}
 		}
 	}
-
-	ai_will_do = { base = 0 }
+	auto_accept = yes
 }
 
 ### Imprison ###
@@ -1284,251 +1354,458 @@ DI_add_to_court_interaction = {
 	}
 }
 
-### Befriend Character ###
-DI_befriend_interaction = {
+DI_set_relation_interaction = {
 	category = interaction_category_cheat_menu
-	icon = icon_scheme_befriend
-	desc = DI_befriend_desc
-	common_interaction = no
-	
-	auto_accept = yes
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
-
+	common_interaction = yes
+	icon = debug_chars
 	is_shown = {
-		NOT = { scope:recipient = scope:actor }
-		scope:actor = {
-			is_ai = no
-			has_character_flag = DI_cheat_menu
-			NOT = { has_relation_friend = scope:recipient }
-		}
-	}
-
-	on_accept = {
-		scope:actor = {		
-			set_relation_friend = scope:recipient
-		}
-	}
-
-	ai_will_do = { base = 0 }
-}
-
-### Unfriend Character ###
-DI_unfriend_interaction = {
-	category = interaction_category_cheat_menu
-	desc = DI_unfriend_desc
-	common_interaction = no
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		NOT = { scope:recipient = scope:actor }
-		scope:actor = {
-			is_ai = no
-			has_character_flag = DI_cheat_menu
-			has_relation_friend = scope:recipient
-		}
-	}
-
-	on_accept = {
-		scope:actor = {		
-			remove_relation_friend = scope:recipient
-		}
-	}
-
-	ai_will_do = { base = 0 }
-}
-
-### Add Character as Lover ###
-DI_make_lover_interaction = {
-	category = interaction_category_cheat_menu
-	icon = lover
-	desc = DI_make_lover_desc
-	common_interaction = no
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		NOT = { scope:recipient = scope:actor }
-		NOT = { scope:recipient = { age < 16 } }
 		NOT = {
-			OR ={
-				scope:actor = {
-					has_relation_lover = scope:recipient
+			scope:recipient = scope:actor
+		}
+		
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+	
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_potential_friend = scope:recipient
 				}
-				scope:actor = {
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_relation_potential_friend = scope:recipient
+					has_relation_friend = scope:recipient
+					has_relation_best_friend = scope:recipient
+				}
+			}
+		}
+		flag = potential_friend
+		localization = DI_set_potential_friend
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_potential_friend = scope:recipient
+			}
+		}
+		flag = remove_potential_friend
+		localization = DI_remove_potential_friend
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_potential_rival = scope:recipient
+				}
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_relation_potential_rival = scope:recipient
+					has_relation_rival = scope:recipient
+					has_relation_nemesis = scope:recipient
+				}
+			}
+		}
+		flag = potential_rival
+		localization = DI_set_potential_rival
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_potential_rival = scope:recipient
+			}
+		}
+		flag = remove_potential_rival
+		localization = DI_remove_potential_rival
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_potential_lover = scope:recipient
+				}
+			}
+		}
+		
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_relation_potential_lover = scope:recipient
+					has_relation_lover = scope:recipient
 					has_relation_soulmate = scope:recipient
 				}
 			}
 		}
-		scope:actor = {
-			has_character_flag = DI_cheat_menu
-			is_ai = no
-		}
+		flag = potential_lover
+		localization = DI_set_potential_lover
 	}
-
-	on_accept = {
-		scope:actor = {
-			set_relation_lover = scope:recipient
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_potential_lover = scope:recipient
+			}
 		}
+		flag = remove_potential_lover
+		localization = DI_remove_potential_lover
 	}
-}
-
-### Remove Character as Lover ###
-DI_remove_lover_interaction = {
-	category = interaction_category_cheat_menu
-	desc = DI_remove_lover_desc
-	common_interaction = no
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		NOT = { scope:recipient = scope:actor }
-		scope:actor = {
-			has_relation_lover = scope:recipient
-			has_character_flag = DI_cheat_menu
-			is_ai = no
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				OR = {
+					has_relation_best_friend = scope:recipient
+					NOT = {
+						has_relation_friend = scope:recipient
+					}
+				}
+			}
 		}
+
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_relation_friend = scope:recipient
+					has_relation_best_friend = scope:recipient
+				}
+			}
+		}
+		flag = friend
+		localization = DI_set_friend
 	}
-
-	on_accept = {
-		scope:actor = {
-			remove_relation_lover = scope:recipient
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_friend = scope:recipient
+				NOT = {
+					has_relation_best_friend = scope:recipient
+				}
+			}
 		}
+		flag = remove_friend
+		localization = DI_remove_friend
 	}
-}
-
-### Add Character as Soulmate ###
-DI_add_soulmate_interaction = {
-	category = interaction_category_cheat_menu
-	desc = DI_add_soulmate_desc
-	common_interaction = no
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		scope:recipient = {
-			is_spouse_of = scope:actor
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				OR = {
+					has_relation_nemesis = scope:recipient
+					NOT = {
+						has_relation_rival = scope:recipient
+					}
+				}
+			}
 		}
-		NOT = { scope:recipient = scope:actor }
-		NOT = { scope:recipient = { age < 16 } }
-		scope:actor = {
-			has_character_flag = DI_cheat_menu
-			has_relation_lover = scope:recipient
-			is_ai = no
+
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_relation_rival = scope:recipient
+					has_relation_nemesis = scope:recipient
+				}
+			}
 		}
-		NOT = {
+		flag = rival
+		localization = DI_set_rival
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_nemesis = scope:recipient
+				}
+				has_relation_rival = scope:recipient
+			}
+		}
+		flag = remove_rival
+		localization = DI_remove_rival
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				OR = {
+					has_relation_soulmate = scope:recipient
+					NOT = {
+						has_relation_lover = scope:recipient
+					}
+				}
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_relation_lover = scope:recipient
+					has_relation_soulmate = scope:recipient
+				}
+			}
+		}
+		flag = lover
+		localization = DI_set_lover
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_soulmate = scope:recipient
+				}
+				has_relation_lover = scope:recipient
+			}
+		}
+		flag = remove_lover
+		localization = DI_remove_lover
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_best_friend = scope:recipient
+				}
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOT = {
+					has_relation_best_friend = scope:recipient
+				}
+			}
+		}
+		flag = best_friend
+		localization = DI_set_best_friend
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_best_friend = scope:recipient
+			}
+		}
+		flag = remove_best_friend
+		localization = DI_remove_best_friend
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_nemesis = scope:recipient
+				}
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOT = {
+					has_relation_nemesis = scope:recipient
+				}
+			}
+		}
+		flag = nemesis
+		localization = DI_set_nemesis
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_nemesis = scope:recipient
+			}
+		}
+		flag = remove_nemesis
+		localization = DI_remove_nemesis
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_soulmate = scope:recipient
+				}
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOT = {
+					has_relation_soulmate = scope:recipient
+				}
+			}
+		}
+		flag = soulmate
+		localization = DI_set_soulmate
+	}
+	send_option = {
+		is_shown = {
 			scope:actor = {
 				has_relation_soulmate = scope:recipient
 			}
 		}
+		flag = remove_soulmate
+		localization = DI_remove_soulmate
 	}
-
-	on_accept = {
-		scope:actor = {
-			set_relation_soulmate = scope:recipient
-			remove_relation_lover = scope:recipient
-		}
-	}
-}
-
-### Remove Character as Soulmate ###
-DI_remove_soulmate_interaction = {
-	category = interaction_category_cheat_menu
-	desc = DI_remove_soulmate_desc
-	common_interaction = no
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		scope:recipient = {
-			is_spouse_of = scope:actor
-		}
-		NOT = { scope:recipient = scope:actor }
-		scope:actor = {
-			has_character_flag = DI_cheat_menu
-			is_ai = no
-		}
-		scope:actor = {
-			has_relation_soulmate = scope:recipient
-		}
-	}
-
-	on_accept = {
-		scope:actor = {
-			remove_relation_soulmate = scope:recipient
-		}
-	}
-}
-
-### Add Character as Rival ###
-DI_make_rival_interaction = {
-	category = interaction_category_cheat_menu
-	icon = irritable
-	desc = DI_make_rival_desc
-	common_interaction = no
-	
-	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		scope:actor = {
-			has_character_flag = DI_cheat_menu
-			is_ai = no
-		}
-		NOT = { scope:recipient = scope:actor }
-		NOT = {
+	send_option = {
+		is_shown = {
 			scope:actor = {
-				any_relation = {
-				type = rival
-					this = scope:recipient
+				NOT = {
+					has_relation_bully = scope:recipient
+				}
+			}
+		}
+
+		is_valid = {
+			scope:actor = {
+				NOT = {
+					has_relation_bully = scope:recipient
+				}
+			}
+		}
+		flag = bully
+		localization = DI_set_bully
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_bully = scope:recipient
+			}
+		}
+		flag = remove_bully
+		localization = DI_remove_bully
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				NOT = {
+					has_relation_victim = scope:recipient
+				}
+			}
+		}
+		
+		is_valid = {
+			scope:actor = {
+				NOT = {
+					has_relation_victim = scope:recipient
+				}
+			}
+		}
+		flag = victim
+		localization = DI_set_victim
+	}
+	send_option = {
+		is_shown = {
+			scope:actor = {
+				has_relation_victim = scope:recipient
+			}
+		}
+		flag = remove_victim
+		localization = DI_remove_victim
+	}
+	
+	on_accept = {
+		scope:recipient = {
+			hidden_effect = {
+				if = {
+					limit = { scope:potential_friend = yes }
+					set_relation_potential_friend = scope:actor
+				}
+				else_if = {
+					limit = { scope:remove_potential_friend = yes }
+					remove_relation_potential_friend = scope:actor
+				}
+				else_if = {
+					limit = { scope:potential_rival = yes }
+					set_relation_potential_rival = scope:actor
+				}
+				else_if = {
+					limit = { scope:remove_potential_rival = yes }
+					remove_relation_potential_rival = scope:actor
+				}
+				else_if = {
+					limit = { scope:potential_lover = yes }
+					set_relation_potential_lover = scope:actor
+				}
+				else_if = {
+					limit = { scope:remove_potential_lover = yes }
+					remove_relation_potential_lover = scope:actor
+				}
+				else_if = {
+					limit = { scope:friend = yes }
+					set_relation_friend = { reason = test_friend_desc target = scope:actor }
+				}
+				else_if = {
+					limit = { scope:remove_friend = yes }
+					remove_relation_friend = scope:actor
+				}
+				else_if = {
+					limit = { scope:rival = yes }
+					set_relation_rival = { reason = test_rival_desc target = scope:actor }
+				}
+				else_if = {
+					limit = { scope:remove_rival = yes }
+					remove_relation_rival = scope:actor
+				}
+				else_if = {
+					limit = { scope:lover = yes }
+					#set_relation_lover = { reason = test_lover_desc target = scope:actor }
+					random_independent_ruler = {
+						save_scope_as = test_2
+					}
+					set_relation_lover = { reason = lover_hunters_tumble target = scope:actor involved_character = scope:test_2 province = scope:test_2.capital_province }
+				}
+				else_if = {
+					limit = { scope:remove_lover = yes }
+					remove_relation_lover = scope:actor
+				}
+				else_if = {
+					limit = { scope:best_friend = yes }
+					set_relation_best_friend = { reason = best_friend_poetry copy_reason = friend target = scope:actor }
+				}
+				else_if = {
+					limit = { scope:remove_best_friend = yes }
+					remove_relation_best_friend = scope:actor
+				}
+				else_if = {
+					limit = { scope:nemesis = yes }
+					set_relation_nemesis = { reason = test_nemesis_desc copy_reason = rival target = scope:actor }
+				}
+				else_if = {
+					limit = { scope:remove_nemesis = yes }
+					remove_relation_nemesis = scope:actor
+				}
+				else_if = {
+					limit = { scope:soulmate = yes }
+					set_relation_soulmate = { reason = test_soulmate_desc copy_reason = lover target = scope:actor }
+				}
+				else_if = {
+					limit = { scope:remove_soulmate = yes }
+					remove_relation_soulmate = scope:actor
+				}
+				else_if = {
+					limit = { scope:bully = yes }
+					set_relation_victim = scope:actor
+				}
+				else_if = {
+					limit = { scope:remove_bully = yes }
+					remove_relation_victim = scope:actor
+				}
+				else_if = {
+					limit = { scope:victim = yes }
+					set_relation_bully = scope:actor
+				}
+				else_if = {
+					limit = { scope:remove_victim = yes }
+					remove_relation_bully = scope:actor
 				}
 			}
 		}
 	}
-
-	on_accept = {
-		scope:actor = {
-			set_relation_rival = scope:recipient
-		}
-	}
-}
-
-### Remove Character as Rival ###
-DI_remove_rival_interaction = {
-	category = interaction_category_cheat_menu
-	desc = DI_remove_rival_desc
-	common_interaction = no
-	
 	auto_accept = yes
-	use_diplomatic_range = no
-	ignores_pending_interaction_block = yes
-
-	is_shown = {
-		NOT = { scope:recipient = scope:actor }
-		scope:actor = {
-			has_relation_rival = scope:recipient
-			has_character_flag = DI_cheat_menu
-			is_ai = no
-		}
-	}
-
-	on_accept = {
-		scope:actor = {
-			remove_relation_rival = scope:recipient
-		}
-	}
 }
 
 ### Add Character as Concubine ###
@@ -1544,10 +1821,11 @@ DI_add_concubine_interaction = {
 	
 	is_shown = {
 		NOT = { scope:actor = scope:recipient }
-		NOT = { scope:recipient = { age < 16 } }
+		NOT = { scope:recipient.age < 16 }
 		scope:recipient = {
-			sex_opposite_of = scope:actor
+			#sex_opposite_of = scope:actor
 			is_concubine = no
+			is_married = no
 		}
 		scope:actor = {
 			is_ai = no

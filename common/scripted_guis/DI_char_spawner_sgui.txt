@@ -1559,6 +1559,8 @@ DI_child = {
 	scope = character
 	
 	effect = {
+		save_scope_as = root_target
+		
 		if = {
 			limit = {
 				has_variable = DI_char_spawner_female
@@ -1575,6 +1577,54 @@ DI_child = {
 				value = 0
 			}
 		}
+
+		### Set father / mother gender vars
+		if = {
+			limit = {
+				is_male = yes
+			}
+			set_global_variable = {
+				name = father_var
+				value = scope:root_target
+			}
+			if ={
+				limit = {
+					scope:root_target.primary_spouse ?= { is_female = yes }
+				}
+				set_global_variable = {
+					name = mother_var
+					value = scope:root_target.primary_spouse
+				}
+			}
+			else = {
+				set_global_variable = {
+					name = mother_var
+					value = no
+				}
+			}
+		}
+		else = {
+			set_global_variable = {
+				name = mother_var
+				value = scope:root_target
+			}
+			if ={
+				limit = {
+					scope:root_target.primary_spouse ?= { is_male = yes }
+				}
+				set_global_variable = {
+					name = father_var
+					value = scope:root_target.primary_spouse
+				}
+			}
+			else = {
+				set_global_variable = {
+					name = father_var
+					value = no
+				}
+			}
+		}
+
 		if = {
 			limit = {
 				has_variable = DI_char_spawner_female
@@ -1636,23 +1686,6 @@ DI_child = {
 					
 					hidden_effect = {
 						save_scope_as = target
-					
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_female
-							}
-				
-							set_variable = {
-								name = gender_var
-								value = 100
-							}
-						}
-						else = {
-							set_variable = {
-								name = gender_var
-								value = 0
-							}
-						}
 
 						### Set father / mother gender vars
 						if = {
@@ -1710,8 +1743,8 @@ DI_child = {
 							faith = scope:target.faith
 							culture = scope:target.culture
 							dynasty_house = scope:target.house
-							father = global_var:father_var
-							mother = global_var:mother_var
+							father = var:father_var
+							mother = var:mother_var
 							martial = { 7 12 }
 							prowess = { 5 12 }
 							diplomacy = { 5 10 }
