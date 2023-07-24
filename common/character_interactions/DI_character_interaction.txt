@@ -2128,3 +2128,34 @@ DI_commit_suicide_interaction = {
 	ai_will_do = { base = 0 }
 }
 
+DI_toggle_menu_button_interaction = {
+	category = interaction_category_cheat_menu
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:recipient = scope:actor
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			if = {
+				limit = {
+					has_variable = DI_button_visible_var
+				}
+				remove_variable = DI_button_visible_var
+			}
+			else = {
+				set_variable = DI_button_visible_var
+			}
+		}
+	}
+}
+
