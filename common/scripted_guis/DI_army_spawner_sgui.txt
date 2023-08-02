@@ -18,8 +18,8 @@ DI_army_spawner_resources_sgui = {
 
 DI_army_spawner_add_increment = {
 	is_valid = {
-        	var:DI_army_spawner_increment_value < 100000
-    	}
+		var:DI_army_spawner_increment_value < 100000
+	}
 
 	effect = {
 		if = {
@@ -28,7 +28,7 @@ DI_army_spawner_add_increment = {
 			}
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						add = 10000
+				add = 10000
 			}
 		}
 		else_if = {
@@ -52,13 +52,13 @@ DI_army_spawner_add_increment = {
 			}
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						add = 1000
+				add = 1000
 			}
 		}
 		else = {
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						add = 500
+				add = 500
 			}
 		}
     }
@@ -66,8 +66,8 @@ DI_army_spawner_add_increment = {
 
 DI_army_spawner_subtract_increment = {
 	is_valid = {
-        	var:DI_army_spawner_increment_value > 500
-    	}
+		var:DI_army_spawner_increment_value > 500
+	}
 
 	effect = {
 		if = {
@@ -76,7 +76,7 @@ DI_army_spawner_subtract_increment = {
 			}
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						subtract = 10000
+				subtract = 10000
 			}
 		}
 		else_if = {
@@ -88,7 +88,7 @@ DI_army_spawner_subtract_increment = {
 			}
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						subtract = 5000
+				subtract = 5000
 			}
 		}
 		else_if = {
@@ -100,18 +100,17 @@ DI_army_spawner_subtract_increment = {
 			}
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						subtract = 1000
+				subtract = 1000
 			}
 		}
 		else = {
 			change_variable = {
 				name = DI_army_spawner_increment_value
-						subtract = 500
+				subtract = 500
 			}
 		}
     }
 }
-
 
 ### Marked Characters Basic
 DI_spawn_army_effect = {
@@ -119,14 +118,13 @@ DI_spawn_army_effect = {
 
 	effect = {
 		spawn_army = {
-			
 			men_at_arms = {
 				type = light_footmen
 				men = scope:target.var:DI_increment_value
 		     }
 			 
 			location = root.location
-			
+
 			inheritable = no
 			
 			name = light_footmen
