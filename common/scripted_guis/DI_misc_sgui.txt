@@ -430,7 +430,9 @@ add_prestige_effect = {
 	scope = character
 	
 	effect = {
-		add_prestige = scope:target.var:DI_increment_value
+		scope:target = {
+			add_prestige = root.var:DI_increment_value
+		}
 	}
 }
 
@@ -439,9 +441,11 @@ remove_prestige_effect = {
 	scope = character
 	
 	effect = {
-		add_prestige = {
-			value = scope:target.var:DI_increment_value
-			multiply = -1
+		scope:target = {
+			add_prestige = {
+				value = root.var:DI_increment_value
+				multiply = -1
+			}
 		}
 	}
 }
@@ -451,7 +455,9 @@ add_piety_effect = {
 	scope = character
 		
 	effect = {
-		add_piety = scope:target.var:DI_increment_value
+		scope:target = {
+			add_piety = root.var:DI_increment_value
+		}
 	}
 }
 
@@ -460,9 +466,11 @@ remove_piety_effect = {
 	scope = character
 
 	effect = {
-		add_piety = {
-			value = scope:target.var:DI_increment_value
-			multiply = -1
+		scope:target = {
+			add_piety = {
+				value = root.var:DI_increment_value
+				multiply = -1
+			}
 		}
 	}
 }
@@ -471,7 +479,9 @@ add_gold_effect = {
 	scope = character
 		
 	effect = {
-		add_gold = scope:target.var:DI_increment_value
+		scope:target = { 
+			add_gold = root.var:DI_increment_value
+		}
 	}
 }
 
@@ -480,7 +490,9 @@ remove_gold_effect = {
 		scope = character
 		
 		effect = {
-			remove_short_term_gold = scope:target.var:DI_increment_value
+			scope:target = { 
+				remove_gold = root.var:DI_increment_value
+			}
         }
 }
 
@@ -488,8 +500,10 @@ remove_gold_effect = {
 add_dprestige_effect = {
 	scope = character
 	effect = {
-		dynasty = {
-			add_dynasty_prestige = scope:target.var:DI_increment_value
+		scope:target = {
+			dynasty = {
+				add_dynasty_prestige = root.var:DI_increment_value
+			}
 		}
     }
 }
@@ -499,10 +513,12 @@ remove_dprestige_effect = {
 	scope = character
 		
 	effect = {
-		dynasty = {
-			add_dynasty_prestige = {
-				value = scope:target.var:DI_increment_value
-				multiply = -1
+		scope:target = { 
+			dynasty = {
+				add_dynasty_prestige = {
+					value = root.var:DI_increment_value
+					multiply = -1
+				}
 			}
 		}
 	}
