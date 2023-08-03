@@ -1,0 +1,93 @@
+template DI_Innovation_Eras_Vanilla
+{
+	widget = {
+		size = { 400 160 }
+		datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char]"
+
+		DI_portrait_shoulders = {
+			visible = "[Character.IsValid]"
+			parentanchor = center
+
+			blockoverride "portrait_button_template_onclick"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_visible')]"
+			}
+		}
+
+		DI_portrait_shoulders = {
+			visible = "[Not(Character.IsValid)]"
+			parentanchor = center
+
+			text_label_center = {
+				parentanchor = hcenter|top
+				position = { 0 -5 }
+				text = DI_select_character_warning
+				default_format = "#low;italic"
+				max_width = 500
+			}
+
+			blockoverride "onclick"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_visible')]"
+			}
+		}
+	}
+	
+	hbox = {
+		name = "tabs"
+		layoutpolicy_horizontal = expanding
+		
+		button_tab = {
+			layoutpolicy_horizontal = expanding
+			onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'tribal' )]"
+			down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
+
+			text_single = {
+				parentanchor = center
+				text = "culture_era_tribal"
+				maximumsize = { 400 -1 }
+				default_format = "#low"
+			}
+		}
+
+		button_tab = {
+			layoutpolicy_horizontal = expanding
+			onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'early_medieval' )]"
+			down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' )]"
+
+			text_single = {
+				parentanchor = center
+				text = "culture_era_early_medieval"
+				maximumsize = { 400 -1 }
+				default_format = "#low"
+			}
+		}
+		
+		button_tab = {
+			layoutpolicy_horizontal = expanding
+			onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'high_medieval' )]"
+			down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' )]"
+
+			text_single = {
+				parentanchor = center
+				text = "culture_era_high_medieval"
+				maximumsize = { 400 -1 }
+				default_format = "#low"
+			}
+		}
+		
+		button_tab = {
+			layoutpolicy_horizontal = expanding
+			onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'late_medieval' )]"
+			down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' )]"
+
+			text_single = {
+				parentanchor = center
+				text = "culture_era_late_medieval"
+				maximumsize = { 400 -1 }
+				default_format = "#low"
+			}
+		}
+		
+	}
+}

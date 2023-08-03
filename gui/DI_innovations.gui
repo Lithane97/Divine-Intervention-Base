@@ -1,0 +1,117 @@
+### Innovation Window ###
+
+window = {
+	name = "DI_innovations_window"
+	parentanchor = top|right
+	position = { -50 100 }
+	size = { 670 900 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	
+	datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+
+	visible = "[And(GetVariableSystem.Exists('DI_innovation_window_visible'), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+	
+	using = DI_Innovation_Anim
+	
+	vbox = {
+		using = DI_Innovation_Header
+		using = DI_Innovation_Eras_Vanilla
+		
+		scrollbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+		
+			blockoverride "scrollbox_content"
+			{
+		
+				vbox = {
+				
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
+					
+						using = DI_Military_Group
+						
+						using = DI_Innovation_Military_Vanilla
+						
+						using = DI_Civic_Group
+						
+						using = DI_Innovation_Civic_Vanilla
+						
+						using = DI_Regional_Group
+						
+						using = DI_Innovation_Regional_Vanilla
+					}
+				}
+				
+			}
+		}
+		
+		expand = {}
+        
+    }
+}
+
+types DIInnovationTypes
+{
+	
+	type DI_icon_innovation = icon {
+		size = { 90 60 }
+
+		icon = {
+			texture = "[CultureInnovation.GetType.GetIcon]"
+			size = { 90 60 }
+
+			modify_texture = {
+				name = "shimmer"
+				texture = "gfx/interface/component_effects/effect_shimmer.dds"
+				blend_mode = colordodge
+				translate_uv = { 0.2 0.2 }
+			}
+
+			state = {
+				name = shimmer
+				next = pause
+				trigger_on_create = yes
+				duration = 1.2
+				trigger_when = "[CultureInnovation.IsFascination]"
+				bezier = { 0 0.9 1 0.4 }
+
+				modify_texture = {
+					name = "shimmer"
+					translate_uv = { -1 1 }
+				}
+			}
+
+			state = {
+				name = pause
+				duration = 0
+				delay = 5
+
+				modify_texture = {
+					name = "shimmer"
+					translate_uv = { 1 -1 }
+				}
+			}
+		}
+
+		icon = {
+			block "era_texture"
+			{
+				texture = "[CultureInnovation.GetType.GetCultureEraType.GetFrame]"
+			}
+			size = { 90 60 }
+		}
+
+
+	}
+
+}

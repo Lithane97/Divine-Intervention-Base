@@ -1,0 +1,3462 @@
+template DI_Innovation_Civic_Vanilla
+{
+	# Tribal
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_development_01').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_development_01').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_01"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_development_01').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_development_01').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_01"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_currency_01').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_currency_01').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_01"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_currency_01').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_currency_01').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_01"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_gavelkind').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_gavelkind').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_gavelkind"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_gavelkind').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_gavelkind').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_gavelkind"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_crop_rotation').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_crop_rotation').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_levy_building.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_crop_rotation"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_crop_rotation').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_crop_rotation').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_levy_building.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_crop_rotation"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_city_planning').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_city_planning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_city_planning"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_city_planning').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_city_planning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_city_planning"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_casus_belli').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_casus_belli').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_casus_belli"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_casus_belli').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_casus_belli').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_casus_belli"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_plenary_assemblies').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_plenary_assemblies').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_plenary_assemblies"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_plenary_assemblies').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_plenary_assemblies').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_plenary_assemblies"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'tribal')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_ledger').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_ledger').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_administration_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_ledger"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_ledger').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_ledger').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_administration_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_tribal.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_ledger"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+	
+	# Early Medieval
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_hereditary_rule').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_hereditary_rule').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_hereditary_rule"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_hereditary_rule').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_hereditary_rule').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_hereditary_rule"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_manorialism').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_manorialism').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_manorialism"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_manorialism').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_manorialism').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_fortifications.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_manorialism"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_development_02').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_development_02').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_02"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_development_02').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_development_02').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_02"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_currency_02').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_currency_02').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_02"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_currency_02').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_currency_02').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_02"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_royal_prerogative').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_royal_prerogative').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_royal_prerogative"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_royal_prerogative').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_royal_prerogative').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_royal_prerogative"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_chronicle_writing').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_chronicle_writing').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+						blockoverride "era_texture"
+							{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_chronicle_writing"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_chronicle_writing').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_chronicle_writing').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_chronicle_writing"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_armilary_sphere').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_armilary_sphere').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_armilary_sphere"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_armilary_sphere').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_armilary_sphere').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_armilary_sphere"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'early_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_baliffs').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_baliffs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_baliffs"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_baliffs').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_baliffs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_early_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_baliffs"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	# High Medieval
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_heraldry').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_heraldry').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_raised_banner.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_heraldry"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_heraldry').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_heraldry').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_raised_banner.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_heraldry"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_windmills').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_windmills').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_windmills"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_windmills').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_windmills').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_windmills"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_divine_right').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_divine_right').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_divine_right"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_divine_right').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_divine_right').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_divine_right"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_land_grants').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_land_grants').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_land_grants"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_land_grants').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_land_grants').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_administration_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_land_grants"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_scutage').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_scutage').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_leadership_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_scutage"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_scutage').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_scutage').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_leadership_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_scutage"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_guilds').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_guilds').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_guilds"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_guilds').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_guilds').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_nobility_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_guilds"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_development_03').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_development_03').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_03"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_development_03').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_development_03').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_03"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'high_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_currency_03').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_currency_03').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_03"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_currency_03').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_currency_03').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_high_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_03"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	# Late Medieval
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_primogeniture').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_primogeniture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_primogeniture"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_primogeniture').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_primogeniture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_primogeniture"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_cranes').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_cranes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_cranes"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_cranes').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_cranes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_civil_construction_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_cranes"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_noblesse_oblige').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_noblesse_oblige').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_noblesse_oblige"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_noblesse_oblige').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_noblesse_oblige').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_nobility_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_noblesse_oblige"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_rightful_ownership').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_rightful_ownership').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_rightful_ownership"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_rightful_ownership').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_rightful_ownership').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_leadership_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_rightful_ownership"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_ermine_cloaks').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_ermine_cloaks').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_ermine_cloaks"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_ermine_cloaks').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_ermine_cloaks').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_majesty_03.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_ermine_cloaks"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_court_officials').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_court_officials').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_nobility_02.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_court_officials"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_court_officials').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_court_officials').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_nobility_02.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_court_officials"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	hbox = {
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_development_04').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_development_04').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_04"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_development_04').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_development_04').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_misc_inventions.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_development_04"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+
+			visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', 'late_medieval')]"
+			margin_top = 10
+			margin_right = 45
+
+			button_standard_hover = {
+				visible = "[And(GetScriptedGui('DI_culture_has_innovation_currency_04').IsValid(GuiScope.SetRoot(Culture.MakeScope).End), GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onrightclick = "[GetScriptedGui('DI_remove_innovation_currency_04').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+
+					background = {
+						using = Background_Area
+					}
+
+					DI_icon_innovation = {
+						texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+						blockoverride "era_texture"
+						{
+							texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+
+						vbox = {
+							position = {0 -1}
+
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_unlocked"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_04"
+								max_width = 150
+								align = nobaseline
+								margin = { 3 0 }
+								default_format = "#P"
+								alpha = 0.7
+							}
+
+						}
+					}
+				}
+			}
+
+			button_standard_hover = {
+				visible = "[And(Not(GetScriptedGui('DI_culture_has_innovation_currency_04').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)),GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' ))]"
+				size = { 256 66 }
+				onclick = "[GetScriptedGui('DI_add_innovation_currency_04').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+				hbox = {
+					margin = { 3 3 }
+					margin_right = 8
+					spacing = 5
+					allow_outside = yes
+					ignoreinvisible = yes
+
+					background = {
+						using = Background_Area
+					}
+
+					widget = {
+						size = { 90 60 }
+
+						DI_icon_innovation = {
+							parentanchor = center
+							tintcolor = { 0.5 0.5 0.5 1 }
+							texture = "gfx/interface/icons/culture_innovations/innovation_administration_01.dds"
+							blockoverride "era_texture"
+							{
+								tintcolor = { 0.5 0.5 0.5 1 }
+								texture = "gfx/interface/icons/culture_era_frames/culture_era_late_medieval.dds"
+							}
+						}
+					}
+
+					widget = {
+						size = { 150 60 }
+						alwaystransparent = yes
+
+						vbox = {
+							ignoreinvisible = yes
+
+							text_multi = {
+								name = "name_clickable"
+								layoutpolicy_horizontal = expanding
+								text = "innovation_currency_04"
+								align = left
+								margin = { 3 0 }
+								default_format = "#clickable"
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+}
