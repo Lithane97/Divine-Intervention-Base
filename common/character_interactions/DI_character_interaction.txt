@@ -2127,6 +2127,158 @@ DI_commit_suicide_interaction = {
 	ai_will_do = { base = 0 }
 }
 
+DI_change_government = {
+	category = interaction_category_cheat_menu
+	icon = icon_holding_city
+	desc = DI_change_government_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:recipient = scope:actor
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = {
+		flag = feudal
+		localization = DI_change_government_feudal
+	}
+	send_option = {
+		flag = clan
+		localization = DI_change_government_clan
+	}
+	send_option = {
+		flag = tribal
+		localization = DI_change_government_tribal
+	}
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+
+				scope:feudal = {
+					change_government = feudal_government
+					every_vassal_or_below = {
+						change_government = feudal_government
+					}
+
+					every_realm_province = {
+						limit = {
+							has_holding_type = tribal_holding
+						}
+						set_holding_type = castle_holding
+					}
+				}
+				scope:clan = {
+					change_government = clan_government
+					every_vassal_or_below = {
+						change_government = clan_government
+					}
+
+					every_realm_province = {
+						limit = {
+							has_holding_type = tribal_holding
+						}
+						set_holding_type = castle_holding
+					}
+				}
+				scope:tribal = {
+					change_government = tribal_government
+					every_vassal_or_below = {
+						change_government = tribal_government
+					}
+
+					every_realm_province = {
+						limit = {
+							has_holding_type = castle_holding
+						}
+						set_holding_type = tribal_holding
+					}
+				}
+			}
+		}
+	}
+}
+
+DI_change_succession = {
+	category = interaction_category_cheat_menu
+	icon = heir
+	desc = DI_change_succession_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:recipient = scope:actor
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = {
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_government = theocracy_government
+					has_government = republic_government
+					has_government = mercenary_government
+					has_government = tribal_government
+					has_government = clan_government
+				}
+			}
+		}
+		
+		flag = single
+		localization = DI_change_succession_single
+	}
+	send_option = {
+		is_valid = {
+			scope:actor = {
+				NOR = {
+					has_government = theocracy_government
+					has_government = republic_government
+					has_government = mercenary_government
+					has_government = tribal_government
+					has_government = clan_government
+				}
+			}
+		}
+		flag = single_youngest
+		localization = DI_change_succession_single_youngest
+	}
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+
+				scope:single = {
+					add_realm_law_skip_effects = single_heir_succession_law
+					root.culture = {
+						add_innovation = innovation_primogeniture
+					}
+				}
+				scope:single_youngest = {
+					add_realm_law_skip_effects = single_heir_succession_law_youngest
+					root.culture = {
+						add_innovation = innovation_primogeniture
+					}
+				}
+			}
+		}
+	}
+}
+
 DI_toggle_menu_button_interaction = {
 	category = interaction_category_cheat_menu
 	common_interaction = no
