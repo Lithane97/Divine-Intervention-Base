@@ -1,0 +1,167 @@
+﻿### Select Character ###
+DI_adoption_select_char = {
+	scope = character
+	
+	effect = {
+		save_scope_as = select_char
+
+		scope:target = {
+			set_variable = {
+				name = DI_adoption_selected_char
+				value = scope:select_char
+			}
+		}
+	}
+}
+
+### Select Partner ###
+DI_adoption_select_partner = {
+	scope = character
+	
+	effect = {
+		save_scope_as = select_char
+
+		scope:target = {
+			set_variable = {
+				name = DI_adoption_selected_char_partner
+				value = scope:select_char
+			}
+		}
+	}
+}
+
+### Select Child ###
+DI_adoption_select_child = {
+	scope = character
+	
+	effect = {
+		save_scope_as = select_char
+
+		scope:target = {
+			set_variable = {
+				name = DI_adoption_selected_char_child
+				value = scope:select_char
+			}
+		}
+	}
+}
+
+### Select Character Init ###
+DI_adoption_select_char_init = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_adoption_selected_char }
+			}
+			set_variable = {
+				name = DI_adoption_selected_char
+				value = this
+			}
+		}
+	}
+}
+
+### Select Character Partner Init ###
+DI_adoption_select_char_partner_init = {
+	scope = character
+
+	effect = {
+		scope:target = {
+			var:DI_adoption_selected_char = { save_scope_as = select_char }
+
+			if = {
+				limit = {
+					AND = {
+						NOT = { has_variable = DI_adoption_selected_char_partner }
+						exists = this.primary_partner
+					}
+				}
+				set_variable = {
+					name = DI_adoption_selected_char_partner
+					value = this.primary_partner
+				}	
+			}
+			else_if = {
+				limit = {
+					exists = scope:select_char.primary_partner
+				}
+				set_variable = {
+					name = DI_adoption_selected_char_partner
+					value = scope:select_char.primary_partner
+				}
+			}
+			else = {
+				remove_variable = DI_adoption_selected_char_partner
+			}
+		}
+	}
+}
+
+### Initiate Adoption ###
+DI_adoption = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_adoption_selected_char
+				has_variable = DI_adoption_selected_char_partner
+				has_variable = DI_adoption_selected_char_child
+			}
+
+			var:DI_adoption_selected_char_child = {
+				if = {
+					limit = {
+						scope:player.var:DI_adoption_selected_char = { is_male = yes }
+					}
+					set_father = scope:player.var:DI_adoption_selected_char
+					set_mother = scope:player.var:DI_adoption_selected_char_partner
+				}
+				else = {
+					set_father = scope:player.var:DI_adoption_selected_char_partner
+					set_mother = scope:player.var:DI_adoption_selected_char
+				}
+			}
+		}
+		else_if = {
+			limit =  {
+				has_variable = DI_adoption_selected_char
+				has_variable = DI_adoption_selected_char_child
+			}
+			var:DI_adoption_selected_char_child = {
+				if = {
+					limit = {
+						scope:player.var:DI_adoption_selected_char = { is_male = yes }
+					}
+					set_father = scope:player.var:DI_adoption_selected_char
+				}
+				else = {
+					set_mother = scope:player.var:DI_adoption_selected_char
+				}
+			}
+		}
+	}
+}
+
+### Initiate House Change ###
+DI_adoption_house = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_adoption_selected_char	
+				has_variable = DI_adoption_selected_char_child			
+			}
+			var:DI_adoption_selected_char_child = {
+				set_house = scope:player.var:DI_adoption_selected_char.house
+			}
+		}
+	}
+}
