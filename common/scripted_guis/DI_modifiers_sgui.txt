@@ -30363,8 +30363,8 @@ DI_remove_modifier_maa_screen_mult_neg = {
 }
 
 # Skirmishers
-# maintenance_cost_mult
-DI_add_modifier_skirmishers_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_skirmishers_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -30381,20 +30381,20 @@ DI_add_modifier_skirmishers_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = skirmishers_maintenance_cost_mult
+					add_character_modifier = skirmishers_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = skirmishers_maintenance_cost_mult
+				add_character_modifier = skirmishers_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_skirmishers_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_skirmishers_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -30411,13 +30411,73 @@ DI_remove_modifier_skirmishers_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = skirmishers_maintenance_cost_mult
+					remove_character_modifier = skirmishers_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = skirmishers_maintenance_cost_mult
+				remove_character_modifier = skirmishers_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_skirmishers_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = {
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = skirmishers_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = skirmishers_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg_remove
+DI_remove_modifier_skirmishers_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = {
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = skirmishers_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = skirmishers_maintenance_mult_neg
 			}
 		}
 	}
@@ -30478,6 +30538,66 @@ DI_remove_modifier_skirmishers_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = skirmishers_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_skirmishers_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = {
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = skirmishers_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = skirmishers_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg_remove
+DI_remove_modifier_skirmishers_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = {
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = skirmishers_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = skirmishers_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -31864,8 +31984,8 @@ DI_remove_modifier_skirmishers_screen_mult_neg = {
 }
 
 # archers 
-# maintenance_cost_mult
-DI_add_modifier_archers_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_archers_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -31882,20 +32002,20 @@ DI_add_modifier_archers_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = archers_maintenance_cost_mult
+					add_character_modifier = archers_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = archers_maintenance_cost_mult
+				add_character_modifier = archers_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_archers_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_archers_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -31912,13 +32032,73 @@ DI_remove_modifier_archers_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = archers_maintenance_cost_mult
+					remove_character_modifier = archers_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = archers_maintenance_cost_mult
+				remove_character_modifier = archers_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_archers_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = archers_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = archers_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg_remove
+DI_remove_modifier_archers_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = archers_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = archers_maintenance_mult_neg
 			}
 		}
 	}
@@ -31979,6 +32159,66 @@ DI_remove_modifier_archers_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = archers_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_archers_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = archers_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = archers_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg_remove
+DI_remove_modifier_archers_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = { 
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value 
+					remove_character_modifier = archers_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value 
+				remove_character_modifier = archers_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -33365,8 +33605,8 @@ DI_remove_modifier_archers_screen_mult_neg = {
 }
 
 # light_cavalry
-# maintenance_cost_mult
-DI_add_modifier_light_cavalry_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_light_cavalry_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -33383,20 +33623,20 @@ DI_add_modifier_light_cavalry_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = light_cavalry_maintenance_cost_mult
+					add_character_modifier = light_cavalry_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = light_cavalry_maintenance_cost_mult
+				add_character_modifier = light_cavalry_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_light_cavalry_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_light_cavalry_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -33413,13 +33653,72 @@ DI_remove_modifier_light_cavalry_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = light_cavalry_maintenance_cost_mult
+					remove_character_modifier = light_cavalry_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = light_cavalry_maintenance_cost_mult
+				remove_character_modifier = light_cavalry_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_light_cavalry_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = light_cavalry_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = light_cavalry_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_light_cavalry_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = light_cavalry_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = light_cavalry_maintenance_mult_neg
 			}
 		}
 	}
@@ -33480,6 +33779,65 @@ DI_remove_modifier_light_cavalry_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = light_cavalry_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_light_cavalry_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = light_cavalry_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = light_cavalry_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_light_cavalry_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = { 
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value 
+					remove_character_modifier = light_cavalry_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value 
+				remove_character_modifier = light_cavalry_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -34866,8 +35224,8 @@ DI_remove_modifier_light_cavalry_screen_mult_neg = {
 }
 
 # pikemen
-# maintenance_cost_mult
-DI_add_modifier_pikemen_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_pikemen_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -34884,20 +35242,20 @@ DI_add_modifier_pikemen_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = pikemen_maintenance_cost_mult
+					add_character_modifier = pikemen_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = pikemen_maintenance_cost_mult
+				add_character_modifier = pikemen_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_pikemen_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_pikemen_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -34914,13 +35272,72 @@ DI_remove_modifier_pikemen_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = pikemen_maintenance_cost_mult
+					remove_character_modifier = pikemen_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = pikemen_maintenance_cost_mult
+				remove_character_modifier = pikemen_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_pikemen_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = pikemen_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = pikemen_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_pikemen_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = pikemen_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = pikemen_maintenance_mult_neg
 			}
 		}
 	}
@@ -34981,6 +35398,68 @@ DI_remove_modifier_pikemen_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = pikemen_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_pikemen_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = pikemen_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = pikemen_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg_remove
+DI_remove_modifier_pikemen_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+
+					remove_character_modifier = pikemen_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+
+				remove_character_modifier = pikemen_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -36367,8 +36846,8 @@ DI_remove_modifier_pikemen_screen_mult_neg = {
 }
 
 # heavy infantry
-# maintenance_cost_mult
-DI_add_modifier_heavy_infantry_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_heavy_infantry_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -36385,20 +36864,20 @@ DI_add_modifier_heavy_infantry_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = heavy_infantry_maintenance_cost_mult
+					add_character_modifier = heavy_infantry_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = heavy_infantry_maintenance_cost_mult
+				add_character_modifier = heavy_infantry_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_heavy_infantry_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_heavy_infantry_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -36415,13 +36894,72 @@ DI_remove_modifier_heavy_infantry_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = heavy_infantry_maintenance_cost_mult
+					remove_character_modifier = heavy_infantry_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = heavy_infantry_maintenance_cost_mult
+				remove_character_modifier = heavy_infantry_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_heavy_infantry_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = heavy_infantry_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = heavy_infantry_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_heavy_infantry_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = heavy_infantry_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = heavy_infantry_maintenance_mult_neg
 			}
 		}
 	}
@@ -36482,6 +37020,65 @@ DI_remove_modifier_heavy_infantry_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = heavy_infantry_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_heavy_infantry_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = { 
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = heavy_infantry_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = heavy_infantry_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_heavy_infantry_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = { 
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = { 
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = heavy_infantry_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = heavy_infantry_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -37868,8 +38465,8 @@ DI_remove_modifier_heavy_infantry_screen_mult_neg = {
 }
 
 # siege weapon
-# maintenance_cost_mult
-DI_add_modifier_siege_weapon_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_siege_weapon_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -37886,20 +38483,20 @@ DI_add_modifier_siege_weapon_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = siege_weapon_maintenance_cost_mult
+					add_character_modifier = siege_weapon_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = siege_weapon_maintenance_cost_mult
+				add_character_modifier = siege_weapon_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_siege_weapon_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_siege_weapon_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -37916,13 +38513,72 @@ DI_remove_modifier_siege_weapon_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = siege_weapon_maintenance_cost_mult
+					remove_character_modifier = siege_weapon_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = siege_weapon_maintenance_cost_mult
+				remove_character_modifier = siege_weapon_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_siege_weapon_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = siege_weapon_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = siege_weapon_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_siege_weapon_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+				every_living_character = {
+					limit = { 
+						has_character_flag = marked_for_edit
+					}
+
+					while = { count = scope:target.var:DI_modifier_increment_value
+						remove_character_modifier = siege_weapon_maintenance_mult_neg
+					}
+				}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = siege_weapon_maintenance_mult_neg
 			}
 		}
 	}
@@ -37983,6 +38639,65 @@ DI_remove_modifier_siege_weapon_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = siege_weapon_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_siege_weapon_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+				every_living_character = {
+					limit = { 
+						has_character_flag = marked_for_edit
+					}
+
+					while = { count = scope:target.var:DI_modifier_increment_value
+						add_character_modifier = siege_weapon_recruitment_cost_mult_neg
+					}
+				}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = siege_weapon_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_siege_weapon_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+				every_living_character = {
+					limit = { 
+						has_character_flag = marked_for_edit
+					}
+
+					while = { count = scope:target.var:DI_modifier_increment_value
+						remove_character_modifier = siege_weapon_recruitment_cost_mult_neg
+					}
+				}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = siege_weapon_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -39369,8 +40084,8 @@ DI_remove_modifier_siege_weapon_screen_mult_neg = {
 }
 
 # heavy cavalry
-# maintenance_cost_mult
-DI_add_modifier_heavy_cavalry_maintenance_cost_mult = {
+# maintenance_mult
+DI_add_modifier_heavy_cavalry_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -39387,20 +40102,20 @@ DI_add_modifier_heavy_cavalry_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					add_character_modifier = heavy_cavalry_maintenance_cost_mult
+					add_character_modifier = heavy_cavalry_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				add_character_modifier = heavy_cavalry_maintenance_cost_mult
+				add_character_modifier = heavy_cavalry_maintenance_mult
 			}
 		}
 	}
 }
 
-# maintenance_cost_mult_remove
-DI_remove_modifier_heavy_cavalry_maintenance_cost_mult = {
+# maintenance_mult_remove
+DI_remove_modifier_heavy_cavalry_maintenance_mult = {
 	scope = character
 
 	effect = {
@@ -39417,13 +40132,72 @@ DI_remove_modifier_heavy_cavalry_maintenance_cost_mult = {
 				}
 				
 				while = { count = scope:target.var:DI_modifier_increment_value
-					remove_character_modifier = heavy_cavalry_maintenance_cost_mult
+					remove_character_modifier = heavy_cavalry_maintenance_mult
 				}
 			}
 		}
 		else = {
 			while = { count = var:DI_modifier_increment_value
-				remove_character_modifier = heavy_cavalry_maintenance_cost_mult
+				remove_character_modifier = heavy_cavalry_maintenance_mult
+			}
+		}
+	}
+}
+
+# maintenance_mult_neg
+DI_add_modifier_heavy_cavalry_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = heavy_cavalry_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = heavy_cavalry_maintenance_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_heavy_cavalry_maintenance_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = heavy_cavalry_maintenance_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = heavy_cavalry_maintenance_mult_neg
 			}
 		}
 	}
@@ -39484,6 +40258,65 @@ DI_remove_modifier_heavy_cavalry_recruitment_cost_mult = {
 		else = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = heavy_cavalry_recruitment_cost_mult
+			}
+		}
+	}
+}
+
+# recruitment_cost_mult_neg
+DI_add_modifier_heavy_cavalry_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = { 
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = heavy_cavalry_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = heavy_cavalry_recruitment_cost_mult_neg
+			}
+		}
+	}
+}
+
+DI_remove_modifier_heavy_cavalry_recruitment_cost_mult_neg = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = { 
+			limit = { 
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = { 
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = heavy_cavalry_recruitment_cost_mult_neg
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = heavy_cavalry_recruitment_cost_mult_neg
 			}
 		}
 	}
@@ -40865,6 +41698,160 @@ DI_remove_modifier_heavy_cavalry_screen_mult_neg = {
 			while = { count = var:DI_modifier_increment_value
 				remove_character_modifier = heavy_cavalry_screen_mult_neg
 			}
+		}
+	}
+}
+
+### Custom Modifiers ###
+# DI_space_marines
+DI_add_modifier_space_marines = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				add_character_modifier = DI_space_marines
+			}
+		}
+		else = {
+			add_character_modifier = DI_space_marines
+		}
+	}
+}
+
+DI_remove_modifier_space_marines = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				remove_character_modifier = DI_space_marines
+			}
+		}
+		else = {
+			remove_character_modifier = DI_space_marines
+		}
+	}
+}
+
+# DI_immune_to_schemes
+DI_add_modifier_immune_to_schemes = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				add_character_modifier = DI_immune_to_schemes
+			}
+		}
+		else = {
+			add_character_modifier = DI_immune_to_schemes
+		}
+	}
+}
+
+DI_remove_modifier_immune_to_schemes = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				remove_character_modifier = DI_immune_to_schemes
+			}
+		}
+		else = {
+			remove_character_modifier = DI_immune_to_schemes
+		}
+	}
+}
+
+# DI_contraceptive
+DI_add_modifier_contraceptive = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				add_character_modifier = DI_contraceptive
+			}
+		}
+		else = {
+			add_character_modifier = DI_contraceptive
+		}
+	}
+}
+
+DI_remove_modifier_contraceptive = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				remove_character_modifier = DI_contraceptive
+			}
+		}
+		else = {
+			remove_character_modifier = DI_contraceptive
 		}
 	}
 }

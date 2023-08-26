@@ -1851,18 +1851,39 @@ DI_impregnate_interaction = {
 	auto_accept = yes
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
-	
+
 	is_shown = {
 		NOT = { scope:actor = scope:recipient }
-		scope:recipient = {
-			is_pregnant = no
-			is_female = yes
-		}
-		NOT = { scope:recipient = { age < 16 } }
 		scope:actor = {
 			is_ai = no
 			has_character_flag = DI_cheat_menu
-			is_male = yes 
+		}
+		
+		OR = {
+			AND = {
+				scope:recipient = {
+					is_female = yes
+					is_pregnant = no
+					age >= 16
+				}
+		
+				scope:actor = { 
+					is_male = yes
+					age >= 16
+				}
+			}
+			AND = {
+				scope:recipient = {
+					is_male = yes
+					age >= 16
+				}
+			
+				scope:actor = {
+					is_female = yes
+					is_pregnant = no
+					age >= 16
+				}
+			}
 		}
 	}
 
@@ -1880,28 +1901,110 @@ DI_impregnate_interaction = {
 	}
 
 	on_send = {
-		scope:recipient = {
+		scope:actor = {
+			if = {
+				limit = { is_female = yes }
+				save_scope_as = mother
+				scope:recipient = { save_scope_as = father }
+			}
+	
+			else = {
+				save_scope_as = father
+				scope:recipient = { save_scope_as = mother }
+			}
+		}
+		
+		scope:actor = {
 			switch = {
 				trigger = yes
 				scope:one_child = {
-					make_pregnant = {
-						father = scope:actor
-						number_of_children = 1
+					scope:mother = {
+						make_pregnant = {
+							father = scope:father
+							number_of_children = 1
+						}
 					}
 				}
 				scope:twins = {
-					make_pregnant = {
-						father = scope:actor
-						number_of_children = 2
+					scope:mother = {
+						make_pregnant = {
+							father = scope:father
+							number_of_children = 2
+						}
 					}
 				}
 				scope:triplets = {
-					make_pregnant = {
-						father = scope:actor
-						number_of_children = 3
+					scope:mother = {
+						make_pregnant = {
+							father = scope:father
+							number_of_children = 3
+						}
 					}
 				}
 			}
+		}		
+	}
+}
+
+### Apply Contraceptive ###
+DI_contraceptive_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_contraceptive_desc
+	icon = DI_contraceptive
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			if = {
+				limit = {
+					has_character_modifier = DI_contraceptive
+				}
+				remove_character_modifier = DI_contraceptive
+			}
+			else = {
+				add_character_modifier = DI_contraceptive
+			}
+		}
+	}
+}
+
+### End Pregnancy ###
+
+
+DI_end_pregnancy_interaction = {
+	category = interaction_category_cheat_menu
+	desc = DI_end_pregnancy_desc
+	common_interaction = yes
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	
+	is_shown = {
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+		scope:recipient = {
+			is_pregnant = yes
+		}
+	}
+	
+	on_accept = {
+		scope:recipient = {
+			end_pregnancy = yes
+			pregnancy_cleanup_effect = yes
 		}
 	}
 }

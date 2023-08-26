@@ -317,12 +317,25 @@ window = {
                                     layoutpolicy_horizontal = expanding
                                     size = { 90 30 }
                                     onclick = "[GetVariableSystem.Set('show_modifiers', 'maa')]"
+                                    onclick = "[GetVariableSystem.Set('maa_type', 'skirmishers')]"
                                     
                                     button_ignore = none
                                     text = DI_maa_modifiers
                                     tooltip = DI_maa_modifiers
                                     using = tooltip_ne
                                 
+                                }
+
+                                button_standard = {
+                                    name = "Custom_modifiers_button"
+                                    layoutpolicy_horizontal = expanding
+                                    size = { 100 30 }
+                                    onclick = "[GetVariableSystem.Set('show_modifiers', 'custom')]"
+
+                                    button_ignore = none
+                                    text = DI_custom_modifiers
+                                    tooltip = DI_custom_modifiers
+                                    using = tooltip_ne
                                 }
                             }
                         }
@@ -12757,6 +12770,87 @@ window = {
                                 datacontext = [GetPlayer]
 
                                 using = DI_Modifier_MAA_Mult_Neg
+                            }
+                        }
+
+                        ### Custom Modifiers ###
+                        vbox = {
+                            name = "modifiers_custom_selection_panel"
+                            spacing = 5
+                            visible = "[GetVariableSystem.HasValue( 'show_modifiers', 'custom' )]"
+                            flowcontainer = {
+                                spacing = 5
+                                margin_bottom = 0
+                                ignoreinvisible = yes
+                                datacontext = [GetPlayer]
+
+                                dockable_button = {
+                                    name = "DI_modifier_space_marines_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_space_marines')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 1 0 0 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
+
+                                # immune_to_schemes
+                                dockable_button = {
+                                    name = "DI_modifier_immune_to_schemes_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_immune_to_schemes')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 1 0 0 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
+
+                                # contraceptive
+                                dockable_button = {
+                                    name = "DI_modifier_contraceptive_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_contraceptive')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 1 0 0 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
                             }
                         }
         

@@ -2822,16 +2822,16 @@ maa_screen_mult_neg = {
 
 # Types #
 # Skirmishers
-# maintenance_cost_mult
-skirmishers_maintenance_cost_mult = {
+# maintenance_mult
+skirmishers_maintenance_mult = {
 	icon = martial_positive
-	skirmishers_maintenance_cost_mult = 0.1
+	skirmishers_maintenance_mult = -0.1
 	stacking = yes
 }
 
-skirmishers_maintenance_cost_mult_neg = {
+skirmishers_maintenance_mult_neg = {
 	icon = martial_negative
-	skirmishers_maintenance_cost_mult = -0.1
+	skirmishers_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -3000,15 +3000,15 @@ skirmishers_screen_mult_neg = {
 
 # archers
 # Maintenance Cost
-archers_maintenance_cost_mult = {
+archers_maintenance_mult = {
 	icon = martial_positive
-	archers_maintenance_cost_mult = -0.1
+	archers_maintenance_mult = -0.1
 	stacking = yes
 }
 
-archers_maintenance_cost_mult_neg = {
+archers_maintenance_mult_neg = {
 	icon = martial_negative
-	archers_maintenance_cost_mult = 0.1
+	archers_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -3177,15 +3177,15 @@ archers_screen_mult_neg = {
 
 # Light cavalry
 # Maintenance Cost
-light_cavalry_maintenance_cost_mult = {
+light_cavalry_maintenance_mult = {
 	icon = martial_positive
-	light_cavalry_maintenance_cost_mult = -0.1
+	light_cavalry_maintenance_mult = -0.1
 	stacking = yes
 }
 
-light_cavalry_maintenance_cost_mult_neg = {
+light_cavalry_maintenance_mult_neg = {
 	icon = martial_negative
-	light_cavalry_maintenance_cost_mult = 0.1
+	light_cavalry_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -3354,15 +3354,15 @@ light_cavalry_screen_mult_neg = {
 
 # Pikemen
 # Maintenance Cost
-pikemen_maintenance_cost_mult = {
+pikemen_maintenance_mult = {
 	icon = martial_positive
-	pikemen_maintenance_cost_mult = -0.1
+	pikemen_maintenance_mult = -0.1
 	stacking = yes
 }
 
-pikemen_maintenance_cost_mult_neg = {
+pikemen_maintenance_mult_neg = {
 	icon = martial_negative
-	pikemen_maintenance_cost_mult = 0.1
+	pikemen_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -3531,15 +3531,15 @@ pikemen_screen_mult_neg = {
 
 # Heavy Infantry
 # Maintenance Cost
-heavy_infantry_maintenance_cost_mult = {
+heavy_infantry_maintenance_mult = {
 	icon = martial_positive
-	heavy_infantry_maintenance_cost_mult = -0.1
+	heavy_infantry_maintenance_mult = -0.1
 	stacking = yes
 }
 
-heavy_infantry_maintenance_cost_mult_neg = {
+heavy_infantry_maintenance_mult_neg = {
 	icon = martial_negative
-	heavy_infantry_maintenance_cost_mult = 0.1
+	heavy_infantry_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -3708,15 +3708,15 @@ heavy_infantry_screen_mult_neg = {
 
 # siege_weapon
 # Maintenance Cost
-siege_weapon_maintenance_cost_mult = {
+siege_weapon_maintenance_mult = {
 	icon = martial_positive
-	siege_weapon_maintenance_cost_mult = -0.1
+	siege_weapon_maintenance_mult = -0.1
 	stacking = yes
 }
 
-siege_weapon_maintenance_cost_mult_neg = {
+siege_weapon_maintenance_mult_neg = {
 	icon = martial_negative
-	siege_weapon_maintenance_cost_mult = 0.1
+	siege_weapon_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -3885,15 +3885,15 @@ siege_weapon_screen_mult_neg = {
 
 # heavy_cavalry
 # Maintenance Cost
-heavy_cavalry_maintenance_cost_mult = {
+heavy_cavalry_maintenance_mult = {
 	icon = martial_positive
-	heavy_cavalry_maintenance_cost_mult = -0.1
+	heavy_cavalry_maintenance_mult = -0.1
 	stacking = yes
 }
 
-heavy_cavalry_maintenance_cost_mult_neg = {
+heavy_cavalry_maintenance_mult_neg = {
 	icon = martial_negative
-	heavy_cavalry_maintenance_cost_mult = 0.1
+	heavy_cavalry_maintenance_mult = 0.1
 	stacking = yes
 }
 
@@ -4058,4 +4058,44 @@ heavy_cavalry_screen_mult_neg = {
 	icon = martial_negative
 	heavy_cavalry_screen_mult = -0.1
 	stacking = yes
+}
+
+### Custom Modifiers ###
+# Contraceptive
+# Credits Zerosu
+DI_contraceptive = {
+	icon = fertility_negative
+	fertility = -100
+}
+
+# Space Marines
+DI_space_marines = {
+	icon = martial_positive
+	maa_damage_add = 100
+	maa_toughness_add = 100
+	maa_pursuit_add = 100
+	maa_screen_add = 100
+	maa_siege_value_add = 100
+	men_at_arms_maintenance = -1000
+	men_at_arms_recruitment_cost = -1000
+	movement_speed = 100
+	retreat_losses = -100
+	supply_limit = 100
+	supply_limit_mult = 100
+	knight_effectiveness_mult = 100
+	supply_duration = 100
+	hostile_county_attrition = -100
+}
+
+# Credits Mura
+DI_immune_to_schemes = {
+	icon = intrigue_positive
+	hostile_scheme_resistance_add = 1000
+    hostile_scheme_resistance_mult = 100
+    personal_scheme_resistance_add = 1000
+    personal_scheme_resistance_mult = 100
+    scheme_discovery_chance_mult = 100
+
+    enemy_hostile_scheme_success_chance_add = -1000
+    enemy_personal_scheme_success_chance_add = -1000
 }
