@@ -1,0 +1,264 @@
+### Tradition Editor Window ###
+
+window = {
+	name = "DI_tradition_editor_window"
+	parentanchor = center
+	size = { 600 950 }
+	layer = windows_layer
+
+	using = Window_Background
+	using = Window_Decoration
+	
+	datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+	datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
+
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+
+	visible = "[GetVariableSystem.Exists('DI_tradition_editor_window_visible')]"
+	
+	vbox = {
+		using = Window_Margins
+		minimumsize = { 600 0 }
+
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "ADD_TRADITION"
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_tradition_editor_window_visible')]"
+			}
+		}
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			margin = { 4 0 }
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin_bottom = -4
+
+				# The parameter for GetTraditionGrouping should match the categories in the traditions script
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
+					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
+
+					hbox = {
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = center
+							text = "REALM"
+							default_format = "#low"
+						}
+					}
+				}
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'combat')]"
+					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'combat')]"
+
+					hbox = {
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = center
+							text = "COMBAT"
+							default_format = "#low"
+						}
+					}
+				}
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'societal')]"
+					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'societal')]"
+
+					hbox = {
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = center
+							text = "SOCIETAL"
+							default_format = "#low"
+						}
+					}
+				}
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin_bottom = 5
+
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'ritual')]"
+					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'ritual')]"
+
+					hbox = {
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = center
+							text = "RITUAL"
+							default_format = "#low"
+						}
+					}
+				}
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'regional')]"
+					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'regional')]"
+
+					hbox = {
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = center
+							text = "REGIONAL"
+							default_format = "#low"
+						}
+					}
+				}
+			}
+		}
+
+		vbox = {
+			name = "tradition_selection"
+			margin = { 0 8 }
+			spacing = 6
+
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			scrollbox = {
+				name = "traditions_realm_scrollbox"
+				visible = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						widget = {
+							size = {  240 180  }
+					
+							vbox = {
+								button_standard_hover = {
+									
+									size = {  220 120  }
+									onclick = "[GetScriptedGui('add_tradition_court_eunuchs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									visible = "[GetScriptedGui('DI_has_tradition_court_eunuchs').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)]"
+									button_ignore = none
+
+									hbox = {
+										margin = { 3 3 }
+										margin_right = 8
+										spacing = 5
+					
+										background = {
+											using = Background_Area
+										}
+					
+										icon = {
+											size = { 276 138}
+											texture = "gfx/interface/icons/traditions/court_eunuchs.dds"
+										}
+
+										widget = {
+											size = { 150 60 }
+					
+											vbox = {
+												position = {0 -1}
+					
+												ignoreinvisible = yes
+					
+												text_multi = {
+													name = "name_unlocked"
+													layoutpolicy_horizontal = expanding
+													text = "tradition_court_eunuchs"
+													max_width = 150
+													align = nobaseline
+													margin = { 3 0 }
+													default_format = "#P"
+													alpha = 0.7
+												}
+					
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 44 8 }
+				spacing = 20
+
+				button_standard= {
+					name = "clear_traditions"
+					text = "CLEAR_ALL_TRADITIONS"
+
+					onclick = "[GetScriptedGui('DI_clear_all_traditions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+	}
+}
+
+type DI_widget_tradition_icon = widget
+{
+
+	icon = {
+		name = "background"
+		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)0' )]"
+		size = { 100% 100% }
+	}
+
+	icon = {
+		name = "pattern_left"
+		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
+		size = { 100% 100% }
+		parentanchor = hcenter
+	}
+
+	icon = {
+		name = "pattern_right"
+		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
+		size = { 100% 100% }
+		parentanchor = hcenter
+		mirror = horizontal
+	}
+
+	icon = {
+		name = "support"
+		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)2' )]"
+		size = { 100% 100% }
+	}
+
+	icon = {
+		name = "stroke"
+		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)3' )]"
+		size = { 90% 90% }
+		parentanchor = center
+	}
+
+	icon = {
+		name = "items"
+		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)4' )]"
+		size = { 100% 100% }
+		parentanchor = center
+	}
+}

@@ -927,3 +927,150 @@ window = {
 		}
 	}
 }
+
+window = {
+	name = "DI_innovation_char_select_list_copy"
+	parentanchor = top|right
+	position = { -600 100 }
+	size = { 150 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_innovation_char_select_list_copy_visible')]"
+	
+	
+	vbox = {
+		using = Window_Margins
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = DI_select_character
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_copy_visible')]"
+			}
+		}
+		
+
+		
+		widget = {
+			size = { 570 650 }
+            vbox = {
+				
+				scrollbox = {
+					name = "title_char_select_list_copy"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					blockoverride "scrollbox_content" {
+					
+						vbox = {
+							datamodel = "[GetPlayer.MakeScope.GetList('marked_characters')]"
+							layoutpolicy_horizontal = expanding
+
+							spacing = 10
+
+							item = {
+								widget = {
+									layoutpolicy_horizontal = expanding
+									datacontext = [Scope.GetCharacter]
+									size = { 0 100 }
+									visible = "[Character.IsAlive]"
+
+									using = Background_Guest
+
+
+
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 7
+										button_standard_hover = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = expanding
+											onclick = "[GetScriptedGui('DI_innovation_select_char_copy').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+											onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_copy_visible')]"
+											hbox = {
+												layoutpolicy_horizontal = expanding
+												layoutpolicy_vertical = expanding
+												margin_right = 5
+												spacing = 10
+
+												portrait_head_small = {
+												}
+
+
+												vbox = {
+													layoutpolicy_vertical = expanding
+													layoutpolicy_horizontal = expanding
+													spacing = 10
+													margin_top = 15
+
+													hbox = {
+														layoutpolicy_horizontal = expanding
+
+														hbox = {
+															layoutpolicy_horizontal = expanding
+															layoutpolicy_vertical = expanding
+
+
+															vbox = {
+																layoutpolicy_horizontal = expanding
+																layoutpolicy_vertical = expanding
+																
+																
+																	
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	text = "[Character.GetUINameNotMeNoTooltip]"
+																	using = Font_Size_Medium
+																	autoresize = no
+																}
+							
+
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	text = "[Character.GetRelationToString( GetPlayer )]"
+																	default_format = "#low"
+																	autoresize = no
+																	align = nobaseline
+																}
+
+																expand = {}
+															}
+														}
+
+													}
+
+
+													expand = {}
+												}
+
+
+											}
+										}
+
+										divider = {
+											layoutpolicy_horizontal = expanding
+										}
+										
+									}
+								}
+							}
+						}
+					}
+                }
+            }
+		}
+	}
+}

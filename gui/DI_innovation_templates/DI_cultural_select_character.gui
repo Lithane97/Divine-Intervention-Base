@@ -1,0 +1,92 @@
+template DI_Cultural_Select_Character
+{	
+	widget = {
+		size = { 600 200 }
+		
+		widget = {
+			size = { 600 200 }
+			datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char]"
+	
+			DI_portrait_shoulders = {
+				visible = "[Character.IsValid]"
+				position = { 70 30 }
+				parentanchor = left
+	
+				text_label_center = {
+					parentanchor = hcenter|top
+					position = { 0 -20 }
+					raw_text = "Culture to Edit"
+					default_format = "#high;bold"
+					max_width = 500
+				}
+
+				blockoverride "portrait_button_template_onclick"
+				{
+					onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_visible')]"
+				}
+			}
+	
+			DI_portrait_shoulders = {
+				visible = "[Not(Character.IsValid)]"
+				position = { 70 30 }
+				parentanchor = left
+	
+				text_label_center = {
+					parentanchor = hcenter|top
+					position = { 0 -20 }
+					text = DI_select_character
+					default_format = "#low;italic"
+					max_width = 500
+				}
+	
+				blockoverride "onclick"
+				{
+					onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_visible')]"
+				}
+			}
+		}
+
+		widget = {
+			size = { 600 200 }
+			datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char]"
+	
+			DI_portrait_shoulders = {
+				visible = "[Character.IsValid]"
+				position = { 400 30 }
+				parentanchor = left
+	
+				text_label_center = {
+					parentanchor = hcenter|top
+					position = { 0 -20 }
+					raw_text = "Culture to Copy"
+					default_format = "#high;bold"
+					max_width = 500
+				}
+
+				blockoverride "portrait_button_template_onclick"
+				{
+					onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_copy_visible')]"
+				}
+			}
+	
+			DI_portrait_shoulders = {
+				visible = "[Not(Character.IsValid)]"
+				position = { 400 30 }
+				parentanchor = left
+	
+				text_label_center = {
+					parentanchor = hcenter|top
+					position = { 0 -20 }
+					text = DI_select_character
+					default_format = "#low;italic"
+					max_width = 500
+				}
+	
+				blockoverride "onclick"
+				{
+					onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_copy_visible')]"
+				}
+			}
+		}
+	}
+}

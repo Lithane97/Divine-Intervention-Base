@@ -3,12 +3,21 @@ template DI_Innovation_Anim
 	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
-		on_start = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'tribal' )]"
-		on_start = "[GetVariableSystem.Set( 'DI_modded', Select_CString(GetGlobalVariable('ek_game_started').IsSet, '1', '0'))]"
+		using = Sound_WindowShow_Standard
+
+		position = { 0 0 }
+		on_start = "[GetVariableSystem.Set( 'culture_tab', 'early' )]"
+		on_start = "[GetVariableSystem.Set( 'hide_bottom_left_HUD', 'true' )]"
+		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
+		on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
 	}
-	
+
 	state = {
 		name = _hide
 		using = Animation_FadeOut_Quick
+		using = Sound_WindowHide_Standard
+
+		position = { -90 0 }
+		on_start = "[GetVariableSystem.Clear( 'hide_bottom_left_HUD' )]"
 	}
 }

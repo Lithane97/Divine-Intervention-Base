@@ -1,38 +1,5 @@
 template DI_Innovation_Eras_Vanilla
-{
-	widget = {
-		size = { 400 160 }
-		datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char]"
-
-		DI_portrait_shoulders = {
-			visible = "[Character.IsValid]"
-			parentanchor = center
-
-			blockoverride "portrait_button_template_onclick"
-			{
-				onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_visible')]"
-			}
-		}
-
-		DI_portrait_shoulders = {
-			visible = "[Not(Character.IsValid)]"
-			parentanchor = center
-
-			text_label_center = {
-				parentanchor = hcenter|top
-				position = { 0 -5 }
-				text = DI_select_character_warning
-				default_format = "#low;italic"
-				max_width = 500
-			}
-
-			blockoverride "onclick"
-			{
-				onclick = "[GetVariableSystem.Toggle('DI_innovation_char_select_list_visible')]"
-			}
-		}
-	}
-	
+{	
 	hbox = {
 		name = "tabs"
 		layoutpolicy_horizontal = expanding
