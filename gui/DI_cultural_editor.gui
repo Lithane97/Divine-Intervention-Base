@@ -5,8 +5,7 @@ window = {
 	layer = windows_layer
 	using = Window_Size_Sidebar
 	using = Window_Background_Sidebar
-	movable = no
-	
+	movable = no	
 	
 	datacontext = "[GetVariableSystem]"
 	datacontext = "[GetPlayer]"
@@ -28,7 +27,7 @@ window = {
 
 			vbox = {
 				name = "acceptance"
-				visible = "[Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) )]"
+				# visible = "[Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) )]"
 				spacing = 2
 				margin_left = 450
 				margin_right = 10
@@ -98,6 +97,7 @@ window = {
 				layoutpolicy_horizontal = expanding
 				onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'innovations' )]"
 				onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+				onclick = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
 				down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' )]"
 
 				text_single = {
@@ -472,12 +472,11 @@ window = {
 
 			expand = {}
 
-			hbox = {
+			vbox = {
 				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
 				layoutpolicy_horizontal = expanding
-				margin = { 10 8 }
+				margin_top = 15
 				spacing = 10
-				margin_top = 8
 
 				hbox = {
 					visible = "[And( And( HasDlcFeature( 'hybridize_culture' ), Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) ) ), GetPlayer.IsValid )]"
@@ -521,68 +520,56 @@ window = {
 					button_standard = {
 						name = "hybridize"
 						visible = "[And( Not( ObjectsEqual(Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ) ), And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) ) )]"
-						minimumsize = { 240 0 }
 						onclick = "[Culture.OpenHybridizationWindow]"
 						text = "HYBRIDIZE_CULTURE_LABEL"
 						tooltip = "HYBRIDIZE_CULTURE_TOOLTIP"
 						using = tooltip_nw
-
-						icon = {
-							visible = "[Not( GetPlayer.GetCulture.CanHybridize( Culture.Self ) )]"
-							parentanchor = vcenter|right
-							position = { -3 0 }
-							size = { 25 25 }
-							texture = "gfx/interface/icons/symbols/icon_cross.dds"
-							alwaystransparent = yes
-						}
 					}
 				}
 
-				button_standard = {
-					name = "add_tradition"
-					text = "ADD_TRADITION_LABEL"
-					minimumsize = { 240 0 }
-					onclick = "[GetVariableSystem.Toggle( 'DI_tradition_editor_window_visible')]"
-					down = "[IsGameViewOpen('add_culture_tradition')]"
-					tooltip = "ADD_TRADITION_TOOLTIP"
-					using = tooltip_nw
+				hbox = {
+					spacing = 15
+					button_standard = {
+						name = "DI_edit_tradition"
+						text = DI_edit_tradition
+						onclick = "[GetVariableSystem.Toggle( 'DI_tradition_editor_window_visible')]"
+						down = "[IsGameViewOpen('add_culture_tradition')]"
+						tooltip = "ADD_TRADITION_TOOLTIP"
+						using = tooltip_nw
+					}
+	
+					button_standard = {
+						name = "DI_reform_culture"
+						visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
+						enabled = "[Not(Culture.IsReforming)]"
+						text = "REFORM_CULTURE_LABEL"
+						onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
+						down = "[IsGameViewOpen('add_culture_tradition')]"
+						tooltip = "REFORM_CULTURE_TOOLTIP"
+						using = tooltip_nw
+	
+					}
 
-					icon = {
-						visible = "[Not( Culture.CanAddTradition )]"
-						parentanchor = vcenter|right
-						position = { -3 0 }
-						size = { 25 25 }
-						texture = "gfx/interface/icons/symbols/icon_cross.dds"
-						alwaystransparent = yes
+					button_standard = {
+						name = "DI_diverge_culture"
+						visible = "[And( ObjectsEqual(Culture.Self, GetPlayer.GetCulture ), HasDlcFeature( 'diverge_culture' ) )]"
+						onclick = "[Culture.OpenDivergenceWindow]"
+						text = "DIVERGE_CULTURE_LABEL"
+						tooltip = "DIVERGE_CULTURE_TOOLTIP"
+						using = tooltip_nw
 					}
 				}
 
-				expand = {}
-
-				button_standard = {
-					name = "reform_culture"
-					visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
-					enabled = "[Not(Culture.IsReforming)]"
-					text = "REFORM_CULTURE_LABEL"
-					minimumsize = { 240 0 }
-					onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
-					down = "[IsGameViewOpen('add_culture_tradition')]"
-					tooltip = "REFORM_CULTURE_TOOLTIP"
-					using = tooltip_nw
-
+				hbox = {
+					spacing = 15
+					button_standard = {
+						name = "DI_copy_traditions"
+						onclick = "[GetScriptedGui('DI_copy_traditions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_COPY_TRADITIONS_LABEL
+						tooltip = DI_copy_traditions_tt
+						using = tooltip_nw
+					}
 				}
-
-				button_standard = {
-					name = "diverge"
-					visible = "[And( ObjectsEqual(Culture.Self, GetPlayer.GetCulture ), HasDlcFeature( 'diverge_culture' ) )]"
-					minimumsize = { 240 0 }
-					onclick = "[Culture.OpenDivergenceWindow]"
-					text = "DIVERGE_CULTURE_LABEL"
-					tooltip = "DIVERGE_CULTURE_TOOLTIP"
-					using = tooltip_nw
-				}
-
-				expand = {}
 			}
 
 			hbox = {
@@ -594,7 +581,6 @@ window = {
 				button_standard = {
 					name = "cancel_reform_culture"
 					text = "REFORM_CULTURE_CLOSE_LABEL"
-					minimumsize = { 240 0 }
 					onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
 					down = "[IsGameViewOpen('add_culture_tradition')]"
 					tooltip = "REFORM_CULTURE_CLOSE_TOOLTIP"

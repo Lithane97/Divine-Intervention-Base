@@ -1,4 +1,4 @@
-### Tradition Editor Window ###
+﻿### Tradition Editor Window ###
 
 window = {
 	name = "DI_tradition_editor_window"
@@ -16,6 +16,8 @@ window = {
 	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
+
+		on_start = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
 	}
 
 	state = {
@@ -34,7 +36,7 @@ window = {
 
 			blockoverride "header_text"
 			{
-				text = "ADD_TRADITION"
+				text = "[SelectLocalization(GetVariableSystem.HasValue('reformation_mode', 'show'), 'REPLACE_TRADITION_WINDOW_TITLE', 'ADD_TRADITION_WINDOW_TITLE')]"
 			}
 
 			blockoverride "button_close"
@@ -43,96 +45,96 @@ window = {
 			}
 		}
 
+		# vbox = {
+		# 	layoutpolicy_horizontal = expanding
+		# 	margin = { 4 0 }
+
+		# 	hbox = {
+		# 		layoutpolicy_horizontal = expanding
+		# 		margin_bottom = -4
+
+		# 		# The parameter for GetTraditionGrouping should match the categories in the traditions script
+		# 		button_tab = {
+		# 			layoutpolicy_horizontal = expanding
+		# 			onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
+		# 			down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
+
+		# 			hbox = {
+		# 				text_single = {
+		# 					layoutpolicy_horizontal = expanding
+		# 					align = center
+		# 					text = "REALM"
+		# 					default_format = "#low"
+		# 				}
+		# 			}
+		# 		}
+		# 		button_tab = {
+		# 			layoutpolicy_horizontal = expanding
+		# 			onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'combat')]"
+		# 			down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'combat')]"
+
+		# 			hbox = {
+		# 				text_single = {
+		# 					layoutpolicy_horizontal = expanding
+		# 					align = center
+		# 					text = "COMBAT"
+		# 					default_format = "#low"
+		# 				}
+		# 			}
+		# 		}
+		# 		button_tab = {
+		# 			layoutpolicy_horizontal = expanding
+		# 			onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'societal')]"
+		# 			down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'societal')]"
+
+		# 			hbox = {
+		# 				text_single = {
+		# 					layoutpolicy_horizontal = expanding
+		# 					align = center
+		# 					text = "SOCIETAL"
+		# 					default_format = "#low"
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+
+		# 	hbox = {
+		# 		layoutpolicy_horizontal = expanding
+		# 		margin_bottom = 5
+
+		# 		button_tab = {
+		# 			layoutpolicy_horizontal = expanding
+		# 			onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'ritual')]"
+		# 			down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'ritual')]"
+
+		# 			hbox = {
+		# 				text_single = {
+		# 					layoutpolicy_horizontal = expanding
+		# 					align = center
+		# 					text = "RITUAL"
+		# 					default_format = "#low"
+		# 				}
+		# 			}
+		# 		}
+		# 		button_tab = {
+		# 			layoutpolicy_horizontal = expanding
+		# 			onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'regional')]"
+		# 			down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'regional')]"
+
+		# 			hbox = {
+		# 				text_single = {
+		# 					layoutpolicy_horizontal = expanding
+		# 					align = center
+		# 					text = "REGIONAL"
+		# 					default_format = "#low"
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# }
+
 		vbox = {
-			layoutpolicy_horizontal = expanding
-			margin = { 4 0 }
-
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				margin_bottom = -4
-
-				# The parameter for GetTraditionGrouping should match the categories in the traditions script
-				button_tab = {
-					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
-					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
-
-					hbox = {
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = center
-							text = "REALM"
-							default_format = "#low"
-						}
-					}
-				}
-				button_tab = {
-					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'combat')]"
-					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'combat')]"
-
-					hbox = {
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = center
-							text = "COMBAT"
-							default_format = "#low"
-						}
-					}
-				}
-				button_tab = {
-					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'societal')]"
-					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'societal')]"
-
-					hbox = {
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = center
-							text = "SOCIETAL"
-							default_format = "#low"
-						}
-					}
-				}
-			}
-
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				margin_bottom = 5
-
-				button_tab = {
-					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'ritual')]"
-					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'ritual')]"
-
-					hbox = {
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = center
-							text = "RITUAL"
-							default_format = "#low"
-						}
-					}
-				}
-				button_tab = {
-					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'regional')]"
-					down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'regional')]"
-
-					hbox = {
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = center
-							text = "REGIONAL"
-							default_format = "#low"
-						}
-					}
-				}
-			}
-		}
-
-		vbox = {
-			name = "tradition_selection"
+			name = "DI_tradition_selection"
 			margin = { 0 8 }
 			spacing = 6
 
@@ -140,63 +142,22 @@ window = {
 			layoutpolicy_vertical = expanding
 
 			scrollbox = {
-				name = "traditions_realm_scrollbox"
+				name = "DI_traditions_realm_scrollbox"
 				visible = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
 
 				blockoverride "scrollbox_content"
 				{
-					vbox = {
-						widget = {
-							size = {  240 180  }
-					
-							vbox = {
-								button_standard_hover = {
-									
-									size = {  220 120  }
-									onclick = "[GetScriptedGui('add_tradition_court_eunuchs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-									visible = "[GetScriptedGui('DI_has_tradition_court_eunuchs').IsValid(GuiScope.SetRoot(Culture.MakeScope).End)]"
-									button_ignore = none
-
-									hbox = {
-										margin = { 3 3 }
-										margin_right = 8
-										spacing = 5
-					
-										background = {
-											using = Background_Area
-										}
-					
-										icon = {
-											size = { 276 138}
-											texture = "gfx/interface/icons/traditions/court_eunuchs.dds"
-										}
-
-										widget = {
-											size = { 150 60 }
-					
-											vbox = {
-												position = {0 -1}
-					
-												ignoreinvisible = yes
-					
-												text_multi = {
-													name = "name_unlocked"
-													layoutpolicy_horizontal = expanding
-													text = "tradition_court_eunuchs"
-													max_width = 150
-													align = nobaseline
-													margin = { 3 0 }
-													default_format = "#P"
-													alpha = 0.7
-												}
-					
-											}
-										}
-									}
-								}
-							}
+					fixedgridbox = {
+						datamodel = "[GetAllCultureTraditions]"
+						flipdirection = yes
+						addcolumn = 240
+						addrow = 160
+						datamodel_wrap = 2
+	
+						item = {
+							DI_widget_tradition_item = {}	
 						}
 					}
 				}
@@ -207,58 +168,94 @@ window = {
 				margin = { 44 8 }
 				spacing = 20
 
-				button_standard= {
+				button_standard = {
 					name = "clear_traditions"
-					text = "CLEAR_ALL_TRADITIONS"
+					text = DI_CLEAR_ALL_TRADITIONS
 
 					onclick = "[GetScriptedGui('DI_clear_all_traditions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
+
+				# button_standard = {
+				# 	name = "DI_all_traditions"
+				# 	text = DI_all_traditions
+
+				# 	onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', GetCultureTradition('tradition_winter_warriors').MakeScope).End)]"
+				# }
 			}
 		}
 	}
 }
 
-type DI_widget_tradition_icon = widget
+types DI_CultureAddTraditionTypes
 {
+	type DI_widget_tradition_item = widget {
+		size = {  240 160  }
 
-	icon = {
-		name = "background"
-		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)0' )]"
-		size = { 100% 100% }
-	}
+		tooltipwidget = {
+			using = culture_tradition_tooltip_clickable
+		}
 
-	icon = {
-		name = "pattern_left"
-		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
-		size = { 100% 100% }
-		parentanchor = hcenter
-	}
+		vbox = {
+			button_standard = {
+				size = {  220 120  }
+				onclick = "[GetVariableSystem.Set( 'DI_selected_tradition' , CultureTradition.Self )]"
+				onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+				button_ignore = none
 
-	icon = {
-		name = "pattern_right"
-		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
-		size = { 100% 100% }
-		parentanchor = hcenter
-		mirror = horizontal
-	}
+				widget_tradition_icon = {
+					block "icon_size" {
+						size = { 220 120 }
+					}
+				}
 
-	icon = {
-		name = "support"
-		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)2' )]"
-		size = { 100% 100% }
-	}
+				icon = {
+					name = "selection_glow"
+					visible = "[ObjectsEqual( VariableSystem.Get(' DI_selected_tradition ') , CultureTradition.Self )]"
+					parentanchor = center
+					size = { 100% 100% }
 
-	icon = {
-		name = "stroke"
-		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)3' )]"
-		size = { 90% 90% }
-		parentanchor = center
-	}
+					state = {
+						trigger_on_create = yes
 
-	icon = {
-		name = "items"
-		texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)4' )]"
-		size = { 100% 100% }
-		parentanchor = center
+						name = max_glow
+						next = min_glow
+						duration = 1
+						using = Animation_Curve_Default
+						alpha = 0.5
+					}
+
+					state = {
+						name = min_glow
+						next = max_glow
+						duration = 1.6
+						using = Animation_Curve_Default
+						alpha = 0.3
+					}
+
+					background = {
+						texture = "gfx/interface/component_effects/innovation_glow.dds"
+						margin = { 14 12 }
+						spriteType = Corneredstretched
+						spriteborder = { 30 30 }
+						tintcolor = { 1 0.8 0.6 1 }
+					}
+				}
+			}
+
+			hbox = {
+				margin_top = 4
+
+				text_label_center = {
+					name = "name"
+					text = "[CultureTradition.GetNameNoTooltip]"
+					maximumsize = { 180 44 }
+					multiline = yes
+					align = center|nobaseline
+
+					using = Font_Size_Medium
+				}
+			}
+		}
 	}
 }

@@ -1,0 +1,45 @@
+﻿### Traditions Scripted Effects ###
+### clear_traditions ###
+DI_clear_all_traditions = {
+	scope = character
+
+	effect = {
+		save_scope_as = root
+		
+		scope:root.culture = {
+			clear_culture_traditions = yes
+		}
+	}
+}
+
+### remove_culture_tradition ###
+DI_remove_tradition = {
+	scope = character
+
+	effect = {
+		var:DI_innovation_selected_culture = {
+			if = {
+				limit = {
+					has_cultural_tradition = scope:tradition
+				}
+				remove_culture_tradition = scope:tradition
+			}
+		}
+	}
+}
+
+### DI_set_tradition ###
+DI_set_tradition = {
+	scope = character
+
+	effect = {
+		var:DI_innovation_selected_culture = {
+			if = {
+				limit = {
+					NOT = { has_cultural_tradition = scope:tradition }
+				}
+				add_culture_tradition = scope:tradition
+			}
+		}
+	}
+}
