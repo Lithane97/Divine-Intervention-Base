@@ -30,55 +30,6 @@ DI_open_vassal_contract = {
 	}
 }
 
-### Traits ###
-DI_add_trait = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_marked_char_var
-			}
-			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
-
-				hidden_effect = {
-					add_trait = scope:trait
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_trait = scope:trait
-			}
-		}
-	}
-}
-
-DI_remove_trait = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_marked_char_var
-			}
-			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
-
-				hidden_effect = {
-					remove_trait = scope:trait
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				remove_trait = scope:trait
-			}
-		}
-	}
-}
-
 DI_sexuality_heterosexual = {
 	scope = character
 	
