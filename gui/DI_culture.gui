@@ -18,16 +18,10 @@ window = {
 	visible = "[GetVariableSystem.Exists('DI_culture_window_visible')]"
 	
 	state = {
-		name = init
-		trigger_on_create = yes
-		
-		on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-	}
-	
-	
-	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
+
+		on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 	
 	state = {

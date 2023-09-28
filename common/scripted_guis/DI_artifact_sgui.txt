@@ -11,6 +11,23 @@
 	}
 }
 
+### Select Character Init ###
+DI_artifact_select_char_init = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_artifact_selected_char }
+			}
+			set_variable = {
+				name = DI_artifact_selected_char
+				value = this
+			}
+		}
+	}
+}
+
 DI_take_artifact = {
 	scope = character
 	

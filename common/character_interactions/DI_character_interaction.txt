@@ -764,23 +764,22 @@ DI_divorce_character_interaction = {
 	ignores_pending_interaction_block = yes
 	
 	is_shown = {
-		OR = {
-			AND = {
-				scope:recipient = {
-					is_spouse_of = scope:actor
-				}
-				scope:actor = {
-					is_ai = no
-					has_character_flag = DI_cheat_menu
-				}
-			}
-			AND = {
-				scope:recipient = {
+		scope:actor = {
+			has_character_flag = DI_cheat_menu
+			is_ai = no
+		}
+
+		scope:recipient = {
+			OR = {
+				is_spouse_of = scope:actor
+	
+				AND = {
 					is_married = yes
 					is_ai = yes
 				}
 			}
 		}
+		
 		
 	}
 
