@@ -41856,4 +41856,114 @@ DI_remove_modifier_contraceptive = {
 	}
 }
 
+# DI_ultra_build
+DI_add_modifier_ultra_build = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				add_character_modifier = DI_ultra_build
+			}
+		}
+		else = {
+			add_character_modifier = DI_ultra_build
+		}
+	}
+}
+
+DI_remove_modifier_ultra_build = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+				
+				remove_character_modifier = DI_ultra_build
+			}
+		}
+		else = {
+			remove_character_modifier = DI_ultra_build
+		}
+	}
+}
+
+# DI_building_slots
+DI_add_modifier_building_slots = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+			
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					add_character_modifier = DI_building_slots
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				add_character_modifier = DI_building_slots
+			}
+		}
+	}
+}
+
+DI_remove_modifier_building_slots = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = marked_for_edit
+				}
+
+				while = { count = scope:target.var:DI_modifier_increment_value
+					remove_character_modifier = DI_building_slots
+				}
+			}
+		}
+		else = {
+			while = { count = var:DI_modifier_increment_value
+				remove_character_modifier = DI_building_slots
+			}
+		}
+	}
+}
+
 ### The End ###

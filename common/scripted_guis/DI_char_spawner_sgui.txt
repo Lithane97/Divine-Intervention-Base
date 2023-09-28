@@ -1555,6 +1555,192 @@ DI_commander = {
 }
 
 ### FAMILY ###
+# parent
+DI_parent = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_female
+			}
+
+			set_variable = {
+				name = gender_var
+				value = 100
+			}
+		}
+		else = {
+			set_variable = {
+				name = gender_var
+				value = 0
+			}
+		}
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = { has_character_flag = marked_for_edit }
+
+				save_scope_as = target
+
+				create_character = {
+					age = scope:root_target.var:DI_char_spawner_age_increment_value
+					gender_female_chance = scope:root_target.var:gender_var
+					health = 5
+					fertility = 0.5
+					employer = scope:target
+					faith = scope:target.faith
+					culture = scope:target.culture
+					dynasty_house = scope:target.house
+					martial = { 7 12 }
+					prowess = { 5 12 }
+					diplomacy = { 5 10 }
+					stewardship = { 7 12 }
+					intrigue = { 5 10 }
+					learning = { 5 10 }
+					random_traits = yes
+					save_scope_as = new_courtier
+				}
+				if = {
+					limit = {
+						scope:root_target = { has_variable = DI_char_spawner_immortal }
+					}
+					scope:new_courtier = {
+						add_trait = immortal
+					}
+				}
+				if = {
+					limit = {
+						scope:root_target = { has_variable = DI_char_spawner_100_stat_man }
+					}
+					scope:new_courtier = {
+						add_trait = 100_stat_man
+					}
+				}
+				if = {
+					limit = {
+						scope:root_target = { has_variable = DI_char_spawner_good_traits }
+					}
+					scope:new_courtier = {
+						add_trait = loyal
+						add_trait = beauty_good_3
+						add_trait = intellect_good_3
+						add_trait = physique_good_3
+					}
+				}
+				if = {
+					limit = {
+						is_ruler = no
+					}
+					scope:target.liege = {
+						add_courtier = scope:new_courtier
+					}
+				}
+				if = {
+					limit = {
+						scope:root_target = {
+							has_variable = DI_char_spawner_female
+						}
+					}
+
+					scope:target = {
+						every_sibling = {
+							set_mother = scope:new_courtier
+						}
+						set_mother = scope:new_courtier
+					}
+				}
+				else = {
+					scope:target = {
+						every_sibling = {
+							set_father = scope:new_courtier
+						}
+						set_father = scope:new_courtier
+					}
+				}		
+			}
+		}
+
+		else = {
+			save_scope_as = target
+
+			create_character = {
+				age = scope:root_target.var:DI_char_spawner_age_increment_value
+				gender_female_chance = scope:root_target.var:gender_var
+				health = 5
+				fertility = 0.5
+				employer = scope:target
+				faith = scope:target.faith
+				culture = scope:target.culture
+				dynasty_house = scope:target.house
+				martial = { 7 12 }
+				prowess = { 5 12 }
+				diplomacy = { 5 10 }
+				stewardship = { 7 12 }
+				intrigue = { 5 10 }
+				learning = { 5 10 }
+				random_traits = yes
+				save_scope_as = new_courtier
+			}
+			if = {
+				limit = {
+					scope:root_target = { has_variable = DI_char_spawner_immortal }
+				}
+				scope:new_courtier = {
+					add_trait = immortal
+				}
+			}
+			if = {
+				limit = {
+					scope:root_target = { has_variable = DI_char_spawner_100_stat_man }
+				}
+				scope:new_courtier = {
+					add_trait = 100_stat_man
+				}
+			}
+			if = {
+				limit = {
+					scope:root_target = { has_variable = DI_char_spawner_good_traits }
+				}
+				scope:new_courtier = {
+					add_trait = loyal
+					add_trait = beauty_good_3
+					add_trait = intellect_good_3
+					add_trait = physique_good_3
+				}
+			}
+			if = {
+				limit = {
+					scope:root_target = {
+						has_variable = DI_char_spawner_female
+					}
+				}
+
+				scope:target = {
+					every_sibling = {
+						set_mother = scope:new_courtier
+					}
+					set_mother = scope:new_courtier
+				}
+			}
+			else = {
+				scope:target = {
+					every_sibling = {
+						set_father = scope:new_courtier
+					}
+					set_father = scope:new_courtier
+				}
+			}
+		}
+	}
+}
+
 DI_child = {
 	scope = character
 	

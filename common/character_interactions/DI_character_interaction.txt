@@ -763,22 +763,47 @@ DI_divorce_character_interaction = {
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
 	
-
 	is_shown = {
-		scope:recipient = {
-			is_spouse_of = scope:actor
+		OR = {
+			AND = {
+				scope:recipient = {
+					is_spouse_of = scope:actor
+				}
+				scope:actor = {
+					is_ai = no
+					has_character_flag = DI_cheat_menu
+				}
+			}
+			AND = {
+				scope:recipient = {
+					is_married = yes
+					is_ai = yes
+				}
+			}
 		}
-		scope:actor = {
-			is_ai = no
-			has_character_flag = DI_cheat_menu
-		}
+		
 	}
 
 	on_accept = {
-		scope:actor = {
-			divorce_effect = {
-				DIVORCER = scope:actor
-				DIVORCEE = scope:recipient
+		if = {
+			limit = {
+				scope:recipient = {
+					is_spouse_of = scope:actor
+				}
+			}
+			scope:actor = {
+				divorce_effect = {
+					DIVORCER = scope:actor
+					DIVORCEE = scope:recipient
+				}
+			}
+		}
+		else = {
+			scope:recipient = {
+				divorce_effect = {
+					DIVORCER = scope:recipient
+					DIVORCEE = scope:recipient.primary_spouse
+				}
 			}
 		}
 	}
@@ -1884,33 +1909,119 @@ DI_impregnate_interaction = {
 					age >= 16
 				}
 			}
+			AND = {
+				scope:recipient = {
+					is_female = yes
+					is_pregnant = no
+					age >= 16
+				}
+
+				scope:recipient.primary_spouse ?= {
+					is_male = yes
+					age >= 16
+					is_alive = yes
+				}
+			}
 		}
 	}
 
 	send_option = {
+		is_shown = {
+			scope:actor = {
+				sex_opposite_of = scope:recipient
+			}
+		}
 		flag = one_child
 		localization = DI_impregnate_one_child
 	}
 	send_option = {
+		is_shown = {
+			scope:actor = {
+				is_spouse_of = scope:recipient
+			}
+		}
 		flag = twins
 		localization = DI_impregnate_twins
 	}
 	send_option = {
+		is_shown = {
+			scope:actor = {
+				is_spouse_of = scope:recipient
+			}
+		}
 		flag = triplets
 		localization = DI_impregnate_triplets
 	}
+	send_option = {
+		is_shown = { 
+			scope:recipient = { 
+				is_female = yes 
+				NOT = { is_spouse_of = scope:actor }
+				scope:recipient.primary_spouse ?= {
+					is_alive = yes
+				}
+			}	
+		}
+		flag = by_spouse_1
+		localization = DI_impregnate_by_spouse_1
+	}
+	send_option = {
+		is_shown = { 
+			scope:recipient = { 
+				is_female = yes 
+				NOT = { is_spouse_of = scope:actor }
+				scope:recipient.primary_spouse ?= {
+					is_alive = yes
+				}
+			}	
+		 }
+		flag = by_spouse_2
+		localization = DI_impregnate_by_spouse_2
+	}
+	send_option = {
+		is_shown = { 
+			scope:recipient = { 
+				is_female = yes 
+				NOT = { is_spouse_of = scope:actor }
+				scope:recipient.primary_spouse ?= {
+					is_alive = yes
+				}
+			}	
+		 }
+		flag = by_spouse_3
+		localization = DI_impregnate_by_spouse_3
+	}
 
 	on_send = {
-		scope:actor = {
-			if = {
-				limit = { is_female = yes }
-				save_scope_as = mother
-				scope:recipient = { save_scope_as = father }
+		if = {
+			limit = { 
+				OR = {
+					scope:by_spouse_1 = yes
+					scope:by_spouse_2 = yes
+					scope:by_spouse_3 = yes
+				}
 			}
-	
-			else = {
+
+			scope:recipient = {
+				save_scope_as = mother
+			}
+
+			scope:recipient.primary_spouse = {
 				save_scope_as = father
-				scope:recipient = { save_scope_as = mother }
+			}
+		}
+		else = {
+			scope:actor = {
+				if = {
+					limit = { is_female = yes }
+					save_scope_as = mother
+					scope:recipient = { save_scope_as = father }
+				}
+		
+				else = {
+					save_scope_as = father
+					scope:recipient = { save_scope_as = mother }
+				}
 			}
 		}
 		
@@ -1934,6 +2045,30 @@ DI_impregnate_interaction = {
 					}
 				}
 				scope:triplets = {
+					scope:mother = {
+						make_pregnant = {
+							father = scope:father
+							number_of_children = 3
+						}
+					}
+				}
+				scope:by_spouse_1 = {
+					scope:mother = {
+						make_pregnant = {
+							father = scope:father
+							number_of_children = 1
+						}
+					}
+				}
+				scope:by_spouse_2 = {
+					scope:mother = {
+						make_pregnant = {
+							father = scope:father
+							number_of_children = 2
+						}
+					}
+				}
+				scope:by_spouse_3 = {
 					scope:mother = {
 						make_pregnant = {
 							father = scope:father

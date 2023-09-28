@@ -12851,6 +12851,52 @@ window = {
                                         }
                                     }
                                 }
+
+                                # ultra_build
+                                dockable_button = {
+                                    name = "DI_modifier_ultra_build_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_ultra_build')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 1 0 0 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
+
+                                # building_slots
+                                dockable_button = {
+                                    name = "DI_modifier_building_slots_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_building_slots')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 1 0 0 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
                             }
                         }
         
