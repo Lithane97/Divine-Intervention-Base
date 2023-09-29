@@ -226,7 +226,6 @@ random_artifact_quality_effect = {
 }
 
 ### Create Artifact Effects ###
-### Injector Test ###
 #Weapons#
 DI_create_artifact_weapon = {
 	save_scope_as = player
@@ -424,8 +423,10 @@ DI_create_artifact_crown = {
 
 		scope:newly_created_artifact = {
 			# Get gem type if necessary and update description
+			#Loc
 			get_artifact_feature_references_effect = yes
 			set_artifact_description = artifact_crown_description
+			remove_artifact_modifier = artifact_placeholder_modifier
 			
 			# Crowns with high rarity get more modifiers
 			if = {
@@ -524,6 +525,10 @@ DI_create_artifact_regalia = {
 		scope:newly_created_artifact = {
 			# Prestige modifier is scaled based on the Wealth of the artifact (opulence).
 			add_scaled_artifact_modifier_minor_prestige_effect = yes
+			#Loc
+			get_artifact_feature_references_effect = yes
+			set_artifact_description = artifact_regalia_description
+			remove_artifact_modifier = artifact_placeholder_modifier
 
 			# If we're using the cross-bearing orb (explicit religious symbol), trade some prestige for piety.
 			if = {
