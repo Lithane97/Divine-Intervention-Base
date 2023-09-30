@@ -41966,4 +41966,30 @@ DI_remove_modifier_building_slots = {
 	}
 }
 
+### Clear all Modifiers ###
+DI_clear_modifiers = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_marked_char_var
+			}
+
+			every_living_character = {
+				limit = {
+					has_character_flag = marked_for_edit
+				}
+				
+				DI_remove_all_character_modifiers_effect = yes
+			}
+		}
+		else = {
+			DI_remove_all_character_modifiers_effect = yes
+		}
+	}
+}
+
 ### The End ###
