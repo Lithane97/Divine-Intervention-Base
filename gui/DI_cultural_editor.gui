@@ -623,199 +623,176 @@ window = {
 			}
 
 			scrollbox = {
-				name = "selected_culture_era"
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
-
+			
 				blockoverride "scrollbox_content"
 				{
+			
 					vbox = {
-						# visible = "[GetVariableSystem.HasValue( 'DI_innovation_selected_era', CultureEraType.GetName )]"
-						layoutpolicy_horizontal = expanding
-						spacing = 10
-
-						state = {
-							name = "culture_refresh"
-							using = Animation_Refresh_FadeOut
-						}
-
-						state = {
-							using = Animation_Refresh_FadeIn
-						}
-
+					
 						vbox = {
-							name = "era_groups"
-							# datamodel = "[GuiCultureEra.GetCultureEraGroups]"
 							layoutpolicy_horizontal = expanding
-							spacing = 30
-
-							item = {
-								vbox = {
-									layoutpolicy_horizontal = expanding
-									spacing = 10
-
-									text_label_left = {
-										layoutpolicy_horizontal = expanding
-										align = left
-										margin = { 0 3 }
-										text = "[CultureEraType.GetName]"
-									}
-
-									dynamicgridbox = {
-										datamodel = "[GetAllCultureInnovationTypes]"
-										datamodel_wrap = 2
-										flipdirection = yes
-
-										item = {
-											flowcontainer = {
-												margin_top = 10
-												margin_right = 45
-
-												flowcontainer = {
-													direction = horizontal
-
-													allow_outside = yes
-													using = tooltip_es
-													ignoreinvisible = yes
-
-													tooltipwidget = {
-														using = culture_innovation_tooltip
-													}
-
-													######### CLICKABLE ######
-													button_standard_hover = {
-														
-														# visible = "[And(CultureInnovation.GetCulture.IsPlayerCultureHead, Not(CultureInnovation.IsActive))]"
-														# enabled = "[CultureInnovation.CanBeFascination]"
-														size = { 256 66 }
-														onclick = "[CultureInnovation.SelectAsFascination]"
-
-														hbox = {
-															margin = { 3 3 }
-															margin_right = 8
-															spacing = 5
-															allow_outside = yes
-															ignoreinvisible = yes
-
-															background = {
-																using = Background_Area
-															}
-
-															widget = {
-																size = { 90 60 }
-
-																DI_icon_innovation = {
-																	parentanchor = center
-																}
-															}
-
-															widget = {
-																size = { 150 60 }
-																alwaystransparent = yes
-
-																vbox = {
-																	position = {0 -1}
-
-																	ignoreinvisible = yes
-
-																	text_multi = {
-																		name = "name_clickable"
-																		visible = "[CultureInnovation.CanBeFascination]"
-																		layoutpolicy_horizontal = expanding
-																		text = "[CultureInnovation.GetNameNoTooltip]"
-																		align = nobaseline
-																		margin = { 3 0 }
-																		default_format = "#clickable"
-																	}
-
-																	text_multi = {
-																		name = "name_unlocked"
-																		visible = "[CultureInnovation.IsActive]"
-																		layoutpolicy_horizontal = expanding
-																		text = "[CultureInnovation.GetNameNoTooltip]"
-																		max_width = 150
-																		align = nobaseline
-																		margin = { 3 0 }
-																		default_format = "#P"
-																		alpha = 0.7
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-
-						background = {
-							name = "gray_overlay"
-							visible = "[GuiCultureEra.GetCultureEra.GetType.IsInvalidForPlayerGovernment]"
-							using = Background_Area_Border_Solid
-							tintcolor = { 0.5 0.5 0.5 0.3 }
-							alwaystransparent = no
-							margin = { 10 10 }
+							datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
+						
+							using = DI_Military_Group
+							
+							using = DI_Innovation_Military_Vanilla
+							
+							using = DI_Civic_Group
+							
+							using = DI_Innovation_Civic_Vanilla
+							
+							using = DI_Regional_Group
+							
+							using = DI_Innovation_Regional_Vanilla
 						}
 					}
+					
 				}
 			}
+
+			# scrollbox = {
+			# 	name = "selected_culture_era"
+			# 	layoutpolicy_horizontal = expanding
+			# 	layoutpolicy_vertical = expanding
+
+			# 	blockoverride "scrollbox_content"
+			# 	{
+			# 		vbox = {
+			# 			# visible = "[GetVariableSystem.HasValue( 'DI_innovation_selected_era', CultureEraType.GetName )]"
+			# 			layoutpolicy_horizontal = expanding
+			# 			spacing = 10
+
+			# 			state = {
+			# 				name = "culture_refresh"
+			# 				using = Animation_Refresh_FadeOut
+			# 			}
+
+			# 			state = {
+			# 				using = Animation_Refresh_FadeIn
+			# 			}
+
+			# 			vbox = {
+			# 				name = "era_groups"
+			# 				# datamodel = "[GuiCultureEra.GetCultureEraGroups]"
+			# 				layoutpolicy_horizontal = expanding
+			# 				spacing = 30
+
+			# 				item = {
+			# 					vbox = {
+			# 						layoutpolicy_horizontal = expanding
+			# 						spacing = 10
+
+			# 						text_label_left = {
+			# 							layoutpolicy_horizontal = expanding
+			# 							align = left
+			# 							margin = { 0 3 }
+			# 							text = "[CultureEraType.GetName]"
+			# 						}
+
+			# 						dynamicgridbox = {
+			# 							datamodel = "[GetAllCultureInnovationTypes]"
+			# 							datamodel_wrap = 2
+			# 							flipdirection = yes
+
+			# 							item = {
+			# 								flowcontainer = {
+			# 									margin_top = 10
+			# 									margin_right = 45
+
+			# 									flowcontainer = {
+			# 										direction = horizontal
+
+			# 										allow_outside = yes
+			# 										using = tooltip_es
+			# 										ignoreinvisible = yes
+
+			# 										tooltipwidget = {
+			# 											using = culture_innovation_tooltip
+			# 										}
+
+			# 										######### CLICKABLE ######
+			# 										button_standard_hover = {
+														
+			# 											# visible = "[And(CultureInnovation.GetCulture.IsPlayerCultureHead, Not(CultureInnovation.IsActive))]"
+			# 											# enabled = "[CultureInnovation.CanBeFascination]"
+			# 											size = { 256 66 }
+			# 											onclick = "[CultureInnovation.SelectAsFascination]"
+
+			# 											hbox = {
+			# 												margin = { 3 3 }
+			# 												margin_right = 8
+			# 												spacing = 5
+			# 												allow_outside = yes
+			# 												ignoreinvisible = yes
+
+			# 												background = {
+			# 													using = Background_Area
+			# 												}
+
+			# 												widget = {
+			# 													size = { 90 60 }
+
+			# 													DI_icon_innovation = {
+			# 														parentanchor = center
+			# 													}
+			# 												}
+
+			# 												widget = {
+			# 													size = { 150 60 }
+			# 													alwaystransparent = yes
+
+			# 													vbox = {
+			# 														position = {0 -1}
+
+			# 														ignoreinvisible = yes
+
+			# 														text_multi = {
+			# 															name = "name_clickable"
+			# 															visible = "[CultureInnovation.CanBeFascination]"
+			# 															layoutpolicy_horizontal = expanding
+			# 															text = "[CultureInnovation.GetNameNoTooltip]"
+			# 															align = nobaseline
+			# 															margin = { 3 0 }
+			# 															default_format = "#clickable"
+			# 														}
+
+			# 														text_multi = {
+			# 															name = "name_unlocked"
+			# 															visible = "[CultureInnovation.IsActive]"
+			# 															layoutpolicy_horizontal = expanding
+			# 															text = "[CultureInnovation.GetNameNoTooltip]"
+			# 															max_width = 150
+			# 															align = nobaseline
+			# 															margin = { 3 0 }
+			# 															default_format = "#P"
+			# 															alpha = 0.7
+			# 														}
+			# 													}
+			# 												}
+			# 											}
+			# 										}
+			# 									}
+			# 								}
+			# 							}
+			# 						}
+			# 					}
+			# 				}
+			# 			}
+
+			# 			background = {
+			# 				name = "gray_overlay"
+			# 				visible = "[GuiCultureEra.GetCultureEra.GetType.IsInvalidForPlayerGovernment]"
+			# 				using = Background_Area_Border_Solid
+			# 				tintcolor = { 0.5 0.5 0.5 0.3 }
+			# 				alwaystransparent = no
+			# 				margin = { 10 10 }
+			# 			}
+			# 		}
+			# 	}
+			# }
 		}
-		
-		# vbox = {
-		# 	name = "innovations_area"
-		# 	visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
-		# 	layoutpolicy_horizontal = expanding
-		# 	layoutpolicy_vertical = expanding
-
-		# 	using = Animation_Tab_Switch
-
-		# 	vbox = {
-		# 		layoutpolicy_horizontal = expanding
-		# 		margin = { 0 10 }
-
-		# 		text_label_center = {
-		# 			text = "CULTURE_WINDOW_INNOVATIONS"
-		# 			using = Font_Size_Medium
-		# 		}
-		# 	}
-
-		# 	vbox = {
-		# 		using = DI_Innovation_Eras_Vanilla
-		# 	}
-
-		# 	scrollbox = {
-		# 		layoutpolicy_horizontal = expanding
-		# 		layoutpolicy_vertical = expanding
-			
-		# 		blockoverride "scrollbox_content"
-		# 		{
-			
-		# 			vbox = {
-					
-		# 				vbox = {
-		# 					layoutpolicy_horizontal = expanding
-		# 					datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
-						
-		# 					using = DI_Military_Group
-							
-		# 					using = DI_Innovation_Military_Vanilla
-							
-		# 					using = DI_Civic_Group
-							
-		# 					using = DI_Innovation_Civic_Vanilla
-							
-		# 					using = DI_Regional_Group
-							
-		# 					using = DI_Innovation_Regional_Vanilla
-		# 				}
-		# 			}
-					
-		# 		}
-		# 	}
-		# }
     }
 }
 
