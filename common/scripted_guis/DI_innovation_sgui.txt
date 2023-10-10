@@ -2629,3 +2629,31 @@ DI_remove_innovation_deccan_unity = {
 		}
 	}
 }
+
+### Test Effects ###
+DI_set_innovation_era = {
+	scope = character
+
+	effect = {
+		set_variable = {
+			name = DI_innovation_era_string
+			value = scope:target_innovation_era
+		}
+	}
+}
+
+DI_check_innovation_era = {
+	scope = culture
+
+	is_valid = {
+		
+	}
+}
+
+DI_check_innovation = {
+	scope = culture
+
+	is_valid = {
+		has_innovation = scope:target_innovation
+	}
+}
