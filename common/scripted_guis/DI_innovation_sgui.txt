@@ -2642,18 +2642,52 @@ DI_set_innovation_era = {
 	}
 }
 
-DI_check_innovation_era = {
-	scope = culture
+# DI_check_innovation_era = {
+# 	scope = culture
 
-	is_valid = {
+# 	is_valid = {
 		
+# 	}
+# }
+
+# DI_check_innovation = {
+# 	scope = culture
+
+# 	is_valid = {
+# 		has_innovation = scope:target_innovation
+# 	}
+# }
+
+### remove_culture_innovation ###
+DI_remove_innovation = {
+	scope = character
+
+	effect = {
+		var:DI_innovation_selected_culture = {
+			if = {
+				limit = {
+					has_innovation = scope:innovation
+				}
+				remove_innovation = scope:innovation
+			}
+		}
 	}
 }
 
-DI_check_innovation = {
-	scope = culture
+### DI_set_innovation ###
+DI_set_innovation = {
+	scope = character
 
-	is_valid = {
-		has_innovation = scope:target_innovation
+	effect = {
+		var:DI_innovation_selected_culture = {
+			if = {
+				limit = {
+					NOT = { has_innovation = scope:innovation }
+				}
+				add_innovation = scope:innovation
+				debug_log = "Add Innovation"
+				debug_log_scopes = yes
+			}
+		}
 	}
 }
