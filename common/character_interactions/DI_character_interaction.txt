@@ -48,8 +48,8 @@ DI_close_cheat_menu = {
 	}
 }
 
-### Mark Character for Edit ###
-cheat_mark_for_edit_interaction = {
+### Pin Character for Edit ###
+DI_pin_character_interaction = {
 	interface_priority = 200
 	category = interaction_category_cheat_menu
 	use_diplomatic_range = no
@@ -65,27 +65,27 @@ cheat_mark_for_edit_interaction = {
 	
 	send_option = {
 		flag = character
-		localization = DI_mark_character
+		localization = DI_pin_character
 	}
 	send_option = {
 		flag = vassals
-		localization = DI_mark_vassals
+		localization = DI_pin_vassals
 	}
 	send_option = {
 		flag = courtiers
-		localization = DI_mark_courtiers
+		localization = DI_pin_courtiers
 	}
 	send_option = {
 		flag = councillors
-		localization = DI_mark_councillors
+		localization = DI_pin_councillors
 	}
 	send_option = {
 		flag = house
-		localization = DI_mark_house
+		localization = DI_pin_house
 	}
 	send_option = {
 		flag = dynasty
-		localization = DI_mark_dynasty
+		localization = DI_pin_dynasty
 	}
 	
 	on_accept = {
@@ -93,9 +93,9 @@ cheat_mark_for_edit_interaction = {
 			if = {
 				limit = {scope:character = yes}
 				
-				add_character_flag = marked_for_edit
+				add_character_flag = pinned_for_edit
 				scope:actor = {
-					add_to_variable_list = { name = marked_characters target = prev }
+					add_to_variable_list = { name = pinned_characters target = prev }
 				}
 			}
 			
@@ -103,9 +103,9 @@ cheat_mark_for_edit_interaction = {
 				limit = {scope:vassals = yes}
 				
 				every_vassal = {
-					add_character_flag = marked_for_edit
+					add_character_flag = pinned_for_edit
 					scope:actor = {
-						add_to_variable_list = { name = marked_characters target = prev }
+						add_to_variable_list = { name = pinned_characters target = prev }
 					}
 				}
 			}
@@ -114,9 +114,9 @@ cheat_mark_for_edit_interaction = {
 				limit = {scope:courtiers = yes}
 				
 				every_courtier = {
-					add_character_flag = marked_for_edit
+					add_character_flag = pinned_for_edit
 					scope:actor = {
-						add_to_variable_list = { name = marked_characters target = prev }
+						add_to_variable_list = { name = pinned_characters target = prev }
 					}
 				}
 			}
@@ -125,9 +125,9 @@ cheat_mark_for_edit_interaction = {
 				limit = {scope:councillors = yes}
 				
 				every_councillor = {
-					add_character_flag = marked_for_edit
+					add_character_flag = pinned_for_edit
 					scope:actor = {
-						add_to_variable_list = { name = marked_characters target = prev }
+						add_to_variable_list = { name = pinned_characters target = prev }
 					}
 				}
 			}
@@ -137,9 +137,9 @@ cheat_mark_for_edit_interaction = {
 				
 				scope:recipient.house = {
 					every_house_member = {
-						add_character_flag = marked_for_edit
+						add_character_flag = pinned_for_edit
 						scope:actor = {
-							add_to_variable_list = { name = marked_characters target = prev }
+							add_to_variable_list = { name = pinned_characters target = prev }
 						}
 					}
 				}
@@ -150,9 +150,9 @@ cheat_mark_for_edit_interaction = {
 				
 				scope:recipient.dynasty = {
 					every_dynasty_member = {
-						add_character_flag = marked_for_edit
+						add_character_flag = pinned_for_edit
 						scope:actor = {
-							add_to_variable_list = { name = marked_characters target = prev }
+							add_to_variable_list = { name = pinned_characters target = prev }
 						}
 					}
 				}

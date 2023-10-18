@@ -37,10 +37,10 @@ DI_add_trait = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 
 				hidden_effect = {
 					add_trait = scope:trait
@@ -61,10 +61,10 @@ DI_remove_trait = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 
 				hidden_effect = {
 					remove_trait = scope:trait
@@ -85,10 +85,10 @@ DI_sexuality_heterosexual = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 				
 				hidden_effect = {
 					set_sexuality = heterosexual
@@ -109,10 +109,10 @@ DI_sexuality_homosexual = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 				
 				hidden_effect = {
 					set_sexuality = homosexual
@@ -133,10 +133,10 @@ DI_sexuality_bisexual = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 				
 				hidden_effect = {
 					set_sexuality = bisexual
@@ -157,10 +157,10 @@ DI_sexuality_asexual = {
 	effect = {
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 				
 				hidden_effect = {
 					set_sexuality = asexual
@@ -175,22 +175,22 @@ DI_sexuality_asexual = {
 	}
 }
 
-DI_clear_all_marks = {
+DI_clear_all_pins = {
 	scope = character
 	
 	effect = {
 		every_living_character = {
-			limit = { has_character_flag = marked_for_edit }
+			limit = { has_character_flag = pinned_for_edit }
 			
 			hidden_effect = {
-				remove_character_flag = marked_for_edit
+				remove_character_flag = pinned_for_edit
 			}
 		}
 		if = {
 			limit = {
-				has_variable_list = marked_characters 
+				has_variable_list = pinned_characters 
 			}
-			clear_variable_list = marked_characters
+			clear_variable_list = pinned_characters
 		}
 	}
 }
@@ -524,13 +524,13 @@ remove_dprestige_effect = {
 	}
 }
 
-clear_marked_character = {
+clear_pinned_character = {
 	scope = character
 
 	effect = {
-		remove_character_flag = marked_for_edit
+		remove_character_flag = pinned_for_edit
 		scope:target = {
-			remove_list_variable = { name = marked_characters target = prev}
+			remove_list_variable = { name = pinned_characters target = prev}
 		}
 	}
 }
@@ -654,40 +654,6 @@ remove_stress_effect = {
         }
 }
 
-DI_get_title_list = {
-
-	scope = character
-	
-	effect = {
-		
-		every_in_global_list = {
-			variable = marked_characters
-			every_held_title = {
-				limit = { this.tier > tier_barony }
-				add_to_global_variable_list = { name = DI_title_list target = this }
-			}
-		}
-		
-		ordered_in_global_list = {
-			variable = DI_title_list
-			order_by = tier
-			min = 0
-			max = 500
-			remove_list_global_variable = { name = DI_title_list target = this }
-			add_to_global_variable_list = { name = DI_title_list target = this }
-		}
-			
-	}
-}
-
-DI_clear_title_list = {
-	scope = character
-	
-	effect = {
-		clear_global_variable_list = DI_title_list
-	}
-}
-
 DI_strong_claim = {
 	scope = character
 
@@ -728,10 +694,10 @@ DI_culture_change = {
 
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 
 				hidden_effect = {
 					set_culture = scope:selected_culture
@@ -771,7 +737,7 @@ DI_change_myculture = {
 	
 	effect = {
 		every_living_character = {
-			limit = { has_character_flag = marked_for_edit }
+			limit = { has_character_flag = pinned_for_edit }
 			
 	
 			hidden_effect = {
@@ -786,7 +752,7 @@ DI_change_myculture_county = {
 	
 	effect = {
 		every_living_character = {
-			limit = { has_character_flag = marked_for_edit }
+			limit = { has_character_flag = pinned_for_edit }
 			
 			every_sub_realm_county = {
 				set_county_culture = root.culture
@@ -809,10 +775,10 @@ DI_religion_change = {
 		
 		if = {
 			limit = {
-				has_variable = DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
 			every_living_character = {
-				limit = { has_character_flag = marked_for_edit }
+				limit = { has_character_flag = pinned_for_edit }
 
 				hidden_effect = {
 					set_character_faith = scope:selected_faith
@@ -852,7 +818,7 @@ DI_change_myreligion = {
 	
 	effect = {
 		every_living_character = {
-			limit = { has_character_flag = marked_for_edit }
+			limit = { has_character_flag = pinned_for_edit }
 			
 	
 			hidden_effect = {
@@ -867,7 +833,7 @@ DI_change_myreligion_county = {
 	
 	effect = {
 		every_living_character = {
-			limit = { has_character_flag = marked_for_edit }
+			limit = { has_character_flag = pinned_for_edit }
 			
 			every_sub_realm_county = {
 				set_county_faith = root.faith
@@ -883,18 +849,18 @@ DI_change_myreligion_county = {
 }
 
 ### Character Spawner ###
-DI_marked_char_var_sgui = {
+DI_pinned_char_var_sgui = {
 	scope = character
 
 	effect = {
 		if = {
 			limit = {
-				has_variable	= DI_marked_char_var
+				has_variable = DI_pinned_char_var
 			}
-			remove_variable = DI_marked_char_var
+			remove_variable = DI_pinned_char_var
 		}
 		else = {
-			set_variable = DI_marked_char_var
+			set_variable = DI_pinned_char_var
 		}
 	}
 }
