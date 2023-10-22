@@ -524,17 +524,6 @@ remove_dprestige_effect = {
 	}
 }
 
-clear_pinned_character = {
-	scope = character
-
-	effect = {
-		remove_character_flag = pinned_for_edit
-		scope:target = {
-			remove_list_variable = { name = pinned_characters target = prev}
-		}
-	}
-}
-
 DI_kill_character = {
 	scope = character
 	
@@ -849,22 +838,6 @@ DI_change_myreligion_county = {
 }
 
 ### Character Spawner ###
-DI_pinned_char_var_sgui = {
-	scope = character
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_pinned_char_var
-			}
-			remove_variable = DI_pinned_char_var
-		}
-		else = {
-			set_variable = DI_pinned_char_var
-		}
-	}
-}
-
 DI_char_spawner_female_sgui = {
 	scope = character
 
@@ -934,7 +907,7 @@ DI_pin_character = {
 
 	effect = {
 		scope:target = {
-			add_character_flag = pinned_for_edit
+			set_variable = DI_pinned_char_var
 		}
 
 		add_to_variable_list = { name = pinned_characters target = scope:target }
@@ -946,7 +919,7 @@ DI_unpin_character = {
 
 	effect = {
 		scope:target = {
-			remove_character_flag = pinned_for_edit
+			remove_variable = DI_pinned_char_var
 		}
 		
 		if = {
@@ -963,10 +936,10 @@ DI_clear_all_pins = {
 	
 	effect = {
 		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
+			limit = { has_variable = DI_pinned_char_var }
 			
 			hidden_effect = {
-				remove_character_flag = pinned_for_edit
+				remove_variable = DI_pinned_char_var
 			}
 		}
 		if = {
@@ -974,6 +947,39 @@ DI_clear_all_pins = {
 				has_variable_list = pinned_characters 
 			}
 			clear_variable_list = pinned_characters
+		}
+	}
+}
+
+DI_pinned_char_var_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			remove_variable = DI_pinned_char_var
+		}
+		else = {
+			set_variable = DI_pinned_char_var
+		}
+	}
+}
+
+clear_pinned_character = {
+	scope = character
+
+	effect = {
+		scope:target = {
+			if = {
+				limit = {
+					has_variable = DI_pinned_char_var
+				}
+				remove_variable = DI_pinned_char_var
+			}
+
+			remove_list_variable = { name = pinned_characters target = prev}
 		}
 	}
 }
