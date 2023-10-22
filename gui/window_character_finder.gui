@@ -1,0 +1,565 @@
+### LIST TEMPLATE
+
+window = {
+	name = "character_finder_window"
+	# size = { 750 90% }
+	parentanchor = top|right
+	position = { -50 65 }
+	allow_outside = yes
+	layer = middle
+
+	using = Window_Background
+	using = Window_Decoration_Spike
+	using = Window_Size_CharacterList
+
+	datacontext = "[CharacterFinderWindow.GetCharacterList]"
+
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+
+	vbox = {
+		using = Window_Margins
+
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "CHARACTER_FINDER_TITLE"
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[CharacterFinderWindow.Close]"
+			}
+		}
+
+		DI_vbox_character_list = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			blockoverride "scrollbox_empty_visibility"
+			{
+				layoutpolicy_vertical = expanding
+				visible = "[Not( CharacterSelectionList.HasItems )]"
+				text = "CHARACTER_FINDER_NO_MATCH"
+			}
+			
+			blockoverride "container_implementation" {
+				fixedgridbox = {
+					addcolumn = 630
+					addrow = 92
+
+					name = "characters_grid"
+					datamodel_reuse_widgets = yes
+					datamodel = "[CharacterSelectionList.GetList]"
+					visible = "[Not(CharacterSelectionList.IsBuildingList)]"
+
+					item = {
+						DI_widget_character_list_item_finder = {
+							size = { 630 94 }
+						}
+					}
+				}
+			}
+		}
+	}
+
+	window_character_filter = {
+		blockoverride "addition_filter" {
+			filter_item = {
+				layoutpolicy_horizontal = expanding
+				datacontext = "[CharacterSelectionList.GetFilterWithDefault('relation_filter', '(int32)1')]"
+			}
+
+			filter_item = {
+				layoutpolicy_horizontal = expanding
+				datacontext = "[CharacterSelectionList.GetFilter('range_filter')]"
+			}
+
+			vbox_filter_group = {
+				layoutpolicy_horizontal = expanding
+
+				datacontext = "[CharacterSelectionList.GetCategory('personal_filter_category')]"
+				blockoverride "filters" {
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('ruler_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('vassal_stance_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('adult_filter')]"
+					}
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('gender_filter')]"
+					}
+
+					divider = {
+						layoutpolicy_horizontal = expanding
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('married_filter')]"
+					}
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('imprisoned_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('hook_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('inspiration_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('sexuality_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('artifact_filter')]"
+					}
+				}
+			}
+
+			vbox_filter_group = {
+				layoutpolicy_horizontal = expanding
+				datacontext = "[CharacterSelectionList.GetCategory('politics_filter_category')]"
+				blockoverride "filters" {
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('hostage_filter')]"
+					}
+				}
+			}
+
+			vbox_filter_group = {
+				layoutpolicy_horizontal = expanding
+				datacontext = "[CharacterSelectionList.GetCategory('membership_filter_category')]"
+				blockoverride "filters" {
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('religion_filter')]"
+					}
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('culture_filter')]"
+					}
+
+
+					filter_item = {
+						layoutpolicy_horizontal = expanding
+						datacontext = "[CharacterSelectionList.GetFilter('dynasty_filter')]"
+					}
+				}
+			}
+		}
+	}
+}
+
+
+types DI_Lists
+{
+	type DI_widget_character_list_item_finder = widget {
+		datacontext = "[CharacterListItem.GetCharacter]"
+		size = { 200 94 }
+
+		#background = {
+		#	visible = "[CharacterListItem.HasEvenOrderIndex]"
+		#	using = Background_Area_Dark
+		#	margin_top = -4
+		#	margin_bottom = 200
+		#	alpha = 0.5
+		#}
+
+		block "divider" {}
+
+		block "widget" {}
+
+		hbox = {
+			margin_right = 15
+			vbox = {
+				portrait_head_small = {}
+
+				expand = {}
+			}
+
+			block "button_content"
+			{
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+					margin_top = 5
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+
+						# Name and age
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							margin = { 0 3 }
+							margin_left = 5
+							margin_right = 10
+
+							background = {
+								using = Background_Area_Characterlist
+							}
+
+							background = {
+								using = Background_Area_Dark
+
+								modify_texture = {
+									texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+									blend_mode = alphamultiply
+									alpha = 1
+									rotate_uv = 90
+									mirror = vertical
+								}
+							}
+
+							hbox = {
+								margin_left = 3
+								layoutpolicy_horizontal = expanding
+								maximumsize = { 338 -1 }
+
+								text_single = {
+									using = Font_Size_Medium
+									layoutpolicy_horizontal = expanding
+									align = nobaseline
+									text = "[Character.GetUINameNoTooltip]"
+									autoresize = no
+									fontsize_min = 14
+								}
+
+								block "character_relation"
+								{
+									hbox = {
+										visible = "[And(Character.HasRelationTo( GetPlayer ), Not(Character.IsPlayer))]"
+										text_single = {
+											raw_text = "•"
+											align = nobaseline
+											margin = { 5 0 }
+										}
+
+										text_single = {
+											name = "character_relation"
+											text = "[Character.GetRelationToString( GetPlayer )]"
+											tooltip = "EXTENDED_RELATIONS_TOOLTIP"
+											default_format = "#low"
+											align = nobaseline
+											fontsize_min = 14
+											max_width = 180
+										}
+									}
+								}
+
+								expand = {}
+							}
+
+							hbox = {
+								using = character_age_or_death_text
+							}
+
+							# Skills
+							hbox_skills_grid = {}
+						}
+
+						### BOTTOM ROW ###
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+
+							vbox = {
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+
+								block "additional_info_kill_list" {}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = expanding
+
+									# Dynasty
+									widget = {
+										size = { 45 40 }
+
+										coa_house_small = {
+											datacontext = "[Character.GetHouse]"
+											parentanchor = center
+											scale = 0.7
+										}
+									}
+
+									# Traits
+									hbox = {
+										layoutpolicy_vertical = expanding
+										margin = { 10 0 }
+										minimumsize = { 140 0 } #### needed for prison view
+
+										background = {
+											using = Background_Area_Dark
+											alpha = 0.5
+											margin = { 0 2 }
+										}
+
+										hbox = {
+											layoutpolicy_horizontal = expanding
+
+											fixedgridbox = {
+												name = "traits_grid"
+												datamodel = "[CharacterListItem.GetTraits]"
+												datamodel_reuse_widgets = yes
+												flipdirection = yes
+												layoutpolicy_horizontal = expanding
+												layoutpolicy_vertical = expanding
+												addcolumn = 30
+												addrow = 28
+
+												block "gridbox_items"
+												{
+													min_width = 210
+													datamodel_wrap = 7
+													maxverticalslots = 2
+												}
+
+												item = {
+													icon_trait = {
+														visible = "[Trait.IsValid]"
+
+														blockoverride "icon_size"
+														{
+															size = { 30 30 }
+														}
+
+														blockoverride "tooltip_placement"
+														{
+															using = tooltip_se
+														}
+
+														blockoverride "glow_radius"
+														{
+															glow_radius = 3
+														}
+													}
+												}
+											}
+
+											button_pin = {
+												name = "button_pin"
+												onclick = "[GetScriptedGui('DI_pin_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+												onrightclick = "[GetScriptedGui('DI_unpin_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+												button_ignore = none
+												size = { 25 25 }
+					
+												tooltip = "PIN_TT"
+												using = tooltip_se
+											}
+										}
+									}
+
+									expand = {}
+								}
+							}
+
+							vbox = {
+								datacontext = "[CharacterListItem.GetCharacter]"
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+
+								block "bottom_right_box"
+								{
+									hbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+
+										block "claims" { # for kill list
+											widget_list_claims = {}
+										}
+
+										# Religion and culture
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = expanding
+											margin_left = 8
+											margin_right = 4
+											spacing = 5
+											minimumsize = { 110 0 }
+
+											background = {
+												using = Background_Area_Dark
+												alpha = 0.5
+												margin = { 0 2 }
+											}
+
+											icon = {
+												name = "faith_button"
+												size = { 38 38 }
+												datacontext = "[Character.GetFaith]"
+												tooltipwidget = { faith_tooltip = {} }
+												using = tooltip_se
+
+												texture = "[Faith.GetIcon]"
+											}
+
+											hbox = {
+												datacontext = "[Character.GetCulture]"
+												layoutpolicy_horizontal = expanding
+												spacing = 3
+
+												tooltipwidget = {
+													culture_tooltip = {}
+												}
+												using = tooltip_se
+
+												icon = {
+													name = "culture"
+													texture = "gfx/interface/icons/icon_culture.dds"
+													size = { 24 24 }
+												}
+
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													text = "CULTURE_LISTS_WINDOW"
+													autoresize = no
+													align = nobaseline
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	type DI_vbox_character_list = vbox {
+		name = "character_list"
+		spacing = 3
+
+		block "sort_buttons"
+		{
+			hbox_list_sort_buttons = {
+				layoutpolicy_horizontal = expanding
+
+				blockoverride "margins" {
+					margin_left = 20
+					margin_right = 23
+					margin_top = 5
+					spacing = 5
+				}
+			}
+		}
+
+		block "special_character" {}
+
+		scrollbox = {
+
+			name = "characters_scroll_area"
+			layoutpolicy_vertical = expanding
+			layoutpolicy_horizontal = expanding
+
+			block "scrollbox_properties"
+			{
+			}
+
+			blockoverride "scrollbox_content" {
+
+				block "container_implementation" {
+					vbox = {
+						name = "characters_grid"
+						datamodel = "[CharacterSelectionList.GetList]"
+						visible = "[Not(CharacterSelectionList.IsBuildingList)]"
+						layoutpolicy_horizontal = expanding
+
+						item = {
+							widget_character_list_item = {
+								block "item_size" {
+									size = { 650 110 }
+									layoutpolicy_horizontal = expanding
+								}
+							}
+						}
+					}
+				}
+			}
+
+			blockoverride "scrollbox_empty"
+			{
+				block "scrollbox_empty_visibility"
+				{
+					layoutpolicy_vertical = expanding
+					visible = "[IsDataModelEmpty( CharacterSelectionList.GetList )]"
+					text = "NO_CHARACTERS_TO_SELECT"
+				}
+			}
+		}
+
+		hbox = {
+			# button_standard = {
+			# 	name = "button_pin_all"
+			# 	onclick = "[GetScriptedGui('DI_pin_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('list', CharacterSelectionList.GetList).End)]"
+			# 	text = "DI_pin_all"
+			# }
+
+			block "character_count"
+			{
+				hbox = {
+					layoutpolicy_horizontal = growing
+					margin = { 25 5 }
+					margin_bottom = 8
+					spacing = 5
+	
+					block "bottom_bar" {}
+	
+					expand = {}
+	
+					widget = {
+						size = { 20 15 }
+	
+						warning_icon = {
+							size = { 25 25 }
+							visible = "[Not( CharacterSelectionList.IsAllDefault )]"
+							tooltip = "CHARACTER_FINDER_FILTER_SET"
+							position = { -3 -5 }
+						}
+					}
+	
+					text_single = {
+						name = "character_count"
+						datacontext = "[CharacterSelectionList]"
+						text = "CHARACTER_FINDER_COUNT"
+						align = center|nobaseline
+						default_format = "#low"
+					}
+				}
+			}
+		}
+		
+	}
+}

@@ -17,6 +17,7 @@ window = {
 	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
+		on_finish = "[GetScriptedGui('DI_pinned_list_update_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 	
 	state = {
@@ -554,9 +555,9 @@ window = {
 																	onclick = "[GetScriptedGui('DI_change_name').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('change_name', Character.MakeScope).End)]"
 																}
 																
-																button_clear = {
-																	name = pinned_character_clear
-																	onclick = "[GetScriptedGui('clear_pinned_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+																button_unpin = {
+																	name = DI_unpin
+																	onclick = "[GetScriptedGui('DI_unpin_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
 																}
 															}
 

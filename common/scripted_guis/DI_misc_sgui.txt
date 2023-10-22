@@ -928,3 +928,52 @@ DI_char_spawner_good_traits_sgui = {
 		}
 	}
 }
+
+DI_pin_character = {
+	scope = character
+
+	effect = {
+		scope:target = {
+			add_character_flag = pinned_for_edit
+		}
+
+		add_to_variable_list = { name = pinned_characters target = scope:target }
+	}
+}
+
+DI_unpin_character = {
+	scope = character
+
+	effect = {
+		scope:target = {
+			remove_character_flag = pinned_for_edit
+		}
+		
+		if = {
+			limit = {
+				has_variable_list = pinned_characters
+			}
+			remove_list_variable = { name = pinned_characters target = scope:target }
+		}
+	}
+}
+
+DI_clear_all_pins = {
+	scope = character
+	
+	effect = {
+		every_living_character = {
+			limit = { has_character_flag = pinned_for_edit }
+			
+			hidden_effect = {
+				remove_character_flag = pinned_for_edit
+			}
+		}
+		if = {
+			limit = {
+				has_variable_list = pinned_characters 
+			}
+			clear_variable_list = pinned_characters
+		}
+	}
+}
