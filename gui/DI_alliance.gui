@@ -1,0 +1,452 @@
+# Alliance Window
+window = {
+	name = "DI_alliance_window"
+	parentanchor = top|right
+	position = { -50 100 }
+	size = { 300 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	
+	visible = "[GetVariableSystem.Exists('DI_alliance_window_visible')]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	
+	vbox = {
+		using = Window_Margins
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = DI_alliance_window
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_alliance_window_visible')]"
+			}
+		}
+
+        widget = {
+            size = { 600 200 }
+            
+            widget = {
+				size = { 600 200 }
+                datacontext = "[GetPlayer.MakeScope.Var('DI_alliance_primary_character').Char]"
+        
+                DI_portrait_shoulders = {
+                    visible = "[Character.IsValid]"
+					position = { 80 30 }
+                    parentanchor = left
+        
+					text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_primary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+
+                    blockoverride "portrait_button_template_onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
+                    }
+                }
+        
+                DI_portrait_shoulders = {
+                    visible = "[Not(Character.IsValid)]"
+					position = { 80 30 }
+                    parentanchor = left
+        
+                    text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_primary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+        
+                    blockoverride "onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_char_select_list_visible')]"
+                    }
+                }
+            }
+
+			widget = {
+				size = { 600 200 }
+                datacontext = "[GetPlayer.MakeScope.Var('DI_alliance_secondary_character').Char]"
+        
+                DI_portrait_shoulders = {
+                    visible = "[Character.IsValid]"
+					position = { 400 30 }
+                    parentanchor = left
+        
+					text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_secondary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+
+                    blockoverride "portrait_button_template_onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
+                    }
+                }
+        
+                DI_portrait_shoulders = {
+                    visible = "[Not(Character.IsValid)]"
+					position = { 400 30 }
+                    parentanchor = left
+        
+                    text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_secondary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+        
+                    blockoverride "onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
+                    }
+                }
+            }
+        }
+
+		widget = {
+			size = { 600 100 }
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				button_standard = {
+					text = DI_alliance_button_initiate
+					onclick = "[GetScriptedGui('DI_create_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				button_standard = {
+					text = DI_alliance_button_break
+					onclick = "[GetScriptedGui('DI_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+		}
+    }
+}
+
+### Primary Character Select List ###
+window = {
+	name = "DI_alliance_primary_character_window"
+	parentanchor = top|right
+	position = { -600 100 }
+	size = { 150 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_alliance_primary_char_select_list_visible')]"
+	
+	
+	vbox = {
+		using = Window_Margins
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = DI_select_alliance_primary
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
+			}
+		}
+		
+
+		
+		widget = {
+			size = { 570 650 }
+            vbox = {
+				
+				scrollbox = {
+					name = "title_char_select_list"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					blockoverride "scrollbox_content" {
+					
+						vbox = {
+							datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
+							layoutpolicy_horizontal = expanding
+
+							spacing = 10
+
+							item = {
+								widget = {
+									layoutpolicy_horizontal = expanding
+									datacontext = [Scope.GetCharacter]
+									size = { 0 100 }
+									visible = "[Character.IsAlive]"
+
+									using = Background_Guest
+
+
+
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 7
+										button_standard_hover = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = expanding
+											onclick = "[GetScriptedGui('DI_alliance_primary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+											onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
+											hbox = {
+												layoutpolicy_horizontal = expanding
+												layoutpolicy_vertical = expanding
+												margin_right = 5
+												spacing = 10
+
+												portrait_head_small = {
+												}
+
+
+												vbox = {
+													layoutpolicy_vertical = expanding
+													layoutpolicy_horizontal = expanding
+													spacing = 10
+													margin_top = 15
+
+													hbox = {
+														layoutpolicy_horizontal = expanding
+
+														hbox = {
+															layoutpolicy_horizontal = expanding
+															layoutpolicy_vertical = expanding
+
+
+															vbox = {
+																layoutpolicy_horizontal = expanding
+																layoutpolicy_vertical = expanding
+																
+																
+																	
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	text = "[Character.GetUINameNotMeNoTooltip]"
+																	using = Font_Size_Medium
+																	autoresize = no
+																}
+							
+
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	text = "[Character.GetRelationToString( GetPlayer )]"
+																	default_format = "#low"
+																	autoresize = no
+																	align = nobaseline
+																}
+
+																expand = {}
+															}
+														}
+
+													}
+
+
+													expand = {}
+												}
+
+
+											}
+										}
+
+										divider = {
+											layoutpolicy_horizontal = expanding
+										}
+										
+									}
+								}
+							}
+						}
+					}
+                }
+            }
+		}
+	}
+}
+
+### Secondary Character Select List ###
+window = {
+	name = "DI_alliance_secondary_character_window"
+	parentanchor = top|right
+	position = { -600 100 }
+	size = { 150 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_alliance_secondary_char_select_list_visible')]"
+	
+	
+	vbox = {
+		using = Window_Margins
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = DI_select_alliance_secondary
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
+			}
+		}
+		
+
+		
+		widget = {
+			size = { 570 650 }
+            vbox = {
+				
+				scrollbox = {
+					name = "title_char_select_list"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					blockoverride "scrollbox_content" {
+					
+						vbox = {
+							datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
+							layoutpolicy_horizontal = expanding
+
+							spacing = 10
+
+							item = {
+								widget = {
+									layoutpolicy_horizontal = expanding
+									datacontext = [Scope.GetCharacter]
+									size = { 0 100 }
+									visible = "[Character.IsAlive]"
+
+									using = Background_Guest
+
+
+
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										spacing = 7
+										button_standard_hover = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = expanding
+											onclick = "[GetScriptedGui('DI_alliance_secondary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+											onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
+											hbox = {
+												layoutpolicy_horizontal = expanding
+												layoutpolicy_vertical = expanding
+												margin_right = 5
+												spacing = 10
+
+												portrait_head_small = {
+												}
+
+
+												vbox = {
+													layoutpolicy_vertical = expanding
+													layoutpolicy_horizontal = expanding
+													spacing = 10
+													margin_top = 15
+
+													hbox = {
+														layoutpolicy_horizontal = expanding
+
+														hbox = {
+															layoutpolicy_horizontal = expanding
+															layoutpolicy_vertical = expanding
+
+
+															vbox = {
+																layoutpolicy_horizontal = expanding
+																layoutpolicy_vertical = expanding
+																
+																
+																	
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	text = "[Character.GetUINameNotMeNoTooltip]"
+																	using = Font_Size_Medium
+																	autoresize = no
+																}
+							
+
+																text_single = {
+																	layoutpolicy_horizontal = expanding
+																	text = "[Character.GetRelationToString( GetPlayer.MakeScope.Var('DI_alliance_primary_character').Char )]"
+																	default_format = "#low"
+																	autoresize = no
+																	align = nobaseline
+																}
+
+																expand = {}
+															}
+														}
+
+													}
+
+
+													expand = {}
+												}
+
+
+											}
+										}
+
+										divider = {
+											layoutpolicy_horizontal = expanding
+										}
+										
+									}
+								}
+							}
+						}
+					}
+                }
+            }
+		}
+	}
+}

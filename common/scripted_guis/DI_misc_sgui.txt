@@ -609,34 +609,6 @@ DI_vassalize = {
 	}
 }
 
-DI_create_alliance = {
-	scope = character
-	
-	effect = {
-		allow_alliance = scope:target
-		create_alliance = {
-			target = scope:target
-			allied_through_owner = root
-			allied_through_target = scope:target
-		}
-		scope:target = {
-			add_opinion = {
-				modifier = perk_negotiated_alliance_opinion
-				target = root
-			}
-		}
-	}
-}
-
-DI_break_alliance = {
-	scope = character
-	
-	effect = {
-		break_alliance = scope:target
-	}
-	
-}
-
 add_stress_effect = {
 	scope = character
 		

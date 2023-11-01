@@ -1,0 +1,82 @@
+﻿### Alliance Scripts ###
+### Select Primary Character ###
+DI_alliance_primary_character = {
+	scope = character
+	
+	effect = {
+		save_scope_as = select_char
+
+		scope:target = {
+			set_variable = {
+				name = DI_alliance_primary_character
+				value = scope:select_char
+			}
+		}
+	}
+}
+
+### Select Secondary Character ###
+DI_alliance_secondary_character = {
+	scope = character
+	
+	effect = {
+		save_scope_as = select_char
+
+		scope:target = {
+			set_variable = {
+				name = DI_alliance_secondary_character
+				value = scope:select_char
+			}
+		}
+	}
+}
+
+### Select Character Init ###
+DI_alliance_primary_char_init = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				NOT = { has_variable = DI_alliance_primary_character }
+			}
+			set_variable = {
+				name = DI_alliance_primary_character
+				value = this
+			}
+		}
+	}
+}
+
+DI_create_alliance = {
+	scope = character
+	
+	effect = {
+		var:DI_alliance_primary_character = {
+			allow_alliance = root.var:DI_alliance_secondary_character
+			
+			create_alliance = {
+				target = root.var:DI_alliance_secondary_character
+				allied_through_owner = root.var:DI_alliance_primary_character
+				allied_through_target = root.var:DI_alliance_secondary_character
+			}
+			root.var:DI_alliance_secondary_character = {
+				add_opinion = {
+					modifier = perk_negotiated_alliance_opinion
+					target = root.var:DI_alliance_primary_character
+				}
+			}
+		}
+	}
+}
+
+DI_break_alliance = {
+	scope = character
+	
+	effect = {
+		var:DI_alliance_primary_character = {
+			break_alliance = root.var:DI_alliance_secondary_character
+		}
+	}
+	
+}

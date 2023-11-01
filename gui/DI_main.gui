@@ -49,10 +49,10 @@ window = {
 		}
 		
 		widget = {
-			size = { 640 150 }
+			size = { 740 150 }
             
             widget = { 
-                size = { 640 110 }
+                size = { 740 110 }
                 vbox = {
                     hbox = {
                         spacing = 5
@@ -126,12 +126,20 @@ window = {
 							onclick = "[GetVariableSystem.Toggle('DI_adoption_window_visible')]"
 							button_ignore = none
 						}
+
+						button_standard = {
+							layoutpolicy_horizontal = expanding
+							text = DI_alliance_window
+							onclick = "[GetScriptedGui('DI_alliance_primary_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							onclick = "[GetVariableSystem.Toggle('DI_alliance_window_visible')]"
+							button_ignore = none
+						}
 					}
                 }
             }
 
             widget = {
-                position = { 10 110 }
+                position = { 18 110 }
                 size = { 140 40 }
                 hbox = {
                     button_standard = {
@@ -145,26 +153,9 @@ window = {
                 
                 }
             }
-			
-			widget = {
-                position = { 215 110 }
-                size = { 140 40 }
-                hbox = {
-			
-					button_standard = {
-						layoutpolicy_horizontal = expanding
-						size = { 165 30 }
-						text = DI_test_button
-						onclick = "[GetVariableSystem.Toggle('DI_test_window_visible')]"
-						tooltip = DI_test_button_tt
-						button_ignore = none
-						visible = "[EqualTo_string('Lithane97',GetPlayer.GetHumanName)]"
-					}
-				}
-			}
             
             widget = {
-                position = { 440 110 }
+                position = { 500 110 }
                 size = { 110 40 }
                 hbox = {
                     button_standard = {
@@ -178,7 +169,7 @@ window = {
 			}
 			
 			widget = {
-                position = { 570 120 }
+                position = { 640 120 }
                 size = { 110 40 }
                 text_label_left = {
 					visible = "[InDebugMode]"
