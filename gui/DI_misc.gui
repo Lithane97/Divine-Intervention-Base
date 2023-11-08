@@ -1,8 +1,4 @@
-
-
 # Character Editor Skill Window
-
-
 window = {
 	name = "DI_char_editor_skill_window"
 	parentanchor = top|right
@@ -48,360 +44,552 @@ window = {
 			}
 		}
 		
+        fixedgridbox = {
+            name = "skill_buttons"
+            datamodel = "[RulerDesignerWindow.AccessSkills]"
+            datamodel_wrap = 3
+            addrow = 60
+            addcolumn = 245
 
+            item = {
+                widget = {
+                    name = "skill_item"
+                    size = { 240 60 }
+
+                    background = {
+                        using = Background_Area
+                    }
+
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+
+                        icon = {
+                            name = "skill_icon"
+                            texture = "gfx/interface/icons/icon_skills.dds"
+                            size = { 32 32 }
+                            framesize = { 60 60 }
+                            frame = "[RulerDesignerSkill.GetFrame]"
+                        }
+
+                        vbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            text_single = {
+                                name = "skill_name"
+                                layoutpolicy_horizontal = expanding
+                                text = "[RulerDesignerSkill.GetName]"
+                                autoresize = no
+                            }
+
+                            text_single = {
+                                name = "skill_level"
+                                layoutpolicy_horizontal = expanding
+                                text = "[RulerDesignerSkill.GetLevelDesc]"
+                                default_format = "#weak"
+                                autoresize = no
+                            }
+                        }
+
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[RulerDesignerSkill.ChangeValue( '(int32)-1' )]"
+                            enabled = "[GreaterThan_int32( RulerDesignerSkill.GetBaseValue, '(int32)0' )]"
+
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+
+                        text_single = {
+                            name = "skill_value"
+
+                            datacontext = "[RulerDesignerSkill.GetModifiedValueBreakdown]"
+
+                            tooltip_enabled = "[ValueBreakdown.HasTooltip]"
+                            tooltipwidget = {
+                                widget_value_breakdown_tooltip = {}
+                            }
+
+                            text = "[ValueBreakdown.GetValue]"
+
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[RulerDesignerSkill.ChangeValue( '(int32)1' )]"
+                            enabled = "[LessThan_int32( RulerDesignerSkill.GetBaseValue, '(int32)100' )]"
+
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+                    }
+                }
+            }
+        }
 		
-		widget = {
-            size = { 175 300 }
-            vbox = {
-                layoutpolicy_horizontal = expanding
-                spacing = 5
-                margin = { 0 5 }
-                margin_top = 10
-                margin_left = 0
-                margin_right = 0
-                margin_bottom = 50
-                
-                expand = {}
-                
-                
-                hbox = {
-                    
-                    spacing = 2
-                
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_remove_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_remove_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_minus_small = {
-                            name = "decrease_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
+        flowcontainer = {
+            direction = vertical
+            flowcontainer = { 
+                widget = {
+                    name = "DI_diplomacy_skill"
+                    size = { 240 60 }
+    
+                    background = {
+                        using = Background_Area
                     }
-                
-                    button_standard = {
-                        name = "DI_diplomacy_button"
-                        onclick = "[GetScriptedGui('DI_add_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        onrightclick = "[GetScriptedGui('DI_remove_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        button_ignore = none
-                        tooltip = "DI_skill_diplomacy_tt"
-                        using = tooltip_ne
-                        size = { 70 40 }
-                        icon = {
+
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+    
+                        button_standard_hover = {
+                            name = "DI_diplomacy_button"
+                            onclick = "[GetScriptedGui('DI_add_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltip = "DI_skill_diplomacy_tt"
+                            using = tooltip_ne
+                            size = { 130 40}
+
+                            icon = {
                                 parentanchor = left|vcenter
-                                position = { 5 0 }
-                                size = { 35 35 }
+                                size = { 40 40 }
                                 texture = "gfx/interface/icons/DI_skills_diplomacy.dds"
-                        }
-                        hbox = {
-                            margin_left = 30
-                            text_single = {
-                                name = "skill_value"
-                                
-                                text = "[GetPlayer.MakeScope.Var('DI_diplomacy_value').GetValue|0]"
+                            }
 
-                                
-                                default_format = "#clickable"
-                                align = nobaseline|center
+                            vbox = {
+                                margin_left = 45
+        
+                                text_single = {
+                                    name = "skill_name"
+                                    layoutpolicy_horizontal = expanding
+                                    text = diplomacy
+                                    autoresize = no
+                                }
+                            }
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_remove_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_remove_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+    
+                        text_single = {
+                            name = "skill_value"
+                            text = "[GetPlayer.MakeScope.Var('DI_diplomacy_value').GetValue|0]"
+    
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_add_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_add_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
                             }
                         }
                     }
-                    
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_add_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_add_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_plus_small = {
-                            name = "increase_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
-                    }
                 }
-                
-                hbox = {
-                    
-                    spacing = 2
-                
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_remove_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_remove_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_minus_small = {
-                            name = "decrease_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
+    
+                widget = {
+                    name = "DI_intrigue_skill"
+                    size = { 240 60 }
+    
+                    background = {
+                        using = Background_Area
                     }
-                
-                    button_standard = {
-                        name = "DI_martial_button"
-                        onclick = "[GetScriptedGui('DI_add_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        onrightclick = "[GetScriptedGui('DI_remove_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        button_ignore = none
-                        tooltip = "DI_skill_martial_tt"
-                        using = tooltip_ne
-                        size = { 70 40 }
-                        icon = {
+
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+    
+                        button_standard_hover = {
+                            name = "DI_intrigue_button"
+                            onclick = "[GetScriptedGui('DI_add_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltip = "DI_skill_intrigue_tt"
+                            using = tooltip_ne
+                            size = { 130 40}
+
+                            icon = {
                                 parentanchor = left|vcenter
-                                position = { 5 0 }
-                                size = { 35 35 }
-                                texture = "gfx/interface/icons/DI_skills_martial.dds"
-                        }
-                        hbox = {
-                            margin_left = 30
-                            text_single = {
-                                name = "skill_value"
-                                
-                                text = "[GetPlayer.MakeScope.Var('DI_martial_value').GetValue|0]"
-
-                                
-                                default_format = "#clickable"
-                                align = nobaseline|center
-                            }
-                        }
-                    }
-                    
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_add_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_add_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_plus_small = {
-                            name = "increase_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
-                    }
-                }
-                
-                hbox = {
-                    
-                    spacing = 2
-                
-                    button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_remove_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_remove_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_minus_small = {
-                            name = "decrease_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
-                    }
-                
-                    button_standard = {
-                        name = "DI_stewardship_button"
-                        onclick = "[GetScriptedGui('DI_add_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        onrightclick = "[GetScriptedGui('DI_remove_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        button_ignore = none
-                        tooltip = "DI_skill_stewardship_tt"
-                        using = tooltip_ne
-                        size = { 70 40 }
-                        icon = {
-                                parentanchor = left|vcenter
-                                position = { 5 0 }
-                                size = { 35 35 }
-                                texture = "gfx/interface/icons/DI_skills_stewardship.dds"
-                        }
-                        hbox = {
-                            margin_left = 30
-                            text_single = {
-                                name = "skill_value"
-                                
-                                text = "[GetPlayer.MakeScope.Var('DI_stewardship_value').GetValue|0]"
-
-                                
-                                default_format = "#clickable"
-                                align = nobaseline|center
-                            }
-                        }
-                    }
-                    
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_add_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_add_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_plus_small = {
-                            name = "increase_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
-                    }
-                }
-                
-                hbox = {
-                    
-                    spacing = 2
-                
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_remove_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_remove_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_minus_small = {
-                            name = "decrease_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
-                    }
-                
-                    button_standard = {
-                        name = "DI_intrigue_button"
-                        onclick = "[GetScriptedGui('DI_add_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        onrightclick = "[GetScriptedGui('DI_remove_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        button_ignore = none
-                        tooltip = "DI_skill_intrigue_tt"
-                        using = tooltip_ne
-                        size = { 70 40 }
-                        icon = {
-                                parentanchor = left|vcenter
-                                position = { 5 0 }
-                                size = { 35 35 }
+                                size = { 40 40 }
                                 texture = "gfx/interface/icons/DI_skills_intrigue.dds"
-                        }
-                        hbox = {
-                            margin_left = 30
-                            text_single = {
-                                name = "skill_value"
-                                
-                                text = "[GetPlayer.MakeScope.Var('DI_intrigue_value').GetValue|0]"
+                            }
 
-                                
-                                default_format = "#clickable"
-                                align = nobaseline|center
+                            vbox = {
+                                margin_left = 45
+        
+                                text_single = {
+                                    name = "skill_name"
+                                    layoutpolicy_horizontal = expanding
+                                    text = intrigue
+                                    autoresize = no
+                                }
+                            }
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_remove_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_remove_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+    
+                        text_single = {
+                            name = "skill_value"
+                            text = "[GetPlayer.MakeScope.Var('DI_intrigue_value').GetValue|0]"
+    
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_add_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_add_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
                             }
                         }
                     }
-                    
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_add_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_add_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_plus_small = {
-                            name = "increase_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
-                    }
                 }
-                
-                hbox = {
-                    
-                    spacing = 2
-                
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_remove_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_remove_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
 
-                        button_minus_small = {
-                            name = "decrease_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
+            flowcontainer = { 
+                widget = {
+                    name = "DI_martial_skill"
+                    size = { 240 60 }
+    
+                    background = {
+                        using = Background_Area
                     }
-                
-                    button_standard = {
-                        name = "DI_learning_button"
-                        onclick = "[GetScriptedGui('DI_add_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        onrightclick = "[GetScriptedGui('DI_remove_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        button_ignore = none
-                        tooltip = "DI_skill_learning_tt"
-                        using = tooltip_ne
-                        size = { 70 40 }
-                        icon = {
+
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+    
+                        button_standard_hover = {
+                            name = "DI_martial_button"
+                            onclick = "[GetScriptedGui('DI_add_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltip = "DI_skill_martial_tt"
+                            using = tooltip_ne
+                            size = { 130 40}
+
+                            icon = {
                                 parentanchor = left|vcenter
-                                position = { 5 0 }
-                                size = { 35 35 }
-                                texture = "gfx/interface/icons/DI_skills_learning.dds"
-                        }
-                        hbox = {
-                            margin_left = 30
-                            text_single = {
-                                name = "skill_value"
-                                
-                                text = "[GetPlayer.MakeScope.Var('DI_learning_value').GetValue|0]"
+                                size = { 40 40 }
+                                texture = "gfx/interface/icons/DI_skills_martial.dds"
+                            }
 
-                                
-                                default_format = "#clickable"
-                                align = nobaseline|center
+                            vbox = {
+                                margin_left = 45
+        
+                                text_single = {
+                                    name = "skill_name"
+                                    layoutpolicy_horizontal = expanding
+                                    text = martial
+                                    autoresize = no
+                                }
                             }
                         }
-                    }
-
-                    button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_add_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_add_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_plus_small = {
-                            name = "increase_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_remove_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_remove_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+    
+                        text_single = {
+                            name = "skill_value"
+                            text = "[GetPlayer.MakeScope.Var('DI_martial_value').GetValue|0]"
+    
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_add_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_add_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
                         }
                     }
                 }
-                
-                hbox = {
-                    
-                    spacing = 2
-                
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_remove_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_remove_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                        button_minus_small = {
-                            name = "decrease_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
-                        }
+    
+                widget = {
+                    name = "DI_learning_skill"
+                    size = { 240 60 }
+    
+                    background = {
+                        using = Background_Area
                     }
-                
-                    button_standard = {
-                        name = "DI_prowess_button"
-                        onclick = "[GetScriptedGui('DI_add_prowess').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        onrightclick = "[GetScriptedGui('DI_remove_prowess').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        button_ignore = none
-                        tooltip = "DI_skill_prowess_tt"
-                        using = tooltip_ne
-                        size = { 70 40 }
-                        icon = {
-                            parentanchor = left|vcenter
-                            position = { 5 0 }
-                            size = { 35 35 }
-                            texture = "gfx/interface/icons/DI_skills_prowess.dds"
-                        }
-                        hbox = {
-                            margin_left = 30
-                            text_single = {
-                                name = "skill_value"
-                                
-                                text = "[GetPlayer.MakeScope.Var('DI_prowess_value').GetValue|0]"
 
-                                
-                                default_format = "#clickable"
-                                align = nobaseline|center
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+    
+                        button_standard_hover = {
+                            name = "DI_learning_button"
+                            onclick = "[GetScriptedGui('DI_add_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltip = "DI_skill_learning_tt"
+                            using = tooltip_ne
+                            size = { 130 40}
+
+                            icon = {
+                                parentanchor = left|vcenter
+                                size = { 40 40 }
+                                texture = "gfx/interface/icons/DI_skills_learning.dds"
+                            }
+
+                            vbox = {
+                                margin_left = 45
+        
+                                text_single = {
+                                    name = "skill_name"
+                                    layoutpolicy_horizontal = expanding
+                                    text = learning
+                                    autoresize = no
+                                }
+                            }
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_remove_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_remove_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+    
+                        text_single = {
+                            name = "skill_value"
+                            text = "[GetPlayer.MakeScope.Var('DI_learning_value').GetValue|0]"
+    
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_add_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_add_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
                             }
                         }
                     }
-                    
-					button_round = {
-                        size = { 28 28 }
-                        onclick = "[GetScriptedGui('DI_add_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        enabled = "[GetScriptedGui('DI_add_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                }
+            }
 
-                        button_plus_small = {
-                            name = "increase_skill"
-                            parentanchor = center
-                            alwaystransparent = yes
+            flowcontainer = { 
+                widget = {
+                    name = "DI_stewardship_skill"
+                    size = { 240 60 }
+    
+                    background = {
+                        using = Background_Area
+                    }
+
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+    
+                        button_standard_hover = {
+                            name = "DI_prowess_button"
+                            onclick = "[GetScriptedGui('DI_add_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltip = "DI_skill_stewardship_tt"
+                            using = tooltip_ne
+                            size = { 130 40}
+
+                            icon = {
+                                parentanchor = left|vcenter
+                                size = { 40 40 }
+                                texture = "gfx/interface/icons/DI_skills_stewardship.dds"
+                            }
+
+                            vbox = {
+                                margin_left = 45
+        
+                                text_single = {
+                                    name = "skill_name"
+                                    layoutpolicy_horizontal = expanding
+                                    text = stewardship
+                                    autoresize = no
+                                }
+                            }
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_remove_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_remove_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+    
+                        text_single = {
+                            name = "skill_value"
+                            text = "[GetPlayer.MakeScope.Var('DI_stewardship_value').GetValue|0]"
+    
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_add_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_add_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+                    }
+                }
+    
+                widget = {
+                    name = "DI_prowess_skill"
+                    size = { 240 60 }
+    
+                    background = {
+                        using = Background_Area
+                    }
+
+                    hbox = {
+                        margin = { 7 0 }
+                        spacing = 5
+    
+                        button_standard_hover = {
+                            name = "DI_prowess_button"
+                            onclick = "[GetScriptedGui('DI_add_prowess').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_prowess').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            button_ignore = none
+                            tooltip = "DI_skill_prowess_tt"
+                            using = tooltip_ne
+                            size = { 130 40}
+
+                            icon = {
+                                parentanchor = left|vcenter
+                                size = { 40 40 }
+                                texture = "gfx/interface/icons/DI_skills_prowess.dds"
+                            }
+
+                            vbox = {
+                                margin_left = 45
+        
+                                text_single = {
+                                    name = "skill_name"
+                                    layoutpolicy_horizontal = expanding
+                                    text = prowess
+                                    autoresize = no
+                                }
+                            }
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_remove_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_remove_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+    
+                        text_single = {
+                            name = "skill_value"
+                            text = "[GetPlayer.MakeScope.Var('DI_prowess_value').GetValue|0]"
+    
+                            using = Font_Size_Big
+                            default_format = "#high"
+                            align = nobaseline|center
+                            min_width = 25
+                        }
+    
+                        button_round = {
+                            size = { 28 28 }
+                            onclick = "[GetScriptedGui('DI_add_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_add_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
                         }
                     }
                 }
@@ -409,7 +597,6 @@ window = {
         }
 	}
 }
-
 
 
 # Character Editor Perk Point Window
