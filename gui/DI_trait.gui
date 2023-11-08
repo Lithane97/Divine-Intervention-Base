@@ -54,11 +54,11 @@ window = {
 		
         widget = {
         
-            size = { 375 85 }
+            size = { 450 85 }
 			
 				
 			widget = {
-				size = { 375 85 }
+				size = { 450 85 }
 				position = { 0 0 }
 				
 				vbox = {
@@ -186,6 +186,18 @@ window = {
 						
 						}
 						
+						button_standard = {
+							name = "pinned_traits_button"
+							layoutpolicy_horizontal = expanding
+							size = { 80 30 }
+							onclick = "[GetVariableSystem.Set('show_traits', 'pinned')]"
+							
+							button_ignore = none
+							text = DI_pinned_traits
+							tooltip = DI_pinned_traits_tt
+							using = tooltip_ne
+						
+						}
 					}
 				}
 			}
@@ -915,6 +927,24 @@ window = {
 					}
 				}
 
+				scrollbox = {
+					name = "pinned_trait_selection_list"
+					layoutpolicy_vertical = expanding
+					layoutpolicy_horizontal = expanding
+					minimumsize = { 375 100% }
+
+					visible = "[GetVariableSystem.HasValue( 'show_traits', 'pinned' )]"
+					
+
+					blockoverride "scrollbox_content"
+					{
+						vbox_DI_trait_selection_content = {
+							layoutpolicy_horizontal = expanding
+							datamodel = "[GetPlayer.MakeScope.GetList('DI_pinned_traits')]"
+						}
+					}
+				}
+
 			}
         }
 	}
@@ -930,7 +960,8 @@ types DI_trait_menu_types
 		spacing = 3
 
 		item = {
-			vbox = {
+			hbox = {
+				datacontext = "[Scope.Trait]"
 				layoutpolicy_horizontal = expanding
 				block "test_visible"
 				{
@@ -970,7 +1001,23 @@ types DI_trait_menu_types
 						
 					}
 				}
+				
+				button_pin = {
+					name = "button_pin"
+					visible = "[Not(GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End))]"
+					onclick = "[GetScriptedGui('DI_pin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+					size = { 25 25 }
+				}
+
+				button_unpin = {
+					name = "button_unpin"
+					visible = "[GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+					onclick = "[GetScriptedGui('DI_unpin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+					size = { 25 25 }
+				}
 			}
 		}
 	}
+
+	
 }

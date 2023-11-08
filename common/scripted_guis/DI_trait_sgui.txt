@@ -1,4 +1,38 @@
-﻿#Lifestyle Reveler
+﻿### Pin Trait ###
+DI_pin_trait = {
+	scope = character
+
+	effect = {
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = scope:trait
+		}
+	}
+}
+### Unpin Trait ###
+DI_unpin_trait = {
+	scope = character
+
+	effect = {
+		remove_list_variable = {
+			name = DI_pinned_traits
+			target = scope:trait
+		}
+	}
+}
+
+### Trait Pinned ###
+DI_trait_pinned = {
+	scope = character
+
+	is_valid = {
+		is_target_in_variable_list = {
+			name = DI_pinned_traits
+			target = scope:trait
+		}
+	}
+}
+#Lifestyle Reveler
 #Add
 DI_add_lifestyle_reveler_xp = {
 	scope = character
