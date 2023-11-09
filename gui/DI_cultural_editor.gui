@@ -3,6 +3,7 @@
 window = {
 	name = "DI_cultural_editor_window"
 	layer = windows_layer
+	
 	using = Window_Size_Sidebar
 	using = Window_Background_Sidebar
 	movable = no	
@@ -12,9 +13,8 @@ window = {
 	datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
 	datacontext = "[Culture.GetReformation]"
 	
-
 	visible = "[And(GetVariableSystem.Exists('DI_cultural_editor_window_visible'), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
-	
+
 	using = DI_Innovation_Anim
 	
 	vbox = {
@@ -338,7 +338,6 @@ window = {
 									max_width = 220
 								}
 							}
-
 							expand = {}
 						}
 					}
@@ -595,7 +594,7 @@ window = {
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = expanding
 
-			using = Animation_Tab_Switch
+			# using = Animation_Tab_Switch
 
 			vbox = {
 				layoutpolicy_horizontal = expanding
@@ -607,9 +606,7 @@ window = {
 				}
 			}
 
-			vbox = {
-				using = DI_Innovation_Eras_Vanilla
-			}
+			using = DI_Innovation_Eras_Vanilla
 
 			scrollbox = {
 				layoutpolicy_horizontal = expanding
@@ -725,6 +722,25 @@ types CulturalEditorShared
 				}
 			}
 		}
+	}
+
+	type DI_icon_innovation = icon {
+		size = { 90 60 }
+
+		icon = {
+			texture = "[CultureInnovationType.GetIcon]"
+			size = { 90 60 }
+		}
+
+		icon = {
+			block "era_texture"
+			{
+				texture = "[CultureInnovationType.GetCultureEraType.GetFrame]"
+			}
+			size = { 90 60 }
+		}
+
+
 	}
 
 	type DI_widget_tradition_icon = widget
@@ -851,6 +867,322 @@ types CulturalEditorShared
 			}
 			parentanchor = center
 			texture = "gfx/interface/icons/flat_icons/replace.dds"
+		}
+	}
+
+	type DI_vbox_era_tab = vbox {
+		layoutpolicy_horizontal = expanding
+
+		tooltipwidget = {
+			using = DI_culture_era_tooltip
+		}
+
+		using = tooltip_se
+
+		block "era_spacer"
+		{
+			spacer = {
+				visible = "[GuiCultureEra.IsSelected]"
+				size = { 150 0 }
+	
+				state = {
+					name = _show
+					size = { 135 0 }
+					duration = 0.3
+				}
+	
+				state = {
+					name = _hide
+					size = { 0 0 }
+					duration = 0.3
+				}
+			}
+		}
+
+		button = {
+			layoutpolicy_horizontal = expanding
+			size = { 0 128 }
+			scissor = yes
+
+			block "era_onclick"
+			{
+				onclick = "[PdxGuiTriggerAllAnimations('culture_refresh')]"
+				down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
+			}
+
+			highlight_icon = {
+				parentanchor = center
+				size = { 248 128 }
+				texture = "[CultureEraType.GetIllustration]"
+				using = Mask_Rough_Edges
+
+				modify_texture = {
+					texture = "gfx/interface/component_masks/mask_culture_era_tab.dds"
+					blend_mode = alphamultiply
+					alpha = 0.9
+				}
+			}
+
+			##### FRAYED EDGES ####
+			widget = {
+				parentanchor = left
+				size = { 6 128 }
+
+				background = {
+					using = Background_Area_Solid
+					spriteType = Corneredtiled
+					spriteborder = { 20 20 }
+					spriteborder_right = 11
+					margin = { 0 20 }
+					margin_left = 10
+				}
+			}
+
+			widget = {
+				parentanchor = right
+				size = { 6 128 }
+
+				background = {
+					using = Background_Area_Solid
+					mirror = horizontal
+					spriteType = Corneredtiled
+					spriteborder = { 20 20 }
+					spriteborder_right = 11
+					margin = { 0 20 }
+					margin_right = 10
+				}
+			}
+
+			block "era_name" 
+			{
+				text_multi = {
+					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
+					size = { 100% 100% }
+					margin = { 5 10 }
+					autoresize = no
+					text = "[CultureEraType.GetName]"
+					align = top|hcenter
+					default_format = "#low"
+				}
+			}
+		}
+	}
+}
+
+template DI_Military_Group 
+{
+	text_label_left = {
+		layoutpolicy_horizontal = expanding
+		align = left
+		margin = { 0 3 }
+		text = "culture_group_military"
+	}
+}
+
+template DI_Civic_Group 
+{
+	text_label_left = {
+		layoutpolicy_horizontal = expanding
+		align = left
+		margin = { 0 3 }
+		text = "culture_group_civic"
+	}
+}
+
+template DI_Regional_Group 
+{
+	text_label_left = {
+		layoutpolicy_horizontal = expanding
+		align = left
+		margin = { 0 3 }
+		text = "culture_group_regional"
+	}
+}
+
+template DI_culture_innovation_tooltip {
+	container = {
+		using = GeneralTooltipSetup
+		alwaystransparent = no
+
+		widget = {
+			name = "background"
+			using = DefaultTooltipBackground
+			size = { 100% 100% }
+			alwaystransparent = no
+		}
+
+		flowcontainer = {
+			margin = { 20 20 }
+			spacing = 15
+			direction = vertical
+			ignoreinvisible = yes
+
+			widget = {
+				name = "header"
+				size = { 500 60 }
+
+				background = {
+					using = Background_Area_Dark
+					margin = { 15 10 }
+				}
+
+				hbox = {
+					minimumsize = { 500 0 }
+					set_parent_size_to_minimum = yes
+
+					widget = {
+						size = { 90 60 }
+						icon = {
+							texture = "[CultureInnovationType.GetIcon]"
+							size = { 90 60 }
+
+							using = Mask_Rough_Edges
+						}
+					}
+
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						margin = { 10 0 }
+						text = "[CultureInnovationType.GetName|T]"
+					}
+
+					expand = {}
+
+					vbox = {
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = right
+							text = "INNOVATION_TOOLTIP_TYPE"
+						}
+
+						spacer = {
+							size = { 5 5 }
+						}
+
+						text_single = {
+							layoutpolicy_horizontal = expanding
+							align = right
+							text = "INNOVATION_TOOLTIP_ERA"
+						}
+					}
+				}
+			}
+
+			container = {
+				using = era_innov_flavor
+
+				blockoverride "eif_text" {
+					text = "[CultureInnovationType.GetDescription]"
+					max_width = 500
+				}
+			}
+
+			block "AfterDescription" {}
+		}
+	}
+}
+
+template DI_Innovation_Anim
+{
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+		using = Sound_WindowShow_Standard
+
+		position = { 0 0 }
+		on_start = "[GetVariableSystem.Set( 'culture_tab', 'early' )]"
+		on_start = "[GetVariableSystem.Set( 'hide_bottom_left_HUD', 'true' )]"
+		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
+		on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+		using = Sound_WindowHide_Standard
+
+		position = { -90 0 }
+		on_start = "[GetVariableSystem.Clear( 'hide_bottom_left_HUD' )]"
+	}
+}
+
+template DI_Cultural_Editor_Header
+{
+	restrictparent_min = yes
+	using = Window_Margins_Sidebar
+	
+	header_pattern = {
+		layoutpolicy_horizontal = expanding
+
+		blockoverride "header_text"
+		{
+			text = DI_cultural_editor_title
+			
+		}
+
+		blockoverride "button_close"
+		{
+			onclick = "[GetVariableSystem.Toggle('DI_cultural_editor_window_visible')]"
+			
+		}
+	}
+}
+
+template DI_culture_era_tooltip {
+	container = {
+		using = GeneralTooltipSetup
+		alwaystransparent = no
+
+		widget = {
+			name = "background"
+			using = DefaultTooltipBackground
+			size = { 100% 100% }
+			alwaystransparent = no
+		}
+
+		flowcontainer = {
+			margin = { 20 20 }
+			spacing = 15
+			direction = vertical
+			ignoreinvisible = yes
+
+			widget = {
+				size = { 500 50}
+
+				background = {
+					using = Background_Area_Dark
+					margin = { 15 0 }
+					margin_top = 10
+				}
+
+				text_single = {
+					parentanchor = vcenter|left
+					text = "[CultureEraType.GetName]"
+					default_format = "#T"
+				}
+
+				text_single = {
+					parentanchor = vcenter|right
+					text = "[era|E]"
+				}
+			}
+
+			container = {
+				using = era_innov_flavor
+
+				blockoverride "eif_text" {
+					text = "[CultureEraType.GetDescription]"
+					max_width = 500
+				}
+			}
+
+			block "cet_click_text"
+			{
+				text_single = {
+					default_format = "#I"
+					text = "VIEW_CLICK"
+				}
+			}
 		}
 	}
 }

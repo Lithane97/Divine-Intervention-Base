@@ -1690,13 +1690,20 @@ DI_present_innovation_varangian_adventurers = {
 				scope:target.culture = {
 					if = {
 						limit = {
-							NOT = {
-								has_innovation = innovation_varangian_adventurers
+							AND = {
+								NOT = {
+									has_innovation = innovation_varangian_adventurers
+								}
+								has_fp1_dlc_trigger = yes
 							}
+							
 						}
 						add_innovation = innovation_varangian_adventurers
 					}
-					else = {
+					elseif = {
+						limit = {
+							has_fp1_dlc_trigger = yes
+						}
 						remove_innovation = innovation_varangian_adventurers
 					}								
 				}
@@ -1706,13 +1713,19 @@ DI_present_innovation_varangian_adventurers = {
 			scope:root_target.culture = {
 				if = {
 					limit = {
-						NOT = {
-							has_innovation = innovation_varangian_adventurers
+						AND = {
+							NOT = {
+								has_innovation = innovation_varangian_adventurers
+							}
+							has_fp1_dlc_trigger = yes
 						}
 					}
 					add_innovation = innovation_varangian_adventurers
 				}
-				else = {
+				elseif = {
+					limit = {
+						has_fp1_dlc_trigger = yes
+					}
 					remove_innovation = innovation_varangian_adventurers
 				}
 			}
@@ -1740,13 +1753,19 @@ DI_present_innovation_all_things = {
 				scope:target.culture = {
 					if = {
 						limit = {
-							NOT = {
-								has_innovation = innovation_all_things
+							AND = {
+								NOT = {
+									has_innovation = innovation_all_things
+								}
+								has_fp1_dlc_trigger = yes
 							}
 						}
 						add_innovation = innovation_all_things
 					}
-					else = {
+					elseif = {
+						limit = {
+							has_fp1_dlc_trigger = yes
+						}
 						remove_innovation = innovation_all_things
 					}								
 				}
@@ -1756,13 +1775,19 @@ DI_present_innovation_all_things = {
 			scope:root_target.culture = {
 				if = {
 					limit = {
-						NOT = {
-							has_innovation = innovation_all_things
+						AND = {
+							NOT = {
+								has_innovation = innovation_all_things
+							}
+							has_fp1_dlc_trigger = yes
 						}
 					}
 					add_innovation = innovation_all_things
 				}
-				else = {
+				elseif = {
+					limit = {
+						has_fp1_dlc_trigger = yes
+					}
 					remove_innovation = innovation_all_things
 				}
 			}

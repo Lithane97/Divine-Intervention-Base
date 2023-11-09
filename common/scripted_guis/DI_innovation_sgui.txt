@@ -1622,8 +1622,14 @@ DI_add_innovation_varangian_adventurers = {
 	scope = character
 
 	effect = {
-		var:DI_innovation_selected_culture = {
-			add_innovation = innovation_varangian_adventurers
+		if = {
+			limit = {
+				has_fp1_dlc_trigger = yes
+			}
+
+			var:DI_innovation_selected_culture = {
+				add_innovation = innovation_varangian_adventurers
+			}
 		}
 	}
 }
@@ -1640,8 +1646,14 @@ DI_add_innovation_all_things = {
 	scope = character
 
 	effect = {
-		var:DI_innovation_selected_culture = {
-			add_innovation = innovation_all_things
+		if = {
+			limit = {
+				has_fp1_dlc_trigger = yes
+			}
+			
+			var:DI_innovation_selected_culture = {
+				add_innovation = innovation_all_things
+			}
 		}
 	}
 }
@@ -2392,8 +2404,14 @@ DI_remove_innovation_varangian_adventurers = {
 	scope = character
 
 	effect = {
-		var:DI_innovation_selected_culture = {
-			remove_innovation = innovation_varangian_adventurers
+		if = {
+			limit = {
+				has_fp1_dlc_trigger = yes
+			}
+
+			var:DI_innovation_selected_culture = {
+				remove_innovation = innovation_varangian_adventurers
+			}
 		}
 	}
 }
@@ -2403,8 +2421,14 @@ DI_remove_innovation_all_things = {
 	scope = character
 
 	effect = {
-		var:DI_innovation_selected_culture = {
-			remove_innovation = innovation_all_things
+		if = {
+			limit = {
+				has_fp1_dlc_trigger = yes
+			}
+			
+			var:DI_innovation_selected_culture = {
+				remove_innovation = innovation_all_things
+			}
 		}
 	}
 }

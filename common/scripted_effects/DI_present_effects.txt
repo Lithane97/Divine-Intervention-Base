@@ -631,8 +631,28 @@ innovation_tribal_regional_effect = {
 		if = { limit = { NOT = { has_innovation = innovation_caballeros } } add_innovation = innovation_caballeros }
 		if = { limit = { NOT = { has_innovation = innovation_bamboo_bows } } add_innovation = innovation_bamboo_bows }
 		if = { limit = { NOT = { has_innovation = innovation_sahel_horsemen } } add_innovation = innovation_sahel_horsemen }
-		if = { limit = { NOT = { has_innovation = innovation_varangian_adventurers } } add_innovation = innovation_varangian_adventurers }
-		if = { limit = { NOT = { has_innovation = innovation_all_things } } add_innovation = innovation_all_things }
+		if = { 
+			limit = { 
+				AND = { 
+					NOT = { 
+						has_innovation = innovation_varangian_adventurers 
+						has_fp1_dlc_trigger = yes
+					} 
+				} 
+			} 
+			add_innovation = innovation_varangian_adventurers 
+		}
+		if = { 
+			limit = { 
+				AND = { 
+					NOT = { 
+						has_innovation = innovation_all_things 
+						has_fp1_dlc_trigger = yes
+					} 
+				} 
+			} 
+			add_innovation = innovation_all_things 
+		}
 		if = { limit = { NOT = { has_innovation = innovation_repeating_crossbow } } add_innovation = innovation_repeating_crossbow }
 		if = { limit = { NOT = { has_innovation = innovation_pole_vault } } add_innovation = innovation_pole_vault }
 }
