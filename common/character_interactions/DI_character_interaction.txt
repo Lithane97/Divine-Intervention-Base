@@ -2187,20 +2187,38 @@ DI_change_every_county = {
 		flag = debug_change_every_county_max_development
 		localization = DI_change_every_county_development
 	}
+	send_option = {
+		flag = DI_change_religion_every_county
+		localization = DI_change_religion_every_county
+	}
+	send_option = {
+		flag = DI_change_culture_every_county
+		localization = DI_change_culture_every_county
+	}
 
 	on_accept = {
 		scope:recipient = {
 			switch = {
 				trigger = yes
 				scope:debug_change_every_county_max_control = {
-					every_realm_county = {
+					every_sub_realm_county = {
 						change_county_control = 100
 					}
 				}
 				scope:debug_change_every_county_max_development = {
-					every_realm_county = { 
+					every_sub_realm_county = { 
 						change_development_level = 100
 					} 
+				}
+				scope:DI_change_religion_every_county = {
+					every_sub_realm_county = {
+						set_county_faith = scope:recipient.faith
+					}
+				}
+				scope:DI_change_culture_every_county = {
+					every_sub_realm_county = {
+						set_county_culture = scope:recipient.culture
+					}
 				}
 			}
 		}
