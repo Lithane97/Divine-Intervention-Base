@@ -1,8 +1,4 @@
-
-
 ### Character Editor Present Window ###
-
-
 window = {
 	name = "DI_char_editor_present_window"
 	parentanchor = right|vcenter
@@ -52,22 +48,18 @@ window = {
 		}
 		
 		widget = {
-			size = { 440 500 }
+			size = { 460 500 }
 			
 			widget = {
-				size = { 460 30 }
+				size = { 460 65 }
 				
 				vbox = {
-					spacing = 5
-
 					hbox = {
 						spacing = 5
-						ignoreinvisible = yes
-						
+
 						button_standard = {
 							name = "lifestyle_button"
-							size = { 75 40 }
-							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
 							onclick = "[GetVariableSystem.Set('show_present', 'lifestyle')]"
 							button_ignore = none
 							text = DI_present_lifestyle
@@ -77,8 +69,7 @@ window = {
 
 						button_standard = {
 							name = "health_button"
-							size = { 75 40 }
-							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
 							onclick = "[GetVariableSystem.Set('show_present', 'health')]"
 							button_ignore = none
 							text = DI_present_health
@@ -88,24 +79,37 @@ window = {
 
 						button_standard = {
 							name = "traits_button"
-							size = { 65 40 }
-							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
 							onclick = "[GetVariableSystem.Set('show_present', 'traits')]"
 							button_ignore = none
 							text = DI_present_traits
 							tooltip = DI_present_traits_TT
 							using = tooltip_ne
 						}
+					}
+
+					hbox = {
+						margin_top = 5
+						spacing = 5
 
 						button_standard = {
 							name = "innovation_button"
-							size = { 85 40 }
-							layoutpolicy_horizontal = expanding
+							size = { 100 30 }
 							onclick = "[GetVariableSystem.Set('show_present', 'innovation')]"
 							onclick = "[GetVariableSystem.Set('show_innovation', 'mass')]"
 							button_ignore = none
 							text = DI_present_innovation
 							tooltip = DI_present_innovation_TT
+							using = tooltip_ne
+						}
+
+						button_standard = {
+							name = "laws_button"
+							size = { 100 30 }
+							onclick = "[GetVariableSystem.Set('show_present', 'laws')]"
+							button_ignore = none
+							text = DI_present_laws
+							tooltip = DI_present_laws_TT
 							using = tooltip_ne
 						}
 					}
@@ -119,6 +123,7 @@ window = {
 				widget = {
 					size = { 440 530 }
 					vbox = {
+						margin_top = 20
 						name = "present_selection_panel"
 						layoutpolicy_vertical = expanding
 
@@ -1061,6 +1066,153 @@ window = {
 									text = DI_present_remove_all_innovations
 									tooltip = DI_present_remove_all_innovations_TT
 									using = tooltip_ne
+								}
+							}
+						}
+
+						#Present Laws Selection Panel
+						vbox = {
+							name = "present_laws_selection_panel"
+
+							visible = "[GetVariableSystem.HasValue( 'show_present', 'laws' )]"
+							margin_top = 15
+
+							scrollbox = {
+								name = "present_laws_scrollbox"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+								minimumsize = { 300 100% }
+								size = { 300 400 }
+
+								blockoverride "scrollbox_content" {
+									#Present Laws Gender Equality
+									button_standard_hover = {
+										name = present_laws_gender_equality_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_laws_gender_equality').Execute(GuiScope.SetRoot(GetPlayer.GetFaith.MakeScope).AddScope('culture', GetPlayer.GetCulture.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_laws_gender_equality_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+												framesize = { 40 40 }
+												frame = "1"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_laws_gender_equality
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									button_standard_hover = {
+										name = present_laws_gender_inverse_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_laws_gender_inverse').Execute(GuiScope.SetRoot(GetPlayer.GetFaith.MakeScope).AddScope('culture', GetPlayer.GetCulture.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_laws_gender_inverse_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+												framesize = { 40 40 }
+												frame = "4"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_laws_gender_inverse
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									button_standard_hover = {
+										name = present_laws_gender_female_dominated_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_laws_gender_female_dominated').Execute(GuiScope.SetRoot(GetPlayer.GetFaith.MakeScope).AddScope('culture', GetPlayer.GetCulture.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_laws_gender_female_dominated_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+												framesize = { 40 40 }
+												frame = "2"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_laws_gender_female_dominated
+												default_format = "#clickable"
+											}
+											
+										}
+									}
+
+									button_standard_hover = {
+										name = present_laws_gender_male_dominated_button
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										size = { 0 50 }
+										onclick = "[GetScriptedGui('DI_present_laws_gender_male_dominated').Execute(GuiScope.SetRoot(GetPlayer.GetFaith.MakeScope).AddScope('culture', GetPlayer.GetCulture.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+										button_ignore = none
+
+										tooltip = DI_present_laws_gender_male_dominated_TT
+										using = tooltip_ne
+
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+					
+											icon = {
+												size = { 50 50 }
+												texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+												framesize = { 40 40 }
+												frame = "2"
+											}
+					
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												text = DI_present_laws_gender_male_dominated
+												default_format = "#clickable"
+											}
+											
+										}
+									}
 								}
 							}
 						}

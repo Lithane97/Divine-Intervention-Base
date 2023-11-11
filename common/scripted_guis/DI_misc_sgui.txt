@@ -279,8 +279,8 @@ DI_age_subtract = {
 
 DI_add_increment = {
 	is_valid = {
-        	var:DI_increment_value < 10000
-    	}
+		var:DI_increment_value < 10000
+	}
 
 	effect = {
 		if = {
@@ -304,8 +304,8 @@ DI_add_increment = {
 
 DI_modifier_add_increment = {
 	is_valid = {
-        	var:DI_modifier_increment_value < 100
-    	}
+		var:DI_modifier_increment_value < 100
+	}
 
 	effect = {
 		if = {
@@ -690,15 +690,15 @@ DI_culture_list_load = {
 	effect = {		
 		every_culture_global = {
 			if = {
-			  limit = {
+			limit = {
 				NOT = {
-				  any_in_global_list = {
-					variable = DI_heritage_list
-					has_same_culture_heritage = prev
-				  }
+					any_in_global_list = {
+						variable = DI_heritage_list
+						has_same_culture_heritage = prev
+					}
 				}
-			  }
-			  add_to_global_variable_list = { name = DI_heritage_list target = this }
+			}
+			add_to_global_variable_list = { name = DI_heritage_list target = this }
 			}
 		}
 	}
@@ -772,7 +772,7 @@ DI_religion_list_load = {
 		every_religion_global = {
 			if = {
 				limit = {
-				  	NOT = {
+					NOT = {
 						any_in_global_list = {
 							variable = DI_religion_list
 							this = prev
