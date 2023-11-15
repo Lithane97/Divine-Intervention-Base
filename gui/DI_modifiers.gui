@@ -348,7 +348,7 @@ window = {
                     size = { 375 200 }
                     layoutpolicy_vertical = expanding  
                     
-                   vbox = {
+                    vbox = {
                         name = "modifiers_selection_panel"
                         layoutpolicy_vertical = expanding
                         
@@ -362,7 +362,6 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
         
                                 dockable_button = {
                                     name = "DI_modifier_martial_per_prestige_level_button"
@@ -613,8 +612,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_monthly_prestige_gain_mult_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -775,8 +773,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_martial_per_piety_level_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_martial_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -1207,8 +1204,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_monthly_income_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_monthly_income').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -6300,8 +6296,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_martial_per_prestige_level_neg_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_martial_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -6551,8 +6546,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_monthly_prestige_gain_mult_neg_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -6712,8 +6706,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_martial_per_piety_level_neg_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_martial_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -7144,8 +7137,7 @@ window = {
                                 margin_bottom = 0
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
-                               
-        
+
                                 dockable_button = {
                                     name = "DI_modifier_monthly_income_neg_button"
                                     onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -12799,7 +12791,7 @@ window = {
                                         parentanchor = center
                                         position = { 0 1 }
                                         size = {30 30 }
-                                        tintcolor = { 1 0 0 1 }
+                                        tintcolor = { 0 1 1 1 }
                                         texture = "[StaticModifier.GetIcon]"
                                         tooltipwidget = {
                                             using = modifier_DI_tooltip
@@ -12822,7 +12814,7 @@ window = {
                                         parentanchor = center
                                         position = { 0 1 }
                                         size = {30 30 }
-                                        tintcolor = { 1 0 0 1 }
+                                        tintcolor = { 0 1 1 1 }
                                         texture = "[StaticModifier.GetIcon]"
                                         tooltipwidget = {
                                             using = modifier_DI_tooltip
@@ -12845,7 +12837,7 @@ window = {
                                         parentanchor = center
                                         position = { 0 1 }
                                         size = {30 30 }
-                                        tintcolor = { 1 0 0 1 }
+                                        tintcolor = { 0 1 1 1 }
                                         texture = "[StaticModifier.GetIcon]"
                                         tooltipwidget = {
                                             using = modifier_DI_tooltip
@@ -12868,7 +12860,7 @@ window = {
                                         parentanchor = center
                                         position = { 0 1 }
                                         size = {30 30 }
-                                        tintcolor = { 1 0 0 1 }
+                                        tintcolor = { 0 1 1 1 }
                                         texture = "[StaticModifier.GetIcon]"
                                         tooltipwidget = {
                                             using = modifier_DI_tooltip
@@ -12891,7 +12883,53 @@ window = {
                                         parentanchor = center
                                         position = { 0 1 }
                                         size = {30 30 }
-                                        tintcolor = { 1 0 0 1 }
+                                        tintcolor = { 0 1 1 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
+
+                                # domain_limit
+                                dockable_button = {
+                                    name = "DI_modifier_domain_limit_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_domain_limit')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 0 1 1 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
+
+                                # money_printer
+                                dockable_button = {
+                                    name = "DI_modifier_money_printer_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_money_printer')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = {30 30 }
+                                        tintcolor = { 0 1 1 1 }
                                         texture = "[StaticModifier.GetIcon]"
                                         tooltipwidget = {
                                             using = modifier_DI_tooltip
@@ -12940,7 +12978,7 @@ window = {
                         position = { 0 23 }
 
                         blockoverride "scrollbox_content"
-			            {
+                        {
                             # skirmishers
                             button_standard_hover = {
                                 text = skirmishers

@@ -1,0 +1,281 @@
+﻿window = {
+	name = "DI_event_manager_window"
+	parentanchor = top|right
+	position = { -50 115 }
+	size = { 150 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+	visible = "[GetVariableSystem.Exists('DI_event_manager_window_visible')]"
+    
+    datacontext = "[GetVariableSystem]"
+	datacontext = "[GetPlayer]"
+	
+	state = {
+		name = init
+		trigger_on_create = yes
+		on_start = "[GetVariableSystem.Set('DI_event_manager_state', 'em_pregnancy')]"
+	}
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+		on_start = "[GetVariableSystem.Set('DI_event_manager_state', 'em_pregnancy')]"
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		margin_left = 40
+		margin_right = 40
+		margin_bottom = 40
+		margin_top = 10
+		ignoreinvisible = yes
+		restrictparent_min = yes
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_event_manager_title
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_event_manager_window_visible')]"
+			}
+		}
+
+		widget = {
+            size = { 600 170 }
+            
+            widget = {
+				size = { 600 170 }
+                datacontext = "[GetPlayer.MakeScope.Var('DI_alliance_primary_character').Char]"
+        
+                DI_portrait_shoulders = {
+                    visible = "[Character.IsValid]"
+					position = { 80 10 }
+                    parentanchor = left
+        
+					text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_primary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+
+                    blockoverride "portrait_button_template_onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
+                    }
+                }
+        
+                DI_portrait_shoulders = {
+                    visible = "[Not(Character.IsValid)]"
+					position = { 80 10 }
+                    parentanchor = left
+        
+                    text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_primary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+        
+                    blockoverride "onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
+                    }
+                }
+            }
+
+			widget = {
+				size = { 600 170 }
+                datacontext = "[GetPlayer.MakeScope.Var('DI_alliance_secondary_character').Char]"
+        
+                DI_portrait_shoulders = {
+                    visible = "[Character.IsValid]"
+					position = { 400 10 }
+                    parentanchor = left
+        
+					text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_secondary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+
+                    blockoverride "portrait_button_template_onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
+                    }
+                }
+        
+                DI_portrait_shoulders = {
+                    visible = "[Not(Character.IsValid)]"
+					position = { 400 10 }
+                    parentanchor = left
+        
+                    text_label_center = {
+                        parentanchor = hcenter|top
+                        position = { 0 -5 }
+                        text = DI_select_alliance_secondary
+                        default_format = "#low;italic"
+                        max_width = 500
+                    }
+        
+                    blockoverride "onclick"
+                    {
+                        onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
+                    }
+                }
+            }
+        }
+
+		hbox = {
+			name = "tabs"
+			layoutpolicy_horizontal = expanding
+			margin_top = 10
+
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_pregnancy' )]"
+				down = "[GetVariableSystem.HasValue( 'DI_event_manager_state', 'em_pregnancy' )]"
+
+				text_single = {
+					parentanchor = center
+					text = "DI_em_pregnancy"
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_harm' )]"
+				down = "[GetVariableSystem.HasValue( 'DI_event_manager_state', 'em_harm' )]"
+
+				text_single = {
+					parentanchor = center
+					text = "DI_em_harm"
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+		}
+
+		hbox = {
+			margin_top = 15
+			margin_bottom = 15
+			margin_right = 10
+			margin_left = 10
+			
+			visible = "[GetVariableSystem.HasValue( 'DI_event_manager_state', 'em_pregnancy' )]"
+			
+			background = {
+				using = Background_Area_Dark
+			}
+
+			vbox = {
+				
+
+				button_standard_hover = {
+					text = "DI_pregnancy_test"
+					onclick = "[GetScriptedGui('DI_pregnancy.1001').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+
+				button_standard_hover = {
+					text = "DI_char_editor.1"
+					onclick = "[GetScriptedGui('DI_char_editor.1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				}
+			}
+
+			vbox = {
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_add_event' )]"
+				}
+
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_remove_event' )]"
+				}
+			}
+
+			vbox = {
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_add_event' )]"
+				}
+
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_remove_event' )]"
+				}
+			}
+		}
+
+		hbox = {
+			margin_top = 15
+			margin_bottom = 15
+			margin_right = 10
+			margin_left = 10
+			
+			visible = "[GetVariableSystem.HasValue( 'DI_event_manager_state', 'em_harm' )]"
+			
+			background = {
+				using = Background_Area_Dark
+			}
+
+			vbox = {
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_add_event' )]"
+				}
+
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_remove_event' )]"
+				}
+			}
+
+			vbox = {
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_add_event' )]"
+				}
+
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_remove_event' )]"
+				}
+			}
+
+			vbox = {
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_add_event' )]"
+				}
+
+				button_standard_hover = {
+					text = "DI_em_example_event"
+					onclick = "[GetVariableSystem.Set( 'DI_event_manager_state', 'em_remove_event' )]"
+				}
+			}
+		}
+    }
+}

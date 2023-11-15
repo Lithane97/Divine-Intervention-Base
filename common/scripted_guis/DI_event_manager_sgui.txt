@@ -1,0 +1,25 @@
+﻿### Event Manager Scripts ###
+### Pregnancy ###
+DI_pregnancy.1001 = {
+	scope = character
+
+	effect = {
+		var:DI_alliance_primary_character = {
+			random_consort = { save_scope_as = real_father }
+
+			trigger_event = pregnancy.1001
+		}
+	}
+}
+
+DI_char_editor.1 = {
+	scope = character
+
+	effect = {
+		var:DI_alliance_primary_character = {	
+			save_scope_as = change_name
+
+			trigger_event = DI_char_editor.1
+		}
+	}
+}

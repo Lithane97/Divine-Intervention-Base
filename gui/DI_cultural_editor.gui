@@ -204,9 +204,9 @@ window = {
 							datacontext = "[Culture.GetMartial]"
 							layoutpolicy_horizontal = expanding
 
- 							# Only show Martial if culture affects martial customs,
- 							# which is only the case if we are able to modify
- 							# the culture pillars.
+							# Only show Martial if culture affects martial customs,
+							# which is only the case if we are able to modify
+							# the culture pillars.
 							visible = "[HasDlcFeature( 'diverge_culture' )]"
 
 							spacing = 10
@@ -606,7 +606,11 @@ window = {
 				}
 			}
 
-			using = DI_Innovation_Eras_Vanilla
+			widget = {
+				size = { 600 140 }
+				using = DI_Innovation_Eras
+			}
+			
 
 			scrollbox = {
 				layoutpolicy_horizontal = expanding
@@ -616,23 +620,7 @@ window = {
 				{
 			
 					vbox = {
-					
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
-						
-							using = DI_Military_Group
-							
-							using = DI_Innovation_Military_Vanilla
-							
-							using = DI_Civic_Group
-							
-							using = DI_Innovation_Civic_Vanilla
-							
-							using = DI_Regional_Group
-							
-							using = DI_Innovation_Regional_Vanilla
-						}
+						using = DI_Innovation_Main
 					}
 					
 				}
@@ -729,13 +717,19 @@ types CulturalEditorShared
 
 		icon = {
 			texture = "[CultureInnovationType.GetIcon]"
+			block "icon_highlight"
+			{
+				tintcolor = { 1 1 1 1 }
+			}
+			
 			size = { 90 60 }
 		}
 
 		icon = {
-			block "era_texture"
+			texture = "[CultureInnovationType.GetCultureEraType.GetFrame]"
+			block "icon_frame_highlight"
 			{
-				texture = "[CultureInnovationType.GetCultureEraType.GetFrame]"
+				tintcolor = { 1 1 1 1 }
 			}
 			size = { 90 60 }
 		}
