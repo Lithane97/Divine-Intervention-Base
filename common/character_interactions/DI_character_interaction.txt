@@ -28,7 +28,7 @@ DI_close_cheat_menu = {
 	interface_priority = 300
 	category = interaction_category_cheat_menu
 	desc = DI_cheat_menu_desc
-	common_interaction = yes
+	common_interaction = no
 
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -203,7 +203,7 @@ DI_change_character_name_interaction = {
 	interface_priority = 140
 	category = interaction_category_cheat_menu
 	desc = DI_change_character_name_desc
-	common_interaction = yes
+	common_interaction = no
 
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -338,6 +338,30 @@ DI_change_character_weight_interaction = {
 				scope:gain_weight = { change_current_weight = 25 }
 				scope:lose_weight = { change_current_weight = -25 }
 			}
+		}
+	}
+	auto_accept = yes
+}
+
+DI_learn_language_interaction = {
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	icon = icon_scheme_learn_language
+
+	is_shown = { 
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		NOT = {
+			scope:actor = { knows_language_of_culture = scope:recipient.culture }
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			learn_language_of_culture = scope:recipient.culture
 		}
 	}
 	auto_accept = yes
@@ -554,7 +578,7 @@ DI_arrange_marriage_interaction = {
 	category = interaction_category_cheat_menu
 	icon = icon_marriage
 	desc = DI_arrange_marriage_desc
-	common_interaction = no
+	common_interaction = yes
 	auto_accept = yes
 	
 	use_diplomatic_range = no
@@ -1088,7 +1112,7 @@ DI_imprison_interaction = {
 	category = interaction_category_cheat_menu
 	icon = prison
 	desc = DI_imprison_desc
-	common_interaction = no
+	common_interaction = yes
 	
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -1174,8 +1198,8 @@ DI_add_secrets_interaction = {
 	}
 	send_option = {
 		is_valid = {
-			is_male = yes
-			NOT = { scope:recipient = { any_secret = { secret_type = secret_non_believer } } }
+			scope:recipient = { is_male = yes }
+			NOT = { scope:recipient = { any_secret = { secret_type = secret_homosexual } } }
 		}
 
 		flag = homosexual
@@ -2196,7 +2220,7 @@ DI_impregnate_interaction = {
 	category = interaction_category_cheat_menu
 	icon = pregnant
 	desc = DI_impregnate_cheat_desc
-	common_interaction = no
+	common_interaction = yes
 
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -2844,16 +2868,87 @@ DI_change_succession = {
 				trigger = yes
 
 				scope:single = {
-					add_realm_law_skip_effects = single_heir_succession_law
-					root.culture = {
+					culture = {
 						add_innovation = innovation_primogeniture
+					}
+					add_realm_law_skip_effects = single_heir_succession_law
+
+					if = {
+						limit = {
+							primary_title = title:e_hre
+						}
+						title:e_hre = {
+							clear_title_laws = yes
+						}
 					}
 				}
 				scope:single_youngest = {
-					add_realm_law_skip_effects = single_heir_succession_law_youngest
-					root.culture = {
+					culture = {
 						add_innovation = innovation_primogeniture
 					}
+					add_realm_law_skip_effects = single_heir_succession_law_youngest				
+
+					if = {
+						limit = {
+							primary_title = title:e_hre
+						}
+						title:e_hre = {
+							clear_title_laws = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+DI_swing_scales_interaction = {
+	category = interaction_category_cheat_menu
+	common_interaction = yes
+	icon = scroll_scales
+
+	desc = DI_swing_scales_interaction_desc
+
+	interface_priority = 20
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		# You must be one of the partners in a diarchy.
+		OR = {
+			scope:actor = { is_diarch_of_target = scope:recipient }
+			scope:recipient = { is_diarch_of_target = scope:actor }
+		}
+	}
+
+	send_option = {
+		flag = swing_scales_0
+		localization = swing_scales_0
+	}
+	send_option = {
+		flag = swing_scales_50
+		localization = swing_scales_50
+	}
+	send_option = {
+		flag = swing_scales_100
+		localization = swing_scales_100
+	}
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+
+				scope:swing_scales_0 = {
+					set_diarchy_swing = 0
+				}
+				scope:swing_scales_50 = {
+					set_diarchy_swing = 50
+				}
+				scope:swing_scales_100 = {
+					set_diarchy_swing = 100
 				}
 			}
 		}
