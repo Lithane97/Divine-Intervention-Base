@@ -6,6 +6,15 @@
 	}
 }
 
+DI_ep1_court_check = {
+	scope = character
+
+	is_valid = {
+		has_ep1_court_positions_dlc_trigger = yes
+	}
+}
+
+
 DI_open_marriage = {
 	scope = character
 	
@@ -218,6 +227,23 @@ DI_char_spawner_resources_sgui = {
 			set_variable = {
 				name = DI_char_spawner_age_increment_value
 				value = 18
+			}
+		}
+
+		if = {
+			limit = {
+				NOT = { has_variable = DI_cs_random_traits }
+			}
+			DI_random_traits_effect = yes
+		}
+
+		if = {
+			limit = {
+				NOT = { has_variable = DI_female_chance }
+			}
+			set_variable = {
+				name = DI_female_chance
+				value = 0
 			}
 		}
 	}
@@ -846,9 +872,17 @@ DI_char_spawner_female_sgui = {
 				has_variable = DI_char_spawner_female
 			}
 			remove_variable = DI_char_spawner_female
+			set_variable = {
+				name = DI_female_chance
+				value = 0
+			}
 		}
 		else = {
 			set_variable = DI_char_spawner_female
+			set_variable = {
+				name = DI_female_chance
+				value = 100
+			}
 		}
 	}
 }
@@ -897,6 +931,24 @@ DI_char_spawner_good_traits_sgui = {
 		}
 		else = {
 			set_variable = DI_char_spawner_good_traits
+		}
+	}
+}
+
+DI_char_spawner_no_traits_sgui = {
+	scope = character
+
+	effect = {
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_no_traits
+			}
+			remove_variable = DI_char_spawner_no_traits
+			DI_random_traits_effect = yes
+		}
+		else = {
+			set_variable = DI_char_spawner_no_traits
+			DI_no_random_traits_effect = no
 		}
 	}
 }

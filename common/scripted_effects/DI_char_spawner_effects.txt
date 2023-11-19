@@ -1,0 +1,1092 @@
+﻿### Character Spawner Effects ###
+#################################
+
+# No Random Traits #
+DI_no_random_traits_effect = {
+	set_variable = {
+		name = DI_cs_random_traits
+		value = no
+	}
+	set_variable = {
+		name = DI_cs_martial
+		value = 10
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 10
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 10
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 10
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 10
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 10
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+}
+
+# Random Traits #
+DI_random_traits_effect = {
+	set_variable = {
+		name = DI_cs_random_traits
+		value = yes
+	}
+	set_variable = {
+		name = DI_cs_martial
+		value = { 5 12 }
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = { 5 12 }
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = { 5 12 }
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = { 5 12 }
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = { 5 12 }
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = { 5 12 }
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+}
+
+DI_martial_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 30
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 30
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_martial_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:content
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:strong
+	}
+}
+
+DI_diplomacy_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 30
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 30
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_diplomacy_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:content
+	}
+}
+
+DI_stewardship_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 30
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 30
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_stewardship_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:content
+	}
+}
+
+DI_intrigue_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 20
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 30
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_intrigue_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:content
+	}
+}
+
+DI_learning_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 30
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_learning_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:content
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:trusting
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:calm
+	}
+}
+
+DI_knight_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_martial_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_blademaster
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:strong
+	}
+}
+
+DI_physician_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 50
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_learning_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_physician
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_mystic
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_herbalist
+	}
+}
+
+DI_antiquarian_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 50
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_learning_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:administrator
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:shy
+	}
+}
+
+DI_travel_leader_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 50
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_stewardship_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:adventurer
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:brave
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_herbalist
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_hunter
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:diligent
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:administrator
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:scholar
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_physician
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_traveler
+	}
+}
+
+DI_court_tutor_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 25
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 50
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_learning_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:patient
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:intellect_good_3
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:shrewd
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:gregarious
+	}
+}
+
+DI_master_of_hunt_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 50
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_learning_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_hunter
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:brave
+	}
+}
+
+DI_seneschal_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_stewardship_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:administrator
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:overseer
+	}
+}
+
+DI_court_jester_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_diplomacy_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:gregarious
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:stubborn
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:shrewd
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:poet
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:athletic
+	}
+}
+
+DI_bodyguard_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_martial_4
+	}
+
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:shieldmaiden
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_blademaster
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:brave
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:gallant
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:paranoid
+	}
+}
+
+DI_champion_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_martial_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:shieldmaiden
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:lifestyle_blademaster
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:brave
+	}
+}
+
+DI_cultural_emissary_traits_effect = {
+	set_variable = {
+		name = DI_cs_martial
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_prowess
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_diplomacy
+		value = 50
+	}
+	set_variable = {
+		name = DI_cs_stewardship
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_intrigue
+		value = 16
+	}
+	set_variable = {
+		name = DI_cs_learning
+		value = 16
+	}
+	if = {
+		limit = {
+			has_variable_list = DI_cs_trait_list
+		}
+		clear_variable_list = DI_cs_trait_list
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:education_diplomacy_4
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:just
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:gregarious
+	}
+	add_to_variable_list = {
+		name = DI_cs_trait_list
+		target = trait:diplomat
+	}
+}
+
+# Set the parents for spawning children #
+DI_set_parents_of_child_effect = {
+	if = {
+		limit = {
+			is_male = yes
+		}
+		scope:root_target = {
+			set_variable = {
+				name = DI_cs_father
+				value = scope:target
+			}
+		}
+		if = {
+			limit = {
+				scope:target.primary_spouse ?= { is_female = yes }
+			}
+			scope:root_target = {
+				set_variable = {
+					name = DI_cs_mother
+					value = scope:target.primary_spouse
+				}
+			}
+		}
+		else = {
+			scope:root_target = {
+				if = {
+					limit = {
+						has_variable = DI_cs_mother
+					}
+					remove_variable = DI_cs_mother
+				}
+			}
+		}
+	}
+	else = {
+		scope:root_target = {
+			set_variable = {
+				name = DI_cs_mother
+				value = scope:target
+			}
+		}
+		if ={
+			limit = {
+				scope:target.primary_spouse ?= { is_male = yes }
+			}
+			scope:root_target = {
+				set_variable = {
+					name = DI_cs_father
+					value = scope:target.primary_spouse
+				}
+			}
+		}
+		else = {
+			scope:root_target = {
+				if = {
+					limit = {
+						has_variable = DI_cs_father
+					}
+					remove_variable = DI_cs_father
+				}
+			}
+		}
+	}
+}
+
+# Set the parents for spawning siblings #
+DI_set_parents_of_sibling_effect = {
+	scope:target.father ?= { 
+		scope:root_target = {
+			set_variable = {
+				name = DI_cs_father
+				value = scope:target.father
+			}
+		} 
+	}
+	scope:target.mother ?= { 
+		scope:root_target = {
+			set_variable = {
+				name = DI_cs_mother
+				value = scope:target.mother
+			}
+		} 
+	}
+}
+
+# Set the father of the character #
+DI_set_father_effect = {
+	scope:new_courtier = {
+		set_father = scope:root_target.var:DI_cs_father
+	}
+}
+
+# Set the mother of the character #
+DI_set_mother_effect = {
+	scope:new_courtier = {
+		set_mother = scope:root_target.var:DI_cs_mother
+	}
+}
+
+DI_spawn_family_character_effect = {
+	while = { count = var:DI_char_spawner_count_increment_value
+		create_character = {
+			age = scope:root_target.var:DI_char_spawner_age_increment_value
+			gender_female_chance = scope:root_target.var:DI_female_chance
+			health = 5
+			fertility = 0.5
+			employer = scope:target
+			faith = scope:target.faith
+			culture = scope:target.culture
+			dynasty_house = scope:target.house
+			martial = scope:root_target.var:DI_cs_martial
+			prowess = scope:root_target.var:DI_cs_prowess
+			diplomacy = scope:root_target.var:DI_cs_diplomacy
+			stewardship = scope:root_target.var:DI_cs_stewardship
+			intrigue = scope:root_target.var:DI_cs_intrigue
+			learning = scope:root_target.var:DI_cs_learning
+			random_traits = scope:root_target.var:DI_cs_random_traits
+			save_scope_as = new_courtier
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_immortal }
+			}
+			scope:new_courtier = {
+				add_trait = immortal
+			}
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_100_stat_man }
+			}
+			scope:new_courtier = {
+				add_trait = 100_stat_man
+			}
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_good_traits }
+			}
+			scope:new_courtier = {
+				add_trait = loyal
+				add_trait = beauty_good_3
+				add_trait = intellect_good_3
+				add_trait = physique_good_3
+			}
+		}
+	}
+}
+
+DI_spawn_court_character_effect = {
+	while = { count = var:DI_char_spawner_count_increment_value
+		create_character = {
+			age = scope:root_target.var:DI_char_spawner_age_increment_value
+			gender_female_chance = scope:root_target.var:DI_female_chance
+			health = 6
+			fertility = 6
+			employer = scope:target
+			faith = scope:target.faith
+			culture = scope:target.culture
+			dynasty = generate
+			martial = scope:root_target.var:DI_cs_martial
+			prowess = scope:root_target.var:DI_cs_prowess
+			diplomacy = scope:root_target.var:DI_cs_diplomacy
+			stewardship = scope:root_target.var:DI_cs_stewardship
+			intrigue = scope:root_target.var:DI_cs_intrigue
+			learning = scope:root_target.var:DI_cs_learning
+			random_traits = scope:root_target.var:DI_cs_random_traits
+			save_scope_as = new_courtier
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_immortal }
+			}
+			scope:new_courtier = {
+				add_trait = immortal
+			}
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_100_stat_man }
+			}
+			scope:new_courtier = {
+				add_trait = 100_stat_man
+			}
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_good_traits }
+			}
+			scope:new_courtier = {
+				add_trait = loyal
+				add_trait = beauty_good_3
+				add_trait = intellect_good_3
+				add_trait = physique_good_3
+			}
+		}
+		if = {
+			limit = {
+				has_variable_list = DI_cs_trait_list
+			}
+			every_in_list = {
+				variable = DI_cs_trait_list
+				scope:new_courtier = {
+					add_trait = prev
+				}
+			}
+		}
+	}
+}
+
+DI_spawn_low_court_character_effect = {
+	while = { count = var:DI_char_spawner_count_increment_value
+		create_character = {
+			age = scope:root_target.var:DI_char_spawner_age_increment_value
+			gender_female_chance = scope:root_target.var:DI_female_chance
+			health = 5
+			fertility = 0.5
+			employer = scope:target
+			faith = scope:target.faith
+			culture = scope:target.culture
+			dynasty = none
+			martial = scope:root_target.var:DI_cs_martial
+			prowess = scope:root_target.var:DI_cs_prowess
+			diplomacy = scope:root_target.var:DI_cs_diplomacy
+			stewardship = scope:root_target.var:DI_cs_stewardship
+			intrigue = scope:root_target.var:DI_cs_intrigue
+			learning = scope:root_target.var:DI_cs_learning
+			random_traits = scope:root_target.var:DI_cs_random_traits
+			save_scope_as = new_courtier
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_immortal }
+			}
+			scope:new_courtier = {
+				add_trait = immortal
+			}
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_100_stat_man }
+			}
+			scope:new_courtier = {
+				add_trait = 100_stat_man
+			}
+		}
+		if = {
+			limit = {
+				scope:root_target = { has_variable = DI_char_spawner_good_traits }
+			}
+			scope:new_courtier = {
+				add_trait = loyal
+				add_trait = beauty_good_3
+				add_trait = intellect_good_3
+				add_trait = physique_good_3
+			}
+		}
+		if = {
+			limit = {
+				has_variable_list = DI_cs_trait_list
+			}
+			every_in_list = {
+				variable = DI_cs_trait_list
+				scope:new_courtier = {
+					add_trait = prev
+				}
+			}
+		}
+	}
+}

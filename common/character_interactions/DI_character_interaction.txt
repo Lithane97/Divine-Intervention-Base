@@ -1102,7 +1102,7 @@ DI_imprison_interaction = {
 		}
 	}
 
-	on_accept = {
+	on_auto_accept = {
 		scope:actor = {
 			imprison = {
 				target = scope:recipient
@@ -1112,6 +1112,332 @@ DI_imprison_interaction = {
 	}
 
 	ai_will_do = { base = 0 }
+}
+
+### Add Secrets ###
+DI_add_secrets_interaction = {
+	category = interaction_category_cheat_menu
+	icon = debug_secret
+	desc = DI_add_secrets_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	send_option = {
+		flag = random_secret
+		localization = random_secret
+	}
+	send_option = {
+		flag = every_secret
+		localization = every_secret
+	}
+	send_option = {
+		is_valid = { 
+			NOT = { scope:recipient = { any_secret = { secret_type = secret_incest } } }
+		}
+
+		flag = incest
+		localization = secret_incest
+	}
+	send_option = {
+		is_valid = { 
+			NOT = { scope:recipient = { any_secret = { secret_type = secret_deviant } } }
+		}
+
+		flag = deviant
+		localization = secret_deviant
+	}
+	send_option = {
+		is_valid = { 
+			NOT = { scope:recipient = { any_secret = { secret_type = secret_cannibal } } }
+		}
+
+		flag = cannibal
+		localization = secret_cannibal
+	}
+	send_option = {
+		is_valid = { 
+			NOT = { scope:recipient = { any_secret = { secret_type = secret_non_believer } } }
+		}
+
+		flag = non_believer
+		localization = secret_non_believer
+	}
+	send_option = {
+		is_valid = {
+			is_male = yes
+			NOT = { scope:recipient = { any_secret = { secret_type = secret_non_believer } } }
+		}
+
+		flag = homosexual
+		localization = secret_homosexual
+	}
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+				scope:random_secret = {
+					scope:recipient = {
+						hidden_effect = {
+							add_random_blackmailable_secret_effect = {
+								BLACKMAILER = scope:actor
+							}
+						}
+					}
+				}
+				scope:every_secret = {
+					scope:recipient = {
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_incest }
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_deviant }
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_cannibal }
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_non_believer }
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_homosexual }
+					}
+				}
+				scope:incest = {
+					scope:recipient = {
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_incest }
+					}
+				}
+				scope:deviant = {
+					scope:recipient = {
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_deviant }
+					}
+				}
+				scope:cannibal = {
+					scope:recipient = {
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_cannibal }
+					}
+				}
+				scope:non_believer = {
+					scope:recipient = {
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_non_believer }
+					}
+				}
+				scope:homosexual = {
+					scope:recipient = {
+						give_secret_and_save_as_secret_effect = { SECRET_TYPE = secret_homosexual }
+					}
+				}
+				
+			}
+		}
+	}
+}
+
+### Reveal Secrets ###
+DI_reveal_secrets_interaction = {
+	category = interaction_category_cheat_menu
+	icon = debug_secret
+	desc = DI_reveal_secrets_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		NOT = { scope:recipient = scope:actor }
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			has_any_secrets = yes
+		}
+	}
+
+	send_option = {
+		flag = random_secret
+		localization = random_secret
+	}
+	send_option = {
+		flag = every_secret
+		localization = every_secret
+	}
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+				scope:random_secret = {
+					scope:recipient = {
+						random_secret = {
+							limit = {
+								NOT = { is_known_by = scope:actor }
+							}
+							hidden_effect = { reveal_to = scope:actor }
+						}
+					}
+				}
+				scope:every_secret = {
+					scope:recipient = {
+						every_secret = {
+							limit = {
+								NOT = { is_known_by = scope:actor }
+							}
+							hidden_effect = { reveal_to = scope:actor }
+						}
+					}
+				}
+			}
+		}
+		
+	}
+}
+
+### Remove Secrets ###
+DI_remove_secrets_interaction = {
+	category = interaction_category_cheat_menu
+	icon = debug_secret
+	desc = DI_remove_secrets_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			has_any_secrets = yes
+		}
+	}
+
+	send_option = {
+		flag = random_secret
+		localization = random_secret
+	}
+	send_option = {
+		flag = every_secret
+		localization = every_secret
+	}
+	send_option = {
+		is_valid = { 
+			scope:recipient = { any_secret = { secret_type = secret_incest } }
+		}
+
+		flag = incest
+		localization = secret_incest
+	}
+	send_option = {
+		is_valid = { 
+			scope:recipient = { any_secret = { secret_type = secret_deviant } }
+		}
+
+		flag = deviant
+		localization = secret_deviant
+	}
+	send_option = {
+		is_valid = { 
+			scope:recipient = { any_secret = { secret_type = secret_cannibal } }
+		}
+
+		flag = cannibal
+		localization = secret_cannibal
+	}
+	send_option = {
+		is_valid = { 
+			scope:recipient = { any_secret = { secret_type = secret_non_believer } }
+		}
+
+		flag = non_believer
+		localization = secret_non_believer
+	}
+	send_option = {
+		is_valid = {
+			scope:recipient = { any_secret = { secret_type = secret_homosexual } }
+		}
+		flag = homosexual
+		localization = secret_homosexual
+	}
+
+
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+				scope:random_secret = {
+					scope:recipient = {
+						random_secret = {
+							remove_secret = yes
+						}
+					}
+				}
+				scope:every_secret = {
+					scope:recipient = {
+						every_secret = {
+							remove_secret = yes
+						}
+					}
+				}
+				scope:incest = {
+					scope:recipient = {
+						every_secret = {
+							limit = {
+								secret_type = secret_incest
+							}
+							remove_secret = yes
+						}
+					}
+				}
+				scope:deviant = {
+					scope:recipient = {
+						every_secret = {
+							limit = {
+								secret_type = secret_deviant
+							}
+							remove_secret = yes
+						}
+					}
+				}
+				scope:cannibal = {
+					scope:recipient = {
+						every_secret = {
+							limit = {
+								secret_type = secret_cannibal
+							}
+							remove_secret = yes
+						}
+					}
+				}
+				scope:non_believer = {
+					scope:recipient = {
+						every_secret = {
+							limit = {
+								secret_type = secret_non_believer
+							}
+							remove_secret = yes
+						}
+					}
+				}
+				scope:homosexual = {
+					scope:recipient = {
+						every_secret = {
+							limit = {
+								secret_type = secret_homosexual
+							}
+							remove_secret = yes
+						}
+					}
+				}
+			}
+		}
+		
+	}
 }
 
 ### Claim Title ###
@@ -2529,6 +2855,110 @@ DI_change_succession = {
 						add_innovation = innovation_primogeniture
 					}
 				}
+			}
+		}
+	}
+}
+
+### Start Diarchy
+DI_start_diarchy_interaction = {
+	category = interaction_category_cheat_menu
+	icon = diarch
+	desc = DI_start_diarchy_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			has_active_diarchy = no
+		}
+	}
+
+	options_heading = DI_start_diarchy_desc
+	send_options_exclusive = no
+
+	send_option = {
+		is_shown = { NOT = { scope:actor = { has_character_flag = DI_cheat_menu } } }
+		flag = regency
+		localization = DI_start_diarchy_desc
+	}
+
+	on_auto_accept = {
+		scope:recipient = {
+			start_diarchy = regency
+		}
+	}
+}
+
+### End Diarchy ###
+DI_end_diarchy_interaction = {
+	category = interaction_category_cheat_menu
+	icon = diarch
+	desc = DI_end_diarchy_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			has_active_diarchy = yes
+		}
+	}
+
+	options_heading = DI_end_diarchy_desc
+	send_options_exclusive = no
+
+	send_option = {
+		is_shown = { NOT = { scope:actor = { has_character_flag = DI_cheat_menu } } }
+		flag = regency
+		localization = DI_end_diarchy_desc
+	}
+
+	on_auto_accept = {
+		scope:recipient = {
+			end_diarchy = yes
+		}
+	}
+}
+
+DI_test_interaction = {
+	category = interaction_category_cheat_menu
+	icon = icon_holding_city
+	desc = DI_test_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		debug_only = yes
+	}
+
+	on_accept = {
+		scope:actor = {
+			every_held_title = {
+				limit = {
+					tier = tier_county
+				}
+				add_county_modifier = DI_test_modifier
 			}
 		}
 	}

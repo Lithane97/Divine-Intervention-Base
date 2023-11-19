@@ -6281,3 +6281,38 @@ DI_present_laws_gender_male_dominated = {
 		}
 	}
 }
+
+# temporal head of faith
+DI_present_laws_temporal_hof = {
+	scope = faith # Player faith
+
+	saved_scopes = {
+		culture # Player culture
+		target # Player
+	}
+
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					has_doctrine = doctrine_no_head
+					has_doctrine = doctrine_spiritual_head
+				}
+			}
+			if = {
+				limit = {
+					has_doctrine = doctrine_no_head
+				}
+				remove_doctrine = doctrine_no_head
+			}
+			else_if = {
+				limit = {
+					has_doctrine = doctrine_spiritual_head
+				}
+				remove_doctrine = doctrine_spiritual_head
+			}
+
+			add_doctrine = doctrine_temporal_head
+		}
+	}
+}
