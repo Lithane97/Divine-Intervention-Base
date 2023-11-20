@@ -308,11 +308,12 @@ DI_learning_councillor = {
 							add_character_flag = upgraded_chaplain
 						}
 					}
-
-					every_in_list = {
-						variable = DI_cs_trait_list
-						scope:new_courtier = {
-							add_trait = prev
+					scope:root_target = {
+						every_in_list = {
+							variable = DI_cs_trait_list
+							scope:new_courtier = {
+								add_trait = prev
+							}
 						}
 					}
 				}
@@ -367,10 +368,12 @@ DI_learning_councillor = {
 					}
 				}
 
-				every_in_list = {
-					variable = DI_cs_trait_list
-					scope:new_courtier = {
-						add_trait = prev
+				scope:root_target = {
+					every_in_list = {
+						variable = DI_cs_trait_list
+						scope:new_courtier = {
+							add_trait = prev
+						}
 					}
 				}
 			}
