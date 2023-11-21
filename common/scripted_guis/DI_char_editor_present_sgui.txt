@@ -6295,6 +6295,43 @@ DI_present_laws_temporal_hof = {
 		if = {
 			limit = {
 				OR = {
+					has_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+					has_doctrine = doctrine_clerical_succession_spiritual_appointment
+					has_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
+				}
+			}
+			if = {
+				limit = {
+					has_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+				}
+				remove_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+			}
+			else_if = {
+				limit = {
+					has_doctrine = doctrine_clerical_succession_spiritual_appointment
+				}
+				remove_doctrine = doctrine_clerical_succession_spiritual_appointment
+			}
+			else_if = {
+				limit = {
+					has_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
+				}
+				remove_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
+			}
+			add_doctrine = doctrine_clerical_succession_temporal_appointment
+		}
+		
+		if = {
+			limit = {
+				has_doctrine = doctrine_theocracy_temporal
+			}
+			remove_doctrine = doctrine_theocracy_temporal
+			add_doctrine = doctrine_theocracy_lay_clergy
+		}
+
+		if = {
+			limit = {
+				OR = {
 					has_doctrine = doctrine_no_head
 					has_doctrine = doctrine_spiritual_head
 				}
@@ -6311,8 +6348,15 @@ DI_present_laws_temporal_hof = {
 				}
 				remove_doctrine = doctrine_spiritual_head
 			}
-
 			add_doctrine = doctrine_temporal_head
+		}
+
+		if = {
+			limit = {
+				has_doctrine = doctrine_temporal_head
+			}
+
+			set_religious_head_title = title:d_toscana
 		}
 	}
 }
