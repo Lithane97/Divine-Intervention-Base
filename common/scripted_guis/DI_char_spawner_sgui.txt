@@ -802,6 +802,21 @@ DI_court_physician = {
 					add_trait_xp = { trait = lifestyle_mystic value = 100 }
 				}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_physician_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_physician_court_position
+						save_scope_as = physician
+					}
+	
+					revoke_court_position = {
+						holder = scope:physician
+						court_position = court_physician_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = court_physician_court_position
@@ -818,6 +833,21 @@ DI_court_physician = {
 				add_trait_xp = { trait = lifestyle_mystic value = 100 }
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = court_physician_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = court_physician_court_position
+					save_scope_as = physician
+				}
+
+				revoke_court_position = {
+					holder = scope:physician
+					court_position = court_physician_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = court_physician_court_position
@@ -859,11 +889,23 @@ DI_court_antiquarian = {
 
 				scope:new_courtier = {
 					create_inspiration = book_inspiration
-					inspiration = {
-						change_inspiration_progress = 100
+				}
+				
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = antiquarian_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = antiquarian_court_position
+						save_scope_as = antiquarian
+					}
+	
+					revoke_court_position = {
+						holder = scope:antiquarian
+						court_position = antiquarian_court_position
 					}
 				}
-
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = antiquarian_court_position
@@ -877,11 +919,23 @@ DI_court_antiquarian = {
 
 			scope:new_courtier = {
 				create_inspiration = book_inspiration
-				inspiration = {
-					change_inspiration_progress = 100
-				}
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = antiquarian_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = antiquarian_court_position
+					save_scope_as = antiquarian
+				}
+
+				revoke_court_position = {
+					holder = scope:antiquarian
+					court_position = antiquarian_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = antiquarian_court_position
@@ -939,6 +993,21 @@ DI_travel_leader = {
 					learn_language = language_norse
 				}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = travel_leader_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = travel_leader_court_position
+						save_scope_as = travel_leader
+					}
+	
+					revoke_court_position = {
+						holder = scope:travel_leader
+						court_position = travel_leader_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = travel_leader_court_position
@@ -968,6 +1037,21 @@ DI_travel_leader = {
 				learn_language = language_norse
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = travel_leader_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = travel_leader_court_position
+					save_scope_as = travel_leader
+				}
+
+				revoke_court_position = {
+					holder = scope:travel_leader
+					court_position = travel_leader_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = travel_leader_court_position
@@ -1009,6 +1093,21 @@ DI_court_tutor = {
 
 				scope:new_courtier = {}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_tutor_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_tutor_court_position
+						save_scope_as = court_tutor
+					}
+	
+					revoke_court_position = {
+						holder = scope:court_tutor
+						court_position = court_tutor_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = court_tutor_court_position
@@ -1022,6 +1121,21 @@ DI_court_tutor = {
 
 			scope:new_courtier = {}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = court_tutor_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = court_tutor_court_position
+					save_scope_as = court_tutor
+				}
+
+				revoke_court_position = {
+					holder = scope:court_tutor
+					court_position = court_tutor_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = court_tutor_court_position
@@ -1069,6 +1183,21 @@ DI_master_of_hunt = {
 					}
 				}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = master_of_hunt_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = master_of_hunt_court_position
+						save_scope_as = master_of_hunt
+					}
+	
+					revoke_court_position = {
+						holder = scope:master_of_hunt
+						court_position = master_of_hunt_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = master_of_hunt_court_position
@@ -1088,6 +1217,21 @@ DI_master_of_hunt = {
 				}
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = master_of_hunt_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = master_of_hunt_court_position
+					save_scope_as = master_of_hunt
+				}
+
+				revoke_court_position = {
+					holder = scope:master_of_hunt
+					court_position = master_of_hunt_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = master_of_hunt_court_position
@@ -1129,6 +1273,21 @@ DI_seneschal = {
 
 				scope:new_courtier = {}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = seneschal_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = seneschal_court_position
+						save_scope_as = seneschal
+					}
+	
+					revoke_court_position = {
+						holder = scope:seneschal
+						court_position = seneschal_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = seneschal_court_position
@@ -1142,6 +1301,21 @@ DI_seneschal = {
 
 			scope:new_courtier = {}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = seneschal_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = seneschal_court_position
+					save_scope_as = seneschal
+				}
+
+				revoke_court_position = {
+					holder = scope:seneschal
+					court_position = seneschal_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = seneschal_court_position
@@ -1183,6 +1357,21 @@ DI_court_jester = {
 
 				scope:new_courtier = {}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_jester_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_jester_court_position
+						save_scope_as = jester
+					}
+	
+					revoke_court_position = {
+						holder = scope:jester
+						court_position = court_jester_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = court_jester_court_position
@@ -1196,6 +1385,21 @@ DI_court_jester = {
 
 			scope:new_courtier = {}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = court_jester_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = court_jester_court_position
+					save_scope_as = jester
+				}
+
+				revoke_court_position = {
+					holder = scope:jester
+					court_position = court_jester_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = court_jester_court_position
@@ -1242,6 +1446,21 @@ DI_bodyguard = {
 					}
 				}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = bodyguard_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = bodyguard_court_position
+						save_scope_as = bodyguard
+					}
+	
+					revoke_court_position = {
+						holder = scope:bodyguard
+						court_position = bodyguard_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = bodyguard_court_position
@@ -1260,6 +1479,21 @@ DI_bodyguard = {
 				}
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = bodyguard_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = bodyguard_court_position
+					save_scope_as = bodyguard
+				}
+
+				revoke_court_position = {
+					holder = scope:bodyguard
+					court_position = bodyguard_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = bodyguard_court_position
@@ -1306,6 +1540,21 @@ DI_champion = {
 					}
 				}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = champion_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = champion_court_position
+						save_scope_as = champion
+					}
+	
+					revoke_court_position = {
+						holder = scope:champion
+						court_position = champion_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = champion_court_position
@@ -1324,6 +1573,21 @@ DI_champion = {
 				}
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = champion_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = champion_court_position
+					save_scope_as = champion
+				}
+
+				revoke_court_position = {
+					holder = scope:champion
+					court_position = champion_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = champion_court_position
@@ -1345,351 +1609,935 @@ DI_champion = {
 	}
 }
 
-DI_court_lady_in_waiting = {
+DI_food_taster = {
 	scope = character
-	
+
 	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
+		save_scope_as = root_target
+		DI_food_taster_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_char_spawner_immortal
+				has_variable = DI_pinned_char_var
 			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
+			every_in_list = {
+				variable = pinned_characters
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
+				save_scope_as = target
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = food_taster_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = food_taster_court_position
+						save_scope_as = food_taster
+					}
+	
+					revoke_court_position = {
+						holder = scope:food_taster
+						court_position = food_taster_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = food_taster_court_position
+				}
 			}
-			set_global_variable = DI_char_spawner_good_traits
 		}
 		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
 			if = {
 				limit = {
-					has_variable = DI_pinned_char_var
+					NOT = { can_employ_court_position_type = food_taster_court_position }
 				}
 				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
+				random_court_position_holder = {
+					type = food_taster_court_position
+					save_scope_as = food_taster
+				}
 
-						create_character = {
-							age = global_var:age_var
-							gender = female
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 10 12 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_diplomacy_3 = {}
-								education_diplomacy_4 = {}
-							}
-							trait = just
-							trait = gregarious
-							trait = honest
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
+				revoke_court_position = {
+					holder = scope:food_taster
+					court_position = food_taster_court_position
 				}
 			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender = female
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 10 12 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_diplomacy_3 = {}
-							education_diplomacy_4 = {}
-						}
-						trait = just
-						trait = gregarious
-						trait = honest
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = food_taster_court_position
 			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
 		}
 	}
 }
 
-DI_court_eunuch = {
+DI_master_of_horse = {
 	scope = character
-	
+
 	effect = {
-		while = { count = var:DI_char_spawner_count_increment_value
+		save_scope_as = root_target
+		DI_master_of_horse_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = master_of_horse_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = master_of_horse_court_position
+						save_scope_as = master_of_horse
+					}
+	
+					revoke_court_position = {
+						holder = scope:master_of_horse
+						court_position = master_of_horse_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = master_of_horse_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
 			if = {
 				limit = {
-					has_variable = DI_pinned_char_var
+					NOT = { can_employ_court_position_type = master_of_horse_court_position }
 				}
 				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
+				random_court_position_holder = {
+					type = master_of_horse_court_position
+					save_scope_as = master_of_horse
+				}
 
-						create_character = {
-							age = global_var:age_var
-							gender = male
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 10 12 }
-							stewardship = { 3 6 }
-							intrigue = { 17 20 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_diplomacy_3 = {}
-								education_diplomacy_4 = {}
-							}
-							trait = eunuch
-							trait = gregarious
-							trait = honest
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
+				revoke_court_position = {
+					holder = scope:master_of_horse
+					court_position = master_of_horse_court_position
 				}
 			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender = male
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 10 12 }
-						stewardship = { 3 6 }
-						intrigue = { 17 20 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_diplomacy_3 = {}
-							education_diplomacy_4 = {}
-						}
-						trait = eunuch
-						trait = gregarious
-						trait = honest
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = master_of_horse_court_position
 			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
 		}
 	}
 }
 
-DI_court_cultural_emissary = {
+DI_royal_architect = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_royal_architect_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = royal_architect_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = royal_architect_court_position
+						save_scope_as = royal_architect
+					}
+	
+					revoke_court_position = {
+						holder = scope:royal_architect
+						court_position = royal_architect_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = royal_architect_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = royal_architect_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = royal_architect_court_position
+					save_scope_as = royal_architect
+				}
+
+				revoke_court_position = {
+					holder = scope:royal_architect
+					court_position = royal_architect_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = royal_architect_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_high_almoner = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_high_almoner_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = high_almoner_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = high_almoner_court_position
+						save_scope_as = high_almoner
+					}
+	
+					revoke_court_position = {
+						holder = scope:high_almoner
+						court_position = high_almoner_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = high_almoner_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = high_almoner_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = high_almoner_court_position
+					save_scope_as = high_almoner
+				}
+
+				revoke_court_position = {
+					holder = scope:high_almoner
+					court_position = high_almoner_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = high_almoner_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_cupbearer = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_cupbearer_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = cupbearer_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = cupbearer_court_position
+						save_scope_as = cupbearer
+					}
+	
+					revoke_court_position = {
+						holder = scope:cupbearer
+						court_position = cupbearer_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = cupbearer_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = cupbearer_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = cupbearer_court_position
+					save_scope_as = cupbearer
+				}
+
+				revoke_court_position = {
+					holder = scope:cupbearer
+					court_position = cupbearer_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = cupbearer_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_court_poet = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_court_poet_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_poet_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_poet_court_position
+						save_scope_as = court_poet
+					}
+	
+					revoke_court_position = {
+						holder = scope:court_poet
+						court_position = court_poet_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = court_poet_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = court_poet_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = court_poet_court_position
+					save_scope_as = court_poet
+				}
+
+				revoke_court_position = {
+					holder = scope:court_poet
+					court_position = court_poet_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = court_poet_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_court_musician = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_court_musician_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_musician_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_musician_court_position
+						save_scope_as = court_musician
+					}
+	
+					revoke_court_position = {
+						holder = scope:court_musician
+						court_position = court_musician_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = court_musician_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = court_musician_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = court_musician_court_position
+					save_scope_as = court_musician
+				}
+
+				revoke_court_position = {
+					holder = scope:court_musician
+					court_position = court_musician_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = court_musician_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_court_artificer = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_court_artificer_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {
+					create_inspiration = { type = weapon_inspiration }
+				}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_artificer_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_artificer_court_position
+						save_scope_as = court_artificer
+					}
+	
+					revoke_court_position = {
+						holder = scope:court_artificer
+						court_position = court_artificer_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = court_artificer_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {
+				create_inspiration = { type = weapon_inspiration }
+			}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = court_artificer_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = court_artificer_court_position
+					save_scope_as = court_artificer
+				}
+
+				revoke_court_position = {
+					holder = scope:court_artificer
+					court_position = court_artificer_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = court_artificer_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_lady_in_waiting = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_lady_in_waiting_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = lady_in_waiting_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = lady_in_waiting_court_position
+						save_scope_as = lady_in_waiting
+					}
+	
+					revoke_court_position = {
+						holder = scope:lady_in_waiting
+						court_position = lady_in_waiting_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = lady_in_waiting_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = lady_in_waiting_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = lady_in_waiting_court_position
+					save_scope_as = lady_in_waiting
+				}
+
+				revoke_court_position = {
+					holder = scope:lady_in_waiting
+					court_position = lady_in_waiting_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = lady_in_waiting_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_chief_eunuch = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_chief_eunuch_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = chief_eunuch_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = chief_eunuch_court_position
+						save_scope_as = chief_eunuch
+					}
+	
+					revoke_court_position = {
+						holder = scope:chief_eunuch
+						court_position = chief_eunuch_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = chief_eunuch_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = chief_eunuch_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = chief_eunuch_court_position
+					save_scope_as = chief_eunuch
+				}
+
+				revoke_court_position = {
+					holder = scope:chief_eunuch
+					court_position = chief_eunuch_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = chief_eunuch_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_executioner = {
+	scope = character
+
+	effect = {
+		save_scope_as = root_target
+		DI_executioner_traits_effect = yes
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+			every_in_list = {
+				variable = pinned_characters
+
+				save_scope_as = target
+
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = executioner_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = executioner_court_position
+						save_scope_as = executioner
+					}
+	
+					revoke_court_position = {
+						holder = scope:executioner
+						court_position = executioner_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = executioner_court_position
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = executioner_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = executioner_court_position
+					save_scope_as = executioner
+				}
+
+				revoke_court_position = {
+					holder = scope:executioner
+					court_position = executioner_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = executioner_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
+		}
+	}
+}
+
+DI_cultural_emissary = {
 	scope = character
 	
 	effect = {
@@ -1714,6 +2562,21 @@ DI_court_cultural_emissary = {
 					learn_language = language_norse
 				}
 
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = cultural_emissary_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = cultural_emissary_court_position
+						save_scope_as = cultural_emissary
+					}
+	
+					revoke_court_position = {
+						holder = scope:cultural_emissary
+						court_position = cultural_emissary_court_position
+					}
+				}
 				appoint_court_position = {
 					recipient = scope:new_courtier
 					court_position = cultural_emissary_court_position
@@ -1732,6 +2595,21 @@ DI_court_cultural_emissary = {
 				learn_language = language_norse
 			}
 
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = cultural_emissary_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = cultural_emissary_court_position
+					save_scope_as = cultural_emissary
+				}
+
+				revoke_court_position = {
+					holder = scope:cultural_emissary
+					court_position = cultural_emissary_court_position
+				}
+			}
 			appoint_court_position = {
 				recipient = scope:new_courtier
 				court_position = cultural_emissary_court_position
@@ -1753,2677 +2631,354 @@ DI_court_cultural_emissary = {
 	}
 }
 
-DI_court_keeper_of_swans = {
+DI_keeper_of_swans = {
 	scope = character
-	
+
 	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
+		save_scope_as = root_target
+		DI_keeper_of_swans_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_char_spawner_immortal
+				has_variable = DI_pinned_char_var
 			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
+			every_in_list = {
+				variable = pinned_characters
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
+				save_scope_as = target
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
+				DI_spawn_low_court_character_effect = yes
 
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 3 6 }
-							stewardship = { 10 12 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_stewardship_3 = {}
-								education_stewardship_4 = {}
-							}
-							trait = just
-							trait = gregarious
-							trait = lifestyle_hunter
-							random_traits = yes
-							after_creation = {
-								add_trait_xp = { trait = lifestyle_hunter track = hunter value = 100 }
-							}
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 3 6 }
-						stewardship = { 10 12 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_stewardship_3 = {}
-							education_stewardship_4 = {}
-						}
-						trait = just
-						trait = gregarious
+				scope:new_courtier = {
+					add_trait_xp = {
 						trait = lifestyle_hunter
-						random_traits = yes
-						after_creation = {
-							add_trait_xp = { trait = lifestyle_hunter track = hunter value = 100 }
-						}
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
+						track = hunter
+						value = 100
 					}
 				}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = keeper_of_swans_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = keeper_of_swans_court_position
+						save_scope_as = keeper_of_swans
+					}
+	
+					revoke_court_position = {
+						holder = scope:keeper_of_swans
+						court_position = keeper_of_swans_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = keeper_of_swans_court_position
+				}
 			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {
+				add_trait_xp = {
+					trait = lifestyle_hunter
+					track = hunter
+					value = 100
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = { can_employ_court_position_type = keeper_of_swans_court_position }
+				}
+				
+				random_court_position_holder = {
+					type = keeper_of_swans_court_position
+					save_scope_as = keeper_of_swans
+				}
+
+				revoke_court_position = {
+					holder = scope:keeper_of_swans
+					court_position = keeper_of_swans_court_position
+				}
+			}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = keeper_of_swans_court_position
+			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
 		}
 	}
 }
 
-DI_court_chief_qadi = {
+DI_chief_qadi = {
 	scope = character
-	
+
 	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
+		save_scope_as = root_target
+		DI_chief_qadi_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_char_spawner_immortal
+				has_variable = DI_pinned_char_var
 			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
+			every_in_list = {
+				variable = pinned_characters
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
+				save_scope_as = target
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = chief_qadi_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = chief_qadi_court_position
+						save_scope_as = chief_qadi
+					}
+	
+					revoke_court_position = {
+						holder = scope:chief_qadi
+						court_position = chief_qadi_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = chief_qadi_court_position
+				}
 			}
-			set_global_variable = DI_char_spawner_good_traits
 		}
 		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
 			if = {
 				limit = {
-					has_variable = DI_pinned_char_var
+					NOT = { can_employ_court_position_type = chief_qadi_court_position }
 				}
 				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
+				random_court_position_holder = {
+					type = chief_qadi_court_position
+					save_scope_as = chief_qadi
+				}
 
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 3 6 }
-							stewardship = { 10 12 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_learning_3 = {}
-								education_learning_4 = {}
-							}
-							trait = just
-							trait = temperate
-							trait = generous
-							trait = scholar
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
+				revoke_court_position = {
+					holder = scope:chief_qadi
+					court_position = chief_qadi_court_position
 				}
 			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 3 6 }
-						stewardship = { 10 12 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_learning_3 = {}
-							education_learning_4 = {}
-						}
-						trait = just
-						trait = temperate
-						trait = generous
-						trait = scholar
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = chief_qadi_court_position
 			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
 		}
 	}
 }
 
-DI_court_garuda = {
+DI_garuda = {
 	scope = character
-	
+
 	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
+		save_scope_as = root_target
+		DI_garuda_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_char_spawner_immortal
+				has_variable = DI_pinned_char_var
 			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
+			every_in_list = {
+				variable = pinned_characters
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
+				save_scope_as = target
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {
+					add_trait_xp = { trait = lifestyle_blademaster value = 100 }
+				}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = garuda_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = garuda_court_position
+						save_scope_as = garuda
+					}
+	
+					revoke_court_position = {
+						holder = scope:garuda
+						court_position = garuda_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = garuda_court_position
+				}
 			}
-			set_global_variable = DI_char_spawner_good_traits
 		}
 		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {
+				add_trait_xp = { trait = lifestyle_blademaster value = 100 }
+			}
+
 			if = {
 				limit = {
-					has_variable = DI_pinned_char_var
+					NOT = { can_employ_court_position_type = garuda_court_position }
 				}
 				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
+				random_court_position_holder = {
+					type = garuda_court_position
+					save_scope_as = garuda
+				}
 
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 10 12 }
-							prowess = { 10 12 }
-							diplomacy = { 3 6 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_martial_3 = {}
-								education_martial_4 = {}
-							}
-							trait = lifestyle_blademaster
-							random_traits = yes
-							after_creation = {
-								add_trait_xp = { trait = lifestyle_blademaster value = 100 }
-							}	
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
+				revoke_court_position = {
+					holder = scope:garuda
+					court_position = garuda_court_position
 				}
 			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 10 12 }
-						prowess = { 10 12 }
-						diplomacy = { 3 6 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_martial_3 = {}
-							education_martial_4 = {}
-						}
-						trait = lifestyle_blademaster
-						random_traits = yes
-						after_creation = {
-							add_trait_xp = { trait = lifestyle_blademaster value = 100 }
-						}	
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = garuda_court_position
 			}
+		}
+
+		if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= no
+			}
+			DI_no_random_traits_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:root_target.var:DI_cs_random_traits ?= yes
+			}
+			DI_random_traits_effect = yes
 		}
 	}
 }
 
 DI_court_gardener = {
 	scope = character
-	
+
 	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
+		save_scope_as = root_target
+		DI_court_gardener_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_char_spawner_immortal
+				has_variable = DI_pinned_char_var
 			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
+			every_in_list = {
+				variable = pinned_characters
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
+				save_scope_as = target
 
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
+				DI_spawn_low_court_character_effect = yes
+
+				scope:new_courtier = {}
+
+				if = {
+					limit = {
+						NOT = { can_employ_court_position_type = court_gardener_court_position }
+					}
+					
+					random_court_position_holder = {
+						type = court_gardener_court_position
+						save_scope_as = court_gardener
+					}
+	
+					revoke_court_position = {
+						holder = scope:court_gardener
+						court_position = court_gardener_court_position
+					}
+				}
+				appoint_court_position = {
+					recipient = scope:new_courtier
+					court_position = court_gardener_court_position
+				}
 			}
-			set_global_variable = DI_char_spawner_good_traits
 		}
 		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
+			save_scope_as = target
+
+			DI_spawn_low_court_character_effect = yes
+
+			scope:new_courtier = {}
+
 			if = {
 				limit = {
-					has_variable = DI_pinned_char_var
+					NOT = { can_employ_court_position_type = court_gardener_court_position }
 				}
 				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
+				random_court_position_holder = {
+					type = court_gardener_court_position
+					save_scope_as = court_gardener
+				}
 
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 3 6 }
-							stewardship = { 10 12 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_stewardship_3 = {}
-								education_stewardship_4 = {}
-							}
-							trait = patient
-							trait = lifestyle_herbalist
-							trait = lifestyle_gardener
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
+				revoke_court_position = {
+					holder = scope:court_gardener
+					court_position = court_gardener_court_position
 				}
 			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 3 6 }
-						stewardship = { 10 12 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_stewardship_3 = {}
-							education_stewardship_4 = {}
-						}
-						trait = patient
-						trait = lifestyle_herbalist
-						trait = lifestyle_gardener
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
+			appoint_court_position = {
+				recipient = scope:new_courtier
+				court_position = court_gardener_court_position
 			}
-		}
-	}
-}
-
-DI_court_food_taster = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
 		}
 
 		if = {
 			limit = {
-				has_variable = DI_char_spawner_immortal
+				scope:root_target.var:DI_cs_random_traits ?= no
 			}
-			set_global_variable = DI_char_spawner_immortal
+			DI_no_random_traits_effect = yes
 		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
+		else_if = {
 			limit = {
-				has_variable = DI_char_spawner_100_stat_man
+				scope:root_target.var:DI_cs_random_traits ?= yes
 			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 3 6 }
-							stewardship = { 3 6 }
-							intrigue = { 10 12 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_intrigue_3 = {}
-								education_intrigue_4 = {}
-							}
-							trait = gluttonous
-							trait = comfort_eater
-							trait = lifestyle_herbalist
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 3 6 }
-						stewardship = { 3 6 }
-						intrigue = { 10 12 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_intrigue_3 = {}
-							education_intrigue_4 = {}
-						}
-						trait = gluttonous
-						trait = comfort_eater
-						trait = lifestyle_herbalist
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_master_of_horse = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 10 12 }
-							prowess = { 10 12 }
-							diplomacy = { 3 6 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_martial_3 = {}
-								education_martial_4 = {}
-							}
-							trait = overseer
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 10 12 }
-						prowess = { 10 12 }
-						diplomacy = { 3 6 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_martial_3 = {}
-							education_martial_4 = {}
-						}
-						trait = overseer
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_royal_architect = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 3 6 }
-							stewardship = { 10 12 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_stewardship_3 = {}
-								education_stewardship_4 = {}
-							}
-							trait = architect
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 3 6 }
-						stewardship = { 10 12 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_stewardship_3 = {}
-							education_stewardship_4 = {}
-						}
-						trait = architect
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_high_almoner = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 3 6 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 10 12 }
-							random_traits_list = {
-								count = 1
-								education_learning_3 = {}
-								education_learning_4 = {}
-							}
-							trait = compassionate
-							trait = generous
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 3 6 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 10 12 }
-						random_traits_list = {
-							count = 1
-							education_learning_3 = {}
-							education_learning_4 = {}
-						}
-						trait = compassionate
-						trait = generous
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_cupbearer = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 10 12 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_diplomacy_3 = {}
-								education_diplomacy_4 = {}
-							}
-							trait = honest
-							trait = trusting
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 10 12 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_diplomacy_3 = {}
-							education_diplomacy_4 = {}
-						}
-						trait = honest
-						trait = trusting
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_poet = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 10 12 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 10 12 }
-							random_traits_list = {
-								count = 1
-								education_diplomacy_3 = {}
-								education_diplomacy_4 = {}
-							}
-							trait = gregarious
-							trait = poet
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 10 12 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 10 12 }
-						random_traits_list = {
-							count = 1
-							education_diplomacy_3 = {}
-							education_diplomacy_4 = {}
-						}
-						trait = gregarious
-						trait = poet
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_musician = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 3 6 }
-							diplomacy = { 10 12 }
-							stewardship = { 3 6 }
-							intrigue = { 3 6 }
-							learning = { 10 12 }
-							random_traits_list = {
-								count = 1
-								education_diplomacy_3 = {}
-								education_diplomacy_4 = {}
-							}
-							trait = gregarious
-							trait = poet
-							random_traits = yes
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 3 6 }
-						diplomacy = { 10 12 }
-						stewardship = { 3 6 }
-						intrigue = { 3 6 }
-						learning = { 10 12 }
-						random_traits_list = {
-							count = 1
-							education_diplomacy_3 = {}
-							education_diplomacy_4 = {}
-						}
-						trait = gregarious
-						trait = poet
-						random_traits = yes
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_executioner = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 3 6 }
-							prowess = { 10 12 }
-							diplomacy = { 3 6 }
-							stewardship = { 3 6 }
-							intrigue = { 10 12 }
-							learning = { 3 6 }
-							random_traits_list = {
-								count = 1
-								education_intrigue_3 = {}
-								education_intrigue_4 = {}
-							}
-							trait = torturer
-							trait = sadistic
-							
-							
-							random_traits = yes
-							
-							after_creation = {
-								root = {
-									add_hook_no_toast = { type = loyalty_hook target = prev}
-								}
-							}
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 3 6 }
-						prowess = { 10 12 }
-						diplomacy = { 3 6 }
-						stewardship = { 3 6 }
-						intrigue = { 10 12 }
-						learning = { 3 6 }
-						random_traits_list = {
-							count = 1
-							education_intrigue_3 = {}
-							education_intrigue_4 = {}
-						}
-						trait = torturer
-						trait = sadistic
-						
-						
-						random_traits = yes
-						
-						after_creation = {
-							root = {
-								add_hook_no_toast = { type = loyalty_hook target = prev}
-							}
-						}
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-DI_court_artificer = {
-	scope = character
-	
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-
-			set_global_variable = {
-				name = gender_var
-				value = 100
-			}
-		}
-		else = {
-			set_global_variable = {
-				name = gender_var
-				value = 0
-			}
-		}
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_female
-			}
-			set_global_variable = DI_char_spawner_female
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_female
-		}
-		
-		set_global_variable = {
-			name = age_var
-			value = var:DI_char_spawner_age_increment_value
-		}
-
-		set_global_variable = {
-			name = count_var
-			value = var:DI_char_spawner_count_increment_value
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_immortal
-			}
-			set_global_variable = DI_char_spawner_immortal
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_immortal
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_100_stat_man
-			}
-			set_global_variable = DI_char_spawner_100_stat_man
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_100_stat_man
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_char_spawner_good_traits
-			}
-			set_global_variable = DI_char_spawner_good_traits
-		}
-		else = {
-			remove_global_variable = DI_char_spawner_good_traits
-		}
-		
-		while = { count = var:DI_char_spawner_count_increment_value
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				
-				every_living_character = {
-					limit = { has_character_flag = pinned_for_edit }
-					
-					hidden_effect = {
-						save_scope_as = target
-
-						create_character = {
-							age = global_var:age_var
-							gender_female_chance = global_var:gender_var
-							health = 5
-							fertility = 0.5
-							employer = scope:target
-							faith = scope:target.faith
-							culture = scope:target.culture
-							dynasty = none
-							martial = { 15 17 }
-							prowess = { 15 17 }
-							diplomacy = { 15 17 }
-							stewardship = { 15 17 }
-							intrigue = { 15 17 }
-							learning = { 15 17 }
-							random_traits_list = {
-								count = 1
-								education_stewardship_3 = {}
-								education_stewardship_4 = {}
-							}
-							
-							
-							random_traits = yes
-							after_creation = {
-								create_inspiration = { type = weapon_inspiration }
-							}
-							save_scope_as = new_courtier
-						}
-						scope:target = {
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_immortal
-								}
-								scope:new_courtier = {
-									add_trait = immortal
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_100_stat_man
-								}
-								scope:new_courtier = {
-									add_trait = 100_stat_man
-								}
-							}
-							if = {
-								limit = {
-									has_global_variable = DI_char_spawner_good_traits
-								}
-								scope:new_courtier = {
-									add_trait = loyal
-									add_trait = beauty_good_3
-									add_trait = intellect_good_3
-									add_trait = physique_good_3
-								}
-							}
-						}
-					}
-				}
-			}
-			else = {
-				hidden_effect = {
-					save_scope_as = target
-				
-					create_character = {
-						age = global_var:age_var
-						gender_female_chance = global_var:gender_var
-						health = 5
-						fertility = 0.5
-						employer = scope:target
-						faith = scope:target.faith
-						culture = scope:target.culture
-						dynasty = none
-						martial = { 15 17 }
-						prowess = { 15 17 }
-						diplomacy = { 15 17 }
-						stewardship = { 15 17 }
-						intrigue = { 15 17 }
-						learning = { 15 17 }
-						random_traits_list = {
-							count = 1
-							education_stewardship_3 = {}
-							education_stewardship_4 = {}
-						}
-						
-						
-						random_traits = yes
-						after_creation = {
-							create_inspiration = { type = weapon_inspiration }
-						}
-						save_scope_as = new_courtier
-					}
-					scope:target = {
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_immortal
-							}
-							scope:new_courtier = {
-								add_trait = immortal
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_100_stat_man
-							}
-							scope:new_courtier = {
-								add_trait = 100_stat_man
-							}
-						}
-						if = {
-							limit = {
-								has_global_variable = DI_char_spawner_good_traits
-							}
-							scope:new_courtier = {
-								add_trait = loyal
-								add_trait = beauty_good_3
-								add_trait = intellect_good_3
-								add_trait = physique_good_3
-							}
-						}
-					}
-				}
-			}
+			DI_random_traits_effect = yes
 		}
 	}
 }
