@@ -1,0 +1,165 @@
+﻿### Convert all culture to edit counties to culture to copy
+DI_ce_convert_counties = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+
+		var:DI_innovation_selected_char = {
+			every_sub_realm_county = {
+				limit = {
+					NOT = { this.county_culture = scope:copy_culture }
+				}
+				set_county_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### Convert all pinned characters counties to culture to copy
+DI_ce_convert_all_pinned_counties = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+
+		every_in_list = {
+			variable = pinned_characters
+
+			limit = {
+				NOR = { 
+					this = scope:player_character.var:DI_innovation_selected_char_copy
+					this.culture = scope:copy_culture
+				}
+			}
+
+			var:DI_innovation_selected_char = {
+				every_sub_realm_county = {
+					limit = {
+						NOT = { this.county_culture = scope:copy_culture }
+					}
+					set_county_culture = scope:copy_culture
+				}
+			}
+		}
+	}
+
+}
+
+### Convert all pinned characters to culture to copy
+DI_ce_convert_all_pinned = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+
+		every_in_list = {
+			variable = pinned_characters
+
+			limit = {
+				NOR = { 
+					this = scope:player_character.var:DI_innovation_selected_char_copy
+					this.culture = scope:copy_culture
+				}
+			}
+
+			set_culture = scope:copy_culture
+		}
+	}
+}
+
+### Convert culture to edit character to culture to copy ###
+DI_ce_convert_copy = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+
+		var:DI_innovation_selected_char = {
+			set_culture = scope:copy_culture
+		}
+	}
+}
+
+### Convert all pinned characters to player culture ###
+DI_ce_convert_to_player = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+
+		every_in_list = {
+			variable = pinned_characters
+
+			limit = {
+				NOR = { 
+					this = scope:player_character
+				}
+			}
+
+			set_culture = scope:player_character.culture
+		}
+	}
+}
+
+### Convert all pinned characters counties to player culture ###
+DI_ce_convert_to_player_counties = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+
+		every_in_list = {
+			variable = pinned_characters
+
+			every_sub_realm_county = {
+				limit = {
+					NOT = { this.county_culture = scope:player_character.culture }
+				}
+				set_county_culture = scope:player_character.culture
+			}
+		}
+	}
+}
+
+### Convert all pinned characters counties to their own culture ###
+DI_ce_convert_to_own_counties = {
+	scope = character # Player Character
+
+	effect = {
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = pinned_character
+			culture = { save_scope_as = pinned_culture }
+
+			every_sub_realm_county = {
+				limit = {
+					NOT = { this.county_culture = scope:pinned_culture }
+				}
+				set_county_culture = scope:pinned_culture
+			}
+		}
+	}
+}
+
+### New culture change sgui ###
+DI_ce_culture_change = {
+	scope = character # Player Character
+
+	saved_scope = {
+		selected_culture # The selected culture from the culture.gui window
+	}
+
+	effect = {
+		save_scope_as = player_character
+		scope:selected_culture = { save_scope_as = selected_culture }
+
+		var:DI_innovation_selected_char = {
+			set_culture = scope:selected_culture
+		}
+	}
+}

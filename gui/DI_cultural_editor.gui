@@ -107,6 +107,21 @@ window = {
 					default_format = "#low"
 				}
 			}
+
+			button_tab = {
+				name = "convert_culture_tab"
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'convert' )]"
+				onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+				down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' )]"
+
+				text_single = {
+					parentanchor = center
+					text = "DI_culture_convert_tab"
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
 		}
 
 		vbox = {
@@ -474,7 +489,8 @@ window = {
 			vbox = {
 				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
 				layoutpolicy_horizontal = expanding
-				margin_top = 15
+				layoutpolicy_vertical = expanding
+				margin_top = 25
 				spacing = 10
 
 				hbox = {
@@ -546,7 +562,6 @@ window = {
 						down = "[IsGameViewOpen('add_culture_tradition')]"
 						tooltip = "REFORM_CULTURE_TOOLTIP"
 						using = tooltip_nw
-	
 					}
 
 					button_standard = {
@@ -558,33 +573,27 @@ window = {
 						using = tooltip_nw
 					}
 				}
+				expand = {}
+			}
+
+			vbox = {
+				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				margin = { 10 8 }
+				margin_top = 20
 
 				hbox = {
-					spacing = 15
 					button_standard = {
-						name = "DI_copy_traditions"
-						onclick = "[GetScriptedGui('DI_copy_traditions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_COPY_TRADITIONS_LABEL
-						tooltip = DI_copy_traditions_tt
+						name = "cancel_reform_culture"
+						text = "REFORM_CULTURE_CLOSE_LABEL"
+						onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+						down = "[IsGameViewOpen('add_culture_tradition')]"
+						tooltip = "REFORM_CULTURE_CLOSE_TOOLTIP"
 						using = tooltip_nw
 					}
 				}
-			}
-
-			hbox = {
-				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
-				layoutpolicy_horizontal = expanding
-				margin = { 10 8 }
-				margin_top = 8
-
-				button_standard = {
-					name = "cancel_reform_culture"
-					text = "REFORM_CULTURE_CLOSE_LABEL"
-					onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-					down = "[IsGameViewOpen('add_culture_tradition')]"
-					tooltip = "REFORM_CULTURE_CLOSE_TOOLTIP"
-					using = tooltip_nw
-				}
+				expand = {}
 			}
 		}
 
@@ -615,16 +624,115 @@ window = {
 			scrollbox = {
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
+				maximumsize = { 600 530 }
 			
 				blockoverride "scrollbox_content"
 				{
-			
 					vbox = {
 						using = DI_Innovation_Main
 					}
 					
 				}
 			}
+			expand = {}
+		}
+
+		vbox = {
+			name = "convert_area"
+			visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 0 10 }
+
+				text_label_center = {
+					datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture_copy').Culture]"
+					text = "DI_culture_convert"
+					using = Font_Size_Medium
+				}
+			}
+
+			DI_culture_scrollbox = {
+				maximumsize = { 600 520 }
+				blockoverride "onclick"
+				{
+					onclick = "[GetScriptedGui('DI_ce_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
+				}
+			}
+			
+			vbox = {
+				margin_top = 20
+				spacing = 8
+
+				hbox = {
+					spacing = 15
+					
+					button_standard = {
+						name = "DI_convert_copy"
+						onclick = "[GetScriptedGui('DI_ce_convert_copy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_copy
+						tooltip = DI_ce_convert_copy_tt
+						using = tooltip_nw
+					}
+	
+					button_standard = {
+						name = "DI_convert_pinned"
+						onclick = "[GetScriptedGui('DI_ce_convert_all_pinned').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_all_pinned
+						tooltip = DI_ce_convert_all_pinned_tt
+						using = tooltip_nw
+					}
+	
+					button_standard = {
+						name = "DI_convert_to_player"
+						onclick = "[GetScriptedGui('DI_ce_convert_to_player').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_to_player
+						tooltip = DI_ce_convert_to_player_tt
+						using = tooltip_nw
+					}
+				}
+
+				hbox = {
+					spacing = 15
+					button_standard = {
+						name = "DI_convert_counties"
+						onclick = "[GetScriptedGui('DI_ce_convert_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_counties
+						tooltip = DI_ce_convert_counties_tt
+						using = tooltip_es
+					}
+	
+					button_standard = {
+						name = "DI_convert_pinned_counties"
+						onclick = "[GetScriptedGui('DI_ce_convert_all_pinned_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_all_pinned_counties
+						tooltip = DI_ce_convert_all_pinned_counties_tt
+						using = tooltip_es
+					}
+
+					button_standard = {
+						name = "DI_convert_to_player_counties"
+						onclick = "[GetScriptedGui('DI_ce_convert_to_player_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_to_player_counties
+						tooltip = DI_ce_convert_to_player_counties_tt
+						using = tooltip_es
+					}
+				}
+
+				hbox = {
+					spacing = 15
+					button_standard = {
+						name = "DI_convert_counties_local"
+						onclick = "[GetScriptedGui('DI_ce_convert_to_own_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						text = DI_ce_convert_to_own_counties
+						tooltip = DI_ce_convert_to_own_counties_tt
+						using = tooltip_es
+					}
+				}
+			}
+			expand = {}
 		}
     }
 }
@@ -1097,6 +1205,7 @@ template DI_Innovation_Anim
 
 		position = { -90 0 }
 		on_start = "[GetVariableSystem.Clear( 'hide_bottom_left_HUD' )]"
+		on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 }
 
