@@ -9,7 +9,7 @@ DI_ce_convert_counties = {
 		var:DI_innovation_selected_char = {
 			every_sub_realm_county = {
 				limit = {
-					NOT = { this.county_culture = scope:copy_culture }
+					NOT = { this.culture = scope:copy_culture }
 				}
 				set_county_culture = scope:copy_culture
 			}
@@ -38,7 +38,7 @@ DI_ce_convert_all_pinned_counties = {
 			var:DI_innovation_selected_char = {
 				every_sub_realm_county = {
 					limit = {
-						NOT = { this.county_culture = scope:copy_culture }
+						NOT = { this.culture = scope:copy_culture }
 					}
 					set_county_culture = scope:copy_culture
 				}
@@ -118,7 +118,7 @@ DI_ce_convert_to_player_counties = {
 
 			every_sub_realm_county = {
 				limit = {
-					NOT = { this.county_culture = scope:player_character.culture }
+					NOT = { this.culture = scope:player_character.culture }
 				}
 				set_county_culture = scope:player_character.culture
 			}
@@ -138,7 +138,7 @@ DI_ce_convert_to_own_counties = {
 
 			every_sub_realm_county = {
 				limit = {
-					NOT = { this.county_culture = scope:pinned_culture }
+					NOT = { this.culture = scope:pinned_culture }
 				}
 				set_county_culture = scope:pinned_culture
 			}
@@ -150,7 +150,7 @@ DI_ce_convert_to_own_counties = {
 DI_ce_culture_change = {
 	scope = character # Player Character
 
-	saved_scope = {
+	saved_scopes = {
 		selected_culture # The selected culture from the culture.gui window
 	}
 
