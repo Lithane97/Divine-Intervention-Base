@@ -1,0 +1,95 @@
+template DI_Select_Primary_Character
+{	
+	widget = {
+		size = { 600 200 }
+		datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char]"
+
+		DI_portrait_shoulders = {
+			visible = "[Character.IsValid]"
+			position = { 70 30 }
+			parentanchor = left
+
+			text_label_center = {
+				parentanchor = hcenter|top
+				position = { 0 -20 }
+				raw_text = DI_primary_character
+				default_format = "#high;bold"
+				max_width = 500
+			}
+
+			blockoverride "portrait_button_template_onclick"
+			{
+				onclick = "[GetVariableSystem.Set('character_type', 'primary')]"
+				onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
+			}
+		}
+
+		DI_portrait_shoulders = {
+			visible = "[Not(Character.IsValid)]"
+			position = { 70 30 }
+			parentanchor = left
+
+			text_label_center = {
+				parentanchor = hcenter|top
+				position = { 0 -20 }
+				text = DI_primary_character
+				default_format = "#low;italic"
+				max_width = 500
+			}
+
+			blockoverride "onclick"
+			{
+				onclick = "[GetVariableSystem.Set('character_type', 'primary')]"
+				onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
+			}
+		}
+	}
+}
+
+template DI_Select_Secondary_Character
+{
+	widget = {
+		size = { 600 200 }
+		datacontext = "[GetPlayer.MakeScope.Var('DI_secondary_character').Char]"
+
+		DI_portrait_shoulders = {
+			visible = "[Character.IsValid]"
+			position = { 400 30 }
+			parentanchor = left
+
+			text_label_center = {
+				parentanchor = hcenter|top
+				position = { 0 -20 }
+				raw_text = DI_secondary_character
+				default_format = "#high;bold"
+				max_width = 500
+			}
+
+			blockoverride "portrait_button_template_onclick"
+			{
+				onclick = "[GetVariableSystem.Set('character_type', 'secondary')]"
+				onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
+			}
+		}
+
+		DI_portrait_shoulders = {
+			visible = "[Not(Character.IsValid)]"
+			position = { 400 30 }
+			parentanchor = left
+
+			text_label_center = {
+				parentanchor = hcenter|top
+				position = { 0 -20 }
+				text = DI_secondary_character
+				default_format = "#low;italic"
+				max_width = 500
+			}
+
+			blockoverride "onclick"
+			{
+				onclick = "[GetVariableSystem.Set('character_type', 'secondary')]"
+				onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
+			}
+		}
+	}
+}

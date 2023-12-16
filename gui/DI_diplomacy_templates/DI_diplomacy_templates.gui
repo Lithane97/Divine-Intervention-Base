@@ -1,0 +1,37 @@
+template DI_Diplomacy_Anim
+{
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+		using = Sound_WindowShow_Standard
+
+		on_start = "[GetVariableSystem.Set( 'diplomacy_tab', 'diplomacy_tab_relations' )]"
+		on_finish = "[PdxGuiWidget.StackTop]"
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+		using = Sound_WindowHide_Standard
+	}
+}
+
+template DI_Diplomacy_Header
+{
+	restrictparent_min = yes
+	
+	header_pattern = {
+		layoutpolicy_horizontal = expanding
+
+		blockoverride "header_text"
+		{
+			text = "DI_diplomacy"
+			
+		}
+
+		blockoverride "button_close"
+		{
+			onclick = "[GetVariableSystem.Toggle('DI_diplomacy_window_visible')]"
+		}
+	}
+}
