@@ -255,7 +255,7 @@ DI_change_culture_interaction = {
 	category = interaction_category_cheat_menu
 	icon = icon_culture
 	desc = DI_change_culture_desc
-	common_interaction = yes
+	common_interaction = no
 	
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -284,7 +284,7 @@ DI_change_dynasty_interaction = {
 	category = interaction_category_cheat_menu
 	icon = icon_dynasty
 	desc = DI_change_dynasty_desc
-	common_interaction = yes
+	common_interaction = no
 	
 	auto_accept = yes
 	use_diplomatic_range = no
@@ -371,7 +371,7 @@ DI_change_opinion_interaction = {
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
 	icon = debug_good
-	common_interaction = yes
+	common_interaction = no
 
 	is_shown = { 
 		NOT = { scope:recipient = scope:actor }
@@ -1606,6 +1606,257 @@ DI_remove_all_claims_interaction = {
 	}
 }
 
+### Take all realm titles ###
+DI_take_all_titles_interaction = {
+	category = interaction_category_cheat_menu
+	icon = revoke_title
+	desc = DI_take_all_titles_desc
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	common_interaction = yes
+	
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			is_landed = yes
+			any_sub_realm_title = {
+				tier >= tier_county
+				NOT = { holder = scope:actor }
+			}
+		}
+	}
+
+	send_option = {
+		flag = take_sub_realm_titles
+		localization = DI_take_sub_realm_titles
+	}
+	send_option = {
+		is_shown = { NOT = { scope:recipient = scope:actor }}
+		flag = take_character_titles
+		localization = DI_take_character_titles
+	}
+	
+	auto_accept = yes
+	
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+				scope:take_sub_realm_titles = {
+					scope:recipient = {
+						every_sub_realm_title = {
+							limit = {
+								tier >= tier_county
+								NOT = { holder = scope:actor }
+							}
+							scope:actor = { get_title = prev }
+						}
+					}
+				}
+				scope:take_character_titles = {
+					scope:recipient = {
+						every_held_title = {
+							limit = {
+								tier >= tier_county
+								NOT = { holder = scope:actor }
+							}
+							scope:actor = { get_title = prev }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### End Wars ###
+DI_end_wars_interaction = {
+	category = interaction_category_cheat_menu
+	icon = war_won_icon
+	desc = DI_end_wars_desc
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	common_interaction = yes
+	
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+		scope:recipient = {
+			OR = {
+				is_at_war = yes
+				any_vassal_or_below = {
+					is_at_war = yes
+				}
+			}
+		}
+	}
+	
+	send_option = {
+		is_valid = {
+			scope:recipient = {
+				is_at_war = yes
+			}
+		}
+		flag = white_peace_all_wars
+		localization = DI_white_peace_all_wars
+	}
+	send_option = {
+		is_valid = {
+			scope:recipient = {
+				is_at_war = yes
+			}
+		}
+		flag = lose_all_wars
+		localization = DI_lose_all_wars
+	}
+	send_option = {
+		is_valid = {
+			scope:recipient = {
+				is_at_war = yes
+			}
+		}
+		flag = win_all_wars
+		localization = DI_win_all_wars
+	}
+	send_option = {
+		is_shown = { scope:recipient = { is_at_war_with = scope:actor }}
+		flag = player_win
+		localization = DI_player_win_wars
+	}
+	send_option = {
+		is_shown = { scope:recipient = { is_at_war_with = scope:actor }}
+		flag = white_peace_player
+		localization = DI_white_peace_player
+	}
+	send_option = {
+		is_shown = { 
+			scope:recipient = {
+				any_vassal_or_below = {
+					is_at_war = yes
+				}
+			} 
+		}
+		flag = player_vassals_white_peace
+		localization = DI_vassals_white_peace
+	}
+
+	auto_accept = yes
+	
+	on_accept = {
+		scope:actor = {
+			switch = {
+				trigger = yes
+				scope:white_peace_all_wars = {
+					scope:recipient = {
+						every_character_war = {
+							end_war = white_peace
+						}
+					}
+				}
+				scope:lose_all_wars = {
+					scope:recipient = {
+						every_character_war = {
+							if = {
+								limit = {
+									is_defender = scope:recipient
+								}
+								end_war = attacker
+							}
+							else_if = {
+								limit = {
+									is_attacker = scope:recipient
+								}
+								end_war = defender
+							}
+						}
+					}
+				}
+				scope:win_all_wars = {
+					scope:recipient = {
+						every_character_war = {
+							if = {
+								limit = {
+									is_defender = scope:recipient
+								}
+								end_war = defender
+							}
+							else_if = {
+								limit = {
+									is_attacker = scope:recipient
+								}
+								end_war = attacker
+							}
+						}
+					}
+				}
+				scope:player_win = {
+					scope:recipient = {
+						every_character_war = {
+							limit = {
+								OR = {
+									AND = {
+										is_attacker = scope:actor
+										is_defender = scope:recipient
+									}
+									AND = {
+										is_defender = scope:actor
+										is_attacker = scope:recipient
+									}
+								}
+							}
+							if = {
+								limit = {
+									is_attacker = scope:recipient
+								}
+								end_war = defender
+							}
+							else_if = {
+								limit = {
+									is_defender = scope:recipient
+								}
+								end_war = attacker
+							}
+						}
+					}
+				}
+				scope:white_peace_player = {
+					scope:recipient = {
+						every_character_war = {
+							limit = {
+								OR = {
+									AND = {
+										is_attacker = scope:actor
+										is_defender = scope:recipient
+									}
+									AND = {
+										is_defender = scope:actor
+										is_attacker = scope:recipient
+									}
+								}
+							}
+							end_war = white_peace
+						}
+					}
+				}
+				scope:player_vassals_white_peace = {
+					scope:recipient = {
+						every_vassal_or_below = {
+							every_character_war = {
+								end_war = white_peace
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 ### Take Title ###
 DI_take_title_interaction = {
 	category = interaction_category_cheat_menu
@@ -1730,7 +1981,7 @@ DI_set_relation_interaction = {
 	category = interaction_category_cheat_menu
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
-	common_interaction = yes
+	common_interaction = no
 	icon = debug_chars
 	is_shown = {
 		NOT = {
@@ -2463,8 +2714,6 @@ DI_contraceptive_interaction = {
 }
 
 ### End Pregnancy ###
-
-
 DI_end_pregnancy_interaction = {
 	category = interaction_category_cheat_menu
 	desc = DI_end_pregnancy_desc
