@@ -161,8 +161,9 @@ window = {
 
             widget = {
                 position = { 18 110 }
-                size = { 140 40 }
+                size = { 300 40 }
                 hbox = {
+					spacing = 15
                     button_standard = {
                         name = "DI_clear_pin_button"
                         onclick = "[GetScriptedGui('DI_clear_all_pins').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -171,7 +172,15 @@ window = {
                         size = { 130 35 }
                         text = DI_clear_pins
                     }
-                
+
+					button_standard = {
+						name = "DI_test_button"
+						onclick = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						tooltip = DI_test_tt
+						using = tooltip_ne
+						size = { 130 35 }
+						text = DI_test
+					}
                 }
             }
             

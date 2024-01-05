@@ -67,3 +67,44 @@ DI_char_editor.3 = {
 		}
 	}
 }
+
+DI_char_editor.4 = {
+	type = character_event
+	title = DI_changeHouseName.t
+	desc = DI_changeHouseName.d
+	theme = default
+	right_portrait = scope:recipient
+
+	widget = {
+		gui = "event_window_widget_enter_text"
+		container = "dynamic_birth_name"
+		controller = {
+			type = text
+			data = {
+				key = saved_text
+				default = DI_get_house_name
+			}
+		}
+		setup_scope = {
+			root = { save_scope_as = text_target }
+		}
+	}
+
+	option = {
+		name = houseName
+		store_localized_text_in_death = saved_text
+
+		if = {
+			limit = {
+				NOT = { has_variable = saved_text }
+			}
+
+			scope:recipient.house = {
+				set_house_name = DI_custom_text
+			}
+		}
+		
+		remove_variable = saved_text
+		remove_localized_text = saved_text
+	}
+}

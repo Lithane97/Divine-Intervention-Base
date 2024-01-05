@@ -190,6 +190,16 @@ DI_change_character_interaction = {
 		}
 		scope:actor = {
 			remove_character_flag = DI_cheat_menu
+
+			every_owned_story = {
+				limit = {
+					story_type = DI_traits_story
+				}
+				make_story_owner = scope:recipient
+			}
+
+			clear_variable_list = DI_pinned_traits
+
 			set_player_character = scope:recipient
 		}
 	}
@@ -446,7 +456,7 @@ DI_char_modify_vassal_contract_interaction = {
 	send_name = "modify_vassal_contract_interaction_SEND"
 	desc = DI_char_modify_vassal_contract_inter_desc
 
-	force_notification = yes
+	force_notification = no
 	notification_text = MODIFY_VASSAL_CONTRACT_NOTIFICATION_TO_VASSAL
 	
 	is_shown = {
@@ -505,7 +515,7 @@ DI_modify_vassal_mod_vassal_contract_interaction = {
 	send_name = "modify_vassal_contract_interaction_SEND"
 	desc = DI_modify_vassal_mod_vassal_contract_desc
 
-	force_notification = yes
+	force_notification = no
 	notification_text = MODIFY_VASSAL_CONTRACT_NOTIFICATION_TO_LIEGE
 
 	redirect = {
@@ -3274,6 +3284,30 @@ DI_end_diarchy_interaction = {
 		scope:recipient = {
 			end_diarchy = yes
 		}
+	}
+}
+
+### Change House Name ###
+DI_change_house_name_interaction = {
+	interface_priority = 120
+	category = interaction_category_cheat_menu
+	desc = DI_change_house_name_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			has_character_flag = DI_cheat_menu
+		}
+	}
+
+	on_accept = {
+		scope:recipient = { save_scope_as = change_name }
+		scope:actor = { trigger_event = DI_char_editor.4 }
 	}
 }
 

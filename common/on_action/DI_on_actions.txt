@@ -1,0 +1,16 @@
+﻿on_game_start_after_lobby = {
+	on_actions = { DI_on_game_start }
+}
+
+DI_on_game_start = {
+	effect = {
+		set_global_variable = DI_loaded
+		
+		every_living_character = {
+			limit = {
+				is_ai = no
+			}
+			create_story = DI_traits_story
+		}		
+	}
+}

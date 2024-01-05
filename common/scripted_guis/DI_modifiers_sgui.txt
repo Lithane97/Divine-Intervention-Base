@@ -41958,6 +41958,57 @@ DI_remove_modifier_building_slots = {
 	}
 }
 
+# DI_one_building_slot
+DI_add_modifier_one_building_slot = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+				}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				add_character_modifier = DI_one_building_slot
+			}
+		}
+		else = {
+			add_character_modifier = DI_one_building_slot
+		}
+	}
+}
+
+DI_remove_modifier_one_building_slot = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+				}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				remove_character_modifier = DI_one_building_slot
+			}
+		}
+		else = {
+			remove_character_modifier = DI_one_building_slot
+		}
+	}
+}
+
 # DI_domain_limit 
 DI_add_modifier_DI_domain_limit = {
 	scope = character
@@ -42056,6 +42107,65 @@ DI_remove_modifier_money_printer = {
 		}
 		else = {
 			remove_character_modifier = DI_money_printer
+		}
+	}
+}
+
+### Legacy of Piracy ###
+DI_add_modifier_legacy_of_piracy = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				dynasty = {
+					add_dynasty_modifier = fp1_legacy_of_piracy_modifier
+				}
+			}
+		}
+		else = {
+			dynasty = {
+				add_dynasty_modifier = fp1_legacy_of_piracy_modifier
+			}
+		}
+	}
+}
+
+DI_remove_modifier_legacy_of_piracy = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable = DI_pinned_char_var
+				}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				dynasty = {
+					remove_dynasty_modifier = fp1_legacy_of_piracy_modifier
+				}
+			}
+		}
+		else = {
+			dynasty = {
+				remove_dynasty_modifier = fp1_legacy_of_piracy_modifier
+			}
 		}
 	}
 }

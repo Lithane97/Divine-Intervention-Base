@@ -12892,6 +12892,29 @@ window = {
                                     }
                                 }
 
+                                # one_building_slot
+                                dockable_button = {
+                                    name = "DI_modifier_one_building_slot_button"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('DI_one_building_slot')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = { 30 30 }
+                                        tintcolor = { 0 1 1 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
+
                                 # domain_limit
                                 dockable_button = {
                                     name = "DI_modifier_domain_limit_button"
@@ -12937,6 +12960,30 @@ window = {
                                         }
                                     }
                                 }
+
+                                # legacy_of_piracy
+                                dockable_button = {
+                                    name = "DI_modifier_legacy_of_piracy_button"
+                                    visible = "[GetScriptedGui('DI_fp1_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_add_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    button_ignore = none
+                                    using = tooltip_ne
+
+                                    icon = {
+                                        datacontext = "[GetPlayer]"
+                                        datacontext = "[GetModifier('fp1_legacy_of_piracy_modifier')]"
+                                        datacontext = "[GetPlayer.GetFaith]"
+                                        parentanchor = center
+                                        position = { 0 1 }
+                                        size = { 30 30 }
+                                        tintcolor = { 0 1 1 1 }
+                                        texture = "[StaticModifier.GetIcon]"
+                                        tooltipwidget = {
+                                            using = modifier_DI_tooltip
+                                        }
+                                    }
+                                }
                             }
                         }
         
@@ -12944,104 +12991,95 @@ window = {
                     }
                 }
             }
-
+            ### MAA Selector ###
             vbox = {
-                widget = {
-                    size = { 100 60 }
-                    position = { 450 -75 }
+                spacing = 5
+
+                button_standard = {
+                    max_width = 150
                     
-                    button_standard = {
-                        max_width = 150
-                        
-                        layoutpolicy_horizontal = expanding
-                        onclick = "[GetScriptedGui('DI_clear_modifiers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        parentanchor = center
-                        button_ignore = none
-                        text = DI_clear_modifiers
-                        tooltip = DI_clear_modifiers_tt
-                        using = tooltip_ne
-                        
-                    }
+                    layoutpolicy_horizontal = expanding
+                    onclick = "[GetScriptedGui('DI_clear_modifiers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    button_ignore = none
+                    text = DI_clear_modifiers
+                    tooltip = DI_clear_modifiers_tt
+                    using = tooltip_ne
+                    
+                }
+
+                text_label_center = {
+                    name = "maa_type_label"
+                    size = { 30 30 }
+                    
+                    text = DI_modifier_maa_type
                 }
                 
-                ### MAA Selector ###
-                widget = {
-                    size = { 200 300 }
-                    text_label_right = {
-                        name = "maa_type_label"
-                        size = { 30 30 }
+                scrollbox = {
+                    size = { 185 300 }
+
+                    blockoverride "scrollbox_content"
+                    {
+                        # skirmishers
+                        button_standard_hover = {
+                            text = skirmishers
+                            layoutpolicy_horizontal = expanding
+
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'skirmishers')]"
+                        }
                         
-                        text = DI_modifier_maa_type
-                    }
-                    
-                    scrollbox = {
-                        size = { 185 300 }
-                        position = { 0 23 }
+                        # archers
+                        button_standard_hover = {
+                            text = archers
+                            layoutpolicy_horizontal = expanding
 
-                        blockoverride "scrollbox_content"
-                        {
-                            # skirmishers
-                            button_standard_hover = {
-                                text = skirmishers
-                                layoutpolicy_horizontal = expanding
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'archers')]"
+                        }
 
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'skirmishers')]"
-                            }
-                            
-                            # archers
-                            button_standard_hover = {
-                                text = archers
-                                layoutpolicy_horizontal = expanding
+                        # light_cavalry
+                        button_standard_hover = {
+                            text = light_cavalry
+                            layoutpolicy_horizontal = expanding
 
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'archers')]"
-                            }
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'light_cavalry')]"
+                        }
 
-                            # light_cavalry
-                            button_standard_hover = {
-                                text = light_cavalry
-                                layoutpolicy_horizontal = expanding
+                        # pikemen
+                        button_standard_hover = {
+                            text = pikemen
+                            layoutpolicy_horizontal = expanding
 
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'light_cavalry')]"
-                            }
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'pikemen')]"
+                        }
 
-                            # pikemen
-                            button_standard_hover = {
-                                text = pikemen
-                                layoutpolicy_horizontal = expanding
+                        # heavy_infantry
+                        button_standard_hover = {
+                            text = heavy_infantry
+                            layoutpolicy_horizontal = expanding
 
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'pikemen')]"
-                            }
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'heavy_infantry')]"
+                        }
 
-                            # heavy_infantry
-                            button_standard_hover = {
-                                text = heavy_infantry
-                                layoutpolicy_horizontal = expanding
+                        # siege_weapon
+                        button_standard_hover = {
+                            text = siege_weapon
+                            layoutpolicy_horizontal = expanding
 
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'heavy_infantry')]"
-                            }
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'siege_weapon')]"
+                        }
 
-                            # siege_weapon
-                            button_standard_hover = {
-                                text = siege_weapon
-                                layoutpolicy_horizontal = expanding
+                        # heavy_cavalry
+                        button_standard_hover = {
+                            text = heavy_cavalry
+                            layoutpolicy_horizontal = expanding
 
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'siege_weapon')]"
-                            }
-
-                            # heavy_cavalry
-                            button_standard_hover = {
-                                text = heavy_cavalry
-                                layoutpolicy_horizontal = expanding
-
-                                size = { 0 40 }
-                                onclick = "[GetVariableSystem.Set('maa_type', 'heavy_cavalry')]"
-                            }
+                            size = { 0 40 }
+                            onclick = "[GetVariableSystem.Set('maa_type', 'heavy_cavalry')]"
                         }
                     }
                 }

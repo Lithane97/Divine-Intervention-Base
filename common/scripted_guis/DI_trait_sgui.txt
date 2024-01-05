@@ -7,6 +7,25 @@ DI_pin_trait = {
 			name = DI_pinned_traits
 			target = scope:trait
 		}
+
+		if = {
+			limit = {
+				NOT = { owns_story_of_type = DI_traits_story }
+			}
+			create_story = DI_traits_story
+		}
+		else = {
+			every_owned_story = {
+				limit = {
+					story_type = DI_traits_story
+				}
+
+				add_to_variable_list = {
+					name = DI_pinned_traits
+					target = scope:trait
+				}
+			}
+		}
 	}
 }
 ### Unpin Trait ###
@@ -17,6 +36,24 @@ DI_unpin_trait = {
 		remove_list_variable = {
 			name = DI_pinned_traits
 			target = scope:trait
+		}
+
+		every_owned_story = {
+			limit = {
+				story_type = DI_traits_story
+			}
+
+			remove_list_variable = {
+				name = DI_pinned_traits
+				target = scope:trait
+			}
+
+			if = {
+				limit = {
+					NOT = { has_variable_list = DI_pinned_traits }
+				}
+				end_story = yes
+			}
 		}
 	}
 }
@@ -32,6 +69,68 @@ DI_trait_pinned = {
 		}
 	}
 }
+
+### Check for pinned traits list on player character ###
+DI_pinned_trait_check = {
+	scope = character
+
+	is_valid = {
+		NOT = { has_variable_list = DI_pinned_traits }
+	}
+
+	effect = {
+		debug_log = "DI_Debug: is_valid check"
+		debug_scopes = no
+	}
+}
+
+### Create pinned traits list for player character, from story cycle ###
+DI_create_pinned_trait_list = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				owns_story_of_type = DI_traits_story
+			}
+			debug_log = "DI_Debug: story exists"
+			debug_scopes = no
+			every_owned_story = {
+				limit = {
+					story_type = DI_traits_story
+				}
+				if = {
+					limit = {
+						has_variable_list = DI_pinned_traits
+					}
+					every_in_list = {
+						variable = DI_pinned_traits
+						
+						scope:target = {
+							add_to_variable_list = {
+								name = DI_pinned_traits
+								target = prev
+							}
+						}
+					}
+				}
+				else = {
+					debug_log = "DI_Debug: no list"
+					debug_scopes = no
+					end_story = yes
+				}
+			}
+		}
+		else = {
+			debug_log = "DI_Debug: story does not exist"
+			debug_scopes = no
+			create_story = DI_traits_story
+		}
+	}
+}
+
 #Lifestyle Reveler
 #Add
 DI_add_lifestyle_reveler_xp = {

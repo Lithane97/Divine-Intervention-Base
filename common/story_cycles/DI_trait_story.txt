@@ -1,0 +1,46 @@
+﻿DI_traits_story = {
+	on_setup = {
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:immortal
+		}
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:100_stat_man
+		}
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:nnn_challenger
+		}
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:build_speed_cheat
+		}
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:stress_gain_remove
+		}
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:tyranny_gain_remove
+		}
+		add_to_variable_list = {
+			name = DI_pinned_traits
+			target = trait:boost_stats
+		}
+	}
+
+	on_end = {}
+
+	on_owner_death = {
+		if = {
+			limit = {
+				exists = story_owner.primary_heir
+			}
+			make_story_owner = story_owner.primary_heir
+		}
+		else = {
+			end_story = yes
+		}
+	}
+}

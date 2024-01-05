@@ -963,3 +963,28 @@ DI_vbox_character_list = {
 		NOT = { has_variable_list = pinned_characters }
 	}
 }
+
+DI_test_sgui = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+
+		if = {
+			limit = {
+				has_variable_list = DI_pinned_traits
+			}
+			every_in_list = {
+				variable = DI_pinned_traits
+				
+				scope:target.player_heir = {
+					add_to_variable_list = {
+						name = DI_pinned_traits
+						target = prev
+					
+					}
+				}
+			}
+		}
+	}
+}

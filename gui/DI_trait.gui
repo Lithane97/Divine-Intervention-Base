@@ -27,8 +27,6 @@ window = {
 		using = Animation_FadeOut_Quick
 	}
 	
-	
-	
 	vbox = {
 		margin_left = 40
 		margin_right = 40
@@ -213,7 +211,7 @@ window = {
             
             
             
-           vbox = {
+			vbox = {
 				name = "trait_selection_panel"
 				layoutpolicy_vertical = expanding
 
@@ -935,6 +933,14 @@ window = {
 					minimumsize = { 375 100% }
 
 					visible = "[GetVariableSystem.HasValue( 'show_traits', 'pinned' )]"
+
+					state = {
+						name = "list_check"
+						using = Animation_FadeIn_Quick
+						trigger_when = "[GetScriptedGui('DI_pinned_trait_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						on_start = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						on_start = "[GetScriptedGui('DI_pinned_trait_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					}
 					
 
 					blockoverride "scrollbox_content"
