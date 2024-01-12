@@ -1,40 +1,76 @@
 widget = {
+	name = DI_button
 	visible = "[And( And( Not( GetPlayer.MakeScope.Var('DI_button_visible_var').IsSet ), Not( IsPauseMenuShown )), And(Not(IsRightWindowOpen), And(IsDefaultGUIMode, And(Not(IsGameViewOpen('barbershop')), Not(IsGameViewOpen('royal_court')) ) ) ) )]"
 	parentanchor = bottom|right
+	size = { 70 40 }
+	position = { -1 -250 }
+	
 	layer = top
-	
-	name = DI_button
-	position = { -32 -250 }
-	size = { 40 40 }
 	using = Animation_ShowHide_Quick
-	
 
-	button_round = {
-		name = "DI_shortcut_button"
-		size = { 35 35 }
-		alpha = 0.7
+	flowcontainer = {
+		ignoreinvisible = no
 
-		onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
-		tooltip = DI_button_tt
-		
-		state = {
-			name = _mouse_enter
-			alpha = 1
-			duration = 0.7
-			using = Animation_Curve_Default
-		}
-
-		state = {
-			name = _mouse_leave
+		button_round = {
+			name = "DI_shortcut_button_advcm"
+			size = { 35 35 }
 			alpha = 0.7
-			duration = 0.2
-			using = Animation_Curve_Default
+
+			visible = "[GetScriptedGui('DI_advcm_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	
+			onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
+			tooltip = DI_button_tt
+			
+			state = {
+				name = _mouse_enter
+				alpha = 1
+				duration = 0.7
+				using = Animation_Curve_Default
+			}
+	
+			state = {
+				name = _mouse_leave
+				alpha = 0.7
+				duration = 0.2
+				using = Animation_Curve_Default
+			}
+	
+			button_prison_execute = {
+				parentanchor = center
+				alwaystransparent = yes
+				size = { 25 25 }
+			}
 		}
 
-		button_prison_execute = {
-			parentanchor = center
-			alwaystransparent = yes
-			size = { 25 25 }
+		button_round = {
+			name = "DI_shortcut_button"
+			size = { 35 35 }
+			alpha = 0.7
+
+			visible = "[Not(GetScriptedGui('DI_advcm_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+	
+			onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
+			tooltip = DI_button_tt
+			
+			state = {
+				name = _mouse_enter
+				alpha = 1
+				duration = 0.7
+				using = Animation_Curve_Default
+			}
+	
+			state = {
+				name = _mouse_leave
+				alpha = 0.7
+				duration = 0.2
+				using = Animation_Curve_Default
+			}
+	
+			button_prison_execute = {
+				parentanchor = center
+				alwaystransparent = yes
+				size = { 25 25 }
+			}
 		}
 	}
 }

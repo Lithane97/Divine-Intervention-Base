@@ -80,7 +80,6 @@ DI_pinned_trait_check = {
 
 	effect = {
 		debug_log = "DI_Debug: is_valid check"
-		debug_scopes = no
 	}
 }
 
@@ -96,7 +95,6 @@ DI_create_pinned_trait_list = {
 				owns_story_of_type = DI_traits_story
 			}
 			debug_log = "DI_Debug: story exists"
-			debug_scopes = no
 			every_owned_story = {
 				limit = {
 					story_type = DI_traits_story
@@ -118,14 +116,12 @@ DI_create_pinned_trait_list = {
 				}
 				else = {
 					debug_log = "DI_Debug: no list"
-					debug_scopes = no
 					end_story = yes
 				}
 			}
 		}
 		else = {
 			debug_log = "DI_Debug: story does not exist"
-			debug_scopes = no
 			create_story = DI_traits_story
 		}
 	}
