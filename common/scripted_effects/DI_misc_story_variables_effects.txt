@@ -1,0 +1,41 @@
+﻿### Clear misc variables from old player character ###
+######################################################
+DI_clear_misc_variables_effect = {
+	remove_variable = DI_cheat_menu
+	remove_variable = DI_char_spawner_count_increment_value
+	remove_variable = DI_char_spawner_age_increment_value
+	remove_variable = DI_female_chance
+	remove_variable = DI_modifier_increment_value
+	remove_variable = DI_increment_value
+	remove_variable = DI_cs_random_traits
+	remove_variable = DI_cs_martial
+	remove_variable = DI_cs_prowess
+	remove_variable = DI_cs_intrigue
+	remove_variable = DI_cs_diplomacy
+	remove_variable = DI_cs_stewardship
+	remove_variable = DI_cs_learning
+	remove_variable = DI_pinned_char_var
+	remove_variable = DI_char_spawner_female
+	remove_variable = DI_char_spawner_immortal
+	remove_variable = DI_char_spawner_100_stat_man
+	remove_variable = DI_char_spawner_good_traits
+	remove_variable = DI_char_spawner_no_traits
+	clear_variable_list = DI_cs_trait_list
+}
+
+### Save misc variables to character ###
+### For localizaion and gui purposes ###
+#########################################
+DI_save_misc_variables_to_character_effect = {
+	random_owned_story = {
+		limit = {
+			story_type = DI_misc_variables_story
+		}
+		save_scope_as = DI_story
+	}
+
+	set_variable = {
+		name = DI_misc_variables_story
+		value = scope:DI_story
+	}
+}

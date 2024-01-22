@@ -1,0 +1,61 @@
+﻿DI_misc_variables_story = {
+	on_setup = {
+		#Character Spawner Defaults
+		set_variable = {
+			name = DI_char_spawner_count_increment_value
+			value = 1
+		}
+		set_variable = {
+			name = DI_char_spawner_age_increment_value
+			value = 18
+		}
+		set_variable = {
+			name = DI_female_chance
+			value = 0
+		}
+		#Modifier Menu Defaults
+		set_variable = {
+			name = DI_modifier_increment_value 
+			value = 1
+		}
+		#Pinned Characters Menu Defaults
+		set_variable = {
+			name = DI_increment_value
+			value = 500
+		}
+		#Army Spawner Defaults
+		set_variable = {
+			name = DI_army_spawner_increment_value
+			value = 500
+		}
+
+		story_owner = {
+			DI_random_traits_effect = yes
+
+			set_variable = {
+				name = DI_misc_variables_story
+				value = scope:story
+			}
+		}
+	}
+
+	on_end = {}
+
+	on_owner_death = {
+		if = {
+			limit = {
+				exists = story_owner.primary_heir
+			}
+			make_story_owner = story_owner.primary_heir
+			story_owner = {
+				set_variable = {
+					name = DI_misc_variables_story
+					value = scope:story
+				}
+			}
+		}
+		else = {
+			end_story = yes
+		}
+	}
+}

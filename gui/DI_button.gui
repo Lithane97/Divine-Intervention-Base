@@ -1,6 +1,6 @@
 widget = {
 	name = DI_button
-	visible = "[And( And( Not( GetPlayer.MakeScope.Var('DI_button_visible_var').IsSet ), Not( IsPauseMenuShown )), And(Not(IsRightWindowOpen), And(IsDefaultGUIMode, And(Not(IsGameViewOpen('barbershop')), Not(IsGameViewOpen('royal_court')) ) ) ) )]"
+	visible = "[And( And( GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End ), Not( IsPauseMenuShown )), And(Not(IsRightWindowOpen), And(IsDefaultGUIMode, And(Not(IsGameViewOpen('barbershop')), Not(IsGameViewOpen('royal_court')) ) ) ) )]"
 	parentanchor = bottom|right
 	size = { 70 40 }
 	position = { -1 -250 }

@@ -2,6 +2,14 @@
 	on_actions = { DI_on_game_start }
 }
 
+# A title is lost by a character
+# root = the old holder
+# scope:title = the title that changes hands
+# scope:new_holder = new holder.
+on_title_lost = {
+	on_actions = { DI_on_title_lost }
+}
+
 DI_on_game_start = {
 	effect = {
 		set_global_variable = DI_loaded
@@ -11,6 +19,53 @@ DI_on_game_start = {
 				is_ai = no
 			}
 			create_story = DI_traits_story
+			create_story = DI_misc_variables_story
+			# DI_clear_misc_variables_effect = yes
 		}		
+	}
+}
+
+DI_on_title_lost = {
+	effect = {	
+		if = {
+			# if root is a player and is giving up their last title
+			limit = {
+				is_ai = no
+				NOT = {
+					any_held_title = {
+						NOT = { this = scope:title }
+					}
+				}
+				AND = {
+					any_owned_story = {
+						story_type = DI_traits_story
+					}
+					any_owned_story = {
+						story_type = DI_misc_variables_story
+					}
+				}
+			}
+
+			debug_log = "DI_debug: Player lost their LAST title"
+
+			# then transfer variable stories
+			debug_log = "DI_debug: Transferring variable stories"
+			every_owned_story = {
+				limit = {
+					OR = {
+						story_type = DI_traits_story
+						story_type = DI_misc_variables_story
+					}
+				}
+				make_story_owner = scope:new_holder
+			}
+
+			remove_variable = DI_misc_variables_story
+			clear_variable_list = DI_pinned_traits
+
+			scope:new_holder = {
+				DI_save_misc_variables_to_character_effect = yes
+			}
+		}
 	}
 }

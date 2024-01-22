@@ -1009,28 +1009,39 @@ DI_set_mother_effect = {
 }
 
 DI_spawn_family_character_effect = {
-	while = { count = scope:root_target.var:DI_char_spawner_count_increment_value
-		create_character = {
-			age = scope:root_target.var:DI_char_spawner_age_increment_value
-			gender_female_chance = scope:root_target.var:DI_female_chance
-			health = 5
-			fertility = 0.5
-			employer = scope:target
-			faith = scope:target.faith
-			culture = scope:target.culture
-			dynasty_house = scope:target.house
-			martial = scope:root_target.var:DI_cs_martial
-			prowess = scope:root_target.var:DI_cs_prowess
-			diplomacy = scope:root_target.var:DI_cs_diplomacy
-			stewardship = scope:root_target.var:DI_cs_stewardship
-			intrigue = scope:root_target.var:DI_cs_intrigue
-			learning = scope:root_target.var:DI_cs_learning
-			random_traits = scope:root_target.var:DI_cs_random_traits
-			save_scope_as = new_courtier
+	scope:DI_story = {
+		save_scope_value_as = {
+			name = DI_char_spawner_age_increment_value
+			value = var:DI_char_spawner_age_increment_value
 		}
+		save_scope_value_as = {
+			name = DI_female_chance
+			value = var:DI_female_chance
+		}
+	}
+
+	create_character = {
+		age = scope:DI_char_spawner_age_increment_value
+		gender_female_chance = scope:DI_female_chance
+		health = 5
+		fertility = 0.5
+		employer = scope:target
+		faith = scope:target.faith
+		culture = scope:target.culture
+		dynasty_house = scope:target.house
+		martial = scope:root_target.var:DI_cs_martial
+		prowess = scope:root_target.var:DI_cs_prowess
+		diplomacy = scope:root_target.var:DI_cs_diplomacy
+		stewardship = scope:root_target.var:DI_cs_stewardship
+		intrigue = scope:root_target.var:DI_cs_intrigue
+		learning = scope:root_target.var:DI_cs_learning
+		random_traits = scope:DI_story.var:DI_cs_random_traits
+		save_scope_as = new_courtier
+	}
+	scope:DI_story = {
 		if = {
 			limit = {
-				scope:root_target = { has_variable = DI_char_spawner_immortal }
+				has_variable = DI_char_spawner_immortal 
 			}
 			scope:new_courtier = {
 				add_trait = immortal
@@ -1038,7 +1049,7 @@ DI_spawn_family_character_effect = {
 		}
 		if = {
 			limit = {
-				scope:root_target = { has_variable = DI_char_spawner_100_stat_man }
+				has_variable = DI_char_spawner_100_stat_man
 			}
 			scope:new_courtier = {
 				add_trait = 100_stat_man
@@ -1046,7 +1057,7 @@ DI_spawn_family_character_effect = {
 		}
 		if = {
 			limit = {
-				scope:root_target = { has_variable = DI_char_spawner_good_traits }
+				has_variable = DI_char_spawner_good_traits 
 			}
 			scope:new_courtier = {
 				add_trait = loyal
@@ -1059,63 +1070,74 @@ DI_spawn_family_character_effect = {
 }
 
 DI_spawn_court_character_effect = {
-	while = { count = scope:root_target.var:DI_char_spawner_count_increment_value
-		create_character = {
-			age = scope:root_target.var:DI_char_spawner_age_increment_value
-			gender_female_chance = scope:root_target.var:DI_female_chance
-			health = 6
-			fertility = 6
-			employer = scope:target
-			faith = scope:target.faith
-			culture = scope:target.culture
-			dynasty = generate
-			martial = scope:root_target.var:DI_cs_martial
-			prowess = scope:root_target.var:DI_cs_prowess
-			diplomacy = scope:root_target.var:DI_cs_diplomacy
-			stewardship = scope:root_target.var:DI_cs_stewardship
-			intrigue = scope:root_target.var:DI_cs_intrigue
-			learning = scope:root_target.var:DI_cs_learning
-			random_traits = scope:root_target.var:DI_cs_random_traits
-			save_scope_as = new_courtier
+	scope:DI_story = {
+		save_scope_value_as = {
+			name = DI_char_spawner_age_increment_value
+			value = var:DI_char_spawner_age_increment_value
 		}
-		scope:root_target = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_immortal
-				}
-				scope:new_courtier = {
-					add_trait = immortal
-				}
+		save_scope_value_as = {
+			name = DI_female_chance
+			value = var:DI_female_chance
+		}
+	}
+
+	create_character = {
+		age = scope:DI_story.var:DI_char_spawner_age_increment_value
+		gender_female_chance = scope:DI_story.var:DI_female_chance
+		health = 6
+		fertility = 6
+		employer = scope:target
+		faith = scope:target.faith
+		culture = scope:target.culture
+		dynasty = generate
+		martial = scope:root_target.var:DI_cs_martial
+		prowess = scope:root_target.var:DI_cs_prowess
+		diplomacy = scope:root_target.var:DI_cs_diplomacy
+		stewardship = scope:root_target.var:DI_cs_stewardship
+		intrigue = scope:root_target.var:DI_cs_intrigue
+		learning = scope:root_target.var:DI_cs_learning
+		random_traits = scope:DI_story.var:DI_cs_random_traits
+		save_scope_as = new_courtier
+	}
+	scope:DI_story = {
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_immortal 
 			}
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_100_stat_man
-				}
-				scope:new_courtier = {
-					add_trait = 100_stat_man
-				}
+			scope:new_courtier = {
+				add_trait = immortal
 			}
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_good_traits
-				}
-				scope:new_courtier = {
-					add_trait = loyal
-					add_trait = beauty_good_3
-					add_trait = intellect_good_3
-					add_trait = physique_good_3
-				}
+		}
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_100_stat_man
 			}
-			if = {
-				limit = {
-					has_variable_list = DI_cs_trait_list
-				}
-				
-				every_in_list = {
-					variable = DI_cs_trait_list
-					scope:new_courtier = {
-						add_trait = prev
-					}
+			scope:new_courtier = {
+				add_trait = 100_stat_man
+			}
+		}
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_good_traits 
+			}
+			scope:new_courtier = {
+				add_trait = loyal
+				add_trait = beauty_good_3
+				add_trait = intellect_good_3
+				add_trait = physique_good_3
+			}
+		}
+	}
+	scope:root_target = {
+		if = {
+			limit = {
+				has_variable_list = DI_cs_trait_list
+			}
+			
+			every_in_list = {
+				variable = DI_cs_trait_list
+				scope:new_courtier = {
+					add_trait = prev
 				}
 			}
 		}
@@ -1123,63 +1145,74 @@ DI_spawn_court_character_effect = {
 }
 
 DI_spawn_low_court_character_effect = {
-	while = { count = scope:root_target.var:DI_char_spawner_count_increment_value
-		create_character = {
-			age = scope:root_target.var:DI_char_spawner_age_increment_value
-			gender_female_chance = scope:root_target.var:DI_female_chance
-			health = 5
-			fertility = 0.5
-			employer = scope:target
-			faith = scope:target.faith
-			culture = scope:target.culture
-			dynasty = none
-			martial = scope:root_target.var:DI_cs_martial
-			prowess = scope:root_target.var:DI_cs_prowess
-			diplomacy = scope:root_target.var:DI_cs_diplomacy
-			stewardship = scope:root_target.var:DI_cs_stewardship
-			intrigue = scope:root_target.var:DI_cs_intrigue
-			learning = scope:root_target.var:DI_cs_learning
-			random_traits = scope:root_target.var:DI_cs_random_traits
-			save_scope_as = new_courtier
+	scope:DI_story = {
+		save_scope_value_as = {
+			name = DI_char_spawner_age_increment_value
+			value = var:DI_char_spawner_age_increment_value
 		}
-		scope:root_target = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_immortal
-				}
-				scope:new_courtier = {
-					add_trait = immortal
-				}
+		save_scope_value_as = {
+			name = DI_female_chance
+			value = var:DI_female_chance
+		}
+	}
+
+	create_character = {
+		age = scope:DI_char_spawner_age_increment_value
+		gender_female_chance = scope:DI_female_chance
+		health = 5
+		fertility = 0.5
+		employer = scope:target
+		faith = scope:target.faith
+		culture = scope:target.culture
+		dynasty = none
+		martial = scope:root_target.var:DI_cs_martial
+		prowess = scope:root_target.var:DI_cs_prowess
+		diplomacy = scope:root_target.var:DI_cs_diplomacy
+		stewardship = scope:root_target.var:DI_cs_stewardship
+		intrigue = scope:root_target.var:DI_cs_intrigue
+		learning = scope:root_target.var:DI_cs_learning
+		random_traits = scope:DI_story.var:DI_cs_random_traits
+		save_scope_as = new_courtier
+	}
+	scope:DI_story = {
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_immortal 
 			}
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_100_stat_man
-				}
-				scope:new_courtier = {
-					add_trait = 100_stat_man
-				}
+			scope:new_courtier = {
+				add_trait = immortal
 			}
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_good_traits
-				}
-				scope:new_courtier = {
-					add_trait = loyal
-					add_trait = beauty_good_3
-					add_trait = intellect_good_3
-					add_trait = physique_good_3
-				}
+		}
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_100_stat_man
 			}
-			if = {
-				limit = {
-					has_variable_list = DI_cs_trait_list
-				}
-				
-				every_in_list = {
-					variable = DI_cs_trait_list
-					scope:new_courtier = {
-						add_trait = prev
-					}
+			scope:new_courtier = {
+				add_trait = 100_stat_man
+			}
+		}
+		if = {
+			limit = {
+				has_variable = DI_char_spawner_good_traits 
+			}
+			scope:new_courtier = {
+				add_trait = loyal
+				add_trait = beauty_good_3
+				add_trait = intellect_good_3
+				add_trait = physique_good_3
+			}
+		}
+	}
+	scope:root_target = {
+		if = {
+			limit = {
+				has_variable_list = DI_cs_trait_list
+			}
+			
+			every_in_list = {
+				variable = DI_cs_trait_list
+				scope:new_courtier = {
+					add_trait = prev
 				}
 			}
 		}

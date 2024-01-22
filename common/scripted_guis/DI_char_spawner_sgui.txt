@@ -6,9 +6,16 @@ DI_martial_councillor = {
 		save_scope_as = root_target
 		DI_martial_traits_effect = yes
 
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -68,9 +75,16 @@ DI_diplomacy_councillor = {
 		save_scope_as = root_target
 		DI_diplomacy_traits_effect = yes
 
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -130,9 +144,16 @@ DI_stewardship_councillor = {
 		save_scope_as = root_target
 		DI_stewardship_traits_effect = yes
 
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -192,9 +213,16 @@ DI_intrigue_councillor = {
 		save_scope_as = root_target
 		DI_intrigue_traits_effect = yes
 
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -254,9 +282,16 @@ DI_learning_councillor = {
 		save_scope_as = root_target
 		DI_learning_traits_effect = yes
 
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -306,14 +341,6 @@ DI_learning_councillor = {
 							add_intrigue_skill = 16
 							add_learning_skill = 30
 							add_character_flag = upgraded_chaplain
-						}
-					}
-					scope:root_target = {
-						every_in_list = {
-							variable = DI_cs_trait_list
-							scope:new_courtier = {
-								add_trait = prev
-							}
 						}
 					}
 				}
@@ -367,15 +394,6 @@ DI_learning_councillor = {
 						add_character_flag = upgraded_chaplain
 					}
 				}
-
-				scope:root_target = {
-					every_in_list = {
-						variable = DI_cs_trait_list
-						scope:new_courtier = {
-							add_trait = prev
-						}
-					}
-				}
 			}
 		}
 
@@ -400,33 +418,50 @@ DI_knight = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_knight_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
-				DI_spawn_court_character_effect = yes
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_court_character_effect = yes
 
-				scope:new_courtier = {
-					add_trait_xp = { trait = lifestyle_blademaster value = 100 }
-					add_perk = stalwart_leader_perk
+					scope:new_courtier = {
+						add_trait_xp = { trait = lifestyle_blademaster value = 100 }
+						add_perk = stalwart_leader_perk
+					}
 				}
 			}
 		}
 		else = {
 			save_scope_as = target
 
-			DI_spawn_court_character_effect = yes
+			while = { count = scope:DI_char_spawner_count_increment_value
+				DI_spawn_court_character_effect = yes
 
-			scope:new_courtier = {
-				add_trait_xp = { trait = lifestyle_blademaster value = 100 }
-				add_perk = stalwart_leader_perk
+				scope:new_courtier = {
+					add_trait_xp = { trait = lifestyle_blademaster value = 100 }
+					add_perk = stalwart_leader_perk
+				}
 			}
 		}
 
@@ -450,17 +485,45 @@ DI_commander = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_knight_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = { trait = lifestyle_blademaster value = 100 }
+						add_perk = stalwart_leader_perk
+						add_commander_traits_effect = yes
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -468,17 +531,6 @@ DI_commander = {
 					add_perk = stalwart_leader_perk
 					add_commander_traits_effect = yes
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = { trait = lifestyle_blademaster value = 100 }
-				add_perk = stalwart_leader_perk
-				add_commander_traits_effect = yes
 			}
 		}
 
@@ -504,10 +556,23 @@ DI_parent = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -592,10 +657,23 @@ DI_child = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -603,11 +681,43 @@ DI_child = {
 				save_scope_as = target
 
 				DI_set_parents_of_child_effect = yes
+				
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_family_character_effect = yes
+
+					if = {
+						limit = {
+							scope:DI_char_spawner_count_increment_value > 1
+						}
+						scope:new_courtier = {
+							add_trait = twin
+						}
+					}
+					if = {
+						limit = {
+							is_ruler = no
+						}
+						scope:target.liege = {
+							add_courtier = scope:new_courtier
+						}
+					}
+					
+					scope:root_target.var:DI_cs_father ?= { DI_set_father_effect = yes }
+					scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }	
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_set_parents_of_child_effect = yes
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_family_character_effect = yes
 
 				if = {
 					limit = {
-						scope:root_target.var:DI_char_spawner_count_increment_value > 1
+						scope:DI_char_spawner_count_increment_value > 1
 					}
 					scope:new_courtier = {
 						add_trait = twin
@@ -621,35 +731,10 @@ DI_child = {
 						add_courtier = scope:new_courtier
 					}
 				}
-				
+
 				scope:root_target.var:DI_cs_father ?= { DI_set_father_effect = yes }
-				scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }	
+				scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }
 			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_set_parents_of_child_effect = yes
-			DI_spawn_family_character_effect = yes
-
-			if = {
-				limit = {
-					scope:root_target.var:DI_char_spawner_count_increment_value > 1
-				}
-				scope:new_courtier = {
-					add_trait = twin
-				}
-			}
-			if = {
-				limit = {
-					is_ruler = no
-				}
-				scope:target.liege = {
-					add_courtier = scope:new_courtier
-				}
-			}
-			scope:root_target.var:DI_cs_father ?= { DI_set_father_effect = yes }
-			scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }
 		}
 	}
 }
@@ -659,10 +744,23 @@ DI_sibling = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -670,11 +768,41 @@ DI_sibling = {
 				save_scope_as = target
 
 				DI_set_parents_of_sibling_effect = yes
+
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_family_character_effect = yes
+
+					if = {
+						limit = {
+							scope:DI_char_spawner_count_increment_value > 1
+						}
+						scope:new_courtier = {
+							add_trait = twin
+						}
+					}
+					if = {
+						limit = {
+							is_ruler = no
+						}
+						scope:target.liege = {
+							add_courtier = scope:new_courtier
+						}
+					}
+					scope:root_target.var:DI_cs_father ?= { DI_set_father_effect = yes }
+					scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }	
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			DI_set_parents_of_sibling_effect = yes
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_family_character_effect = yes
 
 				if = {
 					limit = {
-						scope:root_target.var:DI_char_spawner_count_increment_value > 1
+						scope:DI_char_spawner_count_increment_value > 1
 					}
 					scope:new_courtier = {
 						add_trait = twin
@@ -688,35 +816,9 @@ DI_sibling = {
 						add_courtier = scope:new_courtier
 					}
 				}
-				
 				scope:root_target.var:DI_cs_father ?= { DI_set_father_effect = yes }
-				scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }	
+				scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }
 			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_set_parents_of_sibling_effect = yes
-			DI_spawn_family_character_effect = yes
-
-			if = {
-				limit = {
-					scope:root_target.var:DI_char_spawner_count_increment_value > 1
-				}
-				scope:new_courtier = {
-					add_trait = twin
-				}
-			}
-			if = {
-				limit = {
-					is_ruler = no
-				}
-				scope:target.liege = {
-					add_courtier = scope:new_courtier
-				}
-			}
-			scope:root_target.var:DI_cs_father ?= { DI_set_father_effect = yes }
-			scope:root_target.var:DI_cs_mother ?= { DI_set_mother_effect = yes }
 		}
 	}
 }
@@ -728,10 +830,23 @@ DI_normal_courtier = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
@@ -754,23 +869,40 @@ DI_low_normal_courtier = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
+				}
 			}
 		}
 		else = {
 			save_scope_as = target
 
-			DI_spawn_low_court_character_effect = yes
+			while = { count = scope:DI_char_spawner_count_increment_value
+				DI_spawn_low_court_character_effect = yes
+			}
 		}
 	}
 }
@@ -784,17 +916,64 @@ DI_court_physician = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_physician_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = { trait = lifestyle_physician value = 100 }
+						add_trait_xp = { trait = lifestyle_mystic value = 100 }
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_physician_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_physician_court_position
+							save_scope_as = physician
+						}
+		
+						revoke_court_position = {
+							holder = scope:physician
+							court_position = court_physician_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_physician_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -811,7 +990,7 @@ DI_court_physician = {
 						type = court_physician_court_position
 						save_scope_as = physician
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:physician
 						court_position = court_physician_court_position
@@ -821,36 +1000,6 @@ DI_court_physician = {
 					recipient = scope:new_courtier
 					court_position = court_physician_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = { trait = lifestyle_physician value = 100 }
-				add_trait_xp = { trait = lifestyle_mystic value = 100 }
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_physician_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_physician_court_position
-					save_scope_as = physician
-				}
-
-				revoke_court_position = {
-					holder = scope:physician
-					court_position = court_physician_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_physician_court_position
 			}
 		}
 
@@ -874,23 +1023,69 @@ DI_court_antiquarian = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_antiquarian_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						create_inspiration = book_inspiration
+					}
+					
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = antiquarian_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = antiquarian_court_position
+							save_scope_as = antiquarian
+						}
+		
+						revoke_court_position = {
+							holder = scope:antiquarian
+							court_position = antiquarian_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = antiquarian_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
 					create_inspiration = book_inspiration
 				}
-				
+
 				if = {
 					limit = {
 						NOT = { can_employ_court_position_type = antiquarian_court_position }
@@ -900,7 +1095,7 @@ DI_court_antiquarian = {
 						type = antiquarian_court_position
 						save_scope_as = antiquarian
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:antiquarian
 						court_position = antiquarian_court_position
@@ -910,35 +1105,6 @@ DI_court_antiquarian = {
 					recipient = scope:new_courtier
 					court_position = antiquarian_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				create_inspiration = book_inspiration
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = antiquarian_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = antiquarian_court_position
-					save_scope_as = antiquarian
-				}
-
-				revoke_court_position = {
-					holder = scope:antiquarian
-					court_position = antiquarian_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = antiquarian_court_position
 			}
 		}
 
@@ -962,17 +1128,77 @@ DI_travel_leader = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_travel_leader_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_commander_traits_effect = yes
+						add_trait_xp = {
+							trait = lifestyle_traveler
+							track = travel
+							value = 100
+						}
+						add_trait_xp = {
+							trait = lifestyle_traveler
+							track = danger
+							value = 100
+						}
+						learn_language = language_arabic
+						learn_language = language_greek
+						learn_language = language_latin
+						learn_language = language_norse
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = travel_leader_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = travel_leader_court_position
+							save_scope_as = travel_leader
+						}
+		
+						revoke_court_position = {
+							holder = scope:travel_leader
+							court_position = travel_leader_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = travel_leader_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -1002,7 +1228,7 @@ DI_travel_leader = {
 						type = travel_leader_court_position
 						save_scope_as = travel_leader
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:travel_leader
 						court_position = travel_leader_court_position
@@ -1012,49 +1238,6 @@ DI_travel_leader = {
 					recipient = scope:new_courtier
 					court_position = travel_leader_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_commander_traits_effect = yes
-				add_trait_xp = {
-					trait = lifestyle_traveler
-					track = travel
-					value = 100
-				}
-				add_trait_xp = {
-					trait = lifestyle_traveler
-					track = danger
-					value = 100
-				}
-				learn_language = language_arabic
-				learn_language = language_greek
-				learn_language = language_latin
-				learn_language = language_norse
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = travel_leader_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = travel_leader_court_position
-					save_scope_as = travel_leader
-				}
-
-				revoke_court_position = {
-					holder = scope:travel_leader
-					court_position = travel_leader_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = travel_leader_court_position
 			}
 		}
 
@@ -1078,17 +1261,61 @@ DI_court_tutor = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_court_tutor_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_tutor_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_tutor_court_position
+							save_scope_as = court_tutor
+						}
+		
+						revoke_court_position = {
+							holder = scope:court_tutor
+							court_position = court_tutor_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_tutor_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1102,7 +1329,7 @@ DI_court_tutor = {
 						type = court_tutor_court_position
 						save_scope_as = court_tutor
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:court_tutor
 						court_position = court_tutor_court_position
@@ -1112,33 +1339,6 @@ DI_court_tutor = {
 					recipient = scope:new_courtier
 					court_position = court_tutor_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_tutor_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_tutor_court_position
-					save_scope_as = court_tutor
-				}
-
-				revoke_court_position = {
-					holder = scope:court_tutor
-					court_position = court_tutor_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_tutor_court_position
 			}
 		}
 
@@ -1162,17 +1362,67 @@ DI_master_of_hunt = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_master_of_hunt_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = {
+							trait = lifestyle_hunter
+							track = hunter
+							value = 100
+						}
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = master_of_hunt_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = master_of_hunt_court_position
+							save_scope_as = master_of_hunt
+						}
+		
+						revoke_court_position = {
+							holder = scope:master_of_hunt
+							court_position = master_of_hunt_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = master_of_hunt_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -1192,7 +1442,7 @@ DI_master_of_hunt = {
 						type = master_of_hunt_court_position
 						save_scope_as = master_of_hunt
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:master_of_hunt
 						court_position = master_of_hunt_court_position
@@ -1202,39 +1452,6 @@ DI_master_of_hunt = {
 					recipient = scope:new_courtier
 					court_position = master_of_hunt_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = {
-					trait = lifestyle_hunter
-					track = hunter
-					value = 100
-				}
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = master_of_hunt_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = master_of_hunt_court_position
-					save_scope_as = master_of_hunt
-				}
-
-				revoke_court_position = {
-					holder = scope:master_of_hunt
-					court_position = master_of_hunt_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = master_of_hunt_court_position
 			}
 		}
 
@@ -1258,17 +1475,61 @@ DI_seneschal = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_seneschal_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = seneschal_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = seneschal_court_position
+							save_scope_as = seneschal
+						}
+		
+						revoke_court_position = {
+							holder = scope:seneschal
+							court_position = seneschal_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = seneschal_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1282,7 +1543,7 @@ DI_seneschal = {
 						type = seneschal_court_position
 						save_scope_as = seneschal
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:seneschal
 						court_position = seneschal_court_position
@@ -1292,33 +1553,6 @@ DI_seneschal = {
 					recipient = scope:new_courtier
 					court_position = seneschal_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = seneschal_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = seneschal_court_position
-					save_scope_as = seneschal
-				}
-
-				revoke_court_position = {
-					holder = scope:seneschal
-					court_position = seneschal_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = seneschal_court_position
 			}
 		}
 
@@ -1342,17 +1576,61 @@ DI_court_jester = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_court_jester_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_jester_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_jester_court_position
+							save_scope_as = jester
+						}
+		
+						revoke_court_position = {
+							holder = scope:jester
+							court_position = court_jester_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_jester_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1366,7 +1644,7 @@ DI_court_jester = {
 						type = court_jester_court_position
 						save_scope_as = jester
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:jester
 						court_position = court_jester_court_position
@@ -1376,33 +1654,6 @@ DI_court_jester = {
 					recipient = scope:new_courtier
 					court_position = court_jester_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_jester_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_jester_court_position
-					save_scope_as = jester
-				}
-
-				revoke_court_position = {
-					holder = scope:jester
-					court_position = court_jester_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_jester_court_position
 			}
 		}
 
@@ -1426,17 +1677,66 @@ DI_bodyguard = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_bodyguard_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = {
+							trait = lifestyle_blademaster
+							value = 100
+						}
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = bodyguard_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = bodyguard_court_position
+							save_scope_as = bodyguard
+						}
+		
+						revoke_court_position = {
+							holder = scope:bodyguard
+							court_position = bodyguard_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = bodyguard_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -1455,7 +1755,7 @@ DI_bodyguard = {
 						type = bodyguard_court_position
 						save_scope_as = bodyguard
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:bodyguard
 						court_position = bodyguard_court_position
@@ -1465,38 +1765,6 @@ DI_bodyguard = {
 					recipient = scope:new_courtier
 					court_position = bodyguard_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = {
-					trait = lifestyle_blademaster
-					value = 100
-				}
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = bodyguard_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = bodyguard_court_position
-					save_scope_as = bodyguard
-				}
-
-				revoke_court_position = {
-					holder = scope:bodyguard
-					court_position = bodyguard_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = bodyguard_court_position
 			}
 		}
 
@@ -1520,17 +1788,66 @@ DI_champion = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_champion_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = {
+							trait = lifestyle_blademaster
+							value = 100
+						}
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = champion_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = champion_court_position
+							save_scope_as = champion
+						}
+		
+						revoke_court_position = {
+							holder = scope:champion
+							court_position = champion_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = champion_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -1549,7 +1866,7 @@ DI_champion = {
 						type = champion_court_position
 						save_scope_as = champion
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:champion
 						court_position = champion_court_position
@@ -1559,38 +1876,6 @@ DI_champion = {
 					recipient = scope:new_courtier
 					court_position = champion_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = {
-					trait = lifestyle_blademaster
-					value = 100
-				}
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = champion_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = champion_court_position
-					save_scope_as = champion
-				}
-
-				revoke_court_position = {
-					holder = scope:champion
-					court_position = champion_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = champion_court_position
 			}
 		}
 
@@ -1614,17 +1899,61 @@ DI_food_taster = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_food_taster_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = food_taster_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = food_taster_court_position
+							save_scope_as = food_taster
+						}
+		
+						revoke_court_position = {
+							holder = scope:food_taster
+							court_position = food_taster_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = food_taster_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1638,7 +1967,7 @@ DI_food_taster = {
 						type = food_taster_court_position
 						save_scope_as = food_taster
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:food_taster
 						court_position = food_taster_court_position
@@ -1648,33 +1977,6 @@ DI_food_taster = {
 					recipient = scope:new_courtier
 					court_position = food_taster_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = food_taster_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = food_taster_court_position
-					save_scope_as = food_taster
-				}
-
-				revoke_court_position = {
-					holder = scope:food_taster
-					court_position = food_taster_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = food_taster_court_position
 			}
 		}
 
@@ -1698,17 +2000,61 @@ DI_master_of_horse = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_master_of_horse_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = master_of_horse_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = master_of_horse_court_position
+							save_scope_as = master_of_horse
+						}
+		
+						revoke_court_position = {
+							holder = scope:master_of_horse
+							court_position = master_of_horse_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = master_of_horse_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1722,7 +2068,7 @@ DI_master_of_horse = {
 						type = master_of_horse_court_position
 						save_scope_as = master_of_horse
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:master_of_horse
 						court_position = master_of_horse_court_position
@@ -1732,33 +2078,6 @@ DI_master_of_horse = {
 					recipient = scope:new_courtier
 					court_position = master_of_horse_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = master_of_horse_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = master_of_horse_court_position
-					save_scope_as = master_of_horse
-				}
-
-				revoke_court_position = {
-					holder = scope:master_of_horse
-					court_position = master_of_horse_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = master_of_horse_court_position
 			}
 		}
 
@@ -1782,17 +2101,61 @@ DI_royal_architect = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_royal_architect_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = royal_architect_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = royal_architect_court_position
+							save_scope_as = royal_architect
+						}
+		
+						revoke_court_position = {
+							holder = scope:royal_architect
+							court_position = royal_architect_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = royal_architect_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1806,7 +2169,7 @@ DI_royal_architect = {
 						type = royal_architect_court_position
 						save_scope_as = royal_architect
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:royal_architect
 						court_position = royal_architect_court_position
@@ -1816,33 +2179,6 @@ DI_royal_architect = {
 					recipient = scope:new_courtier
 					court_position = royal_architect_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = royal_architect_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = royal_architect_court_position
-					save_scope_as = royal_architect
-				}
-
-				revoke_court_position = {
-					holder = scope:royal_architect
-					court_position = royal_architect_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = royal_architect_court_position
 			}
 		}
 
@@ -1866,17 +2202,61 @@ DI_high_almoner = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_high_almoner_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = high_almoner_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = high_almoner_court_position
+							save_scope_as = high_almoner
+						}
+		
+						revoke_court_position = {
+							holder = scope:high_almoner
+							court_position = high_almoner_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = high_almoner_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1890,7 +2270,7 @@ DI_high_almoner = {
 						type = high_almoner_court_position
 						save_scope_as = high_almoner
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:high_almoner
 						court_position = high_almoner_court_position
@@ -1900,33 +2280,6 @@ DI_high_almoner = {
 					recipient = scope:new_courtier
 					court_position = high_almoner_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = high_almoner_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = high_almoner_court_position
-					save_scope_as = high_almoner
-				}
-
-				revoke_court_position = {
-					holder = scope:high_almoner
-					court_position = high_almoner_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = high_almoner_court_position
 			}
 		}
 
@@ -1950,17 +2303,61 @@ DI_cupbearer = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_cupbearer_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = cupbearer_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = cupbearer_court_position
+							save_scope_as = cupbearer
+						}
+		
+						revoke_court_position = {
+							holder = scope:cupbearer
+							court_position = cupbearer_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = cupbearer_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -1974,7 +2371,7 @@ DI_cupbearer = {
 						type = cupbearer_court_position
 						save_scope_as = cupbearer
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:cupbearer
 						court_position = cupbearer_court_position
@@ -1984,33 +2381,6 @@ DI_cupbearer = {
 					recipient = scope:new_courtier
 					court_position = cupbearer_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = cupbearer_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = cupbearer_court_position
-					save_scope_as = cupbearer
-				}
-
-				revoke_court_position = {
-					holder = scope:cupbearer
-					court_position = cupbearer_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = cupbearer_court_position
 			}
 		}
 
@@ -2034,17 +2404,61 @@ DI_court_poet = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_court_poet_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_poet_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_poet_court_position
+							save_scope_as = court_poet
+						}
+		
+						revoke_court_position = {
+							holder = scope:court_poet
+							court_position = court_poet_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_poet_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2058,7 +2472,7 @@ DI_court_poet = {
 						type = court_poet_court_position
 						save_scope_as = court_poet
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:court_poet
 						court_position = court_poet_court_position
@@ -2068,33 +2482,6 @@ DI_court_poet = {
 					recipient = scope:new_courtier
 					court_position = court_poet_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_poet_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_poet_court_position
-					save_scope_as = court_poet
-				}
-
-				revoke_court_position = {
-					holder = scope:court_poet
-					court_position = court_poet_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_poet_court_position
 			}
 		}
 
@@ -2118,17 +2505,61 @@ DI_court_musician = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_court_musician_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_musician_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_musician_court_position
+							save_scope_as = court_musician
+						}
+		
+						revoke_court_position = {
+							holder = scope:court_musician
+							court_position = court_musician_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_musician_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2142,7 +2573,7 @@ DI_court_musician = {
 						type = court_musician_court_position
 						save_scope_as = court_musician
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:court_musician
 						court_position = court_musician_court_position
@@ -2152,33 +2583,6 @@ DI_court_musician = {
 					recipient = scope:new_courtier
 					court_position = court_musician_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_musician_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_musician_court_position
-					save_scope_as = court_musician
-				}
-
-				revoke_court_position = {
-					holder = scope:court_musician
-					court_position = court_musician_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_musician_court_position
 			}
 		}
 
@@ -2202,17 +2606,63 @@ DI_court_artificer = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_court_artificer_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						create_inspiration = { type = weapon_inspiration }
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_artificer_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_artificer_court_position
+							save_scope_as = court_artificer
+						}
+		
+						revoke_court_position = {
+							holder = scope:court_artificer
+							court_position = court_artificer_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_artificer_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -2228,7 +2678,7 @@ DI_court_artificer = {
 						type = court_artificer_court_position
 						save_scope_as = court_artificer
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:court_artificer
 						court_position = court_artificer_court_position
@@ -2238,35 +2688,6 @@ DI_court_artificer = {
 					recipient = scope:new_courtier
 					court_position = court_artificer_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				create_inspiration = { type = weapon_inspiration }
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_artificer_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_artificer_court_position
-					save_scope_as = court_artificer
-				}
-
-				revoke_court_position = {
-					holder = scope:court_artificer
-					court_position = court_artificer_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_artificer_court_position
 			}
 		}
 
@@ -2290,17 +2711,61 @@ DI_lady_in_waiting = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_lady_in_waiting_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = lady_in_waiting_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = lady_in_waiting_court_position
+							save_scope_as = lady_in_waiting
+						}
+		
+						revoke_court_position = {
+							holder = scope:lady_in_waiting
+							court_position = lady_in_waiting_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = lady_in_waiting_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2314,7 +2779,7 @@ DI_lady_in_waiting = {
 						type = lady_in_waiting_court_position
 						save_scope_as = lady_in_waiting
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:lady_in_waiting
 						court_position = lady_in_waiting_court_position
@@ -2324,33 +2789,6 @@ DI_lady_in_waiting = {
 					recipient = scope:new_courtier
 					court_position = lady_in_waiting_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = lady_in_waiting_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = lady_in_waiting_court_position
-					save_scope_as = lady_in_waiting
-				}
-
-				revoke_court_position = {
-					holder = scope:lady_in_waiting
-					court_position = lady_in_waiting_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = lady_in_waiting_court_position
 			}
 		}
 
@@ -2374,17 +2812,61 @@ DI_chief_eunuch = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_chief_eunuch_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = chief_eunuch_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = chief_eunuch_court_position
+							save_scope_as = chief_eunuch
+						}
+		
+						revoke_court_position = {
+							holder = scope:chief_eunuch
+							court_position = chief_eunuch_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = chief_eunuch_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2398,7 +2880,7 @@ DI_chief_eunuch = {
 						type = chief_eunuch_court_position
 						save_scope_as = chief_eunuch
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:chief_eunuch
 						court_position = chief_eunuch_court_position
@@ -2408,33 +2890,6 @@ DI_chief_eunuch = {
 					recipient = scope:new_courtier
 					court_position = chief_eunuch_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = chief_eunuch_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = chief_eunuch_court_position
-					save_scope_as = chief_eunuch
-				}
-
-				revoke_court_position = {
-					holder = scope:chief_eunuch
-					court_position = chief_eunuch_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = chief_eunuch_court_position
 			}
 		}
 
@@ -2458,17 +2913,61 @@ DI_executioner = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_executioner_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = executioner_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = executioner_court_position
+							save_scope_as = executioner
+						}
+		
+						revoke_court_position = {
+							holder = scope:executioner
+							court_position = executioner_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = executioner_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2482,7 +2981,7 @@ DI_executioner = {
 						type = executioner_court_position
 						save_scope_as = executioner
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:executioner
 						court_position = executioner_court_position
@@ -2492,33 +2991,6 @@ DI_executioner = {
 					recipient = scope:new_courtier
 					court_position = executioner_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = executioner_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = executioner_court_position
-					save_scope_as = executioner
-				}
-
-				revoke_court_position = {
-					holder = scope:executioner
-					court_position = executioner_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = executioner_court_position
 			}
 		}
 
@@ -2542,17 +3014,66 @@ DI_cultural_emissary = {
 	
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_cultural_emissary_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						learn_language = language_arabic
+						learn_language = language_greek
+						learn_language = language_latin
+						learn_language = language_norse
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = cultural_emissary_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = cultural_emissary_court_position
+							save_scope_as = cultural_emissary
+						}
+		
+						revoke_court_position = {
+							holder = scope:cultural_emissary
+							court_position = cultural_emissary_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = cultural_emissary_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -2571,7 +3092,7 @@ DI_cultural_emissary = {
 						type = cultural_emissary_court_position
 						save_scope_as = cultural_emissary
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:cultural_emissary
 						court_position = cultural_emissary_court_position
@@ -2581,38 +3102,6 @@ DI_cultural_emissary = {
 					recipient = scope:new_courtier
 					court_position = cultural_emissary_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				learn_language = language_arabic
-				learn_language = language_greek
-				learn_language = language_latin
-				learn_language = language_norse
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = cultural_emissary_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = cultural_emissary_court_position
-					save_scope_as = cultural_emissary
-				}
-
-				revoke_court_position = {
-					holder = scope:cultural_emissary
-					court_position = cultural_emissary_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = cultural_emissary_court_position
 			}
 		}
 
@@ -2636,17 +3125,67 @@ DI_keeper_of_swans = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_keeper_of_swans_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = {
+							trait = lifestyle_hunter
+							track = hunter
+							value = 100
+						}
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = keeper_of_swans_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = keeper_of_swans_court_position
+							save_scope_as = keeper_of_swans
+						}
+		
+						revoke_court_position = {
+							holder = scope:keeper_of_swans
+							court_position = keeper_of_swans_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = keeper_of_swans_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -2666,7 +3205,7 @@ DI_keeper_of_swans = {
 						type = keeper_of_swans_court_position
 						save_scope_as = keeper_of_swans
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:keeper_of_swans
 						court_position = keeper_of_swans_court_position
@@ -2676,39 +3215,6 @@ DI_keeper_of_swans = {
 					recipient = scope:new_courtier
 					court_position = keeper_of_swans_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = {
-					trait = lifestyle_hunter
-					track = hunter
-					value = 100
-				}
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = keeper_of_swans_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = keeper_of_swans_court_position
-					save_scope_as = keeper_of_swans
-				}
-
-				revoke_court_position = {
-					holder = scope:keeper_of_swans
-					court_position = keeper_of_swans_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = keeper_of_swans_court_position
 			}
 		}
 
@@ -2732,17 +3238,61 @@ DI_chief_qadi = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_chief_qadi_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = chief_qadi_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = chief_qadi_court_position
+							save_scope_as = chief_qadi
+						}
+		
+						revoke_court_position = {
+							holder = scope:chief_qadi
+							court_position = chief_qadi_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = chief_qadi_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2756,7 +3306,7 @@ DI_chief_qadi = {
 						type = chief_qadi_court_position
 						save_scope_as = chief_qadi
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:chief_qadi
 						court_position = chief_qadi_court_position
@@ -2766,33 +3316,6 @@ DI_chief_qadi = {
 					recipient = scope:new_courtier
 					court_position = chief_qadi_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = chief_qadi_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = chief_qadi_court_position
-					save_scope_as = chief_qadi
-				}
-
-				revoke_court_position = {
-					holder = scope:chief_qadi
-					court_position = chief_qadi_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = chief_qadi_court_position
 			}
 		}
 
@@ -2816,17 +3339,63 @@ DI_garuda = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_garuda_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {
+						add_trait_xp = { trait = lifestyle_blademaster value = 100 }
+					}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = garuda_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = garuda_court_position
+							save_scope_as = garuda
+						}
+		
+						revoke_court_position = {
+							holder = scope:garuda
+							court_position = garuda_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = garuda_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {
@@ -2842,7 +3411,7 @@ DI_garuda = {
 						type = garuda_court_position
 						save_scope_as = garuda
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:garuda
 						court_position = garuda_court_position
@@ -2852,35 +3421,6 @@ DI_garuda = {
 					recipient = scope:new_courtier
 					court_position = garuda_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {
-				add_trait_xp = { trait = lifestyle_blademaster value = 100 }
-			}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = garuda_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = garuda_court_position
-					save_scope_as = garuda
-				}
-
-				revoke_court_position = {
-					holder = scope:garuda
-					court_position = garuda_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = garuda_court_position
 			}
 		}
 
@@ -2904,17 +3444,61 @@ DI_court_gardener = {
 
 	effect = {
 		save_scope_as = root_target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			save_scope_value_as = {
+				name = DI_char_spawner_count_increment_value
+				value = var:DI_char_spawner_count_increment_value
+			}
+		}
 		DI_court_gardener_traits_effect = yes
 
 		if = {
 			limit = {
-				has_variable = DI_pinned_char_var
+				scope:DI_story = { has_variable = DI_pinned_char_var }
 			}
 			every_in_list = {
 				variable = pinned_characters
 
 				save_scope_as = target
 
+				while = { count = scope:DI_char_spawner_count_increment_value
+					DI_spawn_low_court_character_effect = yes
+
+					scope:new_courtier = {}
+
+					if = {
+						limit = {
+							NOT = { can_employ_court_position_type = court_gardener_court_position }
+						}
+						
+						random_court_position_holder = {
+							type = court_gardener_court_position
+							save_scope_as = court_gardener
+						}
+		
+						revoke_court_position = {
+							holder = scope:court_gardener
+							court_position = court_gardener_court_position
+						}
+					}
+					appoint_court_position = {
+						recipient = scope:new_courtier
+						court_position = court_gardener_court_position
+					}
+				}
+			}
+		}
+		else = {
+			save_scope_as = target
+
+			while = { count = scope:DI_char_spawner_count_increment_value
 				DI_spawn_low_court_character_effect = yes
 
 				scope:new_courtier = {}
@@ -2928,7 +3512,7 @@ DI_court_gardener = {
 						type = court_gardener_court_position
 						save_scope_as = court_gardener
 					}
-	
+
 					revoke_court_position = {
 						holder = scope:court_gardener
 						court_position = court_gardener_court_position
@@ -2938,33 +3522,6 @@ DI_court_gardener = {
 					recipient = scope:new_courtier
 					court_position = court_gardener_court_position
 				}
-			}
-		}
-		else = {
-			save_scope_as = target
-
-			DI_spawn_low_court_character_effect = yes
-
-			scope:new_courtier = {}
-
-			if = {
-				limit = {
-					NOT = { can_employ_court_position_type = court_gardener_court_position }
-				}
-				
-				random_court_position_holder = {
-					type = court_gardener_court_position
-					save_scope_as = court_gardener
-				}
-
-				revoke_court_position = {
-					holder = scope:court_gardener
-					court_position = court_gardener_court_position
-				}
-			}
-			appoint_court_position = {
-				recipient = scope:new_courtier
-				court_position = court_gardener_court_position
 			}
 		}
 

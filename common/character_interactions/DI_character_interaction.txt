@@ -12,14 +12,22 @@
 		scope:actor = {
 			is_ai = no
 			NOT = {
-				has_character_flag = DI_cheat_menu
+				any_owned_story = {
+					story_type = DI_misc_variables_story
+					has_variable = DI_cheat_menu
+				}
 			}
 		}
 	}
 
 	on_send = {
 		scope:actor = {
-			add_character_flag = DI_cheat_menu
+			random_owned_story = {
+				limit = {
+					story_type = DI_misc_variables_story
+				}
+				set_variable = DI_cheat_menu
+			}
 		}
 	}
 }
@@ -37,13 +45,21 @@ DI_close_cheat_menu = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-				has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
 	on_send = {
 		scope:actor = {
-			remove_character_flag = DI_cheat_menu
+			random_owned_story = {
+				limit = {
+					story_type = DI_misc_variables_story
+				}
+				remove_variable = DI_cheat_menu
+			}
 		}
 	}
 }
@@ -177,7 +193,10 @@ DI_change_character_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			is_ai = yes
@@ -185,15 +204,13 @@ DI_change_character_interaction = {
 	}
 
 	on_accept = {
-		scope:recipient = {
-			add_character_flag = DI_cheat_menu
-		}
 		scope:actor = {
-			remove_character_flag = DI_cheat_menu
-
 			every_owned_story = {
 				limit = {
-					story_type = DI_traits_story
+					OR = {
+						story_type = DI_traits_story
+						story_type = DI_misc_variables_story
+					}
 				}
 				make_story_owner = scope:recipient
 			}
@@ -221,7 +238,10 @@ DI_change_character_name_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -247,7 +267,10 @@ DI_change_religion_interaction = {
 		NOT = { scope:actor.faith = scope:recipient.faith }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -276,7 +299,10 @@ DI_change_culture_interaction = {
 		NOT = { scope:actor.culture = scope:recipient.culture }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -305,7 +331,10 @@ DI_change_dynasty_interaction = {
 		NOT = { scope:actor.house = scope:recipient.house }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -327,7 +356,10 @@ DI_change_character_weight_interaction = {
 	is_shown = { 
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -361,7 +393,10 @@ DI_learn_language_interaction = {
 	is_shown = { 
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		NOT = {
 			scope:actor = { knows_language_of_culture = scope:recipient.culture }
@@ -387,7 +422,10 @@ DI_change_opinion_interaction = {
 		NOT = { scope:recipient = scope:actor }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -468,7 +506,10 @@ DI_char_modify_vassal_contract_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -540,7 +581,10 @@ DI_modify_vassal_mod_vassal_contract_interaction = {
 		}
 		scope:recipient = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -688,8 +732,11 @@ DI_arrange_marriage_interaction = {
 
 	is_shown = {
 		scope:actor = {
-			has_character_flag = DI_cheat_menu
 			is_ai = no
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		
 		#If you're interacting with someone who isn't their own matchmaker, only show the interaction if they can get married. (If someone isn't their own matchmaker, they will be set as secondary_recipient by code and their matchmaker becomes recipient)
@@ -798,8 +845,11 @@ DI_divorce_character_interaction = {
 	
 	is_shown = {
 		scope:actor = {
-			has_character_flag = DI_cheat_menu
 			is_ai = no
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 
 		scope:recipient = {
@@ -859,7 +909,10 @@ DI_designate_heir_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		NOR = {
 			scope:recipient = scope:actor
@@ -891,7 +944,10 @@ DI_adopt_male_interaction = {
 		scope:actor = {
 			is_ai = no
 			is_female = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			NOR = { 
 				scope:recipient.father = scope:actor 
 				scope:recipient.age > scope:actor.age
@@ -930,7 +986,10 @@ DI_adopt_female_interaction = {
 		scope:actor = {
 			is_ai = no
 			is_female = yes
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			NOR = { 
 				scope:recipient.mother = scope:actor
 				scope:recipient.age > scope:actor.age 
@@ -967,7 +1026,10 @@ DI_disown_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			scope:recipient.house = scope:actor.house
 		}
 		NOR = {
@@ -998,7 +1060,10 @@ DI_remove_child_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			OR = {
 				scope:recipient.mother = scope:actor
 				scope:recipient.father = scope:actor
@@ -1024,7 +1089,10 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			is_dynast = yes
 		}		
 		scope:recipient = {
@@ -1063,7 +1131,10 @@ DI_murder_interaction = {
 		NOT = { scope:recipient = scope:actor }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -1131,7 +1202,10 @@ DI_imprison_interaction = {
 		NOT = { scope:recipient = scope:actor }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -1161,7 +1235,10 @@ DI_add_secrets_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -1283,7 +1360,10 @@ DI_reveal_secrets_interaction = {
 		NOT = { scope:recipient = scope:actor }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			has_any_secrets = yes
@@ -1343,7 +1423,10 @@ DI_remove_secrets_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			has_any_secrets = yes
@@ -1490,7 +1573,10 @@ DI_claim_title_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 	
@@ -1531,7 +1617,10 @@ DI_remove_claims_on_player_interaction = {
 		NOT = { scope:actor = scope:recipient }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			any_held_title = {
 				tier >= tier_county
 				scope:recipient = {
@@ -1589,7 +1678,10 @@ DI_remove_all_claims_interaction = {
 		NOT = { scope:actor = scope:recipient }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			any_claim = { explicit = yes }
@@ -1628,7 +1720,10 @@ DI_take_all_titles_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			is_landed = yes
@@ -1694,7 +1789,10 @@ DI_end_wars_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			OR = {
@@ -1889,7 +1987,10 @@ DI_take_title_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 	
@@ -1932,7 +2033,10 @@ DI_vassalize_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -1975,7 +2079,10 @@ DI_add_to_court_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			is_landed = yes
 		}
 	}
@@ -2000,7 +2107,10 @@ DI_set_relation_interaction = {
 		
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 	
@@ -2462,7 +2572,10 @@ DI_add_concubine_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 			allowed_concubines = yes
 			allowed_more_concubines = yes
 		}
@@ -2490,7 +2603,10 @@ DI_impregnate_interaction = {
 		NOT = { scope:actor = scope:recipient }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		
 		OR = {
@@ -2704,7 +2820,10 @@ DI_contraceptive_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -2735,8 +2854,11 @@ DI_end_pregnancy_interaction = {
 	
 	is_shown = {
 		scope:actor = {
-			has_character_flag = DI_cheat_menu
 			is_ai = no
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			is_pregnant = yes
@@ -2761,7 +2883,10 @@ DI_sleep_with_character = {
 		NOT = { scope:recipient = scope:actor }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 	
@@ -2783,7 +2908,10 @@ DI_change_every_county = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -2854,7 +2982,10 @@ DI_add_hook_interaction = {
 		NOT = { scope:recipient = scope:actor }
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -2917,7 +3048,10 @@ DI_excommunicate_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -2946,7 +3080,10 @@ DI_remove_excommunication_interaction = {
 		}
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -2974,7 +3111,10 @@ DI_commit_suicide_interaction = {
 		scope:recipient = scope:actor
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -3004,7 +3144,10 @@ DI_change_government = {
 		scope:recipient = scope:actor
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -3084,7 +3227,10 @@ DI_change_succession = {
 		scope:recipient = scope:actor
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -3172,7 +3318,10 @@ DI_swing_scales_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		# You must be one of the partners in a diarchy.
 		OR = {
@@ -3227,7 +3376,10 @@ DI_start_diarchy_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			has_active_diarchy = no
@@ -3238,7 +3390,7 @@ DI_start_diarchy_interaction = {
 	send_options_exclusive = no
 
 	send_option = {
-		is_shown = { NOT = { scope:actor = { has_character_flag = DI_cheat_menu } } }
+		is_shown = { always = no }
 		flag = regency
 		localization = DI_start_diarchy_desc
 	}
@@ -3264,7 +3416,10 @@ DI_end_diarchy_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		scope:recipient = {
 			has_active_diarchy = yes
@@ -3275,7 +3430,7 @@ DI_end_diarchy_interaction = {
 	send_options_exclusive = no
 
 	send_option = {
-		is_shown = { NOT = { scope:actor = { has_character_flag = DI_cheat_menu } } }
+		is_shown = { always = no }
 		flag = regency
 		localization = DI_end_diarchy_desc
 	}
@@ -3301,13 +3456,88 @@ DI_change_house_name_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
 	on_accept = {
 		scope:recipient = { save_scope_as = change_name }
 		scope:actor = { trigger_event = DI_char_editor.4 }
+	}
+}
+
+DI_abdicate = {
+	category = interaction_category_cheat_menu
+	icon = heir
+	desc = DI_test_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
+		}
+		debug_only = yes
+	}
+
+	on_accept = {
+		scope:actor = {
+			depose = yes
+		}
+	}
+}
+
+DI_reset_story_variables = {
+	category = interaction_category_cheat_menu
+	icon = icon_holding_city
+	desc = DI_reset_story_variables_desc
+	common_interaction = no
+	
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
+		}
+	}
+
+	on_accept = {
+		scope:actor = {
+			random_owned_story = {
+				limit = {
+					story_type = DI_misc_variables_story
+				}
+				end_story = yes
+			}
+			create_story = DI_misc_variables_story
+		}
+	}
+
+	options_heading = DI_reset_story_variables_desc
+	send_options_exclusive = no
+
+	send_option = {
+		is_shown = {
+			always = no
+		}
+		flag = false
+		localization = DI_reset_story_variables_desc
 	}
 }
 
@@ -3324,19 +3554,17 @@ DI_test_interaction = {
 	is_shown = {
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 		debug_only = yes
 	}
 
 	on_accept = {
 		scope:actor = {
-			every_held_title = {
-				limit = {
-					tier = tier_county
-				}
-				add_county_modifier = DI_test_modifier
-			}
+			DI_clear_misc_variables_effect = yes
 		}
 	}
 }
@@ -3353,7 +3581,10 @@ DI_toggle_menu_button_interaction = {
 		scope:recipient = scope:actor
 		scope:actor = {
 			is_ai = no
-			has_character_flag = DI_cheat_menu
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
 		}
 	}
 
@@ -3361,12 +3592,25 @@ DI_toggle_menu_button_interaction = {
 		scope:actor = {
 			if = {
 				limit = {
-					has_variable = DI_button_visible_var
+					any_owned_story = {
+						story_type = DI_misc_variables_story
+						has_variable = DI_button_invisible_var
+					}
 				}
-				remove_variable = DI_button_visible_var
+				random_owned_story = {
+					limit = {
+						story_type = DI_misc_variables_story
+					}
+					remove_variable = DI_button_invisible_var
+				}
 			}
 			else = {
-				set_variable = DI_button_visible_var
+				random_owned_story = {
+					limit = {
+						story_type = DI_misc_variables_story
+					}
+					set_variable = DI_button_invisible_var
+				}
 			}
 		}
 	}
