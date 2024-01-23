@@ -213,8 +213,22 @@ DI_change_character_interaction = {
 					}
 				}
 				make_story_owner = scope:recipient
+
+				if = {
+					limit = {
+						story_type = DI_misc_variables_story
+					}
+					save_scope_as = DI_story
+				}
 			}
 
+			scope:recipient = {
+				set_variable = {
+					name = DI_misc_variables_story
+					value = scope:DI_story
+				}
+			}
+			remove_variable = DI_misc_variables_story
 			clear_variable_list = DI_pinned_traits
 
 			set_player_character = scope:recipient
