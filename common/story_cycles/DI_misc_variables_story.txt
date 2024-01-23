@@ -42,6 +42,30 @@
 	on_end = {}
 
 	on_owner_death = {
+		story_owner = {
+			primary_heir = {
+				if = {
+					limit = {
+						any_owned_story = {
+							story_type = DI_misc_variables_story
+						}
+					}
+					every_owned_story = {
+						limit = {
+							story_type = DI_misc_variables_story
+						}
+						end_story = yes
+					}
+				}
+				if = {
+					limit = {
+						has_variable = DI_misc_variables_story
+					}
+					remove_variable = DI_misc_variables_story
+				}
+			}
+		}
+
 		if = {
 			limit = {
 				exists = story_owner.primary_heir

@@ -1223,15 +1223,44 @@ DI_misc_variable_story_check = {
 	scope = character
 
 	is_valid = {
-		NOT = {
+		is_alive = yes
+		OR = {
+			NOT = {
+				any_owned_story = {
+					story_type = DI_misc_variables_story
+				}
+			}
 			any_owned_story = {
 				story_type = DI_misc_variables_story
+				count > 1
 			}
 		}
 	}
 
 	effect = {
+		debug_log = "DI_debug: Trigger"
 		DI_clear_misc_variables_effect = yes # This should clean old variables on loaded saved files, may remove later
-		create_story = DI_misc_variables_story
+		if = {
+			limit = {
+				NOT = {
+					any_owned_story = {
+						story_type = DI_misc_variables_story
+					}
+				}
+			}
+			debug_log_scopes = yes
+			debug_log = "DI_debug: Create DI_misc_variables_story"
+			create_story = DI_misc_variables_story
+		}
+		else = { # if there are more than one, delete all
+			every_owned_story = {
+				limit = {
+					story_type = DI_misc_variables_story
+				}
+				debug_log_scopes = yes
+				debug_log = "DI_debug: Delete DI_misc_variables_story"
+				end_story = yes
+			}
+		}
 	}
 }

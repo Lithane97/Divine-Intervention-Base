@@ -204,6 +204,28 @@ DI_change_character_interaction = {
 	}
 
 	on_accept = {
+		scope:recipient = {
+			if = {
+				limit = {
+					any_owned_story = {
+						story_type = DI_misc_variables_story
+					}
+				}
+				every_owned_story = {
+					limit = {
+						story_type = DI_misc_variables_story
+					}
+					end_story = yes
+				}
+			}
+			if = {
+				limit = {
+					has_variable = DI_misc_variables_story
+				}
+				remove_variable = DI_misc_variables_story
+			}
+		}
+		
 		scope:actor = {
 			every_owned_story = {
 				limit = {
@@ -3533,7 +3555,7 @@ DI_reset_story_variables = {
 
 	on_accept = {
 		scope:actor = {
-			random_owned_story = {
+			every_owned_story = {
 				limit = {
 					story_type = DI_misc_variables_story
 				}

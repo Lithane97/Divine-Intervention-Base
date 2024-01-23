@@ -47,6 +47,29 @@ DI_on_title_lost = {
 
 			debug_log = "DI_debug: Player lost their LAST title"
 
+			scope:new_holder = {
+				if = {
+					limit = {
+						any_owned_story = {
+							story_type = DI_misc_variables_story
+						}
+					}
+					debug_log = "DI_debug: Player heir has misc variables story"
+					every_owned_story = {
+						limit = {
+							story_type = DI_misc_variables_story
+						}
+						end_story = yes
+					}
+				}
+				if = {
+					limit = {
+						has_variable = DI_misc_variables_story
+					}
+					remove_variable = DI_misc_variables_story
+				}
+			}
+
 			# then transfer variable stories
 			debug_log = "DI_debug: Transferring variable stories"
 			every_owned_story = {
