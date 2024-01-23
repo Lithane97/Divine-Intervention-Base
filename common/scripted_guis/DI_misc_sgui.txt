@@ -1215,3 +1215,22 @@ DI_advcm_check = {
 		has_global_variable = advcm_enabled
 	}
 }
+
+### Check if the player character has a ###
+### misc_variables story, or create one ###
+###########################################
+DI_misc_variable_story_check = {
+	scope = character
+
+	is_valid = {
+		NOT = {
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+			}
+		}
+	}
+
+	effect = {
+		create_story = DI_misc_variables_story
+	}
+}

@@ -8,6 +8,12 @@ widget = {
 	layer = top
 	using = Animation_ShowHide_Quick
 
+	state = {
+		name = "story_check"
+		trigger_when = "[GetScriptedGui('DI_misc_variable_story_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		on_start = "[GetScriptedGui('DI_misc_variable_story_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+	}
+
 	flowcontainer = {
 		ignoreinvisible = no
 
