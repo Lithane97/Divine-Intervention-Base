@@ -48,8 +48,8 @@ window = {
 			# Relations tab
 			button_tab = {
 				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'diplomacy_tab_relations')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'diplomacy_tab_relations')]"
+				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'relations')]"
+				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'relations')]"
 
 				text_single = {
 					parentanchor = center
@@ -62,8 +62,8 @@ window = {
 			# Treaties tab
 			button_tab = {
 				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'diplomacy_tab_treaties')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'diplomacy_tab_treaties')]"
+				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'treaties')]"
+				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'treaties')]"
 
 				text_single = {
 					parentanchor = center
@@ -76,8 +76,8 @@ window = {
 			# Wars tab
 			button_tab = {
 				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'diplomacy_tab_wars')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'diplomacy_tab_wars')]"
+				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'wars')]"
+				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'wars')]"
 
 				text_single = {
 					parentanchor = center
@@ -86,11 +86,25 @@ window = {
 					default_format = "#low"
 				}
 			}
+
+			# Adoption Tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'adoption')]"
+				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'adoption')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_adoption
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
 		}
 
 		vbox = {
 			name = "relations_tab"
-			visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'diplomacy_tab_relations')]"
+			visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'relations')]"
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = expanding
 
@@ -109,6 +123,7 @@ window = {
 						vbox = {
 							name = "relations_list"
 							layoutpolicy_horizontal = expanding
+							spacing = 5
 
 							DI_Relation_Button = {
 								blockoverride "onclick_relation"
@@ -722,7 +737,7 @@ types DIDiplomacyShared
 	type DI_Relation_Button = hbox {
 		layoutpolicy_horizontal = expanding
 
-		button_standard_hover = {
+		button_standard = {
 			layoutpolicy_horizontal = expanding
 
 			size = { 0 50 }
