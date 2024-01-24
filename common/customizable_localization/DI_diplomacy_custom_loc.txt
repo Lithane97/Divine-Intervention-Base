@@ -1,0 +1,201 @@
+﻿### diplomacy characters ###
+DI_adopt_primary_character = {
+	type = character
+
+	text = {
+		trigger = { 
+			NOT = { has_variable = DI_primary_character }
+			NOT = { has_variable = DI_tertiary_character }
+		}
+		localization_key = DI_primary_character_0
+	}
+	text = {
+		trigger = { 
+			OR = {
+				AND = {
+					has_variable = DI_primary_character
+					NOT = { has_variable = DI_tertiary_character}
+				}
+				AND = {
+					has_variable = DI_primary_character
+					has_variable = DI_tertiary_character
+				}
+			}
+		}
+		localization_key = DI_primary_character_1
+	}
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_primary_character }
+			has_variable = DI_tertiary_character
+		}
+		localization_key = DI_primary_character_2
+	}
+}
+
+DI_flip_primary_character = {
+	type = character
+
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_primary_character }
+		}
+		localization_key = DI_primary_character_0
+	}
+	text = {
+		trigger = {
+			has_variable = DI_primary_character
+		}
+		localization_key = DI_primary_character_1
+	}
+}
+
+DI_adopt_secondary_character = {
+	type = character
+
+	text = {
+		trigger ={
+			NOT = { has_variable = DI_secondary_character }
+		}
+		localization_key = DI_secondary_character_0
+	}
+	text = {
+		trigger = {
+			has_variable = DI_secondary_character
+		}
+		localization_key = DI_secondary_character_1
+	}
+}
+
+DI_flip_secondary_character = {
+	type = character
+
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_secondary_character }
+		}
+		localization_key = DI_secondary_character_0
+	}
+	text = {
+		trigger = {
+			has_variable = DI_secondary_character
+		}
+		localization_key = DI_secondary_character_1
+	}
+}
+
+DI_adopt_tertiary_character = {
+	type = character
+
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_tertiary_character }
+			NOT = { has_variable = DI_primary_character }
+		}
+		localization_key = DI_tertiary_character_0
+	}
+	text = {
+		trigger = {
+			has_variable = DI_tertiary_character
+		}
+		localization_key = DI_tertiary_character_1
+	}
+	text = {
+		trigger = {
+			has_variable = DI_primary_character
+			NOT = { has_variable = DI_tertiary_character }
+		}
+		localization_key = DI_tertiary_character_2
+	}
+}
+
+DI_flip_tertiary_character = {
+	type = character
+
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_tertiary_character }
+		}
+		localization_key = DI_tertiary_character_0
+	}
+	text = {
+		trigger = {
+			has_variable = DI_tertiary_character
+		}
+		localization_key = DI_tertiary_character_1
+	}
+}
+
+### Diplomacy adoption ###
+DI_adopts = {
+	type = character
+
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_primary_character }
+			NOT = { has_variable = DI_tertiary_character }
+		}
+		localization_key = DIAdopt
+	}
+	text = {
+		trigger = {
+			has_variable = DI_primary_character
+			NOT = { has_variable = DI_tertiary_character }
+		}
+		localization_key = DIAdopts
+	}
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_primary_character }
+			has_variable = DI_tertiary_character
+		}
+		localization_key = DIAdopts
+	}
+	text = {
+		trigger = {
+			has_variable = DI_primary_character
+			has_variable = DI_tertiary_character
+		}
+		localization_key = DIAdopt
+	}
+}
+
+DIAdoptAnd = {
+	type = character
+
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					has_variable = DI_primary_character
+					has_variable = DI_tertiary_character
+				}
+				AND = {
+					NOT = { has_variable = DI_primary_character }
+					NOT = { has_variable = DI_tertiary_character }
+				}
+			}
+			
+		}
+		localization_key = DIAnd1
+	}
+	text = {
+		fallback = yes
+		localization_key = DIAnd2
+	}
+}
+
+DIAdoptOf = {
+	type = character
+
+	text = {
+		trigger = {
+			NOT = { has_variable = DI_primary_character }
+		}
+		localization_key = DIOf2
+	}
+	text = {
+		fallback = yes
+		localization_key = DIOf1
+	}
+}
