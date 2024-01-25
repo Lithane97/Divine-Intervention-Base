@@ -1152,6 +1152,8 @@ DI_char_spawner_no_traits_sgui = {
 	scope = character
 
 	effect = {
+		save_scope_as = player
+
 		random_owned_story = {
 			limit = {
 				story_type = DI_misc_variables_story
@@ -1165,11 +1167,11 @@ DI_char_spawner_no_traits_sgui = {
 					has_variable = DI_char_spawner_no_traits
 				}
 				remove_variable = DI_char_spawner_no_traits
-				DI_random_traits_effect = yes
+				scope:player = { DI_random_traits_effect = yes }
 			}
 			else = {
 				set_variable = DI_char_spawner_no_traits
-				DI_no_random_traits_effect = yes
+				scope:player = { DI_no_random_traits_effect = yes }
 			}
 		}
 	}
