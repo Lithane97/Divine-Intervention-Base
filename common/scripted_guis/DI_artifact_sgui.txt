@@ -1,6 +1,10 @@
 ﻿DI_artifact_select_char = {
 	scope = character
 	
+	saved_scopes = {
+		target # player character
+	}
+
 	effect = {
 		scope:target = {
 			set_variable = {
@@ -31,6 +35,10 @@ DI_artifact_select_char_init = {
 DI_take_artifact = {
 	scope = character
 	
+	saved_scopes = {
+		selected_artifact # artifact
+	}
+
 	effect = {
 		save_scope_as = new_owner
 		
@@ -42,6 +50,10 @@ DI_take_artifact = {
 
 DI_destroy_artifact = {
 	scope = character
+
+	saved_scopes = {
+		selected_artifact # artifact
+	}
 	
 	effect = {
 		scope:selected_artifact = { save_scope_as = selected_artifact }
