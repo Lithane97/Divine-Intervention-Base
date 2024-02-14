@@ -58,92 +58,18 @@
 		}
 
 		widget = {
-            size = { 600 170 }
+            size = { 600 220 }
             
             widget = {
-				size = { 600 170 }
-                datacontext = "[GetPlayer.MakeScope.Var('DI_alliance_primary_character').Char]"
-        
-                DI_portrait_shoulders = {
-                    visible = "[Character.IsValid]"
-					position = { 80 10 }
-                    parentanchor = left
-        
-					text_label_center = {
-                        parentanchor = hcenter|top
-                        position = { 0 -5 }
-                        text = DI_select_alliance_primary
-                        default_format = "#low;italic"
-                        max_width = 500
-                    }
+				size = { 600 220 }
 
-                    blockoverride "portrait_button_template_onclick"
-                    {
-                        onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
-                    }
-                }
-        
-                DI_portrait_shoulders = {
-                    visible = "[Not(Character.IsValid)]"
-					position = { 80 10 }
-                    parentanchor = left
-        
-                    text_label_center = {
-                        parentanchor = hcenter|top
-                        position = { 0 -5 }
-                        text = DI_select_alliance_primary
-                        default_format = "#low;italic"
-                        max_width = 500
-                    }
-        
-                    blockoverride "onclick"
-                    {
-                        onclick = "[GetVariableSystem.Toggle('DI_alliance_primary_char_select_list_visible')]"
-                    }
-                }
+				using = DI_Select_Primary_Character
             }
 
 			widget = {
-				size = { 600 170 }
-                datacontext = "[GetPlayer.MakeScope.Var('DI_alliance_secondary_character').Char]"
-        
-                DI_portrait_shoulders = {
-                    visible = "[Character.IsValid]"
-					position = { 400 10 }
-                    parentanchor = left
-        
-					text_label_center = {
-                        parentanchor = hcenter|top
-                        position = { 0 -5 }
-                        text = DI_select_alliance_secondary
-                        default_format = "#low;italic"
-                        max_width = 500
-                    }
-
-                    blockoverride "portrait_button_template_onclick"
-                    {
-                        onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
-                    }
-                }
-        
-                DI_portrait_shoulders = {
-                    visible = "[Not(Character.IsValid)]"
-					position = { 400 10 }
-                    parentanchor = left
-        
-                    text_label_center = {
-                        parentanchor = hcenter|top
-                        position = { 0 -5 }
-                        text = DI_select_alliance_secondary
-                        default_format = "#low;italic"
-                        max_width = 500
-                    }
-        
-                    blockoverride "onclick"
-                    {
-                        onclick = "[GetVariableSystem.Toggle('DI_alliance_secondary_char_select_list_visible')]"
-                    }
-                }
+				size = { 600 220 }
+				
+				using = DI_Select_Secondary_Character
             }
         }
 

@@ -1,6 +1,6 @@
 widget = {
 	name = DI_button
-	visible = "[And( And( GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End ), Not( IsPauseMenuShown )), And(Not(IsRightWindowOpen), And(IsDefaultGUIMode, And(Not(IsGameViewOpen('barbershop')), Not(IsGameViewOpen('royal_court')) ) ) ) )]"
+	visible = "[And( And(Not( IsPauseMenuShown ), Not(IsObserver)), And(Not(IsRightWindowOpen), And(IsDefaultGUIMode, And(Not(IsGameViewOpen('barbershop')), Not(IsGameViewOpen('royal_court')) ) ) ) )]"
 	parentanchor = bottom|right
 	size = { 70 40 }
 	position = { -1 -250 }
@@ -16,6 +16,7 @@ widget = {
 
 	flowcontainer = {
 		ignoreinvisible = no
+		visible = "[GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End )]" # This has to go here to prevent error log spam from observer mode
 
 		button_round = {
 			name = "DI_shortcut_button_advcm"

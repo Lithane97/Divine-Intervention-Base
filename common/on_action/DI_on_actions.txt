@@ -10,6 +10,12 @@ on_title_lost = {
 	on_actions = { DI_on_title_lost }
 }
 
+# Called from code once a year for "playable" (count+) characters.
+# Root is the character
+yearly_playable_pulse = {
+	on_actions = { DI_yearly_playable_pulse }
+}
+
 DI_on_game_start = {
 	effect = {
 		set_global_variable = DI_loaded
@@ -88,6 +94,20 @@ DI_on_title_lost = {
 			scope:new_holder = {
 				DI_save_misc_variables_to_character_effect = yes
 			}
+		}
+	}
+}
+
+### Yearly Pulse, Handle Character Flags ###
+DI_yearly_playable_pulse = {
+	effect = {
+		# Check for character flag - DI_perma_health
+		if = {
+			limit = {
+				has_character_flag = DI_perma_health
+			}
+			# If the character has the flag, call eliminate health problems
+			eliminated_health_problem_effect = yes
 		}
 	}
 }

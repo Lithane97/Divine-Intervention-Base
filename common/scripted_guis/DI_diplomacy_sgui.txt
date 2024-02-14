@@ -758,6 +758,363 @@ DI_remove_victim = {
 	}
 }
 
+### Treaties ###
+################
+### Sign Treaty ###
+DI_dip_treaty = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+				has_variable = DI_secondary_character
+			}
+			var:DI_primary_character = {
+				add_truce_both_ways = {
+					character = scope:player.var:DI_secondary_character
+					override = yes
+					years = 5
+					name = TRUCE_DEBUG
+				}
+			}
+		}
+	}
+}
+
+### Break Treaty ###
+DI_dip_break_treaty = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+				has_variable = DI_secondary_character
+			}
+			var:DI_primary_character = {
+				cancel_truce_both_ways = scope:player.var:DI_secondary_character
+
+			}
+		}
+	}
+}
+
+### All Pinned Start Treaty With Primary ###
+DI_dip_all_treaty = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+			}
+
+			every_in_list = {
+				variable = pinned_characters
+
+				scope:player.var:DI_primary_character = {
+					if = {
+						limit = {
+							NOT = { this = prev }
+						}
+					
+						add_truce_both_ways = {
+							character = prev
+							override = yes
+							years = 5
+							name = TRUCE_DEBUG
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+### All Pinned Break Treaty With Primary ###
+DI_dip_all_break_treaty = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+			}
+
+			every_in_list = {
+				variable = pinned_characters
+
+				scope:player.var:DI_primary_character = {
+					if = {
+						limit = {
+							NOT = { this = prev }
+						}
+
+						cancel_truce_both_ways = prev
+					}
+				}
+			}
+		}
+	}
+}
+
+### Every Pinned Start Treaty With Every Pinned ###
+DI_dip_every_pinned_treaty = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = first_character
+			
+			scope:player = {
+				every_in_list = {
+					variable = pinned_characters
+					
+					if = {
+						limit = {
+							NOT = { this = scope:first_character }
+						}
+
+						add_truce_both_ways = {
+							character = scope:first_character
+							override = yes
+							years = 5
+							name = TRUCE_DEBUG
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### Every Pinned Break Treaty With Every Pinned ###
+DI_dip_every_pinned_break_treaty = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+		
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = first_character
+
+			scope:player = {
+				every_in_list = {
+					variable = pinned_characters
+					
+					if = {
+						limit = {
+							NOT = { this = scope:first_character }
+						}
+
+						cancel_truce_both_ways = scope:first_character
+					}
+				}
+			}
+		}
+	}
+}
+
+### Form Alliance ###
+DI_dip_alliance = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+				has_variable = DI_secondary_character
+			}
+			var:DI_primary_character = {
+				allow_alliance = scope:player.var:DI_secondary_character
+			
+				create_alliance = {
+					target = scope:player.var:DI_secondary_character
+					allied_through_owner = scope:player.var:DI_primary_character
+					allied_through_target = scope:player.var:DI_secondary_character
+				}
+			}
+		}
+	}
+}
+
+### Break Alliance ###
+DI_dip_break_alliance = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+				has_variable = DI_secondary_character
+			}
+			var:DI_primary_character = {
+				if = {
+					limit = {
+						any_ally = {
+							this = scope:player.var:DI_secondary_character
+						}
+					}
+
+					break_alliance = scope:player.var:DI_secondary_character
+				}	
+			}
+		}
+	}
+}
+
+### All Pinned Start Alliance With Primary ###
+DI_dip_all_alliance = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+			}
+
+			every_in_list = {
+				variable = pinned_characters
+
+				scope:player.var:DI_primary_character = {
+					if = {
+						limit = {
+							NOT = { this = prev }
+						}
+					
+						allow_alliance = prev
+						
+						create_alliance = {
+							target = prev
+							allied_through_owner = scope:player.var:DI_primary_character
+							allied_through_target = prev
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### All Pinned Break Alliance With Primary ###
+DI_dip_all_break_alliance = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+			}
+
+			every_in_list = {
+				variable = pinned_characters
+				save_scope_as = first_character
+
+				scope:player.var:DI_primary_character = {
+					if = {
+						limit = {
+							NOT = { this = prev }
+							any_ally = {
+								this = scope:first_character
+							}
+						}
+
+						break_alliance = scope:first_character
+					}
+				}
+			}
+		}
+	}
+}
+
+### Every Pinned Start Alliance With Every Pinned ###
+DI_dip_every_pinned_alliance = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = first_character
+			
+			scope:player = {
+				every_in_list = {
+					variable = pinned_characters
+					save_scope_as = second_character
+					
+					if = {
+						limit = {
+							NOT = { this = scope:first_character }
+						}
+
+						allow_alliance = scope:first_character
+						
+						create_alliance = {
+							target = scope:first_character
+							allied_through_owner = scope:second_character
+							allied_through_target = scope:first_character
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### Every Pinned Break Alliance With Every Pinned ###
+DI_dip_every_pinned_break_alliance = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+		
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = first_character
+
+			scope:player = {
+				every_in_list = {
+					variable = pinned_characters
+					
+					if = {
+						limit = {
+							NOT = { this = scope:first_character }
+							any_ally = {
+								this = scope:first_character
+							}
+						}
+
+						break_alliance = scope:first_character
+					}
+				}
+			}
+		}
+	}
+}
+
 ### Family ###
 ##############
 ### Initiate Adoption ###

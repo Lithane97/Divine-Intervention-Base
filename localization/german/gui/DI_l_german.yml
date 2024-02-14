@@ -11,7 +11,6 @@
  DI_artifact_creator_tt: "Opens a menu where you can see a list of pinned characters artifacts, create artifacts, and perform various effects on the listed artifacts."
  DI_cultural_editor_window: "Cultural Editor" # button label
  DI_cultural_editor_window_tt: "Opens a menu where you can edit the culture of pinned characters."
- DI_alliance_window_tt: "Opens a menu where you can form alliances between pinned characters." 
  DI_debug_mode: "Debug Mode"
  DI_debug_mode_tt: "Enable/Disable Debug mode Will Disable Achievements"
  DI_clear_pins: "Clear All Pins"
@@ -216,6 +215,7 @@
  DI_building_slots: "Extra Building Slots"
  DI_domain_limit: "Extra Domain Limit"
  DI_money_printer: "Money Printer"
+ DI_perma_health: "Permanent Health"
  ### Traits ###
  DI_traits: "Traits" # window title
  DI_pinned_traits: "Pinned"
@@ -391,16 +391,36 @@
  DI_reset_relations: "Reset Relations" # button label
  DI_good_relations: "Good Relations" # button label
  DI_bad_relations: "Bad Relations" # button label
+ # Treaties
+ DI_dip_treaty_button: "Sign Treaty" # button label
+ DI_dip_treaty_button_tt: "Sign a treaty between [GetPlayer.Custom('DI_flip_primary_character')] and [GetPlayer.Custom('DI_flip_secondary_character')]."
+ DI_dip_break_treaty_button: "Break Treaty" # button label
+ DI_dip_break_treaty_button_tt: "Break a treaty between [GetPlayer.Custom('DI_flip_primary_character')] and [GetPlayer.Custom('DI_flip_secondary_character')]."
+ DI_dip_alliance_button: "Form Alliance" # button label
+ DI_dip_alliance_button_tt: "Form an alliance between [GetPlayer.Custom('DI_flip_primary_character')] and [GetPlayer.Custom('DI_flip_secondary_character')]."
+ DI_dip_break_alliance_button: "Break Alliance" # button label
+ DI_dip_break_alliance_button_tt: "Break an alliance between [GetPlayer.Custom('DI_flip_primary_character')] and [GetPlayer.Custom('DI_flip_secondary_character')]."
+ DI_all_treaty: "All Form Treaties" # button label
+ DI_all_treaty_tt: "Every pinned character forms a treaty with [GetPlayer.Custom('DI_flip_primary_character')]."
+ DI_all_break_treaty: "Break All Treaties" # button label
+ DI_all_break_treaty_tt: "Every pinned character loses a treaty with [GetPlayer.Custom('DI_flip_primary_character')]."
+ DI_every_pinned_treaty: "Every Pinned Treaties" # button label
+ DI_every_pinned_treaty_tt: "#Bold Left-Click#! to have every pinned character form a treaty with every other pinned character. \n#Bold Right-Click#! to have every pinned character break a treaty with every other pinned character."
+ DI_all_alliance: "All Form Alliances" # button label
+ DI_all_alliance_tt: "Every pinned character forms an alliance with [GetPlayer.Custom('DI_flip_primary_character')]."
+ DI_all_break_alliance: "Break All Alliances" # button label
+ DI_all_break_alliance_tt: "Every pinned character loses an alliance with [GetPlayer.Custom('DI_flip_primary_character')]."
+ DI_every_pinned_alliance: "Every Pinned Alliances" # button label
+ DI_every_pinned_alliance_tt: "#Bold Left-Click#! to have every pinned character form an alliance with every other pinned character. \n#Bold Right-Click#! to have every pinned character break an alliance with every other pinned character."
  # Family
  DI_dip_adoption_button: "Adopt" # button label
  DI_dip_adoption_button_tt: "[GetPlayer.Custom('DI_adopt_primary_character')][GetPlayer.Custom('DIAdoptAnd')][GetPlayer.Custom('DI_adopt_tertiary_character')][GetPlayer.Custom('DI_adopts')][GetPlayer.Custom('DI_adopt_secondary_character')]"
  DI_dip_adoption_house_button: "Change House" # button label
- DI_dip_adoption_house_button_tt: "[GetPlayer.Custom('DI_flip_primary_character')]takes [GetPlayer.Custom('DI_flip_secondary_character')] into their house[GetPlayer.Custom('DIAdoptOf')][GetPlayer.MakeScope.Var('DI_primary_character').Char.GetHouse.GetBaseName]."
-
+ DI_dip_adoption_house_button_tt: "[GetPlayer.Custom('DI_flip_primary_character')] takes [GetPlayer.Custom('DI_flip_secondary_character')] into their house[GetPlayer.Custom('DIAdoptOf')][GetPlayer.MakeScope.Var('DI_primary_character').Char.GetHouse.GetBaseName]."
  DI_dip_impregnate_button: "Impregnate" # button label
- DI_dip_impregnate_button_tt: "[GetPlayer.Custom('DI_flip_primary_character')]and [GetPlayer.Custom('DI_flip_tertiary_character')]start a pregnancy. Only works with a male / female pair."
+ DI_dip_impregnate_button_tt: "[GetPlayer.Custom('DI_flip_primary_character')] and [GetPlayer.Custom('DI_flip_tertiary_character')]start a pregnancy. Only works with a male / female pair."
  DI_dip_marry_button: "Marry" # button label
- DI_dip_marry_button_tt: "[GetPlayer.Custom('DI_flip_primary_character')]and [GetPlayer.Custom('DI_flip_tertiary_character')]marry."
+ DI_dip_marry_button_tt: "[GetPlayer.Custom('DI_flip_primary_character')] and [GetPlayer.Custom('DI_flip_tertiary_character')]marry."
  ### Artifact Creator ###
  DI_artifact_creator: "Artifact Creator" # window title
  DI_artifact_list: "Artifact List"
@@ -464,22 +484,6 @@
  DI_culture_convert_counties: "Counties"
  DI_culture_to_edit: "Culture to Edit"
  DI_culture_to_copy: "Culture to Copy"
- ### Adoption ###
- DI_adoption_window: "Adoption" # window title / button label
- DI_select_adoption_parent: "Select Parent"
- DI_adoption_parent: "Primary Parent"
- DI_adoption_parent_partner: "Secondary Parent"
- DI_select_adoption_parent_partner: "Secondary Parent"
- DI_adoption_child: "Child"
- DI_select_adoption_child: "Select Child"
- DI_dip_adoption_button: "Adopt"
- DI_dip_adoption_house_button: "Change House"
- ### Alliance ###
- DI_alliance_window: "Alliance" # window title / button label
- DI_select_alliance_primary: "Select Primary Character"
- DI_select_alliance_secondary: "Select Secondary Character"
- DI_alliance_button_initiate: "Form Alliance"
- DI_alliance_button_break: "Break Alliance"
  ### INTERACTIONS ###
  interaction_category_cheat_menu: "Divine Intervention" # category name
  DI_open_cheat_menu: "Interactions On"
@@ -636,6 +640,16 @@
  DI_abdicate: "Abdicate"
  DI_reset_story_variables: "Reset Story Variables"
  DI_reset_story_variables_desc: "Resets all the various menu variables,\n use this if you are having issues with any menu options not working,\n but also maybe send me your save game, and a picture of what's wrong."
+ DI_permanent_health: "Permanent Health"
+ DI_permanent_health_desc: "Applies a flag to the character that removes all bad health flags / modifiers / traits once a year. It's the same effect as the character editor present option, Eliminate Health Issues, but it is automatically applied once a year."
+ no_lifestyle_diplomacy:0 "Diplomacy (stops notifs)"
+ no_lifestyle_martial:0 "Martial (stops notifs)"
+ no_lifestyle_stewardship:0 "Stewardship (stops notifs)"
+ no_lifestyle_intrigue:0 "Intrigue (stops notifs)"
+ no_lifestyle_learning:0 "Learning (stops notifs)"
+ no_stress_change:0 "Stress: Locked"
+ no_tyranny_change:0 "Tyranny: Locked"
+ no_dread_change:0 "Dread: Locked"
  ### Character Interaction Events
  DI_sex_interaction_t: "A Night to Remember"
  DI_cadetBranch_interaction: "Create Cadet Branch"

@@ -383,6 +383,43 @@ DI_change_dynasty_interaction = {
 	ai_will_do = { base = 0 }
 }
 
+DI_permanent_health = {
+	category = interaction_category_cheat_menu
+	icon = health_positive
+	desc = DI_permanent_health_desc
+	common_interaction = no
+
+	auto_accept = yes
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+			any_owned_story = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
+		}
+	}
+
+	on_accept = {
+		scope:recipient = {
+			if = {
+				limit = {
+					has_character_flag = DI_perma_health
+				}
+				remove_character_flag = DI_perma_health
+				remove_character_modifier = DI_perma_health
+			}
+			else = {
+				add_character_flag = DI_perma_health
+				add_character_modifier = DI_perma_health
+			}
+		}
+	}
+}
+
 DI_change_character_weight_interaction = {
 	category = interaction_category_cheat_menu
 	use_diplomatic_range = no
