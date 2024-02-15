@@ -776,6 +776,141 @@ window = {
 			}
 
 			vbox = {
+				# Wars
+				name = "wars_tab"
+				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'wars')]"
+				layoutpolicy_horizontal = expanding
+
+				margin = { 20 10 }
+
+				using = Animation_Tab_Switch
+
+				vbox = {
+					scrollbox = {
+						layoutpolicy_horizontal = expanding
+						size = { 400 300 }
+
+						blockoverride "scrollbox_content"
+						{
+							vbox = {
+								name = "wars_list"
+								layoutpolicy_horizontal = expanding
+								spacing = 5
+								
+								hbox = {
+									layoutpolicy_horizontal = expanding
+
+									button_standard = {
+										layoutpolicy_horizontal = expanding
+										size = { 0 50 }
+
+										onclick = "[GetScriptedGui('DI_dip_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+								
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												
+												text = DI_dip_war_button
+								
+												default_format = "#clickable"
+											}
+										}
+										tooltip = DI_placeholder_tt # DI_dip_war_button_tt
+									}
+									hbox = {
+										minimumsize = { 76 -1 }
+									}
+								}
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+
+									button_standard = {
+										layoutpolicy_horizontal = expanding
+										size = { 0 50 }
+
+										onclick = "[GetScriptedGui('DI_dip_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+								
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												
+												text = DI_dip_end_war_button
+								
+												default_format = "#clickable"
+											}
+										}
+										tooltip = DI_placeholder_tt # DI_dip_end_war_button_tt
+									}
+									hbox = {
+										minimumsize = { 76 -1 }
+									}
+								}
+							}
+						}
+					}
+					margin_bottom = 16
+				}
+
+				vbox = {
+					spacing = 8
+
+					hbox = {
+						spacing = 15
+						button_standard = {
+							text = DI_all_war
+							tooltip = DI_placeholder_tt # DI_all_war_tt
+
+							onclick = "[GetScriptedGui('DI_dip_all_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						}
+
+						button_standard = {
+							text = DI_all_end_war
+							tooltip = DI_placeholder_tt # DI_all_end_war_tt
+
+							onclick = "[GetScriptedGui('DI_dip_all_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+						}
+
+						button_standard = {
+							text = DI_every_pinned_war
+							tooltip = DI_placeholder_tt # DI_every_pinned_war_tt
+
+							onclick = "[GetScriptedGui('DI_dip_every_pinned_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							onrightclick = "[GetScriptedGui('DI_dip_every_pinned_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							button_ignore = none
+						}
+					}
+
+					hbox = {
+						spacing = 15
+						button_standard = {
+							text = DI_test
+							tooltip = DI_placeholder_tt			
+						}
+
+						button_standard = {
+							text = DI_test
+							tooltip = DI_placeholder_tt			
+						}
+
+						button_standard = {
+							text = DI_test
+							tooltip = DI_placeholder_tt			
+						}
+					}
+				}
+			}
+
+			vbox = {
 				# Family
 				name = "family_tab"
 				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
