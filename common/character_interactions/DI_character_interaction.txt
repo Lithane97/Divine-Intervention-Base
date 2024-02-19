@@ -3214,7 +3214,6 @@ DI_change_government = {
 	ignores_pending_interaction_block = yes
 
 	is_shown = {
-		scope:recipient = scope:actor
 		scope:actor = {
 			is_ai = no
 			any_owned_story = {
@@ -3243,42 +3242,48 @@ DI_change_government = {
 				trigger = yes
 
 				scope:feudal = {
-					change_government = feudal_government
-					every_vassal_or_below = {
+					scope:recipient = {
 						change_government = feudal_government
-					}
-
-					every_realm_province = {
-						limit = {
-							has_holding_type = tribal_holding
+						every_vassal_or_below = {
+							change_government = feudal_government
 						}
-						set_holding_type = castle_holding
+
+						every_realm_province = {
+							limit = {
+								has_holding_type = tribal_holding
+							}
+							set_holding_type = castle_holding
+						}
 					}
 				}
 				scope:clan = {
-					change_government = clan_government
-					every_vassal_or_below = {
+					scope:recipient = {
 						change_government = clan_government
-					}
-
-					every_realm_province = {
-						limit = {
-							has_holding_type = tribal_holding
+						every_vassal_or_below = {
+							change_government = clan_government
 						}
-						set_holding_type = castle_holding
+
+						every_realm_province = {
+							limit = {
+								has_holding_type = tribal_holding
+							}
+							set_holding_type = castle_holding
+						}
 					}
 				}
 				scope:tribal = {
-					change_government = tribal_government
-					every_vassal_or_below = {
+					scope:recipient = {
 						change_government = tribal_government
-					}
-
-					every_realm_province = {
-						limit = {
-							has_holding_type = castle_holding
+						every_vassal_or_below = {
+							change_government = tribal_government
 						}
-						set_holding_type = tribal_holding
+
+						every_realm_province = {
+							limit = {
+								has_holding_type = castle_holding
+							}
+							set_holding_type = tribal_holding
+						}
 					}
 				}
 			}

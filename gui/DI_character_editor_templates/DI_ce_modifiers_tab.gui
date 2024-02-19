@@ -1,0 +1,371 @@
+template DI_CE_Modifiers_Tab
+{
+	vbox = {
+		name = "modifiers_tab"
+		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_ce_tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					using = DI_CE_Modifiers_Prestige
+					using = DI_CE_Modifiers_Piety
+					using = DI_CE_Modifiers_Income
+					using = DI_CE_Modifiers_Opinion
+					using = DI_CE_Modifiers_Health
+					using = DI_CE_Modifiers_Intrigue
+					using = DI_CE_Modifiers_Authority
+					using = DI_CE_Modifiers_Provincial
+					using = DI_CE_Modifiers_Governing
+					using = DI_CE_Modifiers_Military
+					using = DI_CE_Modifiers_Learning
+					using = DI_CE_Modifiers_MAA
+					using = DI_CE_Modifiers_Custom
+				}
+			}
+		}
+	}
+}
+
+template DI_CE_Modifiers_MAA_Selector
+{
+	vbox = {
+		spacing = 5
+
+		hbox = {
+			button_standard = {
+				max_width = 150
+				
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetScriptedGui('DI_clear_modifiers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				text = DI_clear_modifiers
+				tooltip = DI_clear_modifiers_tt
+				using = tooltip_ne
+				
+			}
+		}
+		
+		text_label_center = {
+			name = "maa_type_label"
+			size = { 30 30 }
+			
+			text = DI_modifier_maa_type
+		}
+		
+		scrollbox = {
+			size = { 160 280 }
+
+			blockoverride "scrollbox_content"
+			{
+				# skirmishers
+				button_standard_hover = {
+					text = skirmishers
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'skirmishers')]"
+				}
+				
+				# archers
+				button_standard_hover = {
+					text = archers
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'archers')]"
+				}
+
+				# light_cavalry
+				button_standard_hover = {
+					text = light_cavalry
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'light_cavalry')]"
+				}
+
+				# pikemen
+				button_standard_hover = {
+					text = pikemen
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'pikemen')]"
+				}
+
+				# heavy_infantry
+				button_standard_hover = {
+					text = heavy_infantry
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'heavy_infantry')]"
+				}
+
+				# siege_weapon
+				button_standard_hover = {
+					text = siege_weapon
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'siege_weapon')]"
+				}
+
+				# heavy_cavalry
+				button_standard_hover = {
+					text = heavy_cavalry
+					layoutpolicy_horizontal = expanding
+
+					size = { 0 40 }
+					onclick = "[GetVariableSystem.Set('maa_type', 'heavy_cavalry')]"
+				}
+			}
+		}
+	}
+}
+
+# Modifiers Tabs
+template DI_CE_Modifiers_Tabs
+{
+	vbox = {
+		name = "modifiers_tabs"
+		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+		margin = { 35 10 }
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+			# prestige tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'prestige')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'prestige')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_prestige
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# piety tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'piety')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'piety')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_piety
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# income tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'income')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'income')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_income
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# opinion Tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'opinion')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'opinion')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_opinion
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# health tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'health')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'health')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_health
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+			# intrigue tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'intrigue')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'intrigue')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_intrigue
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# authority tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'authority')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'authority')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_authority
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# provincial tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'provincial')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'provincial')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_provincial
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# governing tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'governing')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'governing')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_governing
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# military tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'military')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'military')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_military
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+			# learning tab	
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'learning')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'learning')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_learning
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# maa tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'maa')]"
+				onclick = "[GetVariableSystem.Set('maa_type', 'skirmishers')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'maa')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_maa
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# custom tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_modifiers_tab', 'custom')]"
+				down = "[GetVariableSystem.HasValue('ce_modifiers_tab', 'custom')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_ce_tab_custom
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+		}
+		expand = {}
+	}
+}
+
+template modifier_DI_tooltip {
+	object_tooltip_pop_out = {
+		blockoverride "header_additions" {
+			hbox = {
+				icon = {
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tintcolor = "[TooltipInfo.GetTintColor]"
+				}
+			}
+		}
+		blockoverride "title_text" {
+			text = "[StaticModifier.GetName]"
+		}
+
+		blockoverride "concept_link" {
+			text = "[Trait.GetTraitCategoryLabel]"
+		}
+		blockoverride "description_text" {
+			block "actual_description_text" {
+				text = "[StaticModifier.GetDescWithEffects]"
+			}
+		}
+        blockoverride "input_info_text" {
+            text = DI_modifiers_desc
+        }
+	}
+}

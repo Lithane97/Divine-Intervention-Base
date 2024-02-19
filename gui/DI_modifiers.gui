@@ -12352,7 +12352,7 @@ window = {
                                 ignoreinvisible = yes
                                 datacontext = [GetPlayer]
 
-                                using = DI_Modifier_MAA_base
+                                using = DI_Modifier_MAA_Base
                             }
                         }
         
@@ -13046,129 +13046,7 @@ window = {
                     }
                 }
             }
-            ### MAA Selector ###
-            vbox = {
-                spacing = 5
-
-                button_standard = {
-                    max_width = 150
-                    
-                    layoutpolicy_horizontal = expanding
-                    onclick = "[GetScriptedGui('DI_clear_modifiers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                    button_ignore = none
-                    text = DI_clear_modifiers
-                    tooltip = DI_clear_modifiers_tt
-                    using = tooltip_ne
-                    
-                }
-
-                text_label_center = {
-                    name = "maa_type_label"
-                    size = { 30 30 }
-                    
-                    text = DI_modifier_maa_type
-                }
-                
-                scrollbox = {
-                    size = { 185 300 }
-
-                    blockoverride "scrollbox_content"
-                    {
-                        # skirmishers
-                        button_standard_hover = {
-                            text = skirmishers
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'skirmishers')]"
-                        }
-                        
-                        # archers
-                        button_standard_hover = {
-                            text = archers
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'archers')]"
-                        }
-
-                        # light_cavalry
-                        button_standard_hover = {
-                            text = light_cavalry
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'light_cavalry')]"
-                        }
-
-                        # pikemen
-                        button_standard_hover = {
-                            text = pikemen
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'pikemen')]"
-                        }
-
-                        # heavy_infantry
-                        button_standard_hover = {
-                            text = heavy_infantry
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'heavy_infantry')]"
-                        }
-
-                        # siege_weapon
-                        button_standard_hover = {
-                            text = siege_weapon
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'siege_weapon')]"
-                        }
-
-                        # heavy_cavalry
-                        button_standard_hover = {
-                            text = heavy_cavalry
-                            layoutpolicy_horizontal = expanding
-
-                            size = { 0 40 }
-                            onclick = "[GetVariableSystem.Set('maa_type', 'heavy_cavalry')]"
-                        }
-                    }
-                }
-            }
+            using = DI_CE_Modifiers_MAA_Selector
         }
-	}
-}
-
-template modifier_DI_tooltip {
-	object_tooltip_pop_out = {
-		blockoverride "header_additions" {
-			hbox = {
-				icon = {
-					size = { 40 40 }
-					texture = "[StaticModifier.GetIcon]"
-					tintcolor = "[TooltipInfo.GetTintColor]"
-				}
-			}
-		}
-		blockoverride "title_text" {
-			text = "[StaticModifier.GetName]"
-		}
-
-		blockoverride "concept_link" {
-			text = "[Trait.GetTraitCategoryLabel]"
-		}
-		blockoverride "description_text" {
-			block "actual_description_text" {
-				text = "[StaticModifier.GetDescWithEffects]"
-			}
-		}
-        blockoverride "input_info_text" {
-            text = DI_modifiers_desc
-        }
-        
 	}
 }

@@ -1,0 +1,551 @@
+template DI_CE_Modifiers_MAA
+{
+	### Men at Arms Modifiers ###
+	### Base ###
+	vbox = {
+		name = "modifiers_maa_base_selection_panel"
+		spacing = 20
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'maa' ), Not(Or(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			# maa_siege_value_add
+			dockable_button = {
+				name = "DI_modifier_maa_siege_value_add_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_siege_value_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_siege_value_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {                                
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_siege_value_add')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			# maa_damage_add
+			dockable_button = {
+				name = "DI_modifier_maa_damage_add_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_damage_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_damage_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {                                
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_damage_add')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			# maa_toughness_add
+			dockable_button = {
+				name = "DI_modifier_maa_toughness_add_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_toughness_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_toughness_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {                                
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_toughness_add')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			# maa_pursuit_add
+			dockable_button = {
+				name = "DI_modifier_maa_pursuit_add_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_pursuit_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_pursuit_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {                                
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_pursuit_add')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			# maa_screen_add
+			dockable_button = {
+				name = "DI_modifier_maa_screen_add_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_screen_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_screen_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {                                
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_screen_add')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+
+		vbox = {
+			using = DI_Modifier_MAA_Label
+		}
+		
+		flowcontainer = {
+			spacing = 5
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			using = DI_Modifier_MAA_Base
+		}
+	}
+
+	### Base Neg ###
+	vbox = {
+		name = "modifiers_maa_neg_selection_panel"
+		spacing = 20
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'maa' ), And(GetVariableSystem.Exists('DI_modifier_neg'), Not(GetVariableSystem.Exists('DI_modifier_mult'))))]"
+
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			# maa_siege_value_neg
+			dockable_button = {
+				name = "DI_modifier_maa_siege_value_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_siege_value_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_siege_value_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_siege_value_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_damage_neg
+			dockable_button = {
+				name = "DI_modifier_maa_damage_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_damage_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_damage_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_damage_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_toughness_neg
+			dockable_button = {
+				name = "DI_modifier_maa_toughness_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_toughness_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_toughness_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_toughness_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_pursuit_neg
+			dockable_button = {
+				name = "DI_modifier_maa_pursuit_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_pursuit_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_pursuit_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_pursuit_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_screen_neg
+			dockable_button = {
+				name = "DI_modifier_maa_screen_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_screen_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_screen_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_screen_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+		}
+		
+		vbox = {
+			using = DI_Modifier_MAA_Label
+		}
+
+		flowcontainer = {
+			spacing = 5
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			using = DI_Modifier_MAA_Neg
+		}
+	}
+
+	### Mult ###
+	vbox = {
+		name = "modifiers_maa_mult_selection_panel"
+		spacing = 20
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'maa' ), And(Not(GetVariableSystem.Exists('DI_modifier_neg')), GetVariableSystem.Exists('DI_modifier_mult')))]"
+
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			# maa_siege_value_mult
+			dockable_button = {
+				name = "DI_modifier_maa_siege_value_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_siege_value_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_siege_value_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_siege_value_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_damage_mult
+			dockable_button = {
+				name = "DI_modifier_maa_damage_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_damage_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_damage_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_damage_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_toughness_mult
+			dockable_button = {
+				name = "DI_modifier_maa_toughness_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_toughness_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_toughness_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_toughness_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_pursuit_mult
+			dockable_button = {
+				name = "DI_modifier_maa_pursuit_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_pursuit_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_pursuit_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_pursuit_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_screen_mult
+			dockable_button = {
+				name = "DI_modifier_maa_screen_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_screen_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_screen_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_screen_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+		}
+
+		vbox = {
+			using = DI_Modifier_MAA_Label
+		}
+
+		flowcontainer = {
+			spacing = 5
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			using = DI_Modifier_MAA_Mult
+		}
+	}
+
+	### Mult Neg ###
+	vbox = {
+		name = "modifiers_maa_mult_neg_selection_panel"
+		spacing = 20
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'maa' ), And(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult')))]"
+
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			# maa_siege_value_mult_neg
+			dockable_button = {
+				name = "DI_modifier_maa_siege_value_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_siege_value_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_siege_value_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_siege_value_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 40 40 }
+					tintcolor = { 1 0 0 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_damage_mult_neg
+			dockable_button = {
+				name = "DI_modifier_maa_damage_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_damage_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_damage_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_damage_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					tintcolor = { 1 0 0 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_toughness_mult_neg
+			dockable_button = {
+				name = "DI_modifier_maa_toughness_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_toughness_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_toughness_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_toughness_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = {30 30 }
+					tintcolor = { 1 0 0 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_pursuit_mult_neg
+			dockable_button = {
+				name = "DI_modifier_maa_pursuit_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_pursuit_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_pursuit_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_pursuit_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = {30 30 }
+					tintcolor = { 1 0 0 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# maa_screen_mult_neg
+			dockable_button = {
+				name = "DI_modifier_maa_screen_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_maa_screen_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_maa_screen_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('maa_screen_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = {30 30 }
+					tintcolor = { 1 0 0 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+		}
+
+		vbox = {
+			using = DI_Modifier_MAA_Label
+		}
+
+		flowcontainer = {
+			spacing = 5
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			using = DI_Modifier_MAA_Mult_Neg
+		}
+	}
+}

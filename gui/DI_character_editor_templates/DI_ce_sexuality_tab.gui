@@ -1,0 +1,144 @@
+template DI_CE_Sexuality_Tab
+{
+	vbox = {
+		name = "sexuality_tab"
+		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'sexuality')]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "sexuality_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						# heterosexual button
+						DI_char_editor_button = {
+							name = "DI_heterosexual_button"
+							blockoverride "button_onleftclick"
+							{
+								onclick = "[GetScriptedGui('DI_sexuality_heterosexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							blockoverride "button_icon_framesize"
+							{
+								framesize = { 40 40 }
+								frame = "1"
+							}
+							blockoverride "button_icon_texture"
+							{
+								texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+							}
+
+							blockoverride "button_text"
+							{
+								text = DI_sexuality_he
+							}
+
+							blockoverride "button_tooltip"
+							{
+
+							}
+						}
+
+						# homosexual button
+						DI_char_editor_button = {
+							name = "DI_homosexual_button"
+							blockoverride "button_onleftclick"
+							{
+								onclick = "[GetScriptedGui('DI_sexuality_homosexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							blockoverride "button_icon_framesize"
+							{
+								framesize = { 40 40 }
+								frame = "2"
+							}
+							blockoverride "button_icon_texture"
+							{
+								texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+							}
+
+							blockoverride "button_text"
+							{
+								text = DI_sexuality_ho
+							}
+
+							blockoverride "button_tooltip"
+							{
+
+							}
+						}
+
+						# bisexual button
+						DI_char_editor_button = {
+							name = "DI_bisexual_button"
+							blockoverride "button_onleftclick"
+							{
+								onclick = "[GetScriptedGui('DI_sexuality_bisexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							blockoverride "button_icon_framesize"
+							{
+								framesize = { 40 40 }
+								frame = "3"
+							}
+							blockoverride "button_icon_texture"
+							{
+								texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+							}
+
+							blockoverride "button_text"
+							{
+								text = DI_sexuality_bi
+							}
+
+							blockoverride "button_tooltip"
+							{
+
+							}
+						}
+
+						# asexual button
+						DI_char_editor_button = {
+							name = "DI_asexual_button"
+							blockoverride "button_onleftclick"
+							{
+								onclick = "[GetScriptedGui('DI_sexuality_asexual').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							}
+
+							blockoverride "button_icon_framesize"
+							{
+								framesize = { 40 40 }
+								frame = "4"
+							}
+							blockoverride "button_icon_texture"
+							{
+								texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+							}
+
+							blockoverride "button_text"
+							{
+								text = DI_sexuality_as
+							}
+
+							blockoverride "button_tooltip"
+							{
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

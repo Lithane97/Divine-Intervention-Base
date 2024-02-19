@@ -1,0 +1,516 @@
+template DI_CE_Modifiers_Income
+{
+	### income MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_income_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'income' ), Not(Or(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_income_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_war_income_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_war_income').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_war_income').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_war_income')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_income_per_stress_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_per_stress_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_per_stress_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_per_stress_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### INCOME MULTIPLIER MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_income_mult_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'income' ), And(Not(GetVariableSystem.Exists('DI_modifier_neg')), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_income_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_tax_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('tax_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_domain_tax_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_domain_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_domain_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('domain_tax_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_vassal_tax_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_vassal_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_vassal_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('vassal_tax_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_war_income_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_war_income_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_war_income_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_war_income_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_income_per_stress_level_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_per_stress_level_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_per_stress_level_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_per_stress_level_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_domain_tax_same_faith_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_domain_tax_same_faith_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_domain_tax_same_faith_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('domain_tax_same_faith_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_domain_tax_different_faith_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_domain_tax_different_faith_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_domain_tax_different_faith_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('domain_tax_different_faith_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### income NEG MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_income_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'income' ), And(GetVariableSystem.Exists('DI_modifier_neg'), Not(GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_income_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_war_income_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_war_income_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_war_income_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_war_income_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_income_per_stress_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_per_stress_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_per_stress_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_per_stress_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### INCOME MULTIPLIER NEG MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_income_mult_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'income' ), And(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_income_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_tax_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('tax_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_domain_tax_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_domain_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_domain_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('domain_tax_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_vassal_tax_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_vassal_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_vassal_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('vassal_tax_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_war_income_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_war_income_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_war_income_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_war_income_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_income_per_stress_level_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_income_per_stress_level_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_income_per_stress_level_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_income_per_stress_level_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_domain_tax_same_faith_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_domain_tax_same_faith_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_domain_tax_same_faith_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('domain_tax_same_faith_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_domain_tax_different_faith_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_domain_tax_different_faith_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_domain_tax_different_faith_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('domain_tax_different_faith_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+}

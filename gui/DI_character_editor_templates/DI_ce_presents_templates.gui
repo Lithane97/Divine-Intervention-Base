@@ -1,0 +1,1137 @@
+template DI_CE_Lifestyle_Tab
+{
+	vbox = {
+		name = "lifestyle_tab"
+		visible = "[And( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('ce_presents_tab', 'lifestyle'))]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "presents_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						# All Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_all_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_all_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/event_types/type_majesty.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_all_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_all_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# All Martial Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_martial_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_martial_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/lifestyles/martial_lifestyle.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_martial_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_martial_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# All Diplomacy Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_diplomacy_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_diplomacy_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/lifestyles/diplomacy_lifestyle.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_diplomacy_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_diplomacy_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# All Stewardship Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_stewardship_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_stewardship_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/lifestyles/stewardship_lifestyle.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_stewardship_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_stewardship_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# All Intrigue Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_intrigue_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_intrigue_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/lifestyles/intrigue_lifestyle.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_intrigue_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_intrigue_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# All Learning Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_learning_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_learning_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/lifestyles/learning_lifestyle.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_learning_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_learning_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+template DI_CE_Health_Tab
+{
+	vbox = {
+		name = "health_tab"
+		visible = "[And( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('ce_presents_tab', 'health'))]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "presents_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						# Eliminate Health Issues Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_eliminate_health_issues').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "1"
+										texture = "gfx/interface/icons/character_status/icon_health.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_eliminate_health_issues_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_eliminate_health_issues_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Good Genes Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_good_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_good_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "1"
+										texture = "gfx/interface/icons/character_status/icon_health.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_good_genes_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_good_genes_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Bad Genes Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_bad_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_bad_genes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "3"
+										texture = "gfx/interface/icons/character_status/icon_health.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_bad_genes_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_bad_genes_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Lock Stress Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_lock_stress').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_unlock_stress').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/stress/icon_stress.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_lock_stress_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_lock_stress_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Lock Tyranny Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_lock_tyranny').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_unlock_tyranny').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/icon_tyranny.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_lock_tyranny_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_lock_tyranny_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Lock Dread Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_lock_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_unlock_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/icon_dread.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_lock_dread_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_lock_dread_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+template DI_CEP_Traits_Tab
+{
+	vbox = {
+		name = "present_traits_tab"
+		visible = "[And( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('ce_presents_tab', 'traits'))]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "presents_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						# Randomize Personality Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_randomize_personality').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_clear_personality').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/message_feed/trait.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_randomize_personality_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_randomize_personality_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Special Traits Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_special_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_special_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/100_stat_man.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_special_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_special_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Commander Traits Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_commander_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_commander_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/icon_commander.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_commander_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_commander_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Aggressive Traits Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_aggressive_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_aggressive_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/brave.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_aggressive_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_aggressive_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Timid Traits Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_timid_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_timid_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/craven.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_timid_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_timid_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Giant Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_giant_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_giant_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/giant.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_giant_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_giant_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Dwarf Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_dwarf_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_dwarf_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/dwarf.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_dwarf_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_dwarf_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Albino Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_albino_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_albino_traits').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/albino.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_albino_traits_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_albino_traits_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+template DI_CE_Laws_Tab
+{
+	vbox = {
+		name = "laws_tab"
+		visible = "[And( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('ce_presents_tab', 'laws'))]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "presents_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						# Gender Equality Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_gender_equality').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+										framesize = { 40 40 }
+										frame = "1"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_gender_equality_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_gender_equality_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Inverse Genders Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_inverse_genders').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+										framesize = { 40 40 }
+										frame = "4"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_inverse_genders_button
+
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_inverse_genders_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Female Dominated Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_female_dominated').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+										framesize = { 40 40 }
+										frame = "2"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+
+										text = DI_ce_female_dominated_button
+
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_female_dominated_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Male Dominated Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_male_dominated').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/character_status/sexuality_icons_male.dds"
+										framesize = { 40 40 }
+										frame = "2"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+
+										text = DI_ce_male_dominated_button
+
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_male_dominated_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Temporal HoF
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							visible = "[Not(InReleaseMode)]"
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_temporal_hof').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/character_status/icon_health.dds"
+										framesize = { 60 60 }
+										frame = "1"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+
+										text = DI_ce_temporal_hof_button
+
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_temporal_hof_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Present Tabs
+template DI_CE_Presents_Tabs
+{
+	vbox = {
+		name = "presents_tabs"
+		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'presents')]"
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+		margin = { 35 10 }
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin_bottom = 0
+
+			# lifestyle tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_presents_tab', 'lifestyle')]"
+				down = "[GetVariableSystem.HasValue('ce_presents_tab', 'lifestyle')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_lifestyle
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# health tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_presents_tab', 'health')]"
+				down = "[GetVariableSystem.HasValue('ce_presents_tab', 'health')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_health
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# traits tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_presents_tab', 'traits')]"
+				down = "[GetVariableSystem.HasValue('ce_presents_tab', 'traits')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_traits
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# laws Tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_presents_tab', 'laws')]"
+				down = "[GetVariableSystem.HasValue('ce_presents_tab', 'laws')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_laws
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+		}
+		expand = {}
+	}
+}

@@ -1,0 +1,1842 @@
+template DI_CE_Modifiers_Opinion
+{
+	### opinion MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_opinion_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'opinion' ), Not(Or(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_general_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_general_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_general_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('general_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_attraction_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_attraction_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_attraction_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('attraction_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_spouse_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_spouse_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_spouse_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('spouse_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_twin_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_twin_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_twin_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('twin_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_close_relative_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_close_relative_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_close_relative_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('close_relative_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_dynasty_house_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_dynasty_house_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_dynasty_house_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('dynasty_house_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_dynasty_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_dynasty_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_dynasty_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('dynasty_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_liege_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_liege_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_liege_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('liege_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_vassal_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('vassal_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_independent_ruler_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_independent_ruler_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_independent_ruler_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('independent_ruler_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_religious_vassal_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_religious_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_religious_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('religious_vassal_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_religious_head_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_religious_head_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_religious_head_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('religious_head_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_different_faith_liege_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_different_faith_liege_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_different_faith_liege_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('different_faith_liege_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_clergy_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_clergy_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_clergy_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('clergy_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_councillor_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_councillor_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_councillor_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('councillor_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_realm_priest_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_realm_priest_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_realm_priest_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('realm_priest_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_powerful_vassal_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_powerful_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_powerful_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('powerful_vassal_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_courtier_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_courtier_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_courtier_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('courtier_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_guest_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_guest_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_guest_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('guest_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_courtier_and_guest_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_courtier_and_guest_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_courtier_and_guest_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('courtier_and_guest_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_prisoner_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prisoner_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prisoner_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prisoner_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_player_heir_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_player_heir_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_player_heir_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('player_heir_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_child_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_child_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_child_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('child_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_child_except_player_heir_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_child_except_player_heir_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_child_except_player_heir_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('child_except_player_heir_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_eligible_child_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_eligible_child_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_eligible_child_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('eligible_child_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_eligible_child_except_player_heir_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_eligible_child_except_player_heir_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_eligible_child_except_player_heir_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('eligible_child_except_player_heir_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_liege_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_liege').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_liege').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_liege')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_same_culture_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_same_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_same_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_same_culture')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_different_culture_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_different_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_different_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_different_culture')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_same_faith_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_same_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_same_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_same_faith')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_different_faith_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_different_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_different_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_different_faith')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_different_faith_liege_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_different_faith_liege').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_different_faith_liege').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_different_faith_liege')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_same_culture_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_same_culture_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_same_culture_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('same_culture_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_different_culture_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_different_culture_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_different_culture_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('different_culture_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_same_faith_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_same_faith_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_same_faith_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('same_faith_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_different_faith_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_different_faith_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_different_faith_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('different_faith_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_direct_vassal_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_direct_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_direct_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('direct_vassal_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_fellow_vassal_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_fellow_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_fellow_vassal_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('fellow_vassal_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_male_rulers_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_male_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_male_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_male_rulers')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_female_rulers_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_female_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_female_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_female_rulers')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_county_opinion_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_county_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_county_opinion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('county_opinion')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_county_opinion_add_even_if_baron_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_county_opinion_add_even_if_baron').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_county_opinion_add_even_if_baron').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('county_opinion_add_even_if_baron')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### opinion NEG MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_opinion_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'opinion' ), And(GetVariableSystem.Exists('DI_modifier_neg'), Not(GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_general_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_general_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_general_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('general_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_attraction_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_attraction_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_attraction_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('attraction_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_spouse_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_spouse_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_spouse_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('spouse_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_twin_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_twin_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_twin_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('twin_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_close_relative_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_close_relative_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_close_relative_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('close_relative_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_dynasty_house_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_dynasty_house_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_dynasty_house_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('dynasty_house_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_dynasty_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_dynasty_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_dynasty_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('dynasty_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_liege_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_liege_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_liege_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('liege_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_vassal_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('vassal_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_independent_ruler_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_independent_ruler_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_independent_ruler_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('independent_ruler_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_religious_vassal_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_religious_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_religious_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('religious_vassal_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_religious_head_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_religious_head_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_religious_head_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('religious_head_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_different_faith_liege_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_different_faith_liege_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_different_faith_liege_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('different_faith_liege_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_clergy_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_clergy_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_clergy_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('clergy_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_councillor_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_councillor_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_councillor_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('councillor_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_realm_priest_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_realm_priest_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_realm_priest_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('realm_priest_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_powerful_vassal_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_powerful_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_powerful_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('powerful_vassal_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_courtier_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_courtier_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_courtier_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('courtier_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_guest_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_guest_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_guest_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('guest_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_courtier_and_guest_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_courtier_and_guest_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_courtier_and_guest_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('courtier_and_guest_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_prisoner_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prisoner_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prisoner_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prisoner_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_player_heir_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_player_heir_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_player_heir_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('player_heir_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_child_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_child_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_child_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('child_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_child_except_player_heir_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_child_except_player_heir_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_child_except_player_heir_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('child_except_player_heir_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_eligible_child_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_eligible_child_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_eligible_child_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('eligible_child_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_eligible_child_except_player_heir_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_eligible_child_except_player_heir_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_eligible_child_except_player_heir_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('eligible_child_except_player_heir_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_liege_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_liege_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_liege_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_liege_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_same_culture_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_same_culture_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_same_culture_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_same_culture_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_different_culture_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_different_culture_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_different_culture_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_different_culture_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_same_faith_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_same_faith_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_same_faith_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_same_faith_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_different_faith_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_different_faith_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_different_faith_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_different_faith_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_different_faith_liege_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_different_faith_liege_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_different_faith_liege_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_different_faith_liege_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_same_culture_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_same_culture_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_same_culture_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('same_culture_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_different_culture_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_different_culture_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_different_culture_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('different_culture_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_same_faith_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_same_faith_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_same_faith_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('same_faith_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_different_faith_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_different_faith_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_different_faith_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('different_faith_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_direct_vassal_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_direct_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_direct_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('direct_vassal_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_fellow_vassal_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_fellow_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_fellow_vassal_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('fellow_vassal_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_male_rulers_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_male_rulers_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_male_rulers_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_male_rulers_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_opinion_of_female_rulers_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_opinion_of_female_rulers_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_opinion_of_female_rulers_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('opinion_of_female_rulers_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_county_opinion_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_county_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_county_opinion_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('county_opinion_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_county_opinion_add_even_if_baron_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_county_opinion_add_even_if_baron_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_county_opinion_add_even_if_baron_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('county_opinion_add_even_if_baron_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+}

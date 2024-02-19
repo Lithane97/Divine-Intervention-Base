@@ -1,0 +1,823 @@
+template DI_CE_Modifiers_Prestige
+{
+	### PRESTIGE MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_prestige_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'prestige' ), Not(Or(GetVariableSystem.Exists('DI_modifier_neg'),GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_martial_per_prestige_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_martial_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_martial_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('martial_per_prestige_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_diplomacy_per_prestige_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_diplomacy_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_diplomacy_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('diplomacy_per_prestige_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_stewardship_per_prestige_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_stewardship_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_stewardship_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('stewardship_per_prestige_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_intrigue_per_prestige_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_intrigue_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_intrigue_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('intrigue_per_prestige_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_learning_per_prestige_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_learning_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_learning_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('learning_per_prestige_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_prowess_per_prestige_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prowess_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prowess_per_prestige_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prowess_per_prestige_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_happy_powerful_vassal_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_happy_powerful_vassal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_happy_powerful_vassal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_happy_powerful_vassal')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_dread_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_dread')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_knight_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_knight').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_knight').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_knight')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_dynasty_prestige_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_dynasty_prestige').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_dynasty_prestige').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_dynasty_prestige')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### PRESTIGE MULTIPLIER MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_prestige_mult_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'prestige' ), And(Not(GetVariableSystem.Exists('DI_modifier_neg')), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_dynasty_prestige_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_dynasty_prestige_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_dynasty_prestige_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_dynasty_prestige_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_knight_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_knight_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_knight_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_knight_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_dread_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_dread_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_dread_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_dread_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_prestige_level_impact_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prestige_level_impact_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prestige_level_impact_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prestige_level_impact_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_from_buildings_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_from_buildings_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_from_buildings_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_from_buildings_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_happy_powerful_vassal_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_happy_powerful_vassal_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_happy_powerful_vassal_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_happy_powerful_vassal_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+		}
+	}
+
+	### PRESTIGE NEG MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_prestige_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'prestige' ), And(GetVariableSystem.Exists('DI_modifier_neg'), Not(GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_martial_per_prestige_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_martial_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_martial_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('martial_per_prestige_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_diplomacy_per_prestige_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_diplomacy_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_diplomacy_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('diplomacy_per_prestige_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_stewardship_per_prestige_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_stewardship_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_stewardship_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('stewardship_per_prestige_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_intrigue_per_prestige_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_intrigue_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_intrigue_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('intrigue_per_prestige_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_learning_per_prestige_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_learning_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_learning_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('learning_per_prestige_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_prowess_per_prestige_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prowess_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prowess_per_prestige_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prowess_per_prestige_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_happy_powerful_vassal_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_happy_powerful_vassal_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_happy_powerful_vassal_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_happy_powerful_vassal_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_dread_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_dread_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_dread_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_dread_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_knight_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_knight_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_knight_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_knight_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_dynasty_prestige_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_dynasty_prestige_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_dynasty_prestige_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_dynasty_prestige_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### PRESTIGE MULTIPLIER NEG MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_prestige_mult_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'prestige' ), And(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_dynasty_prestige_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_dynasty_prestige_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_dynasty_prestige_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_dynasty_prestige_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_knight_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_knight_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_knight_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_knight_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_dread_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_dread_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_dread_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_dread_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_prestige_level_impact_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prestige_level_impact_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prestige_level_impact_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prestige_level_impact_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_from_buildings_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_from_buildings_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_from_buildings_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_from_buildings_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_prestige_gain_per_happy_powerful_vassal_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_prestige_gain_per_happy_powerful_vassal_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_prestige_gain_per_happy_powerful_vassal_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_prestige_gain_per_happy_powerful_vassal_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+}

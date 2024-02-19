@@ -1,0 +1,864 @@
+template DI_CE_Modifiers_Piety
+{
+	### PIETY MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_piety_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'piety' ), Not(Or(GetVariableSystem.Exists('DI_modifier_neg'),GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_martial_per_piety_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_martial_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_martial_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('martial_per_piety_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_diplomacy_per_piety_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_diplomacy_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_diplomacy_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('diplomacy_per_piety_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_stewardship_per_piety_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_stewardship_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_stewardship_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('stewardship_per_piety_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_intrigue_per_piety_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_intrigue_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_intrigue_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('intrigue_per_piety_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_learning_per_piety_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_learning_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_learning_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('learning_per_piety_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_prowess_per_piety_level_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prowess_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prowess_per_piety_level').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prowess_per_piety_level')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_happy_powerful_vassal_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_happy_powerful_vassal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_happy_powerful_vassal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_happy_powerful_vassal')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_dread_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_dread')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_knight_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_knight').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_knight').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_knight')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_faith_conversion_piety_cost_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_conversion_piety_cost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_conversion_piety_cost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_conversion_piety_cost')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_faith_creation_piety_cost_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_creation_piety_cost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_creation_piety_cost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_creation_piety_cost')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### PIETY MULTIPLIER MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_piety_mult_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'piety' ), And(Not(GetVariableSystem.Exists('DI_modifier_neg')), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_knight_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_knight_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_knight_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_knight_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_dread_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_dread_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_dread_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_dread_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_piety_level_impact_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_piety_level_impact_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_piety_level_impact_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('piety_level_impact_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_from_buildings_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_from_buildings_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_from_buildings_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_from_buildings_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_happy_powerful_vassal_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_happy_powerful_vassal_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_happy_powerful_vassal_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_happy_powerful_vassal_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_faith_conversion_piety_cost_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_conversion_piety_cost_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_conversion_piety_cost_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_conversion_piety_cost_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_faith_creation_piety_cost_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_creation_piety_cost_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_creation_piety_cost_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_creation_piety_cost_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### PIETY NEG MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_piety_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'piety' ), And(GetVariableSystem.Exists('DI_modifier_neg'), Not(GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_martial_per_piety_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_martial_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_martial_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('martial_per_piety_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_diplomacy_per_piety_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_diplomacy_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_diplomacy_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('diplomacy_per_piety_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_stewardship_per_piety_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_stewardship_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_stewardship_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('stewardship_per_piety_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_intrigue_per_piety_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_intrigue_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_intrigue_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('intrigue_per_piety_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_learning_per_piety_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_learning_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_learning_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('learning_per_piety_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_prowess_per_piety_level_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_prowess_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_prowess_per_piety_level_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('prowess_per_piety_level_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_happy_powerful_vassal_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_happy_powerful_vassal_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_happy_powerful_vassal_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_happy_powerful_vassal_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_dread_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_dread_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_dread_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_dread_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_knight_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_knight_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_knight_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_knight_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_faith_conversion_piety_cost_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_conversion_piety_cost_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_conversion_piety_cost_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_conversion_piety_cost_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_faith_creation_piety_cost_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_creation_piety_cost_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_creation_piety_cost_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_creation_piety_cost_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### PIETY MULTIPLIER NEG MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_piety_mult_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'piety' ), And(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_knight_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_knight_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_knight_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_knight_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_dread_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_dread_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_dread_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_dread_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_piety_level_impact_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_piety_level_impact_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_piety_level_impact_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('piety_level_impact_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_from_buildings_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_from_buildings_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_from_buildings_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_from_buildings_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_piety_gain_per_happy_powerful_vassal_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_piety_gain_per_happy_powerful_vassal_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_piety_gain_per_happy_powerful_vassal_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_piety_gain_per_happy_powerful_vassal_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_faith_conversion_piety_cost_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_conversion_piety_cost_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_conversion_piety_cost_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_conversion_piety_cost_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+
+			dockable_button = {
+				name = "DI_modifier_faith_creation_piety_cost_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_faith_creation_piety_cost_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_faith_creation_piety_cost_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('faith_creation_piety_cost_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+}

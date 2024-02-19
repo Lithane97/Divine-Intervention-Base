@@ -1,0 +1,223 @@
+template DI_CE_Perk_Points_Tab
+{
+	vbox = {
+		name = "perk_points_tab"
+		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'perk_points')]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "perk_points_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						# Diplomacy Perk
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+								
+								onclick = "[GetScriptedGui('DI_add_diplomacy_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_remove_diplomacy_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+																
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "2"
+										texture = "gfx/interface/icons/lifestyles_perks/node_diplomacy.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = diplomacy
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = "DI_perk_point_diplomacy_tt"
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Martial Perk
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+								
+								onclick = "[GetScriptedGui('DI_add_martial_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_remove_martial_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "2"
+										texture = "gfx/interface/icons/lifestyles_perks/node_martial.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = martial
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = "DI_perk_point_martial_tt"
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Stewardship Perk
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+								
+								onclick = "[GetScriptedGui('DI_add_stewardship_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_remove_stewardship_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "2"
+										texture = "gfx/interface/icons/lifestyles_perks/node_stewardship.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = stewardship
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = "DI_perk_point_stewardship_tt"
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Intrigue Perk
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+								
+								onclick = "[GetScriptedGui('DI_add_intrigue_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_remove_intrigue_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "2"
+										texture = "gfx/interface/icons/lifestyles_perks/node_intrigue.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = intrigue
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = "DI_perk_point_intrigue_tt"
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Learning Perk
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+								
+								onclick = "[GetScriptedGui('DI_add_learning_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_remove_learning_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+
+									icon = {
+										size = { 35 35 }
+										framesize = { 60 60 }
+										frame = "2"
+										texture = "gfx/interface/icons/lifestyles_perks/node_learning.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = learning
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = "DI_perk_point_learning_tt"
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

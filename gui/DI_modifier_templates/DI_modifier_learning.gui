@@ -1,0 +1,391 @@
+template DI_CE_Modifiers_Learning
+{
+	### learning MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_learning_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'learning' ), Not(Or(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_cultural_head_fascination_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_cultural_head_fascination').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_cultural_head_fascination').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('cultural_head_fascination')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### LEARNING MULTIPLIER MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_learning_mult_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'learning' ), And(Not(GetVariableSystem.Exists('DI_modifier_neg')), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_cultural_head_fascination_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_cultural_head_fascination_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_cultural_head_fascination_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('cultural_head_fascination_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_lifestyle_xp_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_lifestyle_xp_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_diplomacy_lifestyle_xp_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_diplomacy_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_diplomacy_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_diplomacy_lifestyle_xp_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_martial_lifestyle_xp_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_martial_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_martial_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_martial_lifestyle_xp_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_stewardship_lifestyle_xp_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_stewardship_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_stewardship_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_stewardship_lifestyle_xp_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_intrigue_lifestyle_xp_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_intrigue_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_intrigue_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_intrigue_lifestyle_xp_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_learning_lifestyle_xp_gain_mult_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_learning_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_learning_lifestyle_xp_gain_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_learning_lifestyle_xp_gain_mult')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+		}
+	}
+
+	### LEARNING NEG MODIFIER PANEL ### 
+	vbox = {
+		name = "modifiers_learning_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'learning' ), And(GetVariableSystem.Exists('DI_modifier_neg'), Not(GetVariableSystem.Exists('DI_modifier_mult'))))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_cultural_head_fascination_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_cultural_head_fascination_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_cultural_head_fascination_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('cultural_head_fascination_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+
+	### LEARNING MULTIPLIER NEG MODIFIER PANEL ###
+	vbox = {
+		name = "modifiers_learning_mult_neg_selection_panel"
+		spacing = 5
+		visible = "[And(GetVariableSystem.HasValue( 'ce_modifiers_tab', 'learning' ), And(GetVariableSystem.Exists('DI_modifier_neg'), GetVariableSystem.Exists('DI_modifier_mult')))]"
+		flowcontainer = {
+			spacing = 5
+			margin_bottom = 0
+			ignoreinvisible = yes
+			datacontext = [GetPlayer]
+
+			dockable_button = {
+				name = "DI_modifier_cultural_head_fascination_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_cultural_head_fascination_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_cultural_head_fascination_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('cultural_head_fascination_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_lifestyle_xp_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_lifestyle_xp_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_diplomacy_lifestyle_xp_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_diplomacy_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_diplomacy_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_diplomacy_lifestyle_xp_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_martial_lifestyle_xp_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_martial_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_martial_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_martial_lifestyle_xp_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_stewardship_lifestyle_xp_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_stewardship_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_stewardship_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_stewardship_lifestyle_xp_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_intrigue_lifestyle_xp_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_intrigue_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_intrigue_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_intrigue_lifestyle_xp_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+			
+			dockable_button = {
+				name = "DI_modifier_monthly_learning_lifestyle_xp_gain_mult_neg_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_monthly_learning_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_monthly_learning_lifestyle_xp_gain_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne 
+				
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('monthly_learning_lifestyle_xp_gain_mult_neg')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}                                
+				}
+			}
+		}
+	}
+}

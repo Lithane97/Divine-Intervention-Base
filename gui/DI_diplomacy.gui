@@ -581,138 +581,111 @@ window = {
 
 				using = Animation_Tab_Switch
 
-				vbox = {
-					scrollbox = {
-						layoutpolicy_horizontal = expanding
-						size = { 400 300 }
+				hbox = {
+					vbox = {
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							size = { 400 300 }
 
-						blockoverride "scrollbox_content"
-						{
-							vbox = {
-								name = "treaties_list"
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								
-								hbox = {
+							blockoverride "scrollbox_content"
+							{
+								vbox = {
+									name = "treaties_list"
 									layoutpolicy_horizontal = expanding
-
-									button_standard = {
+									spacing = 5
+									
+									hbox = {
 										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
 
-										onclick = "[GetScriptedGui('DI_dip_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
 										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
+											margin_bottom = 10
 								
-											text_single = {
+											button_checkbox_label = {
 												layoutpolicy_horizontal = expanding
+												onclick = "[GetScriptedGui('DI_dip_length_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 												
-												text = DI_dip_treaty_button
-								
-												default_format = "#clickable"
+												blockoverride "checkbox" 
+												{
+													checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_dip_length').IsSet]"
+												}
+												
+												blockoverride "text"
+												{
+													text = DI_dip_perma
+												}
 											}
 										}
-										tooltip = DI_dip_treaty_button_tt
+										expand = {}
 									}
+									
 									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
 										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
 
-										onclick = "[GetScriptedGui('DI_dip_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_break_treaty_button
-								
-												default_format = "#clickable"
+										button_standard = {
+											layoutpolicy_horizontal = expanding
+											size = { 0 50 }
+											button_ignore = none
+
+											onclick = "[GetScriptedGui('DI_dip_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+											onrightclick = "[GetScriptedGui('DI_dip_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+											
+											hbox = {
+												margin = { 5 0 }
+												margin_right = 10
+												spacing = 10
+									
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													
+													text = DI_dip_treaty_button
+									
+													default_format = "#clickable"
+												}
 											}
+											tooltip = DI_dip_treaty_button_tt
 										}
-										tooltip = DI_dip_break_treaty_button_tt
+										hbox = {
+											minimumsize = { 76 -1 }
+										}
 									}
+
 									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
 										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
 
-										onclick = "[GetScriptedGui('DI_dip_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_alliance_button
-								
-												default_format = "#clickable"
+										button_standard = {
+											layoutpolicy_horizontal = expanding
+											size = { 0 50 }
+											button_ignore = none
+
+											onclick = "[GetScriptedGui('DI_dip_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+											onrightclick = "[GetScriptedGui('DI_dip_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+											
+											hbox = {
+												margin = { 5 0 }
+												margin_right = 10
+												spacing = 10
+									
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													
+													text = DI_dip_alliance_button
+									
+													default_format = "#clickable"
+												}
 											}
+											tooltip = DI_dip_alliance_button_tt
 										}
-										tooltip = DI_dip_alliance_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
 										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_break_alliance_button
-								
-												default_format = "#clickable"
-											}
+											minimumsize = { 76 -1 }
 										}
-										tooltip = DI_dip_break_alliance_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
 									}
 								}
 							}
 						}
-					}
-					margin_bottom = 16
+					}	
+					margin_bottom = 16			
 				}
+				
 
 				vbox = {
 					spacing = 8
@@ -1342,7 +1315,6 @@ types DIDiplomacyShared
 					default_format = "#clickable"
 				}
 			}
-
 			tooltip = DI_relations_tt
 		}
 	}

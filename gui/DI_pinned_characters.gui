@@ -50,10 +50,10 @@ window = {
 			size = { 720 675 }
             vbox = {
 				hbox = {
-					spacing = 200
+					layoutpolicy_horizontal = expanding
+					expand = {}
 
 					hbox = {
-						parentanchor = center
 						spacing = 5
 						margin_bottom = 5		
 	
@@ -91,7 +91,13 @@ window = {
 						}
 					}
 
+					spacer = {
+						size = { 70 0 }
+					}
+
 					hbox = {
+						margin_right = 40
+
 						button_standard_hover = {
 							name = DI_clear_all
 							onclick = "[GetScriptedGui('DI_clear_all_pins').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -106,8 +112,6 @@ window = {
 
 							button_clear = {}
 						}
-
-						
 					}
 				}
 				

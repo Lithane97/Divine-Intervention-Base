@@ -5,7 +5,6 @@ template DI_Diplomacy_Anim
 		using = Animation_FadeIn_Quick
 		using = Sound_WindowShow_Standard
 
-		on_start = "[GetVariableSystem.Set( 'diplomacy_tab', 'relations' )]"
 		on_finish = "[PdxGuiWidget.StackTop]"
 	}
 
@@ -13,6 +12,14 @@ template DI_Diplomacy_Anim
 		name = _hide
 		using = Animation_FadeOut_Quick
 		using = Sound_WindowHide_Standard
+	}
+
+	state = {
+		name = init
+		using = Animation_FadeIn_Quick
+		trigger_on_create = yes
+
+		on_finish = "[GetVariableSystem.Set( 'diplomacy_tab', 'relations' )]"
 	}
 }
 

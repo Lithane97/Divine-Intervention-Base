@@ -2,7 +2,7 @@
 window = {
 	name = "DI_char_editor_window"
 	parentanchor = top|right
-	position = { -100 100 }
+	position = { -100 60 }
 	size = { 150 100 }
 	layer = windows_layer
 	filter_mouse = all
@@ -15,56 +15,192 @@ window = {
 	
 	visible = "[GetVariableSystem.Exists('DI_char_editor_window_visible')]"
 	
-	state = {
-		name = _show
-		using = Animation_FadeIn_Quick
-		on_finish = "[PdxGuiWidget.StackTop]"
-	}
-	
-	state = {
-		name = _hide
-		using = Animation_FadeOut_Quick
-	}
+	using = DI_Char_Editor_Anim
 	
 	vbox = {
-		margin_left = 40
-		margin_right = 40
-		margin_top = 20
-		margin_bottom = 20
-		ignoreinvisible = yes
-		restrictparent_min = yes
-		header_pattern = {
+		using = Window_Margins
+		using = DI_Char_Editor_Header
+
+		vbox = {
+			name = "category_tabs"
 			layoutpolicy_horizontal = expanding
-			
-			blockoverride "header_text"
-			{
-				text = DI_char_editor
+			margin = { 35 10 }
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+
+				# presents tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'presents')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'presents')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_presents
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# skills tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'skills')]"
+					onclick = "[GetScriptedGui('DI_skills_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'skills')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_skills
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# perk_points tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'perk_points')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'perk_points')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_perk_points
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# modifiers Tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'modifiers')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_modifiers
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
 			}
-			
-			blockoverride "button_close"
-			{
-				onclick = "[GetVariableSystem.Toggle('DI_char_editor_window_visible')]"
-				onclick = "[GetVariableSystem.Clear('show_char_editor')]"
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+
+				# traits tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					button_ignore = none
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'traits')]"
+					onrightclick = "[GetVariableSystem.Toggle('DI_trait_window_visible')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'traits')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_traits
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+
+					tooltip = DI_trait_window_tooltip
+				}
+
+				# sexuality tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'sexuality')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'sexuality')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_sexuality
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# culture tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'culture')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'culture')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_culture
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# religion Tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('char_editor_tab', 'religion')]"
+					down = "[GetVariableSystem.HasValue('char_editor_tab', 'religion')]"
+
+					text_single = {
+						parentanchor = center
+						text = DI_tab_religion
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
 			}
-		}
-		
-		widget = {
-			size = { 450 400 }
-			
-			widget = {
-				size = { 450 400 }
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				margin_top = 10
+				spacing = 20
 				
-				widget = {
-					size = { 450 80 }
-					position = { 160 0 }
-					
+				expand = {}
+
+				vbox = {
 					button_checkbox_label = {
-						max_width = 150
+						visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetVariableSystem.Toggle('DI_modifier_neg')]"						
+						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetVariableSystem.Exists('DI_modifier_neg')]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_modifier_neg
+						}
+					}
+				}
+
+				vbox = {
+					button_checkbox_label = {
+						visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
 						
 						layoutpolicy_horizontal = expanding
-						onclick = "[GetScriptedGui('DI_pinned_char_var_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						parentanchor = center
+						onclick = "[GetVariableSystem.Toggle('DI_modifier_mult')]"
 						
+						blockoverride "checkbox" 
+						{
+							checked = "[GetVariableSystem.Exists('DI_modifier_mult')]"
+						}
+						
+						blockoverride "text"
+						{
+							text = DI_modifier_mult
+						}
+					}
+				}
+				
+				vbox = {
+					button_checkbox_label = {
+						layoutpolicy_horizontal = expanding
+						enabled = "[Or( Not( GetVariableSystem.HasValue('ce_presents_tab', 'laws')), Not( GetVariableSystem.HasValue('char_editor_tab', 'presents')))]"
+						onclick = "[GetScriptedGui('DI_pinned_char_var_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						
 						blockoverride "checkbox" 
 						{
@@ -78,241 +214,319 @@ window = {
 					}
 				}
 
-				widget = {
-					size = { 375 380 }
-					layoutpolicy_vertical = expanding
+				spacer = {
+					size = { 110 0 }
+				}
 
-					widget = {
-						size = { 280 360 }
-						position = { 50 15 }
-						layoutpolicy_vertical = expanding
-
-						vbox = {	
-							name = "char_editor_selection_panel"
-							spacing = 5
-
-							scrollbox = {
-								name = "char_editor_scrollbox"
-								layoutpolicy_vertical = expanding
-								layoutpolicy_horizontal = expanding
-								minimumsize = { 200 100% }
-
-								blockoverride "scrollbox_content" {
-									button_standard_hover = {
-										name = DI_present_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_char_editor_present_window_visible')]"
-										onclick = "[GetVariableSystem.Set('show_present', 'lifestyle')]"
-
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												texture = "gfx/interface/icons/currencies/icon_prestige_05.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_present_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_skill_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_char_editor_skill_window_visible')]"
-										onclick = "[GetScriptedGui('DI_skills_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												texture = "gfx/interface/icons/DI_skills_diplomacy.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_skill_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_perk_point_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_char_editor_perk_point_window_visible')]"
-
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												framesize = { 180 180 }
-												frame = "1"
-												texture = "gfx/interface/icons/alerts/action_can_spend_perk_point.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_perk_point_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_modifiers_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_modifiers_window_visible')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												texture = "gfx/interface/icons/modifiers/prestige_positive.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_modifiers_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_traits_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_trait_window_visible')]"
-										onclick = "[GetVariableSystem.Set('show_traits', 'physical')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												texture = "gfx/interface/icons/message_feed/trait.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_traits_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_sexuality_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_sexuality_window_visible')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												framesize = { 40 40 }
-												frame = "2"
-												texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_sexuality_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_culture_group_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												texture = "gfx/interface/icons/icon_culture.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_culture_group_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-
-									button_standard_hover = {
-										name = DI_religion_group_char_editor_button
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										size = { 0 50 }
-										onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-					
-											icon = {
-												size = { 35 35 }
-												texture = "gfx/interface/icons/faith/catholic.dds"
-											}
-					
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												text = DI_religion_group_char_editor
-												default_format = "#clickable"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
+				spacer = { 
+					visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+					size = { 60 0 } 
 				}
 			}
 		}
-		text_label_center = {
-			text = DI_generic_window_choose
+		
+		widget = {
+			size = { 600 360 }
+			
+			hbox = {
+				vbox = {
+					using = DI_CE_Lifestyle_Tab
+					using = DI_CE_Health_Tab
+					using = DI_CEP_Traits_Tab
+					using = DI_CE_Laws_Tab
+					using = DI_CE_Skills_Tab
+					using = DI_CE_Perk_Points_Tab
+					using = DI_CE_Modifiers_Tab
+					using = DI_CE_Traits_Tab
+					using = DI_CE_Sexuality_Tab
+					using = DI_CE_Culture_Tab
+					using = DI_CE_Religion_Tab
+				}
+
+				vbox = {
+					visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+					margin_left = -25
+
+					using = DI_CE_Modifiers_MAA_Selector
+				}
+			}
 		}
+
+		spacer = {
+			layoutpolicy_vertical = expanding
+		}
+
+		widget = {
+			size = { 600 135 }
+			using = DI_CE_Presents_Tabs
+			using = DI_CE_Modifiers_Tabs
+			using = DI_CE_Traits_Tabs
+			using = DI_CE_Culture_Tabs
+			using = DI_CE_Religion_Tabs
+		}
+		
+		# widget = {
+		# 	size = { 450 400 }
+			
+		# 	widget = {
+		# 		size = { 450 400 }
+				
+		# 		widget = {
+		# 			size = { 450 80 }
+		# 			position = { 160 0 }
+					
+		# 			button_checkbox_label = {
+		# 				max_width = 150
+						
+		# 				layoutpolicy_horizontal = expanding
+		# 				onclick = "[GetScriptedGui('DI_pinned_char_var_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		# 				parentanchor = center
+						
+						
+		# 				blockoverride "checkbox" 
+		# 				{
+		# 					checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet]"
+		# 				}
+						
+		# 				blockoverride "text"
+		# 				{
+		# 					text = DI_pinned_char_var
+		# 				}
+		# 			}
+		# 		}
+
+		# 		widget = {
+		# 			size = { 375 380 }
+		# 			layoutpolicy_vertical = expanding
+
+		# 			widget = {
+		# 				size = { 280 360 }
+		# 				position = { 50 15 }
+		# 				layoutpolicy_vertical = expanding
+
+		# 				vbox = {	
+		# 					name = "char_editor_selection_panel"
+		# 					spacing = 5
+
+		# 					scrollbox = {
+		# 						name = "char_editor_scrollbox"
+		# 						layoutpolicy_vertical = expanding
+		# 						layoutpolicy_horizontal = expanding
+		# 						minimumsize = { 200 100% }
+
+		# 						blockoverride "scrollbox_content" {
+		# 							button_standard_hover = {
+		# 								name = DI_present_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_char_editor_present_window_visible')]"
+		# 								onclick = "[GetVariableSystem.Set('show_present', 'lifestyle')]"
+
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										texture = "gfx/interface/icons/currencies/icon_prestige_05.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_present_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_skill_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_char_editor_skill_window_visible')]"
+		# 								onclick = "[GetScriptedGui('DI_skills_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										texture = "gfx/interface/icons/DI_skills_diplomacy.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_skill_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_perk_point_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_char_editor_perk_point_window_visible')]"
+
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										framesize = { 180 180 }
+		# 										frame = "1"
+		# 										texture = "gfx/interface/icons/alerts/action_can_spend_perk_point.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_perk_point_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_modifiers_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_modifiers_window_visible')]"
+										
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										texture = "gfx/interface/icons/modifiers/prestige_positive.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_modifiers_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_traits_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_trait_window_visible')]"
+		# 								onclick = "[GetVariableSystem.Set('show_traits', 'physical')]"
+										
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										texture = "gfx/interface/icons/message_feed/trait.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_traits_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_sexuality_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_sexuality_window_visible')]"
+										
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										framesize = { 40 40 }
+		# 										frame = "2"
+		# 										texture = "gfx/interface/icons/character_status/sexuality_icons_female.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_sexuality_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_culture_group_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+										
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										texture = "gfx/interface/icons/icon_culture.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_culture_group_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+
+		# 							button_standard_hover = {
+		# 								name = DI_religion_group_char_editor_button
+		# 								layoutpolicy_horizontal = expanding
+		# 								layoutpolicy_vertical = expanding
+		# 								size = { 0 50 }
+		# 								onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
+										
+		# 								hbox = {
+		# 									margin = { 5 0 }
+		# 									margin_right = 10
+		# 									spacing = 10
+					
+		# 									icon = {
+		# 										size = { 35 35 }
+		# 										texture = "gfx/interface/icons/faith/catholic.dds"
+		# 									}
+					
+		# 									text_single = {
+		# 										layoutpolicy_horizontal = expanding
+		# 										text = DI_religion_group_char_editor
+		# 										default_format = "#clickable"
+		# 									}
+		# 								}
+		# 							}
+		# 						}
+		# 					}
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+		# }
 	}
 }

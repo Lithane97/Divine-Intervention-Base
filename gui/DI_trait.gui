@@ -208,9 +208,6 @@ window = {
             size = { 375 800 }
             layoutpolicy_vertical = expanding
             
-            
-            
-            
 			vbox = {
 				name = "trait_selection_panel"
 				layoutpolicy_vertical = expanding
@@ -955,76 +952,4 @@ window = {
 			}
         }
 	}
-}
-
-
-types DI_trait_menu_types
-{
-
-	type vbox_DI_trait_selection_content = vbox
-	{
-		datacontext = "[GetPlayer]"
-		spacing = 3
-
-		item = {
-			hbox = {
-				datacontext = "[Scope.Trait]"
-				layoutpolicy_horizontal = expanding
-				block "test_visible"
-				{
-					visible = yes
-				}
-				button_standard_hover = {
-					name = "trait_item"
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-					size = { 0 50 }
-					onclick = "[GetScriptedGui('DI_add_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-					onrightclick = "[GetScriptedGui('DI_remove_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-					button_ignore = none
-					tooltip = DI_trait_button_tt
-
-					hbox = {
-						margin = { 5 0 }
-						margin_right = 10
-						spacing = 10
-
-						icon_trait = {
-							blockoverride "faith_context"
-							{
-								datacontext = "[GetPlayer.GetFaith]"
-							}
-							blockoverride "tooltip_placement"
-							{
-								using = tooltip_ws
-							}
-						}
-
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							text = "[Trait.GetNameNoTooltip( Character.Self )]"
-							default_format = "#clickable"
-						}
-						
-					}
-				}
-				
-				button_pin = {
-					name = "button_pin"
-					visible = "[Not(GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End))]"
-					onclick = "[GetScriptedGui('DI_pin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-					size = { 25 25 }
-				}
-
-				button_unpin = {
-					name = "button_unpin"
-					visible = "[GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-					onclick = "[GetScriptedGui('DI_unpin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-					size = { 25 25 }
-				}
-			}
-		}
-	}
-
-	
 }
