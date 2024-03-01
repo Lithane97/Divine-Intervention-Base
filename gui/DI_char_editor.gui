@@ -155,13 +155,13 @@ window = {
 				layoutpolicy_horizontal = expanding
 				margin_top = 10
 				spacing = 20
+				ignoreinvisible = yes
 				
 				expand = {}
 
 				vbox = {
+					visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
 					button_checkbox_label = {
-						visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
-
 						layoutpolicy_horizontal = expanding
 						onclick = "[GetVariableSystem.Toggle('DI_modifier_neg')]"						
 						
@@ -178,9 +178,8 @@ window = {
 				}
 
 				vbox = {
-					button_checkbox_label = {
-						visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
-						
+					visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
+					button_checkbox_label = {						
 						layoutpolicy_horizontal = expanding
 						onclick = "[GetVariableSystem.Toggle('DI_modifier_mult')]"
 						
@@ -214,13 +213,21 @@ window = {
 					}
 				}
 
-				spacer = {
-					size = { 110 0 }
+
+				hbox = {
+					visible = "[Or( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('char_editor_tab', 'traits'))]"
+
+					vbox = {
+						button_standard = {
+							onclick = "[GetScriptedGui('DI_clear_all_traits_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_clear_all_traits
+						}
+					}
 				}
 
-				spacer = { 
-					visible = "[GetVariableSystem.HasValue('char_editor_tab', 'modifiers')]"
-					size = { 60 0 } 
+				spacer = {
+					visible = "[And( Not( GetVariableSystem.HasValue('char_editor_tab', 'presents')), Not( GetVariableSystem.HasValue('char_editor_tab', 'traits')))]"
+					size = { 110 0 }
 				}
 			}
 		}
