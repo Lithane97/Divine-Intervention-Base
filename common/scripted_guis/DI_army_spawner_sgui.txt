@@ -123,6 +123,50 @@ DI_army_spawner_subtract_increment = {
 }
 
 ### BASIC MAA ###
+### Levy ###
+DI_levy_effect = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = { has_character_flag = pinned_for_edit }
+				save_scope_as = target
+
+				spawn_army = {
+					levies = scope:DI_story.var:DI_army_spawner_increment_value
+
+					location = scope:target.location
+					
+					inheritable = no
+
+					name = game_concept_levies
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				levies = scope:DI_story.var:DI_army_spawner_increment_value
+
+				location = root.location
+				
+				inheritable = no
+
+				name = game_concept_levies
+			}
+		}
+	}
+}
 ### Light Footmen Spawner
 DI_light_footmen_effect = {
 	scope = character
