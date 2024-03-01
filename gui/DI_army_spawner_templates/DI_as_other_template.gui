@@ -1,0 +1,107 @@
+template DI_AS_Other_Tab
+{
+	vbox = {
+		name = "other_tab"
+		visible = "[GetVariableSystem.HasValue( 'show_army_spawner', 'other' )]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {	
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 300 400 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "other_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						button_standard = {
+							name = army_spawner_camel_rider_button
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_camel_rider_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/camel_riders.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = camel_rider
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_war_elephant_button
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_war_elephant_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/war_elephants.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = war_elephant
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_teutonic_knights_button
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_teutonic_knights_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/heavy_infantry.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = teutonic_knights
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+					}
+				}	
+			}
+		}
+	}
+}
+

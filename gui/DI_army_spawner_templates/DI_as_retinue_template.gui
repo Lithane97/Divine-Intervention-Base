@@ -1,0 +1,279 @@
+template DI_AS_Retinue_Tab
+{
+	vbox = {
+		name = "retinue_tab"
+		visible = "[GetVariableSystem.HasValue( 'show_army_spawner', 'retinue' )]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {	
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 300 400 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "retinue_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						button_standard = {
+							name = army_spawner_accolade_maa_archers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_archers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/bowmen.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_archers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_skirmishers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_skirmishers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/skirmishers.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_skirmishers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_pikes_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_pikes_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/pikemen.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_pikes
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_outriders_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_outriders_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/light_cavalry.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_outriders
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_vanguards_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_vanguards_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/heavy_infantry.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_vanguards
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_lancers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_lancers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/heavy_cavalry.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_lancers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_crossbowers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_crossbowers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/crossbowmen.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_crossbowers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_cameliers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_cameliers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/camel_riders.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_cameliers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_elephantiers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_elephantiers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/war_elephants.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_elephantiers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+
+						button_standard = {
+							name = army_spawner_accolade_maa_horse_archers_button
+							layoutpolicy_horizontal = expanding
+							size = { 0 50 }
+							onclick = "[GetScriptedGui('DI_accolade_maa_horse_archers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+		
+								icon = {
+									size = { 35 35 }
+									texture = "gfx/interface/icons/regimenttypes/horse_archers.dds"
+								}
+		
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = accolade_maa_horse_archers
+									default_format = "#clickable"
+								}
+								
+							}
+						}
+					}
+				}	
+			}
+		}
+	}
+}
+

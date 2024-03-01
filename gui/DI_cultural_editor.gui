@@ -97,7 +97,6 @@ window = {
 				layoutpolicy_horizontal = expanding
 				onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'innovations' )]"
 				onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-				onclick = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
 				down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' )]"
 
 				text_single = {
@@ -1284,14 +1283,21 @@ template DI_culture_innovation_tooltip {
 template DI_Innovation_Anim
 {
 	state = {
+		name = _init
+		using = Animation_FadeIn_Quick
+		using = Sound_WindowShow_Standard
+
+		on_start = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
+		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
+	}
+	
+	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
 		using = Sound_WindowShow_Standard
 
 		position = { 0 0 }
-		on_start = "[GetVariableSystem.Set( 'culture_tab', 'early' )]"
 		on_start = "[GetVariableSystem.Set( 'hide_bottom_left_HUD', 'true' )]"
-		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
 		on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
 		on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 		on_finish = "[PdxGuiWidget.StackTop]"
