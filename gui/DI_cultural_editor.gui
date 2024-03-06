@@ -74,7 +74,7 @@ window = {
 		}
 
 		hbox = {
-			name = "tabs"
+			name = "DI_CE_tabs"
 			layoutpolicy_horizontal = expanding
 			margin_top = 10
 
@@ -438,7 +438,7 @@ window = {
 									datacontext = "[GuiCultureTradition.GetTradition]"
 									size = { 276 168 }
 
-									tooltip_enabled = "[Not(GuiCultureTradition.IsEmpty)]"
+									tooltip_visible = "[Not(GuiCultureTradition.IsEmpty)]"
 
 									tooltipwidget = {
 										using = culture_tradition_tooltip
@@ -1286,6 +1286,7 @@ template DI_Innovation_Anim
 		name = _init
 		using = Animation_FadeIn_Quick
 		using = Sound_WindowShow_Standard
+		trigger_on_create = yes
 
 		on_start = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
 		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
