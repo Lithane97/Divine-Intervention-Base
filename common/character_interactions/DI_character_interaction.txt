@@ -102,6 +102,10 @@ DI_pin_character_interaction = {
 		flag = dynasty
 		localization = DI_pin_dynasty
 	}
+	send_option = {
+		flag = lovers
+		localization = DI_pin_lovers
+	}
 	
 	on_accept = {
 		scope:recipient = {
@@ -169,6 +173,26 @@ DI_pin_character_interaction = {
 						scope:actor = {
 							add_to_variable_list = { name = pinned_characters target = prev }
 						}
+					}
+				}
+			}
+
+			if = {
+				limit = {scope:lovers = yes}
+				
+				every_relation = {
+					type = lover
+					add_character_flag = pinned_for_edit
+					scope:actor = {
+						add_to_variable_list = { name = pinned_characters target = prev }
+					}
+				}
+
+				every_relation = {
+					type = soulmate
+					add_character_flag = pinned_for_edit
+					scope:actor = {
+						add_to_variable_list = { name = pinned_characters target = prev }
 					}
 				}
 			}
