@@ -163,3 +163,364 @@ DI_ce_culture_change = {
 		}
 	}
 }
+
+### Convert every courtier ###
+DI_convert_every_courtier_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+
+		scope:selected_char = {
+			every_courtier = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### Convert every vassal ###
+DI_convert_every_vassal_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+
+		scope:selected_char = {
+			every_vassal = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### Culture Realms ###
+DI_convert_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+
+		scope:selected_char = {
+			scope:selected_char.top_liege = {
+				set_culture = scope:copy_culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:copy_culture }
+					}
+					set_culture = scope:copy_culture
+				}
+
+				every_vassal_or_below = {
+					set_culture = scope:copy_culture
+
+					every_courtier = {
+						limit = {
+							NOT = { this.culture = scope:copy_culture }
+						}
+						set_culture = scope:copy_culture
+					}
+				}
+			}
+			
+			every_realm_county = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_county_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### DI_convert_all_pinned_realm_culture ###
+DI_convert_all_pinned_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+
+		every_in_list = {
+			variable = pinned_characters
+
+			this.top_liege = {
+				set_culture = scope:copy_culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:copy_culture }
+					}
+					set_culture = scope:copy_culture
+				}
+
+				every_vassal_or_below = {
+					set_culture = scope:copy_culture
+
+					every_courtier = {
+						limit = {
+							NOT = { this.culture = scope:copy_culture }
+						}
+						set_culture = scope:copy_culture
+					}
+				}
+			}
+
+			every_realm_county = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_county_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### DI_convert_all_pinned_to_player_culture ###
+DI_convert_all_pinned_to_player_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+
+		every_in_list = {
+			variable = pinned_characters
+
+			this.top_liege = {
+				set_culture = scope:player_character.culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:player_character.culture }
+					}
+					set_culture = scope:player_character.culture
+				}
+
+				every_vassal_or_below = {
+					set_culture = scope:player_character.culture
+
+					every_courtier = {
+						limit = {
+							NOT = { this.culture = scope:player_character.culture }
+						}
+						set_culture = scope:player_character.culture
+					}
+				}
+			}
+
+			every_realm_county = {
+				limit = {
+					NOT = { this.culture = scope:player_character.culture }
+				}
+				set_county_culture = scope:player_character.culture
+			}
+		}
+	}
+}
+
+### DI_quick_convert_player_realm_culture ###
+DI_quick_convert_player_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+
+		this.top_liege = {
+			set_culture = scope:player_character.culture
+			
+			every_courtier = {
+				limit = {
+					NOT = { this.culture = scope:player_character.culture }
+				}
+				set_culture = scope:player_character.culture
+			}
+
+			every_vassal_or_below = {
+				set_culture = scope:player_character.culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:player_character.culture }
+					}
+					set_culture = scope:player_character.culture
+				}
+			}
+		}
+		
+
+		every_realm_county = {
+			limit = {
+				NOT = { this.culture = scope:player_character.culture }
+			}
+			set_county_culture = scope:player_character.culture
+		}
+	}
+}
+
+### DI_convert_sub_realm_culture ###
+DI_convert_sub_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+
+		scope:selected_char = {
+			set_culture = scope:copy_culture
+
+			every_courtier = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_culture = scope:copy_culture
+			}
+
+			every_vassal_or_below = {
+				set_culture = scope:copy_culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:copy_culture }
+					}
+					set_culture = scope:copy_culture
+				}
+			}
+
+			every_sub_realm_county = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_county_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### DI_convert_all_pinned_sub_realm_culture ###
+DI_convert_all_pinned_sub_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+
+		every_in_list = {
+			variable = pinned_characters
+
+			set_culture = scope:copy_culture
+
+			every_courtier = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_culture = scope:copy_culture
+			}
+
+			every_vassal_or_below = {
+				set_culture = scope:copy_culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:copy_culture }
+					}
+					set_culture = scope:copy_culture
+				}
+			}
+
+			every_sub_realm_county = {
+				limit = {
+					NOT = { this.culture = scope:copy_culture }
+				}
+				set_county_culture = scope:copy_culture
+			}
+		}
+	}
+}
+
+### DI_convert_all_pinned_to_player_sub_realm_culture ###
+DI_convert_all_pinned_to_player_sub_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+
+		every_in_list = {
+			variable = pinned_characters
+
+			set_culture = scope:player_character.culture
+
+			every_courtier = {
+				limit = {
+					NOT = { this.culture = scope:player_character.culture }
+				}
+				set_culture = scope:player_character.culture
+			}
+
+			every_vassal_or_below = {
+				set_culture = scope:player_character.culture
+
+				every_courtier = {
+					limit = {
+						NOT = { this.culture = scope:player_character.culture }
+					}
+					set_culture = scope:player_character.culture
+				}
+			}
+
+			every_sub_realm_county = {
+				limit = {
+					NOT = { this.culture = scope:player_character.culture }
+				}
+				set_county_culture = scope:player_character.culture
+			}
+		}
+	}
+}
+
+### DI_quick_convert_player_sub_realm_culture ###
+DI_quick_convert_player_sub_realm_culture = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_character
+
+		every_courtier = {
+			limit = {
+				NOT = { this.culture = scope:player_character.culture }
+			}
+			set_culture = scope:player_character.culture
+		}
+
+		every_vassal_or_below = {
+			set_culture = scope:player_character.culture
+
+			every_courtier = {
+				limit = {
+					NOT = { this.culture = scope:player_character.culture }
+				}
+				set_culture = scope:player_character.culture
+			}
+		}
+
+		every_sub_realm_county = {
+			limit = {
+				NOT = { this.culture = scope:player_character.culture }
+			}
+			set_county_culture = scope:player_character.culture
+		}
+	}
+}

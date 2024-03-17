@@ -379,6 +379,7 @@ window = {
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
 				scrollbarpolicy_horizontal = always_off
+				size = { 0 0 }
 
 				blockoverride "scrollbox_content" {
 					vbox = {
@@ -483,7 +484,7 @@ window = {
 				}
 			}
 
-			expand = {}
+			# expand = {}
 
 			vbox = {
 				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
@@ -662,72 +663,233 @@ window = {
 			}
 			
 			vbox = {
-				margin_top = 20
 				spacing = 8
 
 				hbox = {
-					spacing = 15
+					name = "DI_cultural_editor_convert_tabs"
+					layoutpolicy_horizontal = expanding
+					margin_top = 10
+
+					button_tab = {
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
+						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'people' )]"
+
+						text_single = {
+							parentanchor = center
+							text = "DI_people"
+							maximumsize = { 400 -1 }
+							default_format = "#low"
+						}
+					}
+
+					button_tab = {
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'counties' )]"
+						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'counties' )]"
+
+						text_single = {
+							parentanchor = center
+							text = "DI_counties"
+							maximumsize = { 400 -1 }
+							default_format = "#low"
+						}
+					}
+
+					# sub-realm
+					button_tab = {
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'sub_realm' )]"
+						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'sub_realm' )]"
+
+						text_single = {
+							parentanchor = center
+							text = "DI_sub_realm"
+							maximumsize = { 400 -1 }
+							default_format = "#low"
+						}
+					}
+
+					button_tab = {
+						layoutpolicy_horizontal = expanding
+						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'realm' )]"
+						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'realm' )]"
+
+						text_single = {
+							parentanchor = center
+							text = "DI_realm"
+							maximumsize = { 400 -1 }
+							default_format = "#low"
+						}
+					}
+				}
+
+				vbox = {
+					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'people' )]"
+					spacing = 8
+					hbox = {
+						spacing = 15
 					
-					button_standard = {
-						name = "DI_convert_copy"
-						onclick = "[GetScriptedGui('DI_ce_convert_copy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_copy
-						tooltip = DI_ce_convert_copy_tt
-						using = tooltip_nw
+						button_standard = {
+							name = "DI_convert_copy"
+							onclick = "[GetScriptedGui('DI_ce_convert_copy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_ce_convert_copy
+							tooltip = DI_ce_convert_copy_tt
+							using = tooltip_nw
+						}
+		
+						button_standard = {
+							name = "DI_convert_pinned"
+							onclick = "[GetScriptedGui('DI_ce_convert_all_pinned').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_ce_convert_all_pinned
+							tooltip = DI_ce_convert_all_pinned_tt
+							using = tooltip_nw
+						}
+		
+						button_standard = {
+							name = "DI_convert_to_player"
+							onclick = "[GetScriptedGui('DI_ce_convert_to_player').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_ce_convert_to_player
+							tooltip = DI_ce_convert_to_player_tt
+							using = tooltip_nw
+						}
 					}
-	
-					button_standard = {
-						name = "DI_convert_pinned"
-						onclick = "[GetScriptedGui('DI_ce_convert_all_pinned').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_all_pinned
-						tooltip = DI_ce_convert_all_pinned_tt
-						using = tooltip_nw
-					}
-	
-					button_standard = {
-						name = "DI_convert_to_player"
-						onclick = "[GetScriptedGui('DI_ce_convert_to_player').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_to_player
-						tooltip = DI_ce_convert_to_player_tt
-						using = tooltip_nw
+					
+					hbox = {
+						spacing = 15
+
+						# Convert every courtier
+						button_standard = {
+							name = "DI_convert_every_courtier"
+							onclick = "[GetScriptedGui('DI_convert_every_courtier_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_every_courtier_culture
+							tooltip = DI_convert_every_courtier_culture_tt
+							using = tooltip_nw
+						}
+
+						# Convert every vassal
+						button_standard = {
+							name = "DI_convert_every_vassal"
+							onclick = "[GetScriptedGui('DI_convert_every_vassal_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_every_vassal_culture
+							tooltip = DI_convert_every_vassal_culture_tt
+							using = tooltip_nw
+						}
 					}
 				}
 
-				hbox = {
-					spacing = 15
-					button_standard = {
-						name = "DI_convert_counties"
-						onclick = "[GetScriptedGui('DI_ce_convert_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_counties
-						tooltip = DI_ce_convert_counties_tt
-						using = tooltip_es
-					}
-	
-					button_standard = {
-						name = "DI_convert_pinned_counties"
-						onclick = "[GetScriptedGui('DI_ce_convert_all_pinned_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_all_pinned_counties
-						tooltip = DI_ce_convert_all_pinned_counties_tt
-						using = tooltip_es
-					}
+				vbox = {
+					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'counties' )]"
+					spacing = 8
+					hbox = {
+						spacing = 15
+						button_standard = {
+							name = "DI_convert_counties"
+							onclick = "[GetScriptedGui('DI_ce_convert_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_ce_convert_counties
+							tooltip = DI_ce_convert_counties_tt
+							using = tooltip_es
+						}
+		
+						button_standard = {
+							name = "DI_convert_pinned_counties"
+							onclick = "[GetScriptedGui('DI_ce_convert_all_pinned_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_ce_convert_all_pinned_counties
+							tooltip = DI_ce_convert_all_pinned_counties_tt
+							using = tooltip_es
+						}
 
-					button_standard = {
-						name = "DI_convert_to_player_counties"
-						onclick = "[GetScriptedGui('DI_ce_convert_to_player_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_to_player_counties
-						tooltip = DI_ce_convert_to_player_counties_tt
-						using = tooltip_es
+						button_standard = {
+							name = "DI_convert_to_player_counties"
+							onclick = "[GetScriptedGui('DI_ce_convert_to_player_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_ce_convert_to_player_counties
+							tooltip = DI_ce_convert_to_player_counties_tt
+							using = tooltip_es
+						}
 					}
 				}
 
-				hbox = {
-					spacing = 15
-					button_standard = {
-						name = "DI_convert_counties_local"
-						onclick = "[GetScriptedGui('DI_ce_convert_to_own_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						text = DI_ce_convert_to_own_counties
-						tooltip = DI_ce_convert_to_own_counties_tt
-						using = tooltip_es
+				vbox = {
+					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'realm' )]"
+					spacing = 8
+					hbox = {
+						spacing = 15
+						button_standard = {
+							name = "DI_convert_realm"
+							onclick = "[GetScriptedGui('DI_convert_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_realm_culture
+							tooltip = DI_convert_realm_culture_tt
+							using = tooltip_es
+						}
+		
+						button_standard = {
+							name = "DI_convert_pinned_realm"
+							onclick = "[GetScriptedGui('DI_convert_all_pinned_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_all_pinned_realm_culture
+							tooltip = DI_convert_all_pinned_realm_culture_tt
+							using = tooltip_es
+						}
+
+						button_standard = {
+							name = "DI_convert_pinned_player_realm"
+							onclick = "[GetScriptedGui('DI_convert_all_pinned_to_player_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_all_pinned_to_player_culture
+							tooltip = DI_convert_all_pinned_to_player_culture_tt
+							using = tooltip_es
+						}
+					}
+
+					hbox = {
+						spacing = 15
+						button_standard = {
+							name = "DI_quick_convert_player_realm"
+							onclick = "[GetScriptedGui('DI_quick_convert_player_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_quick_convert_player_realm_culture
+							tooltip = DI_quick_convert_player_realm_culture_tt
+							using = tooltip_es
+						}
+					}
+				}
+
+				vbox = {
+					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'sub_realm' )]"
+					spacing = 8
+					hbox = {
+						spacing = 15
+						button_standard = {
+							name = "DI_convert_sub_realm"
+							onclick = "[GetScriptedGui('DI_convert_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_sub_realm_culture
+							tooltip = DI_convert_sub_realm_culture_tt
+							using = tooltip_es
+						}
+		
+						button_standard = {
+							name = "DI_convert_pinned_sub_realm"
+							onclick = "[GetScriptedGui('DI_convert_all_pinned_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_all_pinned_sub_realm_culture
+							tooltip = DI_convert_all_pinned_sub_realm_culture_tt
+							using = tooltip_es
+						}
+
+						button_standard = {
+							name = "DI_convert_pinned_player_sub_realm"
+							onclick = "[GetScriptedGui('DI_convert_all_pinned_to_player_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_convert_all_pinned_to_player_sub_realm_culture
+							tooltip = DI_convert_all_pinned_to_player_sub_realm_culture_tt
+							using = tooltip_es
+						}
+					}
+
+					hbox = {
+						spacing = 15
+						button_standard = {
+							name = "DI_quick_convert_player_sub_realm"
+							onclick = "[GetScriptedGui('DI_quick_convert_player_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							text = DI_quick_convert_player_sub_realm_culture
+							tooltip = DI_quick_convert_player_sub_realm_culture_tt
+							using = tooltip_es
+						}
 					}
 				}
 			}
@@ -1290,6 +1452,7 @@ template DI_Innovation_Anim
 
 		on_start = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
 		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
+		on_start = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
 	}
 	
 	state = {

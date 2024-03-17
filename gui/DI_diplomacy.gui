@@ -535,17 +535,20 @@ window = {
 
 						button_standard = {
 							text = DI_reset_relations
-							tooltip = DI_placeholder_tt
+							tooltip = DI_reset_relations_tt
+							onclick = "[GetScriptedGui('DI_reset_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 
 						button_standard = {
-							text = DI_good_relations
-							tooltip = DI_placeholder_tt
+							text = DI_reset_pinned_relations
+							tooltip = DI_reset_pinned_relations_tt
+							onclick = "[GetScriptedGui('DI_reset_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 
 						button_standard = {
-							text = DI_bad_relations
-							tooltip = DI_placeholder_tt			
+							text = DI_reset_all_pinned_relations
+							tooltip = DI_reset_all_pinned_relations_tt
+							onclick = "[GetScriptedGui('DI_reset_all_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 					}
 
@@ -553,18 +556,21 @@ window = {
 						spacing = 15
 
 						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt
+							text = DI_apply_relations
+							tooltip = DI_apply_relations_tt
+							onclick = "[GetScriptedGui('DI_apply_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 
 						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt
+							text = DI_apply_pinned_relations
+							tooltip = DI_apply_pinned_relations_tt
+							onclick = "[GetScriptedGui('DI_apply_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 
 						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt
+							text = DI_apply_all_pinned_relations
+							tooltip = DI_apply_all_pinned_relations_tt
+							onclick = "[GetScriptedGui('DI_apply_all_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 						}
 					}
 				}
@@ -1020,6 +1026,36 @@ window = {
 										minimumsize = { 76 -1 }
 									}
 								}
+
+								# Make Siblings
+								hbox = {
+									layoutpolicy_horizontal = expanding
+
+									button_standard = {
+										layoutpolicy_horizontal = expanding
+										size = { 0 50 }
+
+										onclick = "[GetScriptedGui('DI_dip_make_siblings').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+										
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+								
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												
+												text = DI_dip_make_siblings_button
+								
+												default_format = "#clickable"
+											}
+										}
+										tooltip = DI_dip_make_siblings_button_tt
+									}
+									hbox = {
+										minimumsize = { 76 -1 }
+									}
+								}
 							}
 						}
 					}
@@ -1031,39 +1067,12 @@ window = {
 
 					hbox = {
 						spacing = 15
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt			
-						}
 
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt			
-						}
-
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt			
-						}
 					}
 
 					hbox = {
 						spacing = 15
 
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt
-						}
-
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt
-						}
-
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt
-						}
 					}
 				}
 				expand = {}

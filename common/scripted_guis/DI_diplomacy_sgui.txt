@@ -294,6 +294,361 @@ DI_victim_toggle = {
 	}
 }
 
+### Reset Relations ###
+DI_reset_relations = {
+	scope = character # Player
+
+	effect = {
+		save_scope_as = player
+		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+		scope:player.var:DI_secondary_character = { save_scope_as = secondary_char }
+
+		scope:primary_char = {
+			remove_relation_potential_friend = scope:secondary_char
+			remove_relation_potential_rival = scope:secondary_char
+			remove_relation_potential_lover = scope:secondary_char
+			remove_relation_friend = scope:secondary_char
+			remove_relation_rival = scope:secondary_char
+			remove_relation_lover = scope:secondary_char
+			remove_relation_best_friend = scope:secondary_char
+			remove_relation_nemesis = scope:secondary_char
+			remove_relation_soulmate = scope:secondary_char
+			remove_relation_bully = scope:secondary_char
+			remove_relation_victim = scope:secondary_char
+		}
+	}
+}
+
+### Reset Pinned Relations
+DI_reset_pinned_relations = {
+	scope = character # Player
+
+	effect = {
+		save_scope_as = player
+		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = pinned_character
+
+			scope:primary_char = {
+				remove_relation_potential_friend = scope:pinned_character
+				remove_relation_potential_rival = scope:pinned_character
+				remove_relation_potential_lover = scope:pinned_character
+				remove_relation_friend = scope:pinned_character
+				remove_relation_rival = scope:pinned_character
+				remove_relation_lover = scope:pinned_character
+				remove_relation_best_friend = scope:pinned_character
+				remove_relation_nemesis = scope:pinned_character
+				remove_relation_soulmate = scope:pinned_character
+				remove_relation_bully = scope:pinned_character
+				remove_relation_victim = scope:pinned_character
+			}
+		}
+	}
+}
+
+### Reset All Pinned Relations ###
+DI_reset_all_pinned_relations = {
+	scope = character # Player
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = pinned_character
+
+			scope:player = {
+				every_in_list = {
+					variable = pinned_characters
+					save_scope_as = second_pinned_character
+
+					if = {
+						limit = {
+							NOT = { this = scope:pinned_character }
+						}
+
+						scope:pinned_character = {
+							remove_relation_potential_friend = scope:second_pinned_character
+							remove_relation_potential_rival = scope:second_pinned_character
+							remove_relation_potential_lover = scope:second_pinned_character
+							remove_relation_friend = scope:second_pinned_character
+							remove_relation_rival = scope:second_pinned_character
+							remove_relation_lover = scope:second_pinned_character
+							remove_relation_best_friend = scope:second_pinned_character
+							remove_relation_nemesis = scope:second_pinned_character
+							remove_relation_soulmate = scope:second_pinned_character
+							remove_relation_bully = scope:second_pinned_character
+							remove_relation_victim = scope:second_pinned_character
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+### Apply Relations ###
+DI_apply_relations = {
+	scope = character # Player
+
+	effect = {
+		save_scope_as = player
+		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+		scope:player.var:DI_secondary_character = { save_scope_as = secondary_char }
+
+		scope:primary_char = {
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_potential_friend }
+				}
+				set_relation_potential_friend = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_potential_rival }
+				}
+				set_relation_potential_rival = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_potential_lover }
+				}
+				set_relation_potential_lover = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_friend }
+				}
+				set_relation_friend = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_rival }
+				}
+				set_relation_rival = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_lover }
+				}
+				set_relation_lover = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_best_friend }
+				}
+				set_relation_best_friend = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_nemesis }
+				}
+				set_relation_nemesis = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_soulmate }
+				}
+				set_relation_soulmate = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_bully }
+				}
+				set_relation_bully = scope:secondary_char
+			}
+			if = {
+				limit = {
+					scope:player = { has_variable = DI_victim }
+				}
+				set_relation_victim = scope:secondary_char
+			}
+		}
+	}
+}
+
+### Apply Pinned Relations ###
+DI_apply_pinned_relations = {
+	scope = character # Player
+
+	effect = {
+		save_scope_as = player
+		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = pinned_character
+
+			scope:primary_char = {
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_potential_friend }
+					}
+					set_relation_potential_friend = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_potential_rival }
+					}
+					set_relation_potential_rival = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_potential_lover }
+					}
+					set_relation_potential_lover = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_friend }
+					}
+					set_relation_friend = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_rival }
+					}
+					set_relation_rival = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_lover }
+					}
+					set_relation_lover = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_best_friend }
+					}
+					set_relation_best_friend = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_nemesis }
+					}
+					set_relation_nemesis = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_soulmate }
+					}
+					set_relation_soulmate = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_bully }
+					}
+					set_relation_bully = scope:pinned_character
+				}
+				if = {
+					limit = {
+						scope:player = { has_variable = DI_victim }
+					}
+					set_relation_victim = scope:pinned_character
+				}
+			}
+		}
+	}
+}
+
+### Apply All Pinned Relations ###
+DI_apply_all_pinned_relations = {
+	scope = character # Player
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = pinned_characters
+			save_scope_as = pinned_character
+			
+			scope:player = {
+				every_in_list = {
+					variable = pinned_characters
+					save_scope_as = second_pinned_character
+
+					if = {
+						limit = {
+							NOT = { this = scope:pinned_character }
+						}
+
+						scope:pinned_character = {
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_potential_friend }
+								}
+								set_relation_potential_friend = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_potential_rival }
+								}
+								set_relation_potential_rival = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_potential_lover }
+								}
+								set_relation_potential_lover = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_friend }
+								}
+								set_relation_friend = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_rival }
+								}
+								set_relation_rival = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_lover }
+								}
+								set_relation_lover = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_best_friend }
+								}
+								set_relation_best_friend = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_nemesis }
+								}
+								set_relation_nemesis = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_soulmate }
+								}
+								set_relation_soulmate = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_bully }
+								}
+								set_relation_bully = scope:second_pinned_character
+							}
+							if = {
+								limit = {
+									scope:player = { has_variable = DI_victim }
+								}
+								set_relation_victim = scope:second_pinned_character
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 ### Add / Remove Relations ###
 ### Potential Friend ###
 DI_potential_friend = {
@@ -520,9 +875,14 @@ DI_lover = {
 		scope:primary_char = {
 			if = {
 				limit = {
-					NOR = {
+					has_relation_soulmate = scope:secondary_char
+				}
+				remove_relation_soulmate = scope:secondary_char
+			}
+			if = {
+				limit = {
+					NOT = {
 						has_relation_lover = scope:secondary_char
-						has_relation_soulmate = scope:secondary_char
 					}
 				}
 				set_relation_lover = scope:secondary_char
@@ -646,6 +1006,15 @@ DI_soulmate = {
 			if = {
 				limit = {
 					NOR = {
+						has_relation_lover = scope:secondary_char
+						has_relation_soulmate = scope:secondary_char
+					}
+				}
+				set_relation_lover = scope:secondary_char
+			}
+			if = {
+				limit = {
+					NOT = {
 						has_relation_soulmate = scope:secondary_char
 					}
 				}
@@ -1347,6 +1716,26 @@ DI_dip_marry = {
 			}
 			scope:player.var:DI_primary_character = {
 				marry = scope:player.var:DI_tertiary_character
+			}
+		}
+	}
+}
+
+# DI_dip_make_siblings
+DI_dip_make_siblings = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+				has_variable = DI_secondary_character
+			}
+			var:DI_secondary_character = {
+				set_mother = scope:player.var:DI_primary_character.mother
+				set_father = scope:player.var:DI_primary_character.father
 			}
 		}
 	}
