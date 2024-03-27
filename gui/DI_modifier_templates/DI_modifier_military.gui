@@ -916,7 +916,49 @@ template DI_CE_Modifiers_Military
 					}                                
 				}
 			}
-			
+
+			dockable_button = {
+				name = "DI_modifier_no_disembark_penalty_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_no_disembark_penalty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_no_disembark_penalty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('no_disembark_penalty')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
+
+			# no_water_crossing_penalty
+			dockable_button = {
+				name = "DI_modifier_no_water_crossing_penalty_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_no_water_crossing_penalty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_no_water_crossing_penalty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('no_water_crossing_penalty')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
 		}
 	}
 

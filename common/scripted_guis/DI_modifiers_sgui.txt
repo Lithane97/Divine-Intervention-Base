@@ -19536,6 +19536,140 @@ DI_remove_modifier_siege_phase_time_neg = {
 		}
 	}
 }
+
+### no_disembark_penalty ###
+DI_add_modifier_no_disembark_penalty = {
+	scope = character
+	
+	effect = {
+		save_scope_as = target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				while = { count = scope:DI_story.var:DI_modifier_increment_value
+					add_character_modifier = no_disembark_penalty
+				}
+			}
+		}
+		else = {
+			while = { count = scope:DI_story.var:DI_modifier_increment_value
+				add_character_modifier = no_disembark_penalty
+			}
+		}
+	}
+}
+
+DI_remove_modifier_no_disembark_penalty = {
+	scope = character
+	
+	effect = {
+		save_scope_as = target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				while = { count = scope:DI_story.var:DI_modifier_increment_value
+					remove_character_modifier = no_disembark_penalty 
+				}
+			}
+		}
+		else = {
+			while = { count = scope:DI_story.var:DI_modifier_increment_value
+				remove_character_modifier = no_disembark_penalty 
+			}
+		}
+	}
+}
+
+### no_water_crossing_penalty ###
+DI_add_modifier_no_water_crossing_penalty = {
+	scope = character
+	
+	effect = {
+		save_scope_as = target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				while = { count = scope:DI_story.var:DI_modifier_increment_value
+					add_character_modifier = no_water_crossing_penalty
+				}
+			}
+		}
+		else = {
+			while = { count = scope:DI_story.var:DI_modifier_increment_value
+				add_character_modifier = no_water_crossing_penalty
+			}
+		}
+	}
+}
+
+DI_remove_modifier_no_water_crossing_penalty = {
+	scope = character
+	
+	effect = {
+		save_scope_as = target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				while = { count = scope:DI_story.var:DI_modifier_increment_value
+					remove_character_modifier = no_water_crossing_penalty 
+				}
+			}
+		}
+		else = {
+			while = { count = scope:DI_story.var:DI_modifier_increment_value
+				remove_character_modifier = no_water_crossing_penalty 
+			}
+		}
+	}
+}
 ### siege_morale_loss ###
 DI_add_modifier_siege_morale_loss = {
 	scope = character

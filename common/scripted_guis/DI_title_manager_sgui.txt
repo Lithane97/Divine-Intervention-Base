@@ -1,0 +1,461 @@
+﻿### Clear All Pinned Titles ###
+DI_clear_all_pinned_titles_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		clear_variable_list = DI_pinned_titles
+		clear_variable_list = DI_selected_titles
+	}
+}
+
+### Pin all pinned character's titles ###
+DI_pin_pinned_characters_titles_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_living_character = {
+			limit = { has_character_flag = pinned_for_edit }
+
+			every_held_title = {
+				limit = {
+					tier > tier_barony	
+				}
+
+				scope:player = {
+					add_to_variable_list = { 
+						name = DI_pinned_titles
+						target = prev
+					}
+					add_to_variable_list = { 
+						name = DI_selected_titles 
+						target = prev 
+					}
+				}
+			}
+		}
+	}
+}
+
+### Set All Pinned Titles as Selected ###
+DI_select_all_pinned_titles_sgui = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		title # Title to pin
+	}
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = { has_variable_list = DI_selected_titles }
+
+			clear_variable_list = DI_selected_titles
+		}
+		else = {
+			every_in_list = {
+				variable = DI_pinned_titles
+				save_scope_as = title
+
+				scope:player = {
+					add_to_variable_list = { 
+						name = DI_selected_titles
+						target = scope:title 
+					}
+				}
+			}
+		}
+	}
+}
+
+### Toggle Title Selected / Deselected ###
+DI_pin_title_toggle = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		title # Title to pin
+	}
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				is_target_in_variable_list = {
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+			scope:player = {
+				remove_list_variable = { 
+					name = DI_selected_titles 
+					target = scope:title 
+				}
+			}
+		}
+		else = {
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_selected_titles
+					target = scope:title 
+				}
+			}
+		}
+	}
+}
+
+### Unpin Title ###
+DI_unpin_title = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		title # Title to unpin
+	}
+
+	effect = {
+		save_scope_as = player
+
+		remove_list_variable = { 
+			name = DI_pinned_titles 
+			target = scope:title 
+		}
+	}
+}
+
+### Check if title is selected ###
+DI_title_pinned = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		title # Title to check
+	}
+
+	is_valid = {
+		is_target_in_variable_list = {
+			name = DI_selected_titles
+			target = scope:title
+		}
+	}
+}
+
+### sort by rank ###
+DI_title_sort_by_rank_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		ordered_in_list = {
+			variable = DI_pinned_titles
+			order_by = tier
+			min = 0
+			max = 500
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_sorted_titles
+					target = prev
+				}
+			}
+		}
+
+		clear_variable_list = DI_pinned_titles
+		every_in_list = {
+			variable = DI_sorted_titles
+			save_scope_as = title
+
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_pinned_titles
+					target = scope:title
+				}
+			}
+		}
+		clear_variable_list = DI_sorted_titles
+	}
+}
+
+### select empires ###
+DI_select_empires_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_pinned_titles
+			limit = {
+				tier = tier_empire
+			}
+			save_scope_as = title
+
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### deselect empires ###
+DI_deselect_empires_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			limit = {
+				tier = tier_empire
+			}
+			save_scope_as = title
+
+			scope:player = {
+				remove_list_variable = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### select kingdoms ###
+DI_select_kingdoms_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_pinned_titles
+			limit = {
+				tier = tier_kingdom
+			}
+			save_scope_as = title
+
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### deselect kingdoms ###
+DI_deselect_kingdoms_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			limit = {
+				tier = tier_kingdom
+			}
+			save_scope_as = title
+
+			scope:player = {
+				remove_list_variable = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### select duchies ###
+DI_select_duchies_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_pinned_titles
+			limit = {
+				tier = tier_duchy
+			}
+			save_scope_as = title
+
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### deselect duchies ###
+DI_deselect_duchies_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			limit = {
+				tier = tier_duchy
+			}
+			save_scope_as = title
+
+			scope:player = {
+				remove_list_variable = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### select counties ###
+DI_select_counties_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_pinned_titles
+			limit = {
+				tier = tier_county
+			}
+			save_scope_as = title
+
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### deselect counties ###
+DI_deselect_counties_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			limit = {
+				tier = tier_county
+			}
+			save_scope_as = title
+
+			scope:player = {
+				remove_list_variable = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+	}
+}
+
+### Sort Selected Titles ###
+DI_title_sort_selected_by_rank_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		ordered_in_list = {
+			variable = DI_selected_titles
+			order_by = tier
+			min = 0
+			max = 500
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_sorted_titles
+					target = prev
+				}
+			}
+		}
+
+		clear_variable_list = DI_selected_titles
+		every_in_list = {
+			variable = DI_sorted_titles
+			save_scope_as = title
+
+			scope:player = {
+				add_to_variable_list = { 
+					name = DI_selected_titles
+					target = scope:title
+				}
+			}
+		}
+		clear_variable_list = DI_sorted_titles
+	}
+}
+
+### Claim Titles ###
+DI_claim_titles_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			save_scope_as = title
+
+			scope:player = {
+				add_pressed_claim = scope:title
+			}
+		}
+	}
+}
+
+### Take Titles ###
+DI_take_titles_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			save_scope_as = title
+
+			scope:player = {
+				get_title = scope:title
+			}
+		}
+	}
+}
+
+### Destroy Titles ###
+DI_destroy_titles_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		every_in_list = {
+			variable = DI_selected_titles
+			save_scope_as = title
+
+			scope:player = {
+				destroy_title = scope:title
+			}
+		}
+	}
+}

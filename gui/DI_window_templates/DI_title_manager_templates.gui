@@ -1,0 +1,44 @@
+template DI_Title_Manager_Anim
+{
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+		using = Sound_WindowShow_Standard
+
+		on_finish = "[PdxGuiWidget.StackTop]"
+	}
+
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+		using = Sound_WindowHide_Standard
+	}
+
+	state = {
+		name = init
+		using = Animation_FadeIn_Quick
+		trigger_on_create = yes
+
+		on_finish = "[GetVariableSystem.Set( 'title_manager_tab', 'filter' )]"
+	}
+}
+
+template DI_Title_Manager_Header
+{
+	restrictparent_min = yes
+	
+	header_pattern = {
+		layoutpolicy_horizontal = expanding
+
+		blockoverride "header_text"
+		{
+			text = "DI_title_manager"
+			
+		}
+
+		blockoverride "button_close"
+		{
+			onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
+		}
+	}
+}

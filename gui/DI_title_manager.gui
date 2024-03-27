@@ -1,0 +1,408 @@
+### Title Manager Window ###
+
+window = {
+	name = "DI_title_manager_window"
+	parentanchor = top|right
+	position = { -50 100 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+
+	visible = "[GetVariableSystem.Exists('DI_title_manager_window_visible')]"
+
+	using = DI_Title_Manager_Anim
+	
+	vbox = {
+		using = Window_Margins
+		using = DI_Title_Manager_Header
+
+		hbox = {
+			name = "tabs"
+			layoutpolicy_horizontal = expanding
+			margin_top = 10
+
+			# Filter tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('title_manager_tab', 'filter')]"
+				down = "[GetVariableSystem.HasValue('title_manager_tab', 'filter')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_filter
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+
+			# Quick Actions
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('title_manager_tab', 'quick_actions')]"
+				down = "[GetVariableSystem.HasValue('title_manager_tab', 'quick_actions')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_quick_actions
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
+		}
+
+		widget = {
+			size = { 600 640 }
+			
+			vbox = {
+				layoutpolicy_vertical = expanding
+
+				expand = {}
+
+				# Filter Tab
+				vbox = {
+					name = "filter_tab"
+					visible = "[GetVariableSystem.HasValue('title_manager_tab', 'filter')]"
+					layoutpolicy_horizontal = expanding
+
+					margin = { 20 10 }
+
+					using = Animation_Tab_Switch
+
+					vbox = {
+						spacing = 10
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+
+							expand = {}
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_title_sort_by_rank_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_sort_by_rank
+								}
+							}
+
+							# counties
+							vbox = {
+								button_standard = {
+									button_ignore = none
+									onclick = "[GetScriptedGui('DI_select_counties_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									onrightclick = "[GetScriptedGui('DI_deselect_counties_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_select_counties
+									tooltip = DI_select_counties_tt
+								}
+							}
+							expand = {}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+
+							# empires
+							vbox = {
+								button_standard = {
+									button_ignore = none
+									onclick = "[GetScriptedGui('DI_select_empires_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									onrightclick = "[GetScriptedGui('DI_deselect_empires_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_select_empires
+									tooltip = DI_select_empires_tt
+								}
+							}
+
+							# kingdoms
+							vbox = {
+								button_standard = {
+									button_ignore = none
+									onclick = "[GetScriptedGui('DI_select_kingdoms_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									onrightclick = "[GetScriptedGui('DI_deselect_kingdoms_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_select_kingdoms
+									tooltip = DI_select_kingdoms_tt
+								}
+							}
+
+							# duchies
+							vbox = {
+								button_standard = {
+									button_ignore = none
+									onclick = "[GetScriptedGui('DI_select_duchies_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									onrightclick = "[GetScriptedGui('DI_deselect_duchies_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_select_duchies
+									tooltip = DI_select_duchies_tt
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_pin_pinned_characters_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_pinned_characters
+									tooltip = DI_pinned_characters_titles
+								}
+							}
+
+							vbox = {
+								button_standard = {
+									button_ignore = none
+									onclick = "[GetScriptedGui('DI_select_all_pinned_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									onrightclick = "[GetScriptedGui('DI_deselect_all_pinned_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_toggle_all_pinned_titles
+									tooltip = DI_toggle_all_pinned_titles_tt
+								}
+							}
+
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_clear_all_pinned_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_clear_all_pinned_titles
+								}
+							}
+						}
+
+						hbox = {
+							scrollbox = {
+								layoutpolicy_horizontal = expanding
+								size = { 400 450 }
+
+								blockoverride "scrollbox_content"
+								{
+									vbox = {
+										name = "filter_list"
+										layoutpolicy_horizontal = expanding
+										spacing = 5
+										
+										vbox_DI_title_selection_content = {
+											layoutpolicy_horizontal = expanding
+											datamodel = "[GetPlayer.MakeScope.GetList('DI_pinned_titles')]"
+											
+										}
+									}
+								}
+							}
+						}
+						margin_bottom = 20
+					}
+				}
+
+				# Quick Actions Tab
+				vbox = {
+					name = "quick_actions_tab"
+					visible = "[GetVariableSystem.HasValue('title_manager_tab', 'quick_actions')]"
+					layoutpolicy_horizontal = expanding
+
+					margin = { 20 10 }
+
+					using = Animation_Tab_Switch
+
+					vbox = {
+						spacing = 10
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+
+							expand = {}
+
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_title_sort_selected_by_rank_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_sort_by_rank
+								}
+							}
+
+							expand = {}
+						}
+						
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+							
+							# claim titles
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_claim_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_claim_titles
+								}
+							}
+
+							# take titles
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_take_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_take_titles
+								}
+							}
+
+							# destroy titles
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_destroy_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_destroy_titles
+								}
+							}
+						}
+					}
+				}
+
+				vbox = {
+					visible = "[Not(GetVariableSystem.HasValue('title_manager_tab', 'filter'))]"
+					hbox = {
+						scrollbox = {
+							layoutpolicy_horizontal = expanding
+							size = { 400 450 }
+
+							blockoverride "scrollbox_content"
+							{
+								vbox = {
+									name = "filter_list"
+									layoutpolicy_horizontal = expanding
+									spacing = 5
+									
+									vbox_DI_title_selected_section_content = {
+										layoutpolicy_horizontal = expanding
+										datamodel = "[GetPlayer.MakeScope.GetList('DI_selected_titles')]"
+										
+									}
+								}
+							}
+						}
+					}
+					margin_bottom = 30
+				}
+			}
+		}
+	}
+}
+
+######################################################
+################ TYPES AND TEMPLATES #################
+######################################################
+
+types DITitleManagerShared
+{
+	# type pinned_titles
+	type vbox_DI_title_selection_content = vbox
+	{
+		datacontext = "[GetPlayer]"
+		spacing = 3
+
+		item = {
+			hbox = {
+				datacontext = "[Scope.Title]"
+				layoutpolicy_horizontal = expanding
+				background = {
+					using = Background_Area_Dark
+
+					modify_texture = {
+						texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+						blend_mode = alphamultiply
+						alpha = 0.5
+						rotate_uv = 180
+						mirror = horizontal
+					}
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 10
+
+					coa_title_tiny_crown = {
+						datacontext = "[Scope.Title]"
+					}
+
+					text_single = {
+						text = "[Scope.Title.GetNameNoTooltip]"
+						default_format = "#bold"
+					}
+					expand = {}
+				}
+
+				expand = {}
+
+				button_checkbox_label = {
+					onclick = "[GetScriptedGui('DI_pin_title_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End)]"
+					
+					blockoverride "checkbox" 
+					{
+						checked = "[GetScriptedGui('DI_title_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End)]"
+					}
+					
+					blockoverride "text"
+					{
+						text = ""
+					}
+				}
+
+				hbox = {
+					button_unpin = {
+						name = "button_unpin"
+						onclick = "[GetScriptedGui('DI_unpin_title').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End)]"
+						size = { 25 25 }
+					}
+					margin_right = 10
+				}
+			}
+		}
+	}
+
+	# type selected_titles
+	type vbox_DI_title_selected_section_content = vbox
+	{
+		datacontext = "[GetPlayer]"
+		spacing = 3
+
+		item = {
+			hbox = {
+				datacontext = "[Scope.Title]"
+				layoutpolicy_horizontal = expanding
+				background = {
+					using = Background_Area_Dark
+
+					modify_texture = {
+						texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+						blend_mode = alphamultiply
+						alpha = 0.5
+						rotate_uv = 180
+						mirror = horizontal
+					}
+				}
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 10
+
+					coa_title_tiny_crown = {
+						datacontext = "[Scope.Title]"
+					}
+
+					text_single = {
+						text = "[Scope.Title.GetNameNoTooltip]"
+						default_format = "#bold"
+					}
+					expand = {}
+				}
+
+				expand = {}
+
+				hbox = {
+					button_unpin = {
+						name = "button_unpin"
+						onclick = "[GetScriptedGui('DI_deselect_title').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End)]"
+						size = { 25 25 }
+					}
+					margin_right = 10
+				}
+			}
+		}
+	}
+}

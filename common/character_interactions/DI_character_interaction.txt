@@ -203,6 +203,96 @@ DI_pin_character_interaction = {
 	auto_accept = yes
 }
 
+### Pin Titles for Edit ###
+DI_pin_title_interaction = {
+	interface_priority = 200
+	category = interaction_category_cheat_menu
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	common_interaction = yes
+	
+	is_shown = {
+		scope:actor = {
+			is_ai = no
+		}
+	}
+	
+	send_option = {
+		flag = character
+		localization = DI_pin_character_titles
+	}
+	send_option = {
+		flag = vassals
+		localization = DI_pin_vassal_titles
+	}
+	send_option = {
+		flag = realm
+		localization = DI_pin_realm_titles
+	}
+	
+	on_accept = {
+		scope:recipient = {
+			if = {
+				limit = {scope:character = yes}
+				
+				every_held_title = {
+					limit = {
+						tier > tier_barony
+					}
+					scope:actor = {
+						add_to_variable_list = { name = DI_pinned_titles target = prev }
+						add_to_variable_list = { name = DI_selected_titles target = prev }
+					}
+				}
+			}
+			
+			# vassal titles
+			if = {
+				limit = {scope:vassals = yes}
+				
+				every_vassal = {
+					every_held_title = {
+						limit = {
+							tier > tier_barony
+						}
+						scope:actor = {
+							add_to_variable_list = { name = DI_pinned_titles target = prev }
+							add_to_variable_list = { name = DI_selected_titles target = prev }
+						}
+					}
+				}
+			}
+
+			if = {
+				limit = {scope:realm = yes}
+				
+				scope:recipient.liege = {
+					every_held_title = {
+						limit = {
+							tier > tier_barony
+						}
+						scope:actor = {
+							add_to_variable_list = { name = DI_pinned_titles target = prev }
+							add_to_variable_list = { name = DI_selected_titles target = prev }
+						}
+					}
+					every_sub_realm_title = {
+						limit = {
+							tier > tier_barony
+						}
+						scope:actor = {
+							add_to_variable_list = { name = DI_pinned_titles target = prev }
+							add_to_variable_list = { name = DI_selected_titles target = prev }
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	auto_accept = yes
+}
+
 ### Change Character ###
 DI_change_character_interaction = {
 	interface_priority = 150
