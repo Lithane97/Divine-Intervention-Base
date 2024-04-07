@@ -27,6 +27,18 @@ DI_on_game_start = {
 			create_story = DI_traits_story
 			create_story = DI_misc_variables_story
 		}
+
+		if = {
+			limit = {
+				NOT = { has_global_variable = DI_loaded }
+			}
+			if = {
+				limit = {
+					has_global_variable = DI_loaded
+				}
+				set_global_variable = DI_loaded
+			}
+		}
 	}
 }
 
