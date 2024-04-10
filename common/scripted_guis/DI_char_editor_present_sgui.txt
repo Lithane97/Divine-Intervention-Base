@@ -6651,127 +6651,124 @@ DI_present_innovation_currency_04 = {
 
 ### Present Laws ###
 DI_ce_gender_equality = {
-	scope = faith #Faith of the player
-
-	saved_scopes = {
-		culture #Culture of the player
-		target #Target of the player
-	} 
+	scope = character # Player
 
 	effect = {
-		## DOCTRINE_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_gender_male_dominated }
-			remove_doctrine = doctrine_gender_male_dominated
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_gender_female_dominated }
-			remove_doctrine = doctrine_gender_female_dominated
-		}
+		save_scope_as = player
 
-		if = {
-			limit = { NOT = { has_doctrine = doctrine_gender_equal } }
-			add_doctrine = doctrine_gender_equal
-		}
-
-		## DOCTRINE_CLERICAL_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_clerical_gender_male_only }
-			remove_doctrine = doctrine_clerical_gender_male_only
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_clerical_gender_female_only }
-			remove_doctrine = doctrine_clerical_gender_female_only
-		}
-
-		if = {
-			limit = { NOT = { has_doctrine = doctrine_clerical_gender_either } }
-			add_doctrine = doctrine_clerical_gender_either
-		}
-
-
-		## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
-		#Makes the adultery doctrine same for both genders (picks lesser version)
-
-		#Any of them accepted? Both should be accepted
-		if = {
-			limit = {
-				OR = {
-					has_doctrine = doctrine_adultery_men_accepted
-					has_doctrine = doctrine_adultery_women_accepted
-				}
-			}
-
-			#Is male wrong?
+		scope:player.faith = {
+			## DOCTRINE_GENDER
 			if = {
-				limit = { NOT = { has_doctrine = doctrine_adultery_men_accepted } }
-
-				if = {
-					limit = { has_doctrine = doctrine_adultery_men_crime }
-					remove_doctrine = doctrine_adultery_men_crime
-				}
-				else_if = {
-					limit = { has_doctrine = doctrine_adultery_men_shunned }
-					remove_doctrine = doctrine_adultery_men_shunned
-				}
-				add_doctrine = doctrine_adultery_men_accepted
+				limit = { has_doctrine = doctrine_gender_male_dominated }
+				remove_doctrine = doctrine_gender_male_dominated
+			}
+			else_if = {
+				limit = { has_doctrine = doctrine_gender_female_dominated }
+				remove_doctrine = doctrine_gender_female_dominated
 			}
 
-			#Is female wrong?
 			if = {
-				limit = { NOT = { has_doctrine = doctrine_adultery_women_accepted } }
-
-				if = {
-					limit = { has_doctrine = doctrine_adultery_women_crime }
-					remove_doctrine = doctrine_adultery_women_crime
-				}
-				else_if = {
-					limit = { has_doctrine = doctrine_adultery_women_shunned }
-					remove_doctrine = doctrine_adultery_women_shunned
-				}
-				add_doctrine = doctrine_adultery_women_accepted
-			}
-		}
-		##Any of them shunned? Both should be shunned
-		else_if = {
-			limit = {
-				OR = {
-					has_doctrine = doctrine_adultery_men_shunned
-					has_doctrine = doctrine_adultery_women_shunned
-				}
+				limit = { NOT = { has_doctrine = doctrine_gender_equal } }
+				add_doctrine = doctrine_gender_equal
 			}
 
-			#Is male wrong?
+			## DOCTRINE_CLERICAL_GENDER
 			if = {
-				limit = { NOT = { has_doctrine = doctrine_adultery_men_shunned } }
-				remove_doctrine = doctrine_adultery_men_crime
-				add_doctrine = doctrine_adultery_men_shunned
+				limit = { has_doctrine = doctrine_clerical_gender_male_only }
+				remove_doctrine = doctrine_clerical_gender_male_only
+			}
+			else_if = {
+				limit = { has_doctrine = doctrine_clerical_gender_female_only }
+				remove_doctrine = doctrine_clerical_gender_female_only
 			}
 
-			#Is female wrong?
 			if = {
-				limit = { NOT = { has_doctrine = doctrine_adultery_women_shunned } }
-				remove_doctrine = doctrine_adultery_women_crime
-				add_doctrine = doctrine_adultery_women_shunned
+				limit = { NOT = { has_doctrine = doctrine_clerical_gender_either } }
+				add_doctrine = doctrine_clerical_gender_either
 			}
-		}
-		##Else: they're both criminal, nothing to do here
 
-		scope:target = {
+
+			## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
+			#Makes the adultery doctrine same for both genders (picks lesser version)
+
+			#Any of them accepted? Both should be accepted
 			if = {
 				limit = {
 					OR = {
-						has_realm_law = male_preference_law
-						has_realm_law = female_preference_law
-						has_realm_law = female_only_law
-						has_realm_law = male_only_law
+						has_doctrine = doctrine_adultery_men_accepted
+						has_doctrine = doctrine_adultery_women_accepted
 					}
 				}
-				add_realm_law = equal_law
+
+				#Is male wrong?
+				if = {
+					limit = { NOT = { has_doctrine = doctrine_adultery_men_accepted } }
+
+					if = {
+						limit = { has_doctrine = doctrine_adultery_men_crime }
+						remove_doctrine = doctrine_adultery_men_crime
+					}
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_men_shunned }
+						remove_doctrine = doctrine_adultery_men_shunned
+					}
+					add_doctrine = doctrine_adultery_men_accepted
+				}
+
+				#Is female wrong?
+				if = {
+					limit = { NOT = { has_doctrine = doctrine_adultery_women_accepted } }
+
+					if = {
+						limit = { has_doctrine = doctrine_adultery_women_crime }
+						remove_doctrine = doctrine_adultery_women_crime
+					}
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_women_shunned }
+						remove_doctrine = doctrine_adultery_women_shunned
+					}
+					add_doctrine = doctrine_adultery_women_accepted
+				}
 			}
+			##Any of them shunned? Both should be shunned
+			else_if = {
+				limit = {
+					OR = {
+						has_doctrine = doctrine_adultery_men_shunned
+						has_doctrine = doctrine_adultery_women_shunned
+					}
+				}
+
+				#Is male wrong?
+				if = {
+					limit = { NOT = { has_doctrine = doctrine_adultery_men_shunned } }
+					remove_doctrine = doctrine_adultery_men_crime
+					add_doctrine = doctrine_adultery_men_shunned
+				}
+
+				#Is female wrong?
+				if = {
+					limit = { NOT = { has_doctrine = doctrine_adultery_women_shunned } }
+					remove_doctrine = doctrine_adultery_women_crime
+					add_doctrine = doctrine_adultery_women_shunned
+				}
+			}
+			##Else: they're both criminal, nothing to do here
 		}
 
-		scope:culture = {
+		if = {
+			limit = {
+				OR = {
+					has_realm_law = male_preference_law
+					has_realm_law = female_preference_law
+					has_realm_law = female_only_law
+					has_realm_law = male_only_law
+				}
+			}
+			add_realm_law = equal_law
+		}
+
+		scope:player.culture = {
 			if = {
 				limit = {
 					OR = {
@@ -6786,248 +6783,247 @@ DI_ce_gender_equality = {
 }
 
 DI_ce_inverse_genders = {
-	scope = faith #Faith of the player
-
-	saved_scopes = {
-		culture # Culture of the player
-		target # The player
-	}
+	scope = character # Player
 
 	effect = {
-		## DOCTRINE_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_gender_male_dominated }
-			remove_doctrine = doctrine_gender_male_dominated
-			add_doctrine = doctrine_gender_female_dominated
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_gender_female_dominated }
-			remove_doctrine = doctrine_gender_female_dominated
-			add_doctrine = doctrine_gender_male_dominated
-		}
-		#Else: equal, do nothing
+		save_scope_as = player
 
-		## DOCTRINE_CLERICAL_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_clerical_gender_male_only }
-			remove_doctrine = doctrine_clerical_gender_male_only
-			add_doctrine = doctrine_clerical_gender_female_only
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_clerical_gender_female_only }
-			remove_doctrine = doctrine_clerical_gender_female_only
-			add_doctrine = doctrine_clerical_gender_male_only
-		}
-		#Else: either, do nothing
-
-		## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
-		# Men and women swap doctrine
-		if = {
-			limit = {
-				NOR = {
-					AND = {
-						has_doctrine = doctrine_adultery_women_accepted
-						has_doctrine = doctrine_adultery_men_accepted
-					}
-					AND = {
-						has_doctrine = doctrine_adultery_women_shunned
-						has_doctrine = doctrine_adultery_men_shunned
-					}
-					AND = {
-						has_doctrine = doctrine_adultery_women_crime
-						has_doctrine = doctrine_adultery_men_crime
-					}
-				}
-			}
-			# Save women's doctrine
+		scope:player.faith = {
+			## DOCTRINE_GENDER
 			if = {
-				limit = { has_doctrine = doctrine_adultery_women_accepted }
-				save_scope_value_as = {
-					name = doctrine_adultery_women
-					value = flag:doctrine_adultery_women_accepted
-				}
+				limit = { has_doctrine = doctrine_gender_male_dominated }
+				remove_doctrine = doctrine_gender_male_dominated
+				add_doctrine = doctrine_gender_female_dominated
 			}
 			else_if = {
-				limit = {  has_doctrine = doctrine_adultery_women_shunned }
-				save_scope_value_as = {
-					name = doctrine_adultery_women
-					value = flag:doctrine_adultery_women_shunned
-				}
+				limit = { has_doctrine = doctrine_gender_female_dominated }
+				remove_doctrine = doctrine_gender_female_dominated
+				add_doctrine = doctrine_gender_male_dominated
 			}
-			else_if = {
-				limit = {  has_doctrine = doctrine_adultery_women_crime }
-				save_scope_value_as = {
-					name = doctrine_adultery_women
-					value = flag:doctrine_adultery_women_crime
-				}
-			}
+			#Else: equal, do nothing
 
-			# Give women mens' doctrine
+			## DOCTRINE_CLERICAL_GENDER
 			if = {
-				limit = { has_doctrine = doctrine_adultery_men_accepted }
-				if = {
-					limit = { has_doctrine = doctrine_adultery_women_shunned }
-					remove_doctrine = doctrine_adultery_women_shunned
-				}
-				else_if = {
-					limit = { has_doctrine = doctrine_adultery_women_crime }
-					remove_doctrine = doctrine_adultery_women_crime
-				}
-				add_doctrine = doctrine_adultery_women_accepted
+				limit = { has_doctrine = doctrine_clerical_gender_male_only }
+				remove_doctrine = doctrine_clerical_gender_male_only
+				add_doctrine = doctrine_clerical_gender_female_only
 			}
 			else_if = {
-				limit = { has_doctrine = doctrine_adultery_men_shunned }
+				limit = { has_doctrine = doctrine_clerical_gender_female_only }
+				remove_doctrine = doctrine_clerical_gender_female_only
+				add_doctrine = doctrine_clerical_gender_male_only
+			}
+			#Else: either, do nothing
+
+			## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
+			# Men and women swap doctrine
+			if = {
+				limit = {
+					NOR = {
+						AND = {
+							has_doctrine = doctrine_adultery_women_accepted
+							has_doctrine = doctrine_adultery_men_accepted
+						}
+						AND = {
+							has_doctrine = doctrine_adultery_women_shunned
+							has_doctrine = doctrine_adultery_men_shunned
+						}
+						AND = {
+							has_doctrine = doctrine_adultery_women_crime
+							has_doctrine = doctrine_adultery_men_crime
+						}
+					}
+				}
+				# Save women's doctrine
 				if = {
 					limit = { has_doctrine = doctrine_adultery_women_accepted }
-					remove_doctrine = doctrine_adultery_women_accepted
+					save_scope_value_as = {
+						name = doctrine_adultery_women
+						value = flag:doctrine_adultery_women_accepted
+					}
 				}
 				else_if = {
-					limit = { has_doctrine = doctrine_adultery_women_crime }
-					remove_doctrine = doctrine_adultery_women_crime
-				}
-				add_doctrine = doctrine_adultery_women_shunned
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_adultery_men_crime }
-				if = {
-					limit = { has_doctrine = doctrine_adultery_women_accepted }
-					remove_doctrine = doctrine_adultery_women_accepted
+					limit = {  has_doctrine = doctrine_adultery_women_shunned }
+					save_scope_value_as = {
+						name = doctrine_adultery_women
+						value = flag:doctrine_adultery_women_shunned
+					}
 				}
 				else_if = {
-					limit = { has_doctrine = doctrine_adultery_women_shunned }
-					remove_doctrine = doctrine_adultery_women_shunned
+					limit = {  has_doctrine = doctrine_adultery_women_crime }
+					save_scope_value_as = {
+						name = doctrine_adultery_women
+						value = flag:doctrine_adultery_women_crime
+					}
 				}
-				add_doctrine = doctrine_adultery_women_crime
-			}
 
-			# Give men women' doctrine
-			if = {
-				limit = { scope:doctrine_adultery_women = flag:doctrine_adultery_women_accepted }
-				if = {
-					limit = { has_doctrine = doctrine_adultery_men_shunned }
-					remove_doctrine = doctrine_adultery_men_shunned
-				}
-				else_if = {
-					limit = { has_doctrine = doctrine_adultery_men_crime }
-					remove_doctrine = doctrine_adultery_men_crime
-				}
-				add_doctrine = doctrine_adultery_men_accepted
-			}
-			else_if = {
-				limit = { scope:doctrine_adultery_women = flag:doctrine_adultery_women_shunned }
+				# Give women mens' doctrine
 				if = {
 					limit = { has_doctrine = doctrine_adultery_men_accepted }
-					remove_doctrine = doctrine_adultery_men_accepted
-				}
-				else_if = {
-					limit = { has_doctrine = doctrine_adultery_men_crime }
-					remove_doctrine = doctrine_adultery_men_crime
-				}
-				add_doctrine = doctrine_adultery_men_shunned
-			}
-			else_if = {
-				limit = { scope:doctrine_adultery_women = flag:doctrine_adultery_women_crime }
-				if = {
-					limit = { has_doctrine = doctrine_adultery_men_accepted }
-					remove_doctrine = doctrine_adultery_men_accepted
+					if = {
+						limit = { has_doctrine = doctrine_adultery_women_shunned }
+						remove_doctrine = doctrine_adultery_women_shunned
+					}
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_women_crime }
+						remove_doctrine = doctrine_adultery_women_crime
+					}
+					add_doctrine = doctrine_adultery_women_accepted
 				}
 				else_if = {
 					limit = { has_doctrine = doctrine_adultery_men_shunned }
-					remove_doctrine = doctrine_adultery_men_shunned
+					if = {
+						limit = { has_doctrine = doctrine_adultery_women_accepted }
+						remove_doctrine = doctrine_adultery_women_accepted
+					}
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_women_crime }
+						remove_doctrine = doctrine_adultery_women_crime
+					}
+					add_doctrine = doctrine_adultery_women_shunned
 				}
-				add_doctrine = doctrine_adultery_men_crime
-			}
-		}
-
-		scope:target = {
-			# Take care of any titles with their own title laws.
-			every_held_title = {
-				limit = { can_title_have_law_general_trigger = yes }
-				# Invert male-only.
-				if = {
-					limit = { has_title_law = male_only_law }
-					remove_title_law = male_only_law
-					add_title_law = female_only_law
-				}
-				# Invert female-only.
 				else_if = {
-					limit = { has_title_law = female_only_law }
-					remove_title_law = female_only_law
-					add_title_law = male_only_law
-				}
-			}
-			# Now realm law.
-			if = {
-				limit = { has_realm_law = male_only_law }
-				add_realm_law = female_only_law
-				if = {
-					limit = {
-						highest_held_title_tier >= tier_county
-						is_male = yes
-						is_ai = yes
-						any_heir = { is_female = yes }
+					limit = { has_doctrine = doctrine_adultery_men_crime }
+					if = {
+						limit = { has_doctrine = doctrine_adultery_women_accepted }
+						remove_doctrine = doctrine_adultery_women_accepted
 					}
-					depose = yes
-				}
-			}
-			else_if = {
-				limit = { has_realm_law = male_preference_law }
-				add_realm_law = female_preference_law
-				if = {
-					limit = {
-						highest_held_title_tier >= tier_county
-						is_male = yes
-						is_ai = yes
-						any_heir = { is_female = yes }
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_women_shunned }
+						remove_doctrine = doctrine_adultery_women_shunned
 					}
-					depose = yes
+					add_doctrine = doctrine_adultery_women_crime
 				}
-			}
-			else_if = {
-				limit = { has_realm_law = female_preference_law }
-				add_realm_law = male_preference_law
+
+				# Give men women' doctrine
 				if = {
-					limit = {
-						highest_held_title_tier >= tier_county
-						is_female = yes
-						is_ai = yes
-						any_heir = { is_male = yes }
+					limit = { scope:doctrine_adultery_women = flag:doctrine_adultery_women_accepted }
+					if = {
+						limit = { has_doctrine = doctrine_adultery_men_shunned }
+						remove_doctrine = doctrine_adultery_men_shunned
 					}
-					depose = yes
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_men_crime }
+						remove_doctrine = doctrine_adultery_men_crime
+					}
+					add_doctrine = doctrine_adultery_men_accepted
+				}
+				else_if = {
+					limit = { scope:doctrine_adultery_women = flag:doctrine_adultery_women_shunned }
+					if = {
+						limit = { has_doctrine = doctrine_adultery_men_accepted }
+						remove_doctrine = doctrine_adultery_men_accepted
+					}
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_men_crime }
+						remove_doctrine = doctrine_adultery_men_crime
+					}
+					add_doctrine = doctrine_adultery_men_shunned
+				}
+				else_if = {
+					limit = { scope:doctrine_adultery_women = flag:doctrine_adultery_women_crime }
+					if = {
+						limit = { has_doctrine = doctrine_adultery_men_accepted }
+						remove_doctrine = doctrine_adultery_men_accepted
+					}
+					else_if = {
+						limit = { has_doctrine = doctrine_adultery_men_shunned }
+						remove_doctrine = doctrine_adultery_men_shunned
+					}
+					add_doctrine = doctrine_adultery_men_crime
 				}
 			}
-			else_if = {
-				limit = { has_realm_law = female_only_law }
-				add_realm_law = male_only_law
-				if = {
-					limit = {
-						highest_held_title_tier >= tier_county
-						is_female = yes
-						is_ai = yes
-						any_heir = { is_male = yes }
-					}
-					depose = yes
-				}
-			}
-			#Else: equal, nothing changes
 		}
 
-		if = {
-			limit = {
-				has_doctrine = doctrine_clerical_gender_male_only
-				religious_head ?= { is_female = yes }
+		# Take care of any titles with their own title laws.
+		every_held_title = {
+			limit = { can_title_have_law_general_trigger = yes }
+			# Invert male-only.
+			if = {
+				limit = { has_title_law = male_only_law }
+				remove_title_law = male_only_law
+				add_title_law = female_only_law
 			}
-			religious_head = { depose = yes }
+			# Invert female-only.
+			else_if = {
+				limit = { has_title_law = female_only_law }
+				remove_title_law = female_only_law
+				add_title_law = male_only_law
+			}
+		}
+		# Now realm law.
+		if = {
+			limit = { has_realm_law = male_only_law }
+			add_realm_law = female_only_law
+			if = {
+				limit = {
+					highest_held_title_tier >= tier_county
+					is_male = yes
+					is_ai = yes
+					any_heir = { is_female = yes }
+				}
+				depose = yes
+			}
 		}
 		else_if = {
-			limit = {
-				has_doctrine = doctrine_clerical_gender_female_only
-				religious_head ?= { is_male = yes }
+			limit = { has_realm_law = male_preference_law }
+			add_realm_law = female_preference_law
+			if = {
+				limit = {
+					highest_held_title_tier >= tier_county
+					is_male = yes
+					is_ai = yes
+					any_heir = { is_female = yes }
+				}
+				depose = yes
 			}
-			religious_head = { depose = yes }
+		}
+		else_if = {
+			limit = { has_realm_law = female_preference_law }
+			add_realm_law = male_preference_law
+			if = {
+				limit = {
+					highest_held_title_tier >= tier_county
+					is_female = yes
+					is_ai = yes
+					any_heir = { is_male = yes }
+				}
+				depose = yes
+			}
+		}
+		else_if = {
+			limit = { has_realm_law = female_only_law }
+			add_realm_law = male_only_law
+			if = {
+				limit = {
+					highest_held_title_tier >= tier_county
+					is_female = yes
+					is_ai = yes
+					any_heir = { is_male = yes }
+				}
+				depose = yes
+			}
+		}
+		#Else: equal, nothing changes
+
+		scope:player.faith = {
+			if = {
+				limit = {
+					has_doctrine = doctrine_clerical_gender_male_only
+					religious_head ?= { is_female = yes }
+				}
+				religious_head = { depose = yes }
+			}
+			else_if = {
+				limit = {
+					has_doctrine = doctrine_clerical_gender_female_only
+					religious_head ?= { is_male = yes }
+				}
+				religious_head = { depose = yes }
+			}
 		}
 
-		scope:culture = {
+		scope:player.culture = {
 			if = {
 				limit = { has_cultural_pillar = martial_custom_male_only }
 				set_culture_pillar = martial_custom_female_only
@@ -7041,92 +7037,90 @@ DI_ce_inverse_genders = {
 }
 
 DI_ce_female_dominated = {
-	scope = faith # Player faith
-
-	saved_scopes = {
-		culture # Player culture
-		target # Player
-	} 
+	scope = character # Player 
 
 	effect = {
-		## DOCTRINE_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_gender_equal }
-			remove_doctrine = doctrine_gender_equal
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_gender_male_dominated }
-			remove_doctrine = doctrine_gender_male_dominated
-		}
+		save_scope_as = player
 
-		if = {
-			limit = { NOT = { has_doctrine = doctrine_gender_female_dominated } }
-			add_doctrine = doctrine_gender_female_dominated
-		}
-
-		## DOCTRINE_CLERICAL_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_clerical_gender_male_only }
-			remove_doctrine = doctrine_clerical_gender_male_only
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_clerical_gender_either }
-			remove_doctrine = doctrine_clerical_gender_either
-		}
-
-		if = {
-			limit = { NOT = { has_doctrine = doctrine_clerical_gender_female_only } }
-			add_doctrine = doctrine_clerical_gender_female_only
-		}
-
-
-		## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
-		# Remove accepted for men, add shunned
-		# Add accepted for women, remove shunned
-		if = {
-			limit = {
-				has_doctrine = doctrine_adultery_women_shunned
+		scope:player.faith = {
+			## DOCTRINE_GENDER
+			if = {
+				limit = { has_doctrine = doctrine_gender_equal }
+				remove_doctrine = doctrine_gender_equal
 			}
-			remove_doctrine = doctrine_adultery_women_shunned
-		}
-		if = {
-			limit = {
-				has_doctrine = doctrine_adultery_women_crime
+			else_if = {
+				limit = { has_doctrine = doctrine_gender_male_dominated }
+				remove_doctrine = doctrine_gender_male_dominated
 			}
-			remove_doctrine = doctrine_adultery_women_crime
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_doctrine = doctrine_adultery_women_accepted
+
+			if = {
+				limit = { NOT = { has_doctrine = doctrine_gender_female_dominated } }
+				add_doctrine = doctrine_gender_female_dominated
+			}
+
+			## DOCTRINE_CLERICAL_GENDER
+			if = {
+				limit = { has_doctrine = doctrine_clerical_gender_male_only }
+				remove_doctrine = doctrine_clerical_gender_male_only
+			}
+			else_if = {
+				limit = { has_doctrine = doctrine_clerical_gender_either }
+				remove_doctrine = doctrine_clerical_gender_either
+			}
+
+			if = {
+				limit = { NOT = { has_doctrine = doctrine_clerical_gender_female_only } }
+				add_doctrine = doctrine_clerical_gender_female_only
+			}
+
+			## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
+			# Remove accepted for men, add shunned
+			# Add accepted for women, remove shunned
+			if = {
+				limit = {
+					has_doctrine = doctrine_adultery_women_shunned
 				}
+				remove_doctrine = doctrine_adultery_women_shunned
 			}
-			add_doctrine = doctrine_adultery_women_accepted
-		}
-		if = {
-			limit = {
-				has_doctrine = doctrine_adultery_men_accepted
-			}
-			remove_doctrine = doctrine_adultery_men_accepted
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_doctrine = doctrine_adultery_men_shunned
+			if = {
+				limit = {
+					has_doctrine = doctrine_adultery_women_crime
 				}
+				remove_doctrine = doctrine_adultery_women_crime
 			}
-			add_doctrine = doctrine_adultery_men_shunned
+			if = {
+				limit = {
+					NOT = {
+						has_doctrine = doctrine_adultery_women_accepted
+					}
+				}
+				add_doctrine = doctrine_adultery_women_accepted
+			}
+			if = {
+				limit = {
+					has_doctrine = doctrine_adultery_men_accepted
+				}
+				remove_doctrine = doctrine_adultery_men_accepted
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_doctrine = doctrine_adultery_men_shunned
+					}
+				}
+				add_doctrine = doctrine_adultery_men_shunned
+			}
+
+			if = {
+				limit = {
+					has_doctrine = doctrine_clerical_gender_female_only
+					religious_head ?= { is_male = yes }
+				}
+				religious_head = { depose = yes }
+			}
 		}
 
-		if = {
-			limit = {
-				has_doctrine = doctrine_clerical_gender_female_only
-				religious_head ?= { is_male = yes }
-			}
-			religious_head = { depose = yes }
-		}
-
-		scope:culture = {
+		scope:player.culture = {
 			if = {
 				limit = { has_cultural_pillar = martial_custom_male_only }
 				set_culture_pillar = martial_custom_female_only
@@ -7137,21 +7131,28 @@ DI_ce_female_dominated = {
 			}
 		}
 
-		scope:target = {
-			if = {
-				limit = {
-					OR = {
-						has_realm_law = male_preference_law
-						has_realm_law = male_only_law
-						has_realm_law = female_preference_law
-						has_realm_law = equal_law
-					}
+		if = {
+			limit = {
+				OR = {
+					has_realm_law = male_preference_law
+					has_realm_law = male_only_law
+					has_realm_law = female_preference_law
+					has_realm_law = equal_law
 				}
-				add_realm_law = female_only_law
+			}
+			add_realm_law = female_only_law
+		}
+		if = {
+			limit = {
+				scope:player.primary_title = title:e_hre
+			}
+			scope:player.primary_title = { 
+				remove_title_law = male_only_law
+				add_title_law = female_only_law
 			}
 		}
 
-		scope:culture = {
+		scope:player.culture = {
 			if = {
 				limit = {
 					OR = {
@@ -7166,106 +7167,103 @@ DI_ce_female_dominated = {
 }
 
 DI_ce_male_dominated = {
-	scope = faith # Player faith
-
-	saved_scopes = {
-		culture # Player culture
-		target # Player
-	} 
+	scope = character # Player
 
 	effect = {
-		## DOCTRINE_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_gender_equal }
-			remove_doctrine = doctrine_gender_equal
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_gender_female_dominated }
-			remove_doctrine = doctrine_gender_female_dominated
-		}
+		save_scope_as = player
 
-		if = {
-			limit = { NOT = { has_doctrine = doctrine_gender_male_dominated } }
-			add_doctrine = doctrine_gender_male_dominated
-		}
-
-		## DOCTRINE_CLERICAL_GENDER
-		if = {
-			limit = { has_doctrine = doctrine_clerical_gender_female_only }
-			remove_doctrine = doctrine_clerical_gender_female_only
-		}
-		else_if = {
-			limit = { has_doctrine = doctrine_clerical_gender_either }
-			remove_doctrine = doctrine_clerical_gender_either
-		}
-
-		if = {
-			limit = { NOT = { has_doctrine = doctrine_clerical_gender_male_only } }
-			add_doctrine = doctrine_clerical_gender_male_only
-		}
-
-
-		## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
-		# Remove accepted for women, add shunned
-		# Add accepted for men, remove shunned
-		if = {
-			limit = {
-				has_doctrine = doctrine_adultery_men_shunned
+		scope:player.faith = {
+			## DOCTRINE_GENDER
+			if = {
+				limit = { has_doctrine = doctrine_gender_equal }
+				remove_doctrine = doctrine_gender_equal
 			}
-			remove_doctrine = doctrine_adultery_men_shunned
-		}
-		if = {
-			limit = {
-				has_doctrine = doctrine_adultery_men_crime
+			else_if = {
+				limit = { has_doctrine = doctrine_gender_female_dominated }
+				remove_doctrine = doctrine_gender_female_dominated
 			}
-			remove_doctrine = doctrine_adultery_men_crime
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_doctrine = doctrine_adultery_men_accepted
-				}
-			}
-			add_doctrine = doctrine_adultery_men_accepted
-		}
-		if = {
-			limit = {
-				has_doctrine = doctrine_adultery_women_accepted
-			}
-			remove_doctrine = doctrine_adultery_women_accepted
-		}
-		if = {
-			limit = {
-				NOT = {
-					has_doctrine = doctrine_adultery_women_shunned
-				}
-			}
-			add_doctrine = doctrine_adultery_women_shunned
-		}
 
-		if = {
-			limit = {
-				has_doctrine = doctrine_clerical_gender_male_only
-				religious_head ?= { is_female = yes }
+			if = {
+				limit = { NOT = { has_doctrine = doctrine_gender_male_dominated } }
+				add_doctrine = doctrine_gender_male_dominated
 			}
-			religious_head = { depose = yes }
-		}
 
-		scope:target = {
+			## DOCTRINE_CLERICAL_GENDER
+			if = {
+				limit = { has_doctrine = doctrine_clerical_gender_female_only }
+				remove_doctrine = doctrine_clerical_gender_female_only
+			}
+			else_if = {
+				limit = { has_doctrine = doctrine_clerical_gender_either }
+				remove_doctrine = doctrine_clerical_gender_either
+			}
+
+			if = {
+				limit = { NOT = { has_doctrine = doctrine_clerical_gender_male_only } }
+				add_doctrine = doctrine_clerical_gender_male_only
+			}
+
+
+			## DOCTRINE_ADULTERY_MEN & DOCTRINE_ADULTERY_WOMEN
+			# Remove accepted for women, add shunned
+			# Add accepted for men, remove shunned
 			if = {
 				limit = {
-					OR = {
-						has_realm_law = male_preference_law
-						has_realm_law = female_only_law
-						has_realm_law = female_preference_law
-						has_realm_law = equal_law
+					has_doctrine = doctrine_adultery_men_shunned
+				}
+				remove_doctrine = doctrine_adultery_men_shunned
+			}
+			if = {
+				limit = {
+					has_doctrine = doctrine_adultery_men_crime
+				}
+				remove_doctrine = doctrine_adultery_men_crime
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_doctrine = doctrine_adultery_men_accepted
 					}
 				}
-				add_realm_law = male_only_law
+				add_doctrine = doctrine_adultery_men_accepted
+			}
+			if = {
+				limit = {
+					has_doctrine = doctrine_adultery_women_accepted
+				}
+				remove_doctrine = doctrine_adultery_women_accepted
+			}
+			if = {
+				limit = {
+					NOT = {
+						has_doctrine = doctrine_adultery_women_shunned
+					}
+				}
+				add_doctrine = doctrine_adultery_women_shunned
+			}
+
+			if = {
+				limit = {
+					has_doctrine = doctrine_clerical_gender_male_only
+					religious_head ?= { is_female = yes }
+				}
+				religious_head = { depose = yes }
 			}
 		}
 
-		scope:culture = {
+		if = {
+			limit = {
+				OR = {
+					has_realm_law = male_preference_law
+					has_realm_law = female_only_law
+					has_realm_law = female_preference_law
+					has_realm_law = equal_law
+				}
+			}
+			add_realm_law = male_only_law
+		}
+
+		scope:player.culture = {
 			if = {
 				limit = {
 					OR = {
@@ -7281,79 +7279,78 @@ DI_ce_male_dominated = {
 
 # temporal head of faith
 DI_ce_temporal_hof = {
-	scope = faith # Player faith
-
-	saved_scopes = {
-		culture # Player culture
-		target # Player
-	}
+	scope = character # Player
 
 	effect = {
-		if = {
-			limit = {
-				OR = {
-					has_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
-					has_doctrine = doctrine_clerical_succession_spiritual_appointment
-					has_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
-				}
-			}
+		save_scope_as = player
+
+		scope:player.faith = {
 			if = {
 				limit = {
-					has_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+					OR = {
+						has_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+						has_doctrine = doctrine_clerical_succession_spiritual_appointment
+						has_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
+					}
 				}
-				remove_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
-			}
-			else_if = {
-				limit = {
-					has_doctrine = doctrine_clerical_succession_spiritual_appointment
+				if = {
+					limit = {
+						has_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+					}
+					remove_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
 				}
-				remove_doctrine = doctrine_clerical_succession_spiritual_appointment
-			}
-			else_if = {
-				limit = {
-					has_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
+				else_if = {
+					limit = {
+						has_doctrine = doctrine_clerical_succession_spiritual_appointment
+					}
+					remove_doctrine = doctrine_clerical_succession_spiritual_appointment
 				}
-				remove_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
-			}
-			add_doctrine = doctrine_clerical_succession_temporal_appointment
-		}
-		
-		if = {
-			limit = {
-				has_doctrine = doctrine_theocracy_temporal
-			}
-			remove_doctrine = doctrine_theocracy_temporal
-			add_doctrine = doctrine_theocracy_lay_clergy
-		}
-
-		if = {
-			limit = {
-				OR = {
-					has_doctrine = doctrine_no_head
-					has_doctrine = doctrine_spiritual_head
+				else_if = {
+					limit = {
+						has_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
+					}
+					remove_doctrine = doctrine_clerical_succession_temporal_fixed_appointment
 				}
+				add_doctrine = doctrine_clerical_succession_temporal_appointment
 			}
+			
 			if = {
 				limit = {
-					has_doctrine = doctrine_no_head
+					has_doctrine = doctrine_theocracy_temporal
 				}
-				remove_doctrine = doctrine_no_head
+				remove_doctrine = doctrine_theocracy_temporal
+				add_doctrine = doctrine_theocracy_lay_clergy
 			}
-			else_if = {
+
+			if = {
 				limit = {
-					has_doctrine = doctrine_spiritual_head
+					OR = {
+						has_doctrine = doctrine_no_head
+						has_doctrine = doctrine_spiritual_head
+					}
 				}
-				remove_doctrine = doctrine_spiritual_head
+				if = {
+					limit = {
+						has_doctrine = doctrine_no_head
+					}
+					remove_doctrine = doctrine_no_head
+				}
+				else_if = {
+					limit = {
+						has_doctrine = doctrine_spiritual_head
+					}
+					remove_doctrine = doctrine_spiritual_head
+				}
+				add_doctrine = doctrine_temporal_head
 			}
-			add_doctrine = doctrine_temporal_head
-		}
 
-		if = {
-			limit = {
-				has_doctrine = doctrine_temporal_head
+			if = {
+				limit = {
+					has_doctrine = doctrine_temporal_head
+				}
+
+				set_religious_head_title = scope:player.primary_title
 			}
-
-			set_religious_head_title = scope:target.primary_title
 		}
 	}
 }
