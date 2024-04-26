@@ -1266,3 +1266,28 @@ DI_misc_variable_story_check = {
 		}
 	}
 }
+
+### Pinned Characters legitimacy tabs ###
+DI_set_legitimacy = {
+	scope = character
+
+	saved_scopes = {
+		threshold # Threshold to next tab
+		legitimacy # Legitimacy value
+	}
+
+	effect = {
+		set_variable = {
+			name = DI_legitimacy_change
+			value = scope:threshold
+		}
+
+		change_variable = {
+			name = DI_legitimacy_change
+			subtract = scope:legitimacy
+		}
+
+		add_legitimacy = root.var:DI_legitimacy_change
+		clear_variable = DI_legitimacy_change
+	}
+}

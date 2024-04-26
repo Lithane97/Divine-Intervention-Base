@@ -47,7 +47,7 @@ window = {
 
 		
 		widget = {
-			size = { 720 675 }
+			size = { 760 675 }
             vbox = {
 				hbox = {
 					layoutpolicy_horizontal = expanding
@@ -128,7 +128,7 @@ window = {
 					
 					blockoverride "container_implementation" {
 						fixedgridbox = {
-							addcolumn = 700
+							addcolumn = 750
 							addrow = 135
 		
 							name = "characters_grid"
@@ -138,7 +138,7 @@ window = {
 		
 							item = {
 								DI_widget_character_list_item_finder = {
-									size = { 700 130 }
+									size = { 750 130 }
 								}
 							}
 						}
@@ -1145,6 +1145,281 @@ Types Pinned_Characters
 												}
 											}
 										}
+
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = expanding
+											margin_left = 8
+											margin_right = 4
+											spacing = 5
+
+											hbox = {
+												visible = "[GetVariableSystem.Exists('DI_legitimacy_tab')]"
+
+												hbox = {
+													datacontext = "[Character.GetLegitimacyType]"
+
+													datamodel = "[LegitimacyType.GetLevels]"
+
+													item = {
+														button_normal = {
+															name = "legitimacy_button"
+															parentanchor = vcenter
+
+															# visible = "[LessThan_int32( LegitimacyLevel.GetIndex, '(int32)5' )]"
+															visible = "[LegitimacyType.IsValid]"
+															onclick = "[GetVariableSystem.Toggle('DI_legitimacy_tab')]"
+															onclick = "[GetScriptedGui('DI_set_legitimacy').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('threshold', MakeScopeValue(LegitimacyLevel.GetThreshold(Character.Self))).AddScope('legitimacy', MakeScopeValue(Character.GetLegitimacy)).End)]"
+
+															using = tooltip_ne
+
+															tooltipwidget = {
+																DI_legitimacy_hud_tooltip = {}
+															}
+
+															size = { 48 48 }
+
+															icon = {
+																texture = "gfx/interface/icons/activity_phases/button_activity_base.dds"
+																size = { 100% 100% }
+															}
+
+															icon = {
+																parentanchor = vcenter
+																position = { 6 0 }
+																size = { 36 36 }
+
+																texture = "gfx/interface/icons/legitimacy_level_icon.dds"
+																framesize = { 70 70 }
+																frame = "[IntToFrameIndex( LegitimacyLevel.GetIndex )]"
+
+																modify_texture = {
+																	name = "lvl_increase"
+																	texture = "gfx/interface/colors/gold.dds"
+																	blend_mode = colordodge
+																	alpha = 0
+																}
+
+																modify_texture = {
+																	name = "lvl_decrease"
+																	texture = "gfx/interface/colors/red.dds"
+																	blend_mode = colordodge
+																	alpha = 0
+																}
+
+																state = {
+																	name = "legitimacy_level_increase"
+																	next = "legitimacy_level_increase_2"
+
+																	modify_texture = {
+																		name = "lvl_increase"
+																		alpha = 0
+																	}
+																}
+
+																state = {
+																	name = "legitimacy_level_increase_2"
+																	next = "legitimacy_level_increase_3"
+																	duration = 0.4
+																	bezier = { 0.5 0 1 0.5 }
+
+																	modify_texture = {
+																		name = "lvl_increase"
+																		alpha = 0.7
+																	}
+																}
+
+																state = {
+																	name = "legitimacy_level_increase_3"
+																	duration = 0.5
+																	bezier = { 0 0.5 0.5 1 }
+
+																	modify_texture = {
+																		name = "lvl_increase"
+																		alpha = 0
+																	}
+																}
+
+																state = {
+																	name = "legitimacy_level_decrease"
+																	next = "legitimacy_level_decrease_2"
+
+																	modify_texture = {
+																		name = "lvl_decrease"
+																		alpha = 0
+																	}
+																}
+
+																state = {
+																	name = "legitimacy_level_decrease_2"
+																	next = "legitimacy_level_decrease_3"
+																	duration = 0.4
+																	bezier = { 0.5 0 1 0.5 }
+
+																	modify_texture = {
+																		name = "lvl_decrease"
+																		alpha = 0.7
+																	}
+																}
+
+																state = {
+																	name = "legitimacy_level_decrease_3"
+																	duration = 0.5
+																	bezier = { 0 0.5 0.5 1 }
+
+																	modify_texture = {
+																		name = "lvl_decrease"
+																		alpha = 0
+																	}
+																}
+
+																progresspie = {
+																	visible = "[EqualTo_int32(Character.GetLegitimacyLevel.GetIndex, LegitimacyLevel.GetIndex)]"
+																	name = "progress"
+																	size = { 42 42 }
+
+																	texture = "gfx/interface/progressbars/action_progress_thin_blue.dds"
+																	framesize = { 128 128 }
+																	frame = 2
+																	value = "[FixedPointToProgressbarValue('(CFixedPoint)1')]"
+																	parentanchor = center
+
+																	modify_texture = {
+																		texture = "gfx/interface/colors/blue.dds"
+																		blend_mode = normal
+																	}
+																}
+															}
+
+															# text_single = {
+															# 	text = "[LegitimacyLevel.GetThreshold(Character.Self)]"
+															# }
+															# text_single = {
+															# 	text = "[Character.GetLegitimacy]"
+															# }
+														}
+													}
+												}
+											}
+
+											hbox = {
+												visible = "[Not(GetVariableSystem.Exists('DI_legitimacy_tab'))]"
+
+												button_normal = {
+													name = "legitimacy_button"
+													parentanchor = vcenter
+
+													datacontext = "[Character.GetLegitimacyType]"
+													datacontext = "[Character.GetLegitimacyLevel]"
+
+													visible = "[LegitimacyType.IsValid]"
+													onclick = "[GetVariableSystem.Toggle('DI_legitimacy_tab')]"
+
+													using = tooltip_ne
+
+													tooltipwidget = {
+														DI_legitimacy_hud_tooltip = {}
+													}
+
+													size = { 48 48 }
+
+													icon = {
+														texture = "gfx/interface/icons/activity_phases/button_activity_base.dds"
+														size = { 100% 100% }
+													}
+
+													icon = {
+														parentanchor = vcenter
+														position = { 6 0 }
+														size = { 36 36 }
+
+														texture = "gfx/interface/icons/legitimacy_level_icon.dds"
+														framesize = { 70 70 }
+														frame = "[IntToFrameIndex( LegitimacyLevel.GetIndex )]"
+
+														modify_texture = {
+															name = "lvl_increase"
+															texture = "gfx/interface/colors/gold.dds"
+															blend_mode = colordodge
+															alpha = 0
+														}
+
+														modify_texture = {
+															name = "lvl_decrease"
+															texture = "gfx/interface/colors/red.dds"
+															blend_mode = colordodge
+															alpha = 0
+														}
+
+														state = {
+															name = "legitimacy_level_increase"
+															next = "legitimacy_level_increase_2"
+
+															modify_texture = {
+																name = "lvl_increase"
+																alpha = 0
+															}
+														}
+
+														state = {
+															name = "legitimacy_level_increase_2"
+															next = "legitimacy_level_increase_3"
+															duration = 0.4
+															bezier = { 0.5 0 1 0.5 }
+
+															modify_texture = {
+																name = "lvl_increase"
+																alpha = 0.7
+															}
+														}
+
+														state = {
+															name = "legitimacy_level_increase_3"
+															duration = 0.5
+															bezier = { 0 0.5 0.5 1 }
+
+															modify_texture = {
+																name = "lvl_increase"
+																alpha = 0
+															}
+														}
+
+														state = {
+															name = "legitimacy_level_decrease"
+															next = "legitimacy_level_decrease_2"
+
+															modify_texture = {
+																name = "lvl_decrease"
+																alpha = 0
+															}
+														}
+
+														state = {
+															name = "legitimacy_level_decrease_2"
+															next = "legitimacy_level_decrease_3"
+															duration = 0.4
+															bezier = { 0.5 0 1 0.5 }
+
+															modify_texture = {
+																name = "lvl_decrease"
+																alpha = 0.7
+															}
+														}
+
+														state = {
+															name = "legitimacy_level_decrease_3"
+															duration = 0.5
+															bezier = { 0 0.5 0.5 1 }
+
+															modify_texture = {
+																name = "lvl_decrease"
+																alpha = 0
+															}
+														}
+													}
+												}
+											}
+										}
 									}
 								}
 							}
@@ -1219,6 +1494,152 @@ template DI_character_age_or_death_text
 
 				texture = "[Character.GetDeathReasonIcon]"
 				tooltip = "CHARACTER_DEAD_TOOLTIP"
+			}
+		}
+	}
+}
+
+types pinnedHud
+{
+	type DI_legitimacy_hud_tooltip = object_tooltip_pop_out
+	{
+		blockoverride "title_text"
+		{
+			margin = { 0 8 }
+			text = "legitimacy_hud_tt"
+			default_format = "#T"
+		}
+
+		blockoverride "concept_link"
+		{
+			text = "[legitimacy|E]"
+		}
+
+		blockoverride "subheading"
+		{
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				autoresize = yes
+				fontsize_min = 14
+				using = Font_Size_Small
+				text = "legitimacy_hud_tt_subheading"
+				default_format = "#weak"
+				fonttintcolor = "[TooltipInfo.GetTintColor]"
+				max_width = 400
+
+				margin_top = -4
+			}
+		}
+
+		blockoverride "header_additions"
+		{
+			widget = {
+				size = { 120 74 }
+
+				widget = {
+					size = { 240 74 }
+					position = { -16 0 }
+
+					icon = {
+						size = { 100% 100% }
+						visible = "[GreaterThanOrEqualTo_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
+						texture = "gfx/interface/window_legend_chronicle/expected_legitimacy_decoration.dds"
+
+						using = Mask_Rough_Edges
+
+						modify_texture = {
+							texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+							blend_mode = alphaMultiply
+						}
+					}
+
+					icon = {
+						size = { 100% 100% }
+						visible = "[LessThan_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
+						texture = "gfx/interface/window_legend_chronicle/under_expected_legitimacy_decoration.dds"
+
+						using = Mask_Rough_Edges
+
+						modify_texture = {
+							texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+							blend_mode = alphaMultiply
+						}
+					}
+				}
+			}
+		}
+
+
+		blockoverride "main_description"
+		{
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin_right = 10
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+
+					cooltip_paragraph = {
+						text = "LEGITIMACY_EFFECTS"
+						max_width = 500
+					}
+					expand = {
+						layoutpolicy_horizontal = expanding
+					}
+				}
+				spacer = {
+					size = { 0 15 }
+				}
+
+				hbox = {
+					name = "track_header"
+					layoutpolicy_horizontal = expanding
+					spacing = 5
+					margin_left = -10
+
+					background = {
+						using = Background_Area
+						margin = { -5 -5 }
+
+						modify_texture = {
+							texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+							blend_mode = alphaMultiply
+						}
+					}
+
+					icon_legitimacy_flat = {}
+
+					text_single = {
+						text = "LEGITIMACY_TRACK_TITLE"
+						layoutpolicy_horizontal = expanding
+						align = nobaseline
+					}
+				}
+
+				spacer = {
+					size = { 0 15 }
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+
+					vbox = {
+						visible = "[Character.HasVassals]"
+						spacing = 10
+						layoutpolicy_horizontal = expanding
+
+						cooltip_paragraph = {
+							text = "LEGITIMACY_AVERAGE_EXPECTATIONS"
+						}
+
+						cooltip_paragraph = {
+							visible = "[LessThan_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
+							text = "LEGITIMACY_BELOW_AVERAGE_EXPECTATIONS"
+						}
+					}
+					expand = {
+						layoutpolicy_horizontal = expanding
+					}
+				}
 			}
 		}
 	}
