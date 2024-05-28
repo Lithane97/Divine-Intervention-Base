@@ -3,10 +3,10 @@ DI_army_spawner_add_increment = {
 	scope = character
 	
 	is_valid = {
-		# any_owned_story = {
-		# 	story_type = DI_misc_variables_story
-		# 	var:DI_army_spawner_increment_value < 100000
-		# }
+		any_owned_story = {
+			story_type = DI_misc_variables_story
+			var:DI_army_spawner_increment_value < 1000000
+		}
 	}
 
 	effect = {
@@ -17,9 +17,21 @@ DI_army_spawner_add_increment = {
 			save_scope_as = DI_story
 		}
 		scope:DI_story = {
+			# if less than 1 million and greater than 100000 add 100000
 			if = {
 				limit = {
-					var:DI_army_spawner_increment_value >= 50000
+					var:DI_army_spawner_increment_value >= 100000
+					var:DI_army_spawner_increment_value < 1000000
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					add = 100000
+				}
+			}
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value >= 100000
+					var:DI_army_spawner_increment_value < 1000000
 				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
@@ -28,10 +40,8 @@ DI_army_spawner_add_increment = {
 			}
 			else_if = {
 				limit = {
-					AND = {
-						var:DI_army_spawner_increment_value < 50000
-						var:DI_army_spawner_increment_value >= 10000
-					}
+					var:DI_army_spawner_increment_value < 100000
+					var:DI_army_spawner_increment_value >= 10000
 				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
@@ -40,20 +50,56 @@ DI_army_spawner_add_increment = {
 			}
 			else_if = {
 				limit = {
-					AND = {
-						var:DI_army_spawner_increment_value < 10000
-						var:DI_army_spawner_increment_value >= 5000
-					}
+					var:DI_army_spawner_increment_value < 10000
+					var:DI_army_spawner_increment_value >= 5000
 				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
 					add = 1000
 				}
 			}
-			else = {
+			# else if <= 5000 and > 500 add 500
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value < 5000
+					var:DI_army_spawner_increment_value >= 500
+				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
 					add = 500
+				}
+			}
+			# else if <= 500 and > 100 add 100
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value < 500
+					var:DI_army_spawner_increment_value >= 100
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					add = 100
+				}
+			}
+			# else if <= 100 and > 10 add 10
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value < 100
+					var:DI_army_spawner_increment_value >= 10
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					add = 10
+				}
+			}
+			# else if <= 10 and > 1 add 1
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value < 10
+					var:DI_army_spawner_increment_value >= 1
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					add = 1
 				}
 			}
 		}
@@ -66,7 +112,7 @@ DI_army_spawner_subtract_increment = {
 	is_valid = {
 		any_owned_story = {
 			story_type = DI_misc_variables_story
-			var:DI_army_spawner_increment_value > 500
+			var:DI_army_spawner_increment_value > 1
 		}
 	}
 
@@ -79,9 +125,20 @@ DI_army_spawner_subtract_increment = {
 		}
 
 		scope:DI_story = {
+			# if greater than 100000 subtract 100000
 			if = {
 				limit = {
+					var:DI_army_spawner_increment_value > 100000
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					subtract = 100000
+				}
+			}
+			else_if = {
+				limit = {
 					var:DI_army_spawner_increment_value > 50000
+					var:DI_army_spawner_increment_value <= 100000
 				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
@@ -90,10 +147,8 @@ DI_army_spawner_subtract_increment = {
 			}
 			else_if = {
 				limit = {
-					AND = {
-						var:DI_army_spawner_increment_value <= 50000
-						var:DI_army_spawner_increment_value > 10000
-					}
+					var:DI_army_spawner_increment_value <= 50000
+					var:DI_army_spawner_increment_value > 10000
 				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
@@ -102,20 +157,55 @@ DI_army_spawner_subtract_increment = {
 			}
 			else_if = {
 				limit = {
-					AND = {
-						var:DI_army_spawner_increment_value <= 10000
-						var:DI_army_spawner_increment_value > 5000
-					}
+					var:DI_army_spawner_increment_value <= 10000
+					var:DI_army_spawner_increment_value > 5000
 				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
 					subtract = 1000
 				}
 			}
-			else = {
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value <= 5000
+					var:DI_army_spawner_increment_value > 500
+				}
 				change_variable = {
 					name = DI_army_spawner_increment_value
 					subtract = 500
+				}
+			}
+			# else if <= 500 and > 100 subtract 100
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value <= 500
+					var:DI_army_spawner_increment_value > 100
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					subtract = 100
+				}
+			}
+			# else if <= 100 and > 10 subtract 10
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value <= 100
+					var:DI_army_spawner_increment_value > 10
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					subtract = 10
+				}
+			}
+			# else if <= 10 and > 1 subtract 1
+			else_if = {
+				limit = {
+					var:DI_army_spawner_increment_value <= 10
+					var:DI_army_spawner_increment_value > 1
+				}
+				change_variable = {
+					name = DI_army_spawner_increment_value
+					subtract = 1
 				}
 			}
 		}
