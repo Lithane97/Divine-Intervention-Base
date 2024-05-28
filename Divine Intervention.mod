@@ -3,6 +3,6 @@ tags={
 	"Utilities"
 }
 name="Divine Intervention Cheat Menu"
-supported_version="1.12.4"
+supported_version="1.12.5"
 path="C:/Users/litha/OneDrive/Documents/Paradox Interactive/Crusader Kings III/replace this with local path"
 remote_file_id="2986538297"
