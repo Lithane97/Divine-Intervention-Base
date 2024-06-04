@@ -53,6 +53,20 @@ window = {
 					default_format = "#low"
 				}
 			}
+
+			# Conversion tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('title_manager_tab', 'conversion')]"
+				down = "[GetVariableSystem.HasValue('title_manager_tab', 'conversion')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_conversion
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}
 		}
 
 		widget = {
@@ -254,6 +268,150 @@ window = {
 					}
 				}
 
+				# Conversion Tab
+				vbox = {
+					name = "conversion_tab"
+					visible = "[GetVariableSystem.HasValue('title_manager_tab', 'conversion')]"
+					layoutpolicy_horizontal = expanding
+
+					margin = { 20 10 }
+
+					using = Animation_Tab_Switch
+
+					vbox = {
+						spacing = 10
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+
+							expand = {}
+
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_title_sort_selected_by_rank_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_sort_by_rank
+								}
+							}
+
+							expand = {}
+						}
+						
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+							
+							# convert religion
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_convert_titles_faith_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_convert_religion
+								}
+							}
+
+							# convert culture
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_convert_titles_culture_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_convert_culture
+								}
+							}
+
+							# convert dejure
+							vbox = {
+								button_standard = {
+									onclick = "[GetScriptedGui('DI_convert_titles_dejure_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+									text = DI_convert_dejure
+								}
+							}
+						}
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							spacing = 20
+
+							# religion selector
+							button_standard = {
+								datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_religion').Faith]"
+								onclick = "[GetVariableSystem.Toggle('DI_TM_religion_window_visible')]"
+
+								hbox = {
+									icon = {
+										size = { 30 30 }
+										texture = "[Faith.GetIcon]"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "[Faith.GetNameNoTooltip]"
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# culture selector
+							button_standard = {
+								datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_culture').Culture]"
+								onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+
+								hbox = {
+									icon = {
+										size = { 30 30 }
+										texture = "gfx/interface/icons/icon_culture.dds"
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										text = "[Culture.GetNameNoTooltip]"
+										default_format = "#clickable"
+									}
+								}
+							}
+
+							# dejure selector
+							button_standard = {
+								datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_dejure').Title]"
+								onclick = "[GetVariableSystem.Toggle('DI_TM_dejure_window_visible')]"
+								
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									margin_left = 5
+									spacing = 5
+
+									coat_of_arms_icon = {
+										size = { 20 20 }
+										coat_of_arms = "[Title.GetTitleCoA.GetTexture('(int32)56','(int32)56')]"
+										coat_of_arms_slot = "[Title.GetTitleCoA.GetSlot('(int32)56','(int32)56')]"
+										coat_of_arms_mask = "gfx/interface/coat_of_arms/title_mask.dds"
+
+										using = CoA_Title_Hover_Glow
+
+										block "coa_icon" {}
+
+										coa_title_frame = {
+											parentanchor = center
+											texture = "gfx/interface/coat_of_arms/title_28.dds"
+											size = { 26 26 }
+										}
+
+										coa_title_frame_no_holder = {
+											parentanchor = center
+											texture = "gfx/interface/coat_of_arms/title_no_holder_28.dds"
+											size = { 30 30 }
+										}
+									}
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										maximumsize = { 135 0 }
+										text = "[Title.GetNameNoTooltip]"
+										default_format = "#clickable"
+									}
+									expand = {}
+								}
+							}
+						}
+					}
+				}
+
 				vbox = {
 					visible = "[Not(GetVariableSystem.HasValue('title_manager_tab', 'filter'))]"
 					hbox = {
@@ -405,4 +563,179 @@ types DITitleManagerShared
 			}
 		}
 	}
+
+	# type select dejure titles
+	type vbox_DI_title_dejure_selected_section_content = vbox
+	{
+		datacontext = "[GetPlayer]"
+		spacing = 3
+
+		item = {
+			button_standard = {
+				size = { 200 60 }
+				datacontext = "[Scope.Title]"
+
+				onclick = "[GetScriptedGui('DI_select_dejure_title').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End)]"
+				onclick = "[GetVariableSystem.Toggle('DI_TM_dejure_window_visible')]"
+
+				layoutpolicy_horizontal = expanding
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 10
+
+					coa_title_tiny_crown = {
+						datacontext = "[Scope.Title]"
+					}
+
+					text_single = {
+						text = "[Scope.Title.GetNameNoTooltip]"
+						default_format = "#bold"
+					}
+					expand = {}
+				}
+
+				expand = {}
+			}
+		}
+	}
+}
+
+window = {
+	name = "DI_TM_religion_window"
+	parentanchor = top|right
+	position = { -600 100 }
+	size = { 500 700 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+    
+    datacontext = "[GetVariableSystem]"
+	
+	visible = "[GetVariableSystem.Exists('DI_TM_religion_window_visible')]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+
+		on_start = "[GetScriptedGui('DI_religion_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		on_finish = "[PdxGuiWidget.StackTop]"
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		restrictparent_min = yes
+		using = Window_Margins
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_religion_menu_title
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_TM_religion_window_visible')]"
+                
+			}
+		}
+		
+		DI_religion_scrollbox = {
+			blockoverride "onclick"
+			{
+				onclick = "[GetScriptedGui('DI_title_manager_religion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+				onclick = "[GetVariableSystem.Toggle('DI_TM_religion_window_visible')]"
+			}
+
+			blockoverride "footer"
+			{
+
+			}
+		}
+    }
+}
+
+window = {
+	name = "DI_TM_dejure_window"
+	parentanchor = top|right
+	position = { -600 100 }
+	size = { 500 700 }
+	layer = windows_layer
+	filter_mouse = all
+	allow_outside = yes
+	alwaystransparent = no
+	
+	using = Window_Background
+	using = Window_Decoration
+	movable = yes
+    
+    datacontext = "[GetVariableSystem]"
+	
+	visible = "[GetVariableSystem.Exists('DI_TM_dejure_window_visible')]"
+	
+	state = {
+		name = _show
+		using = Animation_FadeIn_Quick
+
+		on_finish = "[PdxGuiWidget.StackTop]"
+	}
+	
+	state = {
+		name = _hide
+		using = Animation_FadeOut_Quick
+	}
+	
+	vbox = {
+		restrictparent_min = yes
+		using = Window_Margins
+		
+		header_pattern = {
+			layoutpolicy_horizontal = expanding
+
+
+			blockoverride "header_text"
+			{
+				text = DI_dejure_title
+			}
+
+			blockoverride "button_close"
+			{
+				onclick = "[GetVariableSystem.Toggle('DI_TM_dejure_window_visible')]"
+                
+			}
+		}
+		
+		hbox = {
+			scrollbox = {
+				size = { 400 600 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "filter_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+						
+						vbox_DI_title_dejure_selected_section_content = {
+							layoutpolicy_horizontal = expanding
+							datamodel = "[GetPlayer.MakeScope.GetList('DI_selected_titles')]"
+							
+						}
+					}
+				}
+			}
+		}
+    }
 }

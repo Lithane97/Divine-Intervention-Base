@@ -226,6 +226,10 @@ DI_pin_title_interaction = {
 		localization = DI_pin_vassal_titles
 	}
 	send_option = {
+		flag = sub_realm
+		localization = DI_pin_sub_realm_titles
+	}
+	send_option = {
 		flag = realm
 		localization = DI_pin_realm_titles
 	}
@@ -259,6 +263,21 @@ DI_pin_title_interaction = {
 							add_to_variable_list = { name = DI_pinned_titles target = prev }
 							add_to_variable_list = { name = DI_selected_titles target = prev }
 						}
+					}
+				}
+			}
+
+			# sub realm titles
+			if = {
+				limit = {scope:sub_realm = yes}
+				
+				every_sub_realm_title = {
+					limit = {
+						tier > tier_barony
+					}
+					scope:actor = {
+						add_to_variable_list = { name = DI_pinned_titles target = prev }
+						add_to_variable_list = { name = DI_selected_titles target = prev }
 					}
 				}
 			}

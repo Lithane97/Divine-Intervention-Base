@@ -149,17 +149,53 @@ DI_title_sort_by_rank_sgui = {
 	effect = {
 		save_scope_as = player
 
-		ordered_in_list = {
-			variable = DI_pinned_titles
-			order_by = tier
-			min = 0
-			max = 500
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_sorted_titles
-					target = prev
+		if = {
+			limit = { 
+				NOT = { has_variable = DI_sort_descending }
+				NOT = { has_variable = DI_sort_ascending }
+			}
+
+			set_variable = DI_sort_descending
+		}
+		
+		if = {
+			limit = { has_variable = DI_sort_descending }
+
+			ordered_in_list = {
+				variable = DI_pinned_titles
+				max = 10000
+				order_by = tier
+				scope:player = {
+					add_to_variable_list = { 
+						name = DI_sorted_titles
+						target = prev
+					}
 				}
 			}
+
+			remove_variable = DI_sort_descending
+			set_variable = DI_sort_ascending
+		}
+		else_if = {
+			limit = { has_variable = DI_sort_ascending }
+
+			ordered_in_list = {
+				variable = DI_pinned_titles
+				max = 10000
+				order_by = {
+					value = tier
+					multiply = -1
+				}
+				scope:player = {
+					add_to_variable_list = { 
+						name = DI_sorted_titles
+						target = prev
+					}
+				}
+			}
+
+			remove_variable = DI_sort_ascending
+			set_variable = DI_sort_descending
 		}
 
 		clear_variable_list = DI_pinned_titles
@@ -377,17 +413,53 @@ DI_title_sort_selected_by_rank_sgui = {
 	effect = {
 		save_scope_as = player
 
-		ordered_in_list = {
-			variable = DI_selected_titles
-			order_by = tier
-			min = 0
-			max = 500
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_sorted_titles
-					target = prev
+		if = {
+			limit = { 
+				NOT = { has_variable = DI_sort_descending }
+				NOT = { has_variable = DI_sort_ascending }
+			}
+
+			set_variable = DI_sort_descending
+		}
+		
+		if = {
+			limit = { has_variable = DI_sort_descending }
+
+			ordered_in_list = {
+				variable = DI_selected_titles
+				order_by = tier
+				max = 10000
+				scope:player = {
+					add_to_variable_list = {
+						name = DI_sorted_titles
+						target = prev
+					}
 				}
 			}
+
+			remove_variable = DI_sort_descending
+			set_variable = DI_sort_ascending
+		}
+		else_if = {
+			limit = { has_variable = DI_sort_ascending }
+
+			ordered_in_list = {
+				variable = DI_selected_titles
+				order_by = {
+					value = tier
+					multiply = -1
+				}
+				max = 10000
+				scope:player = {
+					add_to_variable_list = {
+						name = DI_sorted_titles
+						target = prev
+					}
+				}
+			}
+
+			remove_variable = DI_sort_ascending
+			set_variable = DI_sort_descending
 		}
 
 		clear_variable_list = DI_selected_titles
@@ -455,6 +527,217 @@ DI_destroy_titles_sgui = {
 
 			scope:player = {
 				destroy_title = scope:title
+			}
+		}
+	}
+}
+
+### Deslect Title ###
+DI_deselect_title = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		title # Title to deselect
+	}
+
+	effect = {
+		save_scope_as = player
+
+		remove_list_variable = { 
+			name = DI_selected_titles 
+			target = scope:title 
+		}
+	}
+}
+
+### Select Culture ###
+DI_title_manager_culture = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		selected_culture # Culture to select
+	}
+
+	effect = {
+		save_scope_as = player
+
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			set_variable = {
+				name = DI_title_manager_culture
+				value = scope:selected_culture
+			}
+		}
+	}
+}
+
+### Select Religion ###
+DI_title_manager_religion = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		selected_faith # Religion to select
+	}
+
+	effect = {
+		save_scope_as = player
+
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			set_variable = {
+				name = DI_title_manager_religion
+				value = scope:selected_faith
+			}
+		}
+	}
+}
+
+### Convert Religion ###
+DI_convert_titles_faith_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			var:DI_title_manager_religion = { save_scope_as = DI_selected_religion }
+		}
+		
+		every_in_list = {
+			variable = DI_selected_titles
+			save_scope_as = title
+			if = {
+				limit = {
+					tier = tier_county
+				}
+				set_county_faith = scope:DI_selected_religion
+			}
+			else_if = {
+				limit = {
+					tier > tier_county
+				}
+				every_de_jure_county = {
+					set_county_faith = scope:DI_selected_religion
+				}
+			}
+		}
+	}
+}
+
+### Convert Culture ###
+DI_convert_titles_culture_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			var:DI_title_manager_culture = { save_scope_as = DI_selected_culture }
+		}
+		
+		every_in_list = {
+			variable = DI_selected_titles
+			save_scope_as = title
+			if = {
+				limit = {
+					tier = tier_county
+				}
+				set_county_culture = scope:DI_selected_culture
+			}
+			else_if = {
+				limit = {
+					tier > tier_county
+				}
+				every_de_jure_county = {
+					set_county_culture = scope:DI_selected_culture
+				}
+			}
+		}
+	}
+}
+
+### DI_select_dejure_title ###
+DI_select_dejure_title = {
+	scope = character # Player Character
+
+	saved_scopes = {
+		title # Title to select
+	}
+
+	effect = {
+		save_scope_as = player
+
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			set_variable = {
+				name = DI_title_manager_dejure
+				value = scope:title
+			}
+		}
+	}
+}
+
+### DI_titles_dejure_sgui ###
+DI_convert_titles_dejure_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player
+
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		scope:DI_story = {
+			var:DI_title_manager_dejure = { save_scope_as = DI_selected_dejure }
+		}
+		
+		every_in_list = {
+			variable = DI_selected_titles
+			save_scope_as = title
+			if = {
+				limit = {
+					tier = {
+						value = scope:DI_selected_dejure.tier
+						subtract = 1
+					}
+				}
+				set_de_jure_liege_title = scope:DI_selected_dejure
 			}
 		}
 	}

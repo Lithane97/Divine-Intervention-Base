@@ -1718,6 +1718,25 @@ DI_dip_marry = {
 	}
 }
 
+# DI_dip_marry_matrilineal
+DI_dip_marry_matrilineal = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+				has_variable = DI_tertiary_character
+			}
+			scope:player.var:DI_primary_character = {
+				marry_matrilineal = scope:player.var:DI_tertiary_character
+			}
+		}
+	}
+}
+
 # DI_dip_make_siblings
 DI_dip_make_siblings = {
 	scope = character
@@ -1733,6 +1752,42 @@ DI_dip_make_siblings = {
 			var:DI_secondary_character = {
 				set_mother = scope:player.var:DI_primary_character.mother
 				set_father = scope:player.var:DI_primary_character.father
+			}
+		}
+	}
+}
+
+# DI_dip_preg_gender_male
+DI_dip_preg_gender_male = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+			}
+			var:DI_primary_character = {
+				set_pregnancy_gender = male
+			}
+		}
+	}
+}
+
+# preg female
+DI_dip_preg_gender_female = {
+	scope = character
+
+	effect = {
+		save_scope_as = player
+
+		if = {
+			limit = {
+				has_variable = DI_primary_character
+			}
+			var:DI_primary_character = {
+				set_pregnancy_gender = female
 			}
 		}
 	}

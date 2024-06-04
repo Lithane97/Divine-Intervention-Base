@@ -50,27 +50,11 @@ window = {
 			}
 		}
     
-		DI_culture_scrollbox = {}
-
-		vbox = {
-			margin = { 10 10 }
-			size = {300 45}
-			spacing = 10
-			hbox = {
-				spacing = 10
-				button_standard = {
-					size = {200 35}
-					text = DI_change_to_my_culture
-					tooltip = DI_change_to_my_culture_tt
-					onclick = "[GetScriptedGui('DI_change_myculture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
-				
-				button_standard = {
-					size = {200 35}
-					text = DI_change_counties_to_my_culture
-					tooltip = DI_change_counties_to_my_culture_tt
-					onclick = "[GetScriptedGui('DI_change_myculture_county').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
+		DI_culture_scrollbox = {
+			blockoverride "onclick"
+			{
+				onclick = "[GetScriptedGui('DI_title_manager_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
+				onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
 			}
 		}
     }

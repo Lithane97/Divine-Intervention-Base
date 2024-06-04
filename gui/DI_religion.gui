@@ -48,7 +48,18 @@ window = {
                 
 			}
 		}
-		
+
+		DI_religion_scrollbox = {}
+    }
+}
+
+types DIReligionShared 
+{
+	type DI_religion_scrollbox = vbox 
+	{
+		layoutpolicy_vertical = expanding
+		layoutpolicy_horizontal = expanding
+
 		scrollbox = {
 			layoutpolicy_vertical = expanding
 			layoutpolicy_horizontal = expanding
@@ -111,18 +122,19 @@ window = {
 											layoutpolicy_horizontal = expanding
 											size = { 0 55 }
 											using = Button_Select_Faith
-											onclick = "[GetScriptedGui('DI_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+											block "onclick"
+											{
+												onclick = "[GetScriptedGui('DI_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+											}
 
 											hbox = {
 												margin = { 5 0 }
 												margin_left = 30
 												spacing = 10
 
-												button_religion_icon_ruler_designer = {
-													name = "faith_icon"
+												icon = {
 													size = { 50 50 }
-													using = Button_Select_Faith
-													onclick = "[GetScriptedGui('DI_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+													texture = "[Faith.GetIcon]"
 												}
 
 												text_single = {
@@ -141,17 +153,17 @@ window = {
 				}
 			}
 		}
-				
-		vbox = {
-			margin = { 10 10 }
-			size = {300 45}
-			spacing = 10
+
+		block "footer"
+		{
 			hbox = {
+				layoutpolicy_horizontal = expanding
 				spacing = 10
+				margin = { 10 10 }
 				button_standard = {
 					size = {200 35}
-					text =  DI_change_to_my_religion
-					tooltip =  DI_change_to_my_religion_tt
+					text = DI_change_to_my_religion
+					tooltip = DI_change_to_my_religion_tt
 					onclick = "[GetScriptedGui('DI_change_myreligion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
 				
@@ -161,7 +173,7 @@ window = {
 					tooltip = DI_change_counties_to_my_religion_tt
 					onclick = "[GetScriptedGui('DI_change_myreligion_county').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				}
-			}	
+			}
 		}
-    }
+	}
 }
