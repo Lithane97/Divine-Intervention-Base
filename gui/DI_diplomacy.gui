@@ -776,6 +776,55 @@ window = {
 								layoutpolicy_horizontal = expanding
 								spacing = 5
 								
+								# casus belli button
+								hbox = {
+									layoutpolicy_horizontal = expanding
+
+									button_standard = {
+										layoutpolicy_horizontal = expanding
+										size = { 0 50 }
+
+										onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
+										
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+								
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												
+												text = DI_dip_casus_belli_button
+								
+												default_format = "#clickable"
+											}
+										}
+										tooltip = DI_dip_casus_belli_button_tt
+									}
+									# select titles button
+									button_standard = {
+										layoutpolicy_horizontal = expanding
+										size = { 0 50 }
+
+										onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
+										
+										hbox = {
+											margin = { 5 0 }
+											margin_right = 10
+											spacing = 10
+								
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												
+												text = DI_dip_select_titles_button
+								
+												default_format = "#clickable"
+											}
+										}
+										tooltip = DI_dip_select_titles_button_tt
+									}
+								}
+
 								hbox = {
 									layoutpolicy_horizontal = expanding
 
@@ -798,7 +847,7 @@ window = {
 												default_format = "#clickable"
 											}
 										}
-										tooltip = DI_placeholder_tt # DI_dip_war_button_tt
+										tooltip = DI_dip_war_button_tt
 									}
 									hbox = {
 										minimumsize = { 76 -1 }
@@ -827,7 +876,7 @@ window = {
 												default_format = "#clickable"
 											}
 										}
-										tooltip = DI_placeholder_tt # DI_dip_end_war_button_tt
+										tooltip = DI_dip_end_war_button_tt
 									}
 									hbox = {
 										minimumsize = { 76 -1 }
@@ -1417,4 +1466,115 @@ types DIDiplomacyShared
 			tooltip = DI_relations_tt
 		}
 	}
+}
+
+window = {
+    name = "DI_dip_CB_window"
+    parentanchor = top|right
+    position = { -600 100 }
+    size = { 500 700 }
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+    
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+    
+    datacontext = "[GetVariableSystem]"
+    
+    visible = "[GetVariableSystem.Exists('DI_dip_CB_window_visible')]"
+    
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+    
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
+    
+    vbox = {
+        restrictparent_min = yes
+        using = Window_Margins
+        
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+            
+            
+            blockoverride "header_text"
+            {
+                text = DI_casus_belli
+            }
+            
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
+                
+            }
+        }
+        
+        vbox = {
+            name = "casus_belli_selection_panel"
+            margin = { 10 15 }
+            
+            scrollbox = {
+                layoutpolicy_horizontal = expanding
+                size = { 400 600 }
+                
+                blockoverride "scrollbox_content"
+                {
+                    vbox = {
+                        name = "casus_belli_list"
+                        layoutpolicy_horizontal = expanding
+                        spacing = 5
+                        
+                        # County Conquest CB
+						button_standard_clean = {
+							name = "DI_county_conquest"
+							layoutpolicy_horizontal = expanding
+							size = { 0 60 }
+							onclick = "[GetScriptedGui('DI_county_conquest').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+							onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
+
+							background = {
+								using = Background_Area_Dark
+								
+								modify_texture = {
+									texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+									blend_mode = alphamultiply
+									alpha = 0.3
+									rotate_uv = 90
+									mirror = vertical
+								}
+							}
+							
+							hbox = {
+								margin = { 5 0 }
+								margin_right = 10
+								spacing = 10
+								
+								icon = {
+									size = { 50 50 }
+									texture = "gfx/interface/icons/DI_county_conquest.dds"
+								}
+								
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									text = DI_county_conquest
+									default_format = "#bold"
+								}
+							}
+							
+							tooltip = "DI_county_conquest_tt"
+						}
+                    }
+                }
+            }
+        }
+    }
 }

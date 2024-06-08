@@ -1,1794 +1,2302 @@
 ﻿### Select Primary Character ###
 DI_select_primary_character = {
-	scope = character # Selected Character
-
-	saved_scopes = {
-		target # Player Character
-	}
-	
-	effect = {
-		save_scope_as = select_char
-
-		scope:target = {
-			set_variable = {
-				name = DI_primary_character
-				value = scope:select_char
-			}
-		}
-
-		if = {
-			limit = {
-				exists = this.primary_partner
-			}
-			scope:target = {
-				set_variable = {
-					name = DI_tertiary_character
-					value = prev.primary_partner
-				}
-			}
-		}
-		else = {
-			scope:target = {
-				remove_variable ?= DI_tertiary_character
-			}
-		}
-	}
+    scope = character # Selected Character
+    
+    saved_scopes = {
+        target # Player Character
+    }
+    
+    effect = {
+        save_scope_as = select_char
+        
+        scope:target = {
+            set_variable = {
+                name = DI_primary_character
+                value = scope:select_char
+            }
+        }
+        
+        if = {
+            limit = {
+                exists = this.primary_partner
+            }
+            scope:target = {
+                set_variable = {
+                    name = DI_tertiary_character
+                    value = prev.primary_partner
+                }
+            }
+        }
+        else = {
+            scope:target = {
+                remove_variable ?= DI_tertiary_character
+            }
+        }
+    }
 }
 
 ### Clear Primary Character ###
 DI_clear_primary_character = {
-	scope = character # Player Character
-	
-	effect = {
-		remove_variable ?= DI_primary_character
-	}
-
+    scope = character # Player Character
+    
+    effect = {
+        remove_variable ?= DI_primary_character
+    }
+    
 }
 
 ### Select Secondary Character ###
 DI_select_secondary_character = {
-	scope = character # Selected Character
-
-	saved_scopes = {
-		target # Player Character
-	}
-	
-	effect = {
-		save_scope_as = select_char
-
-		scope:target = {
-			set_variable = {
-				name = DI_secondary_character
-				value = scope:select_char
-			}
-		}
-	}
+    scope = character # Selected Character
+    
+    saved_scopes = {
+        target # Player Character
+    }
+    
+    effect = {
+        save_scope_as = select_char
+        
+        scope:target = {
+            set_variable = {
+                name = DI_secondary_character
+                value = scope:select_char
+            }
+        }
+    }
 }
 
 ### Clear Secondary Character ###
 DI_clear_secondary_character = {
-	scope = character # Player Character
-	
-	effect = {
-		remove_variable ?= DI_secondary_character
-	}
-
+    scope = character # Player Character
+    
+    effect = {
+        remove_variable ?= DI_secondary_character
+    }
+    
 }
 
 ### Select Tertiary Character ###
 DI_select_tertiary_character = {
-	scope = character # Selected Character
-
-	saved_scopes = {
-		target # Player Character
-	}
-	
-	effect = {
-		save_scope_as = select_char
-
-		scope:target = {
-			set_variable = {
-				name = DI_tertiary_character
-				value = scope:select_char
-			}
-		}
-	}
+    scope = character # Selected Character
+    
+    saved_scopes = {
+        target # Player Character
+    }
+    
+    effect = {
+        save_scope_as = select_char
+        
+        scope:target = {
+            set_variable = {
+                name = DI_tertiary_character
+                value = scope:select_char
+            }
+        }
+    }
 }
 
 ### Clear Tertiary Character ###
 DI_clear_tertiary_character = {
-	scope = character # Player Character
-	
-	effect = {
-		remove_variable ?= DI_tertiary_character
-	}
-
+    scope = character # Player Character
+    
+    effect = {
+        remove_variable ?= DI_tertiary_character
+    }
+    
 }
 
 ### Relations ###
 #################
 ### Potential Friend Toggle ###
 DI_potential_friend_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_potential_friend
-			}
-			remove_variable = DI_potential_friend
-		}
-		else = {
-			set_variable = DI_potential_friend
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_potential_friend
+            }
+            remove_variable = DI_potential_friend
+        }
+        else = {
+            set_variable = DI_potential_friend
+        }
+    }
 }
 
 ### Potential Rival Toggle ###
 DI_potential_rival_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_potential_rival
-			}
-			remove_variable = DI_potential_rival
-		}
-		else = {
-			set_variable = DI_potential_rival
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_potential_rival
+            }
+            remove_variable = DI_potential_rival
+        }
+        else = {
+            set_variable = DI_potential_rival
+        }
+    }
 }
 
 ### Potential Lover Toggle ###
 DI_potential_lover_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_potential_lover
-			}
-			remove_variable = DI_potential_lover
-		}
-		else = {
-			set_variable = DI_potential_lover
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_potential_lover
+            }
+            remove_variable = DI_potential_lover
+        }
+        else = {
+            set_variable = DI_potential_lover
+        }
+    }
 }
 
 ### Friend Toggle ###
 DI_friend_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_friend
-			}
-			remove_variable = DI_friend
-		}
-		else = {
-			set_variable = DI_friend
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_friend
+            }
+            remove_variable = DI_friend
+        }
+        else = {
+            set_variable = DI_friend
+        }
+    }
 }
 
 ### Rival Toggle ###
 DI_rival_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_rival
-			}
-			remove_variable = DI_rival
-		}
-		else = {
-			set_variable = DI_rival
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_rival
+            }
+            remove_variable = DI_rival
+        }
+        else = {
+            set_variable = DI_rival
+        }
+    }
 }
 
 ### Lover Toggle ###
 DI_lover_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_lover
-			}
-			remove_variable = DI_lover
-		}
-		else = {
-			set_variable = DI_lover
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_lover
+            }
+            remove_variable = DI_lover
+        }
+        else = {
+            set_variable = DI_lover
+        }
+    }
 }
 
 ### Best Friend Toggle ###
 DI_best_friend_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_best_friend
-			}
-			remove_variable = DI_best_friend
-		}
-		else = {
-			set_variable = DI_best_friend
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_best_friend
+            }
+            remove_variable = DI_best_friend
+        }
+        else = {
+            set_variable = DI_best_friend
+        }
+    }
 }
 
 ### Nemesis Toggle ###
 DI_nemesis_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_nemesis
-			}
-			remove_variable = DI_nemesis
-		}
-		else = {
-			set_variable = DI_nemesis
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_nemesis
+            }
+            remove_variable = DI_nemesis
+        }
+        else = {
+            set_variable = DI_nemesis
+        }
+    }
 }
 
 ### Soulmate Toggle ###
 DI_soulmate_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_soulmate
-			}
-			remove_variable = DI_soulmate
-		}
-		else = {
-			set_variable = DI_soulmate
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_soulmate
+            }
+            remove_variable = DI_soulmate
+        }
+        else = {
+            set_variable = DI_soulmate
+        }
+    }
 }
 
 ### Bully Toggle ###
 DI_bully_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_bully
-			}
-			remove_variable = DI_bully
-		}
-		else = {
-			set_variable = DI_bully
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_bully
+            }
+            remove_variable = DI_bully
+        }
+        else = {
+            set_variable = DI_bully
+        }
+    }
 }
 
 ### Victim Toggle ###
 DI_victim_toggle = {
-	scope = character # Player
-
-	effect = {
-		if = {
-			limit = {
-				has_variable = DI_victim
-			}
-			remove_variable = DI_victim
-		}
-		else = {
-			set_variable = DI_victim
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_victim
+            }
+            remove_variable = DI_victim
+        }
+        else = {
+            set_variable = DI_victim
+        }
+    }
 }
 
 ### Reset Relations ###
 DI_reset_relations = {
-	scope = character # Player
-
-	effect = {
-		save_scope_as = player
-		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:player.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			remove_relation_potential_friend = scope:secondary_char
-			remove_relation_potential_rival = scope:secondary_char
-			remove_relation_potential_lover = scope:secondary_char
-			remove_relation_friend = scope:secondary_char
-			remove_relation_rival = scope:secondary_char
-			remove_relation_lover = scope:secondary_char
-			remove_relation_best_friend = scope:secondary_char
-			remove_relation_nemesis = scope:secondary_char
-			remove_relation_soulmate = scope:secondary_char
-			remove_relation_bully = scope:secondary_char
-			remove_relation_victim = scope:secondary_char
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        save_scope_as = player
+        scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:player.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            remove_relation_potential_friend = scope:secondary_char
+            remove_relation_potential_rival = scope:secondary_char
+            remove_relation_potential_lover = scope:secondary_char
+            remove_relation_friend = scope:secondary_char
+            remove_relation_rival = scope:secondary_char
+            remove_relation_lover = scope:secondary_char
+            remove_relation_best_friend = scope:secondary_char
+            remove_relation_nemesis = scope:secondary_char
+            remove_relation_soulmate = scope:secondary_char
+            remove_relation_bully = scope:secondary_char
+            remove_relation_victim = scope:secondary_char
+        }
+    }
 }
 
 ### Reset Pinned Relations
 DI_reset_pinned_relations = {
-	scope = character # Player
-
-	effect = {
-		save_scope_as = player
-		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
-
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = pinned_character
-
-			scope:primary_char = {
-				remove_relation_potential_friend = scope:pinned_character
-				remove_relation_potential_rival = scope:pinned_character
-				remove_relation_potential_lover = scope:pinned_character
-				remove_relation_friend = scope:pinned_character
-				remove_relation_rival = scope:pinned_character
-				remove_relation_lover = scope:pinned_character
-				remove_relation_best_friend = scope:pinned_character
-				remove_relation_nemesis = scope:pinned_character
-				remove_relation_soulmate = scope:pinned_character
-				remove_relation_bully = scope:pinned_character
-				remove_relation_victim = scope:pinned_character
-			}
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        save_scope_as = player
+        scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = pinned_character
+            
+            scope:primary_char = {
+                remove_relation_potential_friend = scope:pinned_character
+                remove_relation_potential_rival = scope:pinned_character
+                remove_relation_potential_lover = scope:pinned_character
+                remove_relation_friend = scope:pinned_character
+                remove_relation_rival = scope:pinned_character
+                remove_relation_lover = scope:pinned_character
+                remove_relation_best_friend = scope:pinned_character
+                remove_relation_nemesis = scope:pinned_character
+                remove_relation_soulmate = scope:pinned_character
+                remove_relation_bully = scope:pinned_character
+                remove_relation_victim = scope:pinned_character
+            }
+        }
+    }
 }
 
 ### Reset All Pinned Relations ###
 DI_reset_all_pinned_relations = {
-	scope = character # Player
-
-	effect = {
-		save_scope_as = player
-
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = pinned_character
-
-			scope:player = {
-				every_in_list = {
-					variable = pinned_characters
-					save_scope_as = second_pinned_character
-
-					if = {
-						limit = {
-							NOT = { this = scope:pinned_character }
-						}
-
-						scope:pinned_character = {
-							remove_relation_potential_friend = scope:second_pinned_character
-							remove_relation_potential_rival = scope:second_pinned_character
-							remove_relation_potential_lover = scope:second_pinned_character
-							remove_relation_friend = scope:second_pinned_character
-							remove_relation_rival = scope:second_pinned_character
-							remove_relation_lover = scope:second_pinned_character
-							remove_relation_best_friend = scope:second_pinned_character
-							remove_relation_nemesis = scope:second_pinned_character
-							remove_relation_soulmate = scope:second_pinned_character
-							remove_relation_bully = scope:second_pinned_character
-							remove_relation_victim = scope:second_pinned_character
-						}
-					}
-				}
-			}
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        save_scope_as = player
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = pinned_character
+            
+            scope:player = {
+                every_in_list = {
+                    variable = pinned_characters
+                    save_scope_as = second_pinned_character
+                    
+                    if = {
+                        limit = {
+                            NOT = { this = scope:pinned_character }
+                        }
+                        
+                        scope:pinned_character = {
+                            remove_relation_potential_friend = scope:second_pinned_character
+                            remove_relation_potential_rival = scope:second_pinned_character
+                            remove_relation_potential_lover = scope:second_pinned_character
+                            remove_relation_friend = scope:second_pinned_character
+                            remove_relation_rival = scope:second_pinned_character
+                            remove_relation_lover = scope:second_pinned_character
+                            remove_relation_best_friend = scope:second_pinned_character
+                            remove_relation_nemesis = scope:second_pinned_character
+                            remove_relation_soulmate = scope:second_pinned_character
+                            remove_relation_bully = scope:second_pinned_character
+                            remove_relation_victim = scope:second_pinned_character
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Apply Relations ###
 DI_apply_relations = {
-	scope = character # Player
-
-	effect = {
-		save_scope_as = player
-		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:player.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_potential_friend }
-				}
-				set_relation_potential_friend = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_potential_rival }
-				}
-				set_relation_potential_rival = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_potential_lover }
-				}
-				set_relation_potential_lover = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_friend }
-				}
-				set_relation_friend = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_rival }
-				}
-				set_relation_rival = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_lover }
-				}
-				set_relation_lover = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_best_friend }
-				}
-				set_relation_best_friend = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_nemesis }
-				}
-				set_relation_nemesis = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_soulmate }
-				}
-				set_relation_soulmate = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_bully }
-				}
-				set_relation_bully = scope:secondary_char
-			}
-			if = {
-				limit = {
-					scope:player = { has_variable = DI_victim }
-				}
-				set_relation_victim = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        save_scope_as = player
+        scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:player.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_potential_friend }
+                }
+                set_relation_potential_friend = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_potential_rival }
+                }
+                set_relation_potential_rival = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_potential_lover }
+                }
+                set_relation_potential_lover = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_friend }
+                }
+                set_relation_friend = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_rival }
+                }
+                set_relation_rival = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_lover }
+                }
+                set_relation_lover = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_best_friend }
+                }
+                set_relation_best_friend = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_nemesis }
+                }
+                set_relation_nemesis = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_soulmate }
+                }
+                set_relation_soulmate = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_bully }
+                }
+                set_relation_bully = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    scope:player = { has_variable = DI_victim }
+                }
+                set_relation_victim = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Apply Pinned Relations ###
 DI_apply_pinned_relations = {
-	scope = character # Player
-
-	effect = {
-		save_scope_as = player
-		scope:player.var:DI_primary_character = { save_scope_as = primary_char }
-
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = pinned_character
-
-			scope:primary_char = {
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_potential_friend }
-					}
-					set_relation_potential_friend = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_potential_rival }
-					}
-					set_relation_potential_rival = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_potential_lover }
-					}
-					set_relation_potential_lover = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_friend }
-					}
-					set_relation_friend = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_rival }
-					}
-					set_relation_rival = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_lover }
-					}
-					set_relation_lover = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_best_friend }
-					}
-					set_relation_best_friend = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_nemesis }
-					}
-					set_relation_nemesis = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_soulmate }
-					}
-					set_relation_soulmate = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_bully }
-					}
-					set_relation_bully = scope:pinned_character
-				}
-				if = {
-					limit = {
-						scope:player = { has_variable = DI_victim }
-					}
-					set_relation_victim = scope:pinned_character
-				}
-			}
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        save_scope_as = player
+        scope:player.var:DI_primary_character = { save_scope_as = primary_char }
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = pinned_character
+            
+            scope:primary_char = {
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_potential_friend }
+                    }
+                    set_relation_potential_friend = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_potential_rival }
+                    }
+                    set_relation_potential_rival = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_potential_lover }
+                    }
+                    set_relation_potential_lover = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_friend }
+                    }
+                    set_relation_friend = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_rival }
+                    }
+                    set_relation_rival = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_lover }
+                    }
+                    set_relation_lover = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_best_friend }
+                    }
+                    set_relation_best_friend = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_nemesis }
+                    }
+                    set_relation_nemesis = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_soulmate }
+                    }
+                    set_relation_soulmate = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_bully }
+                    }
+                    set_relation_bully = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_victim }
+                    }
+                    set_relation_victim = scope:pinned_character
+                }
+            }
+        }
+    }
 }
 
 ### Apply All Pinned Relations ###
 DI_apply_all_pinned_relations = {
-	scope = character # Player
-
-	effect = {
-		save_scope_as = player
-
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = pinned_character
-			
-			scope:player = {
-				every_in_list = {
-					variable = pinned_characters
-					save_scope_as = second_pinned_character
-
-					if = {
-						limit = {
-							NOT = { this = scope:pinned_character }
-						}
-
-						scope:pinned_character = {
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_potential_friend }
-								}
-								set_relation_potential_friend = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_potential_rival }
-								}
-								set_relation_potential_rival = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_potential_lover }
-								}
-								set_relation_potential_lover = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_friend }
-								}
-								set_relation_friend = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_rival }
-								}
-								set_relation_rival = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_lover }
-								}
-								set_relation_lover = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_best_friend }
-								}
-								set_relation_best_friend = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_nemesis }
-								}
-								set_relation_nemesis = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_soulmate }
-								}
-								set_relation_soulmate = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_bully }
-								}
-								set_relation_bully = scope:second_pinned_character
-							}
-							if = {
-								limit = {
-									scope:player = { has_variable = DI_victim }
-								}
-								set_relation_victim = scope:second_pinned_character
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    scope = character # Player
+    
+    effect = {
+        save_scope_as = player
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = pinned_character
+            
+            scope:player = {
+                every_in_list = {
+                    variable = pinned_characters
+                    save_scope_as = second_pinned_character
+                    
+                    if = {
+                        limit = {
+                            NOT = { this = scope:pinned_character }
+                        }
+                        
+                        scope:pinned_character = {
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_potential_friend }
+                                }
+                                set_relation_potential_friend = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_potential_rival }
+                                }
+                                set_relation_potential_rival = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_potential_lover }
+                                }
+                                set_relation_potential_lover = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_friend }
+                                }
+                                set_relation_friend = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_rival }
+                                }
+                                set_relation_rival = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_lover }
+                                }
+                                set_relation_lover = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_best_friend }
+                                }
+                                set_relation_best_friend = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_nemesis }
+                                }
+                                set_relation_nemesis = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_soulmate }
+                                }
+                                set_relation_soulmate = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_bully }
+                                }
+                                set_relation_bully = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_victim }
+                                }
+                                set_relation_victim = scope:second_pinned_character
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Add / Remove Relations ###
 ### Potential Friend ###
 DI_potential_friend = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_potential_friend = scope:secondary_char
-						has_relation_friend = scope:secondary_char
-						has_relation_best_friend = scope:secondary_char
-					}
-				}
-				set_relation_potential_friend = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_potential_friend = scope:secondary_char
+                        has_relation_friend = scope:secondary_char
+                        has_relation_best_friend = scope:secondary_char
+                    }
+                }
+                set_relation_potential_friend = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_potential_friend = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_potential_friend = scope:secondary_char
-				}
-				remove_relation_potential_friend = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_potential_friend = scope:secondary_char
+                }
+                remove_relation_potential_friend = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Potential Rival ###
 DI_potential_rival = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_potential_rival = scope:secondary_char
-						has_relation_rival = scope:secondary_char
-						has_relation_nemesis = scope:secondary_char
-					}
-				}
-				set_relation_potential_rival = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_potential_rival = scope:secondary_char
+                        has_relation_rival = scope:secondary_char
+                        has_relation_nemesis = scope:secondary_char
+                    }
+                }
+                set_relation_potential_rival = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_potential_rival = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_potential_rival = scope:secondary_char
-				}
-				remove_relation_potential_rival = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_potential_rival = scope:secondary_char
+                }
+                remove_relation_potential_rival = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Potential Lover ###
 DI_potential_lover = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_potential_lover = scope:secondary_char
-						has_relation_lover = scope:secondary_char
-						has_relation_soulmate = scope:secondary_char
-					}
-				}
-				set_relation_potential_lover = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_potential_lover = scope:secondary_char
+                        has_relation_lover = scope:secondary_char
+                        has_relation_soulmate = scope:secondary_char
+                    }
+                }
+                set_relation_potential_lover = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_potential_lover = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_potential_lover = scope:secondary_char
-				}
-				remove_relation_potential_lover = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_potential_lover = scope:secondary_char
+                }
+                remove_relation_potential_lover = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Friend ###
 DI_friend = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_friend = scope:secondary_char
-						has_relation_best_friend = scope:secondary_char
-					}
-				}
-				set_relation_friend = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_friend = scope:secondary_char
+                        has_relation_best_friend = scope:secondary_char
+                    }
+                }
+                set_relation_friend = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_friend = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_friend = scope:secondary_char
-				}
-				remove_relation_friend = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_friend = scope:secondary_char
+                }
+                remove_relation_friend = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Rival ###
 DI_rival = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_rival = scope:secondary_char
-						has_relation_nemesis = scope:secondary_char
-					}
-				}
-				set_relation_rival = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_rival = scope:secondary_char
+                        has_relation_nemesis = scope:secondary_char
+                    }
+                }
+                set_relation_rival = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_rival = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_rival = scope:secondary_char
-				}
-				remove_relation_rival = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_rival = scope:secondary_char
+                }
+                remove_relation_rival = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Lover ###
 DI_lover = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_soulmate = scope:secondary_char
-				}
-				remove_relation_soulmate = scope:secondary_char
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_relation_lover = scope:secondary_char
-					}
-				}
-				set_relation_lover = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_soulmate = scope:secondary_char
+                }
+                remove_relation_soulmate = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        has_relation_lover = scope:secondary_char
+                    }
+                }
+                set_relation_lover = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_lover = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_lover = scope:secondary_char
-				}
-				remove_relation_lover = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_lover = scope:secondary_char
+                }
+                remove_relation_lover = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Best Friend ###
 DI_best_friend = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-		
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_friend = scope:secondary_char
-						has_relation_best_friend = scope:secondary_char
-					}
-				}
-				set_relation_best_friend = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_friend = scope:secondary_char
+                        has_relation_best_friend = scope:secondary_char
+                    }
+                }
+                set_relation_best_friend = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_best_friend = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-		
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_best_friend = scope:secondary_char
-				}
-				remove_relation_best_friend = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_best_friend = scope:secondary_char
+                }
+                remove_relation_best_friend = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Nemesis ###
 DI_nemesis = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-		
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_nemesis = scope:secondary_char
-					}
-				}
-				set_relation_nemesis = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_nemesis = scope:secondary_char
+                    }
+                }
+                set_relation_nemesis = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_nemesis = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-		
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_nemesis = scope:secondary_char
-				}
-				remove_relation_nemesis = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_nemesis = scope:secondary_char
+                }
+                remove_relation_nemesis = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Soulmate ###
 DI_soulmate = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-		
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_lover = scope:secondary_char
-						has_relation_soulmate = scope:secondary_char
-					}
-				}
-				set_relation_lover = scope:secondary_char
-			}
-			if = {
-				limit = {
-					NOT = {
-						has_relation_soulmate = scope:secondary_char
-					}
-				}
-				set_relation_soulmate = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_lover = scope:secondary_char
+                        has_relation_soulmate = scope:secondary_char
+                    }
+                }
+                set_relation_lover = scope:secondary_char
+            }
+            if = {
+                limit = {
+                    NOT = {
+                        has_relation_soulmate = scope:secondary_char
+                    }
+                }
+                set_relation_soulmate = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_soulmate = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-		
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_soulmate = scope:secondary_char
-				}
-				remove_relation_soulmate = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_soulmate = scope:secondary_char
+                }
+                remove_relation_soulmate = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Bully ###
 DI_bully = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_bully = scope:secondary_char
-						has_relation_victim = scope:secondary_char
-					}
-				}
-				set_relation_bully = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_bully = scope:secondary_char
+                        has_relation_victim = scope:secondary_char
+                    }
+                }
+                set_relation_bully = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_bully = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_bully = scope:secondary_char
-				}
-				remove_relation_bully = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_bully = scope:secondary_char
+                }
+                remove_relation_bully = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Victim ###
 DI_victim = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					NOR = {
-						has_relation_bully = scope:secondary_char
-						has_relation_victim = scope:secondary_char
-					}
-				}
-				set_relation_victim = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_bully = scope:secondary_char
+                        has_relation_victim = scope:secondary_char
+                    }
+                }
+                set_relation_victim = scope:secondary_char
+            }
+        }
+    }
 }
 
 DI_remove_victim = {
-	scope = character # Player Character
-	
-	effect = {
-		save_scope_as = target
-		scope:target.var:DI_primary_character = { save_scope_as = primary_char }
-		scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
-
-		scope:primary_char = {
-			if = {
-				limit = {
-					has_relation_victim = scope:secondary_char
-				}
-				remove_relation_victim = scope:secondary_char
-			}
-		}
-	}
+    scope = character # Player Character
+    
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+        
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_victim = scope:secondary_char
+                }
+                remove_relation_victim = scope:secondary_char
+            }
+        }
+    }
 }
 
 ### Treaties ###
 ################
 ### Checkbox ###
 DI_dip_length_toggle = {
-	scope = character
-
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_dip_length
-				}
-				remove_variable = DI_dip_length
-			}
-			else = {
-				set_variable = DI_dip_length
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+        
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_dip_length
+                }
+                remove_variable = DI_dip_length
+            }
+            else = {
+                set_variable = DI_dip_length
+            }
+        }
+    }
 }
 ### Sign Treaty ###
 DI_dip_treaty = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_secondary_character
-			}
-			var:DI_primary_character = {
-				if = {
-					limit = {
-						scope:DI_story = { has_variable = DI_dip_length }
-					}
-					add_truce_both_ways = {
-						character = scope:player.var:DI_secondary_character
-						override = yes
-						years = 9999
-						name = TRUCE_DEBUG
-					}
-				}
-				else = {
-					add_truce_both_ways = {
-						character = scope:player.var:DI_secondary_character
-						override = yes
-						years = 5
-						name = TRUCE_DEBUG
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_primary_character = {
+                if = {
+                    limit = {
+                        scope:DI_story = { has_variable = DI_dip_length }
+                    }
+                    add_truce_both_ways = {
+                        character = scope:player.var:DI_secondary_character
+                        override = yes
+                        years = 9999
+                        name = TRUCE_DEBUG
+                    }
+                }
+                else = {
+                    add_truce_both_ways = {
+                        character = scope:player.var:DI_secondary_character
+                        override = yes
+                        years = 5
+                        name = TRUCE_DEBUG
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Break Treaty ###
 DI_dip_break_treaty = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_secondary_character
-			}
-			var:DI_primary_character = {
-				cancel_truce_both_ways = scope:player.var:DI_secondary_character
-
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_primary_character = {
+                cancel_truce_both_ways = scope:player.var:DI_secondary_character
+                
+            }
+        }
+    }
 }
 
 ### All Pinned Start Treaty With Primary ###
 DI_dip_all_treaty = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-			}
-
-			every_in_list = {
-				variable = pinned_characters
-
-				scope:player.var:DI_primary_character = {
-					if = {
-						limit = {
-							NOT = { this = prev }
-						}
-
-						if = {
-							limit = {
-								scope:DI_story = { has_variable = DI_dip_length }
-							}
-							add_truce_both_ways = {
-								character = prev
-								override = yes
-								years = 9999
-								name = TRUCE_DEBUG
-							}
-						}
-						else = {
-							add_truce_both_ways = {
-								character = prev
-								override = yes
-								years = 5
-								name = TRUCE_DEBUG
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            
+            every_in_list = {
+                variable = pinned_characters
+                
+                scope:player.var:DI_primary_character = {
+                    if = {
+                        limit = {
+                            NOT = { this = prev }
+                        }
+                        
+                        if = {
+                            limit = {
+                                scope:DI_story = { has_variable = DI_dip_length }
+                            }
+                            add_truce_both_ways = {
+                                character = prev
+                                override = yes
+                                years = 9999
+                                name = TRUCE_DEBUG
+                            }
+                        }
+                        else = {
+                            add_truce_both_ways = {
+                                character = prev
+                                override = yes
+                                years = 5
+                                name = TRUCE_DEBUG
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 ### All Pinned Break Treaty With Primary ###
 DI_dip_all_break_treaty = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-			}
-
-			every_in_list = {
-				variable = pinned_characters
-
-				scope:player.var:DI_primary_character = {
-					if = {
-						limit = {
-							NOT = { this = prev }
-						}
-
-						cancel_truce_both_ways = prev
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            
+            every_in_list = {
+                variable = pinned_characters
+                
+                scope:player.var:DI_primary_character = {
+                    if = {
+                        limit = {
+                            NOT = { this = prev }
+                        }
+                        
+                        cancel_truce_both_ways = prev
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Every Pinned Start Treaty With Every Pinned ###
 DI_dip_every_pinned_treaty = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = first_character
-			
-			scope:player = {
-				every_in_list = {
-					variable = pinned_characters
-					
-					if = {
-						limit = {
-							NOT = { this = scope:first_character }
-						}
-
-						if = {
-							limit = {
-								scope:DI_story = { has_variable = DI_dip_length }
-							}
-							add_truce_both_ways = {
-								character = scope:first_character
-								override = yes
-								years = 9999
-								name = TRUCE_DEBUG
-							}
-						}
-						else = {
-							add_truce_both_ways = {
-								character = scope:first_character
-								override = yes
-								years = 5
-								name = TRUCE_DEBUG
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = first_character
+            
+            scope:player = {
+                every_in_list = {
+                    variable = pinned_characters
+                    
+                    if = {
+                        limit = {
+                            NOT = { this = scope:first_character }
+                        }
+                        
+                        if = {
+                            limit = {
+                                scope:DI_story = { has_variable = DI_dip_length }
+                            }
+                            add_truce_both_ways = {
+                                character = scope:first_character
+                                override = yes
+                                years = 9999
+                                name = TRUCE_DEBUG
+                            }
+                        }
+                        else = {
+                            add_truce_both_ways = {
+                                character = scope:first_character
+                                override = yes
+                                years = 5
+                                name = TRUCE_DEBUG
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Every Pinned Break Treaty With Every Pinned ###
 DI_dip_every_pinned_break_treaty = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-		
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = first_character
-
-			scope:player = {
-				every_in_list = {
-					variable = pinned_characters
-					
-					if = {
-						limit = {
-							NOT = { this = scope:first_character }
-						}
-
-						cancel_truce_both_ways = scope:first_character
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = first_character
+            
+            scope:player = {
+                every_in_list = {
+                    variable = pinned_characters
+                    
+                    if = {
+                        limit = {
+                            NOT = { this = scope:first_character }
+                        }
+                        
+                        cancel_truce_both_ways = scope:first_character
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Form Alliance ###
 DI_dip_alliance = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_secondary_character
-			}
-			var:DI_primary_character = {
-				allow_alliance = scope:player.var:DI_secondary_character
-			
-				create_alliance = {
-					target = scope:player.var:DI_secondary_character
-					allied_through_owner = scope:player.var:DI_primary_character
-					allied_through_target = scope:player.var:DI_secondary_character
-				}
-			}
-
-			var:DI_secondary_character = {
-				add_opinion = {
-					modifier = perk_negotiated_alliance_opinion
-					target = scope:player.var:DI_primary_character
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_primary_character = {
+                allow_alliance = scope:player.var:DI_secondary_character
+                
+                create_alliance = {
+                    target = scope:player.var:DI_secondary_character
+                    allied_through_owner = scope:player.var:DI_primary_character
+                    allied_through_target = scope:player.var:DI_secondary_character
+                }
+            }
+            
+            var:DI_secondary_character = {
+                add_opinion = {
+                    modifier = perk_negotiated_alliance_opinion
+                    target = scope:player.var:DI_primary_character
+                }
+            }
+        }
+    }
 }
 
 ### Break Alliance ###
 DI_dip_break_alliance = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_secondary_character
-			}
-			var:DI_primary_character = {
-				if = {
-					limit = {
-						any_ally = {
-							this = scope:player.var:DI_secondary_character
-						}
-					}
-
-					break_alliance = scope:player.var:DI_secondary_character
-				}	
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_primary_character = {
+                if = {
+                    limit = {
+                        any_ally = {
+                            this = scope:player.var:DI_secondary_character
+                        }
+                    }
+                    
+                    break_alliance = scope:player.var:DI_secondary_character
+                }
+            }
+        }
+    }
 }
 
 ### All Pinned Start Alliance With Primary ###
 DI_dip_all_alliance = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-			}
-
-			every_in_list = {
-				variable = pinned_characters
-				save_scope_as = first_character
-
-				scope:player.var:DI_primary_character = {
-					if = {
-						limit = {
-							NOT = { this = prev }
-						}
-					
-						allow_alliance = prev
-						
-						create_alliance = {
-							target = prev
-							allied_through_owner = scope:player.var:DI_primary_character
-							allied_through_target = prev
-						}
-
-						scope:first_character = {
-							add_opinion = {
-								modifier = perk_negotiated_alliance_opinion
-								target = scope:player.var:DI_primary_character
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            
+            every_in_list = {
+                variable = pinned_characters
+                save_scope_as = first_character
+                
+                scope:player.var:DI_primary_character = {
+                    if = {
+                        limit = {
+                            NOT = { this = prev }
+                        }
+                        
+                        allow_alliance = prev
+                        
+                        create_alliance = {
+                            target = prev
+                            allied_through_owner = scope:player.var:DI_primary_character
+                            allied_through_target = prev
+                        }
+                        
+                        scope:first_character = {
+                            add_opinion = {
+                                modifier = perk_negotiated_alliance_opinion
+                                target = scope:player.var:DI_primary_character
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### All Pinned Break Alliance With Primary ###
 DI_dip_all_break_alliance = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-			}
-
-			every_in_list = {
-				variable = pinned_characters
-				save_scope_as = first_character
-
-				scope:player.var:DI_primary_character = {
-					if = {
-						limit = {
-							NOT = { this = prev }
-							any_ally = {
-								this = scope:first_character
-							}
-						}
-
-						break_alliance = scope:first_character
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            
+            every_in_list = {
+                variable = pinned_characters
+                save_scope_as = first_character
+                
+                scope:player.var:DI_primary_character = {
+                    if = {
+                        limit = {
+                            NOT = { this = prev }
+                            any_ally = {
+                                this = scope:first_character
+                            }
+                        }
+                        
+                        break_alliance = scope:first_character
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Every Pinned Start Alliance With Every Pinned ###
 DI_dip_every_pinned_alliance = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = first_character
-			
-			scope:player = {
-				every_in_list = {
-					variable = pinned_characters
-					save_scope_as = second_character
-					
-					if = {
-						limit = {
-							NOT = { this = scope:first_character }
-						}
-
-						allow_alliance = scope:first_character
-						
-						create_alliance = {
-							target = scope:first_character
-							allied_through_owner = scope:second_character
-							allied_through_target = scope:first_character
-						}
-
-						scope:first_character = {
-							add_opinion = {
-								modifier = perk_negotiated_alliance_opinion
-								target = scope:second_character
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = first_character
+            
+            scope:player = {
+                every_in_list = {
+                    variable = pinned_characters
+                    save_scope_as = second_character
+                    
+                    if = {
+                        limit = {
+                            NOT = { this = scope:first_character }
+                        }
+                        
+                        allow_alliance = scope:first_character
+                        
+                        create_alliance = {
+                            target = scope:first_character
+                            allied_through_owner = scope:second_character
+                            allied_through_target = scope:first_character
+                        }
+                        
+                        scope:first_character = {
+                            add_opinion = {
+                                modifier = perk_negotiated_alliance_opinion
+                                target = scope:second_character
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Every Pinned Break Alliance With Every Pinned ###
 DI_dip_every_pinned_break_alliance = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-		
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = first_character
-
-			scope:player = {
-				every_in_list = {
-					variable = pinned_characters
-					
-					if = {
-						limit = {
-							NOT = { this = scope:first_character }
-							any_ally = {
-								this = scope:first_character
-							}
-						}
-
-						break_alliance = scope:first_character
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = first_character
+            
+            scope:player = {
+                every_in_list = {
+                    variable = pinned_characters
+                    
+                    if = {
+                        limit = {
+                            NOT = { this = scope:first_character }
+                            any_ally = {
+                                this = scope:first_character
+                            }
+                        }
+                        
+                        break_alliance = scope:first_character
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Wars ###
 ############
 ### Declare War ###
+DI_dip_war = {
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+            
+            var:DI_casus_belli = {
+                save_scope_as = casus_belli
+            }
+        }
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            scope:DI_story = {
+                if = {
+                    limit = {
+                        scope:casus_belli = flag:claim_cb
+                    }
+                    
+                    scope:player = {
+                        every_in_list = {
+                            variable = DI_selected_titles
+                            save_scope_as = selected_title
+                            
+                            scope:player = {
+                                if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 0
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title1 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 1
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title2 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 2
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title3 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 3
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title4 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 4
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title5 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 5
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title6 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 6
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title7 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 7
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title8 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 8
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title9 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 9
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title10 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+                                            variable_list_size = {
+                                                name = DI_temp_titles
+                                                value > 10
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title11 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 11
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title12 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 12
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title13 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 13
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title14 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 14
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title15 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 15
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title16 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 16
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title17 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 17
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title18 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 18
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title19 }
+                                }
+                                else_if = {
+                                    limit = {
+                                        NOT = {
+                                            any_in_list = {
+                                                variable = DI_temp_titles
+                                                this = scope:selected_title
+                                            }
+											variable_list_size = {
+												name = DI_temp_titles
+												value > 19
+											}
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_temp_titles
+                                        target = scope:selected_title
+                                    }
+                                    scope:selected_title = { save_scope_as = title20 }
+                                }
+                            }
+                        }
+                        
+                        var:DI_primary_character = {
+                            scope:player = {
+                                every_in_list = {
+                                    variable = DI_temp_titles
+                                    save_scope_as = title
+                                    
+                                    scope:player.var:DI_primary_character = {
+                                        add_pressed_claim = scope:title
+                                    }
+                                }
+                            }
+                            
+                            start_war = {
+                                casus_belli = debug_war
+                                target = scope:player.var:DI_secondary_character
+                                target_title = scope:title1
+                                target_title = scope:title2
+                                target_title = scope:title3
+                                target_title = scope:title4
+                                target_title = scope:title5
+                                target_title = scope:title6
+                                target_title = scope:title7
+                                target_title = scope:title8
+                                target_title = scope:title9
+                                target_title = scope:title10
+                                target_title = scope:title11
+                                target_title = scope:title12
+                                target_title = scope:title13
+                                target_title = scope:title14
+                                target_title = scope:title15
+                                target_title = scope:title16
+                                target_title = scope:title17
+                                target_title = scope:title18
+                                target_title = scope:title19
+                                target_title = scope:title20
+                            }
+                        }
+                        
+                        clear_variable_list = DI_temp_titles
+                    }
+                }
+            }
+        }
+    }
+}
+
+### End War ###
+DI_dip_end_war = {
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_primary_character = {
+                every_character_war = {
+                    end_war = white_peace
+                }
+            }
+        }
+    }
+}
+
+### Casus Belli ###
+###################
+### County Conquest ###
+DI_county_conquest = {
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+        
+        scope:DI_story = {
+            set_variable = {
+                name = DI_casus_belli
+                value = flag:claim_cb
+            }
+        }
+    }
+}
 
 
 ### Family ###
 ##############
 ### Initiate Adoption ###
 DI_dip_adoption = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_tertiary_character
-				has_variable = DI_secondary_character
-			}
-
-			var:DI_secondary_character = {
-				if = {
-					limit = {
-						scope:player.var:DI_primary_character = { is_male = yes }
-					}
-					set_father = scope:player.var:DI_primary_character
-					set_mother = scope:player.var:DI_tertiary_character
-				}
-				else = {
-					set_father = scope:player.var:DI_tertiary_character
-					set_mother = scope:player.var:DI_primary_character
-				}
-			}
-		}
-		else_if = {
-			limit =  {
-				has_variable = DI_primary_character
-				has_variable = DI_secondary_character
-			}
-			var:DI_secondary_character = {
-				if = {
-					limit = {
-						scope:player.var:DI_primary_character = { is_male = yes }
-					}
-					set_father = scope:player.var:DI_primary_character
-				}
-				else = {
-					set_mother = scope:player.var:DI_primary_character
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_tertiary_character
+                has_variable = DI_secondary_character
+            }
+            
+            var:DI_secondary_character = {
+                if = {
+                    limit = {
+                        scope:player.var:DI_primary_character = { is_male = yes }
+                    }
+                    set_father = scope:player.var:DI_primary_character
+                    set_mother = scope:player.var:DI_tertiary_character
+                }
+                else = {
+                    set_father = scope:player.var:DI_tertiary_character
+                    set_mother = scope:player.var:DI_primary_character
+                }
+            }
+        }
+        else_if = {
+            limit =  {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_secondary_character = {
+                if = {
+                    limit = {
+                        scope:player.var:DI_primary_character = { is_male = yes }
+                    }
+                    set_father = scope:player.var:DI_primary_character
+                }
+                else = {
+                    set_mother = scope:player.var:DI_primary_character
+                }
+            }
+        }
+    }
 }
 
 ### Initiate House Change ###
 DI_dip_adoption_house = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character	
-				has_variable = DI_secondary_character			
-			}
-			var:DI_secondary_character = {
-				set_house = scope:player.var:DI_primary_character.house
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_secondary_character = {
+                set_house = scope:player.var:DI_primary_character.house
+            }
+        }
+    }
 }
 
 ### Impregnate ###
 DI_dip_impregnate = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_tertiary_character
-			}
-			if = {
-				limit = {
-					var:DI_primary_character = { is_male = yes }
-					var:DI_tertiary_character = { is_female = yes }
-				}
-				var:DI_tertiary_character = {
-					make_pregnant = {
-						father = scope:player.var:DI_primary_character
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					var:DI_tertiary_character = { is_male = yes }
-					var:DI_primary_character = { is_female = yes }
-				}
-				var:DI_primary_character = {
-					make_pregnant = {
-						father = scope:player.var:DI_tertiary_character
-					}
-				}
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_tertiary_character
+            }
+            if = {
+                limit = {
+                    var:DI_primary_character = { is_male = yes }
+                    var:DI_tertiary_character = { is_female = yes }
+                }
+                var:DI_tertiary_character = {
+                    make_pregnant = {
+                        father = scope:player.var:DI_primary_character
+                    }
+                }
+            }
+            else_if = {
+                limit = {
+                    var:DI_tertiary_character = { is_male = yes }
+                    var:DI_primary_character = { is_female = yes }
+                }
+                var:DI_primary_character = {
+                    make_pregnant = {
+                        father = scope:player.var:DI_tertiary_character
+                    }
+                }
+            }
+        }
+    }
 }
 
 DI_dip_marry = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_tertiary_character
-			}
-			scope:player.var:DI_primary_character = {
-				marry = scope:player.var:DI_tertiary_character
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_tertiary_character
+            }
+            scope:player.var:DI_primary_character = {
+                marry = scope:player.var:DI_tertiary_character
+            }
+        }
+    }
 }
 
 # DI_dip_marry_matrilineal
 DI_dip_marry_matrilineal = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_tertiary_character
-			}
-			scope:player.var:DI_primary_character = {
-				marry_matrilineal = scope:player.var:DI_tertiary_character
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_tertiary_character
+            }
+            scope:player.var:DI_primary_character = {
+                marry_matrilineal = scope:player.var:DI_tertiary_character
+            }
+        }
+    }
 }
 
 # DI_dip_make_siblings
 DI_dip_make_siblings = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-				has_variable = DI_secondary_character
-			}
-			var:DI_secondary_character = {
-				set_mother = scope:player.var:DI_primary_character.mother
-				set_father = scope:player.var:DI_primary_character.father
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_secondary_character
+            }
+            var:DI_secondary_character = {
+                set_mother = scope:player.var:DI_primary_character.mother
+                set_father = scope:player.var:DI_primary_character.father
+            }
+        }
+    }
 }
 
 # DI_dip_preg_gender_male
 DI_dip_preg_gender_male = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-			}
-			var:DI_primary_character = {
-				set_pregnancy_gender = male
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            var:DI_primary_character = {
+                set_pregnancy_gender = male
+            }
+        }
+    }
 }
 
 # preg female
 DI_dip_preg_gender_female = {
-	scope = character
-
-	effect = {
-		save_scope_as = player
-
-		if = {
-			limit = {
-				has_variable = DI_primary_character
-			}
-			var:DI_primary_character = {
-				set_pregnancy_gender = female
-			}
-		}
-	}
+    scope = character
+    
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            var:DI_primary_character = {
+                set_pregnancy_gender = female
+            }
+        }
+    }
 }
