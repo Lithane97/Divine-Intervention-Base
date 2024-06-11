@@ -1,526 +1,1254 @@
-﻿### Convert all culture to edit counties to culture to copy
+﻿### Re-Select Culture ###
+DI_reload_selected_culture = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+        scope:player.var:DI_innovation_selected_char.Culture = { save_scope_as = selected_culture }
+
+        set_variable = {
+            name = DI_innovation_selected_culture
+            value = scope:selected_culture
+        }
+    }
+}
+
+## Convert all culture to edit counties to culture to copy
 DI_ce_convert_counties = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
 
-		var:DI_innovation_selected_char = {
-			every_sub_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_county_culture = scope:copy_culture
-			}
-		}
-	}
+        var:DI_innovation_selected_char = {
+            every_sub_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_county_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### Convert all pinned characters counties to culture to copy
 DI_ce_convert_all_pinned_counties = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			limit = {
-				NOR = { 
-					this = scope:player_character.var:DI_innovation_selected_char_copy
-					this.culture = scope:copy_culture
-				}
-			}
+            limit = {
+                NOR = {
+                    this = scope:player_character.var:DI_innovation_selected_char_copy
+                    this.culture = scope:copy_culture
+                }
+            }
 
-			var:DI_innovation_selected_char = {
-				every_sub_realm_county = {
-					limit = {
-						NOT = { this.culture = scope:copy_culture }
-					}
-					set_county_culture = scope:copy_culture
-				}
-			}
-		}
-	}
+            var:DI_innovation_selected_char = {
+                every_sub_realm_county = {
+                    limit = {
+                        NOT = { this.culture = scope:copy_culture }
+                    }
+                    set_county_culture = scope:copy_culture
+                }
+            }
+        }
+    }
 
 }
 
 ### Convert all pinned characters to culture to copy
 DI_ce_convert_all_pinned = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			limit = {
-				NOR = { 
-					this = scope:player_character.var:DI_innovation_selected_char_copy
-					this.culture = scope:copy_culture
-				}
-			}
+            limit = {
+                NOR = {
+                    this = scope:player_character.var:DI_innovation_selected_char_copy
+                    this.culture = scope:copy_culture
+                }
+            }
 
-			set_culture = scope:copy_culture
-		}
-	}
+            set_culture = scope:copy_culture
+        }
+    }
 }
 
 ### Convert culture to edit character to culture to copy ###
 DI_ce_convert_copy = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
 
-		var:DI_innovation_selected_char = {
-			set_culture = scope:copy_culture
-		}
-	}
+        var:DI_innovation_selected_char = {
+            set_culture = scope:copy_culture
+        }
+    }
 }
 
 ### Convert all pinned characters to player culture ###
 DI_ce_convert_to_player = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
+    effect = {
+        save_scope_as = player_character
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			limit = {
-				NOR = { 
-					this = scope:player_character
-				}
-			}
+            limit = {
+                NOR = {
+                    this = scope:player_character
+                }
+            }
 
-			set_culture = scope:player_character.culture
-		}
-	}
+            set_culture = scope:player_character.culture
+        }
+    }
 }
 
 ### Convert all pinned characters counties to player culture ###
 DI_ce_convert_to_player_counties = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
+    effect = {
+        save_scope_as = player_character
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			every_sub_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:player_character.culture }
-				}
-				set_county_culture = scope:player_character.culture
-			}
-		}
-	}
+            every_sub_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:player_character.culture }
+                }
+                set_county_culture = scope:player_character.culture
+            }
+        }
+    }
 }
 
 ### Convert all pinned characters counties to their own culture ###
 DI_ce_convert_to_own_counties = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		every_in_list = {
-			variable = pinned_characters
-			save_scope_as = pinned_character
-			culture = { save_scope_as = pinned_culture }
+    effect = {
+        every_in_list = {
+            variable = pinned_characters
+            save_scope_as = pinned_character
+            culture = { save_scope_as = pinned_culture }
 
-			every_sub_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:pinned_culture }
-				}
-				set_county_culture = scope:pinned_culture
-			}
-		}
-	}
+            every_sub_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:pinned_culture }
+                }
+                set_county_culture = scope:pinned_culture
+            }
+        }
+    }
 }
 
 ### New culture change sgui ###
 DI_ce_culture_change = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		selected_culture # The selected culture from the culture.gui window
-	}
+    saved_scopes = {
+        selected_culture # The selected culture from the culture.gui window
+    }
 
-	effect = {
-		save_scope_as = player_character
-		scope:selected_culture = { save_scope_as = selected_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:selected_culture = { save_scope_as = selected_culture }
 
-		var:DI_innovation_selected_char = {
-			set_culture = scope:selected_culture
-		}
-	}
+        var:DI_innovation_selected_char = {
+            set_culture = scope:selected_culture
+        }
+
+        set_variable = {
+            name = DI_innovation_selected_culture
+            value = scope:selected_culture
+        }
+    }
 }
 
 ### Convert every courtier ###
 DI_convert_every_courtier_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
-		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+        scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
 
-		scope:selected_char = {
-			every_courtier = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_culture = scope:copy_culture
-			}
-		}
-	}
+        scope:selected_char = {
+            every_courtier = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### Convert every vassal ###
 DI_convert_every_vassal_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
-		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+        scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
 
-		scope:selected_char = {
-			every_vassal = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_culture = scope:copy_culture
-			}
-		}
-	}
+        scope:selected_char = {
+            every_vassal = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### Culture Realms ###
 DI_convert_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
-		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+        scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
 
-		scope:selected_char = {
-			scope:selected_char.top_liege = {
-				set_culture = scope:copy_culture
+        scope:selected_char = {
+            scope:selected_char.top_liege = {
+                set_culture = scope:copy_culture
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:copy_culture }
-					}
-					set_culture = scope:copy_culture
-				}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:copy_culture }
+                    }
+                    set_culture = scope:copy_culture
+                }
 
-				every_vassal_or_below = {
-					set_culture = scope:copy_culture
+                every_vassal_or_below = {
+                    set_culture = scope:copy_culture
 
-					every_courtier = {
-						limit = {
-							NOT = { this.culture = scope:copy_culture }
-						}
-						set_culture = scope:copy_culture
-					}
-				}
-			}
-			
-			every_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_county_culture = scope:copy_culture
-			}
-		}
-	}
+                    every_courtier = {
+                        limit = {
+                            NOT = { this.culture = scope:copy_culture }
+                        }
+                        set_culture = scope:copy_culture
+                    }
+                }
+            }
+
+            every_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_county_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### DI_convert_all_pinned_realm_culture ###
 DI_convert_all_pinned_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			this.top_liege = {
-				set_culture = scope:copy_culture
+            this.top_liege = {
+                set_culture = scope:copy_culture
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:copy_culture }
-					}
-					set_culture = scope:copy_culture
-				}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:copy_culture }
+                    }
+                    set_culture = scope:copy_culture
+                }
 
-				every_vassal_or_below = {
-					set_culture = scope:copy_culture
+                every_vassal_or_below = {
+                    set_culture = scope:copy_culture
 
-					every_courtier = {
-						limit = {
-							NOT = { this.culture = scope:copy_culture }
-						}
-						set_culture = scope:copy_culture
-					}
-				}
-			}
+                    every_courtier = {
+                        limit = {
+                            NOT = { this.culture = scope:copy_culture }
+                        }
+                        set_culture = scope:copy_culture
+                    }
+                }
+            }
 
-			every_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_county_culture = scope:copy_culture
-			}
-		}
-	}
+            every_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_county_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### DI_convert_all_pinned_to_player_culture ###
 DI_convert_all_pinned_to_player_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
+    effect = {
+        save_scope_as = player_character
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			this.top_liege = {
-				set_culture = scope:player_character.culture
+            this.top_liege = {
+                set_culture = scope:player_character.culture
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:player_character.culture }
-					}
-					set_culture = scope:player_character.culture
-				}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:player_character.culture }
+                    }
+                    set_culture = scope:player_character.culture
+                }
 
-				every_vassal_or_below = {
-					set_culture = scope:player_character.culture
+                every_vassal_or_below = {
+                    set_culture = scope:player_character.culture
 
-					every_courtier = {
-						limit = {
-							NOT = { this.culture = scope:player_character.culture }
-						}
-						set_culture = scope:player_character.culture
-					}
-				}
-			}
+                    every_courtier = {
+                        limit = {
+                            NOT = { this.culture = scope:player_character.culture }
+                        }
+                        set_culture = scope:player_character.culture
+                    }
+                }
+            }
 
-			every_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:player_character.culture }
-				}
-				set_county_culture = scope:player_character.culture
-			}
-		}
-	}
+            every_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:player_character.culture }
+                }
+                set_county_culture = scope:player_character.culture
+            }
+        }
+    }
 }
 
 ### DI_quick_convert_player_realm_culture ###
 DI_quick_convert_player_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
+    effect = {
+        save_scope_as = player_character
 
-		this.top_liege = {
-			set_culture = scope:player_character.culture
-			
-			every_courtier = {
-				limit = {
-					NOT = { this.culture = scope:player_character.culture }
-				}
-				set_culture = scope:player_character.culture
-			}
+        this.top_liege = {
+            set_culture = scope:player_character.culture
 
-			every_vassal_or_below = {
-				set_culture = scope:player_character.culture
+            every_courtier = {
+                limit = {
+                    NOT = { this.culture = scope:player_character.culture }
+                }
+                set_culture = scope:player_character.culture
+            }
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:player_character.culture }
-					}
-					set_culture = scope:player_character.culture
-				}
-			}
-		}
-		
+            every_vassal_or_below = {
+                set_culture = scope:player_character.culture
 
-		every_realm_county = {
-			limit = {
-				NOT = { this.culture = scope:player_character.culture }
-			}
-			set_county_culture = scope:player_character.culture
-		}
-	}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:player_character.culture }
+                    }
+                    set_culture = scope:player_character.culture
+                }
+            }
+        }
+
+
+        every_realm_county = {
+            limit = {
+                NOT = { this.culture = scope:player_character.culture }
+            }
+            set_county_culture = scope:player_character.culture
+        }
+    }
 }
 
 ### DI_convert_sub_realm_culture ###
 DI_convert_sub_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
-		scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+        scope:player_character.var:DI_innovation_selected_char = { save_scope_as = selected_char }
 
-		scope:selected_char = {
-			set_culture = scope:copy_culture
+        scope:selected_char = {
+            set_culture = scope:copy_culture
 
-			every_courtier = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_culture = scope:copy_culture
-			}
+            every_courtier = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_culture = scope:copy_culture
+            }
 
-			every_vassal_or_below = {
-				set_culture = scope:copy_culture
+            every_vassal_or_below = {
+                set_culture = scope:copy_culture
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:copy_culture }
-					}
-					set_culture = scope:copy_culture
-				}
-			}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:copy_culture }
+                    }
+                    set_culture = scope:copy_culture
+                }
+            }
 
-			every_sub_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_county_culture = scope:copy_culture
-			}
-		}
-	}
+            every_sub_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_county_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### DI_convert_all_pinned_sub_realm_culture ###
 DI_convert_all_pinned_sub_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
-		scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
+    effect = {
+        save_scope_as = player_character
+        scope:player_character.var:DI_innovation_selected_culture_copy = { save_scope_as = copy_culture }
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			set_culture = scope:copy_culture
+            set_culture = scope:copy_culture
 
-			every_courtier = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_culture = scope:copy_culture
-			}
+            every_courtier = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_culture = scope:copy_culture
+            }
 
-			every_vassal_or_below = {
-				set_culture = scope:copy_culture
+            every_vassal_or_below = {
+                set_culture = scope:copy_culture
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:copy_culture }
-					}
-					set_culture = scope:copy_culture
-				}
-			}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:copy_culture }
+                    }
+                    set_culture = scope:copy_culture
+                }
+            }
 
-			every_sub_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:copy_culture }
-				}
-				set_county_culture = scope:copy_culture
-			}
-		}
-	}
+            every_sub_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:copy_culture }
+                }
+                set_county_culture = scope:copy_culture
+            }
+        }
+    }
 }
 
 ### DI_convert_all_pinned_to_player_sub_realm_culture ###
 DI_convert_all_pinned_to_player_sub_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
+    effect = {
+        save_scope_as = player_character
 
-		every_in_list = {
-			variable = pinned_characters
+        every_in_list = {
+            variable = pinned_characters
 
-			set_culture = scope:player_character.culture
+            set_culture = scope:player_character.culture
 
-			every_courtier = {
-				limit = {
-					NOT = { this.culture = scope:player_character.culture }
-				}
-				set_culture = scope:player_character.culture
-			}
+            every_courtier = {
+                limit = {
+                    NOT = { this.culture = scope:player_character.culture }
+                }
+                set_culture = scope:player_character.culture
+            }
 
-			every_vassal_or_below = {
-				set_culture = scope:player_character.culture
+            every_vassal_or_below = {
+                set_culture = scope:player_character.culture
 
-				every_courtier = {
-					limit = {
-						NOT = { this.culture = scope:player_character.culture }
-					}
-					set_culture = scope:player_character.culture
-				}
-			}
+                every_courtier = {
+                    limit = {
+                        NOT = { this.culture = scope:player_character.culture }
+                    }
+                    set_culture = scope:player_character.culture
+                }
+            }
 
-			every_sub_realm_county = {
-				limit = {
-					NOT = { this.culture = scope:player_character.culture }
-				}
-				set_county_culture = scope:player_character.culture
-			}
-		}
-	}
+            every_sub_realm_county = {
+                limit = {
+                    NOT = { this.culture = scope:player_character.culture }
+                }
+                set_county_culture = scope:player_character.culture
+            }
+        }
+    }
 }
 
 ### DI_quick_convert_player_sub_realm_culture ###
 DI_quick_convert_player_sub_realm_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player_character
+    effect = {
+        save_scope_as = player_character
 
-		every_courtier = {
-			limit = {
-				NOT = { this.culture = scope:player_character.culture }
-			}
-			set_culture = scope:player_character.culture
-		}
+        every_courtier = {
+            limit = {
+                NOT = { this.culture = scope:player_character.culture }
+            }
+            set_culture = scope:player_character.culture
+        }
 
-		every_vassal_or_below = {
-			set_culture = scope:player_character.culture
+        every_vassal_or_below = {
+            set_culture = scope:player_character.culture
 
-			every_courtier = {
-				limit = {
-					NOT = { this.culture = scope:player_character.culture }
-				}
-				set_culture = scope:player_character.culture
-			}
-		}
+            every_courtier = {
+                limit = {
+                    NOT = { this.culture = scope:player_character.culture }
+                }
+                set_culture = scope:player_character.culture
+            }
+        }
 
-		every_sub_realm_county = {
-			limit = {
-				NOT = { this.culture = scope:player_character.culture }
-			}
-			set_county_culture = scope:player_character.culture
-		}
-	}
+        every_sub_realm_county = {
+            limit = {
+                NOT = { this.culture = scope:player_character.culture }
+            }
+            set_county_culture = scope:player_character.culture
+        }
+    }
+}
+
+### Martial Customs ###
+#######################
+### Equal ###
+DI_martial_customs_equal_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = martial_custom_equal
+        }
+    }
+}
+
+### Male Only ###
+DI_martial_customs_male_only_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = martial_custom_male_only
+        }
+    }
+}
+
+### Female Only ###
+DI_martial_customs_female_only_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = martial_custom_female_only
+        }
+    }
+}
+
+### Ethos ###
+#############
+### bellicose ###
+DI_ethos_bellicose_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_bellicose
+        }
+    }
+}
+
+### stoic ###
+DI_ethos_stoic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_stoic
+        }
+    }
+}
+
+### bureaucratic ###
+DI_ethos_bureaucratic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_bureaucratic
+        }
+    }
+}
+
+### spiritual ###
+DI_ethos_spiritual_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_spiritual
+        }
+    }
+}
+
+### courtly ###
+DI_ethos_courtly_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_courtly
+        }
+    }
+}
+
+### egalitarian ###
+DI_ethos_egalitarian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_egalitarian
+        }
+    }
+}
+
+### communal ###
+DI_ethos_communal_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = ethos_communal
+        }
+    }
+}
+
+### heritage ###
+################
+### akan ###
+DI_heritage_akan_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_akan
+        }
+    }
+}
+
+### arabic ###
+DI_heritage_arabic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_arabic
+        }
+    }
+}
+
+### baltic ###
+DI_heritage_baltic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_baltic
+        }
+    }
+}
+
+### balto_finnic ###
+DI_heritage_balto_finnic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_balto_finnic
+        }
+    }
+}
+
+### berber ###
+DI_heritage_berber_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_berber
+        }
+    }
+}
+
+### brythonic ###
+DI_heritage_brythonic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_brythonic
+        }
+    }
+}
+
+### burman ###
+DI_heritage_burman_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_burman
+        }
+    }
+}
+
+### byzantine ###
+DI_heritage_byzantine_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_byzantine
+        }
+    }
+}
+
+### central_african ###
+DI_heritage_central_african_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_central_african
+        }
+    }
+}
+
+### central_germanic ###
+DI_heritage_central_germanic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_central_germanic
+        }
+    }
+}
+
+### chinese ###
+DI_heritage_chinese_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_chinese
+        }
+    }
+}
+
+### dravidian ###
+DI_heritage_dravidian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_dravidian
+        }
+    }
+}
+
+### east_african ###
+DI_heritage_east_african_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_east_african
+        }
+    }
+}
+
+### east_slavic ###
+DI_heritage_east_slavic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_east_slavic
+        }
+    }
+}
+
+### frankish ###
+DI_heritage_frankish_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_frankish
+        }
+    }
+}
+
+### goidelic ###
+DI_heritage_goidelic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_goidelic
+        }
+    }
+}
+
+### iberian ###
+DI_heritage_iberian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_iberian
+        }
+    }
+}
+
+### indo_aryan ###
+DI_heritage_indo_aryan_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_indo_aryan
+        }
+    }
+}
+
+### iranian ###
+DI_heritage_iranian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_iranian
+        }
+    }
+}
+
+### israelite ###
+DI_heritage_israelite_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_israelite
+        }
+    }
+}
+
+### latin ###
+DI_heritage_latin_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_latin
+        }
+    }
+}
+
+### magyar ###
+DI_heritage_magyar_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_magyar
+        }
+    }
+}
+
+### mongolic ###
+DI_heritage_mongolic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_mongolic
+        }
+    }
+}
+
+### north_germanic ###
+DI_heritage_north_germanic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_north_germanic
+        }
+    }
+}
+
+### qiangic ###
+DI_heritage_qiangic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_qiangic
+        }
+    }
+}
+
+### sahelian ###
+DI_heritage_sahelian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_sahelian
+        }
+    }
+}
+
+### senegambian ###
+DI_heritage_senegambian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_senegambian
+        }
+    }
+}
+
+### somalian ###
+DI_heritage_somalian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_somalian
+        }
+    }
+}
+
+### bantu ###
+DI_heritage_bantu_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_bantu
+        }
+    }
+}
+
+### south_slavic ###
+DI_heritage_south_slavic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_south_slavic
+        }
+    }
+}
+
+### tibetan ###
+DI_heritage_tibetan_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_tibetan
+        }
+    }
+}
+
+### turkic ###
+DI_heritage_turkic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_turkic
+        }
+    }
+}
+
+### ugro_permian ###
+DI_heritage_ugro_permian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_ugro_permian
+        }
+    }
+}
+
+### volga_finnic ###
+DI_heritage_volga_finnic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_volga_finnic
+        }
+    }
+}
+
+### west_african ###
+DI_heritage_west_african_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_west_african
+        }
+    }
+}
+
+### west_germanic ###
+DI_heritage_west_germanic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_west_germanic
+        }
+    }
+}
+
+### west_slavic ###
+DI_heritage_west_slavic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_west_slavic
+        }
+    }
+}
+
+### yoruba ###
+DI_heritage_yoruba_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_yoruba
+        }
+    }
+}
+
+### tocharian ###
+DI_heritage_tocharian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_tocharian
+        }
+    }
+}
+
+### vlach ###
+DI_heritage_vlach_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_vlach
+        }
+    }
+}
+
+### gothic ###
+DI_heritage_gothic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_gothic
+        }
+    }
+}
+
+### egyptian ###
+DI_heritage_egyptian_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_egyptian
+        }
+    }
+}
+
+### hunnic ###
+DI_heritage_hunnic_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_hunnic
+        }
+    }
+}
+
+### ancient_greek ###
+DI_heritage_ancient_greek_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player_character
+
+        var:DI_innovation_selected_culture = {
+            set_culture_pillar = heritage_ancient_greek
+        }
+    }
 }

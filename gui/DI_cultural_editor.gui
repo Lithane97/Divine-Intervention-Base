@@ -1,900 +1,907 @@
 ### Cultural Editor Window ###
 
 window = {
-	name = "DI_cultural_editor_window"
-	layer = windows_layer
-	
-	using = Window_Size_Sidebar
-	using = Window_Background_Sidebar
-	movable = no
-	
-	datacontext = "[GetVariableSystem]"
-	datacontext = "[GetPlayer]"
-	datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
-	datacontext = "[Culture.GetReformation]"
-	
-	visible = "[And(GetVariableSystem.Exists('DI_cultural_editor_window_visible'), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
-
-	using = DI_Innovation_Anim
-	
-	vbox = {
-		using = DI_Cultural_Editor_Header
-		using = DI_Cultural_Select_Character
-		
-		widget = {
-			layoutpolicy_horizontal = expanding
-			size = { 0 48 }
-
-			vbox = {
-				name = "acceptance"
-				# visible = "[Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) )]"
-				spacing = 2
-				margin_left = 450
-				margin_right = 10
-
-				text_single = {
-					name = "acceptance_text"
-					layoutpolicy_horizontal = expanding
-					text = "CULTURE_VIEW_ACCEPTANCE"
-					align = right
-					autoresize = no
-					tooltip = "CULTURE_ACCEPTANCE_TOOLTIP"
-				}
-
-				text_single = {
-					visible = "[NotEqualTo_CFixedPoint( Culture.GetAcceptanceDiff( GetPlayer.GetCulture ), '(CFixedPoint)0')]"
-					layoutpolicy_horizontal = expanding
-					text = "CULTURE_VIEW_ACCEPTANCE_DIFF"
-					align = right
-					autoresize = no
-					tooltip = "CULTURE_ACCEPTANCE_TOOLTIP"
-				}
-
-				expand = {}
-			}
-
-			hbox = {
-				name = "whos_culture"
-				margin_top = 5
-
-				vbox = {
-					layoutpolicy_vertical = expanding
-
-					text_label_center = {
-						text = "[Culture.GetPlayerRelationString]"
-						default_format = "#low"
-					}
-
-					text_single = {
-						text = "[Culture.GetCreationString]"
-						max_width = 490
-					}
-				}
-			}
-		}
-
-		hbox = {
-			name = "DI_CE_tabs"
-			layoutpolicy_horizontal = expanding
-			margin_top = 10
-
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
-				onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-				down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'overview' )]"
-
-				text_single = {
-					parentanchor = center
-					text = "CULTURE_VIEW_OVERVIEW"
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-
-			button_tab = {
-				name = "innovations_tab"
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'innovations' )]"
-				onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-				down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' )]"
-
-				text_single = {
-					parentanchor = center
-					text = "DI_innovation_selection_tab"
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-
-			button_tab = {
-				name = "convert_culture_tab"
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'convert' )]"
-				onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-				down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' )]"
-
-				text_single = {
-					parentanchor = center
-					text = "DI_culture_convert_tab"
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-		}
-
-		vbox = {
-			name = "traditions_and_pillars_tab"
-			visible = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'overview' )]"
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-
-			using = Animation_Tab_Switch
-
-			DI_container_pillar_item = {
-				datacontext = "[Culture.GetEthos]"
-
-				blockoverride "icon_size" {
-					size = { 400 100 }
-				}
-
-				button_round = {
-					visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
-					parentanchor = bottom|right
-					onclick = "[GetVariableSystem.Toggle( 'ethos_window_visible' )]"
-					position = { -8 -8 }
-
-					tooltip = "CULTURE_CLICK_TO_REPLACE"
-
-					button_change = {
-						alwaystransparent = yes
-						parentanchor = center
-					}
-				}
-			}
-
-			vbox = {
-				layoutpolicy_horizontal = expanding
-
-				text_label_left = {
-					layoutpolicy_horizontal = expanding
-					margin = { 10 6 }
-					text = "[culture_pillars|E]"
-					default_format = "#low"
-					align = nobaseline
-				}
-			}
-
-			hbox = {
-				name = "cultural_pillars_block"
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				maximumsize = { 594 104 }
-
-				widget = {
-					name = "cultural_pillars_collumn_one"
-					layoutpolicy_horizontal = expanding
-
-					vbox = {
-						margin_left = 10
-
-						hbox = {
-							name = "heritage"
-							datacontext = "[Culture.GetHeritage]"
-							layoutpolicy_horizontal = expanding
-
-							hbox = {
-								spacing = 10
-
-								tooltipwidget = {
-									using = culture_pillar_tooltip
-								}
-
-								icon_doctrine = {
-									visible = "[ObjectsEqual( Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage )]"
-									size = { 44 44 }
-									texture = "gfx/interface/icons/culture_pillars/heritage.dds"
-								}
-
-								icon_doctrine = {
-									visible = "[Not( ObjectsEqual( Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ))]"
-									size = { 44 44 }
-									texture = "gfx/interface/icons/culture_pillars/heritage_diverge.dds"
-								}
-
-								text_multi = {
-									datacontext = "[Culture.GetHeritage]"
-									text = "CULTURE_VIEW_HERITAGE_TEXT"
-									autoresize = yes
-									max_width = 220
-								}
-							}
-
-							expand = {}
-						}
-
-						hbox = {
-							name = "martial"
-							datacontext = "[Culture.GetMartial]"
-							layoutpolicy_horizontal = expanding
-
-							# Only show Martial if culture affects martial customs,
-							# which is only the case if we are able to modify
-							# the culture pillars.
-							visible = "[HasDlcFeature( 'diverge_culture' )]"
-
-							spacing = 10
-
-							icon_doctrine = {
-								size = { 44 44 }
-								texture = "[CulturePillar.GetIcon]"
-							}
-
-							vbox = {
-								layoutpolicy_horizontal = expanding
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									spacing = 5
-
-									tooltipwidget = {
-										using = culture_pillar_tooltip
-									}
-
-									text_multi = {
-										text = "CULTURE_VIEW_MARTIAL_CUSTOM_TEXT"
-										autoresize = yes
-										max_width = 220
-									}
-
-									button_change = {
-										visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
-										onclick = "[GetVariableSystem.Toggle( 'martial_window_visible' )]"
-
-										tooltip = "CULTURE_CLICK_TO_REPLACE"
-									}
-
-									expand = {}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetMartial), Not(GetVariableSystem.HasValue( 'reformation_mode', 'show' )))]"
-
-									margin_top = 3
-
-									DI_progressbar_reform = {
-
-										blockoverride "DI_progressbar_reform_size"
-										{
-											size = { 150 14 }
-										}
-
-										tooltipwidget = {
-											using = culture_pillar_tooltip_establishing
-										}
-									}
-
-									expand = {}
-								}
-							}
-						}
-					}
-				}
-
-				widget = {
-					name = "cultural_pillars_collumn_two"
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-
-					vbox = {
-						margin_left = 10
-
-						hbox = {
-							name = "language"
-							datacontext = "[Culture.GetLanguage]"
-							layoutpolicy_horizontal = expanding
-
-							hbox = {
-								spacing = 10
-
-								tooltipwidget = {
-									using = culture_pillar_tooltip
-								}
-
-								icon_culture_pillar = {
-									visible = "[ObjectsEqual( Culture.GetLanguage, GetPlayer.GetCulture.GetLanguage )]"
-									texture = "gfx/interface/icons/culture_pillars/language.dds"
-								}
-
-								icon_culture_pillar = {
-									visible = "[Not( ObjectsEqual( Culture.GetLanguage, GetPlayer.GetCulture.GetLanguage ))]"
-									texture = "gfx/interface/icons/culture_pillars/language_diverge.dds"
-								}
-
-								text_multi = {
-									datacontext = "[Culture.GetLanguage]"
-									text = "CULTURE_VIEW_LANGUAGE_TEXT"
-									autoresize = yes
-									max_width = 220
-								}
-
-								button_adopt_court_language = {
-									datacontext = "[GetPlayer]"
-									layoutpolicy_horizontal = expanding
-
-									onclick = "[ToggleGameViewData( 'language', CulturePillar.Self )]"
-									enabled = "[Character.CanAdoptCourtLanguage( CulturePillar.Self )]"
-									tooltip = "ADOPT_COURT_LANGUAGE_CULTURE_WINDOW"
-									visible = "[And( HasDlcFeature( 'royal_court' ), And( Character.HasRoyalCourt, Not( ObjectsEqual( CulturePillar.Self, Character.GetCourtLanguage ) ) ) )]"
-								}
-							}
-
-							expand = {}
-						}
-
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							hbox = {
-								spacing = 10
-
-								tooltip = "CULTURE_AESTHETICS_TOOLTIP"
-
-								icon_culture_pillar = {
-									texture = "gfx/interface/icons/culture_pillars/aesthetics.dds"
-								}
-
-								text_multi = {
-									text = "CULTURE_AESTHETICS"
-									autoresize = yes
-									max_width = 220
-								}
-							}
-							expand = {}
-						}
-					}
-				}
-			}
-
-			text_label_left = {
-				layoutpolicy_horizontal = expanding
-				margin = { 10 6 }
-				text = "[traditions|E]"
-				align = nobaseline
-
-				text_single = {
-					parentanchor = vcenter|right
-					position = {-14 0}
-					text = "[GetDataModelSize(Culture.GetTraditions)]/[Culture.GetMaxNumberOfTraditions]"
-					tooltip = "[Culture.GetMaxNumberOfTraditionsBreakdown]"
-					default_format = "#low"
-					align = nobaseline
-				}
-			}
-
-			scrollbox = {
-				name = "traditions_holder"
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				scrollbarpolicy_horizontal = always_off
-				size = { 0 0 }
-
-				blockoverride "scrollbox_content" {
-					vbox = {
-						fixedgridbox = {
-							datamodel = "[Culture.GetTraditions]"
-							visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
-							flipdirection = yes
-							addcolumn = 284
-							addrow = 180
-							datamodel_wrap = 2
-
-							item = {
-								container = {
-									widget = {
-										name = "exisiting_tradition"
-										datacontext = "[GuiCultureTradition.GetTradition]"
-										visible = "[Not(GuiCultureTradition.IsEmpty)]"
-										size = { 276 168 }
-
-										tooltipwidget = {
-											using = culture_tradition_tooltip
-										}
-
-										DI_widget_tradition_icon = {
-											visible = "[Not(GuiCultureTradition.IsEmpty)]"
-
-											block "icon_size" {
-												size = { 276 138 }
-											}
-										}
-
-										text_label_center = {
-											name = "name_replacing"
-											visible = "[Not(GuiCultureTradition.IsEmpty)]"
-											parentanchor = bottom|hcenter
-											text = "[CultureTradition.GetNameNoTooltip]"
-											using = Font_Size_Medium
-											multiline = yes
-											align = center
-										}
-									}													
-								}
-							}
-						}
-
-						fixedgridbox = {
-							datamodel = "[Culture.GetTraditions]"
-							visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
-							flipdirection = yes
-							addcolumn = 284
-							addrow = 180
-							datamodel_wrap = 2
-
-							item = {
-								widget = {
-									name = "traditions"
-									datacontext = "[GuiCultureTradition.GetTradition]"
-									size = { 276 168 }
-
-									tooltip_visible = "[Not(GuiCultureTradition.IsEmpty)]"
-
-									tooltipwidget = {
-										using = culture_tradition_tooltip
-									}
-
-									DI_widget_tradition_icon = {
-										visible = "[Not(GuiCultureTradition.IsEmpty)]"
-										block "icon_size" {
-											size = { 276 138 }
-										}
-									}
-
-									DI_widget_tradition_selectable_glow = {
-										visible = "[Or(Not(GuiCultureTradition.IsEmpty), GuiCultureTradition.IsNextAvailable)]"
-										block "icon_size" {
-											size = { 276 138 }
-										}
-									}
-
-									DI_widget_tradition_empty = {
-										visible = "[GuiCultureTradition.IsEmpty]"
-										block "icon_size" {
-											size = { 276 138 }
-										}
-									}
-
-									text_label_center = {
-										name = "name"
-										visible = "[Not(GuiCultureTradition.IsEmpty)]"
-										parentanchor = bottom|hcenter
-										maximumsize = { 220 44 }
-										text = "[CultureTradition.GetNameNoTooltip]"
-										using = Font_Size_Medium
-										multiline = yes
-										align = center
-										elide = right
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-
-			# expand = {}
-
-			vbox = {
-				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				margin_top = 25
-				spacing = 10
-
-				hbox = {
-					visible = "[And( And( HasDlcFeature( 'hybridize_culture' ), Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) ) ), GetPlayer.IsValid )]"
-
-					text_multi = {
-						name = "no_hybridize_parent"
-						visible = "[GetPlayer.GetCulture.IsChildOf( Culture.Self )]"
-						max_width = 580
-						autoresize = yes
-						text = "NO_HYBRIDIZE_INFO_PARENT"
-						align = nobaseline
-						default_format = "#weak"
-						margin_top = 6
-						margin_bottom = 6
-					}
-
-					text_multi = {
-						name = "no_hybridize_child"
-						visible = "[Culture.IsChildOf( GetPlayer.GetCulture )]"
-						max_width = 580
-						autoresize = yes
-						text = "NO_HYBRIDIZE_INFO_CHILD"
-						align = nobaseline
-						default_format = "#weak"
-						margin_top = 6
-						margin_bottom = 6
-					}
-
-					text_multi = {
-						name = "no_hybridize_heritage"
-						visible = "[And( ObjectsEqual(Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ), And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) ) )]"
-						max_width = 580
-						autoresize = yes
-						text = "NO_HYBRIDIZE_INFO_HERITAGE"
-						align = nobaseline
-						default_format = "#weak"
-						margin_top = 6
-						margin_bottom = 6
-					}
-
-					button_standard = {
-						name = "hybridize"
-						visible = "[And( Not( ObjectsEqual(Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ) ), And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) ) )]"
-						onclick = "[Culture.OpenHybridizationWindow]"
-						text = "HYBRIDIZE_CULTURE_LABEL"
-						tooltip = "HYBRIDIZE_CULTURE_TOOLTIP"
-						using = tooltip_nw
-					}
-				}
-
-				hbox = {
-					spacing = 15
-					button_standard = {
-						name = "DI_edit_tradition"
-						text = DI_edit_tradition
-						onclick = "[GetVariableSystem.Toggle( 'DI_tradition_editor_window_visible')]"
-						down = "[IsGameViewOpen('add_culture_tradition')]"
-						tooltip = "ADD_TRADITION_TOOLTIP"
-						using = tooltip_nw
-					}
-	
-					button_standard = {
-						name = "DI_reform_culture"
-						visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
-						enabled = "[Not(Culture.IsReforming)]"
-						text = "REFORM_CULTURE_LABEL"
-						onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
-						down = "[IsGameViewOpen('add_culture_tradition')]"
-						tooltip = "REFORM_CULTURE_TOOLTIP"
-						using = tooltip_nw
-					}
-
-					button_standard = {
-						name = "DI_diverge_culture"
-						visible = "[And( ObjectsEqual(Culture.Self, GetPlayer.GetCulture ), HasDlcFeature( 'diverge_culture' ) )]"
-						onclick = "[Culture.OpenDivergenceWindow]"
-						text = "DIVERGE_CULTURE_LABEL"
-						tooltip = "DIVERGE_CULTURE_TOOLTIP"
-						using = tooltip_nw
-					}
-				}
-				expand = {}
-			}
-
-			vbox = {
-				visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				margin = { 10 8 }
-				margin_top = 20
-
-				hbox = {
-					button_standard = {
-						name = "cancel_reform_culture"
-						text = "REFORM_CULTURE_CLOSE_LABEL"
-						onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-						down = "[IsGameViewOpen('add_culture_tradition')]"
-						tooltip = "REFORM_CULTURE_CLOSE_TOOLTIP"
-						using = tooltip_nw
-					}
-				}
-				expand = {}
-			}
-		}
-
-		vbox = {
-			name = "innovations_area"
-			visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-
-			# using = Animation_Tab_Switch
-
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				margin = { 0 10 }
-
-				text_label_center = {
-					text = "CULTURE_WINDOW_INNOVATIONS"
-					using = Font_Size_Medium
-				}
-			}
-
-			widget = {
-				size = { 600 140 }
-				using = DI_Innovation_Eras
-			}
-			
-
-			scrollbox = {
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				maximumsize = { 600 530 }
-			
-				blockoverride "scrollbox_content"
-				{
-					vbox = {
-						using = DI_Innovation_Main
-					}
-					
-				}
-			}
-			expand = {}
-		}
-
-		vbox = {
-			name = "convert_area"
-			visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				margin = { 0 10 }
-
-				text_label_center = {
-					datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture_copy').Culture]"
-					text = "DI_culture_convert"
-					using = Font_Size_Medium
-				}
-			}
-
-			DI_culture_scrollbox = {
-				maximumsize = { 600 520 }
-				blockoverride "onclick"
-				{
-					onclick = "[GetScriptedGui('DI_ce_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
-				}
-			}
-			
-			vbox = {
-				spacing = 8
-
-				hbox = {
-					name = "DI_cultural_editor_convert_tabs"
-					layoutpolicy_horizontal = expanding
-					margin_top = 10
-
-					button_tab = {
-						layoutpolicy_horizontal = expanding
-						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
-						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'people' )]"
-
-						text_single = {
-							parentanchor = center
-							text = "DI_people"
-							maximumsize = { 400 -1 }
-							default_format = "#low"
-						}
-					}
-
-					button_tab = {
-						layoutpolicy_horizontal = expanding
-						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'counties' )]"
-						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'counties' )]"
-
-						text_single = {
-							parentanchor = center
-							text = "DI_counties"
-							maximumsize = { 400 -1 }
-							default_format = "#low"
-						}
-					}
-
-					# sub-realm
-					button_tab = {
-						layoutpolicy_horizontal = expanding
-						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'sub_realm' )]"
-						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'sub_realm' )]"
-
-						text_single = {
-							parentanchor = center
-							text = "DI_sub_realm"
-							maximumsize = { 400 -1 }
-							default_format = "#low"
-						}
-					}
-
-					button_tab = {
-						layoutpolicy_horizontal = expanding
-						onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'realm' )]"
-						down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'realm' )]"
-
-						text_single = {
-							parentanchor = center
-							text = "DI_realm"
-							maximumsize = { 400 -1 }
-							default_format = "#low"
-						}
-					}
-				}
-
-				vbox = {
-					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'people' )]"
-					spacing = 8
-					hbox = {
-						spacing = 15
-					
-						button_standard = {
-							name = "DI_convert_copy"
-							onclick = "[GetScriptedGui('DI_ce_convert_copy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_ce_convert_copy
-							tooltip = DI_ce_convert_copy_tt
-							using = tooltip_nw
-						}
-		
-						button_standard = {
-							name = "DI_convert_pinned"
-							onclick = "[GetScriptedGui('DI_ce_convert_all_pinned').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_ce_convert_all_pinned
-							tooltip = DI_ce_convert_all_pinned_tt
-							using = tooltip_nw
-						}
-		
-						button_standard = {
-							name = "DI_convert_to_player"
-							onclick = "[GetScriptedGui('DI_ce_convert_to_player').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_ce_convert_to_player
-							tooltip = DI_ce_convert_to_player_tt
-							using = tooltip_nw
-						}
-					}
-					
-					hbox = {
-						spacing = 15
-
-						# Convert every courtier
-						button_standard = {
-							name = "DI_convert_every_courtier"
-							onclick = "[GetScriptedGui('DI_convert_every_courtier_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_every_courtier_culture
-							tooltip = DI_convert_every_courtier_culture_tt
-							using = tooltip_nw
-						}
-
-						# Convert every vassal
-						button_standard = {
-							name = "DI_convert_every_vassal"
-							onclick = "[GetScriptedGui('DI_convert_every_vassal_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_every_vassal_culture
-							tooltip = DI_convert_every_vassal_culture_tt
-							using = tooltip_nw
-						}
-					}
-				}
-
-				vbox = {
-					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'counties' )]"
-					spacing = 8
-					hbox = {
-						spacing = 15
-						button_standard = {
-							name = "DI_convert_counties"
-							onclick = "[GetScriptedGui('DI_ce_convert_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_ce_convert_counties
-							tooltip = DI_ce_convert_counties_tt
-							using = tooltip_es
-						}
-		
-						button_standard = {
-							name = "DI_convert_pinned_counties"
-							onclick = "[GetScriptedGui('DI_ce_convert_all_pinned_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_ce_convert_all_pinned_counties
-							tooltip = DI_ce_convert_all_pinned_counties_tt
-							using = tooltip_es
-						}
-
-						button_standard = {
-							name = "DI_convert_to_player_counties"
-							onclick = "[GetScriptedGui('DI_ce_convert_to_player_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_ce_convert_to_player_counties
-							tooltip = DI_ce_convert_to_player_counties_tt
-							using = tooltip_es
-						}
-					}
-				}
-
-				vbox = {
-					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'realm' )]"
-					spacing = 8
-					hbox = {
-						spacing = 15
-						button_standard = {
-							name = "DI_convert_realm"
-							onclick = "[GetScriptedGui('DI_convert_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_realm_culture
-							tooltip = DI_convert_realm_culture_tt
-							using = tooltip_es
-						}
-		
-						button_standard = {
-							name = "DI_convert_pinned_realm"
-							onclick = "[GetScriptedGui('DI_convert_all_pinned_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_all_pinned_realm_culture
-							tooltip = DI_convert_all_pinned_realm_culture_tt
-							using = tooltip_es
-						}
-
-						button_standard = {
-							name = "DI_convert_pinned_player_realm"
-							onclick = "[GetScriptedGui('DI_convert_all_pinned_to_player_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_all_pinned_to_player_culture
-							tooltip = DI_convert_all_pinned_to_player_culture_tt
-							using = tooltip_es
-						}
-					}
-
-					hbox = {
-						spacing = 15
-						button_standard = {
-							name = "DI_quick_convert_player_realm"
-							onclick = "[GetScriptedGui('DI_quick_convert_player_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_quick_convert_player_realm_culture
-							tooltip = DI_quick_convert_player_realm_culture_tt
-							using = tooltip_es
-						}
-					}
-				}
-
-				vbox = {
-					visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'sub_realm' )]"
-					spacing = 8
-					hbox = {
-						spacing = 15
-						button_standard = {
-							name = "DI_convert_sub_realm"
-							onclick = "[GetScriptedGui('DI_convert_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_sub_realm_culture
-							tooltip = DI_convert_sub_realm_culture_tt
-							using = tooltip_es
-						}
-		
-						button_standard = {
-							name = "DI_convert_pinned_sub_realm"
-							onclick = "[GetScriptedGui('DI_convert_all_pinned_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_all_pinned_sub_realm_culture
-							tooltip = DI_convert_all_pinned_sub_realm_culture_tt
-							using = tooltip_es
-						}
-
-						button_standard = {
-							name = "DI_convert_pinned_player_sub_realm"
-							onclick = "[GetScriptedGui('DI_convert_all_pinned_to_player_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_convert_all_pinned_to_player_sub_realm_culture
-							tooltip = DI_convert_all_pinned_to_player_sub_realm_culture_tt
-							using = tooltip_es
-						}
-					}
-
-					hbox = {
-						spacing = 15
-						button_standard = {
-							name = "DI_quick_convert_player_sub_realm"
-							onclick = "[GetScriptedGui('DI_quick_convert_player_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							text = DI_quick_convert_player_sub_realm_culture
-							tooltip = DI_quick_convert_player_sub_realm_culture_tt
-							using = tooltip_es
-						}
-					}
-				}
-			}
-			expand = {}
-		}
+    name = "DI_cultural_editor_window"
+    layer = windows_layer
+
+    using = Window_Size_Sidebar
+    using = Window_Background_Sidebar
+    movable = no
+
+    datacontext = "[GetVariableSystem]"
+    datacontext = "[GetPlayer]"
+    datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
+    datacontext = "[Culture.GetReformation]"
+
+    visible = "[And(GetVariableSystem.Exists('DI_cultural_editor_window_visible'), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+
+    using = DI_Innovation_Anim
+
+    vbox = {
+        using = DI_Cultural_Editor_Header
+        using = DI_Cultural_Select_Character
+
+        widget = {
+            layoutpolicy_horizontal = expanding
+            size = { 0 48 }
+
+            vbox = {
+                name = "acceptance"
+                # visible = "[Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) )]"
+                spacing = 2
+                margin_left = 450
+                margin_right = 10
+
+                text_single = {
+                    name = "acceptance_text"
+                    layoutpolicy_horizontal = expanding
+                    text = "CULTURE_VIEW_ACCEPTANCE"
+                    align = right
+                    autoresize = no
+                    tooltip = "CULTURE_ACCEPTANCE_TOOLTIP"
+                }
+
+                text_single = {
+                    visible = "[NotEqualTo_CFixedPoint( Culture.GetAcceptanceDiff( GetPlayer.GetCulture ), '(CFixedPoint)0')]"
+                    layoutpolicy_horizontal = expanding
+                    text = "CULTURE_VIEW_ACCEPTANCE_DIFF"
+                    align = right
+                    autoresize = no
+                    tooltip = "CULTURE_ACCEPTANCE_TOOLTIP"
+                }
+
+                expand = {}
+            }
+
+            hbox = {
+                name = "whos_culture"
+                margin_top = 5
+
+                vbox = {
+                    layoutpolicy_vertical = expanding
+
+                    text_label_center = {
+                        text = "[Culture.GetPlayerRelationString]"
+                        default_format = "#low"
+                    }
+
+                    text_single = {
+                        text = "[Culture.GetCreationString]"
+                        max_width = 490
+                    }
+                }
+            }
+        }
+
+        hbox = {
+            name = "DI_CE_tabs"
+            layoutpolicy_horizontal = expanding
+            margin_top = 10
+
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
+                onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+                down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'overview' )]"
+
+                text_single = {
+                    parentanchor = center
+                    text = "CULTURE_VIEW_OVERVIEW"
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            button_tab = {
+                name = "innovations_tab"
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'innovations' )]"
+                onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+                down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' )]"
+
+                text_single = {
+                    parentanchor = center
+                    text = "DI_innovation_selection_tab"
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            button_tab = {
+                name = "convert_culture_tab"
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'convert' )]"
+                onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+                down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' )]"
+
+                text_single = {
+                    parentanchor = center
+                    text = "DI_culture_convert_tab"
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+        }
+
+        vbox = {
+            name = "traditions_and_pillars_tab"
+            visible = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'overview' )]"
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+
+            using = Animation_Tab_Switch
+
+            DI_container_pillar_item = {
+                datacontext = "[Culture.GetEthos]"
+
+                blockoverride "icon_size" {
+                    size = { 400 100 }
+                }
+
+                button_round = {
+                    # visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+                    parentanchor = bottom|right
+                    onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+                    onclick = "[GetVariableSystem.Toggle( 'DI_ethos_window_visible' )]"
+                    position = { -8 -8 }
+
+                    tooltip = "CULTURE_CLICK_TO_REPLACE"
+
+                    button_change = {
+                        alwaystransparent = yes
+                        parentanchor = center
+                    }
+                }
+            }
+
+            vbox = {
+                layoutpolicy_horizontal = expanding
+
+                text_label_left = {
+                    layoutpolicy_horizontal = expanding
+                    margin = { 10 6 }
+                    text = "[culture_pillars|E]"
+                    default_format = "#low"
+                    align = nobaseline
+                }
+            }
+
+            hbox = {
+                name = "cultural_pillars_block"
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                maximumsize = { 594 104 }
+
+                widget = {
+                    name = "cultural_pillars_collumn_one"
+                    layoutpolicy_horizontal = expanding
+
+                    vbox = {
+                        margin_left = 10
+
+                        hbox = {
+                            name = "heritage"
+                            datacontext = "[Culture.GetHeritage]"
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 10
+
+                                tooltipwidget = {
+                                    using = culture_pillar_tooltip
+                                }
+
+                                icon_doctrine = {
+                                    visible = "[ObjectsEqual( Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage )]"
+                                    size = { 44 44 }
+                                    texture = "gfx/interface/icons/culture_pillars/heritage.dds"
+                                }
+
+                                icon_doctrine = {
+                                    visible = "[Not( ObjectsEqual( Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ))]"
+                                    size = { 44 44 }
+                                    texture = "gfx/interface/icons/culture_pillars/heritage_diverge.dds"
+                                }
+
+                                text_multi = {
+                                    datacontext = "[Culture.GetHeritage]"
+                                    text = "CULTURE_VIEW_HERITAGE_TEXT"
+                                    autoresize = yes
+                                    max_width = 220
+                                }
+
+                                button_change = {
+                                    onclick = "[GetVariableSystem.Toggle( 'DI_heritage_window_visible' )]"
+
+                                    tooltip = "CULTURE_CLICK_TO_REPLACE"
+                                }
+                            }
+
+                            expand = {}
+                        }
+
+                        hbox = {
+                            name = "martial"
+                            datacontext = "[Culture.GetMartial]"
+                            layoutpolicy_horizontal = expanding
+
+                            # Only show Martial if culture affects martial customs,
+                            # which is only the case if we are able to modify
+                            # the culture pillars.
+                            visible = "[HasDlcFeature( 'diverge_culture' )]"
+
+                            spacing = 10
+
+                            icon_doctrine = {
+                                size = { 44 44 }
+                                texture = "[CulturePillar.GetIcon]"
+                            }
+
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    spacing = 5
+
+                                    tooltipwidget = {
+                                        using = culture_pillar_tooltip
+                                    }
+
+                                    text_multi = {
+                                        text = "CULTURE_VIEW_MARTIAL_CUSTOM_TEXT"
+                                        autoresize = yes
+                                        max_width = 220
+                                    }
+
+                                    button_change = {
+                                        onclick = "[GetVariableSystem.Set( 'is_martial', 'yes' )]"
+                                        onclick = "[GetVariableSystem.Toggle( 'DI_martial_custom_window_visible' )]"
+
+                                        tooltip = "CULTURE_CLICK_TO_REPLACE"
+                                    }
+
+                                    expand = {}
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetMartial), Not(GetVariableSystem.HasValue( 'reformation_mode', 'show' )))]"
+
+                                    margin_top = 3
+
+                                    DI_progressbar_reform = {
+
+                                        blockoverride "DI_progressbar_reform_size"
+                                        {
+                                            size = { 150 14 }
+                                        }
+
+                                        tooltipwidget = {
+                                            using = culture_pillar_tooltip_establishing
+                                        }
+                                    }
+
+                                    expand = {}
+                                }
+                            }
+                        }
+                    }
+                }
+
+                widget = {
+                    name = "cultural_pillars_collumn_two"
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+
+                    vbox = {
+                        margin_left = 10
+
+                        hbox = {
+                            name = "language"
+                            datacontext = "[Culture.GetLanguage]"
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 10
+
+                                tooltipwidget = {
+                                    using = culture_pillar_tooltip
+                                }
+
+                                icon_culture_pillar = {
+                                    visible = "[ObjectsEqual( Culture.GetLanguage, GetPlayer.GetCulture.GetLanguage )]"
+                                    texture = "gfx/interface/icons/culture_pillars/language.dds"
+                                }
+
+                                icon_culture_pillar = {
+                                    visible = "[Not( ObjectsEqual( Culture.GetLanguage, GetPlayer.GetCulture.GetLanguage ))]"
+                                    texture = "gfx/interface/icons/culture_pillars/language_diverge.dds"
+                                }
+
+                                text_multi = {
+                                    datacontext = "[Culture.GetLanguage]"
+                                    text = "CULTURE_VIEW_LANGUAGE_TEXT"
+                                    autoresize = yes
+                                    max_width = 220
+                                }
+
+                                button_adopt_court_language = {
+                                    datacontext = "[GetPlayer]"
+                                    layoutpolicy_horizontal = expanding
+
+                                    onclick = "[ToggleGameViewData( 'language', CulturePillar.Self )]"
+                                    enabled = "[Character.CanAdoptCourtLanguage( CulturePillar.Self )]"
+                                    tooltip = "ADOPT_COURT_LANGUAGE_CULTURE_WINDOW"
+                                    visible = "[And( HasDlcFeature( 'royal_court' ), And( Character.HasRoyalCourt, Not( ObjectsEqual( CulturePillar.Self, Character.GetCourtLanguage ) ) ) )]"
+                                }
+                            }
+
+                            expand = {}
+                        }
+
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 10
+
+                                tooltip = "CULTURE_AESTHETICS_TOOLTIP"
+
+                                icon_culture_pillar = {
+                                    texture = "gfx/interface/icons/culture_pillars/aesthetics.dds"
+                                }
+
+                                text_multi = {
+                                    text = "CULTURE_AESTHETICS"
+                                    autoresize = yes
+                                    max_width = 220
+                                }
+                            }
+                            expand = {}
+                        }
+                    }
+                }
+            }
+
+            text_label_left = {
+                layoutpolicy_horizontal = expanding
+                margin = { 10 6 }
+                text = "[traditions|E]"
+                align = nobaseline
+
+                text_single = {
+                    parentanchor = vcenter|right
+                    position = {-14 0}
+                    text = "[GetDataModelSize(Culture.GetTraditions)]/[Culture.GetMaxNumberOfTraditions]"
+                    tooltip = "[Culture.GetMaxNumberOfTraditionsBreakdown]"
+                    default_format = "#low"
+                    align = nobaseline
+                }
+            }
+
+            scrollbox = {
+                name = "traditions_holder"
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                scrollbarpolicy_horizontal = always_off
+                size = { 0 0 }
+
+                blockoverride "scrollbox_content" {
+                    vbox = {
+                        fixedgridbox = {
+                            datamodel = "[Culture.GetTraditions]"
+                            visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
+                            flipdirection = yes
+                            addcolumn = 284
+                            addrow = 180
+                            datamodel_wrap = 2
+
+                            item = {
+                                container = {
+                                    widget = {
+                                        name = "exisiting_tradition"
+                                        datacontext = "[GuiCultureTradition.GetTradition]"
+                                        visible = "[Not(GuiCultureTradition.IsEmpty)]"
+                                        size = { 276 168 }
+
+                                        tooltipwidget = {
+                                            using = culture_tradition_tooltip
+                                        }
+
+                                        DI_widget_tradition_icon = {
+                                            visible = "[Not(GuiCultureTradition.IsEmpty)]"
+
+                                            block "icon_size" {
+                                                size = { 276 138 }
+                                            }
+                                        }
+
+                                        text_label_center = {
+                                            name = "name_replacing"
+                                            visible = "[Not(GuiCultureTradition.IsEmpty)]"
+                                            parentanchor = bottom|hcenter
+                                            text = "[CultureTradition.GetNameNoTooltip]"
+                                            using = Font_Size_Medium
+                                            multiline = yes
+                                            align = center
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        fixedgridbox = {
+                            datamodel = "[Culture.GetTraditions]"
+                            visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+                            flipdirection = yes
+                            addcolumn = 284
+                            addrow = 180
+                            datamodel_wrap = 2
+
+                            item = {
+                                widget = {
+                                    name = "traditions"
+                                    datacontext = "[GuiCultureTradition.GetTradition]"
+                                    size = { 276 168 }
+
+                                    tooltip_visible = "[Not(GuiCultureTradition.IsEmpty)]"
+
+                                    tooltipwidget = {
+                                        using = culture_tradition_tooltip
+                                    }
+
+                                    DI_widget_tradition_icon = {
+                                        visible = "[Not(GuiCultureTradition.IsEmpty)]"
+                                        block "icon_size" {
+                                            size = { 276 138 }
+                                        }
+                                    }
+
+                                    DI_widget_tradition_selectable_glow = {
+                                        visible = "[Or(Not(GuiCultureTradition.IsEmpty), GuiCultureTradition.IsNextAvailable)]"
+                                        block "icon_size" {
+                                            size = { 276 138 }
+                                        }
+                                    }
+
+                                    DI_widget_tradition_empty = {
+                                        visible = "[GuiCultureTradition.IsEmpty]"
+                                        block "icon_size" {
+                                            size = { 276 138 }
+                                        }
+                                    }
+
+                                    text_label_center = {
+                                        name = "name"
+                                        visible = "[Not(GuiCultureTradition.IsEmpty)]"
+                                        parentanchor = bottom|hcenter
+                                        maximumsize = { 220 44 }
+                                        text = "[CultureTradition.GetNameNoTooltip]"
+                                        using = Font_Size_Medium
+                                        multiline = yes
+                                        align = center
+                                        elide = right
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            # expand = {}
+
+            vbox = {
+                visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                margin_top = 25
+                spacing = 10
+
+                hbox = {
+                    visible = "[And( And( HasDlcFeature( 'hybridize_culture' ), Not( ObjectsEqual( Culture.Self, GetPlayer.GetCulture ) ) ), GetPlayer.IsValid )]"
+
+                    text_multi = {
+                        name = "no_hybridize_parent"
+                        visible = "[GetPlayer.GetCulture.IsChildOf( Culture.Self )]"
+                        max_width = 580
+                        autoresize = yes
+                        text = "NO_HYBRIDIZE_INFO_PARENT"
+                        align = nobaseline
+                        default_format = "#weak"
+                        margin_top = 6
+                        margin_bottom = 6
+                    }
+
+                    text_multi = {
+                        name = "no_hybridize_child"
+                        visible = "[Culture.IsChildOf( GetPlayer.GetCulture )]"
+                        max_width = 580
+                        autoresize = yes
+                        text = "NO_HYBRIDIZE_INFO_CHILD"
+                        align = nobaseline
+                        default_format = "#weak"
+                        margin_top = 6
+                        margin_bottom = 6
+                    }
+
+                    text_multi = {
+                        name = "no_hybridize_heritage"
+                        visible = "[And( ObjectsEqual(Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ), And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) ) )]"
+                        max_width = 580
+                        autoresize = yes
+                        text = "NO_HYBRIDIZE_INFO_HERITAGE"
+                        align = nobaseline
+                        default_format = "#weak"
+                        margin_top = 6
+                        margin_bottom = 6
+                    }
+
+                    button_standard = {
+                        name = "hybridize"
+                        visible = "[And( Not( ObjectsEqual(Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ) ), And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) ) )]"
+                        onclick = "[Culture.OpenHybridizationWindow]"
+                        text = "HYBRIDIZE_CULTURE_LABEL"
+                        tooltip = "HYBRIDIZE_CULTURE_TOOLTIP"
+                        using = tooltip_nw
+                    }
+                }
+
+                hbox = {
+                    spacing = 15
+                    button_standard = {
+                        name = "DI_edit_tradition"
+                        text = DI_edit_tradition
+                        onclick = "[GetVariableSystem.Toggle( 'DI_tradition_editor_window_visible')]"
+                        down = "[IsGameViewOpen('add_culture_tradition')]"
+                        tooltip = "ADD_TRADITION_TOOLTIP"
+                        using = tooltip_nw
+                    }
+
+                    button_standard = {
+                        name = "DI_reform_culture"
+                        visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
+                        enabled = "[Not(Culture.IsReforming)]"
+                        text = "REFORM_CULTURE_LABEL"
+                        onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
+                        down = "[IsGameViewOpen('add_culture_tradition')]"
+                        tooltip = "REFORM_CULTURE_TOOLTIP"
+                        using = tooltip_nw
+                    }
+
+                    button_standard = {
+                        name = "DI_diverge_culture"
+                        visible = "[And( ObjectsEqual(Culture.Self, GetPlayer.GetCulture ), HasDlcFeature( 'diverge_culture' ) )]"
+                        onclick = "[Culture.OpenDivergenceWindow]"
+                        text = "DIVERGE_CULTURE_LABEL"
+                        tooltip = "DIVERGE_CULTURE_TOOLTIP"
+                        using = tooltip_nw
+                    }
+                }
+                expand = {}
+            }
+
+            vbox = {
+                visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                margin = { 10 8 }
+                margin_top = 20
+
+                hbox = {
+                    button_standard = {
+                        name = "cancel_reform_culture"
+                        text = "REFORM_CULTURE_CLOSE_LABEL"
+                        onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+                        down = "[IsGameViewOpen('add_culture_tradition')]"
+                        tooltip = "REFORM_CULTURE_CLOSE_TOOLTIP"
+                        using = tooltip_nw
+                    }
+                }
+                expand = {}
+            }
+        }
+
+        vbox = {
+            name = "innovations_area"
+            visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+
+            # using = Animation_Tab_Switch
+
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                margin = { 0 10 }
+
+                text_label_center = {
+                    text = "CULTURE_WINDOW_INNOVATIONS"
+                    using = Font_Size_Medium
+                }
+            }
+
+            widget = {
+                size = { 600 140 }
+                using = DI_Innovation_Eras
+            }
+
+
+            scrollbox = {
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                maximumsize = { 600 530 }
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox = {
+                        using = DI_Innovation_Main
+                    }
+
+                }
+            }
+            expand = {}
+        }
+
+        vbox = {
+            name = "convert_area"
+            visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                margin = { 0 10 }
+
+                text_label_center = {
+                    datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture_copy').Culture]"
+                    text = "DI_culture_convert"
+                    using = Font_Size_Medium
+                }
+            }
+
+            DI_culture_scrollbox = {
+                maximumsize = { 600 520 }
+                blockoverride "onclick"
+                {
+                    onclick = "[GetScriptedGui('DI_ce_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
+                }
+            }
+
+            vbox = {
+                spacing = 8
+
+                hbox = {
+                    name = "DI_cultural_editor_convert_tabs"
+                    layoutpolicy_horizontal = expanding
+                    margin_top = 10
+
+                    button_tab = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
+                        down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'people' )]"
+
+                        text_single = {
+                            parentanchor = center
+                            text = "DI_people"
+                            maximumsize = { 400 -1 }
+                            default_format = "#low"
+                        }
+                    }
+
+                    button_tab = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'counties' )]"
+                        down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'counties' )]"
+
+                        text_single = {
+                            parentanchor = center
+                            text = "DI_counties"
+                            maximumsize = { 400 -1 }
+                            default_format = "#low"
+                        }
+                    }
+
+                    # sub-realm
+                    button_tab = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'sub_realm' )]"
+                        down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'sub_realm' )]"
+
+                        text_single = {
+                            parentanchor = center
+                            text = "DI_sub_realm"
+                            maximumsize = { 400 -1 }
+                            default_format = "#low"
+                        }
+                    }
+
+                    button_tab = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'realm' )]"
+                        down = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'realm' )]"
+
+                        text_single = {
+                            parentanchor = center
+                            text = "DI_realm"
+                            maximumsize = { 400 -1 }
+                            default_format = "#low"
+                        }
+                    }
+                }
+
+                vbox = {
+                    visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'people' )]"
+                    spacing = 8
+                    hbox = {
+                        spacing = 15
+
+                        button_standard = {
+                            name = "DI_convert_copy"
+                            onclick = "[GetScriptedGui('DI_ce_convert_copy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_ce_convert_copy
+                            tooltip = DI_ce_convert_copy_tt
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_pinned"
+                            onclick = "[GetScriptedGui('DI_ce_convert_all_pinned').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_ce_convert_all_pinned
+                            tooltip = DI_ce_convert_all_pinned_tt
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_to_player"
+                            onclick = "[GetScriptedGui('DI_ce_convert_to_player').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_ce_convert_to_player
+                            tooltip = DI_ce_convert_to_player_tt
+                            using = tooltip_nw
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 15
+
+                        # Convert every courtier
+                        button_standard = {
+                            name = "DI_convert_every_courtier"
+                            onclick = "[GetScriptedGui('DI_convert_every_courtier_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_every_courtier_culture
+                            tooltip = DI_convert_every_courtier_culture_tt
+                            using = tooltip_nw
+                        }
+
+                        # Convert every vassal
+                        button_standard = {
+                            name = "DI_convert_every_vassal"
+                            onclick = "[GetScriptedGui('DI_convert_every_vassal_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_every_vassal_culture
+                            tooltip = DI_convert_every_vassal_culture_tt
+                            using = tooltip_nw
+                        }
+                    }
+                }
+
+                vbox = {
+                    visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'counties' )]"
+                    spacing = 8
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            name = "DI_convert_counties"
+                            onclick = "[GetScriptedGui('DI_ce_convert_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_ce_convert_counties
+                            tooltip = DI_ce_convert_counties_tt
+                            using = tooltip_es
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_pinned_counties"
+                            onclick = "[GetScriptedGui('DI_ce_convert_all_pinned_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_ce_convert_all_pinned_counties
+                            tooltip = DI_ce_convert_all_pinned_counties_tt
+                            using = tooltip_es
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_to_player_counties"
+                            onclick = "[GetScriptedGui('DI_ce_convert_to_player_counties').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_ce_convert_to_player_counties
+                            tooltip = DI_ce_convert_to_player_counties_tt
+                            using = tooltip_es
+                        }
+                    }
+                }
+
+                vbox = {
+                    visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'realm' )]"
+                    spacing = 8
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            name = "DI_convert_realm"
+                            onclick = "[GetScriptedGui('DI_convert_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_realm_culture
+                            tooltip = DI_convert_realm_culture_tt
+                            using = tooltip_es
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_pinned_realm"
+                            onclick = "[GetScriptedGui('DI_convert_all_pinned_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_all_pinned_realm_culture
+                            tooltip = DI_convert_all_pinned_realm_culture_tt
+                            using = tooltip_es
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_pinned_player_realm"
+                            onclick = "[GetScriptedGui('DI_convert_all_pinned_to_player_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_all_pinned_to_player_culture
+                            tooltip = DI_convert_all_pinned_to_player_culture_tt
+                            using = tooltip_es
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            name = "DI_quick_convert_player_realm"
+                            onclick = "[GetScriptedGui('DI_quick_convert_player_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_quick_convert_player_realm_culture
+                            tooltip = DI_quick_convert_player_realm_culture_tt
+                            using = tooltip_es
+                        }
+                    }
+                }
+
+                vbox = {
+                    visible = "[GetVariableSystem.HasValue( 'cultural_editor_convert_tabs', 'sub_realm' )]"
+                    spacing = 8
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            name = "DI_convert_sub_realm"
+                            onclick = "[GetScriptedGui('DI_convert_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_sub_realm_culture
+                            tooltip = DI_convert_sub_realm_culture_tt
+                            using = tooltip_es
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_pinned_sub_realm"
+                            onclick = "[GetScriptedGui('DI_convert_all_pinned_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_all_pinned_sub_realm_culture
+                            tooltip = DI_convert_all_pinned_sub_realm_culture_tt
+                            using = tooltip_es
+                        }
+
+                        button_standard = {
+                            name = "DI_convert_pinned_player_sub_realm"
+                            onclick = "[GetScriptedGui('DI_convert_all_pinned_to_player_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_convert_all_pinned_to_player_sub_realm_culture
+                            tooltip = DI_convert_all_pinned_to_player_sub_realm_culture_tt
+                            using = tooltip_es
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            name = "DI_quick_convert_player_sub_realm"
+                            onclick = "[GetScriptedGui('DI_quick_convert_player_sub_realm_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_quick_convert_player_sub_realm_culture
+                            tooltip = DI_quick_convert_player_sub_realm_culture_tt
+                            using = tooltip_es
+                        }
+                    }
+                }
+            }
+            expand = {}
+        }
     }
 }
 
@@ -904,656 +911,657 @@ window = {
 
 types CulturalEditorShared
 {
-	type DI_container_pillar_item = container {
-		using = tooltip_ws
+    type DI_container_pillar_item = container {
+        using = tooltip_ws
 
-		tooltipwidget = {
-			using = culture_pillar_tooltip
-		}
+        tooltipwidget = {
+            using = culture_pillar_tooltip
+        }
 
-		highlight_icon = {
-			name = "icon"
-			size = { 592 130 }
-			texture = "[CulturePillar.GetIcon]"
-			using = Mask_Rough_Edges
-		}
+        highlight_icon = {
+            name = "icon"
+            size = { 592 130 }
+            texture = "[CulturePillar.GetIcon]"
+            using = Mask_Rough_Edges
+        }
 
-		widget = {
-			size = { 100% 100% }
+        widget = {
+            size = { 100% 100% }
 
-			vbox = {
-				margin_bottom = 5
-				expand = {}
+            vbox = {
+                margin_bottom = 5
+                expand = {}
 
-				text_label_center = {
-					name = "name"
-					text = "[CulturePillar.GetNameNoTooltip]"
-					default_format = "#high"
-					maximumsize = { 130 44 }
-					fontsize_min = 12
-					multiline = yes
-					align = center
+                text_label_center = {
+                    name = "name"
+                    text = "[CulturePillar.GetNameNoTooltip]"
+                    default_format = "#high"
+                    maximumsize = { 130 44 }
+                    fontsize_min = 12
+                    multiline = yes
+                    align = center
 
-					using = Font_Size_Medium
-				}
+                    using = Font_Size_Medium
+                }
 
-				spacer = {
-					size = { 0 5 }
-				}
+                spacer = {
+                    size = { 0 5 }
+                }
 
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 5
-					visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetEthos), GetVariableSystem.HasValue( 'reformation_mode', 'show' ))]"
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    spacing = 5
+                    visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetEthos), GetVariableSystem.HasValue( 'reformation_mode', 'show' ))]"
 
-					background = {
-						using = Background_Area_Dark
-						margin = { 0 5 }
-					}
+                    background = {
+                        using = Background_Area_Dark
+                        margin = { 0 5 }
+                    }
 
-					tooltipwidget = {
-						using = culture_pillar_tooltip_establishing
-					}
+                    tooltipwidget = {
+                        using = culture_pillar_tooltip_establishing
+                    }
 
-					expand = {}
+                    expand = {}
 
-					text_single = {
-						text = "REFORM_ETHOS_NEW_NAME"
-						align = nobaseline
-					}
+                    text_single = {
+                        text = "REFORM_ETHOS_NEW_NAME"
+                        align = nobaseline
+                    }
 
-					text_single = {
-						text = "REFORMATION_NEW_TRADITION_INFO"
-						align = nobaseline
-					}
+                    text_single = {
+                        text = "REFORMATION_NEW_TRADITION_INFO"
+                        align = nobaseline
+                    }
 
-					DI_progressbar_reform = {
+                    DI_progressbar_reform = {
 
-						blockoverride "DI_progressbar_reform_size"
-						{
-							size = { 200 14 }
-						}
-					}
+                        blockoverride "DI_progressbar_reform_size"
+                        {
+                            size = { 200 14 }
+                        }
+                    }
 
-					expand = {}
-				}
-			}
-		}
-	}
+                    expand = {}
+                }
+            }
+        }
+    }
 
-	type DI_icon_innovation = icon {
-		size = { 90 60 }
+    type DI_icon_innovation = icon {
+        size = { 90 60 }
 
-		icon = {
-			texture = "[CultureInnovationType.GetIcon]"
-			block "icon_highlight"
-			{
-				tintcolor = { 1 1 1 1 }
-			}
-			
-			size = { 90 60 }
-		}
+        icon = {
+            texture = "[CultureInnovationType.GetIcon]"
+            block "icon_highlight"
+            {
+                tintcolor = { 1 1 1 1 }
+            }
 
-		icon = {
-			texture = "[CultureInnovationType.GetCultureEraType.GetFrame]"
-			block "icon_frame_highlight"
-			{
-				tintcolor = { 1 1 1 1 }
-			}
-			size = { 90 60 }
-		}
+            size = { 90 60 }
+        }
+
+        icon = {
+            texture = "[CultureInnovationType.GetCultureEraType.GetFrame]"
+            block "icon_frame_highlight"
+            {
+                tintcolor = { 1 1 1 1 }
+            }
+            size = { 90 60 }
+        }
 
 
-	}
+    }
 
-	type DI_widget_tradition_icon = widget
-	{
+    type DI_widget_tradition_icon = widget
+    {
 
-		icon = {
-			name = "background"
-			texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)0' )]"
-			size = { 100% 100% }
-		}
+        icon = {
+            name = "background"
+            texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)0' )]"
+            size = { 100% 100% }
+        }
 
-		icon = {
-			name = "pattern_left"
-			texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
-			size = { 100% 100% }
-			parentanchor = hcenter
-		}
+        icon = {
+            name = "pattern_left"
+            texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
+            size = { 100% 100% }
+            parentanchor = hcenter
+        }
 
-		icon = {
-			name = "pattern_right"
-			texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
-			size = { 100% 100% }
-			parentanchor = hcenter
-			mirror = horizontal
-		}
+        icon = {
+            name = "pattern_right"
+            texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)1' )]"
+            size = { 100% 100% }
+            parentanchor = hcenter
+            mirror = horizontal
+        }
 
-		icon = {
-			name = "support"
-			texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)2' )]"
-			size = { 100% 100% }
-		}
+        icon = {
+            name = "support"
+            texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)2' )]"
+            size = { 100% 100% }
+        }
 
-		icon = {
-			name = "stroke"
-			texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)3' )]"
-			size = { 90% 90% }
-			parentanchor = center
-		}
+        icon = {
+            name = "stroke"
+            texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)3' )]"
+            size = { 90% 90% }
+            parentanchor = center
+        }
 
-		icon = {
-			name = "items"
-			texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)4' )]"
-			size = { 100% 100% }
-			parentanchor = center
-		}
-	}
+        icon = {
+            name = "items"
+            texture = "[CultureTradition.GetLayeredIcon.GetTexture( '(int32)4' )]"
+            size = { 100% 100% }
+            parentanchor = center
+        }
+    }
 
-	type DI_widget_tradition_selectable_glow = widget
-	{
+    type DI_widget_tradition_selectable_glow = widget
+    {
 
-		size = { 276 138 }
+        size = { 276 138 }
 
-		button_standard_clean = {
-			onclick = "[Culture.OpenReplaceTraditionWindow(CultureTradition.Self)]"
-			size = { 276 138 }
+        button_standard_clean = {
+            onclick = "[Culture.OpenReplaceTraditionWindow(CultureTradition.Self)]"
+            size = { 276 138 }
 
-			icon = {
-				texture = "gfx/interface/icons/flat_icons/circle.dds"
-				parentanchor = bottom|right
-				size = { 45 45 }
-				position = { -1 2 }
-				alpha = 0.6
+            icon = {
+                texture = "gfx/interface/icons/flat_icons/circle.dds"
+                parentanchor = bottom|right
+                size = { 45 45 }
+                position = { -1 2 }
+                alpha = 0.6
 
-				modify_texture = {
-					texture = "gfx/interface/component_masks/mask_fade_circle.dds"
-					blend_mode = alphamultiply
-				}
-			}
+                modify_texture = {
+                    texture = "gfx/interface/component_masks/mask_fade_circle.dds"
+                    blend_mode = alphamultiply
+                }
+            }
 
-			button_replace = {
-				visible = "[Not(GuiCultureTradition.IsEmpty)]"
-				onclick = "[Culture.OpenReplaceTraditionWindow(CultureTradition.Self)]"
-				parentanchor = bottom|right
-				size = { 35 35 }
-				position = { -5 -2 }
+            button_replace = {
+                visible = "[Not(GuiCultureTradition.IsEmpty)]"
+                onclick = "[Culture.OpenReplaceTraditionWindow(CultureTradition.Self)]"
+                parentanchor = bottom|right
+                size = { 35 35 }
+                position = { -5 -2 }
 
-			}
-		}
-	}
+            }
+        }
+    }
 
-	type DI_widget_tradition_empty = widget
-	{
+    type DI_widget_tradition_empty = widget
+    {
 
-		icon = {
-			name = "background"
-			texture = "gfx/interface/colors/black.dds"
-			alpha = 0.3
-			size = { 100% 100% }
-			parentanchor = center
+        icon = {
+            name = "background"
+            texture = "gfx/interface/colors/black.dds"
+            alpha = 0.3
+            size = { 100% 100% }
+            parentanchor = center
 
-			using = Mask_Rough_Edges
-		}
-	}
+            using = Mask_Rough_Edges
+        }
+    }
 
-	type DI_progressbar_reform = progressbar_standard
-	{
-		block "DI_progressbar_reform_size" {}
+    type DI_progressbar_reform = progressbar_standard
+    {
+        block "DI_progressbar_reform_size" {}
 
-		min = 0
-		max = 100
-		value = "[CultureReformation.GetProgress]"
-	}
+        min = 0
+        max = 100
+        value = "[CultureReformation.GetProgress]"
+    }
 
-	type DI_button_replace_culture = button_normal
-	{
-		size = { 35 35 }
+    type DI_button_replace_culture = button_normal
+    {
+        size = { 35 35 }
 
-		icon = {
-			texture = "gfx/interface/buttons/button_lifestyles_base.dds"
-			size = { 100% 100% }
-		}
+        icon = {
+            texture = "gfx/interface/buttons/button_lifestyles_base.dds"
+            size = { 100% 100% }
+        }
 
-		icon = {
-			name = "progress_frame"
-			texture = "gfx/interface/progressbars/action_progress_frame.dds"
-			size = { 100% 100% }
-			alpha = 0.5
-		}
+        icon = {
+            name = "progress_frame"
+            texture = "gfx/interface/progressbars/action_progress_frame.dds"
+            size = { 100% 100% }
+            alpha = 0.5
+        }
 
-		button_icon_highlight = {
-			block "highlight_icon_size"
-			{
-				size = { 25 25 }
-			}
-			parentanchor = center
-			texture = "gfx/interface/icons/flat_icons/replace.dds"
-		}
-	}
+        button_icon_highlight = {
+            block "highlight_icon_size"
+            {
+                size = { 25 25 }
+            }
+            parentanchor = center
+            texture = "gfx/interface/icons/flat_icons/replace.dds"
+        }
+    }
 
-	type DI_vbox_era_tab = vbox {
-		layoutpolicy_horizontal = expanding
+    type DI_vbox_era_tab = vbox {
+        layoutpolicy_horizontal = expanding
 
-		tooltipwidget = {
-			using = DI_culture_era_tooltip
-		}
+        tooltipwidget = {
+            using = DI_culture_era_tooltip
+        }
 
-		using = tooltip_se
+        using = tooltip_se
 
-		block "era_spacer"
-		{
-			spacer = {
-				visible = "[GuiCultureEra.IsSelected]"
-				size = { 150 0 }
-	
-				state = {
-					name = _show
-					size = { 135 0 }
-					duration = 0.3
-				}
-	
-				state = {
-					name = _hide
-					size = { 0 0 }
-					duration = 0.3
-				}
-			}
-		}
+        block "era_spacer"
+        {
+            spacer = {
+                visible = "[GuiCultureEra.IsSelected]"
+                size = { 150 0 }
 
-		button = {
-			layoutpolicy_horizontal = expanding
-			size = { 0 128 }
-			scissor = yes
+                state = {
+                    name = _show
+                    size = { 135 0 }
+                    duration = 0.3
+                }
 
-			block "era_onclick"
-			{
-				onclick = "[PdxGuiTriggerAllAnimations('culture_refresh')]"
-				down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
-			}
+                state = {
+                    name = _hide
+                    size = { 0 0 }
+                    duration = 0.3
+                }
+            }
+        }
 
-			highlight_icon = {
-				parentanchor = center
-				size = { 248 128 }
-				texture = "[CultureEraType.GetIllustration]"
-				using = Mask_Rough_Edges
+        button = {
+            layoutpolicy_horizontal = expanding
+            size = { 0 128 }
+            scissor = yes
 
-				modify_texture = {
-					texture = "gfx/interface/component_masks/mask_culture_era_tab.dds"
-					blend_mode = alphamultiply
-					alpha = 0.9
-				}
-			}
+            block "era_onclick"
+            {
+                onclick = "[PdxGuiTriggerAllAnimations('culture_refresh')]"
+                down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
+            }
 
-			##### FRAYED EDGES ####
-			widget = {
-				parentanchor = left
-				size = { 6 128 }
+            highlight_icon = {
+                parentanchor = center
+                size = { 248 128 }
+                texture = "[CultureEraType.GetIllustration]"
+                using = Mask_Rough_Edges
 
-				background = {
-					using = Background_Area_Solid
-					spriteType = Corneredtiled
-					spriteborder = { 20 20 }
-					spriteborder_right = 11
-					margin = { 0 20 }
-					margin_left = 10
-				}
-			}
+                modify_texture = {
+                    texture = "gfx/interface/component_masks/mask_culture_era_tab.dds"
+                    blend_mode = alphamultiply
+                    alpha = 0.9
+                }
+            }
 
-			widget = {
-				parentanchor = right
-				size = { 6 128 }
+            ##### FRAYED EDGES ####
+            widget = {
+                parentanchor = left
+                size = { 6 128 }
 
-				background = {
-					using = Background_Area_Solid
-					mirror = horizontal
-					spriteType = Corneredtiled
-					spriteborder = { 20 20 }
-					spriteborder_right = 11
-					margin = { 0 20 }
-					margin_right = 10
-				}
-			}
+                background = {
+                    using = Background_Area_Solid
+                    spriteType = Corneredtiled
+                    spriteborder = { 20 20 }
+                    spriteborder_right = 11
+                    margin = { 0 20 }
+                    margin_left = 10
+                }
+            }
 
-			block "era_name" 
-			{
-				text_multi = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
-					size = { 100% 100% }
-					margin = { 5 10 }
-					autoresize = no
-					text = "[CultureEraType.GetName]"
-					align = top|hcenter
-					default_format = "#low"
-				}
-			}
-		}
-	}
+            widget = {
+                parentanchor = right
+                size = { 6 128 }
 
-	type DI_culture_scrollbox = vbox
-	{
-		layoutpolicy_vertical = expanding
-		layoutpolicy_horizontal = expanding
+                background = {
+                    using = Background_Area_Solid
+                    mirror = horizontal
+                    spriteType = Corneredtiled
+                    spriteborder = { 20 20 }
+                    spriteborder_right = 11
+                    margin = { 0 20 }
+                    margin_right = 10
+                }
+            }
 
-		scrollbox = {
-			layoutpolicy_vertical = expanding
-			layoutpolicy_horizontal = expanding
-	
-			blockoverride "scrollbox_content"
-			{
-				vbox = {
-					name = "cultures"
-					layoutpolicy_horizontal = expanding
-					datamodel = "[GetGlobalList('DI_heritage_list')]"
-	
-					item = {
-						vbox = {
-							name = "culture_group"
-							layoutpolicy_horizontal = expanding
-	
-							datacontext = "[Scope.Culture.GetHeritage]"
-	
-							button_standard_hover = {
-								layoutpolicy_horizontal = expanding
-	
-								size = { 0 40 }
-								onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
-								tooltip = RULER_DESIGNER_LIST_CULTURE_ENTRY_TOOLTIP
-	
-								hbox = {
-									margin = { 5 0 }
-									spacing = 10
-	
-									button_list_expand = {
-										checked = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
-										onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
-									}
-	
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "[CulturePillar.GetNameNoTooltip]"
-										default_format = "#clickable"
-										autoresize = no
-									}
-								}
-							}
-	
-	
-							vbox = {
-								name = "cultures"
-								layoutpolicy_horizontal = expanding
-								datamodel = "[CulturePillar.GetCulturesWithPillar]"
-								visible = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
-	
-								item = {
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										datacontext = "[Culture.GetTemplate]"
-	
-										button_standard_hover = {
-											name = "culture_item"
-											layoutpolicy_horizontal = expanding
-											size = { 0 35 }
-											tooltipwidget = {
-												ruler_designer_culture_tooltip = {}
-											}
-											using = Button_Select_Culture
-											
-											block "onclick"
-											{
-												onclick = "[GetScriptedGui('DI_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
-											}
+            block "era_name"
+            {
+                text_multi = {
+                    visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
+                    size = { 100% 100% }
+                    margin = { 5 10 }
+                    autoresize = no
+                    text = "[CultureEraType.GetName]"
+                    align = top|hcenter
+                    default_format = "#low"
+                }
+            }
+        }
+    }
 
-											hbox = {
-												margin_left = 50
-	
-												text_single = {
-													margin = { 5 0 }
-													text = "[Culture.GetNameNoTooltip]"
-													default_format = "#clickable"
-													align = nobaseline
-												}
-	
-												expand = {}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    type DI_culture_scrollbox = vbox
+    {
+        layoutpolicy_vertical = expanding
+        layoutpolicy_horizontal = expanding
+
+        scrollbox = {
+            layoutpolicy_vertical = expanding
+            layoutpolicy_horizontal = expanding
+
+            blockoverride "scrollbox_content"
+            {
+                vbox = {
+                    name = "cultures"
+                    layoutpolicy_horizontal = expanding
+                    datamodel = "[GetGlobalList('DI_heritage_list')]"
+
+                    item = {
+                        vbox = {
+                            name = "culture_group"
+                            layoutpolicy_horizontal = expanding
+
+                            datacontext = "[Scope.Culture.GetHeritage]"
+
+                            button_standard_hover = {
+                                layoutpolicy_horizontal = expanding
+
+                                size = { 0 40 }
+                                onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+                                tooltip = RULER_DESIGNER_LIST_CULTURE_ENTRY_TOOLTIP
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    spacing = 10
+
+                                    button_list_expand = {
+                                        checked = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+                                        onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[CulturePillar.GetNameNoTooltip]"
+                                        default_format = "#clickable"
+                                        autoresize = no
+                                    }
+                                }
+                            }
+
+
+                            vbox = {
+                                name = "cultures"
+                                layoutpolicy_horizontal = expanding
+                                datamodel = "[CulturePillar.GetCulturesWithPillar]"
+                                visible = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
+
+                                item = {
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        datacontext = "[Culture.GetTemplate]"
+
+                                        button_standard_hover = {
+                                            name = "culture_item"
+                                            layoutpolicy_horizontal = expanding
+                                            size = { 0 35 }
+                                            tooltipwidget = {
+                                                ruler_designer_culture_tooltip = {}
+                                            }
+                                            using = Button_Select_Culture
+
+                                            block "onclick"
+                                            {
+                                                onclick = "[GetScriptedGui('DI_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
+                                            }
+
+                                            hbox = {
+                                                margin_left = 50
+
+                                                text_single = {
+                                                    margin = { 5 0 }
+                                                    text = "[Culture.GetNameNoTooltip]"
+                                                    default_format = "#clickable"
+                                                    align = nobaseline
+                                                }
+
+                                                expand = {}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-template DI_Military_Group 
+template DI_Military_Group
 {
-	text_label_left = {
-		layoutpolicy_horizontal = expanding
-		align = left
-		margin = { 0 3 }
-		text = "culture_group_military"
-	}
+    text_label_left = {
+        layoutpolicy_horizontal = expanding
+        align = left
+        margin = { 0 3 }
+        text = "culture_group_military"
+    }
 }
 
-template DI_Civic_Group 
+template DI_Civic_Group
 {
-	text_label_left = {
-		layoutpolicy_horizontal = expanding
-		align = left
-		margin = { 0 3 }
-		text = "culture_group_civic"
-	}
+    text_label_left = {
+        layoutpolicy_horizontal = expanding
+        align = left
+        margin = { 0 3 }
+        text = "culture_group_civic"
+    }
 }
 
-template DI_Regional_Group 
+template DI_Regional_Group
 {
-	text_label_left = {
-		layoutpolicy_horizontal = expanding
-		align = left
-		margin = { 0 3 }
-		text = "culture_group_regional"
-	}
+    text_label_left = {
+        layoutpolicy_horizontal = expanding
+        align = left
+        margin = { 0 3 }
+        text = "culture_group_regional"
+    }
 }
 
 template DI_culture_innovation_tooltip {
-	container = {
-		using = GeneralTooltipSetup
-		alwaystransparent = no
+    container = {
+        using = GeneralTooltipSetup
+        alwaystransparent = no
 
-		widget = {
-			name = "background"
-			using = DefaultTooltipBackground
-			size = { 100% 100% }
-			alwaystransparent = no
-		}
+        widget = {
+            name = "background"
+            using = DefaultTooltipBackground
+            size = { 100% 100% }
+            alwaystransparent = no
+        }
 
-		flowcontainer = {
-			margin = { 20 20 }
-			spacing = 15
-			direction = vertical
-			ignoreinvisible = yes
+        flowcontainer = {
+            margin = { 20 20 }
+            spacing = 15
+            direction = vertical
+            ignoreinvisible = yes
 
-			widget = {
-				name = "header"
-				size = { 500 60 }
+            widget = {
+                name = "header"
+                size = { 500 60 }
 
-				background = {
-					using = Background_Area_Dark
-					margin = { 15 10 }
-				}
+                background = {
+                    using = Background_Area_Dark
+                    margin = { 15 10 }
+                }
 
-				hbox = {
-					minimumsize = { 500 0 }
-					set_parent_size_to_minimum = yes
+                hbox = {
+                    minimumsize = { 500 0 }
+                    set_parent_size_to_minimum = yes
 
-					widget = {
-						size = { 90 60 }
-						icon = {
-							texture = "[CultureInnovationType.GetIcon]"
-							size = { 90 60 }
+                    widget = {
+                        size = { 90 60 }
+                        icon = {
+                            texture = "[CultureInnovationType.GetIcon]"
+                            size = { 90 60 }
 
-							using = Mask_Rough_Edges
-						}
-					}
+                            using = Mask_Rough_Edges
+                        }
+                    }
 
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						margin = { 10 0 }
-						text = "[CultureInnovationType.GetName|T]"
-					}
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        margin = { 10 0 }
+                        text = "[CultureInnovationType.GetName|T]"
+                    }
 
-					expand = {}
+                    expand = {}
 
-					vbox = {
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = right
-							text = "INNOVATION_TOOLTIP_TYPE"
-						}
+                    vbox = {
+                        text_single = {
+                            layoutpolicy_horizontal = expanding
+                            align = right
+                            text = "INNOVATION_TOOLTIP_TYPE"
+                        }
 
-						spacer = {
-							size = { 5 5 }
-						}
+                        spacer = {
+                            size = { 5 5 }
+                        }
 
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							align = right
-							text = "INNOVATION_TOOLTIP_ERA"
-						}
-					}
-				}
-			}
+                        text_single = {
+                            layoutpolicy_horizontal = expanding
+                            align = right
+                            text = "INNOVATION_TOOLTIP_ERA"
+                        }
+                    }
+                }
+            }
 
-			container = {
-				using = era_innov_flavor
+            container = {
+                using = era_innov_flavor
 
-				blockoverride "eif_text" {
-					text = "[CultureInnovationType.GetDescription]"
-					max_width = 500
-				}
-			}
+                blockoverride "eif_text" {
+                    text = "[CultureInnovationType.GetDescription]"
+                    max_width = 500
+                }
+            }
 
-			block "AfterDescription" {}
-		}
-	}
+            block "AfterDescription" {}
+        }
+    }
 }
 
 template DI_Innovation_Anim
 {
-	state = {
-		name = _init
-		using = Animation_FadeIn_Quick
-		using = Sound_WindowShow_Standard
-		trigger_on_create = yes
+    state = {
+        name = _init
+        using = Animation_FadeIn_Quick
+        using = Sound_WindowShow_Standard
+        trigger_on_create = yes
 
-		on_start = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
-		on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
-		on_start = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
-	}
-	
-	state = {
-		name = _show
-		using = Animation_FadeIn_Quick
-		using = Sound_WindowShow_Standard
+        on_start = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
+        on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
+        on_start = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
+    }
 
-		position = { 0 0 }
-		on_start = "[GetVariableSystem.Set( 'hide_bottom_left_HUD', 'true' )]"
-		on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-		on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        using = Sound_WindowShow_Standard
+
+        position = { 0 0 }
+        on_start = "[GetVariableSystem.Set( 'hide_bottom_left_HUD', 'true' )]"
+        on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+        on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_finish = "[GetScriptedGui('DI_reload_selected_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 		on_finish = "[PdxGuiWidget.StackTop]"
-	}
+    }
 
-	state = {
-		name = _hide
-		using = Animation_FadeOut_Quick
-		using = Sound_WindowHide_Standard
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+        using = Sound_WindowHide_Standard
 
-		position = { -90 0 }
-		on_start = "[GetVariableSystem.Clear( 'hide_bottom_left_HUD' )]"
-	}
+        position = { -90 0 }
+        on_start = "[GetVariableSystem.Clear( 'hide_bottom_left_HUD' )]"
+    }
 }
 
 template DI_Cultural_Editor_Header
 {
-	restrictparent_min = yes
-	using = Window_Margins_Sidebar
-	
-	header_pattern = {
-		layoutpolicy_horizontal = expanding
+    restrictparent_min = yes
+    using = Window_Margins_Sidebar
 
-		blockoverride "header_text"
-		{
-			text = "CULTURE_WINDOW_CULTURE"
-			
-		}
+    header_pattern = {
+        layoutpolicy_horizontal = expanding
 
-		blockoverride "button_close"
-		{
-			onclick = "[GetVariableSystem.Toggle('DI_cultural_editor_window_visible')]"
-			
-		}
-	}
+        blockoverride "header_text"
+        {
+            text = "CULTURE_WINDOW_CULTURE"
+
+        }
+
+        blockoverride "button_close"
+        {
+            onclick = "[GetVariableSystem.Toggle('DI_cultural_editor_window_visible')]"
+
+        }
+    }
 }
 
 template DI_culture_era_tooltip {
-	container = {
-		using = GeneralTooltipSetup
-		alwaystransparent = no
+    container = {
+        using = GeneralTooltipSetup
+        alwaystransparent = no
 
-		widget = {
-			name = "background"
-			using = DefaultTooltipBackground
-			size = { 100% 100% }
-			alwaystransparent = no
-		}
+        widget = {
+            name = "background"
+            using = DefaultTooltipBackground
+            size = { 100% 100% }
+            alwaystransparent = no
+        }
 
-		flowcontainer = {
-			margin = { 20 20 }
-			spacing = 15
-			direction = vertical
-			ignoreinvisible = yes
+        flowcontainer = {
+            margin = { 20 20 }
+            spacing = 15
+            direction = vertical
+            ignoreinvisible = yes
 
-			widget = {
-				size = { 500 50}
+            widget = {
+                size = { 500 50}
 
-				background = {
-					using = Background_Area_Dark
-					margin = { 15 0 }
-					margin_top = 10
-				}
+                background = {
+                    using = Background_Area_Dark
+                    margin = { 15 0 }
+                    margin_top = 10
+                }
 
-				text_single = {
-					parentanchor = vcenter|left
-					text = "[CultureEraType.GetName]"
-					default_format = "#T"
-				}
+                text_single = {
+                    parentanchor = vcenter|left
+                    text = "[CultureEraType.GetName]"
+                    default_format = "#T"
+                }
 
-				text_single = {
-					parentanchor = vcenter|right
-					text = "[era|E]"
-				}
-			}
+                text_single = {
+                    parentanchor = vcenter|right
+                    text = "[era|E]"
+                }
+            }
 
-			container = {
-				using = era_innov_flavor
+            container = {
+                using = era_innov_flavor
 
-				blockoverride "eif_text" {
-					text = "[CultureEraType.GetDescription]"
-					max_width = 500
-				}
-			}
+                blockoverride "eif_text" {
+                    text = "[CultureEraType.GetDescription]"
+                    max_width = 500
+                }
+            }
 
-			block "cet_click_text"
-			{
-				text_single = {
-					default_format = "#I"
-					text = "VIEW_CLICK"
-				}
-			}
-		}
-	}
+            block "cet_click_text"
+            {
+                text_single = {
+                    default_format = "#I"
+                    text = "VIEW_CLICK"
+                }
+            }
+        }
+    }
 }
