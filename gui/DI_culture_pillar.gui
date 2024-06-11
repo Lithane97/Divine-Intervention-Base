@@ -914,6 +914,1293 @@ window = {
 }
 
 window = {
+    name = "DI_language_window"
+    parentanchor = center
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+    visible = "[GetVariableSystem.Exists('DI_language_window_visible')]"
+
+    datacontext = "[GetVariableSystem]"
+    datacontext = "[GetPlayer]"
+
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
+
+    vbox = {
+        set_parent_size_to_minimum = yes
+        using = Window_Margins
+
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+
+            blockoverride "header_text"
+            {
+                text = DI_language_window_title
+            }
+
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_language_window_visible')]"
+            }
+        }
+
+        vbox = {
+            name = "pillar_selection"
+            margin = { 0 8 }
+            spacing = 6
+
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+
+            scrollbox = {
+                size = { 450 500 }
+
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox = {
+                        margin_top = 5
+                        spacing = 15
+
+                        # anglic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_anglic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_anglic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # arabic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_arabic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_arabic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # aramaic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_aramaic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_aramaic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # baltic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_baltic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_baltic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # basque
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_basque')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_basque_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # berber
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_berber')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_berber_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # brythonic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_brythonic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_brythonic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # burmese
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_burmese')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_burmese_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # central_germanic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_central_germanic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_central_germanic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # chadic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_chadic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_chadic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # chinese
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_chinese')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_chinese_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # cushitic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_cushitic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_cushitic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # sabaki    
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_sabaki')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_sabaki_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # dutch
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_dutch')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_dutch_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # east_slavic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_east_slavic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_east_slavic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # ethiopic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_ethiopic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_ethiopic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # finnic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_finnic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_finnic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # frankish
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_frankish')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_frankish_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # french
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_french')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_french_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # goidelic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_goidelic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_goidelic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # gur
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_gur')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_gur_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # high_german
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_high_german')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_high_german_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # iberian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_iberian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_iberian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # sauraseni
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_sauraseni')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_sauraseni_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # marathi
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_marathi')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_marathi_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # magadhan
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_magadhan')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_magadhan_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # pahari
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_pahari')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_pahari_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # rajasthani
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_rajasthani')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_rajasthani_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # vrachada
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_vrachada')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_vrachada_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # sinhalese
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_sinhalese')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_sinhalese_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # kashmiri
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_kashmiri')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_kashmiri_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # tamil
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_tamil')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_tamil_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # telugu
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_telugu')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_telugu_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # kannada
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_kannada')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_kannada_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # north_dravidian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_north_dravidian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_north_dravidian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # iranian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_iranian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_iranian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # israelite
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_israelite')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_israelite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # latin
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_latin')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_latin_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # kru
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_kru')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_kru_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # kwa
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_kwa')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_kwa_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # magyar
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_magyar')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_magyar_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # manding
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_manding')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_manding_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # mongolic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_mongolic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_mongolic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # norse
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_norse')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_norse_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # oghur
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_oghur')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_oghur_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # omotic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_omotic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_omotic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # qiangic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_qiangic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_qiangic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # sami
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_sami')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_sami_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # saxon
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_saxon')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_saxon_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # senegambian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_senegambian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_senegambian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # soninke
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_soninke')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_soninke_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # south_slavic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_south_slavic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_south_slavic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # slavonic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_slavonic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_slavonic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # sudanic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_sudanic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_sudanic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # tibetan
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_tibetan')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_tibetan_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # tubu
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_tubu')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_tubu_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # turkic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_turkic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_turkic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # ugro_permian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_ugro_permian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_ugro_permian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # volga_finnic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_volga_finnic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_volga_finnic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # yoruba
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_yoruba')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_yoruba_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # armenian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_armenian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_armenian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # greek
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_greek')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_greek_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # scythian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_scythian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_scythian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # georgian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_georgian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_georgian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # occitano_romance
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_occitano_romance')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_occitano_romance_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # lechitic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_lechitic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_lechitic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # czech_slovak
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_czech_slovak')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_czech_slovak_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # tocharian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_tocharian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_tocharian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }   
+
+                        # tungusic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_tungusic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_tungusic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # sardinian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_sardinian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_sardinian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # wallachian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_wallachian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_wallachian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # italian   
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_italian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_italian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # ayneha
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_ayneha')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_ayneha_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # egyptian
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_egyptian')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_egyptian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # hunnic
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_hunnic')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_hunnic_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+
+                        # ancient_greek
+                        DI_widget_martial_pillar_item = {
+                            blockoverride "datacontext"
+                            {
+                                datacontext = "[GetCulturePillar('language_ancient_greek')]"
+                                datacontext = "[GetPlayer.GetCulture]"
+                            }
+
+                            blockoverride "onclick"
+                            {
+                                onclick = "[GetScriptedGui('DI_language_ancient_greek_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            blockoverride "highlight" {}
+                            blockoverride "icon" {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+window = {
     name = "DI_ethos_window"
     parentanchor = center
     layer = windows_layer

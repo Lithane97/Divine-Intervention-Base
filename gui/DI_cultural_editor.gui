@@ -211,7 +211,8 @@ window = {
                                 }
 
                                 button_change = {
-                                    onclick = "[GetVariableSystem.Toggle( 'DI_heritage_window_visible' )]"
+                                    onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+									onclick = "[GetVariableSystem.Toggle( 'DI_heritage_window_visible' )]"
 
                                     tooltip = "CULTURE_CLICK_TO_REPLACE"
                                 }
@@ -327,14 +328,14 @@ window = {
                                     max_width = 220
                                 }
 
-                                button_adopt_court_language = {
-                                    datacontext = "[GetPlayer]"
+                                button_change = {
                                     layoutpolicy_horizontal = expanding
 
-                                    onclick = "[ToggleGameViewData( 'language', CulturePillar.Self )]"
-                                    enabled = "[Character.CanAdoptCourtLanguage( CulturePillar.Self )]"
-                                    tooltip = "ADOPT_COURT_LANGUAGE_CULTURE_WINDOW"
-                                    visible = "[And( HasDlcFeature( 'royal_court' ), And( Character.HasRoyalCourt, Not( ObjectsEqual( CulturePillar.Self, Character.GetCourtLanguage ) ) ) )]"
+									onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+                                    onclick = "[GetVariableSystem.Toggle( 'DI_language_window_visible' )]"
+                                    visible = "[HasDlcFeature( 'royal_court' )]"
+
+									tooltip = "CULTURE_CLICK_TO_REPLACE"
                                 }
                             }
 
@@ -560,16 +561,16 @@ window = {
                         using = tooltip_nw
                     }
 
-                    button_standard = {
-                        name = "DI_reform_culture"
-                        visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
-                        enabled = "[Not(Culture.IsReforming)]"
-                        text = "REFORM_CULTURE_LABEL"
-                        onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
-                        down = "[IsGameViewOpen('add_culture_tradition')]"
-                        tooltip = "REFORM_CULTURE_TOOLTIP"
-                        using = tooltip_nw
-                    }
+                    # button_standard = {
+                    #     name = "DI_reform_culture"
+                    #     visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
+                    #     enabled = "[Not(Culture.IsReforming)]"
+                    #     text = "REFORM_CULTURE_LABEL"
+                    #     onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
+                    #     down = "[IsGameViewOpen('add_culture_tradition')]"
+                    #     tooltip = "REFORM_CULTURE_TOOLTIP"
+                    #     using = tooltip_nw
+                    # }
 
                     button_standard = {
                         name = "DI_diverge_culture"
@@ -1472,7 +1473,7 @@ template DI_Innovation_Anim
         on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
         on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_finish = "[GetScriptedGui('DI_reload_selected_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-		on_finish = "[PdxGuiWidget.StackTop]"
+        on_finish = "[PdxGuiWidget.StackTop]"
     }
 
     state = {
