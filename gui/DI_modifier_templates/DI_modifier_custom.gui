@@ -339,6 +339,29 @@ template DI_CE_Modifiers_Custom
 					}
 				}
 			}
+
+			# DI_dread_lord
+			dockable_button = {
+				name = "DI_modifier_DI_dread_lord_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('DI_dread_lord')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					tintcolor = { 0 1 1 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
 		}
 	}
 }
