@@ -1,1077 +1,1124 @@
 template DI_CE_Traits_Tab
 {
-	vbox = {
-		name = "traits_tab"
-		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'traits')]"
-		layoutpolicy_horizontal = expanding
+    vbox = {
+        name = "traits_tab"
+        visible = "[GetVariableSystem.HasValue('char_editor_tab', 'traits')]"
+        layoutpolicy_horizontal = expanding
 
-		datacontext = "[GetPlayer]"
+        datacontext = "[GetPlayer]"
 
-		margin = { 20 5 }
+        margin = { 20 5 }
 
-		using = Animation_ce_tab_Switch
+        using = Animation_Tab_Switch
 
-		vbox = {
-			name = "trait_selection_panel"
-			layoutpolicy_vertical = expanding
+        state = {
+            name = set_category
+            trigger_when = "[GetScriptedGui('DI_traits_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
-			using =  Animation_Tab_Switch
-			
-			scrollbox = {
-				name = "physical_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
+            on_finish = "[GetVariableSystem.Set( 'ce_traits_tab', 'physical' )]"
+        }
+        
+        state = {
+            name = traits_list
+            trigger_when = "[Not(GetScriptedGui('DI_traits_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
 
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'physical' )]"
+            on_finish = "[GetVariableSystem.Set( 'ce_traits_tab', 'debug' )]"
+        }
+        
+        vbox = {
+            name = "trait_selection_panel"
+            layoutpolicy_vertical = expanding
 
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetOtherRulerDesignerTraits]"
-						
-						blockoverride "test_visible"
-						{
-							visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_PHYSICAL'))]"
-						}
-					}
-				}
-			}
+            using =  Animation_Tab_Switch
 
+            scrollbox = {
+                name = "debug_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
 
-			scrollbox = {
-				name = "education_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'debug' )]"
 
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'education' )]"
+                blockoverride "scrollbox_content"
+                {
+                    hbox = {
+                        datamodel = "[GetOtherRulerDesignerTraits]"
 
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetEducationTraits]"
-					}
-				}
-			}
-			
-			scrollbox = {
-				name = "commander_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'commander' )]"
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetOtherRulerDesignerTraits]"
-						
-						blockoverride "test_visible"
-						{
-							visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_COMMANDER'))]"
-						}
-					}
-				}
-			}
+                        item = {
+                            widget_DI_trait_loader = {
+                            }
+                        }
+                    }
+                }
+            }
 
 			scrollbox = {
-				name = "personality_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'personality' )]"
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetPersonalityTraits]"
-					}
-				}
-			}
-			
-			scrollbox = {
-				name = "health_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'health' )]"
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetOtherRulerDesignerTraits]"
-						
-						blockoverride "test_visible"
-						{
-							visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_HEALTH'))]"
-						}
-					}
-				}
-			}
-			
-			scrollbox = {
-				name = "fame_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'fame' )]"
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetOtherRulerDesignerTraits]"
-						
-						blockoverride "test_visible"
-						{
-							visible = "[Or(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_FAME')), Or(EqualTo_string(Trait.GetKey, 'poet'), EqualTo_string(Trait.GetKey, 'confider')))]"
-						}
-					}
-				}
-			}
-
-			scrollbox = {
-				name = "other_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'other' )]"
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetOtherRulerDesignerTraits]"
-						blockoverride "test_visible"
-						{
-							visible = "[Or(Or(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_COURT_TYPE')), EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_CHILDHOOD'))), And(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_BASE')),Not(Or(EqualTo_string(Trait.GetKey, 'poet'),EqualTo_string(Trait.GetKey, 'confider')))))]"
-							
-						}
-					}
-				}
-			}
-			
-			scrollbox = {
-				name = "lifestyle_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'lifestyle' )]"
-				
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetOtherRulerDesignerTraits]"
-						
-						blockoverride "test_visible"
-						{
-							visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_LIFESTYLE'))]"
-						}
-						
-					}
-				}
-			}
-
-			scrollbox = {
-				name = "tracked_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'tracked' )]"
-
-				blockoverride "scrollbox_content"
-				{
-					vbox = {
-						name = "traits_list"
-						layoutpolicy_horizontal = expanding
-						spacing = 5
-
-						#Lifestyle Reveler
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_reveler' )]"
-								name = lifestyle_reveler_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_reveler_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_reveler_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-			
-									text_single = {
-										margin_left = 60
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Blademaster
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_blademaster' )]"
-								name = lifestyle_blademaster_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_blademaster_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_blademaster_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-			
-									text_single = {
-										margin_left = 60
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Hunter Hunter
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_hunter' )]"
-								name = lifestyle_hunter_hunter_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_hunter_1_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_hunter_1_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/hunter.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = trait_track_hunter
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Hunter Falconer
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_hunter' )]"
-								name = lifestyle_hunter_falconer_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_hunter_2_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_hunter_2_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/falconer.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = trait_track_falconer
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Mystic
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_mystic' )]"
-								name = lifestyle_mystic_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_mystic_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_mystic_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-			
-									text_single = {
-										margin_left = 60
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Physician
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_physician' )]"
-								name = lifestyle_physician_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_physician_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_physician_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-			
-									text_single = {
-										margin_left = 60
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Pilgrim
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'pilgrim' )]"
-								name = pilgrim_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_pilgrim_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_pilgrim_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-			
-									text_single = {
-										margin_left = 60
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Tourney Participant Foot
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'tourney_participant' )]"
-								name = tourney_participant_foot_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_tourney_participant_foot_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_foot_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/foot.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Tourney Participant Bow
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'tourney_participant' )]"
-								name = tourney_participant_bow_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_tourney_participant_bow_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_bow_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/bow.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Tourney Participant Horse
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'tourney_participant' )]"
-								name = tourney_participant_horse_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_tourney_participant_horse_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_horse_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/horse.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Tourney Participant Wit
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'tourney_participant' )]"
-								name = tourney_participant_wit_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_tourney_participant_wit_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_wit_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/wit.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = "[Trait.GetNameNoTooltip( Character.Self )]"
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Traveler Travel
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_traveler' )]"
-								name = lifestyle_traveler_travel_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_traveler_travel_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_traveler_travel_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/travel.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = trait_track_travel
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-
-						#Lifestyle Traveler Danger
-						hbox = {
-							layoutpolicy_horizontal = expanding
-
-							button_standard = {
-								datacontext = "[GetTrait( 'lifestyle_traveler' )]"
-								name = lifestyle_traveler_danger_button
-								layoutpolicy_horizontal = expanding
-								size = { 0 50 }
-
-								onclick = "[GetScriptedGui('DI_add_lifestyle_traveler_danger_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								onrightclick = "[GetScriptedGui('DI_remove_lifestyle_traveler_danger_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-								button_ignore = none
-								
-								hbox = {
-									margin = { 5 0 }
-									margin_right = 10
-									spacing = 10
-			
-									icon_trait = {
-										blockoverride "faith_context"
-										{
-											datacontext = "[GetPlayer.GetFaith]"
-										}
-										blockoverride "tooltip_placement"
-										{
-											using = tooltip_ws
-										}
-									}
-
-									icon = {
-										size = { 50 50 }
-										texture = "gfx/interface/icons/trait_level_tracks/danger.dds"
-									}
-			
-									text_single = {
-										layoutpolicy_horizontal = expanding
-										text = trait_track_danger
-										default_format = "#clickable"
-									}
-								}
-								tooltip = DI_trait_xp_button_tt
-							}
-
-							hbox = {
-								minimumsize = { 76 -1 }
-							}
-						}
-					}
-					
-				}
-			}
-
-			scrollbox = {
-				name = "pinned_trait_selection_list"
-				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
-
-				visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'pinned' )]"
-
-				state = {
-					name = "list_check"
-					using = Animation_FadeIn_Quick
-					trigger_when = "[GetScriptedGui('DI_pinned_trait_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					on_start = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					on_start = "[GetScriptedGui('DI_pinned_trait_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
-				
-
-				blockoverride "scrollbox_content"
-				{
-					vbox_DI_trait_selection_content = {
-						layoutpolicy_horizontal = expanding
-						datamodel = "[GetPlayer.MakeScope.GetList('DI_pinned_traits')]"
-					}
-				}
-			}
-
-		}
-	}
+                name = "physical_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'physical' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_misc_traits')]"
+
+                        blockoverride "test_visible"
+                        {
+                            visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_PHYSICAL'))]"
+                        }
+                    }
+                }
+            }
+
+
+            scrollbox = {
+                name = "education_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'education' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetEducationTraits]"
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "commander_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'commander' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_commander_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_COMMANDER'))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "personality_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'personality' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetPersonalityTraits]"
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "health_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'health' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_health_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_HEALTH'))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "fame_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'fame' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_fame_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[Or(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_FAME')), Or(EqualTo_string(Trait.GetKey, 'poet'), EqualTo_string(Trait.GetKey, 'confider')))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "other_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'other' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_misc_traits')]"
+                        
+                        blockoverride "test_visible"
+                        {
+                            visible = "[Not(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_PHYSICAL')))]"
+                        }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "lifestyle_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'lifestyle' )]"
+
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_lifestyle_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_LIFESTYLE'))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "tracked_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'tracked' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox = {
+                        name = "traits_list"
+                        layoutpolicy_horizontal = expanding
+                        spacing = 5
+
+                        #Lifestyle Reveler
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_reveler' )]"
+                                name = lifestyle_reveler_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_reveler_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_reveler_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    text_single = {
+                                        margin_left = 60
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Blademaster
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_blademaster' )]"
+                                name = lifestyle_blademaster_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_blademaster_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_blademaster_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    text_single = {
+                                        margin_left = 60
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Hunter Hunter
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_hunter' )]"
+                                name = lifestyle_hunter_hunter_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_hunter_1_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_hunter_1_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/hunter.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = trait_track_hunter
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Hunter Falconer
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_hunter' )]"
+                                name = lifestyle_hunter_falconer_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_hunter_2_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_hunter_2_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/falconer.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = trait_track_falconer
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Mystic
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_mystic' )]"
+                                name = lifestyle_mystic_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_mystic_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_mystic_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    text_single = {
+                                        margin_left = 60
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Physician
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_physician' )]"
+                                name = lifestyle_physician_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_physician_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_physician_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    text_single = {
+                                        margin_left = 60
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Pilgrim
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'pilgrim' )]"
+                                name = pilgrim_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_pilgrim_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_pilgrim_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    text_single = {
+                                        margin_left = 60
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Tourney Participant Foot
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'tourney_participant' )]"
+                                name = tourney_participant_foot_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_tourney_participant_foot_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_foot_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/foot.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Tourney Participant Bow
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'tourney_participant' )]"
+                                name = tourney_participant_bow_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_tourney_participant_bow_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_bow_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/bow.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Tourney Participant Horse
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'tourney_participant' )]"
+                                name = tourney_participant_horse_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_tourney_participant_horse_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_horse_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/horse.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Tourney Participant Wit
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'tourney_participant' )]"
+                                name = tourney_participant_wit_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_tourney_participant_wit_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_tourney_participant_wit_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/wit.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = "[Trait.GetNameNoTooltip( Character.Self )]"
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Traveler Travel
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_traveler' )]"
+                                name = lifestyle_traveler_travel_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_traveler_travel_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_traveler_travel_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/travel.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = trait_track_travel
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        #Lifestyle Traveler Danger
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                datacontext = "[GetTrait( 'lifestyle_traveler' )]"
+                                name = lifestyle_traveler_danger_button
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+
+                                onclick = "[GetScriptedGui('DI_add_lifestyle_traveler_danger_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_lifestyle_traveler_danger_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                button_ignore = none
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon_trait = {
+                                        blockoverride "faith_context"
+                                        {
+                                            datacontext = "[GetPlayer.GetFaith]"
+                                        }
+                                        blockoverride "tooltip_placement"
+                                        {
+                                            using = tooltip_ws
+                                        }
+                                    }
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/trait_level_tracks/danger.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = trait_track_danger
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_trait_xp_button_tt
+                            }
+
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            scrollbox = {
+                name = "pinned_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'pinned' )]"
+
+                state = {
+                    name = "list_check"
+                    using = Animation_FadeIn_Quick
+                    trigger_when = "[GetScriptedGui('DI_pinned_trait_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    on_start = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    on_start = "[GetScriptedGui('DI_pinned_trait_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                }
+
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetPlayer.MakeScope.GetList('DI_pinned_traits')]"
+                    }
+                }
+            }
+
+        }
+    }
 }
 
 # Traits Tabs
 template DI_CE_Traits_Tabs
 {
-	vbox = {
-		name = "traits_tabs"
-		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'traits')]"
-		layoutpolicy_horizontal = expanding
-		layoutpolicy_vertical = expanding
-		margin = { 35 10 }
+    vbox = {
+        name = "traits_tabs"
+        visible = "[GetVariableSystem.HasValue('char_editor_tab', 'traits')]"
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+        margin = { 35 10 }
 
-		hbox = {
-			layoutpolicy_horizontal = expanding
+        hbox = {
+            layoutpolicy_horizontal = expanding
 
-			# physical tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'physical')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'physical')]"
+            # physical tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'physical')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'physical')]"
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_physical
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_physical
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-			# education tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'education')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'education')]"
+            # education tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'education')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'education')]"
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_education
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_education
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-			# commander tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'commander')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'commander')]"
+            # commander tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'commander')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'commander')]"
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_commander
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_commander
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-			# lifestyle tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'lifestyle')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'lifestyle')]"
+            # lifestyle tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'lifestyle')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'lifestyle')]"
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_lifestyle
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-		
-			# personality tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'personality')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'personality')]"
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_lifestyle
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_personality
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-		}
+            # personality tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'personality')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'personality')]"
 
-		hbox = {
-			layoutpolicy_horizontal = expanding
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_personality
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+        }
 
-			# health tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'health')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'health')]"
+        hbox = {
+            layoutpolicy_horizontal = expanding
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_health
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+            # health tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'health')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'health')]"
 
-			# fame tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'fame')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'fame')]"
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_health
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_fame
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+            # fame tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'fame')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'fame')]"
 
-			# other tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'other')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'other')]"
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_fame
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_other
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+            # other tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'other')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'other')]"
 
-			# tracked tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'tracked')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'tracked')]"
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_other
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_tracked
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
+            # tracked tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'tracked')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'tracked')]"
 
-			# pinned tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('ce_traits_tab', 'pinned')]"
-				down = "[GetVariableSystem.HasValue('ce_traits_tab', 'pinned')]"
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_tracked
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
 
-				text_single = {
-					parentanchor = center
-					text = DI_ce_tab_pinned
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-		}
-		expand = {}
-	}
+            # pinned tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'pinned')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'pinned')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_pinned
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+        }
+        expand = {}
+    }
 }
 
 types DI_trait_menu_types
 {
-	type vbox_DI_trait_selection_content = vbox
-	{
-		datacontext = "[GetPlayer]"
-		spacing = 3
+    type vbox_DI_trait_selection_content = vbox
+    {
+        datacontext = "[GetPlayer]"
+        spacing = 3
 
-		item = {
-			hbox = {
-				datacontext = "[Scope.Trait]"
-				layoutpolicy_horizontal = expanding
-				block "test_visible"
-				{
-					visible = yes
-				}
-				button_standard = {
-					name = "trait_item"
-					layoutpolicy_horizontal = expanding
-					size = { 0 50 }
-					button_ignore = none
-					
-					onclick = "[GetScriptedGui('DI_add_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-					onrightclick = "[GetScriptedGui('DI_remove_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+        item = {
+            hbox = {
+                datacontext = "[Scope.Trait]"
+                layoutpolicy_horizontal = expanding
+                block "test_visible"
+                {
+                    visible = yes
+                }
+                button_standard = {
+                    name = "trait_item"
+                    layoutpolicy_horizontal = expanding
+                    size = { 0 50 }
+                    button_ignore = none
 
-					hbox = {
-						margin = { 5 0 }
-						margin_right = 10
-						spacing = 10
+                    onclick = "[GetScriptedGui('DI_add_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                    onrightclick = "[GetScriptedGui('DI_remove_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
 
-						icon_trait = {
-							blockoverride "faith_context"
-							{
-								datacontext = "[GetPlayer.GetFaith]"
-							}
-							blockoverride "tooltip_placement"
-							{
-								using = tooltip_ws
-							}
-						}
+                    hbox = {
+                        margin = { 5 0 }
+                        margin_right = 10
+                        spacing = 10
 
-						text_single = {
-							layoutpolicy_horizontal = expanding
-							
-							text = "[Trait.GetNameNoTooltip( Character.Self )]"
-							
-							default_format = "#clickable"
-						}
-					}
-					tooltip = DI_trait_button_tt
-				}
-				
-				hbox = {
-					margin = { 20 0 } 
-		
-					button_pin = {
-						name = "button_pin"
-						visible = "[Not(GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End))]"
-						onclick = "[GetScriptedGui('DI_pin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-						size = { 25 25 }
-					}
+                        icon_trait = {
+                            blockoverride "faith_context"
+                            {
+                                datacontext = "[GetPlayer.GetFaith]"
+                            }
+                            blockoverride "tooltip_placement"
+                            {
+                                using = tooltip_ws
+                            }
+                        }
 
-					button_unpin = {
-						name = "button_unpin"
-						visible = "[GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-						onclick = "[GetScriptedGui('DI_unpin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
-						size = { 25 25 }
-					}
-				}
-			}
-		}
-	}
+                        text_single = {
+                            layoutpolicy_horizontal = expanding
+
+                            text = "[Trait.GetNameNoTooltip( Character.Self )]"
+
+                            default_format = "#clickable"
+                        }
+                    }
+                    tooltip = DI_trait_button_tt
+                }
+
+                hbox = {
+                    margin = { 20 0 }
+
+                    button_pin = {
+                        name = "button_pin"
+                        visible = "[Not(GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End))]"
+                        onclick = "[GetScriptedGui('DI_pin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                        size = { 25 25 }
+                    }
+
+                    button_unpin = {
+                        name = "button_unpin"
+                        visible = "[GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                        onclick = "[GetScriptedGui('DI_unpin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                        size = { 25 25 }
+                    }
+                }
+            }
+        }
+    }
+
+    type widget_DI_trait_loader = widget {
+        size = { 0 0 }
+
+        vbox = {
+            using = Animation_Tab_Switch
+
+            state = {
+                name = trait_loader
+                trigger_when = "[Not(EqualTo_string(Trait.GetNameNoTooltip( GetNullCharacter ), Localize('')))]"
+                on_start = "[GetScriptedGui('DI_trait_loader_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+            }
+        }
+    }
 }
