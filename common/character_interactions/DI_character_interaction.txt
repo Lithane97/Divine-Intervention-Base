@@ -3601,16 +3601,46 @@ DI_swing_scales_interaction = {
     }
 
     send_option = {
-        flag = swing_scales_0
+        flag = swing_scales_0P
         localization = swing_scales_0
+        is_shown = {
+            scope:recipient = scope:actor.liege
+        }
     }
     send_option = {
-        flag = swing_scales_50
+        flag = swing_scales_50P
         localization = swing_scales_50
+        is_shown = {
+            scope:recipient = scope:actor.liege
+        }
     }
     send_option = {
-        flag = swing_scales_100
+        flag = swing_scales_100P
         localization = swing_scales_100
+        is_shown = {
+            scope:recipient = scope:actor.liege
+        }
+    }
+    send_option = {
+        flag = swing_scales_0NPC
+        localization = swing_scales_0
+        is_shown = {
+            NOT = { scope:recipient = scope:actor.liege }
+        }
+    }
+    send_option = {
+        flag = swing_scales_50NPC
+        localization = swing_scales_50
+        is_shown = {
+            NOT = { scope:recipient = scope:actor.liege }
+        }
+    }
+    send_option = {
+        flag = swing_scales_100NPC
+        localization = swing_scales_100
+        is_shown = {
+            NOT = { scope:recipient = scope:actor.liege }
+        }
     }
 
     on_accept = {
@@ -3618,13 +3648,28 @@ DI_swing_scales_interaction = {
             switch = {
                 trigger = yes
 
-                scope:swing_scales_0 = {
+                scope:swing_scales_0P = {
+                    scope:recipient = {
+                        set_diarchy_swing = 0
+                    }
+                }
+                scope:swing_scales_50P = {
+                    scope:recipient = {
+                        set_diarchy_swing = 50
+                    }
+                }
+                scope:swing_scales_100P = {
+                    scope:recipient = {
+                        set_diarchy_swing = 100
+                    }
+                }
+                scope:swing_scales_0NPC = {
                     set_diarchy_swing = 0
                 }
-                scope:swing_scales_50 = {
+                scope:swing_scales_50NPC = {
                     set_diarchy_swing = 50
                 }
-                scope:swing_scales_100 = {
+                scope:swing_scales_100NPC = {
                     set_diarchy_swing = 100
                 }
             }
@@ -3657,17 +3702,37 @@ DI_start_diarchy_interaction = {
     }
 
     options_heading = DI_start_diarchy_desc
-    send_options_exclusive = no
+    send_options_exclusive = yes
 
     send_option = {
-        is_shown = { always = no }
-        flag = regency
-        localization = DI_start_diarchy_desc
+        flag = regency_player
+        localization = DI_start_diarchy_player_desc
+        is_shown = {
+            scope:recipient = scope:actor.liege
+        }
+    }
+    send_option = {
+        flag = regency_npc
+        localization = DI_start_diarchy_npc_desc
     }
 
     on_auto_accept = {
-        scope:recipient = {
-            start_diarchy = regency
+        scope:actor = {
+            switch = {
+                trigger = yes
+
+                scope:regency_player = {
+                    scope:recipient = {
+                        start_diarchy = regency
+                        set_diarch = scope:actor
+                    }
+                }
+                scope:regency_npc = {
+                    scope:recipient = {
+                        start_diarchy = regency
+                    }
+                }
+            }
         }
     }
 }
