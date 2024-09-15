@@ -182,7 +182,7 @@ DI_trait_loader_sgui = {
             name = DI_all_traits
             target = scope:trait
         }
-		if = {
+        if = {
             limit = {
                 scope:trait = {
                     has_trait_category = health
@@ -194,1408 +194,150 @@ DI_trait_loader_sgui = {
                 target = scope:trait
             }
         }
-		else_if = {
-			limit = {
-				scope:trait = {
-					OR = {
-						has_trait_category = commander
-						has_trait_category = winter_commander
-					}
-				}
-			}
+        else_if = {
+            limit = {
+                scope:trait = {
+                    OR = {
+                        has_trait_category = commander
+                        has_trait_category = winter_commander
+                    }
+                }
+            }
 
-			add_to_global_variable_list = {
-				name = DI_commander_traits
-				target = scope:trait
-			}
-		}
-		else_if = {
-			limit = {
-				scope:trait = {
-					has_trait_category = fame
-				}
-			}
+            add_to_global_variable_list = {
+                name = DI_commander_traits
+                target = scope:trait
+            }
+        }
+        else_if = {
+            limit = {
+                scope:trait = {
+                    has_trait_category = fame
+                }
+            }
 
-			add_to_global_variable_list = {
-				name = DI_fame_traits
-				target = scope:trait
-			}
-		}
-		else_if = {
-			limit = {
-				scope:trait = {
-					has_trait_category = lifestyle
-				}
-			}
+            add_to_global_variable_list = {
+                name = DI_fame_traits
+                target = scope:trait
+            }
+        }
+        else_if = {
+            limit = {
+                scope:trait = {
+                    has_trait_category = lifestyle
+                }
+            }
 
-			add_to_global_variable_list = {
-				name = DI_lifestyle_traits
-				target = scope:trait
-			}
-		}
-		else = {
-			add_to_global_variable_list = {
-				name = DI_misc_traits
-				target = scope:trait
-			}
-		}
+            add_to_global_variable_list = {
+                name = DI_lifestyle_traits
+                target = scope:trait
+            }
+        }
+        else = {
+            add_to_global_variable_list = {
+                name = DI_misc_traits
+                target = scope:trait
+            }
+        }
     }
 }
 
 ### Check if all trait lists have been generated ###
 DI_traits_list = {
-	scope = character
-
-	is_valid = {
-		has_global_variable_list = DI_all_traits
-		has_global_variable_list = DI_health_traits
-		has_global_variable_list = DI_commander_traits
-		has_global_variable_list = DI_fame_traits
-		has_global_variable_list = DI_lifestyle_traits
-		has_global_variable_list = DI_misc_traits
-	}
-}
-
-#Lifestyle Reveler
-#Add
-DI_add_lifestyle_reveler_xp = {
     scope = character
 
+    is_valid = {
+        has_global_variable_list = DI_all_traits
+        has_global_variable_list = DI_health_traits
+        has_global_variable_list = DI_commander_traits
+        has_global_variable_list = DI_fame_traits
+        has_global_variable_list = DI_lifestyle_traits
+        has_global_variable_list = DI_misc_traits
+    }
+}
+
+### Set trait track to 0 xp ###
+DI_add_trait_xp_0 = {
+    scope = character
+
+    saved_scopes = {
+        trait # selected trait
+        track # selected track
+    }
+
     effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
+        debug_log = "DI_Debug: add_trait_xp_0"
+        debug_log_scopes = yes
 
         if = {
             limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
+                DI_trait_track_check = yes
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_reveler
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_reveler
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_reveler
-                    }
-                }
-            }
+
+            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
         }
         else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_reveler
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_reveler
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_reveler
-                }
+            add_trait_xp = {
+                trait = scope:trait
+                value = -100
             }
         }
     }
 }
 
-#Remove
-DI_remove_lifestyle_reveler_xp = {
+### Set trait track to 50 xp ###
+DI_add_trait_xp_1 = {
     scope = character
 
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
+    saved_scopes = {
+        trait # selected trait
+        track # selected track
+    }
 
+    effect = {
         if = {
             limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
+                DI_trait_track_check = yes
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_reveler
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_reveler
-                            value = -50
-                        }
-                    }
-                }
-            }
+
+            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
+            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 50 }
         }
         else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_reveler
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_reveler
-                        value = -50
-                    }
-                }
+            add_trait_xp = {
+                trait = scope:trait
+                value = -100
+            }
+
+            add_trait_xp = {
+                trait = scope:trait
+                value = 50
             }
         }
     }
 }
 
-#Lifestyle Blademaster
-#Add
-DI_add_lifestyle_blademaster_xp = {
+### Set trait track to 100 xp ###
+DI_add_trait_xp_2 = {
     scope = character
 
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_blademaster
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_blademaster
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_blademaster
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_blademaster
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_blademaster
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_blademaster
-                }
-            }
-        }
+    saved_scopes = {
+        trait # selected trait
+        track # selected track
     }
-}
-
-#Remove
-DI_remove_lifestyle_blademaster_xp = {
-    scope = character
 
     effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
         if = {
             limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
+                DI_trait_track_check = yes
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_blademaster
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_blademaster
-                            value = -50
-                        }
-                    }
-                }
-            }
+
+            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 100 }
         }
         else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_blademaster
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_blademaster
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Lifestyle Hunter
-#Add
-DI_add_lifestyle_hunter_1_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_hunter
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_hunter
-                            track = hunter
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_hunter
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_hunter
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_hunter
-                        track = hunter
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_hunter
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_lifestyle_hunter_1_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_hunter
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_hunter
-                            track = hunter
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_hunter
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_hunter
-                        track = hunter
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Lifestyle Hunter Falconer
-#Add
-DI_add_lifestyle_hunter_2_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_hunter
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_hunter
-                            track = falconer
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_hunter
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_hunter
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_hunter
-                        track = falconer
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_hunter
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_lifestyle_hunter_2_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_hunter
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_hunter
-                            track = falconer
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_hunter
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_hunter
-                        track = falconer
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Lifestyle Mystic
-#Add
-DI_add_lifestyle_mystic_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_mystic
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_mystic
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_mystic
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_mystic
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_mystic
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_mystic
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_lifestyle_mystic_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_mystic
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_mystic
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_mystic
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_mystic
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Lifestyle Physician
-#Add
-DI_add_lifestyle_physician_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_physician
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_physician
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_physician
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_physician
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_physician
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_physician
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_lifestyle_physician_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_physician
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_physician
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_physician
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_physician
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Pilgrim
-#Add
-DI_add_pilgrim_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = pilgrim
-                        }
-                        add_trait_xp = {
-                            trait = pilgrim
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = pilgrim
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = pilgrim
-                    }
-                    add_trait_xp = {
-                        trait = pilgrim
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = pilgrim
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_pilgrim_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = pilgrim
-                        }
-                        add_trait_xp = {
-                            trait = pilgrim
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = pilgrim
-                    }
-                    add_trait_xp = {
-                        trait = pilgrim
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Tourney Participant Foot
-#Add
-DI_add_tourney_participant_foot_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = foot
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = tourney_participant
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = foot
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = tourney_participant
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_tourney_participant_foot_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = foot
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = foot
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Tourney Participant Bow
-#Add
-DI_add_tourney_participant_bow_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = bow
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = tourney_participant
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = bow
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = tourney_participant
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_tourney_participant_bow_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = bow
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = bow
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Tourney Participant Horse
-#Add
-DI_add_tourney_participant_horse_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = horse
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = tourney_participant
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = horse
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = tourney_participant
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_tourney_participant_horse_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = horse
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = horse
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Tourney Participant Wit
-#Add
-DI_add_tourney_participant_wit_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = wit
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = tourney_participant
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = wit
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = tourney_participant
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_tourney_participant_wit_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = tourney_participant
-                        }
-                        add_trait_xp = {
-                            trait = tourney_participant
-                            track = wit
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = tourney_participant
-                    }
-                    add_trait_xp = {
-                        trait = tourney_participant
-                        track = wit
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Lifestyle Traveler Travel
-#Add
-DI_add_lifestyle_traveler_travel_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_traveler
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_traveler
-                            track = travel
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_traveler
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_traveler
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_traveler
-                        track = travel
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_traveler
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_lifestyle_traveler_travel_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_traveler
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_traveler
-                            track = travel
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_traveler
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_traveler
-                        track = travel
-                        value = -50
-                    }
-                }
-            }
-        }
-    }
-}
-
-#Lifestyle Traveler Danger
-#Add
-DI_add_lifestyle_traveler_danger_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_traveler
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_traveler
-                            track = danger
-                            value = 50
-                        }
-                    }
-                    else = {
-                        add_trait = lifestyle_traveler
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_traveler
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_traveler
-                        track = danger
-                        value = 50
-                    }
-                }
-                else = {
-                    add_trait = lifestyle_traveler
-                }
-            }
-        }
-    }
-}
-
-#Remove
-DI_remove_lifestyle_traveler_danger_xp = {
-    scope = character
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        if = {
-            limit = {
-                scope:DI_story = { has_variable = DI_pinned_char_var }
-            }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
-                hidden_effect = {
-                    if = {
-                        limit = {
-                            has_trait = lifestyle_traveler
-                        }
-                        add_trait_xp = {
-                            trait = lifestyle_traveler
-                            track = danger
-                            value = -50
-                        }
-                    }
-                }
-            }
-        }
-        else = {
-            hidden_effect = {
-                if = {
-                    limit = {
-                        has_trait = lifestyle_traveler
-                    }
-                    add_trait_xp = {
-                        trait = lifestyle_traveler
-                        track = danger
-                        value = -50
-                    }
-                }
+            add_trait_xp = {
+                trait = scope:trait
+                value = 100
             }
         }
     }
