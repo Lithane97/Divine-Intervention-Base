@@ -362,6 +362,29 @@ template DI_CE_Modifiers_Custom
 					}
 				}
 			}
+
+			# DI_lifestyle_mastery
+			dockable_button = {
+				name = "DI_modifier_DI_lifestyle_mastery_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_ignore = none
+				using = tooltip_ne
+
+				icon = {
+					datacontext = "[GetPlayer]"
+					datacontext = "[GetModifier('DI_lifestyle_mastery')]"
+					datacontext = "[GetPlayer.GetFaith]"
+					parentanchor = center
+					position = { 0 1 }
+					size = { 30 30 }
+					tintcolor = { 0 1 1 1 }
+					texture = "[StaticModifier.GetIcon]"
+					tooltipwidget = {
+						using = modifier_DI_tooltip
+					}
+				}
+			}
 		}
 	}
 }
