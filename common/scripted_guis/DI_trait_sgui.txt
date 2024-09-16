@@ -269,17 +269,52 @@ DI_add_trait_xp_0 = {
         debug_log = "DI_Debug: add_trait_xp_0"
         debug_log_scopes = yes
 
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
         if = {
             limit = {
-                DI_trait_track_check = yes
+                scope:DI_story = { has_variable = DI_pinned_char_var }
             }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
 
-            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            DI_trait_track_check = yes
+                        }
+
+                        DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
+                    }
+                    else = {
+                        add_trait_xp = {
+                            trait = scope:trait
+                            value = -100
+                        }
+                    }
+                }
+            }
         }
         else = {
-            add_trait_xp = {
-                trait = scope:trait
-                value = -100
+            hidden_effect = {
+                if = {
+                    limit = {
+                        DI_trait_track_check = yes
+                    }
+
+                    DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
+                }
+                else = {
+                    add_trait_xp = {
+                        trait = scope:trait
+                        value = -100
+                    }
+                }
             }
         }
     }
@@ -295,23 +330,64 @@ DI_add_trait_xp_1 = {
     }
 
     effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
         if = {
             limit = {
-                DI_trait_track_check = yes
+                scope:DI_story = { has_variable = DI_pinned_char_var }
             }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
 
-            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
-            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 50 }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            DI_trait_track_check = yes
+                        }
+
+                        DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
+                        DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 50 }
+                    }
+                    else = {
+                        add_trait_xp = {
+                            trait = scope:trait
+                            value = -100
+                        }
+
+                        add_trait_xp = {
+                            trait = scope:trait
+                            value = 50
+                        }
+                    }
+                }
+            }
         }
         else = {
-            add_trait_xp = {
-                trait = scope:trait
-                value = -100
-            }
+            hidden_effect = {
+                if = {
+                    limit = {
+                        DI_trait_track_check = yes
+                    }
 
-            add_trait_xp = {
-                trait = scope:trait
-                value = 50
+                    DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = -100 }
+                    DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 50 }
+                }
+                else = {
+                    add_trait_xp = {
+                        trait = scope:trait
+                        value = -100
+                    }
+
+                    add_trait_xp = {
+                        trait = scope:trait
+                        value = 50
+                    }
+                }
             }
         }
     }
@@ -327,17 +403,52 @@ DI_add_trait_xp_2 = {
     }
 
     effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
         if = {
             limit = {
-                DI_trait_track_check = yes
+                scope:DI_story = { has_variable = DI_pinned_char_var }
             }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
 
-            DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 100 }
+                hidden_effect = {
+                    if = {
+                        limit = {
+                            DI_trait_track_check = yes
+                        }
+
+                        DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 100 }
+                    }
+                    else = {
+                        add_trait_xp = {
+                            trait = scope:trait
+                            value = 100
+                        }
+                    }
+                }
+            }
         }
         else = {
-            add_trait_xp = {
-                trait = scope:trait
-                value = 100
+            hidden_effect = {
+                if = {
+                    limit = {
+                        DI_trait_track_check = yes
+                    }
+
+                    DI_add_trait_xp = { TRAIT = scope:trait TRACK = scope:track VALUE = 100 }
+                }
+                else = {
+                    add_trait_xp = {
+                        trait = scope:trait
+                        value = 100
+                    }
+                }
             }
         }
     }
