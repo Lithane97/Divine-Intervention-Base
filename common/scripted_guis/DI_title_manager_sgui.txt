@@ -1,744 +1,2021 @@
 ﻿### Clear All Pinned Titles ###
 DI_clear_all_pinned_titles_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		clear_variable_list = DI_pinned_titles
-		clear_variable_list = DI_selected_titles
-	}
+        clear_variable_list = DI_pinned_titles
+        clear_variable_list = DI_selected_titles
+    }
 }
 
 ### Pin all pinned character's titles ###
 DI_pin_pinned_characters_titles_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
+        every_living_character = {
+            limit = { has_character_flag = pinned_for_edit }
 
-			every_held_title = {
-				limit = {
-					tier > tier_barony	
-				}
+            every_held_title = {
+                limit = {
+                    tier > tier_barony
+                }
 
-				scope:player = {
-					add_to_variable_list = { 
-						name = DI_pinned_titles
-						target = prev
-					}
-					add_to_variable_list = { 
-						name = DI_selected_titles 
-						target = prev 
-					}
-				}
-			}
-		}
-	}
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_pinned_titles
+                        target = prev
+                    }
+                    add_to_variable_list = {
+                        name = DI_selected_titles
+                        target = prev
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Set All Pinned Titles as Selected ###
 DI_select_all_pinned_titles_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		title # Title to pin
-	}
+    saved_scopes = {
+        title # Title to pin
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		if = {
-			limit = { has_variable_list = DI_selected_titles }
+        if = {
+            limit = { has_variable_list = DI_selected_titles }
 
-			clear_variable_list = DI_selected_titles
-		}
-		else = {
-			every_in_list = {
-				variable = DI_pinned_titles
-				save_scope_as = title
+            clear_variable_list = DI_selected_titles
+        }
+        else = {
+            every_in_list = {
+                variable = DI_pinned_titles
+                save_scope_as = title
 
-				scope:player = {
-					add_to_variable_list = { 
-						name = DI_selected_titles
-						target = scope:title 
-					}
-				}
-			}
-		}
-	}
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+            }
+        }
+    }
 }
 
 ### Toggle Title Selected / Deselected ###
 DI_pin_title_toggle = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		title # Title to pin
-	}
+    saved_scopes = {
+        title # Title to pin
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		if = {
-			limit = {
-				is_target_in_variable_list = {
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-			scope:player = {
-				remove_list_variable = { 
-					name = DI_selected_titles 
-					target = scope:title 
-				}
-			}
-		}
-		else = {
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_selected_titles
-					target = scope:title 
-				}
-			}
-		}
-	}
+        if = {
+            limit = {
+                is_target_in_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+        else = {
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### Unpin Title ###
 DI_unpin_title = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		title # Title to unpin
-	}
+    saved_scopes = {
+        title # Title to unpin
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		remove_list_variable = { 
-			name = DI_pinned_titles 
-			target = scope:title 
-		}
-	}
+        remove_list_variable = {
+            name = DI_pinned_titles
+            target = scope:title
+        }
+    }
 }
 
 ### Check if title is selected ###
 DI_title_pinned = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		title # Title to check
-	}
+    saved_scopes = {
+        title # Title to check
+    }
 
-	is_valid = {
-		is_target_in_variable_list = {
-			name = DI_selected_titles
-			target = scope:title
-		}
-	}
+    is_valid = {
+        is_target_in_variable_list = {
+            name = DI_selected_titles
+            target = scope:title
+        }
+    }
 }
 
 ### sort by rank ###
 DI_title_sort_by_rank_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		if = {
-			limit = { 
-				NOT = { has_variable = DI_sort_descending }
-				NOT = { has_variable = DI_sort_ascending }
-			}
+        if = {
+            limit = {
+                NOT = { has_variable = DI_sort_descending }
+                NOT = { has_variable = DI_sort_ascending }
+            }
 
-			set_variable = DI_sort_descending
-		}
-		
-		if = {
-			limit = { has_variable = DI_sort_descending }
+            set_variable = DI_sort_descending
+        }
 
-			ordered_in_list = {
-				variable = DI_pinned_titles
-				max = 10000
-				order_by = tier
-				scope:player = {
-					add_to_variable_list = { 
-						name = DI_sorted_titles
-						target = prev
-					}
-				}
-			}
+        if = {
+            limit = { has_variable = DI_sort_descending }
 
-			remove_variable = DI_sort_descending
-			set_variable = DI_sort_ascending
-		}
-		else_if = {
-			limit = { has_variable = DI_sort_ascending }
+            ordered_in_list = {
+                variable = DI_pinned_titles
+                max = 10000
+                order_by = tier
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_sorted_titles
+                        target = prev
+                    }
+                }
+            }
 
-			ordered_in_list = {
-				variable = DI_pinned_titles
-				max = 10000
-				order_by = {
-					value = tier
-					multiply = -1
-				}
-				scope:player = {
-					add_to_variable_list = { 
-						name = DI_sorted_titles
-						target = prev
-					}
-				}
-			}
+            remove_variable = DI_sort_descending
+            set_variable = DI_sort_ascending
+        }
+        else_if = {
+            limit = { has_variable = DI_sort_ascending }
 
-			remove_variable = DI_sort_ascending
-			set_variable = DI_sort_descending
-		}
+            ordered_in_list = {
+                variable = DI_pinned_titles
+                max = 10000
+                order_by = {
+                    value = tier
+                    multiply = -1
+                }
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_sorted_titles
+                        target = prev
+                    }
+                }
+            }
 
-		clear_variable_list = DI_pinned_titles
-		every_in_list = {
-			variable = DI_sorted_titles
-			save_scope_as = title
+            remove_variable = DI_sort_ascending
+            set_variable = DI_sort_descending
+        }
 
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_pinned_titles
-					target = scope:title
-				}
-			}
-		}
-		clear_variable_list = DI_sorted_titles
-	}
+        clear_variable_list = DI_pinned_titles
+        every_in_list = {
+            variable = DI_sorted_titles
+            save_scope_as = title
+
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_pinned_titles
+                    target = scope:title
+                }
+            }
+        }
+        clear_variable_list = DI_sorted_titles
+    }
 }
 
 ### select empires ###
 DI_select_empires_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_pinned_titles
-			limit = {
-				tier = tier_empire
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_pinned_titles
+            limit = {
+                tier = tier_empire
+            }
+            save_scope_as = title
 
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### deselect empires ###
 DI_deselect_empires_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			limit = {
-				tier = tier_empire
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            limit = {
+                tier = tier_empire
+            }
+            save_scope_as = title
 
-			scope:player = {
-				remove_list_variable = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### select kingdoms ###
 DI_select_kingdoms_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_pinned_titles
-			limit = {
-				tier = tier_kingdom
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_pinned_titles
+            limit = {
+                tier = tier_kingdom
+            }
+            save_scope_as = title
 
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### deselect kingdoms ###
 DI_deselect_kingdoms_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			limit = {
-				tier = tier_kingdom
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            limit = {
+                tier = tier_kingdom
+            }
+            save_scope_as = title
 
-			scope:player = {
-				remove_list_variable = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### select duchies ###
 DI_select_duchies_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_pinned_titles
-			limit = {
-				tier = tier_duchy
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_pinned_titles
+            limit = {
+                tier = tier_duchy
+            }
+            save_scope_as = title
 
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### deselect duchies ###
 DI_deselect_duchies_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			limit = {
-				tier = tier_duchy
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            limit = {
+                tier = tier_duchy
+            }
+            save_scope_as = title
 
-			scope:player = {
-				remove_list_variable = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### select counties ###
 DI_select_counties_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_pinned_titles
-			limit = {
-				tier = tier_county
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_pinned_titles
+            limit = {
+                tier = tier_county
+            }
+            save_scope_as = title
 
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### deselect counties ###
 DI_deselect_counties_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			limit = {
-				tier = tier_county
-			}
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            limit = {
+                tier = tier_county
+            }
+            save_scope_as = title
 
-			scope:player = {
-				remove_list_variable = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-	}
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
 }
 
 ### Sort Selected Titles ###
 DI_title_sort_selected_by_rank_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		if = {
-			limit = { 
-				NOT = { has_variable = DI_sort_descending }
-				NOT = { has_variable = DI_sort_ascending }
-			}
+        if = {
+            limit = {
+                NOT = { has_variable = DI_sort_descending }
+                NOT = { has_variable = DI_sort_ascending }
+            }
 
-			set_variable = DI_sort_descending
-		}
-		
-		if = {
-			limit = { has_variable = DI_sort_descending }
+            set_variable = DI_sort_descending
+        }
 
-			ordered_in_list = {
-				variable = DI_selected_titles
-				order_by = tier
-				max = 10000
-				scope:player = {
-					add_to_variable_list = {
-						name = DI_sorted_titles
-						target = prev
-					}
-				}
-			}
+        if = {
+            limit = { has_variable = DI_sort_descending }
 
-			remove_variable = DI_sort_descending
-			set_variable = DI_sort_ascending
-		}
-		else_if = {
-			limit = { has_variable = DI_sort_ascending }
+            ordered_in_list = {
+                variable = DI_selected_titles
+                order_by = tier
+                max = 10000
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_sorted_titles
+                        target = prev
+                    }
+                }
+            }
 
-			ordered_in_list = {
-				variable = DI_selected_titles
-				order_by = {
-					value = tier
-					multiply = -1
-				}
-				max = 10000
-				scope:player = {
-					add_to_variable_list = {
-						name = DI_sorted_titles
-						target = prev
-					}
-				}
-			}
+            remove_variable = DI_sort_descending
+            set_variable = DI_sort_ascending
+        }
+        else_if = {
+            limit = { has_variable = DI_sort_ascending }
 
-			remove_variable = DI_sort_ascending
-			set_variable = DI_sort_descending
-		}
+            ordered_in_list = {
+                variable = DI_selected_titles
+                order_by = {
+                    value = tier
+                    multiply = -1
+                }
+                max = 10000
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_sorted_titles
+                        target = prev
+                    }
+                }
+            }
 
-		clear_variable_list = DI_selected_titles
-		every_in_list = {
-			variable = DI_sorted_titles
-			save_scope_as = title
+            remove_variable = DI_sort_ascending
+            set_variable = DI_sort_descending
+        }
 
-			scope:player = {
-				add_to_variable_list = { 
-					name = DI_selected_titles
-					target = scope:title
-				}
-			}
-		}
-		clear_variable_list = DI_sorted_titles
-	}
+        clear_variable_list = DI_selected_titles
+        every_in_list = {
+            variable = DI_sorted_titles
+            save_scope_as = title
+
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+        clear_variable_list = DI_sorted_titles
+    }
 }
 
 ### Claim Titles ###
 DI_claim_titles_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
 
-			scope:player = {
-				add_pressed_claim = scope:title
-			}
-		}
-	}
+            scope:player = {
+                add_pressed_claim = scope:title
+            }
+        }
+    }
 }
 
 ### Take Titles ###
 DI_take_titles_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
 
-			scope:player = {
-				get_title = scope:title
-			}
-		}
-	}
+            scope:player = {
+                get_title = scope:title
+            }
+        }
+    }
 }
 
 ### Destroy Titles ###
 DI_destroy_titles_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		every_in_list = {
-			variable = DI_selected_titles
-			save_scope_as = title
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
 
-			scope:player = {
-				destroy_title = scope:title
-			}
-		}
-	}
+            scope:player = {
+                destroy_title = scope:title
+            }
+        }
+    }
 }
 
 ### Deslect Title ###
 DI_deselect_title = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		title # Title to deselect
-	}
+    saved_scopes = {
+        title # Title to deselect
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		remove_list_variable = { 
-			name = DI_selected_titles 
-			target = scope:title 
-		}
-	}
+        if = {
+            limit = {
+                any_province = {
+                    this = scope:title
+                }
+            }
+
+            remove_list_variable = {
+                name = DI_selected_titles_provinces
+                target = scope:title
+            }
+        }
+        else = {
+            remove_list_variable = {
+                name = DI_selected_titles
+                target = scope:title
+            }
+        }
+    }
 }
 
 ### Select Culture ###
 DI_title_manager_culture = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		selected_culture # Culture to select
-	}
+    saved_scopes = {
+        selected_culture # Culture to select
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			set_variable = {
-				name = DI_title_manager_culture
-				value = scope:selected_culture
-			}
-		}
-	}
+        scope:DI_story = {
+            set_variable = {
+                name = DI_title_manager_culture
+                value = scope:selected_culture
+            }
+        }
+    }
 }
 
 ### Select Religion ###
 DI_title_manager_religion = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		selected_faith # Religion to select
-	}
+    saved_scopes = {
+        selected_faith # Religion to select
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			set_variable = {
-				name = DI_title_manager_religion
-				value = scope:selected_faith
-			}
-		}
-	}
+        scope:DI_story = {
+            set_variable = {
+                name = DI_title_manager_religion
+                value = scope:selected_faith
+            }
+        }
+    }
 }
 
 ### Convert Religion ###
 DI_convert_titles_faith_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			var:DI_title_manager_religion = { save_scope_as = DI_selected_religion }
-		}
-		
-		every_in_list = {
-			variable = DI_selected_titles
-			save_scope_as = title
-			if = {
-				limit = {
-					tier = tier_county
-				}
-				set_county_faith = scope:DI_selected_religion
-			}
-			else_if = {
-				limit = {
-					tier > tier_county
-				}
-				every_de_jure_county = {
-					set_county_faith = scope:DI_selected_religion
-				}
-			}
-		}
-	}
+        scope:DI_story = {
+            var:DI_title_manager_religion = { save_scope_as = DI_selected_religion }
+        }
+
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
+            if = {
+                limit = {
+                    tier = tier_county
+                }
+                set_county_faith = scope:DI_selected_religion
+            }
+            else_if = {
+                limit = {
+                    tier > tier_county
+                }
+                every_de_jure_county = {
+                    set_county_faith = scope:DI_selected_religion
+                }
+            }
+        }
+    }
 }
 
 ### Convert Culture ###
 DI_convert_titles_culture_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			var:DI_title_manager_culture = { save_scope_as = DI_selected_culture }
-		}
-		
-		every_in_list = {
-			variable = DI_selected_titles
-			save_scope_as = title
-			if = {
-				limit = {
-					tier = tier_county
-				}
-				set_county_culture = scope:DI_selected_culture
-			}
-			else_if = {
-				limit = {
-					tier > tier_county
-				}
-				every_de_jure_county = {
-					set_county_culture = scope:DI_selected_culture
-				}
-			}
-		}
-	}
+        scope:DI_story = {
+            var:DI_title_manager_culture = { save_scope_as = DI_selected_culture }
+        }
+
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
+            if = {
+                limit = {
+                    tier = tier_county
+                }
+                set_county_culture = scope:DI_selected_culture
+            }
+            else_if = {
+                limit = {
+                    tier > tier_county
+                }
+                every_de_jure_county = {
+                    set_county_culture = scope:DI_selected_culture
+                }
+            }
+        }
+    }
 }
 
 ### DI_select_dejure_title ###
 DI_select_dejure_title = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	saved_scopes = {
-		title # Title to select
-	}
+    saved_scopes = {
+        title # Title to select
+    }
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			set_variable = {
-				name = DI_title_manager_dejure
-				value = scope:title
-			}
-		}
-	}
+        scope:DI_story = {
+            set_variable = {
+                name = DI_title_manager_dejure
+                value = scope:title
+            }
+        }
+    }
 }
 
 ### DI_titles_dejure_sgui ###
 DI_convert_titles_dejure_sgui = {
-	scope = character # Player Character
+    scope = character # Player Character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			var:DI_title_manager_dejure = { save_scope_as = DI_selected_dejure }
-		}
-		
-		every_in_list = {
-			variable = DI_selected_titles
-			save_scope_as = title
-			if = {
-				limit = {
-					tier = {
-						value = scope:DI_selected_dejure.tier
-						subtract = 1
-					}
-				}
-				set_de_jure_liege_title = scope:DI_selected_dejure
-			}
-		}
-	}
+        scope:DI_story = {
+            var:DI_title_manager_dejure = { save_scope_as = DI_selected_dejure }
+        }
+
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
+            if = {
+                limit = {
+                    tier = {
+                        value = scope:DI_selected_dejure.tier
+                        subtract = 1
+                    }
+                }
+                set_de_jure_liege_title = scope:DI_selected_dejure
+            }
+        }
+    }
+}
+
+### DI_province_list_load ###
+DI_province_list_load = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        clear_variable_list = DI_selected_titles_provinces
+
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
+            if = {
+                limit = {
+                    tier = tier_county
+                }
+                every_county_province = {
+                    save_scope_as = province
+
+                    scope:player = {
+                        add_to_variable_list = {
+                            name = DI_selected_titles_provinces
+                            target = scope:province
+                        }
+                    }
+                }
+            }
+            else_if = {
+                limit = {
+                    tier < tier_empire
+                }
+                every_de_jure_county = {
+                    every_county_province = {
+                        save_scope_as = province
+
+                        scope:player = {
+                            add_to_variable_list = {
+                                name = DI_selected_titles_provinces
+                                target = scope:province
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+DI_remove_holding_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            limit = {
+                is_county_capital = no
+            }
+
+            save_scope_as = province
+
+            scope:province = {
+                remove_holding = yes
+
+                ### City Buildings
+                if = { limit = { has_building = city_04 } remove_building = city_04 }
+                else_if = { limit = { has_building = city_03 } remove_building = city_03 }
+                else_if = { limit = { has_building = city_02 } remove_building = city_02 }
+                else_if = { limit = { has_building = city_01 } remove_building = city_01 }
+
+                ### Castle Buildings
+                if = { limit = { has_building = castle_04 } remove_building = castle_04 }
+                else_if = { limit = { has_building = castle_03 } remove_building = castle_03 }
+                else_if = { limit = { has_building = castle_02 } remove_building = castle_02 }
+                else_if = { limit = { has_building = castle_01 } remove_building = castle_01 }
+
+                ### Church Buildings
+                if = { limit = { has_building = temple_01 } remove_building = temple_01 }
+                else_if = { limit = { has_building = temple_02 } remove_building = temple_02 }
+                else_if = { limit = { has_building = temple_03 } remove_building = temple_03 }
+                else_if = { limit = { has_building = temple_04 } remove_building = temple_04 }
+
+                ### Tribal Buildings
+                if = { limit = { has_building = tribe_01 } remove_building = tribe_01 }
+                else_if = { limit = { has_building = tribe_02 } remove_building = tribe_02 }
+            }
+        }
+    }
+}
+
+DI_add_building_slot_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            scope:province = {
+                add_province_modifier = add_building_slot
+            }
+        }
+    }
+}
+
+DI_remove_building_slot_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            scope:province = {
+                remove_province_modifier = add_building_slot
+            }
+        }
+    }
+}
+
+DI_set_holding_type_sgui = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        holding_type # Holding type flag
+    }
+
+    effect = {
+        save_scope_as = player
+
+        if = {
+            limit = {
+                scope:holding_type = flag:castle_holding
+            }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+
+                scope:province = {
+                    if = {
+                        limit = {
+                            province_has_no_holding_trigger = yes
+                        }
+
+                        begin_create_holding = castle_holding
+                    }
+                    set_holding_type = castle_holding
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                scope:holding_type = flag:city_holding
+            }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+
+                scope:province = {
+                    if = {
+                        limit = {
+                            province_has_no_holding_trigger = yes
+                        }
+
+                        begin_create_holding = city_holding
+                    }
+                    set_holding_type = city_holding
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                scope:holding_type = flag:church_holding
+            }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+
+                scope:province = {
+                    if = {
+                        limit = {
+                            province_has_no_holding_trigger = yes
+                        }
+
+                        begin_create_holding = church_holding
+                    }
+                    set_holding_type = church_holding
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                scope:holding_type = flag:tribal_holding
+            }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+
+                scope:province = {
+                    if = {
+                        limit = {
+                            province_has_no_holding_trigger = yes
+                        }
+
+                        begin_create_holding = tribal_holding
+                    }
+                    set_holding_type = tribal_holding
+                }
+            }
+        }
+    }
+}
+
+DI_remove_buildings_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            scope:province = {
+                ### Core Buildings
+                if = { limit = { has_building_or_higher = city_02 } add_building = city_01 }
+                if = { limit = { has_building_or_higher = castle_02 } add_building = castle_01 }
+                if = { limit = { has_building_or_higher = temple_02 } add_building = temple_01 }
+                if = { limit = { has_building_or_higher = tribe_02 } add_building = tribe_01 }
+
+                ### Common Buildings
+                DI_remove_building_type_effect = { BUILDING = hospices }
+                DI_remove_building_type_effect = { BUILDING = guild_halls }
+                DI_remove_building_type_effect = { BUILDING = scriptorium }
+                DI_remove_building_type_effect = { BUILDING = megalith }
+                DI_remove_building_type_effect = { BUILDING = monastic_schools }
+
+                ### Duchy Capital Buildings
+                if = { limit = { has_building = burial_site_03 } remove_building = burial_site_03 }
+                else_if = { limit = { has_building = burial_site_02 } remove_building = burial_site_02 }
+                else_if = { limit = { has_building = burial_site_01 } remove_building = burial_site_01 }
+                if = { limit = { has_building = royal_garden_03 } remove_building = royal_garden_03 }
+                else_if = { limit = { has_building = royal_garden_02 } remove_building = royal_garden_02 }
+                else_if = { limit = { has_building = royal_garden_01 } remove_building = royal_garden_01 }
+                if = { limit = { has_building = military_academy_03 } remove_building = military_academy_03 }
+                else_if = { limit = { has_building = military_academy_02 } remove_building = military_academy_02 }
+                else_if = { limit = { has_building = military_academy_01 } remove_building = military_academy_01 }
+                if = { limit = { has_building = march_03 } remove_building = march_03 }
+                else_if = { limit = { has_building = march_02 } remove_building = march_02 }
+                else_if = { limit = { has_building = march_01 } remove_building = march_01 }
+                if = { limit = { has_building = siege_works_03 } remove_building = siege_works_03 }
+                else_if = { limit = { has_building = siege_works_02 } remove_building = siege_works_02 }
+                else_if = { limit = { has_building = siege_works_01 } remove_building = siege_works_01 }
+                if = { limit = { has_building = royal_armory_03 } remove_building = royal_armory_03 }
+                else_if = { limit = { has_building = royal_armory_02 } remove_building = royal_armory_02 }
+                else_if = { limit = { has_building = royal_armory_01 } remove_building = royal_armory_01 }
+                if = { limit = { has_building = jousting_lists_03 } remove_building = jousting_lists_03 }
+                else_if = { limit = { has_building = jousting_lists_02 } remove_building = jousting_lists_02 }
+                else_if = { limit = { has_building = jousting_lists_01 } remove_building = jousting_lists_01 }
+                if = { limit = { has_building = blacksmiths_03 } remove_building = blacksmiths_03 }
+                else_if = { limit = { has_building = blacksmiths_02 } remove_building = blacksmiths_02 }
+                else_if = { limit = { has_building = blacksmiths_01 } remove_building = blacksmiths_01 }
+                if = { limit = { has_building = archery_ranges_03 } remove_building = archery_ranges_03 }
+                else_if = { limit = { has_building = archery_ranges_02 } remove_building = archery_ranges_02 }
+                else_if = { limit = { has_building = archery_ranges_01 } remove_building = archery_ranges_01 }
+                if = { limit = { has_building = tax_assessor_03 } remove_building = tax_assessor_03 }
+                else_if = { limit = { has_building = tax_assessor_02 } remove_building = tax_assessor_02 }
+                else_if = { limit = { has_building = tax_assessor_01 } remove_building = tax_assessor_01 }
+                if = { limit = { has_building = leisure_palace_03 } remove_building = leisure_palace_03 }
+                else_if = { limit = { has_building = leisure_palace_02 } remove_building = leisure_palace_02 }
+                else_if = { limit = { has_building = leisure_palace_01 } remove_building = leisure_palace_01 }
+                if = { limit = { has_building = royal_forest_03 } remove_building = royal_forest_03 }
+                else_if = { limit = { has_building = royal_forest_02 } remove_building = royal_forest_02 }
+                else_if = { limit = { has_building = royal_forest_01 } remove_building = royal_forest_01 }
+                if = { limit = { has_building = charnel_grounds_03 } remove_building = charnel_grounds_03 }
+                else_if = { limit = { has_building = charnel_grounds_02 } remove_building = charnel_grounds_02 }
+                else_if = { limit = { has_building = charnel_grounds_01 } remove_building = charnel_grounds_01 }
+                if = { limit = { has_building = great_megalith_01 } remove_building = great_megalith_01 }
+                if = { limit = { has_building = tower_of_silence_01 } remove_building = tower_of_silence_01 }
+
+                ### Tribal Buildings
+                if = { limit = { has_building = longhouses_01 } remove_building = longhouses_01 }
+                else_if = { limit = { has_building = longhouses_02 } remove_building = longhouses_02 }
+                if = { limit = { has_building = war_camps_01 } remove_building = war_camps_01 }
+                else_if = { limit = { has_building = war_camps_02 } remove_building = war_camps_02 }
+                if = { limit = { has_building = palisades_01 } remove_building = palisades_01 }
+                else_if = { limit = { has_building = palisades_02 } remove_building = palisades_02 }
+                if = { limit = { has_building = market_villages_01 } remove_building = market_villages_01 }
+                else_if = { limit = { has_building = market_villages_02 } remove_building = market_villages_02 }
+
+                ### Standard Economy Buildings
+                DI_remove_building_type_effect = { BUILDING = caravanserai }
+                DI_remove_building_type_effect = { BUILDING = watermills }
+                DI_remove_building_type_effect = { BUILDING = windmills }
+                DI_remove_building_type_effect = { BUILDING = common_tradeport }
+                DI_remove_building_type_effect = { BUILDING = pastures }
+                DI_remove_building_type_effect = { BUILDING = hunting_grounds }
+                DI_remove_building_type_effect = { BUILDING = orchards }
+                DI_remove_building_type_effect = { BUILDING = farm_estates }
+                DI_remove_building_type_effect = { BUILDING = cereal_fields }
+                DI_remove_building_type_effect = { BUILDING = logging_camps }
+                DI_remove_building_type_effect = { BUILDING = peat_quarries }
+                DI_remove_building_type_effect = { BUILDING = hill_farms }
+                DI_remove_building_type_effect = { BUILDING = elephant_pens }
+                DI_remove_building_type_effect = { BUILDING = plantations }
+                DI_remove_building_type_effect = { BUILDING = quarries }
+                DI_remove_building_type_effect = { BUILDING = qanats }
+
+                ### Standard Fortification Buildings
+                DI_remove_building_type_effect = { BUILDING = ramparts }
+                DI_remove_building_type_effect = { BUILDING = curtain_walls }
+                DI_remove_building_type_effect = { BUILDING = watchtowers }
+                DI_remove_building_type_effect = { BUILDING = hill_forts }
+
+                ### Standard Military Buildings
+                DI_remove_building_type_effect = { BUILDING = wind_furnace }
+                DI_remove_building_type_effect = { BUILDING = workshops }
+                DI_remove_building_type_effect = { BUILDING = horse_pastures }
+                DI_remove_building_type_effect = { BUILDING = hillside_grazing }
+                DI_remove_building_type_effect = { BUILDING = warrior_lodges }
+                DI_remove_building_type_effect = { BUILDING = military_camps }
+                DI_remove_building_type_effect = { BUILDING = regimental_grounds }
+                DI_remove_building_type_effect = { BUILDING = outposts }
+                DI_remove_building_type_effect = { BUILDING = barracks }
+                DI_remove_building_type_effect = { BUILDING = camel_farms }
+                DI_remove_building_type_effect = { BUILDING = stables }
+                DI_remove_building_type_effect = { BUILDING = smiths }
+            }
+        }
+    }
+}
+
+DI_max_building_upgrades_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            if = { limit = { has_building_or_higher = city_01 NOT = { has_building = city_04 } } add_building = city_04 }
+            if = { limit = { has_building_or_higher = castle_01 NOT = { has_building = castle_04 } } add_building = castle_04 }
+            if = { limit = { has_building_or_higher = temple_01 NOT = { has_building = temple_04 } } add_building = temple_04 }
+            if = { limit = { has_building = tribe_01 } add_building = tribe_02 }
+
+            if = { limit = { has_building_or_higher = guild_halls_01 NOT = { has_building = guild_halls_08 } } add_building = guild_halls_08 }
+            if = { limit = { has_building_or_higher = scriptorium_01 NOT = { has_building = scriptorium_08 } } add_building = scriptorium_08 }
+            if = { limit = { has_building_or_higher = megalith_01 NOT = { has_building = megalith_08 } } add_building = megalith_08 }
+            if = { limit = { has_building_or_higher = monastic_schools_01 NOT = { has_building = monastic_schools_08 } } add_building = monastic_schools_08 }
+            if = { limit = { has_building = longhouses_01 } add_building = longhouses_02 }
+            if = { limit = { has_building = war_camps_01 } add_building = war_camps_02 }
+            if = { limit = { has_building = palisades_01 } add_building = palisades_02 }
+            if = { limit = { has_building = market_villages_01 } add_building = market_villages_02 }
+
+            if = { limit = { has_building_or_higher = hospices_01 NOT = { has_building = hospices_08 } } add_building = hospices_08 }
+            if = { limit = { has_building_or_higher = burial_site_01 NOT = { has_building = burial_site_03 } } add_building = burial_site_03 }
+            if = { limit = { has_building_or_higher = royal_garden_01 NOT = { has_building = royal_garden_03 } } add_building = royal_garden_03 }
+            if = { limit = { has_building_or_higher = military_academy_01 NOT = { has_building = military_academy_03 } } add_building = military_academy_03 }
+            if = { limit = { has_building_or_higher = march_01 NOT = { has_building = march_03 } } add_building = march_03 }
+            if = { limit = { has_building_or_higher = siege_works_01 NOT = { has_building = siege_works_03 } } add_building = siege_works_03 }
+            if = { limit = { has_building_or_higher = royal_armory_01 NOT = { has_building = royal_armory_03 } } add_building = royal_armory_03 }
+            if = { limit = { has_building_or_higher = jousting_lists_01 NOT = { has_building = jousting_lists_03 } } add_building = jousting_lists_03 }
+            if = { limit = { has_building_or_higher = blacksmiths_01 NOT = { has_building = blacksmiths_03 } } add_building = blacksmiths_03 }
+            if = { limit = { has_building_or_higher = archery_ranges_01 NOT = { has_building = archery_ranges_03 } } add_building = archery_ranges_03 }
+            if = { limit = { has_building_or_higher = tax_assessor_01 NOT = { has_building = tax_assessor_03 } } add_building = tax_assessor_03 }
+            if = { limit = { has_building_or_higher = leisure_palace_01 NOT = { has_building = leisure_palace_03 } } add_building = leisure_palace_03 }
+            if = { limit = { has_building_or_higher = royal_forest_01 NOT = { has_building = royal_forest_03 } } add_building = royal_forest_03 }
+            if = { limit = { has_building_or_higher = charnel_grounds_01 NOT = { has_building = charnel_grounds_03 } } add_building = charnel_grounds_03 }
+
+            if = { limit = { has_building_or_higher = caravanserai_01 NOT = { has_building = caravanserai_08 } } add_building = caravanserai_08 }
+            if = { limit = { has_building_or_higher = watermills_01 NOT = { has_building = watermills_08 } } add_building = watermills_08 }
+            if = { limit = { has_building_or_higher = windmills_01 NOT = { has_building = windmills_08 } } add_building = windmills_08 }
+            if = { limit = { has_building_or_higher = common_tradeport_01 NOT = { has_building = common_tradeport_08 } } add_building = common_tradeport_08 }
+            if = { limit = { has_building_or_higher = pastures_01 NOT = { has_building = pastures_08 } } add_building = pastures_08 }
+            if = { limit = { has_building_or_higher = hunting_grounds_01 NOT = { has_building = hunting_grounds_08 } } add_building = hunting_grounds_08 }
+            if = { limit = { has_building_or_higher = orchards_01 NOT = { has_building = orchards_08 } } add_building = orchards_08 }
+            if = { limit = { has_building_or_higher = farm_estates_01 NOT = { has_building = farm_estates_08 } } add_building = farm_estates_08 }
+            if = { limit = { has_building_or_higher = cereal_fields_01 NOT = { has_building = cereal_fields_08 } } add_building = cereal_fields_08 }
+            if = { limit = { has_building_or_higher = logging_camps_01 NOT = { has_building = logging_camps_08 } } add_building = logging_camps_08 }
+            if = { limit = { has_building_or_higher = peat_quarries_01 NOT = { has_building = peat_quarries_08 } } add_building = peat_quarries_08 }
+            if = { limit = { has_building_or_higher = hill_farms_01 NOT = { has_building = peat_quarries_08 } } add_building = peat_quarries_08 }
+            if = { limit = { has_building_or_higher = elephant_pens_01 NOT = { has_building = elephant_pens_08 } } add_building = elephant_pens_08 }
+            if = { limit = { has_building_or_higher = plantations_01 NOT = { has_building = plantations_08 } } add_building = plantations_08 }
+            if = { limit = { has_building_or_higher = quarries_01 NOT = { has_building = quarries_08 } } add_building = quarries_08 }
+            if = { limit = { has_building_or_higher = qanats_01 NOT = { has_building = qanats_08 } } add_building = qanats_08 }
+
+            if = { limit = { has_building_or_higher = ramparts_01 NOT = { has_building = ramparts_08 } } add_building = ramparts_08 }
+            if = { limit = { has_building_or_higher = curtain_walls_01 NOT = { has_building = curtain_walls_08 } } add_building = curtain_walls_08 }
+            if = { limit = { has_building_or_higher = watchtowers_01 NOT = { has_building = watchtowers_08 } } add_building = watchtowers_08 }
+            if = { limit = { has_building_or_higher = hill_forts_01 NOT = { has_building = hill_forts_08 } } add_building = hill_forts_08 }
+
+            if = { limit = { has_building_or_higher = wind_furnace_01 NOT = { has_building = wind_furnace_08 } } add_building = wind_furnace_08 }
+            if = { limit = { has_building_or_higher = workshops_01 NOT = { has_building = workshops_08 } } add_building = workshops_08 }
+            if = { limit = { has_building_or_higher = horse_pastures_01 NOT = { has_building = horse_pastures_08 } } add_building = horse_pastures_08 }
+            if = { limit = { has_building_or_higher = hillside_grazing_01 NOT = { has_building = hillside_grazing_08 } } add_building = hillside_grazing_08 }
+            if = { limit = { has_building_or_higher = warrior_lodges_01 NOT = { has_building = warrior_lodges_08 } } add_building = warrior_lodges_08 }
+            if = { limit = { has_building_or_higher = military_camps_01 NOT = { has_building = military_camps_08 } } add_building = military_camps_08 }
+            if = { limit = { has_building_or_higher = regimental_grounds_01 NOT = { has_building = regimental_grounds_08 } } add_building = regimental_grounds_08 }
+            if = { limit = { has_building_or_higher = outposts_01 NOT = { has_building = outposts_08 } } add_building = outposts_08 }
+            if = { limit = { has_building_or_higher = barracks_01 NOT = { has_building = barracks_08 } } add_building = barracks_08 }
+            if = { limit = { has_building_or_higher = camel_farms_01 NOT = { has_building = camel_farms_08 } } add_building = camel_farms_08 }
+            if = { limit = { has_building_or_higher = stables_01 NOT = { has_building = stables_08 } } add_building = stables_08 }
+            if = { limit = { has_building_or_higher = smiths_01 NOT = { has_building = smiths_08 } } add_building = smiths_08 }
+        }
+    }
+}
+
+DI_generate_buildings_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            scope:province = {
+                generate_building = yes
+            }
+        }
+    }
+}
+
+DI_construct_building_sgui = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        building_type # Flag of Building Type to construct
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            scope:building_type = flag:city_01
+                            scope:building_type = flag:city_02
+                            scope:building_type = flag:city_03
+                            scope:building_type = flag:city_04
+                        }
+                        NOT = { has_building_or_higher = city_01 }
+                    }
+                    set_holding_type = city_holding
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            scope:building_type = flag:castle_01
+                            scope:building_type = flag:castle_02
+                            scope:building_type = flag:castle_03
+                            scope:building_type = flag:castle_04
+                        }
+                        NOT = { has_building_or_higher = castle_01 }
+                    }
+                    set_holding_type = castle_holding
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            scope:building_type = flag:temple_01
+                            scope:building_type = flag:temple_02
+                            scope:building_type = flag:temple_03
+                            scope:building_type = flag:temple_04
+                        }
+                        NOT = { has_building_or_higher = temple_01 }
+                    }
+                    set_holding_type = church_holding
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            scope:building_type = flag:tribe_01
+                            scope:building_type = flag:tribe_02
+                        }
+                        NOT = { has_building_or_higher = tribe_01 }
+                    }
+                    set_holding_type = tribal_holding
+                }
+
+                switch = {
+                    trigger = scope:building_type
+                    # Core Buildings
+                    flag:city_01 = { add_building = city_01 }
+                    flag:city_02 = { add_building = city_02 }
+                    flag:city_03 = { add_building = city_03 }
+                    flag:city_04 = { add_building = city_04 }
+                    flag:castle_01 = { add_building = castle_01 }
+                    flag:castle_02 = { add_building = castle_02 }
+                    flag:castle_03 = { add_building = castle_03 }
+                    flag:castle_04 = { add_building = castle_04 }
+                    flag:temple_01 = { add_building = temple_01 }
+                    flag:temple_02 = { add_building = temple_02 }
+                    flag:temple_03 = { add_building = temple_03 }
+                    flag:temple_04 = { add_building = temple_04 }
+                    flag:tribe_01 = { add_building = tribe_01 }
+                    flag:tribe_02 = { add_building = tribe_02 }
+
+                    # Common Buildings
+                    flag:guild_halls_01 = { add_building = guild_halls_01 }
+                    flag:guild_halls_02 = { add_building = guild_halls_02 }
+                    flag:guild_halls_03 = { add_building = guild_halls_03 }
+                    flag:guild_halls_04 = { add_building = guild_halls_04 }
+                    flag:guild_halls_05 = { add_building = guild_halls_05 }
+                    flag:guild_halls_06 = { add_building = guild_halls_06 }
+                    flag:guild_halls_07 = { add_building = guild_halls_07 }
+                    flag:guild_halls_08 = { add_building = guild_halls_08 }
+                    flag:scriptorium_01 = { add_building = scriptorium_01 }
+                    flag:scriptorium_02 = { add_building = scriptorium_02 }
+                    flag:scriptorium_03 = { add_building = scriptorium_03 }
+                    flag:scriptorium_04 = { add_building = scriptorium_04 }
+                    flag:scriptorium_05 = { add_building = scriptorium_05 }
+                    flag:scriptorium_06 = { add_building = scriptorium_06 }
+                    flag:scriptorium_07 = { add_building = scriptorium_07 }
+                    flag:scriptorium_08 = { add_building = scriptorium_08 }
+                    flag:megalith_01 = { add_building = megalith_01 }
+                    flag:megalith_02 = { add_building = megalith_02 }
+                    flag:megalith_03 = { add_building = megalith_03 }
+                    flag:megalith_04 = { add_building = megalith_04 }
+                    flag:megalith_05 = { add_building = megalith_05 }
+                    flag:megalith_06 = { add_building = megalith_06 }
+                    flag:megalith_07 = { add_building = megalith_07 }
+                    flag:megalith_08 = { add_building = megalith_08 }
+                    flag:monastic_schools_01 = { add_building = monastic_schools_01 }
+                    flag:monastic_schools_02 = { add_building = monastic_schools_02 }
+                    flag:monastic_schools_03 = { add_building = monastic_schools_03 }
+                    flag:monastic_schools_04 = { add_building = monastic_schools_04 }
+                    flag:monastic_schools_05 = { add_building = monastic_schools_05 }
+                    flag:monastic_schools_06 = { add_building = monastic_schools_06 }
+                    flag:monastic_schools_07 = { add_building = monastic_schools_07 }
+                    flag:monastic_schools_08 = { add_building = monastic_schools_08 }
+                    flag:longhouses_01 = { add_building = longhouses_01 }
+                    flag:longhouses_02 = { add_building = longhouses_02 }
+                    flag:war_camps_01 = { add_building = war_camps_01 }
+                    flag:war_camps_02 = { add_building = war_camps_02 }
+                    flag:palisades_01 = { add_building = palisades_01 }
+                    flag:palisades_02 = { add_building = palisades_02 }
+                    flag:market_villages_01 = { add_building = market_villages_01 }
+                    flag:market_villages_02 = { add_building = market_villages_02 }
+                    flag:hospices_01 = { add_building = hospices_01 }
+                    flag:hospices_02 = { add_building = hospices_02 }
+                    flag:hospices_03 = { add_building = hospices_03 }
+                    flag:hospices_04 = { add_building = hospices_04 }
+                    flag:hospices_05 = { add_building = hospices_05 }
+                    flag:hospices_06 = { add_building = hospices_06 }
+                    flag:hospices_07 = { add_building = hospices_07 }
+                    flag:hospices_08 = { add_building = hospices_08 }
+
+                    # Duchy Capital Buildings
+                    flag:burial_site_01 = { add_building = burial_site_01 }
+                    flag:burial_site_02 = { add_building = burial_site_02 }
+                    flag:burial_site_03 = { add_building = burial_site_03 }
+                    flag:royal_garden_01 = { add_building = royal_garden_01 }
+                    flag:royal_garden_02 = { add_building = royal_garden_02 }
+                    flag:royal_garden_03 = { add_building = royal_garden_03 }
+                    flag:military_academy_01 = { add_building = military_academy_01 }
+                    flag:military_academy_02 = { add_building = military_academy_02 }
+                    flag:military_academy_03 = { add_building = military_academy_03 }
+                    flag:march_01 = { add_building = march_01 }
+                    flag:march_02 = { add_building = march_02 }
+                    flag:march_03 = { add_building = march_03 }
+                    flag:siege_works_01 = { add_building = siege_works_01 }
+                    flag:siege_works_02 = { add_building = siege_works_02 }
+                    flag:siege_works_03 = { add_building = siege_works_03 }
+                    flag:royal_armory_01 = { add_building = royal_armory_01 }
+                    flag:royal_armory_02 = { add_building = royal_armory_02 }
+                    flag:royal_armory_03 = { add_building = royal_armory_03 }
+                    flag:jousting_lists_01 = { add_building = jousting_lists_01 }
+                    flag:jousting_lists_02 = { add_building = jousting_lists_02 }
+                    flag:jousting_lists_03 = { add_building = jousting_lists_03 }
+                    flag:blacksmiths_01 = { add_building = blacksmiths_01 }
+                    flag:blacksmiths_02 = { add_building = blacksmiths_02 }
+                    flag:blacksmiths_03 = { add_building = blacksmiths_03 }
+                    flag:archery_ranges_01 = { add_building = archery_ranges_01 }
+                    flag:archery_ranges_02 = { add_building = archery_ranges_02 }
+                    flag:archery_ranges_03 = { add_building = archery_ranges_03 }
+                    flag:tax_assessor_01 = { add_building = tax_assessor_01 }
+                    flag:tax_assessor_02 = { add_building = tax_assessor_02 }
+                    flag:tax_assessor_03 = { add_building = tax_assessor_03 }
+                    flag:leisure_palace_01 = { add_building = leisure_palace_01 }
+                    flag:leisure_palace_02 = { add_building = leisure_palace_02 }
+                    flag:leisure_palace_03 = { add_building = leisure_palace_03 }
+                    flag:royal_forest_01 = { add_building = royal_forest_01 }
+                    flag:royal_forest_02 = { add_building = royal_forest_02 }
+                    flag:royal_forest_03 = { add_building = royal_forest_03 }
+                    flag:charnel_grounds_01 = { add_building = charnel_grounds_01 }
+                    flag:charnel_grounds_02 = { add_building = charnel_grounds_02 }
+                    flag:charnel_grounds_03 = { add_building = charnel_grounds_03 }
+                    flag:great_megalith_01 = { add_building = great_megalith_01 }
+                    flag:tower_of_silence_01 = { add_building = tower_of_silence_01 }
+
+                    # Standard Economy Buildings
+                    flag:caravanserai_01 = { add_building = caravanserai_01 }
+                    flag:caravanserai_02 = { add_building = caravanserai_02 }
+                    flag:caravanserai_03 = { add_building = caravanserai_03 }
+                    flag:caravanserai_04 = { add_building = caravanserai_04 }
+                    flag:caravanserai_05 = { add_building = caravanserai_05 }
+                    flag:caravanserai_06 = { add_building = caravanserai_06 }
+                    flag:caravanserai_07 = { add_building = caravanserai_07 }
+                    flag:caravanserai_08 = { add_building = caravanserai_08 }
+                    flag:watermills_01 = { add_building = watermills_01 }
+                    flag:watermills_02 = { add_building = watermills_02 }
+                    flag:watermills_03 = { add_building = watermills_03 }
+                    flag:watermills_04 = { add_building = watermills_04 }
+                    flag:watermills_05 = { add_building = watermills_05 }
+                    flag:watermills_06 = { add_building = watermills_06 }
+                    flag:watermills_07 = { add_building = watermills_07 }
+                    flag:watermills_08 = { add_building = watermills_08 }
+                    flag:windmills_01 = { add_building = windmills_01 }
+                    flag:windmills_02 = { add_building = windmills_02 }
+                    flag:windmills_03 = { add_building = windmills_03 }
+                    flag:windmills_04 = { add_building = windmills_04 }
+                    flag:windmills_05 = { add_building = windmills_05 }
+                    flag:windmills_06 = { add_building = windmills_06 }
+                    flag:windmills_07 = { add_building = windmills_07 }
+                    flag:windmills_08 = { add_building = windmills_08 }
+                    flag:common_tradeport_01 = { add_building = common_tradeport_01 }
+                    flag:common_tradeport_02 = { add_building = common_tradeport_02 }
+                    flag:common_tradeport_03 = { add_building = common_tradeport_03 }
+                    flag:common_tradeport_04 = { add_building = common_tradeport_04 }
+                    flag:common_tradeport_05 = { add_building = common_tradeport_05 }
+                    flag:common_tradeport_06 = { add_building = common_tradeport_06 }
+                    flag:common_tradeport_07 = { add_building = common_tradeport_07 }
+                    flag:common_tradeport_08 = { add_building = common_tradeport_08 }
+                    flag:pastures_01 = { add_building = pastures_01 }
+                    flag:pastures_02 = { add_building = pastures_02 }
+                    flag:pastures_03 = { add_building = pastures_03 }
+                    flag:pastures_04 = { add_building = pastures_04 }
+                    flag:pastures_05 = { add_building = pastures_05 }
+                    flag:pastures_06 = { add_building = pastures_06 }
+                    flag:pastures_07 = { add_building = pastures_07 }
+                    flag:pastures_08 = { add_building = pastures_08 }
+                    flag:hunting_grounds_01 = { add_building = hunting_grounds_01 }
+                    flag:hunting_grounds_02 = { add_building = hunting_grounds_02 }
+                    flag:hunting_grounds_03 = { add_building = hunting_grounds_03 }
+                    flag:hunting_grounds_04 = { add_building = hunting_grounds_04 }
+                    flag:hunting_grounds_05 = { add_building = hunting_grounds_05 }
+                    flag:hunting_grounds_06 = { add_building = hunting_grounds_06 }
+                    flag:hunting_grounds_07 = { add_building = hunting_grounds_07 }
+                    flag:hunting_grounds_08 = { add_building = hunting_grounds_08 }
+                    flag:orchards_01 = { add_building = orchards_01 }
+                    flag:orchards_02 = { add_building = orchards_02 }
+                    flag:orchards_03 = { add_building = orchards_03 }
+                    flag:orchards_04 = { add_building = orchards_04 }
+                    flag:orchards_05 = { add_building = orchards_05 }
+                    flag:orchards_06 = { add_building = orchards_06 }
+                    flag:orchards_07 = { add_building = orchards_07 }
+                    flag:orchards_08 = { add_building = orchards_08 }
+                    flag:farm_estates_01 = { add_building = farm_estates_01 }
+                    flag:farm_estates_02 = { add_building = farm_estates_02 }
+                    flag:farm_estates_03 = { add_building = farm_estates_03 }
+                    flag:farm_estates_04 = { add_building = farm_estates_04 }
+                    flag:farm_estates_05 = { add_building = farm_estates_05 }
+                    flag:farm_estates_06 = { add_building = farm_estates_06 }
+                    flag:farm_estates_07 = { add_building = farm_estates_07 }
+                    flag:farm_estates_08 = { add_building = farm_estates_08 }
+                    flag:cereal_fields_01 = { add_building = cereal_fields_01 }
+                    flag:cereal_fields_02 = { add_building = cereal_fields_02 }
+                    flag:cereal_fields_03 = { add_building = cereal_fields_03 }
+                    flag:cereal_fields_04 = { add_building = cereal_fields_04 }
+                    flag:cereal_fields_05 = { add_building = cereal_fields_05 }
+                    flag:cereal_fields_06 = { add_building = cereal_fields_06 }
+                    flag:cereal_fields_07 = { add_building = cereal_fields_07 }
+                    flag:cereal_fields_08 = { add_building = cereal_fields_08 }
+                    flag:logging_camps_01 = { add_building = logging_camps_01 }
+                    flag:logging_camps_02 = { add_building = logging_camps_02 }
+                    flag:logging_camps_03 = { add_building = logging_camps_03 }
+                    flag:logging_camps_04 = { add_building = logging_camps_04 }
+                    flag:logging_camps_05 = { add_building = logging_camps_05 }
+                    flag:logging_camps_06 = { add_building = logging_camps_06 }
+                    flag:logging_camps_07 = { add_building = logging_camps_07 }
+                    flag:logging_camps_08 = { add_building = logging_camps_08 }
+                    flag:peat_quarries_01 = { add_building = peat_quarries_01 }
+                    flag:peat_quarries_02 = { add_building = peat_quarries_02 }
+                    flag:peat_quarries_03 = { add_building = peat_quarries_03 }
+                    flag:peat_quarries_04 = { add_building = peat_quarries_04 }
+                    flag:peat_quarries_05 = { add_building = peat_quarries_05 }
+                    flag:peat_quarries_06 = { add_building = peat_quarries_06 }
+                    flag:peat_quarries_07 = { add_building = peat_quarries_07 }
+                    flag:peat_quarries_08 = { add_building = peat_quarries_08 }
+                    flag:hill_farms_01 = { add_building = hill_farms_01 }
+                    flag:hill_farms_02 = { add_building = hill_farms_02 }
+                    flag:hill_farms_03 = { add_building = hill_farms_03 }
+                    flag:hill_farms_04 = { add_building = hill_farms_04 }
+                    flag:hill_farms_05 = { add_building = hill_farms_05 }
+                    flag:hill_farms_06 = { add_building = hill_farms_06 }
+                    flag:hill_farms_07 = { add_building = hill_farms_07 }
+                    flag:hill_farms_08 = { add_building = hill_farms_08 }
+                    flag:elephant_pens_01 = { add_building = elephant_pens_01 }
+                    flag:elephant_pens_02 = { add_building = elephant_pens_02 }
+                    flag:elephant_pens_03 = { add_building = elephant_pens_03 }
+                    flag:elephant_pens_04 = { add_building = elephant_pens_04 }
+                    flag:elephant_pens_05 = { add_building = elephant_pens_05 }
+                    flag:elephant_pens_06 = { add_building = elephant_pens_06 }
+                    flag:elephant_pens_07 = { add_building = elephant_pens_07 }
+                    flag:elephant_pens_08 = { add_building = elephant_pens_08 }
+                    flag:plantations_01 = { add_building = plantations_01 }
+                    flag:plantations_02 = { add_building = plantations_02 }
+                    flag:plantations_03 = { add_building = plantations_03 }
+                    flag:plantations_04 = { add_building = plantations_04 }
+                    flag:plantations_05 = { add_building = plantations_05 }
+                    flag:plantations_06 = { add_building = plantations_06 }
+                    flag:plantations_07 = { add_building = plantations_07 }
+                    flag:plantations_08 = { add_building = plantations_08 }
+                    flag:quarries_01 = { add_building = quarries_01 }
+                    flag:quarries_02 = { add_building = quarries_02 }
+                    flag:quarries_03 = { add_building = quarries_03 }
+                    flag:quarries_04 = { add_building = quarries_04 }
+                    flag:quarries_05 = { add_building = quarries_05 }
+                    flag:quarries_06 = { add_building = quarries_06 }
+                    flag:quarries_07 = { add_building = quarries_07 }
+                    flag:quarries_08 = { add_building = quarries_08 }
+                    flag:qanats_01 = { add_building = qanats_01 }
+                    flag:qanats_02 = { add_building = qanats_02 }
+                    flag:qanats_03 = { add_building = qanats_03 }
+                    flag:qanats_04 = { add_building = qanats_04 }
+                    flag:qanats_05 = { add_building = qanats_05 }
+                    flag:qanats_06 = { add_building = qanats_06 }
+                    flag:qanats_07 = { add_building = qanats_07 }
+                    flag:qanats_08 = { add_building = qanats_08 }
+
+                    # Standard Fortification Buildings
+                    flag:ramparts_01 = { add_building = ramparts_01 }
+                    flag:ramparts_02 = { add_building = ramparts_02 }
+                    flag:ramparts_03 = { add_building = ramparts_03 }
+                    flag:ramparts_04 = { add_building = ramparts_04 }
+                    flag:ramparts_05 = { add_building = ramparts_05 }
+                    flag:ramparts_06 = { add_building = ramparts_06 }
+                    flag:ramparts_07 = { add_building = ramparts_07 }
+                    flag:ramparts_08 = { add_building = ramparts_08 }
+                    flag:curtain_walls_01 = { add_building = curtain_walls_01 }
+                    flag:curtain_walls_02 = { add_building = curtain_walls_02 }
+                    flag:curtain_walls_03 = { add_building = curtain_walls_03 }
+                    flag:curtain_walls_04 = { add_building = curtain_walls_04 }
+                    flag:curtain_walls_05 = { add_building = curtain_walls_05 }
+                    flag:curtain_walls_06 = { add_building = curtain_walls_06 }
+                    flag:curtain_walls_07 = { add_building = curtain_walls_07 }
+                    flag:curtain_walls_08 = { add_building = curtain_walls_08 }
+                    flag:watchtowers_01 = { add_building = watchtowers_01 }
+                    flag:watchtowers_02 = { add_building = watchtowers_02 }
+                    flag:watchtowers_03 = { add_building = watchtowers_03 }
+                    flag:watchtowers_04 = { add_building = watchtowers_04 }
+                    flag:watchtowers_05 = { add_building = watchtowers_05 }
+                    flag:watchtowers_06 = { add_building = watchtowers_06 }
+                    flag:watchtowers_07 = { add_building = watchtowers_07 }
+                    flag:watchtowers_08 = { add_building = watchtowers_08 }
+                    flag:hill_forts_01 = { add_building = hill_forts_01 }
+                    flag:hill_forts_02 = { add_building = hill_forts_02 }
+                    flag:hill_forts_03 = { add_building = hill_forts_03 }
+                    flag:hill_forts_04 = { add_building = hill_forts_04 }
+                    flag:hill_forts_05 = { add_building = hill_forts_05 }
+                    flag:hill_forts_06 = { add_building = hill_forts_06 }
+                    flag:hill_forts_07 = { add_building = hill_forts_07 }
+                    flag:hill_forts_08 = { add_building = hill_forts_08 }
+
+                    # Standard Military Buildings
+                    flag:wind_furnace_01 = { add_building = wind_furnace_01 }
+                    flag:wind_furnace_02 = { add_building = wind_furnace_02 }
+                    flag:wind_furnace_03 = { add_building = wind_furnace_03 }
+                    flag:wind_furnace_04 = { add_building = wind_furnace_04 }
+                    flag:wind_furnace_05 = { add_building = wind_furnace_05 }
+                    flag:wind_furnace_06 = { add_building = wind_furnace_06 }
+                    flag:wind_furnace_07 = { add_building = wind_furnace_07 }
+                    flag:wind_furnace_08 = { add_building = wind_furnace_08 }
+                    flag:workshops_01 = { add_building = workshops_01 }
+                    flag:workshops_02 = { add_building = workshops_02 }
+                    flag:workshops_03 = { add_building = workshops_03 }
+                    flag:workshops_04 = { add_building = workshops_04 }
+                    flag:workshops_05 = { add_building = workshops_05 }
+                    flag:workshops_06 = { add_building = workshops_06 }
+                    flag:workshops_07 = { add_building = workshops_07 }
+                    flag:workshops_08 = { add_building = workshops_08 }
+                    flag:horse_pastures_01 = { add_building = horse_pastures_01 }
+                    flag:horse_pastures_02 = { add_building = horse_pastures_02 }
+                    flag:horse_pastures_03 = { add_building = horse_pastures_03 }
+                    flag:horse_pastures_04 = { add_building = horse_pastures_04 }
+                    flag:horse_pastures_05 = { add_building = horse_pastures_05 }
+                    flag:horse_pastures_06 = { add_building = horse_pastures_06 }
+                    flag:horse_pastures_07 = { add_building = horse_pastures_07 }
+                    flag:horse_pastures_08 = { add_building = horse_pastures_08 }
+                    flag:hillside_grazing_01 = { add_building = hillside_grazing_01 }
+                    flag:hillside_grazing_02 = { add_building = hillside_grazing_02 }
+                    flag:hillside_grazing_03 = { add_building = hillside_grazing_03 }
+                    flag:hillside_grazing_04 = { add_building = hillside_grazing_04 }
+                    flag:hillside_grazing_05 = { add_building = hillside_grazing_05 }
+                    flag:hillside_grazing_06 = { add_building = hillside_grazing_06 }
+                    flag:hillside_grazing_07 = { add_building = hillside_grazing_07 }
+                    flag:hillside_grazing_08 = { add_building = hillside_grazing_08 }
+                    flag:warrior_lodges_01 = { add_building = warrior_lodges_01 }
+                    flag:warrior_lodges_02 = { add_building = warrior_lodges_02 }
+                    flag:warrior_lodges_03 = { add_building = warrior_lodges_03 }
+                    flag:warrior_lodges_04 = { add_building = warrior_lodges_04 }
+                    flag:warrior_lodges_05 = { add_building = warrior_lodges_05 }
+                    flag:warrior_lodges_06 = { add_building = warrior_lodges_06 }
+                    flag:warrior_lodges_07 = { add_building = warrior_lodges_07 }
+                    flag:warrior_lodges_08 = { add_building = warrior_lodges_08 }
+                    flag:military_camps_01 = { add_building = military_camps_01 }
+                    flag:military_camps_02 = { add_building = military_camps_02 }
+                    flag:military_camps_03 = { add_building = military_camps_03 }
+                    flag:military_camps_04 = { add_building = military_camps_04 }
+                    flag:military_camps_05 = { add_building = military_camps_05 }
+                    flag:military_camps_06 = { add_building = military_camps_06 }
+                    flag:military_camps_07 = { add_building = military_camps_07 }
+                    flag:military_camps_08 = { add_building = military_camps_08 }
+                    flag:regimental_grounds_01 = { add_building = regimental_grounds_01 }
+                    flag:regimental_grounds_02 = { add_building = regimental_grounds_02 }
+                    flag:regimental_grounds_03 = { add_building = regimental_grounds_03 }
+                    flag:regimental_grounds_04 = { add_building = regimental_grounds_04 }
+                    flag:regimental_grounds_05 = { add_building = regimental_grounds_05 }
+                    flag:regimental_grounds_06 = { add_building = regimental_grounds_06 }
+                    flag:regimental_grounds_07 = { add_building = regimental_grounds_07 }
+                    flag:regimental_grounds_08 = { add_building = regimental_grounds_08 }
+                    flag:outposts_01 = { add_building = outposts_01 }
+                    flag:outposts_02 = { add_building = outposts_02 }
+                    flag:outposts_03 = { add_building = outposts_03 }
+                    flag:outposts_04 = { add_building = outposts_04 }
+                    flag:outposts_05 = { add_building = outposts_05 }
+                    flag:outposts_06 = { add_building = outposts_06 }
+                    flag:outposts_07 = { add_building = outposts_07 }
+                    flag:outposts_08 = { add_building = outposts_08 }
+                    flag:barracks_01 = { add_building = barracks_01 }
+                    flag:barracks_02 = { add_building = barracks_02 }
+                    flag:barracks_03 = { add_building = barracks_03 }
+                    flag:barracks_04 = { add_building = barracks_04 }
+                    flag:barracks_05 = { add_building = barracks_05 }
+                    flag:barracks_06 = { add_building = barracks_06 }
+                    flag:barracks_07 = { add_building = barracks_07 }
+                    flag:barracks_08 = { add_building = barracks_08 }
+                    flag:camel_farms_01 = { add_building = camel_farms_01 }
+                    flag:camel_farms_02 = { add_building = camel_farms_02 }
+                    flag:camel_farms_03 = { add_building = camel_farms_03 }
+                    flag:camel_farms_04 = { add_building = camel_farms_04 }
+                    flag:camel_farms_05 = { add_building = camel_farms_05 }
+                    flag:camel_farms_06 = { add_building = camel_farms_06 }
+                    flag:camel_farms_07 = { add_building = camel_farms_07 }
+                    flag:camel_farms_08 = { add_building = camel_farms_08 }
+                    flag:stables_01 = { add_building = stables_01 }
+                    flag:stables_02 = { add_building = stables_02 }
+                    flag:stables_03 = { add_building = stables_03 }
+                    flag:stables_04 = { add_building = stables_04 }
+                    flag:stables_05 = { add_building = stables_05 }
+                    flag:stables_06 = { add_building = stables_06 }
+                    flag:stables_07 = { add_building = stables_07 }
+                    flag:stables_08 = { add_building = stables_08 }
+                    flag:smiths_01 = { add_building = smiths_01 }
+                    flag:smiths_02 = { add_building = smiths_02 }
+                    flag:smiths_03 = { add_building = smiths_03 }
+                    flag:smiths_04 = { add_building = smiths_04 }
+                    flag:smiths_05 = { add_building = smiths_05 }
+                    flag:smiths_06 = { add_building = smiths_06 }
+                    flag:smiths_07 = { add_building = smiths_07 }
+                    flag:smiths_08 = { add_building = smiths_08 }
+                }
+            }
+        }
+    }
+}
+
+DI_destroy_building_sgui = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        building_type # Flag of Building Type to destroy
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles_provinces
+            save_scope_as = province
+
+            scope:province = {
+                switch = {
+                    trigger = scope:building_type
+
+                    # Common Buildings
+                    flag:guild_halls = { DI_remove_building_type_effect = { BUILDING = guild_halls } }
+                    flag:scriptorium = { DI_remove_building_type_effect = { BUILDING = scriptorium } }
+                    flag:megalith = { DI_remove_building_type_effect = { BUILDING = megalith } }
+                    flag:monastic_schools = { DI_remove_building_type_effect = { BUILDING = monastic_schools } }
+                    flag:longhouses = {
+                        if = {
+                            limit = {
+                                has_building = longhouses_01
+                            }
+                            remove_building = longhouses_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = longhouses_02
+                            }
+                            remove_building = longhouses_02
+                        }
+                    }
+                    flag:war_camps = {
+                        if = {
+                            limit = {
+                                has_building = war_camps_01
+                            }
+                            remove_building = war_camps_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = war_camps_02
+                            }
+                            remove_building = war_camps_02
+                        }
+                    }
+                    flag:palisades = {
+                        if = {
+                            limit = {
+                                has_building = palisades_01
+                            }
+                            remove_building = palisades_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = palisades_02
+                            }
+                            remove_building = palisades_02
+                        }
+                    }
+                    flag:market_villages = {
+                        if = {
+                            limit = {
+                                has_building = market_villages_01
+                            }
+                            remove_building = market_villages_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = market_villages_02
+                            }
+                            remove_building = market_villages_02
+                        }
+                    }
+                    flag:hospices = { DI_remove_building_type_effect = { BUILDING = hospices } }
+
+                    # Duchy Capital Buildings
+                    flag:burial_site = {
+                        if = {
+                            limit = {
+                                has_building = burial_site_01
+                            }
+                            remove_building = burial_site_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = burial_site_02
+                            }
+                            remove_building = burial_site_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = burial_site_03
+                            }
+                            remove_building = burial_site_03
+                        }
+                    }
+                    flag:royal_garden = {
+                        if = {
+                            limit = {
+                                has_building = royal_garden_01
+                            }
+                            remove_building = royal_garden_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = royal_garden_02
+                            }
+                            remove_building = royal_garden_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = royal_garden_03
+                            }
+                            remove_building = royal_garden_03
+                        }
+                    }
+                    flag:military_academy = {
+                        if = {
+                            limit = {
+                                has_building = military_academy_01
+                            }
+                            remove_building = military_academy_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = military_academy_02
+                            }
+                            remove_building = military_academy_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = military_academy_03
+                            }
+                            remove_building = military_academy_03
+                        }
+                    }
+                    flag:march = {
+                        if = {
+                            limit = {
+                                has_building = march_01
+                            }
+                            remove_building = march_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = march_02
+                            }
+                            remove_building = march_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = march_03
+                            }
+                            remove_building = march_03
+                        }
+                    }
+                    flag:siege_works = {
+                        if = {
+                            limit = {
+                                has_building = siege_works_01
+                            }
+                            remove_building = siege_works_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = siege_works_02
+                            }
+                            remove_building = siege_works_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = siege_works_03
+                            }
+                            remove_building = siege_works_03
+                        }
+                    }
+                    flag:royal_armory = {
+                        if = {
+                            limit = {
+                                has_building = royal_armory_01
+                            }
+                            remove_building = royal_armory_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = royal_armory_02
+                            }
+                            remove_building = royal_armory_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = royal_armory_03
+                            }
+                            remove_building = royal_armory_03
+                        }
+                    }
+                    flag:jousting_lists = {
+                        if = {
+                            limit = {
+                                has_building = jousting_lists_01
+                            }
+                            remove_building = jousting_lists_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = jousting_lists_02
+                            }
+                            remove_building = jousting_lists_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = jousting_lists_03
+                            }
+                            remove_building = jousting_lists_03
+                        }
+                    }
+                    flag:blacksmiths = {
+                        if = {
+                            limit = {
+                                has_building = blacksmiths_01
+                            }
+                            remove_building = blacksmiths_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = blacksmiths_02
+                            }
+                            remove_building = blacksmiths_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = blacksmiths_03
+                            }
+                            remove_building = blacksmiths_03
+                        }
+                    }
+                    flag:archery_ranges = {
+                        if = {
+                            limit = {
+                                has_building = archery_ranges_01
+                            }
+                            remove_building = archery_ranges_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = archery_ranges_02
+                            }
+                            remove_building = archery_ranges_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = archery_ranges_03
+                            }
+                            remove_building = archery_ranges_03
+                        }
+                    }
+                    flag:tax_assessor = {
+                        if = {
+                            limit = {
+                                has_building = tax_assessor_01
+                            }
+                            remove_building = tax_assessor_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = tax_assessor_02
+                            }
+                            remove_building = tax_assessor_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = tax_assessor_03
+                            }
+                            remove_building = tax_assessor_03
+                        }
+                    }
+                    flag:leisure_palace = {
+                        if = {
+                            limit = {
+                                has_building = leisure_palace_01
+                            }
+                            remove_building = leisure_palace_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = leisure_palace_02
+                            }
+                            remove_building = leisure_palace_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = leisure_palace_03
+                            }
+                            remove_building = leisure_palace_03
+                        }
+                    }
+                    flag:royal_forest = {
+                        if = {
+                            limit = {
+                                has_building = royal_forest_01
+                            }
+                            remove_building = royal_forest_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = royal_forest_02
+                            }
+                            remove_building = royal_forest_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = royal_forest_03
+                            }
+                            remove_building = royal_forest_03
+                        }
+                    }
+                    flag:charnel_grounds = {
+                        if = {
+                            limit = {
+                                has_building = charnel_grounds_01
+                            }
+                            remove_building = charnel_grounds_01
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = charnel_grounds_02
+                            }
+                            remove_building = charnel_grounds_02
+                        }
+                        else_if = {
+                            limit = {
+                                has_building = charnel_grounds_03
+                            }
+                            remove_building = charnel_grounds_03
+                        }
+                    }
+                    flag:great_megalith = { remove_building = great_megalith_01 }
+                    flag:tower_of_silence = { remove_building = tower_of_silence_01 }
+
+                    # Standard Economy Buildings
+                    flag:caravanserai = { DI_remove_building_type_effect = { BUILDING = caravanserai } }
+                    flag:watermills = { DI_remove_building_type_effect = { BUILDING = watermills } }
+                    flag:windmills = { DI_remove_building_type_effect = { BUILDING = windmills } }
+                    flag:common_tradeport = { DI_remove_building_type_effect = { BUILDING = common_tradeport } }
+                    flag:pastures = { DI_remove_building_type_effect = { BUILDING = pastures } }
+                    flag:hunting_grounds = { DI_remove_building_type_effect = { BUILDING = hunting_grounds } }
+                    flag:orchards = { DI_remove_building_type_effect = { BUILDING = orchards } }
+                    flag:farm_estates = { DI_remove_building_type_effect = { BUILDING = farm_estates } }
+                    flag:cereal_fields = { DI_remove_building_type_effect = { BUILDING = cereal_fields } }
+                    flag:logging_camps = { DI_remove_building_type_effect = { BUILDING = logging_camps } }
+                    flag:peat_quarries = { DI_remove_building_type_effect = { BUILDING = peat_quarries } }
+                    flag:hill_farms = { DI_remove_building_type_effect = { BUILDING = hill_farms } }
+                    flag:elephant_pens = { DI_remove_building_type_effect = { BUILDING = elephant_pens } }
+                    flag:plantations = { DI_remove_building_type_effect = { BUILDING = plantations } }
+                    flag:quarries = { DI_remove_building_type_effect = { BUILDING = quarries } }
+                    flag:qanats = { DI_remove_building_type_effect = { BUILDING = qanats } }
+
+                    # Standard Fortification Buildings
+                    flag:ramparts = { DI_remove_building_type_effect = { BUILDING = ramparts } }
+                    flag:curtain_walls = { DI_remove_building_type_effect = { BUILDING = curtain_walls } }
+                    flag:watchtowers = { DI_remove_building_type_effect = { BUILDING = watchtowers } }
+                    flag:hill_forts = { DI_remove_building_type_effect = { BUILDING = hill_forts } }
+
+                    # Standard Military Buildings
+                    flag:wind_furnace = { DI_remove_building_type_effect = { BUILDING = wind_furnace } }
+                    flag:workshops = { DI_remove_building_type_effect = { BUILDING = workshops } }
+                    flag:horse_pastures = { DI_remove_building_type_effect = { BUILDING = horse_pastures } }
+                    flag:hillside_grazing = { DI_remove_building_type_effect = { BUILDING = hillside_grazing } }
+                    flag:warrior_lodges = { DI_remove_building_type_effect = { BUILDING = warrior_lodges } }
+                    flag:military_camps = { DI_remove_building_type_effect = { BUILDING = military_camps } }
+                    flag:regimental_grounds = { DI_remove_building_type_effect = { BUILDING = regimental_grounds } }
+                    flag:outposts = { DI_remove_building_type_effect = { BUILDING = outposts } }
+                    flag:barracks = { DI_remove_building_type_effect = { BUILDING = barracks } }
+                    flag:camel_farms = { DI_remove_building_type_effect = { BUILDING = camel_farms } }
+                    flag:stables = { DI_remove_building_type_effect = { BUILDING = stables } }
+                    flag:smiths = { DI_remove_building_type_effect = { BUILDING = smiths } }
+                }
+            }
+        }
+    }
 }

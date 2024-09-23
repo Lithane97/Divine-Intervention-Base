@@ -1,0 +1,58 @@
+﻿DI_remove_building_type_effect = {
+    if = {
+        limit = {
+            has_building = $BUILDING$_08
+        }
+        remove_building = $BUILDING$_08
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_07
+        }
+        remove_building = $BUILDING$_07
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_06
+        }
+        remove_building = $BUILDING$_06
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_05
+        }
+        remove_building = $BUILDING$_05
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_04
+        }
+        remove_building = $BUILDING$_04
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_03
+        }
+        remove_building = $BUILDING$_03
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_02
+        }
+        remove_building = $BUILDING$_02
+    }
+    else_if = {
+        limit = {
+            has_building = $BUILDING$_01
+        }
+        remove_building = $BUILDING$_01
+    }
+}
+
+#KeizerHarm Error Suppression
+fix_variable_error = {
+    if = {
+        limit = {has_variable = $X$ var:$X$ = flag:$X$ exists = scope:$X$ scope:$X$ = flag:$X$}
+        set_variable = {name = $X$ value = flag:$X$} var:$X$ = {save_scope_as = $X$}
+    }
+}
