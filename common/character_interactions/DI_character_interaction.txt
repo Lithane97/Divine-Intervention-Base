@@ -693,7 +693,7 @@ DI_change_opinion_interaction = {
 
 ### Modify Vassal Contract | As Liege ###
 DI_char_modify_vassal_contract_interaction = {
-    special_interaction = modify_vassal_contract
+    special_interaction = liege_modify_vassal_contract
     interface = modify_vassal_contract
     category = interaction_category_cheat_menu
     common_interaction = yes
@@ -711,6 +711,7 @@ DI_char_modify_vassal_contract_interaction = {
             exists = liege
             liege = scope:actor
             is_ruler = yes
+            NOT = { government_allows = administrative }
         }
         scope:actor = {
             is_ai = no
@@ -755,7 +756,7 @@ DI_char_modify_vassal_contract_interaction = {
 
 ### Modify Vassal Contract | As Vassal ###
 DI_modify_vassal_mod_vassal_contract_interaction = {
-    special_interaction = modify_vassal_contract
+    special_interaction = liege_modify_vassal_contract
     interface = modify_vassal_contract
     category = interaction_category_cheat_menu
     common_interaction = yes
@@ -786,8 +787,7 @@ DI_modify_vassal_mod_vassal_contract_interaction = {
             is_independent_ruler = no
             NOT = { this = scope:actor }
             liege = scope:actor
-        }
-        scope:recipient = {
+            NOT = { government_allows = administrative }
             is_ai = no
             any_owned_story = {
                 story_type = DI_misc_variables_story
@@ -812,10 +812,6 @@ DI_modify_vassal_mod_vassal_contract_interaction = {
                 type = msg_vassal_contract_change
                 title = modify_vassal_contract_interaction_notification
                 right_icon = scope:actor
-                if = {
-                    limit = { always = scope:hook }
-                    use_hook = scope:actor
-                }
 
                 every_in_list = {
                     list = changed_obligations
