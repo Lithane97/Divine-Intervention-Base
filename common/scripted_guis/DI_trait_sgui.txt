@@ -175,67 +175,86 @@ DI_trait_loader_sgui = {
 
     saved_scopes = {
         trait # selected trait
+        tracked # bool, yes if trait has a track, no if not
     }
 
     effect = {
-        add_to_global_variable_list = {
-            name = DI_all_traits
-            target = scope:trait
-        }
+        debug_log = "DI_Debug: trait_loader_sgui"
+        debug_log_scopes = yes
+
         if = {
             limit = {
-                scope:trait = {
-                    has_trait_category = health
-                }
+                scope:tracked = flag:no
             }
-
             add_to_global_variable_list = {
-                name = DI_health_traits
+                name = DI_all_traits
                 target = scope:trait
             }
-        }
-        else_if = {
-            limit = {
-                scope:trait = {
-                    OR = {
-                        has_trait_category = commander
-                        has_trait_category = winter_commander
+            if = {
+                limit = {
+                    scope:trait = {
+                        has_trait_category = health
                     }
                 }
-            }
 
-            add_to_global_variable_list = {
-                name = DI_commander_traits
-                target = scope:trait
+                add_to_global_variable_list = {
+                    name = DI_health_traits
+                    target = scope:trait
+                }
+            }
+            else_if = {
+                limit = {
+                    scope:trait = {
+                        OR = {
+                            has_trait_category = commander
+                            has_trait_category = winter_commander
+                        }
+                    }
+                }
+
+                add_to_global_variable_list = {
+                    name = DI_commander_traits
+                    target = scope:trait
+                }
+            }
+            else_if = {
+                limit = {
+                    scope:trait = {
+                        has_trait_category = fame
+                    }
+                }
+
+                add_to_global_variable_list = {
+                    name = DI_fame_traits
+                    target = scope:trait
+                }
+            }
+            else_if = {
+                limit = {
+                    scope:trait = {
+                        has_trait_category = lifestyle
+                    }
+                }
+
+                add_to_global_variable_list = {
+                    name = DI_lifestyle_traits
+                    target = scope:trait
+                }
+            }
+            else = {
+                add_to_global_variable_list = {
+                    name = DI_misc_traits
+                    target = scope:trait
+                }
             }
         }
         else_if = {
             limit = {
-                scope:trait = {
-                    has_trait_category = fame
-                }
+                scope:tracked = flag:yes
             }
 
             add_to_global_variable_list = {
-                name = DI_fame_traits
-                target = scope:trait
-            }
-        }
-        else_if = {
-            limit = {
-                scope:trait = {
-                    has_trait_category = lifestyle
-                }
-            }
-
-            add_to_global_variable_list = {
-                name = DI_lifestyle_traits
-                target = scope:trait
-            }
-        }
-        else = {
-            add_to_global_variable_list = {
-                name = DI_misc_traits
+                name = DI_tracked_traits
                 target = scope:trait
             }
         }
@@ -253,6 +272,7 @@ DI_traits_list = {
         has_global_variable_list = DI_fame_traits
         has_global_variable_list = DI_lifestyle_traits
         has_global_variable_list = DI_misc_traits
+        has_global_variable_list = DI_tracked_traits
     }
 }
 
@@ -266,9 +286,6 @@ DI_add_trait_xp_0 = {
     }
 
     effect = {
-        debug_log = "DI_Debug: add_trait_xp_0"
-        debug_log_scopes = yes
-
         random_owned_story = {
             limit = {
                 story_type = DI_misc_variables_story
@@ -284,6 +301,13 @@ DI_add_trait_xp_0 = {
                 limit = { has_character_flag = pinned_for_edit }
 
                 hidden_effect = {
+                    if = {
+                        limit = {
+                            NOT = { has_trait = scope:trait }
+                        }
+                        add_trait = scope:trait
+                    }
+
                     if = {
                         limit = {
                             DI_trait_track_check = yes
@@ -302,6 +326,13 @@ DI_add_trait_xp_0 = {
         }
         else = {
             hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_trait = scope:trait }
+                    }
+                    add_trait = scope:trait
+                }
+
                 if = {
                     limit = {
                         DI_trait_track_check = yes
@@ -347,6 +378,13 @@ DI_add_trait_xp_1 = {
                 hidden_effect = {
                     if = {
                         limit = {
+                            NOT = { has_trait = scope:trait }
+                        }
+                        add_trait = scope:trait
+                    }
+                    
+                    if = {
+                        limit = {
                             DI_trait_track_check = yes
                         }
 
@@ -369,6 +407,13 @@ DI_add_trait_xp_1 = {
         }
         else = {
             hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_trait = scope:trait }
+                    }
+                    add_trait = scope:trait
+                }
+
                 if = {
                     limit = {
                         DI_trait_track_check = yes
@@ -420,6 +465,13 @@ DI_add_trait_xp_2 = {
                 hidden_effect = {
                     if = {
                         limit = {
+                            NOT = { has_trait = scope:trait }
+                        }
+                        add_trait = scope:trait
+                    }
+                    
+                    if = {
+                        limit = {
                             DI_trait_track_check = yes
                         }
 
@@ -436,6 +488,13 @@ DI_add_trait_xp_2 = {
         }
         else = {
             hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_trait = scope:trait }
+                    }
+                    add_trait = scope:trait
+                }
+
                 if = {
                     limit = {
                         DI_trait_track_check = yes

@@ -1,1293 +1,1384 @@
 ﻿DI_fp1_check = {
-	scope = culture
-	
-	is_valid = {
-		has_fp1_dlc_trigger = yes
-	}
+    scope = culture
+
+    is_valid = {
+        has_fp1_dlc_trigger = yes
+    }
 }
 
 DI_ep1_court_check = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		has_ep1_court_positions_dlc_trigger = yes
-	}
+    is_valid = {
+        has_ep1_court_positions_dlc_trigger = yes
+    }
 }
 
 DI_hide_button_check = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		NOT = {
-			any_owned_story = {
-				story_type = DI_misc_variables_story
-				has_variable = DI_button_invisible_var
-			}
-		}
-	}
+    is_valid = {
+        NOT = {
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_button_invisible_var
+            }
+        }
+    }
 }
 
 ### Traits ###
 DI_add_trait = {
-	scope = character
-	
-	saved_scopes = { 
-		trait # Selected trait
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        trait # Selected trait
+    }
 
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-				hidden_effect = {
-					add_trait = scope:trait
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_trait = scope:trait
-			}
-		}
-	}
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_trait = scope:trait
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_trait = scope:trait
+            }
+        }
+    }
 }
 
 DI_remove_trait = {
-	scope = character
-	
-	saved_scopes = { 
-		trait # Selected trait
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    saved_scopes = {
+        trait # Selected trait
+    }
 
-				hidden_effect = {
-					remove_trait = scope:trait
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				remove_trait = scope:trait
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    remove_trait = scope:trait
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                remove_trait = scope:trait
+            }
+        }
+    }
 }
 
 # sexuality effects
 DI_sexuality_heterosexual = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
-				
-				hidden_effect = {
-					set_sexuality = heterosexual
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				set_sexuality = heterosexual
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_sexuality = heterosexual
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_sexuality = heterosexual
+            }
+        }
+    }
 }
 
 DI_sexuality_homosexual = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
-				
-				hidden_effect = {
-					set_sexuality = homosexual
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				set_sexuality = homosexual
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_sexuality = homosexual
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_sexuality = homosexual
+            }
+        }
+    }
 }
 
 DI_sexuality_bisexual = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
-				
-				hidden_effect = {
-					set_sexuality = bisexual
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				set_sexuality = bisexual
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_sexuality = bisexual
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_sexuality = bisexual
+            }
+        }
+    }
 }
 
 DI_sexuality_asexual = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
-				
-				hidden_effect = {
-					set_sexuality = asexual
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				set_sexuality = asexual
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_sexuality = asexual
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_sexuality = asexual
+            }
+        }
+    }
 }
 
 DI_clear_all_pins = {
-	scope = character
-	
-	effect = {
-		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
-			
-			hidden_effect = {
-				remove_character_flag = pinned_for_edit
-			}
-		}
-		if = {
-			limit = {
-				has_variable_list = pinned_characters 
-			}
-			clear_variable_list = pinned_characters
-		}
-	}
+    scope = character
+
+    effect = {
+        every_living_character = {
+            limit = { has_character_flag = pinned_for_edit }
+
+            hidden_effect = {
+                remove_character_flag = pinned_for_edit
+            }
+        }
+        if = {
+            limit = {
+                has_variable_list = pinned_characters
+            }
+            clear_variable_list = pinned_characters
+        }
+    }
 }
 
 DI_age_add = {
-	scope = character
-	
-	effect = {
-		change_age = 1
-	}
+    scope = character
+
+    effect = {
+        change_age = 1
+    }
 }
 
 DI_age_subtract = {
-	scope = character
-	
-	is_valid = {
-		age > 1
-	}
-	
-	effect = {
-		change_age = -1
-	}
+    scope = character
+
+    is_valid = {
+        age > 1
+    }
+
+    effect = {
+        change_age = -1
+    }
 }
 
 ### INCREMENT BUTTONS ###
 DI_add_increment = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_increment_value < 10000
-		}
-	}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_increment_value < 10000
+        }
+    }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					var:DI_increment_value < 1000
-				}
-				change_variable = {
-					name = DI_increment_value
-					add = 100
-				}
-			}
-			else = {
-				change_variable = {
-					name = DI_increment_value
-					add = 500
-				}
-			}
-		}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    var:DI_increment_value < 1000
+                }
+                change_variable = {
+                    name = DI_increment_value
+                    add = 100
+                }
+            }
+            else = {
+                change_variable = {
+                    name = DI_increment_value
+                    add = 500
+                }
+            }
+        }
     }
 
 }
 
 DI_modifier_add_increment = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_modifier_increment_value < 1
-		}
-	}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_modifier_increment_value < 1
+        }
+    }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					var:DI_modifier_increment_value < 5
-				}
-				change_variable = {
-					name = DI_modifier_increment_value
-				add = 1
-				}
-			}
-			else = {
-				change_variable = {
-					name = DI_modifier_increment_value
-					add = 5
-				}
-			}
-		}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    var:DI_modifier_increment_value < 5
+                }
+                change_variable = {
+                    name = DI_modifier_increment_value
+                    add = 1
+                }
+            }
+            else = {
+                change_variable = {
+                    name = DI_modifier_increment_value
+                    add = 5
+                }
+            }
+        }
     }
 }
 
 DI_char_spawner_count_add_increment = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_char_spawner_count_increment_value < 10
-		}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_char_spawner_count_increment_value < 10
+        }
     }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			change_variable = {
-				name = DI_char_spawner_count_increment_value
-				add = 1
-			}
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            change_variable = {
+                name = DI_char_spawner_count_increment_value
+                add = 1
+            }
+        }
     }
 }
 
 DI_char_spawner_age_add_increment = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_char_spawner_age_increment_value < 100
-		}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_char_spawner_age_increment_value < 100
+        }
     }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			change_variable = {
-				name = DI_char_spawner_age_increment_value
-					add = 1
-			}
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            change_variable = {
+                name = DI_char_spawner_age_increment_value
+                add = 1
+            }
+        }
     }
 }
 
 DI_subtract_increment = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_increment_value > 100
-		}
-	}
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_increment_value > 100
+        }
+    }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					var:DI_increment_value > 1000
-				}
-				change_variable = {
-					name = DI_increment_value
-							subtract = 500
-				}
-			}
-			else = {
-				change_variable = {
-					name = DI_increment_value
-							subtract = 100
-				}
-			}
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:DI_story = {
+            if = {
+                limit = {
+                    var:DI_increment_value > 1000
+                }
+                change_variable = {
+                    name = DI_increment_value
+                    subtract = 500
+                }
+            }
+            else = {
+                change_variable = {
+                    name = DI_increment_value
+                    subtract = 100
+                }
+            }
+        }
     }
 }
 
 DI_modifier_subtract_increment = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_modifier_increment_value > 1
-		}
-	}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_modifier_increment_value > 1
+        }
+    }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		scope:DI_story = {
-			if = {
-				limit = {
-					var:DI_modifier_increment_value < 6
-				}
-				change_variable = {
-					name = DI_modifier_increment_value
-						subtract = 1
-				}
-			}
-			else = {
-				change_variable = {
-					name = DI_modifier_increment_value
-							subtract = 5
-				}
-			}
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:DI_story = {
+            if = {
+                limit = {
+                    var:DI_modifier_increment_value < 6
+                }
+                change_variable = {
+                    name = DI_modifier_increment_value
+                    subtract = 1
+                }
+            }
+            else = {
+                change_variable = {
+                    name = DI_modifier_increment_value
+                    subtract = 5
+                }
+            }
+        }
     }
 }
 
 DI_char_spawner_count_subtract_increment = {
-	scope = character
-	
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_char_spawner_count_increment_value > 1
-		}
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			change_variable = {
-				name = DI_char_spawner_count_increment_value
-				subtract = 1
-			}
-		}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_char_spawner_count_increment_value > 1
+        }
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            change_variable = {
+                name = DI_char_spawner_count_increment_value
+                subtract = 1
+            }
+        }
     }
 }
 
 DI_char_spawner_age_subtract_increment = {
-	scope = character
-	
-	is_valid = {
-		any_owned_story = {
-			story_type = DI_misc_variables_story
-			var:DI_char_spawner_age_increment_value > 1
-		}
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			change_variable = {
-				name = DI_char_spawner_age_increment_value
-					subtract = 1
-			}
-		}
+    is_valid = {
+        any_owned_story = {
+            story_type = DI_misc_variables_story
+            var:DI_char_spawner_age_increment_value > 1
+        }
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            change_variable = {
+                name = DI_char_spawner_age_increment_value
+                subtract = 1
+            }
+        }
     }
 }
 
 DI_add_prestige_effect = {
-	scope = character
-	
-	saved_scopes = {
-		target # selected character
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        target # selected character
+    }
 
-		scope:target = {
-			add_prestige = scope:DI_story.var:DI_increment_value
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_prestige = scope:DI_story.var:DI_increment_value
+        }
+    }
 }
 
 
 DI_remove_prestige_effect = {
-	scope = character
-	
-	saved_scopes = {
-		target # selected character
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        target # selected character
+    }
 
-		scope:target = {
-			add_prestige = {
-				value = scope:DI_story.var:DI_increment_value
-				multiply = -1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_prestige = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
 }
 
 
 DI_add_piety_effect = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		target # selected character
-	}
-		
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        target # selected character
+    }
 
-		scope:target = {
-			add_piety = scope:DI_story.var:DI_increment_value
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_piety = scope:DI_story.var:DI_increment_value
+        }
+    }
 }
 
 
 DI_remove_piety_effect = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		target # selected character
-	}
+    saved_scopes = {
+        target # selected character
+    }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:target = {
-			add_piety = {
-				value = scope:DI_story.var:DI_increment_value
-				multiply = -1
-			}
-		}
-	}
+        scope:target = {
+            add_piety = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
 }
 
 DI_add_gold_effect = {
-	scope = character
-		
-	saved_scopes = {
-		target # selected character
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        target # selected character
+    }
 
-		scope:target = { 
-			add_gold = scope:DI_story.var:DI_increment_value
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_gold = scope:DI_story.var:DI_increment_value
+        }
+    }
 }
 
 
 DI_remove_gold_effect = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		target # selected character
-	}
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        target # selected character
+    }
 
-		scope:target = { 
-			remove_short_term_gold = scope:DI_story.var:DI_increment_value
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            remove_short_term_gold = scope:DI_story.var:DI_increment_value
+        }
+    }
 }
 
 
 DI_add_dprestige_effect = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		target # selected character
-	}
+    saved_scopes = {
+        target # selected character
+    }
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:target = {
-			dynasty = {
-				add_dynasty_prestige = scope:DI_story.var:DI_increment_value
-			}
-		}
+        scope:target = {
+            dynasty = {
+                add_dynasty_prestige = scope:DI_story.var:DI_increment_value
+            }
+        }
     }
 }
 
 
 DI_remove_dprestige_effect = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		target # selected character
-	}
-		
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    saved_scopes = {
+        target # selected character
+    }
 
-		scope:target = { 
-			dynasty = {
-				add_dynasty_prestige = {
-					value = scope:DI_story.var:DI_increment_value
-					multiply = -1
-				}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            dynasty = {
+                add_dynasty_prestige = {
+                    value = scope:DI_story.var:DI_increment_value
+                    multiply = -1
+                }
+            }
+        }
+    }
+}
+
+DI_add_influence_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            change_influence = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_influence_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            change_influence = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
+}
+
+# add / remove provisions
+DI_add_provisions_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+			change_provisions = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_provisions_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+		scope:target = {
+            change_provisions = {
+				value = scope:DI_story.var:DI_increment_value
+				multiply = -1
 			}
-		}
-	}
+        }
+    }
 }
 
 DI_clear_pinned_character = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		target # selected character
-	}
+    saved_scopes = {
+        target # selected character
+    }
 
-	effect = {
-		remove_character_flag = pinned_for_edit
-		scope:target = {
-			remove_list_variable = { name = pinned_characters target = prev}
-		}
-	}
+    effect = {
+        remove_character_flag = pinned_for_edit
+        scope:target = {
+            remove_list_variable = { name = pinned_characters target = prev}
+        }
+    }
 }
 
 DI_kill_character = {
-	scope = character
-	
-	effect = {
-		death = natural
-	}
+    scope = character
+
+    effect = {
+        death = natural
+    }
 }
 
 DI_set_designated_heir = {
-	scope = character
+    scope = character
 
-	effect = {
-		set_designated_heir = scope:heir
-	}
+    effect = {
+        set_designated_heir = scope:heir
+    }
 }
 
 DI_set_alternate_designated_heir = {
-	scope = character
+    scope = character
 
-	effect = {
-		set_designated_heir = scope:heir
-	}
+    effect = {
+        set_designated_heir = scope:heir
+    }
 }
 
 DI_change_name = {
-	scope = character
+    scope = character
 
-	effect = {
-		trigger_event = { id = DI_char_editor.1 }
-	}
+    effect = {
+        trigger_event = { id = DI_char_editor.1 }
+    }
 }
 
 DI_imprison = {
-	scope = character
-	
-	effect = {
-		imprison = {
-			target = scope:target
-			type = house_arrest
-		}
-	}
+    scope = character
+
+    effect = {
+        imprison = {
+            target = scope:target
+            type = house_arrest
+        }
+    }
 }
 
 DI_imprison_alternate = {
-	scope = character
-	
-	effect = {
-		imprison = {
-			target = scope:target
-			type = dungeon
-		}
-	}
+    scope = character
+
+    effect = {
+        imprison = {
+            target = scope:target
+            type = dungeon
+        }
+    }
 }
 
 DI_vassalize = {
-	scope = character
-	
-	effect = {
-		create_title_and_vassal_change = {
-			type = swear_fealty
-			save_scope_as = change
-		}
-		
-		scope:target = {
-			change_liege = {
-				liege = root
-				change = scope:change
-			}
-		}
-		
-		resolve_title_and_vassal_change = scope:change
-	}
+    scope = character
+
+    effect = {
+        create_title_and_vassal_change = {
+            type = swear_fealty
+            save_scope_as = change
+        }
+
+        scope:target = {
+            change_liege = {
+                liege = root
+                change = scope:change
+            }
+        }
+
+        resolve_title_and_vassal_change = scope:change
+    }
 }
 
 DI_add_stress_effect = {
-	scope = character
-		
-	effect = {
-		add_stress = 20
-	}
+    scope = character
+
+    effect = {
+        add_stress = 20
+    }
 }
 
 
 DI_remove_stress_effect = {
-		scope = character
-		
-		effect = {
-			add_stress = -20
-        }
+    scope = character
+
+    effect = {
+        add_stress = -20
+    }
 }
 
 DI_strong_claim = {
-	scope = character
+    scope = character
 
-	effect = {
-		make_claim_strong = scope:claim_title
-	}
+    effect = {
+        make_claim_strong = scope:claim_title
+    }
 }
 
 DI_weak_claim = {
-	scope = character
-	
-	effect = {
-		make_claim_weak = scope:claim_title
-	}
+    scope = character
+
+    effect = {
+        make_claim_weak = scope:claim_title
+    }
 }
 
 DI_get_title = {
-	scope = character
-	
-	effect = {
-		get_title = scope:claim_title
-	}
+    scope = character
+
+    effect = {
+        get_title = scope:claim_title
+    }
 }
 
 DI_destroy_title = {
-	scope = character
-	
-	effect = {
-		destroy_title = scope:claim_title
-	}
+    scope = character
+
+    effect = {
+        destroy_title = scope:claim_title
+    }
 }
 
 DI_culture_change = {
-	scope = character
-	
-	saved_scopes = {
-		selected_culture # The selected culture from the culture.gui window
-	}
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    saved_scopes = {
+        selected_culture # The selected culture from the culture.gui window
+    }
 
-				hidden_effect = {
-					set_culture = scope:selected_culture
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				set_culture = scope:selected_culture
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_culture = scope:selected_culture
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_culture = scope:selected_culture
+            }
+        }
+    }
 }
 
 DI_culture_list_load = {
-	scope = character
-	
-	effect = {		
-		every_culture_global = {
-			if = {
-			limit = {
-				NOT = {
-					any_in_global_list = {
-						variable = DI_heritage_list
-						has_same_culture_heritage = prev
-					}
-				}
-			}
-			add_to_global_variable_list = { name = DI_heritage_list target = this }
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        every_culture_global = {
+            if = {
+                limit = {
+                    NOT = {
+                        any_in_global_list = {
+                            variable = DI_heritage_list
+                            has_same_culture_heritage = prev
+                        }
+                    }
+                }
+                add_to_global_variable_list = { name = DI_heritage_list target = this }
+            }
+        }
+    }
 }
 
 DI_change_myculture = {
-	scope = character
-	
-	effect = {
-		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
-			
-	
-			hidden_effect = {
-				set_culture = root.culture
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        every_living_character = {
+            limit = { has_character_flag = pinned_for_edit }
+
+
+            hidden_effect = {
+                set_culture = root.culture
+            }
+        }
+    }
 }
 
 DI_change_myculture_county = {
-	scope = character
-	
-	effect = {
-		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
-			
-			every_sub_realm_county = {
-				set_county_culture = root.culture
-			}
-	
-			every_vassal_or_below = {
-				set_culture = root.culture
-			}
-			
-			set_culture = root.culture
-		}
-	}
+    scope = character
+
+    effect = {
+        every_living_character = {
+            limit = { has_character_flag = pinned_for_edit }
+
+            every_sub_realm_county = {
+                set_county_culture = root.culture
+            }
+
+            every_vassal_or_below = {
+                set_culture = root.culture
+            }
+
+            set_culture = root.culture
+        }
+    }
 }
 
 DI_religion_change = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		selected_faith # The selected faith from the religion.gui window
-	}
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    saved_scopes = {
+        selected_faith # The selected faith from the religion.gui window
+    }
 
-				hidden_effect = {
-					set_character_faith = scope:selected_faith
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				set_character_faith = scope:selected_faith
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_character_faith = scope:selected_faith
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_character_faith = scope:selected_faith
+            }
+        }
+    }
 }
 
 DI_religion_list_load = {
-	scope = character
-	
-	effect = {
-		every_religion_global = {
-			if = {
-				limit = {
-					NOT = {
-						any_in_global_list = {
-							variable = DI_religion_list
-							this = prev
-						}
-					}
-				}
-				add_to_global_variable_list = { name = DI_religion_list target = this }
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        every_religion_global = {
+            if = {
+                limit = {
+                    NOT = {
+                        any_in_global_list = {
+                            variable = DI_religion_list
+                            this = prev
+                        }
+                    }
+                }
+                add_to_global_variable_list = { name = DI_religion_list target = this }
+            }
+        }
+    }
 }
 
 DI_change_myreligion = {
-	scope = character
-	
-	effect = {
-		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
-			
-	
-			hidden_effect = {
-				set_character_faith = root.faith
-			}
-		}
-	}
+    scope = character
+
+    effect = {
+        every_living_character = {
+            limit = { has_character_flag = pinned_for_edit }
+
+
+            hidden_effect = {
+                set_character_faith = root.faith
+            }
+        }
+    }
 }
 
 DI_change_myreligion_county = {
-	scope = character
-	
-	effect = {
-		every_living_character = {
-			limit = { has_character_flag = pinned_for_edit }
-			
-			every_sub_realm_county = {
-				set_county_faith = root.faith
-			}
-	
-			every_vassal_or_below = {
-				set_character_faith_with_conversion = root.faith
-			}
-			
-			set_character_faith = root.faith
-		}
-	}
+    scope = character
+
+    effect = {
+        every_living_character = {
+            limit = { has_character_flag = pinned_for_edit }
+
+            every_sub_realm_county = {
+                set_county_faith = root.faith
+            }
+
+            every_vassal_or_below = {
+                set_character_faith_with_conversion = root.faith
+            }
+
+            set_character_faith = root.faith
+        }
+    }
 }
 
 ### Character Spawner ###
 DI_pinned_char_var_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_pinned_char_var
-				}
-				remove_variable = DI_pinned_char_var
-			}
-			else = {
-				set_variable = DI_pinned_char_var
-			}
-		}
-	}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_pinned_char_var
+                }
+                remove_variable = DI_pinned_char_var
+            }
+            else = {
+                set_variable = DI_pinned_char_var
+            }
+        }
+    }
 }
 
 DI_char_spawner_female_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_female 
-				}
-				remove_variable = DI_char_spawner_female
-				set_variable = {
-					name = DI_female_chance
-					value = 0
-				}
-			}
-			else = {
-				set_variable = DI_char_spawner_female
-				set_variable = {
-					name = DI_female_chance
-					value = 100
-				}
-			}
-		}
-	}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_char_spawner_female
+                }
+                remove_variable = DI_char_spawner_female
+                set_variable = {
+                    name = DI_female_chance
+                    value = 0
+                }
+            }
+            else = {
+                set_variable = DI_char_spawner_female
+                set_variable = {
+                    name = DI_female_chance
+                    value = 100
+                }
+            }
+        }
+    }
 }
 
 DI_char_spawner_immortal_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_immortal
-				}
-				remove_variable = DI_char_spawner_immortal
-			}
-			else = {
-				set_variable = DI_char_spawner_immortal
-			}
-		}
-	}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_char_spawner_immortal
+                }
+                remove_variable = DI_char_spawner_immortal
+            }
+            else = {
+                set_variable = DI_char_spawner_immortal
+            }
+        }
+    }
 }
 
 DI_char_spawner_100_stat_man_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_100_stat_man
-				}
-				remove_variable = DI_char_spawner_100_stat_man
-			}
-			else = {
-				set_variable = DI_char_spawner_100_stat_man
-			}
-		}
-	}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_char_spawner_100_stat_man
+                }
+                remove_variable = DI_char_spawner_100_stat_man
+            }
+            else = {
+                set_variable = DI_char_spawner_100_stat_man
+            }
+        }
+    }
 }
 
 DI_char_spawner_good_traits_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_good_traits
-				}
-				remove_variable = DI_char_spawner_good_traits
-			}
-			else = {
-				set_variable = DI_char_spawner_good_traits
-			}
-		}
-	}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_char_spawner_good_traits
+                }
+                remove_variable = DI_char_spawner_good_traits
+            }
+            else = {
+                set_variable = DI_char_spawner_good_traits
+            }
+        }
+    }
 }
 
 DI_char_spawner_no_traits_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		save_scope_as = player
+    effect = {
+        save_scope_as = player
 
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			if = {
-				limit = {
-					has_variable = DI_char_spawner_no_traits
-				}
-				remove_variable = DI_char_spawner_no_traits
-				scope:player = { DI_random_traits_effect = yes }
-			}
-			else = {
-				set_variable = DI_char_spawner_no_traits
-				scope:player = { DI_no_random_traits_effect = yes }
-			}
-		}
-	}
+        scope:DI_story = {
+            if = {
+                limit = {
+                    has_variable = DI_char_spawner_no_traits
+                }
+                remove_variable = DI_char_spawner_no_traits
+                scope:player = { DI_random_traits_effect = yes }
+            }
+            else = {
+                set_variable = DI_char_spawner_no_traits
+                scope:player = { DI_no_random_traits_effect = yes }
+            }
+        }
+    }
 }
 
 DI_vbox_character_list = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		NOT = { has_variable_list = pinned_characters }
-	}
+    is_valid = {
+        NOT = { has_variable_list = pinned_characters }
+    }
 }
 
 DI_test_sgui = {
-	scope = character
+    scope = character
 
-	effect = {
-		save_scope_as = target
+    effect = {
+        save_scope_as = target
 
-		if = {
-			limit = {
-				has_variable_list = DI_pinned_traits
-			}
-			every_in_list = {
-				variable = DI_pinned_traits
-				
-				scope:target.player_heir = {
-					add_to_variable_list = {
-						name = DI_pinned_traits
-						target = prev
-					
-					}
-				}
-			}
-		}
-	}
+        if = {
+            limit = {
+                has_variable_list = DI_pinned_traits
+            }
+            every_in_list = {
+                variable = DI_pinned_traits
+
+                scope:target.player_heir = {
+                    add_to_variable_list = {
+                        name = DI_pinned_traits
+                        target = prev
+
+                    }
+                }
+            }
+        }
+    }
 }
 
 DI_advcm_check = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		has_global_variable = advcm_enabled
-	}
+    is_valid = {
+        has_global_variable = advcm_enabled
+    }
 }
 
 ### Check if the player character has a ###
 ### misc_variables story, or create one ###
 ###########################################
 DI_misc_variable_story_check = {
-	scope = character
+    scope = character
 
-	is_valid = {
-		is_alive = yes
-		OR = {
-			NOT = {
-				any_owned_story = {
-					story_type = DI_misc_variables_story
-				}
-			}
-			any_owned_story = {
-				story_type = DI_misc_variables_story
-				count > 1
-			}
-		}
-	}
+    is_valid = {
+        is_alive = yes
+        OR = {
+            NOT = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                }
+            }
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                count > 1
+            }
+        }
+    }
 
-	effect = {
-		debug_log = "DI_debug: Trigger"
-		DI_clear_misc_variables_effect = yes # This should clean old variables on loaded saved files, may remove later
-		if = {
-			limit = {
-				NOT = {
-					any_owned_story = {
-						story_type = DI_misc_variables_story
-					}
-				}
-			}
-			debug_log_scopes = yes
-			debug_log = "DI_debug: Create DI_misc_variables_story"
-			create_story = DI_misc_variables_story
-		}
-		else = { # if there are more than one, delete all
-			every_owned_story = {
-				limit = {
-					story_type = DI_misc_variables_story
-				}
-				debug_log_scopes = yes
-				debug_log = "DI_debug: Delete DI_misc_variables_story"
-				end_story = yes
-			}
-		}
-	}
+    effect = {
+        debug_log = "DI_debug: Trigger"
+        DI_clear_misc_variables_effect = yes # This should clean old variables on loaded saved files, may remove later
+        if = {
+            limit = {
+                NOT = {
+                    any_owned_story = {
+                        story_type = DI_misc_variables_story
+                    }
+                }
+            }
+            debug_log_scopes = yes
+            debug_log = "DI_debug: Create DI_misc_variables_story"
+            create_story = DI_misc_variables_story
+        }
+        else = { # if there are more than one, delete all
+            every_owned_story = {
+                limit = {
+                    story_type = DI_misc_variables_story
+                }
+                debug_log_scopes = yes
+                debug_log = "DI_debug: Delete DI_misc_variables_story"
+                end_story = yes
+            }
+        }
+    }
 }
 
 ### Pinned Characters legitimacy tabs ###
 DI_set_legitimacy = {
-	scope = character
+    scope = character
 
-	saved_scopes = {
-		threshold # Threshold to next tab
-		legitimacy # Legitimacy value
-	}
+    saved_scopes = {
+        threshold # Threshold to next tab
+        legitimacy # Legitimacy value
+    }
 
-	effect = {
-		set_variable = {
-			name = DI_legitimacy_change
-			value = scope:threshold
-		}
+    effect = {
+        set_variable = {
+            name = DI_legitimacy_change
+            value = scope:threshold
+        }
 
-		change_variable = {
-			name = DI_legitimacy_change
-			subtract = scope:legitimacy
-		}
+        change_variable = {
+            name = DI_legitimacy_change
+            subtract = scope:legitimacy
+        }
 
-		add_legitimacy = root.var:DI_legitimacy_change
-		remove_variable = DI_legitimacy_change
-	}
+        add_legitimacy = root.var:DI_legitimacy_change
+        remove_variable = DI_legitimacy_change
+    }
 }

@@ -129,7 +129,7 @@ window = {
 					blockoverride "container_implementation" {
 						fixedgridbox = {
 							addcolumn = 750
-							addrow = 135
+							addrow = 200
 		
 							name = "characters_grid"
 							datamodel_reuse_widgets = yes
@@ -138,7 +138,7 @@ window = {
 		
 							item = {
 								DI_widget_character_list_item_finder = {
-									size = { 750 130 }
+									size = { 750 180 }
 								}
 							}
 						}
@@ -379,7 +379,7 @@ Types Pinned_Characters
 
 	type DI_widget_character_list_item_finder = widget {
 		datacontext = "[Scope.GetCharacter]"
-		size = { 700 675 }
+		size = { 700 700 }
 
 		block "divider" {}
 
@@ -1071,6 +1071,97 @@ Types Pinned_Characters
 														alwaystransparent = yes
 													}
 												}														
+											}
+											# influence
+											hbox = {
+												visible = "[HasDlcFeature( 'admin_gov' )]"
+												spacing = 25
+
+												button_round = {
+													size = { 25 25 }
+													onclick = "[GetScriptedGui('DI_remove_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+													button_minus_small = {
+														name = "increase_skill"
+														parentanchor = center
+														alwaystransparent = yes
+													}
+												}
+												
+												hbox = {
+													spacing = 2
+													icon = {
+														parentanchor = left
+														size = { 25 25 }
+														texture = "[Character.GetInfluenceLevelTexture]"
+													}
+													
+													text_single = {
+														size = { 80 20 }
+														text = "[Character.GetInfluence|0]"
+														default_format = "#high"
+														autoresize = no
+														align = nobaseline
+													}
+												}
+												
+												button_round = {
+													size = { 25 25 }
+													onclick = "[GetScriptedGui('DI_add_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+													button_plus_small = {
+														name = "increase_skill"
+														parentanchor = center
+														alwaystransparent = yes
+													}
+												}
+											}
+
+											# provisions
+											hbox = {
+												visible = "[IsLandlessAdventurer( Character )]"
+												spacing = 25
+
+												button_round = {
+													size = { 25 25 }
+													onclick = "[GetScriptedGui('DI_remove_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
+
+													button_minus_small = {
+														name = "increase_skill"
+														parentanchor = center
+														alwaystransparent = yes
+													}
+												}
+												
+												hbox = {
+													spacing = 2
+													icon = {
+														parentanchor = left
+														size = { 25 25 }
+														framesize = { 60 60 }
+														frame = 0
+														texture = "gfx/interface/icons/icon_camp_supply.dds"
+													}
+													
+													text_single = {
+														size = { 80 20 }
+														text = "[Character.GetDomicile.GetProvisions|0]"
+														default_format = "#high"
+														autoresize = no
+														align = nobaseline
+													}
+												}
+												
+												button_round = {
+													size = { 25 25 }
+													onclick = "[GetScriptedGui('DI_add_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
+
+													button_plus_small = {
+														name = "increase_skill"
+														parentanchor = center
+														alwaystransparent = yes
+													}
+												}
 											}
 										}
 									}

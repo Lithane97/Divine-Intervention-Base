@@ -7,34 +7,34 @@
     filter_mouse = all
     allow_outside = yes
     alwaystransparent = no
-    
+
     using = Window_Background
     using = Window_Decoration
     movable = yes
     visible = "[GetVariableSystem.Exists('DI_char_spawner_window_visible')]"
-    
+
     datacontext = "[GetVariableSystem]"
     datacontext = "[GetPlayer]"
-    
+
     state = {
         name = _show
         using = Animation_FadeIn_Quick
         on_finish = "[PdxGuiWidget.StackTop]"
     }
-    
+
     state = {
         name = _hide
         using = Animation_FadeOut_Quick
     }
-    
+
     state = {
         name = init
         using = Animation_FadeIn_Quick
         trigger_on_create = yes
-        
+
         on_finish = "[GetVariableSystem.Set('show_char_spawner', 'family')]"
     }
-    
+
     vbox = {
         margin_left = 40
         margin_right = 40
@@ -42,54 +42,54 @@
         margin_top = 20
         ignoreinvisible = yes
         restrictparent_min = yes
-        
+
         header_pattern = {
             layoutpolicy_horizontal = expanding
-            
-            
+
+
             blockoverride "header_text"
             {
                 text = DI_char_spawner
             }
-            
+
             blockoverride "button_close"
             {
                 onclick = "[GetVariableSystem.Toggle('DI_char_spawner_window_visible')]"
             }
         }
-        
+
         hbox = {
             hbox = {
                 spacing = 5
                 margin = { 10 0 }
                 margin_bottom = 5
-                
+
                 button_round = {
                     size = { 28 28 }
                     enabled = "[GetScriptedGui('DI_char_spawner_count_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                     onclick = "[GetScriptedGui('DI_char_spawner_count_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                    
+
                     button_minus_small = {
                         name = "decrease_skill"
                         parentanchor = center
                         alwaystransparent = yes
                     }
                 }
-                
+
                 text_label_center = {
                     name = "increment"
                     size = { 30 30 }
-                    
+
                     text = DI_char_spawner_count_increment
                     tooltip = DI_char_spawner_count_increment_tt
                     default_format = "#low"
                 }
-                
+
                 button_round = {
                     size = { 28 28 }
                     enabled = "[GetScriptedGui('DI_char_spawner_count_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                     onclick = "[GetScriptedGui('DI_char_spawner_count_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                    
+
                     button_plus_small = {
                         name = "decrease_skill"
                         parentanchor = center
@@ -101,33 +101,33 @@
                 spacing = 5
                 margin = { 10 0 }
                 margin_bottom = 5
-                
+
                 button_round = {
                     size = { 28 28 }
                     enabled = "[GetScriptedGui('DI_char_spawner_age_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                     onclick = "[GetScriptedGui('DI_char_spawner_age_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                    
+
                     button_minus_small = {
                         name = "decrease_skill"
                         parentanchor = center
                         alwaystransparent = yes
                     }
                 }
-                
+
                 text_label_center = {
                     name = "increment"
                     size = { 30 30 }
-                    
+
                     text = DI_char_spawner_age_increment
                     tooltip = DI_char_spawner_age_increment_tt
                     default_format = "#low"
                 }
-                
+
                 button_round = {
                     size = { 28 28 }
                     enabled = "[GetScriptedGui('DI_char_spawner_age_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                     onclick = "[GetScriptedGui('DI_char_spawner_age_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                    
+
                     button_plus_small = {
                         name = "decrease_skill"
                         parentanchor = center
@@ -136,127 +136,127 @@
                 }
             }
         }
-        
+
         vbox = {
             margin_top = 5
             spacing = 5
-            
+
             hbox = {
                 spacing = 30
                 layoutpolicy_horizontal = expanding
-                
+
                 vbox = {
                     margin_left = 20
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetScriptedGui('DI_char_spawner_immortal_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        
+
                         blockoverride "checkbox"
                         {
                             checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_immortal').IsSet]"
                         }
-                        
+
                         blockoverride "text"
                         {
                             text = DI_char_spawner_immortal
                         }
                     }
                 }
-                
+
                 vbox = {
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetScriptedGui('DI_char_spawner_100_stat_man_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        
+
                         blockoverride "checkbox"
                         {
                             checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_100_stat_man').IsSet]"
                         }
-                        
+
                         blockoverride "text"
                         {
                             text = DI_char_spawner_100_stat_man
                         }
                     }
                 }
-                
+
                 vbox = {
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetScriptedGui('DI_char_spawner_good_traits_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        
+
                         blockoverride "checkbox"
                         {
                             checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_good_traits').IsSet]"
                         }
-                        
+
                         blockoverride "text"
                         {
                             text = DI_char_spawner_good_traits
                         }
                     }
                 }
-                
+
                 expand = {}
             }
-            
+
             hbox = {
                 spacing = 43
                 layoutpolicy_horizontal = expanding
-                
+
                 vbox = {
                     margin_left = 20
-                    
+
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetScriptedGui('DI_char_spawner_female_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        
-                        
+
+
                         blockoverride "checkbox"
                         {
                             checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_female').IsSet]"
                         }
-                        
+
                         blockoverride "text"
                         {
                             text = DI_char_spawner_female
                         }
                     }
                 }
-                
+
                 # pinned char
                 vbox = {
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetScriptedGui('DI_pinned_char_var_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        
-                        
+
+
                         blockoverride "checkbox"
                         {
                             checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet]"
                         }
-                        
+
                         blockoverride "text"
                         {
                             text = DI_pinned_char_var
                         }
                     }
                 }
-                
+
                 # no traits
                 vbox = {
                     margin_left = 29
-                    
+
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetScriptedGui('DI_char_spawner_no_traits_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        
-                        
+
+
                         blockoverride "checkbox"
                         {
                             checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_no_traits').IsSet]"
                         }
-                        
+
                         blockoverride "text"
                         {
                             text = DI_char_spawner_no_traits
@@ -266,18 +266,18 @@
                 expand = {}
             }
         }
-        
+
         hbox = {
             name = "tabs"
             layoutpolicy_horizontal = expanding
             margin_top = 10
-            
+
             # family tab
             button_tab = {
                 layoutpolicy_horizontal = expanding
                 onclick = "[GetVariableSystem.Set('show_char_spawner', 'family')]"
                 down = "[GetVariableSystem.HasValue('show_char_spawner', 'family')]"
-                
+
                 text_single = {
                     parentanchor = center
                     text = DI_family_char_spawner
@@ -285,13 +285,13 @@
                     default_format = "#low"
                 }
             }
-            
+
             # Quick Actions
             button_tab = {
                 layoutpolicy_horizontal = expanding
                 onclick = "[GetVariableSystem.Set('show_char_spawner', 'councillors')]"
                 down = "[GetVariableSystem.HasValue('show_char_spawner', 'councillors')]"
-                
+
                 text_single = {
                     parentanchor = center
                     text = DI_councillors_char_spawner
@@ -299,13 +299,13 @@
                     default_format = "#low"
                 }
             }
-            
+
             # Conversion tab
             button_tab = {
                 layoutpolicy_horizontal = expanding
                 onclick = "[GetVariableSystem.Set('show_char_spawner', 'court')]"
                 down = "[GetVariableSystem.HasValue('show_char_spawner', 'court')]"
-                
+
                 text_single = {
                     parentanchor = center
                     text = DI_court_char_spawner
@@ -314,7 +314,7 @@
                 }
             }
         }
-        
+
         widget = {
             size = { 420 460 }
             ### FAMILY SPAWNER PANEL ###
@@ -322,28 +322,28 @@
                 name = "family_char_spawner_selection_panel"
                 visible = "[GetVariableSystem.HasValue( 'show_char_spawner', 'family' )]"
                 margin = { 10 15 }
-                
+
                 scrollbox = {
                     layoutpolicy_horizontal = expanding
                     size = { 400 450 }
-                    
+
                     blockoverride "scrollbox_content"
                     {
                         vbox = {
                             name = "family_list"
                             layoutpolicy_horizontal = expanding
                             spacing = 5
-                            
+
                             # Child Button
                             button_standard_clean = {
                                 name = "DI_child"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_child').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -352,37 +352,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_child.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_child
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 tooltip = "DI_child_tt"
                             }
-                            
+
                             # Sibling Button
                             button_standard_clean = {
                                 name = "DI_sibling"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_sibling').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -391,37 +391,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_siblings.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_sibling
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 tooltip = "DI_sibling_tt"
                             }
-                            
+
                             # Parent Button
                             button_standard_clean = {
                                 name = "DI_parent"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_parent').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -430,57 +430,57 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_parent.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_parent
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 tooltip = "DI_parent_tt"
                             }
                         }
                     }
                 }
             }
-            
+
             ### COUNCILLORS SPAWNER PANEL ###
             vbox = {
                 name = "councillors_char_spawner_selection_panel"
                 visible = "[GetVariableSystem.HasValue( 'show_char_spawner', 'councillors' )]"
                 margin = { 10 15 }
-                
+
                 scrollbox = {
                     layoutpolicy_horizontal = expanding
                     size = { 400 450 }
-                    
+
                     blockoverride "scrollbox_content" {
                         vbox = {
                             name = "family_list"
                             layoutpolicy_horizontal = expanding
                             spacing = 5
-                            
+
                             # diplomacy councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_chancellor"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_diplomacy_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -489,37 +489,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Chancellor.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_diplomacy_councillor
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # marshal councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_martial_councillor"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_martial_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -528,37 +528,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Marshal.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_martial_councillor
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # steward councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_steward"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_stewardship_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -567,37 +567,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Steward.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_stewardship_councillor
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # spymaster councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_spymaster"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_intrigue_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -606,37 +606,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Spymaster.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_intrigue_councillor
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # chaplain councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_chaplain"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_learning_councillor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -645,37 +645,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Chaplain.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_learning_councillor
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # knight councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_knight"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_knight').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -684,37 +684,37 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Knight.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_knight
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # commander councillor button standard clean
                             button_standard_clean = {
                                 name = "DI_commander"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_commander').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -723,57 +723,57 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
+
                                     icon = {
                                         size = { 50 50 }
                                         texture = "gfx/interface/icons/DI_Commander.dds"
                                     }
-                                    
+
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
                                         text = DI_commander
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
                         }
                     }
                 }
             }
-            
+
             ### COURT SPAWNER PANEL ###
             vbox = {
                 name = "court_char_spawner_selection_panel"
                 visible = "[GetVariableSystem.HasValue( 'show_char_spawner', 'court' )]"
                 margin = { 10 15 }
-                
+
                 scrollbox = {
                     layoutpolicy_horizontal = expanding
                     size = { 400 450 }
-                    
+
                     blockoverride "scrollbox_content" {
                         vbox = {
                             name = "court_list"
                             layoutpolicy_horizontal = expanding
                             spacing = 5
-                            
+
                             # normal courtier button standard clean
                             button_standard_clean = {
                                 name = "DI_normal_courtier"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_normal_courtier').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -782,37 +782,33 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/DI_normal_courtier.dds"
-                                    }
-                                    
+
                                     text_single = {
+                                        margin_left = 60
                                         layoutpolicy_horizontal = expanding
                                         text = DI_normal_courtier
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # low normal courtier button standard clean
                             button_standard_clean = {
                                 name = "DI_low_normal_courtier"
                                 layoutpolicy_horizontal = expanding
                                 size = { 0 60 }
                                 onclick = "[GetScriptedGui('DI_low_normal_courtier').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
+
                                 background = {
                                     using = Background_Area_Dark
-                                    
+
                                     modify_texture = {
                                         texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
                                         blend_mode = alphamultiply
@@ -821,1027 +817,293 @@
                                         mirror = vertical
                                     }
                                 }
-                                
+
                                 hbox = {
                                     margin = { 5 0 }
                                     margin_right = 10
                                     spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/DI_low_normal_courtier.dds"
-                                    }
-                                    
+
                                     text_single = {
+                                        margin_left = 60
                                         layoutpolicy_horizontal = expanding
                                         text = DI_low_normal_courtier
                                         default_format = "#bold"
                                     }
                                 }
-                                
+
                                 # tooltip = ""
                             }
-                            
+
                             # court physician button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_physician"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_physician_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_physician').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/message_feed/court_physician.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_physician
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court antiquarian button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_antiquarian"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('antiquarian_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_antiquarian').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/character_interactions/artifact.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_antiquarian
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
-                            # court travel leader button standard clean
-                            button_standard_clean = {
-                                name = "DI_travel_leader"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+
+                            # travel leader button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('travel_leader_court_position')]"
                                 onclick = "[GetScriptedGui('DI_travel_leader').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/traveler.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = travel_leader_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
+                            # wet nurse button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('wet_nurse_court_position')]"
+                                onclick = "[GetScriptedGui('DI_wet_nurse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                visible = "[HasDlcFeature('wards_and_wardens')]"
+                            }
+
                             # court tutor button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_tutor"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_tutor_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_tutor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/message_feed/learning.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = court_tutor_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
-                            # court master of hunt button standard clean
-                            button_standard_clean = {
-                                name = "DI_master_of_hunt"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+
+                            # master of hunt button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('master_of_hunt_court_position')]"
                                 onclick = "[GetScriptedGui('DI_master_of_hunt').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/hunter.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = master_of_hunt_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
-                            # court seneschal button standard clean
-                            button_standard_clean = {
-                                name = "DI_seneschal"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+
+                            # seneschal button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('seneschal_court_position')]"
                                 onclick = "[GetScriptedGui('DI_seneschal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/message_feed/diplomacy.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = seneschal_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court jester button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_jester"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_jester_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_jester').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/culture_tradition/4-items/board_gamers.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = court_jester_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # bodyguard button standard clean
-                            button_standard_clean = {
-                                name = "DI_bodyguard"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('bodyguard_court_position')]"
                                 onclick = "[GetScriptedGui('DI_bodyguard').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/education_martial_prowess_base.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = bodyguard_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
                             }
-                            
+
                             # court champion button standard clean
-                            button_standard_clean = {
-                                name = "DI_champion"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('champion_court_position')]"
                                 onclick = "[GetScriptedGui('DI_champion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/education_martial_prowess_base.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = champion_court_position
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court food taster button standard clean
-                            button_standard_clean = {
-                                name = "DI_food_taster"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('food_taster_court_position')]"
                                 onclick = "[GetScriptedGui('DI_food_taster').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/event_types/type_feast.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_food_taster
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court master of horse button standard clean
-                            button_standard_clean = {
-                                name = "DI_master_of_horse"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('master_of_horse_court_position')]"
                                 onclick = "[GetScriptedGui('DI_master_of_horse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/athletic.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_master_of_horse
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court royal architect button standard clean
-                            button_standard_clean = {
-                                name = "DI_royal_architect"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('royal_architect_court_position')]"
                                 onclick = "[GetScriptedGui('DI_royal_architect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/architect.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_royal_architect
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court high almoner button standard clean
-                            button_standard_clean = {
-                                name = "DI_high_almoner"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('high_almoner_court_position')]"
                                 onclick = "[GetScriptedGui('DI_high_almoner').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/council_task_types/task_conversion.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_high_almoner
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court cupbearer button standard clean
-                            button_standard_clean = {
-                                name = "DI_cupbearer"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('cupbearer_court_position')]"
                                 onclick = "[GetScriptedGui('DI_cupbearer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/trait_level_tracks/lifestyle_reveler.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_cupbearer
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court poet button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_poet"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_poet_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_poet').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/poet.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_poet
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court musician button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_musician"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_musician_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_musician').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/culture_tradition/4-items/musician.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_musician
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # court artificer button standard clean
-                            button_standard_clean = {
-                                name = "DI_artificer"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
-                                onclick = "[GetScriptedGui('DI_court_artificer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_artificer_court_position')]"
+                                onclick = "[GetScriptedGui('DI_artificer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/character_interactions/artifact.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_artificer
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
-                            
+
                             # lady in waiting button standard clean
-                            button_standard_clean = {
-                                name = "DI_lady_in_waiting"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('lady_in_waiting_court_position')]"
                                 onclick = "[GetScriptedGui('DI_lady_in_waiting').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 enabled = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_female').IsSet]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/DI_Lady_in_waiting.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_lady_in_waiting
-                                        default_format = "#bold"
-                                    }
-                                }
-
-                                # tooltip = ""
                             }
-                            
+
                             # chief eunuch button standard clean
-                            button_standard_clean = {
-                                name = "DI_chief_eunuch"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('chief_eunuch_court_position')]"
                                 onclick = "[GetScriptedGui('DI_chief_eunuch').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 enabled = "[Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_female').IsSet)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/DI_Chief_eunuch.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_chief_eunuch
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
 
                             # executioner button standard clean
-                            button_standard_clean = {
-                                name = "DI_executioner"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('executioner_court_position')]"
                                 onclick = "[GetScriptedGui('DI_executioner').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/flat_icons/prison_execute.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_executioner
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
 
                             # cultural emissary button standard clean
-                            button_standard_clean = {
-                                name = "DI_cultural_emissary"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('cultural_emissary_court_position')]"
                                 onclick = "[GetScriptedGui('DI_cultural_emissary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/memory_types/diplomacy.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_cultural_emissary
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
 
                             # keeper of swans button standard clean
-                            button_standard_clean = {
-                                name = "DI_keeper_of_swans"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('keeper_of_swans_court_position')]"
                                 onclick = "[GetScriptedGui('DI_keeper_of_swans').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/council_task_types/task_foreign_affairs.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_keeper_of_swans
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
 
                             # chief qadi button standard clean
-                            button_standard_clean = {
-                                name = "DI_chief_qadi"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('chief_qadi_court_position')]"
                                 onclick = "[GetScriptedGui('DI_chief_qadi').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/council_task_types/task_conversion.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_chief_qadi
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
 
                             # garuda button standard clean
-                            button_standard_clean = {
-                                name = "DI_garuda"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('garuda_court_position')]"
                                 onclick = "[GetScriptedGui('DI_garuda').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/icon_knight.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_garuda
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
                             }
 
                             # court gardener button standard clean
-                            button_standard_clean = {
-                                name = "DI_court_gardener"
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 60 }
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_gardener_court_position')]"
                                 onclick = "[GetScriptedGui('DI_court_gardener').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 visible = "[GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                
-                                background = {
-                                    using = Background_Area_Dark
-                                    
-                                    modify_texture = {
-                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                                        blend_mode = alphamultiply
-                                        alpha = 0.3
-                                        rotate_uv = 90
-                                        mirror = vertical
-                                    }
-                                }
-                                
-                                hbox = {
-                                    margin = { 5 0 }
-                                    margin_right = 10
-                                    spacing = 10
-                                    
-                                    icon = {
-                                        size = { 50 50 }
-                                        texture = "gfx/interface/icons/traits/gardener.dds"
-                                    }
-                                    
-                                    text_single = {
-                                        layoutpolicy_horizontal = expanding
-                                        text = DI_court_gardener
-                                        default_format = "#bold"
-                                    }
-                                }
-                                
-                                # tooltip = ""
+                            }
+
+                            # chronicler button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('chronicler_court_position')]"
+                                onclick = "[GetScriptedGui('DI_chronicler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                visible = "[HasDlcFeature( 'legends' )]"
+                            }
+
+                            # cave hermit button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('cave_hermit_court_position')]"
+                                onclick = "[GetScriptedGui('DI_cave_hermit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+
+                            # master assassin button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('master_assassin_court_position')]"
+                                onclick = "[GetScriptedGui('DI_master_assassin').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+
+                            # court scholar button standard clean
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('court_scholar_court_position')]"
+                                onclick = "[GetScriptedGui('DI_court_scholar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                visible = "[HasDlcFeature( 'legacy_of_persia' )]"
+                            }
+
+                            # charioteer
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('charioteer_court_position')]"
+                                onclick = "[GetScriptedGui('DI_charioteer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                visible = "[HasDlcFeature( 'admin_gov' )]"
+                            }
+
+                            # bookmaker
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('bookmaker_court_position')]"
+                                onclick = "[GetScriptedGui('DI_bookmaker').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                visible = "[HasDlcFeature( 'admin_gov' )]"
+                            }
+
+                            # akolouthos
+                            DI_character_spawner_button = {
+                                datacontext = "[GetCourtPositionType('akolouthos_court_position')]"
+                                onclick = "[GetScriptedGui('DI_akolouthos').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                visible = "[And(HasDlcFeature( 'admin_gov' ), GetScriptedGui('DI_ep1_court_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
                             }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+types DICharSpawnerShared
+{
+    type DI_character_spawner_button = button_standard_clean {
+        layoutpolicy_horizontal = expanding
+        size = { 0 60 }
+
+        background = {
+            using = Background_Area_Dark
+
+            modify_texture = {
+                texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                blend_mode = alphamultiply
+                alpha = 0.3
+                rotate_uv = 90
+                mirror = vertical
+            }
+        }
+
+        hbox = {
+            margin = { 5 0 }
+            margin_right = 10
+            spacing = 10
+
+            icon = {
+                size = { 50 50 }
+                texture = "[CourtPositionType.GetIcon]"
+            }
+
+            text_single = {
+                layoutpolicy_horizontal = expanding
+                text = "[CourtPositionType.GetNameNoTooltip]"
+                default_format = "#bold"
+            }
+        }
+
+        # tooltip = ""
     }
 }

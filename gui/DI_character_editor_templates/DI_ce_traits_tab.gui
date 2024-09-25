@@ -236,6 +236,22 @@ template DI_CE_Traits_Tab
                 }
             }
 
+            # tracked traits
+            scrollbox = {
+                name = "tracked_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'tracked' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_tracked_traits')]"
+                    }
+                }
+            }
         }
     }
 }
@@ -364,6 +380,20 @@ template DI_CE_Traits_Tabs
                 text_single = {
                     parentanchor = center
                     text = DI_ce_tab_other
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            # tracked tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('ce_traits_tab', 'tracked')]"
+                down = "[GetVariableSystem.HasValue('ce_traits_tab', 'tracked')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_ce_tab_tracked
                     maximumsize = { 400 -1 }
                     default_format = "#low"
                 }
@@ -641,7 +671,13 @@ types DI_trait_menu_types
             state = {
                 name = trait_loader
                 trigger_when = "[Not(EqualTo_string(Trait.GetNameNoTooltip( GetNullCharacter ), Localize('')))]"
-                on_start = "[GetScriptedGui('DI_trait_loader_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                on_start = "[GetScriptedGui('DI_trait_loader_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('tracked', MakeScopeFlag('no')).End)]"
+            }
+
+            state = {
+                name = tracked_trait_loader
+                trigger_when = "[And(Not(EqualTo_string(Trait.GetNameNoTooltip( GetNullCharacter ), Localize(''))), DataModelHasItems( Trait.GetLevelTracks ))]"
+                on_start = "[GetScriptedGui('DI_trait_loader_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('tracked', MakeScopeFlag('yes')).End)]"
             }
         }
     }
