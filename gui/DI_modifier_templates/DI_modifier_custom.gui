@@ -1,26 +1,548 @@
 template DI_CE_Modifiers_Custom
 {
-	### Custom Modifiers ###
-	vbox = {
-		name = "modifiers_custom_selection_panel"
-		spacing = 5
-		visible = "[GetVariableSystem.HasValue( 'ce_modifiers_tab', 'custom' )]"
-		flowcontainer = {
+    ### Custom Modifiers ###
+    vbox = {
+        name = "modifiers_custom_selection_panel"
+        spacing = 5
+        visible = "[GetVariableSystem.HasValue( 'ce_modifiers_tab', 'custom' )]"
+        flowcontainer = {
+            spacing = 5
+            margin_bottom = 0
+            ignoreinvisible = yes
+            datacontext = [GetPlayer]
+
+            dockable_button = {
+                name = "DI_modifier_space_marines_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_space_marines')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # immune_to_schemes
+            dockable_button = {
+                name = "DI_modifier_immune_to_schemes_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_immune_to_schemes')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # contraceptive
+            dockable_button = {
+                name = "DI_modifier_contraceptive_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_contraceptive')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # ultra_build
+            dockable_button = {
+                name = "DI_modifier_ultra_build_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_ultra_build')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # building_slots
+            dockable_button = {
+                name = "DI_modifier_building_slots_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_building_slots')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # one_building_slot
+            dockable_button = {
+                name = "DI_modifier_one_building_slot_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_one_building_slot')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # domain_limit
+            dockable_button = {
+                name = "DI_modifier_domain_limit_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_domain_limit')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # money_printer
+            dockable_button = {
+                name = "DI_modifier_money_printer_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_money_printer')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # legacy_of_piracy
+            dockable_button = {
+                name = "DI_modifier_legacy_of_piracy_button"
+                visible = "[GetScriptedGui('DI_fp1_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_add_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('fp1_legacy_of_piracy_modifier')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_trait_xp_boost
+            dockable_button = {
+                name = "DI_modifier_DI_trait_xp_boost_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_trait_xp_boost')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+        }
+
+        flowcontainer = {
+            spacing = 5
+            margin_bottom = 0
+            ignoreinvisible = yes
+            datacontext = [GetPlayer]
+
+            # DI_godlike_inheritance
+            dockable_button = {
+                name = "DI_modifier_DI_godlike_inheritance_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_godlike_inheritance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_godlike_inheritance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_godlike_inheritance')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_true_rulers
+            dockable_button = {
+                name = "DI_true_rulers_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_true_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_true_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_true_rulers')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_plague_doctor
+            dockable_button = {
+                name = "DI_modifier_DI_plague_doctor_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_plague_doctor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_plague_doctor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_plague_doctor')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_imperial_march
+            dockable_button = {
+                name = "DI_modifier_DI_imperial_march_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_imperial_march').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_imperial_march').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_imperial_march')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_dread_lord
+            dockable_button = {
+                name = "DI_modifier_DI_dread_lord_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_dread_lord')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_lifestyle_mastery
+            dockable_button = {
+                name = "DI_modifier_DI_lifestyle_mastery_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_lifestyle_mastery')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_travel_speed
+            dockable_button = {
+                name = "DI_modifier_DI_travel_speed_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_travel_speed').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_travel_speed').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_travel_speed')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_travel_safety
+            dockable_button = {
+                name = "DI_modifier_DI_travel_safety_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_travel_safety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_travel_safety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_travel_safety')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # DI_legend_spread
+            dockable_button = {
+                name = "DI_modifier_DI_legend_spread_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+                visible = "[HasDlcFeature( 'legends' )]"
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_legend_spread')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # prestige printer
+            dockable_button = {
+                name = "DI_modifier_prestige_printer_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_prestige_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_prestige_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_prestige_printer')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+            # piety printer
+            dockable_button = {
+                name = "DI_modifier_piety_printer_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_piety_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_piety_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_piety_printer')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+        }
+
+        flowcontainer = {
 			spacing = 5
 			margin_bottom = 0
 			ignoreinvisible = yes
 			datacontext = [GetPlayer]
 
+            # DI everybody loves me
+            dockable_button = {
+                name = "DI_modifier_everybody_loves_me_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_everybody_loves_me').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_everybody_loves_me').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_everybody_loves_me')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
+			# no stress change
 			dockable_button = {
-				name = "DI_modifier_space_marines_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				name = "DI_modifier_no_stress_change_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_no_stress_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_no_stress_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				button_ignore = none
 				using = tooltip_ne
 
 				icon = {
 					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_space_marines')]"
+					datacontext = "[GetModifier('no_stress_change')]"
 					datacontext = "[GetPlayer.GetFaith]"
 					parentanchor = center
 					position = { 0 1 }
@@ -33,17 +555,17 @@ template DI_CE_Modifiers_Custom
 				}
 			}
 
-			# immune_to_schemes
+			# no tyranny change
 			dockable_button = {
-				name = "DI_modifier_immune_to_schemes_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				name = "DI_modifier_no_tyranny_change_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_no_tyranny_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_no_tyranny_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				button_ignore = none
 				using = tooltip_ne
 
 				icon = {
 					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_immune_to_schemes')]"
+					datacontext = "[GetModifier('no_tyranny_change')]"
 					datacontext = "[GetPlayer.GetFaith]"
 					parentanchor = center
 					position = { 0 1 }
@@ -56,17 +578,17 @@ template DI_CE_Modifiers_Custom
 				}
 			}
 
-			# contraceptive
+			# no dread change 
 			dockable_button = {
-				name = "DI_modifier_contraceptive_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				name = "DI_modifier_no_dread_change_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_no_dread_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_no_dread_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				button_ignore = none
 				using = tooltip_ne
 
 				icon = {
 					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_contraceptive')]"
+					datacontext = "[GetModifier('no_dread_change')]"
 					datacontext = "[GetPlayer.GetFaith]"
 					parentanchor = center
 					position = { 0 1 }
@@ -79,17 +601,17 @@ template DI_CE_Modifiers_Custom
 				}
 			}
 
-			# ultra_build
+			# no legitimacy change
 			dockable_button = {
-				name = "DI_modifier_ultra_build_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				name = "DI_modifier_no_legitimacy_change_button"
+				onclick = "[GetScriptedGui('DI_add_modifier_no_legitimacy_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_remove_modifier_no_legitimacy_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				button_ignore = none
 				using = tooltip_ne
 
 				icon = {
 					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_ultra_build')]"
+					datacontext = "[GetModifier('no_legitimacy_change')]"
 					datacontext = "[GetPlayer.GetFaith]"
 					parentanchor = center
 					position = { 0 1 }
@@ -101,360 +623,6 @@ template DI_CE_Modifiers_Custom
 					}
 				}
 			}
-
-			# building_slots
-			dockable_button = {
-				name = "DI_modifier_building_slots_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_building_slots')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = {30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# one_building_slot
-			dockable_button = {
-				name = "DI_modifier_one_building_slot_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_one_building_slot')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# domain_limit
-			dockable_button = {
-				name = "DI_modifier_domain_limit_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_domain_limit')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = {30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# money_printer
-			dockable_button = {
-				name = "DI_modifier_money_printer_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_money_printer')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = {30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# legacy_of_piracy
-			dockable_button = {
-				name = "DI_modifier_legacy_of_piracy_button"
-				visible = "[GetScriptedGui('DI_fp1_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onclick = "[GetScriptedGui('DI_add_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('fp1_legacy_of_piracy_modifier')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-			
-			# DI_trait_xp_boost
-			dockable_button = {
-				name = "DI_modifier_DI_trait_xp_boost_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_trait_xp_boost')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-		}
-		
-		flowcontainer = {
-			spacing = 5
-			margin_bottom = 0
-			ignoreinvisible = yes
-			datacontext = [GetPlayer]
-
-			# DI_godlike_inheritance
-			dockable_button = {
-				name = "DI_modifier_DI_godlike_inheritance_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_godlike_inheritance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_godlike_inheritance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_godlike_inheritance')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-			
-			# DI_true_rulers
-			dockable_button = {
-				name = "DI_true_rulers_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_true_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_true_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_true_rulers')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_plague_doctor
-			dockable_button = {
-				name = "DI_modifier_DI_plague_doctor_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_plague_doctor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_plague_doctor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_plague_doctor')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_imperial_march
-			dockable_button = {
-				name = "DI_modifier_DI_imperial_march_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_imperial_march').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_imperial_march').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_imperial_march')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_dread_lord
-			dockable_button = {
-				name = "DI_modifier_DI_dread_lord_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_dread_lord')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_lifestyle_mastery
-			dockable_button = {
-				name = "DI_modifier_DI_lifestyle_mastery_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_lifestyle_mastery')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_travel_speed
-			dockable_button = {
-				name = "DI_modifier_DI_travel_speed_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_travel_speed').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_travel_speed').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_travel_speed')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_travel_safety
-			dockable_button = {
-				name = "DI_modifier_DI_travel_safety_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_travel_safety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_travel_safety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_travel_safety')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-
-			# DI_legend_spread
-			dockable_button = {
-				name = "DI_modifier_DI_legend_spread_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne
-				visible = "[HasDlcFeature( 'legends' )]"
-
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('DI_legend_spread')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					tintcolor = { 0 1 1 1 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}
-				}
-			}
-		}
-	}
+        }
+    }
 }

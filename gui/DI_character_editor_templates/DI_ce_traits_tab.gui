@@ -17,14 +17,14 @@ template DI_CE_Traits_Tab
 
             on_finish = "[GetVariableSystem.Set( 'ce_traits_tab', 'physical' )]"
         }
-        
+
         state = {
             name = traits_list
             trigger_when = "[Not(GetScriptedGui('DI_traits_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
 
             on_finish = "[GetVariableSystem.Set( 'ce_traits_tab', 'debug' )]"
         }
-        
+
         vbox = {
             name = "trait_selection_panel"
             layoutpolicy_vertical = expanding
@@ -51,7 +51,7 @@ template DI_CE_Traits_Tab
                 }
             }
 
-			scrollbox = {
+            scrollbox = {
                 name = "physical_trait_selection_list"
                 layoutpolicy_horizontal = expanding
                 size = { 400 350 }
@@ -180,7 +180,7 @@ template DI_CE_Traits_Tab
                     vbox_DI_trait_selection_content = {
                         layoutpolicy_horizontal = expanding
                         datamodel = "[GetGlobalList('DI_misc_traits')]"
-                        
+
                         blockoverride "test_visible"
                         {
                             visible = "[Not(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_PHYSICAL')))]"
@@ -246,7 +246,7 @@ template DI_CE_Traits_Tab
 
                 blockoverride "scrollbox_content"
                 {
-                    vbox_DI_trait_selection_content = {
+                    vbox_DI_tracked_trait_selection_content = {
                         layoutpolicy_horizontal = expanding
                         datamodel = "[GetGlobalList('DI_tracked_traits')]"
                     }
@@ -522,7 +522,7 @@ template DI_character_trait_tooltip {
                                             layoutpolicy_horizontal = expanding
 
                                             blockoverride "marker"
-                                            {                    
+                                            {
                                                 widget_level_marker = {
                                                     scale = 0.75
                                                     datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
@@ -656,6 +656,99 @@ types DI_trait_menu_types
                         visible = "[GetScriptedGui('DI_trait_pinned').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
                         onclick = "[GetScriptedGui('DI_unpin_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
                         size = { 25 25 }
+                    }
+                }
+            }
+        }
+    }
+
+    type vbox_DI_tracked_trait_selection_content = vbox
+    {
+        datacontext = "[GetPlayer]"
+        spacing = 3
+
+        item = {
+            hbox = {
+                datacontext = "[Scope.Trait]"
+                layoutpolicy_horizontal = expanding
+                block "test_visible"
+                {
+                    visible = yes
+                }
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    datamodel = "[Trait.GetLevelTracks]"
+                    spacing = 5
+                    allow_outside = yes
+
+                    item = {
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+                            allow_outside = yes
+                            spacing = 5
+                            margin_right = 20
+
+                            vbox = {
+                                margin_top = 6
+
+                                button = {
+                                    size = { 50 50 }
+                                    texture = "[TraitLevelTrack.GetIcon( Trait.Self, Character.Self )]"
+                                    button_ignore = none
+                                    onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_trait').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).End)]"
+                                    tooltip = DI_trait_button_tt
+                                }
+                            }
+
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 5
+
+                                text_single = {
+                                    layoutpolicy_horizontal = expanding
+                                    text = "[TraitLevelTrack.GetName]"
+                                }
+
+                                widget = {
+                                    size = { 0 25 }
+                                    layoutpolicy_horizontal = expanding
+                                    allow_outside = yes
+
+                                    datacontext = "[Character.GetTraitTrackProgressBar( Trait.Self, TraitLevelTrack.Self )]"
+
+                                    hbox_complex_bar_progress_next = {
+                                        size = { 0 15 }
+                                        layoutpolicy_horizontal = expanding
+                                        tooltip = "TRAIT_LEVEL_TRACK_PROGRESS_TOOTLIP"
+                                        using = tooltip_se
+                                    }
+
+                                    hbox_complex_bar_levels = {
+                                        size = { 0 15 }
+                                        layoutpolicy_horizontal = expanding
+
+                                        blockoverride "marker"
+                                        {
+                                            widget = {
+                                                parentanchor = center
+                                                size = { 0 40 }
+                                                position = { -15 5 }
+                                                allow_outside = yes
+
+                                                button_round = {
+                                                    scale = 0.75
+                                                    datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+                                                    raw_text = "[TraitLevelTrackEntry.GetLevel]"
+                                                    onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag(TraitLevelTrack.GetName)).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+                                                    # visible = "[GreaterThanOrEqualTo_int32( TraitLevelTrackEntry.GetLevel, '(int32)0' )]"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
