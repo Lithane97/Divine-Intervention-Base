@@ -2245,6 +2245,23 @@ DI_dip_marry_matrilineal = {
     }
 }
 
+DI_dip_divorce = {
+    scope = character
+
+    effect = {
+        save_scope_as = player
+        
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            var:DI_primary_character = {
+                divorce = scope:player.var:DI_tertiary_character
+            }
+        }
+    }
+}
+
 # DI_dip_make_siblings
 DI_dip_make_siblings = {
     scope = character

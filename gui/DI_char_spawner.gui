@@ -450,6 +450,45 @@
 
                                 tooltip = "DI_parent_tt"
                             }
+
+                            # Spouse Button
+                            button_standard_clean = {
+                                name = "DI_spouse"
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 60 }
+                                onclick = "[GetScriptedGui('DI_spouse').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                background = {
+                                    using = Background_Area_Dark
+
+                                    modify_texture = {
+                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                                        blend_mode = alphamultiply
+                                        alpha = 0.3
+                                        rotate_uv = 90
+                                        mirror = vertical
+                                    }
+                                }
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 50 50 }
+                                        texture = "gfx/interface/icons/DI_spouse.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+                                        text = DI_spouse
+                                        default_format = "#bold"
+                                    }
+                                }
+
+                                tooltip = "DI_spouse_tt"
+                            }
                         }
                     }
                 }

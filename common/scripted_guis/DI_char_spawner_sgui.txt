@@ -839,6 +839,59 @@ DI_sibling = {
     }
 }
 
+# Spouse
+DI_spouse = {
+    scope = character
+
+    effect = {
+        save_scope_as = root_target
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_in_list = {
+                variable = pinned_characters
+
+                save_scope_as = target
+
+                DI_spawn_family_character_effect = yes
+
+                if = {
+                    limit = {
+                        is_ruler = no
+                    }
+                    scope:target.liege = {
+                        add_courtier = scope:new_courtier
+                    }
+                }
+                DI_set_spouse_effect = yes
+            }
+        }
+        else = {
+            save_scope_as = target
+
+            DI_spawn_family_character_effect = yes
+
+            if = {
+                limit = {
+                    is_ruler = no
+                }
+                scope:target.liege = {
+                    add_courtier = scope:new_courtier
+                }
+            }
+            DI_set_spouse_effect = yes
+        }
+    }
+}
+
 
 ### COURT ###
 DI_normal_courtier = {
