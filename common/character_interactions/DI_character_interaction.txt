@@ -3826,6 +3826,168 @@ DI_abdicate = {
     }
 }
 
+DI_inspire_inspiration = {
+    category = interaction_category_cheat_menu
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    icon = inspiration
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        scope:recipient = {
+            NOT = { exists = inspiration }
+            has_completed_inspiration = no
+            is_ruler = no
+            is_playable_character = no
+        }
+    }
+
+    send_option = {
+        flag = weapon_inspiration
+        localization = debug_inspiration_weapon
+    }
+    send_option = {
+        flag = armor_inspiration
+        localization = debug_inspiration_armor
+    }
+    send_option = {
+        flag = book_inspiration
+        localization = debug_inspiration_book
+    }
+    send_option = {
+        flag = weaver_inspiration
+        localization = debug_inspiration_weaver
+    }
+    send_option = {
+        flag = adventure_inspiration
+        localization = debug_inspiration_adventure
+    }
+    send_option = {
+        flag = artisan_inspiration
+        localization = debug_inspiration_artisan
+    }
+    send_option = {
+        flag = smith_inspiration
+        localization = debug_inspiration_smith
+    }
+    send_option = {
+        flag = alchemy_inspiration
+        localization = debug_inspiration_alchemy
+    }
+
+    on_accept = {
+        scope:recipient = {
+            if = {
+                limit = {
+                    always = scope:book_inspiration
+                }
+                create_inspiration = book_inspiration
+                custom_tooltip = inspire_interaction_book
+            }
+            else_if = {
+                limit = {
+                    always = scope:weaver_inspiration
+                }
+                create_inspiration = weaver_inspiration
+                custom_tooltip = inspire_interaction_weaver
+            }
+            else_if = {
+                limit = {
+                    always = scope:adventure_inspiration
+                }
+                create_inspiration = adventure_inspiration
+                custom_tooltip = inspire_interaction_adventure
+            }
+            else_if = {
+                limit = {
+                    always = scope:artisan_inspiration
+                }
+                create_inspiration = artisan_inspiration
+                custom_tooltip = inspire_interaction_artisan
+            }
+            else_if = {
+                limit = {
+                    always = scope:smith_inspiration
+                }
+                create_inspiration = smith_inspiration
+                custom_tooltip = inspire_interaction_smith
+            }
+            else_if = {
+                limit = {
+                    always = scope:alchemy_inspiration
+                }
+                create_inspiration = alchemy_inspiration
+                custom_tooltip = inspire_interaction_alchemy
+            }
+            else_if = {
+                limit = {
+                    always = scope:armor_inspiration
+                }
+                create_inspiration = armor_inspiration
+                custom_tooltip = inspire_interaction_armor
+            }
+            else = {
+                create_inspiration = weapon_inspiration
+                custom_tooltip = inspire_interaction_weapon
+            }
+        }
+    }
+}
+
+DI_sponsor_inspiration = {
+    category = interaction_category_cheat_menu
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    icon = inspiration
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        scope:recipient = {
+            exists = scope:recipient.inspiration
+        }
+    }
+
+    is_valid_showing_failures_only = {
+        scope:actor = {
+            can_sponsor_inspiration = scope:recipient.inspiration
+        }
+    }
+
+    is_valid = {
+        scope:actor = {
+            can_sponsor_inspiration = scope:recipient.inspiration
+        }
+    }
+
+    on_accept = {
+        scope:actor = {
+            sponsor_inspiration = scope:recipient.inspiration
+        }
+    }
+}
+
 DI_reset_story_variables = {
     category = interaction_category_cheat_menu
     icon = icon_holding_city
