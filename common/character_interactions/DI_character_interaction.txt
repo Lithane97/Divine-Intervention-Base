@@ -518,6 +518,57 @@ DI_change_dynasty_interaction = {
     ai_will_do = { base = 0 }
 }
 
+DI_cultural_acceptance_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_culture
+
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    auto_accept = yes
+
+    is_shown = {
+        NOT = { scope:actor.culture = scope:recipient.culture }
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = {
+        flag = increase_cultural_acceptance
+        localization = increase_cultural_acceptance_debug_interaction
+    }
+    send_option = {
+        flag = decrease_cultural_acceptance
+        localization = decrease_cultural_acceptance_debug_interaction
+    }
+
+    on_accept = {
+        scope:recipient.culture = {
+            switch = {
+                trigger = yes
+                scope:increase_cultural_acceptance = {
+                    change_cultural_acceptance = {
+                        target = scope:actor.culture
+                        value = 25
+                        desc = debug
+                    }
+                }
+                scope:decrease_cultural_acceptance = {
+                    change_cultural_acceptance = {
+                        target = scope:actor.culture
+                        value = -25
+                        desc = debug
+                    }
+                }
+            }
+        }
+    }
+}
+
 DI_permanent_health = {
     category = interaction_category_cheat_menu
     icon = icon_health
@@ -3681,6 +3732,9 @@ DI_change_government = {
     send_option = {
         flag = administrative
         localization = DI_change_government_administrative
+        is_valid = {
+            has_dlc_feature = admin_gov
+        }
     }
 	send_option = {
 		flag = feudal_full
@@ -3756,9 +3810,9 @@ DI_change_government = {
                 }
                 scope:administrative = {
                     scope:recipient = {
-                        change_government = administrative_government
+                        change_to_administrative_effect = yes
                         every_vassal_or_below = {
-                            change_government = administrative_government
+                            change_to_administrative_effect = yes
                         }
                     }
                 }
