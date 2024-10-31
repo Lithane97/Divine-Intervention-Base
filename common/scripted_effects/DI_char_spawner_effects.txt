@@ -1308,6 +1308,22 @@ DI_spawn_family_character_effect = {
 		}
 	}
 
+	scope:target = {
+		if = {
+			limit = {
+				scope:DI_story = {
+					NOT = { has_variable = DI_cs_spouse }
+				}
+			}
+			scope:target.house = {
+				save_scope_as = target_house
+			}
+		}
+		else = {
+			save_scope_as = target_house
+		}
+	}
+
 	create_character = {
 		age = scope:DI_char_spawner_age_increment_value
 		gender_female_chance = scope:DI_female_chance
@@ -1316,7 +1332,7 @@ DI_spawn_family_character_effect = {
 		employer = scope:target
 		faith = scope:target.faith
 		culture = scope:target.culture
-		dynasty_house = scope:target.house
+		dynasty_house ?= scope:target_house
 		martial = scope:root_target.var:DI_cs_martial
 		prowess = scope:root_target.var:DI_cs_prowess
 		diplomacy = scope:root_target.var:DI_cs_diplomacy

@@ -852,6 +852,13 @@ DI_spouse = {
             save_scope_as = DI_story
         }
 
+        scope:DI_story = {
+            set_variable = {
+                name = DI_cs_spouse
+                value = true
+            }
+        }
+
         if = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
@@ -889,6 +896,10 @@ DI_spouse = {
             }
             DI_set_spouse_effect = yes
         }
+
+        scope:DI_story = {
+            remove_variable = DI_cs_spouse
+        }
     }
 }
 
@@ -922,13 +933,20 @@ DI_normal_courtier = {
 
                 save_scope_as = target
 
-                DI_spawn_court_character_effect = yes
+                while = {
+                    count = scope:DI_char_spawner_count_increment_value
+                    DI_spawn_court_character_effect = yes
+                }
             }
         }
         else = {
             save_scope_as = target
 
-            DI_spawn_court_character_effect = yes
+            while = 
+            {
+                count = scope:DI_char_spawner_count_increment_value    
+                DI_spawn_court_character_effect = yes
+            }
         }
     }
 }
