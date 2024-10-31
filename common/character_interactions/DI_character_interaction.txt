@@ -3678,6 +3678,10 @@ DI_change_government = {
         flag = tribal
         localization = DI_change_government_tribal
     }
+    send_option = {
+        flag = administrative
+        localization = DI_change_government_administrative
+    }
 	send_option = {
 		flag = feudal_full
 		localization = DI_change_government_feudal_full
@@ -3747,6 +3751,14 @@ DI_change_government = {
                                 has_holding_type = castle_holding
                             }
                             set_holding_type = tribal_holding
+                        }
+                    }
+                }
+                scope:administrative = {
+                    scope:recipient = {
+                        change_government = administrative_government
+                        every_vassal_or_below = {
+                            change_government = administrative_government
                         }
                     }
                 }
