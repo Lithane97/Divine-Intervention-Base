@@ -254,6 +254,45 @@ template DI_CE_Lifestyle_Tab
 								minimumsize = { 76 -1 }
 							}
 						}
+
+						# All Wandering Lifestyle Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_wandering_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_wandering_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										framesize = { 160 160 }
+										frame = "1"
+										texture = "gfx/interface/icons/lifestyles/wanderer_lifestyle.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_wandering_lifestyle_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_wandering_lifestyle_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
 					}
 				}
 			}

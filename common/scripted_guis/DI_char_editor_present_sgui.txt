@@ -23,6 +23,7 @@ DI_ce_add_all_lifestyle = {
 				lifestyle_stewardship_present_effect = yes
 				lifestyle_intrigue_present_effect = yes
 				lifestyle_learning_present_effect = yes
+				lifestyle_wandering_present_effect = yes
 			}
 		}
 		else = { 
@@ -31,6 +32,7 @@ DI_ce_add_all_lifestyle = {
 			lifestyle_stewardship_present_effect = yes
 			lifestyle_intrigue_present_effect = yes
 			lifestyle_learning_present_effect = yes
+			lifestyle_wandering_present_effect = yes
 		}
 	}
 }
@@ -60,6 +62,7 @@ DI_ce_remove_all_lifestyle = {
 				lifestyle_stewardship_present_no_effect = yes
 				lifestyle_intrigue_present_no_effect = yes
 				lifestyle_learning_present_no_effect = yes
+				lifestyle_wandering_present_no_effect = yes
 			}
 		}
 		else = {
@@ -68,6 +71,7 @@ DI_ce_remove_all_lifestyle = {
 			lifestyle_stewardship_present_no_effect = yes
 			lifestyle_intrigue_present_no_effect = yes
 			lifestyle_learning_present_no_effect = yes
+			lifestyle_wandering_present_no_effect = yes
 		}
 	}
 }
@@ -358,6 +362,64 @@ DI_ce_remove_learning_lifestyle = {
 		}
 		else = {
 			lifestyle_learning_present_no_effect = yes
+		}
+	}
+}
+
+### Add All Wandering Lifestyle Perks
+DI_ce_add_wandering_lifestyle = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+				lifestyle_wandering_present_effect = yes
+			}
+		}
+		else = {
+			lifestyle_wandering_present_effect = yes
+		}
+	}
+}
+
+### Remove All Wandering Lifestyle Perks
+DI_ce_remove_wandering_lifestyle = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+				lifestyle_wandering_present_no_effect = yes
+			}
+		}
+		else = {
+			lifestyle_wandering_present_no_effect = yes
 		}
 	}
 }

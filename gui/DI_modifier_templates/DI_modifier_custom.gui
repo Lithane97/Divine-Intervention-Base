@@ -432,30 +432,6 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_legend_spread
-            dockable_button = {
-                name = "DI_modifier_DI_legend_spread_button"
-                onclick = "[GetScriptedGui('DI_add_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                button_ignore = none
-                using = tooltip_ne
-                visible = "[HasDlcFeature( 'legends' )]"
-
-                icon = {
-                    datacontext = "[GetPlayer]"
-                    datacontext = "[GetModifier('DI_legend_spread')]"
-                    datacontext = "[GetPlayer.GetFaith]"
-                    parentanchor = center
-                    position = { 0 1 }
-                    size = { 30 30 }
-                    tintcolor = { 0 1 1 1 }
-                    texture = "[StaticModifier.GetIcon]"
-                    tooltipwidget = {
-                        using = modifier_DI_tooltip
-                    }
-                }
-            }
-
             # prestige printer
             dockable_button = {
                 name = "DI_modifier_prestige_printer_button"
@@ -509,6 +485,30 @@ template DI_CE_Modifiers_Custom
 			ignoreinvisible = yes
 			datacontext = [GetPlayer]
 
+            # DI_legend_spread
+            dockable_button = {
+                name = "DI_modifier_DI_legend_spread_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+                visible = "[HasDlcFeature( 'legends' )]"
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_legend_spread')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+            
             # DI everybody loves me
             dockable_button = {
                 name = "DI_modifier_everybody_loves_me_button"
