@@ -51,10 +51,11 @@ window = {
 		}
     
 		DI_culture_scrollbox = {
+			datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char]"
+			
 			blockoverride "onclick"
 			{
-				onclick = "[GetScriptedGui('DI_title_manager_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
-				onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+				onclick = "[GetScriptedGui('DI_PC_culture_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).AddScope('target', Character.MakeScope).End)]"
 			}
 		}
     }

@@ -1,1735 +1,3072 @@
 window = {
-	name = "DI_pinned_characters_window"
-	parentanchor = top|right
-	position = { -50 100 }
-	size = { 150 100 }
-	layer = windows_layer
-	filter_mouse = all
-	allow_outside = yes
-	alwaystransparent = no
-	
-	using = Window_Background
-	using = Window_Decoration
-	movable = yes
-	
-	visible = "[GetVariableSystem.Exists('DI_pinned_characters_window_visible')]"
-	
-	state = {
-		name = _show
-		using = Animation_FadeIn_Quick
-		on_finish = "[PdxGuiWidget.StackTop]"
-	}
-	
-	state = {
-		name = _hide
-		using = Animation_FadeOut_Quick
-	}
-	
-	
-	vbox = {
-		using = Window_Margins
-		restrictparent_min = yes
-		
-		header_pattern = {
-			layoutpolicy_horizontal = expanding
+    name = "DI_pinned_characters_window"
+    parentanchor = top|right
+    position = { -600 100 }
+    size = { 150 100 }
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
 
-			blockoverride "header_text"
-			{
-				text = DI_pinned_characters
-			}
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
 
-			blockoverride "button_close"
-			{
-				onclick = "[GetVariableSystem.Toggle('DI_pinned_characters_window_visible')]"
-			}
-		}
-		
+    visible = "[GetVariableSystem.Exists('DI_pinned_characters_window_visible')]"
 
-		
-		widget = {
-			size = { 760 675 }
-            vbox = {
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					expand = {}
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
 
-					hbox = {
-						spacing = 5
-						margin_bottom = 5		
-	
-						button_round = {
-							size = { 28 28 }
-							enabled = "[GetScriptedGui('DI_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onclick = "[GetScriptedGui('DI_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-	
-							button_minus_small = {
-								name = "decrease_skill"
-								parentanchor = center
-								alwaystransparent = yes
-							}
-						}
-	
-						text_label_center = {
-							name = "increment"
-							size = { 30 30 }
-							
-							text = DI_increment
-							tooltip = DI_increment_tt
-							default_format = "#low"
-						}
-	
-						button_round = {
-							size = { 28 28 }
-							enabled = "[GetScriptedGui('DI_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onclick = "[GetScriptedGui('DI_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-	
-							button_plus_small = {
-								name = "decrease_skill"
-								parentanchor = center
-								alwaystransparent = yes
-							}
-						}
-					}
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
 
-					spacer = {
-						size = { 70 0 }
-					}
 
-					hbox = {
-						margin_right = 40
+    vbox = {
+        using = Window_Margins
+        restrictparent_min = yes
 
-						button_standard_hover = {
-							name = DI_clear_all
-							onclick = "[GetScriptedGui('DI_clear_all_pins').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
 
-							text_label_right = {
-								name = "DI_clear_pins"
-								size = { 100 40 }
-
-								text = DI_clear_pins
-								autoresize = yes
-							}
-
-							button_clear = {}
-						}
-					}
-				}
-				
-				DI_vbox_character_list = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-		
-					blockoverride "scrollbox_empty_visibility"
-					{
-						layoutpolicy_vertical = expanding
-						visible = "[IsDataModelEmpty(GetPlayer.MakeScope.GetList('pinned_characters'))]"
-						text = "DI_pinned_characters_no_match"
-					}
-					
-					blockoverride "container_implementation" {
-						fixedgridbox = {
-							addcolumn = 750
-							addrow = 200
-		
-							name = "characters_grid"
-							datamodel_reuse_widgets = yes
-							datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
-							visible = "[Not(IsDataModelEmpty(GetPlayer.MakeScope.GetList('pinned_characters')))]"
-		
-							item = {
-								DI_widget_character_list_item_finder = {
-									size = { 750 180 }
-								}
-							}
-						}
-					}
-				}
+            blockoverride "header_text"
+            {
+                text = DI_pinned_characters
             }
-		}
-	}
+
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_pinned_characters_window_visible')]"
+            }
+        }
+
+
+
+        widget = {
+            size = { 760 675 }
+            vbox = {
+                spacing = 10
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+                        spacing = 5
+
+                        expand = {}
+                        button_standard = {
+                            name = DI_pin_living
+                            onclick = "[GetScriptedGui('DI_pin_all_living').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            size = { 145 30 }
+
+                            text = DI_pin_living
+                            tooltip = DI_pin_living_tt
+                        }
+
+                        # pin pinned characters
+                        button_standard = {
+                            name = DI_pin_pinned
+                            onclick = "[GetScriptedGui('DI_pin_pinned').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            size = { 145 30 }
+
+                            text = DI_pin_pinned
+                            tooltip = DI_pin_pinned_tt
+                        }
+                        expand = {}
+                    }
+
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+                        spacing = 1
+
+                        button_round = {
+                            size = { 28 28 }
+                            enabled = "[GetScriptedGui('DI_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+
+                        button_round = {
+                            size = { 28 28 }
+                            enabled = "[GetScriptedGui('DI_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            button_plus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+
+                        text_label_center = {
+                            name = "increment"
+                            size = { 145 40 }
+
+                            text = DI_increment
+                            tooltip = DI_increment_tt
+                            default_format = "#low"
+                            allow_outside = yes
+                            autoresize = no
+                        }
+
+                        expand = {}
+                    }
+
+                    expand = {}
+
+                    vbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        button_standard = {
+                            name = DI_clear_all
+                            onclick = "[GetScriptedGui('DI_clear_all_pins').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            size = { 145 30 }
+
+                            text = DI_clear_pins
+
+                            button_clear = {}
+                        }
+                    }
+                }
+
+                hbox = {
+                    spacing = 5
+                    button_standard = {
+                        using = DI_Select_Primary_Character_Button
+                    }
+
+                    # list view checkbox
+                    button_checkbox_label = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Toggle('DI_pinned_list_view')]"
+
+                        blockoverride "checkbox"
+                        {
+                            checked = "[GetVariableSystem.Exists('DI_pinned_list_view')]"
+                        }
+
+                        blockoverride "text"
+                        {
+                            text = DI_pinned_list_view
+                        }
+                    }
+                }
+
+                DI_vbox_character_list = {
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+
+                    visible = "[GetVariableSystem.Exists('DI_pinned_list_view')]"
+
+                    blockoverride "scrollbox_empty_visibility"
+                    {
+                        layoutpolicy_vertical = expanding
+                        visible = "[IsDataModelEmpty(GetPlayer.MakeScope.GetList('pinned_characters'))]"
+                        text = "DI_pinned_characters_no_match"
+                    }
+
+                    blockoverride "container_implementation" {
+                        fixedgridbox = {
+                            addcolumn = 750
+                            addrow = 200
+
+                            name = "characters_grid"
+                            datamodel_reuse_widgets = yes
+                            datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
+                            visible = "[Not(IsDataModelEmpty(GetPlayer.MakeScope.GetList('pinned_characters')))]"
+
+                            item = {
+                                DI_widget_character_list_item_finder = {
+                                    size = { 750 180 }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                DI_vbox_character_single = {
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+
+                    background = {
+                        using = Background_Area_Dark
+                        alpha = 0.5
+                        margin = { 0 2 }
+                    }
+
+                    margin_top = 10
+
+                    visible = "[Not(GetVariableSystem.Exists('DI_pinned_list_view'))]"
+                }
+            }
+        }
+    }
 }
 
 Types Pinned_Characters
 {
-	type DI_progressbar_hud_stress_glow = icon {
-		size = { 100% 100% }
-
-		block "lvl_3"
-		{
-			alpha = 0
-		}
-
-		shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
-
-		modify_texture = {
-			name = "clouds"
-			texture = "gfx/interface/component_masks/mask_clouds.dds"
-			blend_mode = alphamultiply
-			spriteType = corneredtiled
-			texture_density = 3
-		}
-
-		state = {
-			name = mask_a
-			next = mask_b
-			trigger_on_create = yes
-
-			modify_texture = {
-				name = "clouds"
-				translate_uv = { 0 -1 }
-			}
-		}
-
-		state = {
-			name = mask_b
-			next = mask_a
-			duration = 8
-
-			modify_texture = {
-				name = "clouds"
-				translate_uv = { 0 1 }
-			}
-		}
-
-		block "lvl_3" {
-
-			state = {
-				name = "fade_out"
-
-				duration = 1.5
-				bezier = { 0 0.5 0.5 1 }
-				alpha = 0
-			}
-		}
-	}
-
-	type DI_progressbar_hud_stress = icon {
-		shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
-		alpha = 0.8
-
-		block "bar_color"
-		{
-			# texture = "gfx/interface/colors/red.dds"
-		}
-
-		modify_texture = {
-			texture = "gfx/interface/component_masks/mask_rough_edges.dds"
-			spriteType = Corneredtiled
-			spriteborder = { 20 20 }
-			blend_mode = alphamultiply
-			texture_density = 5
-		}
-
-		modify_texture = {
-			texture = "gfx/interface/component_masks/mask_fade_horizontal.dds"
-			blend_mode = alphamultiply
-			alpha = 0.3
-		}
-
-		modify_texture = {
-			texture = "gfx/interface/component_masks/mask_scratches.dds"
-			blend_mode = alphamultiply
-			spriteType = corneredtiled
-			alpha = 0.3
-			texture_density = 3
-		}
-
-		modify_texture = {
-			name = "flash"
-			texture = "gfx/interface/colors/white.dds"
-			blend_mode = colordodge
-			alpha = 0
-		}
-
-		modify_texture = {
-			visible = "[GreaterThanOrEqualTo_int32(Character.GetStressLevel, '(int32)2')]"
-			name = "lvl3_glow"
-			texture = "gfx/interface/colors/gold.dds"
-			blend_mode = colordodge
-			alpha = 0
-		}
-
-		modify_texture = {
-			name = "clouds"
-			texture = "gfx/interface/component_masks/mask_clouds_solid.dds"
-			blend_mode = mask
-			spriteType = corneredtiled
-			texture_density = 1
-		}
-
-		modify_texture = {
-			block "bar_color_flow"
-			{
-				# texture = "gfx/interface/colors/yellow.dds"
-				alpha = 0.3
-			}
-			blend_mode = colordodge
-		}
-
-		state = {
-			name = "lvl3_glow_a"
-			next = "lvl3_glow_b"
-			duration = 0.6
-			trigger_on_create = yes
-			using = Animation_Curve_Default
-
-			modify_texture = {
-				name = "lvl3_glow"
-				alpha = 0.5
-			}
-		}
-
-		state = {
-			name = "lvl3_glow_b"
-			next = "lvl3_glow_a"
-			duration = 1.5
-			using = Animation_Curve_Default
-
-			modify_texture = {
-				name = "lvl3_glow"
-				alpha = 0
-			}
-		}
-
-
-		state = {
-			name = "fade_out"
-
-			duration = 0.8
-			bezier = { 0 0.5 0.5 1 }
-
-
-			modify_texture = {
-				name = "flash"
-				alpha = 0
-			}
-		}
-
-		state = {
-			name = a
-			next = b
-			trigger_on_create = yes
-
-			modify_texture = {
-				name = "clouds"
-				translate_uv = { 1 0 }
-			}
-		}
-
-		state = {
-			name = b
-			next = a
-			duration = 15
-
-			modify_texture = {
-				name = "clouds"
-				translate_uv = { -1 0 }
-			}
-		}
-	}
-
-	type DI_vbox_character_list = vbox {
-		name = "character_list"
-		spacing = 3
-
-		block "special_character" {}
-
-		scrollbox = {
-
-			name = "characters_scroll_area"
-			layoutpolicy_vertical = expanding
-			layoutpolicy_horizontal = expanding
-
-			block "scrollbox_properties"
-			{
-			}
-
-			blockoverride "scrollbox_content" {
-
-				block "container_implementation" {
-					vbox = {
-						name = "characters_grid"
-						datamodel = "[CharacterSelectionList.GetList]"
-						visible = "[Not(CharacterSelectionList.IsBuildingList)]"
-						layoutpolicy_horizontal = expanding
-
-						item = {
-							widget_character_list_item = {
-								block "item_size" {
-									size = { 850 110 }
-									layoutpolicy_horizontal = expanding
-								}
-							}
-						}
-					}
-				}
-			}
-
-			blockoverride "scrollbox_empty"
-			{
-				block "scrollbox_empty_visibility"
-				{
-					layoutpolicy_vertical = expanding
-					visible = "[IsDataModelEmpty( CharacterSelectionList.GetList )]"
-					text = "NO_CHARACTERS_TO_SELECT"
-				}
-			}
-		}
-	}
-
-	type DI_widget_character_list_item_finder = widget {
-		datacontext = "[Scope.GetCharacter]"
-		size = { 700 700 }
-
-		block "divider" {}
-
-		block "widget" {}
-
-		hbox = {
-			margin_right = 15
-			vbox = {
-				portrait_head_small = {}
-
-				# Stress Widget #
-				hbox = {
-				
-					button_round = {
-						size = { 25 25 }
-						onclick = "[GetScriptedGui('DI_remove_stress_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
-
-						button_minus_small = {
-							name = "decrease_skill"
-							parentanchor = center
-							alwaystransparent = yes
-						}
-					}	
-					
-					# Stress Widget #
-					widget = {
-						name = "stress_widget"
-						size = { 110 40 }
-
-						widget = {
-							parentanchor = center
-							size = { 180 108 }
-
-							tooltip = "DI_STRESS_TOOLTIP"
-							using = tooltip_ne
-
-							widget = {
-								name = "progressbar"
-								parentanchor = center
-								widgetanchor = left|vcenter
-								position = { -13 0 }
-								size = { 60 20 }
-
-								background = {
-									texture = "gfx/interface/colors/white.dds"
-									color = { 0.1 0.1 0.1 0.8 }
-								}
-
-								icon = {
-									visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)2')]"
-									size = { 100% 100% }
-									texture = "gfx/interface/colors/white.dds"
-									color = { 1 0.1 0.1 0.2 }
-
-									using = Animation_ShowHide_Standard
-
-									state = {
-										name = a
-										next = b
-										trigger_on_create = yes
-
-										using = Animation_Curve_Default
-										duration = 0.8
-										alpha = 0
-									}
-
-									state = {
-										name = b
-										next = a
-
-										using = Animation_Curve_Default
-										duration = 1.5
-										alpha = 1
-									}
-								}
-
-								hbox = {
-									widget = {
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										layoutstretchfactor_horizontal = "[GetProgressBarValueMaxScaled( Character.GetStressProgress, '(float)100', '(int32)60' )]"
-
-										DI_progressbar_hud_stress = {
-											visible = "[GreaterThanOrEqualTo_int32(Character.GetStressLevel, '(int32)3')]"
-											size = { 100% 100% }
-
-											using = Animation_ShowHide_Standard
-
-											blockoverride "bar_color"
-											{
-												texture = "gfx/interface/colors/red.dds"
-											}
-
-											blockoverride "bar_color_flow"
-											{
-												texture = "gfx/interface/colors/gold.dds"
-												alpha = 0.7
-											}
-										}
-
-										DI_progressbar_hud_stress = {
-											visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)2')]"
-											size = { 100% 100% }
-
-											using = Animation_ShowHide_Standard
-
-											blockoverride "bar_color"
-											{
-												texture = "gfx/interface/colors/orange.dds"
-											}
-
-											blockoverride "bar_color_flow"
-											{
-												texture = "gfx/interface/colors/white.dds"
-												alpha = 0.3
-											}
-										}
-
-										DI_progressbar_hud_stress = {
-											visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)1')]"
-											size = { 100% 100% }
-
-											using = Animation_ShowHide_Standard
-
-											blockoverride "bar_color"
-											{
-												texture = "gfx/interface/colors/gold_darker.dds"
-											}
-
-											blockoverride "bar_color_flow"
-											{
-												texture = "gfx/interface/colors/white.dds"
-												alpha = 0.3
-											}
-										}
-
-										DI_progressbar_hud_stress = {
-											visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)0')]"
-											size = { 100% 100% }
-
-											using = Animation_ShowHide_Standard
-
-											blockoverride "bar_color"
-											{
-												texture = "gfx/interface/colors/blue.dds"
-											}
-
-											blockoverride "bar_color_flow"
-											{
-												texture = "gfx/interface/colors/white.dds"
-												alpha = 0.3
-											}
-										}
-									}
-
-									widget = {
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										layoutstretchfactor_horizontal = "[GetProgressBarValueMaxOtherScaled( Character.GetStressProgress, '(float)100', '(int32)60' )]"
-									}
-								}
-							}
-
-							widget = {
-								size = { 100% 100% }
-								
-
-								DI_progressbar_hud_stress_glow = {
-									texture = "gfx/interface/hud/hud_stress_glow_red.dds"
-
-								}
-
-								DI_progressbar_hud_stress_glow = {
-									texture = "gfx/interface/hud/hud_stress_glow_blue.dds"
-
-								}
-
-								DI_progressbar_hud_stress_glow = {
-									visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)3')]"
-									texture = "gfx/interface/hud/hud_stress_glow_red.dds"
-
-									blockoverride "animation_trigger_1" {
-										name = "lvl3_fire"
-										trigger_on_create = yes
-									}
-
-									blockoverride "animation_trigger_2" {}
-									blockoverride "lvl_3" {}
-								}
-
-								icon = {
-									parentanchor = center
-									position = { -30 0 }
-									size = { 30 30 }
-									texture = "gfx/interface/colors/white.dds"
-									using = Color_Red
-
-
-									modify_texture = {
-										name = "mask_1"
-										texture = "gfx/interface/component_masks/mask_glow.dds"
-										blend_mode = alphamultiply
-										rotate_uv = 1
-									}
-
-									modify_texture = {
-										name = "mask_2"
-										texture = "gfx/interface/component_masks/mask_glow.dds"
-										blend_mode = alphamultiply
-										rotate_uv = -1
-									}
-
-									modify_texture = {
-										name = "mask_3"
-										texture = "gfx/interface/component_masks/mask_clouds.dds"
-										blend_mode = alphamultiply
-										alpha = 0.1
-									}
-
-									modify_texture = {
-										name = "mask_4"
-										texture = "gfx/interface/component_masks/mask_circle.dds"
-										blend_mode = mask
-									}
-
-									modify_texture = {
-										name = "mask_3"
-										texture = "gfx/interface/colors/gold.dds"
-										blend_mode = add
-									}
-
-
-									state = {
-										name = rotate_a
-										next = rotate_b
-										trigger_on_create = yes
-
-										modify_texture = {
-											name = "mask_1"
-											rotate_uv = 1
-										}
-									}
-
-									state = {
-										name = rotate_a
-										next = rotate_b
-
-										duration = 1
-
-										modify_texture = {
-											name = "mask_1"
-											rotate_uv = 180
-										}
-									}
-
-									state = {
-										name = rotate_a_2
-										next = rotate_b_2
-										trigger_on_create = yes
-
-										modify_texture = {
-											name = "mask_2"
-											rotate_uv = -1
-										}
-									}
-
-									state = {
-										name = rotate_a_2
-										next = rotate_b_2
-
-										duration = 1
-
-										modify_texture = {
-											name = "mask_2"
-											rotate_uv = -180
-										}
-									}
-
-									state = {
-										name = rotate_a_3
-										next = rotate_b_3
-										trigger_on_create = yes
-
-										modify_texture = {
-											name = "mask_3"
-											rotate_uv = 0
-											alpha = 0.1
-										}
-									}
-
-									state = {
-										name = rotate_a_3
-										next = rotate_b_3
-
-										duration = 1
-
-										modify_texture = {
-											name = "mask_3"
-											rotate_uv = 40
-											alpha = 0.8
-										}
-									}
-								}
-
-								icon = {
-									size = { 100% 100% }
-									texture = "gfx/interface/skinned/hud_stress_bg.dds"
-
-									icon = {
-										parentanchor = vcenter
-										position = { 41 0 }
-										size = { 35 35 }
-
-										texture = "gfx/interface/icons/stress/icon_stress_level.dds"
-										framesize = { 70 70 }
-										frame = "[IntToFrameIndex( Character.GetStressLevel )]"
-
-										modify_texture = {
-											visible = "[GreaterThanOrEqualTo_int32(Character.GetStressLevel, '(int32)2')]"
-											name = "lvl3_glow"
-											texture = "gfx/interface/colors/gold.dds"
-											blend_mode = colordodge
-											alpha = 0
-										}
-
-
-										state = {
-											name = a
-											next = b
-											duration = 0.6
-											trigger_on_create = yes
-											using = Animation_Curve_Default
-
-											modify_texture = {
-												name = "lvl3_glow"
-												alpha = 0.3
-											}
-										}
-
-										state = {
-											name = b
-											next = a
-											duration = 1.5
-											using = Animation_Curve_Default
-
-											modify_texture = {
-												name = "lvl3_glow"
-												alpha = 0
-											}
-										}
-
-										state = {
-											name = "stress_level_increase"
-											next = "stress_level_increase_2"
-
-											modify_texture = {
-												name = "lvl_increase"
-												alpha = 0
-											}
-										}
-
-										state = {
-											name = "stress_level_increase_2"
-											next = "stress_level_increase_3"
-											duration = 0.4
-											bezier = { 0.5 0 1 0.5 }
-
-											modify_texture = {
-												name = "lvl_increase"
-												alpha = 0.7
-											}
-										}
-
-										state = {
-											name = "stress_level_increase_3"
-											duration = 0.5
-											bezier = { 0 0.5 0.5 1 }
-
-											modify_texture = {
-												name = "lvl_increase"
-												alpha = 0
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					
-					button_round = {
-						size = { 25 25 }
-						onclick = "[GetScriptedGui('DI_add_stress_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
-
-						button_plus_small = {
-							name = "increase_skill"
-							parentanchor = center
-							alwaystransparent = yes
-						}
-					}											
-				}
-
-				expand = {}
-			}
-
-			block "button_content"
-			{
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
-					margin_top = 5
-
-					vbox = {
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = expanding
-
-						# Name and age
-						hbox = {
-							layoutpolicy_horizontal = expanding
-							margin = { 0 3 }
-							margin_left = 5
-							margin_right = 10
-
-							background = {
-								using = Background_Area_Characterlist
-							}
-
-							background = {
-								using = Background_Area_Dark
-
-								modify_texture = {
-									texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-									blend_mode = alphamultiply
-									alpha = 1
-									rotate_uv = 90
-									mirror = vertical
-								}
-							}
-
-							hbox = {
-								margin_left = 3
-								layoutpolicy_horizontal = expanding
-
-								text_single = {
-									using = Font_Size_Medium
-									layoutpolicy_horizontal = expanding
-									align = nobaseline
-									text = "[Character.GetUINameNoTooltip]"
-									autoresize = no
-									fontsize_min = 14
-								}
-
-								block "character_relation"
-								{
-									hbox = {
-										visible = "[And(Character.HasRelationTo( GetPlayer ), Not(Character.IsPlayer))]"
-										text_single = {
-											raw_text = "•"
-											align = nobaseline
-											margin = { 5 0 }
-										}
-
-										text_single = {
-											name = "character_relation"
-											text = "[Character.GetRelationToString( GetPlayer )]"
-											tooltip = "EXTENDED_RELATIONS_TOOLTIP"
-											default_format = "#low"
-											align = nobaseline
-											fontsize_min = 14
-											max_width = 180
-										}
-									}
-								}
-
-								expand = {}
-							}
-
-							hbox = {
-								using = DI_character_age_or_death_text
-							}
-
-							# Skills
-							hbox_skills_grid_character_model = {}
-						}
-
-						### BOTTOM ROW ###
-						hbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = expanding
-
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = expanding
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-									layoutpolicy_vertical = expanding
-
-									# Dynasty
-									widget = {
-										size = { 45 40 }
-
-										coa_house_small = {
-											datacontext = "[Character.GetHouse]"
-											parentanchor = center
-											scale = 0.7
-										}
-									}
-
-									# Currencies
-									hbox = {
-										layoutpolicy_vertical = expanding
-										layoutpolicy_horizontal = expanding
-										margin = { 10 0 }
-
-										background = {
-											using = Background_Area_Dark
-											alpha = 0.5
-											margin = { 0 2 }
-										}
-
-										vbox = {
-											layoutpolicy_horizontal = expanding
-											hbox = {
-												spacing = 25
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_remove_gold_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_minus_small = {
-														name = "decrease_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-
-												hbox = {
-													spacing = 2
-													icon = {
-														parentanchor = left
-														size = { 25 25 }
-														texture = "gfx/interface/icons/icon_gold.dds"
-													}
-													
-													text_single = {															
-														size = { 80 20 }
-														text = "[Character.GetGold|0]"
-														default_format = "#high"
-														autoresize = no
-														align = nobaseline
-													}
-												}
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_add_gold_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_plus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-											}
-											
-											hbox = {	
-												spacing = 25
-
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_remove_prestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_minus_small = {
-														name = "decrease_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-												
-												hbox = {
-													spacing = 2
-													icon = {
-														parentanchor = left
-														size = { 25 25 }
-														texture = "[Character.GetPrestigeLevelTexture]"
-													}
-													
-													text_single = {
-														size = { 80 20 }
-														text = "[Character.GetPrestige|0]"
-														default_format = "#high"
-														autoresize = no
-														align = nobaseline
-													}
-												}
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_add_prestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_plus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}														
-											}
-
-											hbox = {
-												spacing = 25
-
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_remove_piety_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_minus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-												
-												hbox = {
-													spacing = 2
-													icon = {
-														parentanchor = left
-														size = { 25 25 }
-														texture = "[Character.GetPietyLevelTexture]"
-													}
-													
-													text_single = {
-														size = { 80 20 }
-														text = "[Character.GetPiety|0]"
-														default_format = "#high"
-														autoresize = no
-														align = nobaseline
-													}
-												}
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_add_piety_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_plus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-											}
-											hbox = {
-												spacing = 25
-
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_remove_dprestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_minus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-												
-												hbox = {
-													spacing = 2
-													icon = {
-														parentanchor = left
-														size = { 25 25 }
-														texture = "[Character.GetDynasty.GetDynastyPrestigeLevelTexture]"
-													}
-													
-													text_single = {
-														size = { 80 20 }
-														text = "[Character.GetDynasty.GetPrestige|0]"
-														default_format = "#high"
-														autoresize = no
-														align = nobaseline
-													}
-												}
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_add_dprestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_plus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}														
-											}
-											# influence
-											hbox = {
-												visible = "[HasDlcFeature( 'admin_gov' )]"
-												spacing = 25
-
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_remove_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_minus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-												
-												hbox = {
-													spacing = 2
-													icon = {
-														parentanchor = left
-														size = { 25 25 }
-														texture = "[Character.GetInfluenceLevelTexture]"
-													}
-													
-													text_single = {
-														size = { 80 20 }
-														text = "[Character.GetInfluence|0]"
-														default_format = "#high"
-														autoresize = no
-														align = nobaseline
-													}
-												}
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_add_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
-
-													button_plus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-											}
-
-											# provisions
-											hbox = {
-												visible = "[IsLandlessAdventurer( Character )]"
-												spacing = 25
-
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_remove_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
-
-													button_minus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-												
-												hbox = {
-													spacing = 2
-													icon = {
-														parentanchor = left
-														size = { 25 25 }
-														framesize = { 60 60 }
-														frame = 0
-														texture = "gfx/interface/icons/icon_camp_supply.dds"
-													}
-													
-													text_single = {
-														size = { 80 20 }
-														text = "[Character.GetDomicile.GetProvisions|0]"
-														default_format = "#high"
-														autoresize = no
-														align = nobaseline
-													}
-												}
-												
-												button_round = {
-													size = { 25 25 }
-													onclick = "[GetScriptedGui('DI_add_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
-
-													button_plus_small = {
-														name = "increase_skill"
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-
-							vbox = {
-								datacontext = "[Scope.GetCharacter]"
-								layoutpolicy_vertical = expanding
-
-								block "bottom_right_box"
-								{
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = expanding
-										minimumsize = { 200 0 }
-
-										background = {
-											using = Background_Area_Dark
-											alpha = 0.5
-											margin = { 0 2 }
-										}
-
-										# Religion and culture
-										hbox = {
-											layoutpolicy_horizontal = expanding
-											layoutpolicy_vertical = expanding
-											margin_left = 8
-											margin_right = 4
-											spacing = 5
-
-											icon = {
-												name = "faith_button"
-												size = { 38 38 }
-												datacontext = "[Character.GetFaith]"
-												tooltipwidget = { faith_tooltip = {} }
-												using = tooltip_se
-
-												texture = "[Faith.GetIcon]"
-											}
-
-											hbox = {
-												datacontext = "[Character.GetCulture]"
-												layoutpolicy_horizontal = expanding
-												spacing = 3
-
-												tooltipwidget = {
-													culture_tooltip = {}
-												}
-												using = tooltip_se
-
-												icon = {
-													name = "culture"
-													texture = "gfx/interface/icons/icon_culture.dds"
-													size = { 24 24 }
-												}
-
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													text = "CULTURE_LISTS_WINDOW"
-													autoresize = no
-													align = nobaseline
-												}
-											}
-
-											vbox = {
-												margin_right = 10
-												button_unpin = {
-													name = pinned_character_clear
-													parentanchor = left
-													onclick = "[GetScriptedGui('DI_clear_pinned_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
-												}
-											}
-										}
-
-										hbox = {
-											layoutpolicy_horizontal = expanding
-											layoutpolicy_vertical = expanding
-											margin_left = 8
-											margin_right = 4
-											spacing = 5
-
-											hbox = {
-												visible = "[GetVariableSystem.Exists('DI_legitimacy_tab')]"
-
-												hbox = {
-													datacontext = "[Character.GetLegitimacyType]"
-
-													datamodel = "[LegitimacyType.GetLevels]"
-
-													item = {
-														button_normal = {
-															name = "legitimacy_button"
-
-															# visible = "[LessThan_int32( LegitimacyLevel.GetIndex, '(int32)5' )]"
-															visible = "[LegitimacyType.IsValid]"
-															onclick = "[GetVariableSystem.Toggle('DI_legitimacy_tab')]"
-															onclick = "[GetScriptedGui('DI_set_legitimacy').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('threshold', MakeScopeValue(LegitimacyLevel.GetThreshold(Character.Self))).AddScope('legitimacy', MakeScopeValue(Character.GetLegitimacy)).End)]"
-
-															using = tooltip_ne
-
-															tooltipwidget = {
-																DI_legitimacy_hud_tooltip = {}
-															}
-
-															size = { 48 48 }
-
-															icon = {
-																texture = "gfx/interface/icons/activity_phases/button_activity_base.dds"
-																size = { 100% 100% }
-															}
-
-															icon = {
-																parentanchor = vcenter
-																position = { 6 0 }
-																size = { 36 36 }
-
-																texture = "gfx/interface/icons/legitimacy_level_icon.dds"
-																framesize = { 70 70 }
-																frame = "[IntToFrameIndex( LegitimacyLevel.GetIndex )]"
-
-																modify_texture = {
-																	name = "lvl_increase"
-																	texture = "gfx/interface/colors/gold.dds"
-																	blend_mode = colordodge
-																	alpha = 0
-																}
-
-																modify_texture = {
-																	name = "lvl_decrease"
-																	texture = "gfx/interface/colors/red.dds"
-																	blend_mode = colordodge
-																	alpha = 0
-																}
-
-																state = {
-																	name = "legitimacy_level_increase"
-																	next = "legitimacy_level_increase_2"
-
-																	modify_texture = {
-																		name = "lvl_increase"
-																		alpha = 0
-																	}
-																}
-
-																state = {
-																	name = "legitimacy_level_increase_2"
-																	next = "legitimacy_level_increase_3"
-																	duration = 0.4
-																	bezier = { 0.5 0 1 0.5 }
-
-																	modify_texture = {
-																		name = "lvl_increase"
-																		alpha = 0.7
-																	}
-																}
-
-																state = {
-																	name = "legitimacy_level_increase_3"
-																	duration = 0.5
-																	bezier = { 0 0.5 0.5 1 }
-
-																	modify_texture = {
-																		name = "lvl_increase"
-																		alpha = 0
-																	}
-																}
-
-																state = {
-																	name = "legitimacy_level_decrease"
-																	next = "legitimacy_level_decrease_2"
-
-																	modify_texture = {
-																		name = "lvl_decrease"
-																		alpha = 0
-																	}
-																}
-
-																state = {
-																	name = "legitimacy_level_decrease_2"
-																	next = "legitimacy_level_decrease_3"
-																	duration = 0.4
-																	bezier = { 0.5 0 1 0.5 }
-
-																	modify_texture = {
-																		name = "lvl_decrease"
-																		alpha = 0.7
-																	}
-																}
-
-																state = {
-																	name = "legitimacy_level_decrease_3"
-																	duration = 0.5
-																	bezier = { 0 0.5 0.5 1 }
-
-																	modify_texture = {
-																		name = "lvl_decrease"
-																		alpha = 0
-																	}
-																}
-
-																progresspie = {
-																	visible = "[EqualTo_int32(Character.GetLegitimacyLevel.GetIndex, LegitimacyLevel.GetIndex)]"
-																	name = "progress"
-																	size = { 42 42 }
-
-																	texture = "gfx/interface/progressbars/action_progress_thin_blue.dds"
-																	framesize = { 128 128 }
-																	frame = 2
-																	value = "[FixedPointToProgressbarValue('(CFixedPoint)1')]"
-																	parentanchor = center
-
-																	modify_texture = {
-																		texture = "gfx/interface/colors/blue.dds"
-																		blend_mode = normal
-																	}
-																}
-															}
-
-															# text_single = {
-															# 	text = "[LegitimacyLevel.GetThreshold(Character.Self)]"
-															# }
-															# text_single = {
-															# 	text = "[Character.GetLegitimacy]"
-															# }
-														}
-													}
-												}
-											}
-
-											hbox = {
-												visible = "[Not(GetVariableSystem.Exists('DI_legitimacy_tab'))]"
-
-												button_normal = {
-													name = "legitimacy_button"
-
-													datacontext = "[Character.GetLegitimacyType]"
-													datacontext = "[Character.GetLegitimacyLevel]"
-
-													visible = "[LegitimacyType.IsValid]"
-													onclick = "[GetVariableSystem.Toggle('DI_legitimacy_tab')]"
-
-													using = tooltip_ne
-
-													tooltipwidget = {
-														DI_legitimacy_hud_tooltip = {}
-													}
-
-													size = { 48 48 }
-
-													icon = {
-														texture = "gfx/interface/icons/activity_phases/button_activity_base.dds"
-														size = { 100% 100% }
-													}
-
-													icon = {
-														parentanchor = vcenter
-														position = { 6 0 }
-														size = { 36 36 }
-
-														texture = "gfx/interface/icons/legitimacy_level_icon.dds"
-														framesize = { 70 70 }
-														frame = "[IntToFrameIndex( LegitimacyLevel.GetIndex )]"
-
-														modify_texture = {
-															name = "lvl_increase"
-															texture = "gfx/interface/colors/gold.dds"
-															blend_mode = colordodge
-															alpha = 0
-														}
-
-														modify_texture = {
-															name = "lvl_decrease"
-															texture = "gfx/interface/colors/red.dds"
-															blend_mode = colordodge
-															alpha = 0
-														}
-
-														state = {
-															name = "legitimacy_level_increase"
-															next = "legitimacy_level_increase_2"
-
-															modify_texture = {
-																name = "lvl_increase"
-																alpha = 0
-															}
-														}
-
-														state = {
-															name = "legitimacy_level_increase_2"
-															next = "legitimacy_level_increase_3"
-															duration = 0.4
-															bezier = { 0.5 0 1 0.5 }
-
-															modify_texture = {
-																name = "lvl_increase"
-																alpha = 0.7
-															}
-														}
-
-														state = {
-															name = "legitimacy_level_increase_3"
-															duration = 0.5
-															bezier = { 0 0.5 0.5 1 }
-
-															modify_texture = {
-																name = "lvl_increase"
-																alpha = 0
-															}
-														}
-
-														state = {
-															name = "legitimacy_level_decrease"
-															next = "legitimacy_level_decrease_2"
-
-															modify_texture = {
-																name = "lvl_decrease"
-																alpha = 0
-															}
-														}
-
-														state = {
-															name = "legitimacy_level_decrease_2"
-															next = "legitimacy_level_decrease_3"
-															duration = 0.4
-															bezier = { 0.5 0 1 0.5 }
-
-															modify_texture = {
-																name = "lvl_decrease"
-																alpha = 0.7
-															}
-														}
-
-														state = {
-															name = "legitimacy_level_decrease_3"
-															duration = 0.5
-															bezier = { 0 0.5 0.5 1 }
-
-															modify_texture = {
-																name = "lvl_decrease"
-																alpha = 0
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    type DI_progressbar_hud_stress_glow = icon {
+        size = { 100% 100% }
+
+        block "lvl_3"
+        {
+            alpha = 0
+        }
+
+        shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+
+        modify_texture = {
+            name = "clouds"
+            texture = "gfx/interface/component_masks/mask_clouds.dds"
+            blend_mode = alphamultiply
+            spriteType = corneredtiled
+            texture_density = 3
+        }
+
+        state = {
+            name = mask_a
+            next = mask_b
+            trigger_on_create = yes
+
+            modify_texture = {
+                name = "clouds"
+                translate_uv = { 0 -1 }
+            }
+        }
+
+        state = {
+            name = mask_b
+            next = mask_a
+            duration = 8
+
+            modify_texture = {
+                name = "clouds"
+                translate_uv = { 0 1 }
+            }
+        }
+
+        block "lvl_3" {
+
+            state = {
+                name = "fade_out"
+
+                duration = 1.5
+                bezier = { 0 0.5 0.5 1 }
+                alpha = 0
+            }
+        }
+    }
+
+    type DI_progressbar_hud_stress = icon {
+        shaderfile = "gfx/FX/pdxgui_repeat_texture.shader"
+        alpha = 0.8
+
+        block "bar_color"
+        {
+            # texture = "gfx/interface/colors/red.dds"
+        }
+
+        modify_texture = {
+            texture = "gfx/interface/component_masks/mask_rough_edges.dds"
+            spriteType = Corneredtiled
+            spriteborder = { 20 20 }
+            blend_mode = alphamultiply
+            texture_density = 5
+        }
+
+        modify_texture = {
+            texture = "gfx/interface/component_masks/mask_fade_horizontal.dds"
+            blend_mode = alphamultiply
+            alpha = 0.3
+        }
+
+        modify_texture = {
+            texture = "gfx/interface/component_masks/mask_scratches.dds"
+            blend_mode = alphamultiply
+            spriteType = corneredtiled
+            alpha = 0.3
+            texture_density = 3
+        }
+
+        modify_texture = {
+            name = "flash"
+            texture = "gfx/interface/colors/white.dds"
+            blend_mode = colordodge
+            alpha = 0
+        }
+
+        modify_texture = {
+            visible = "[GreaterThanOrEqualTo_int32(Character.GetStressLevel, '(int32)2')]"
+            name = "lvl3_glow"
+            texture = "gfx/interface/colors/gold.dds"
+            blend_mode = colordodge
+            alpha = 0
+        }
+
+        modify_texture = {
+            name = "clouds"
+            texture = "gfx/interface/component_masks/mask_clouds_solid.dds"
+            blend_mode = mask
+            spriteType = corneredtiled
+            texture_density = 1
+        }
+
+        modify_texture = {
+            block "bar_color_flow"
+            {
+                # texture = "gfx/interface/colors/yellow.dds"
+                alpha = 0.3
+            }
+            blend_mode = colordodge
+        }
+
+        state = {
+            name = "lvl3_glow_a"
+            next = "lvl3_glow_b"
+            duration = 0.6
+            trigger_on_create = yes
+            using = Animation_Curve_Default
+
+            modify_texture = {
+                name = "lvl3_glow"
+                alpha = 0.5
+            }
+        }
+
+        state = {
+            name = "lvl3_glow_b"
+            next = "lvl3_glow_a"
+            duration = 1.5
+            using = Animation_Curve_Default
+
+            modify_texture = {
+                name = "lvl3_glow"
+                alpha = 0
+            }
+        }
+
+
+        state = {
+            name = "fade_out"
+
+            duration = 0.8
+            bezier = { 0 0.5 0.5 1 }
+
+
+            modify_texture = {
+                name = "flash"
+                alpha = 0
+            }
+        }
+
+        state = {
+            name = a
+            next = b
+            trigger_on_create = yes
+
+            modify_texture = {
+                name = "clouds"
+                translate_uv = { 1 0 }
+            }
+        }
+
+        state = {
+            name = b
+            next = a
+            duration = 15
+
+            modify_texture = {
+                name = "clouds"
+                translate_uv = { -1 0 }
+            }
+        }
+    }
+
+    type DI_vbox_character_list = vbox {
+        name = "character_list"
+        spacing = 3
+
+        block "special_character" {}
+
+        scrollbox = {
+
+            name = "characters_scroll_area"
+            layoutpolicy_vertical = expanding
+            layoutpolicy_horizontal = expanding
+
+            block "scrollbox_properties"
+            {
+            }
+
+            blockoverride "scrollbox_content" {
+
+                block "container_implementation" {
+                    vbox = {
+                        name = "characters_grid"
+                        datamodel = "[CharacterSelectionList.GetList]"
+                        visible = "[Not(CharacterSelectionList.IsBuildingList)]"
+                        layoutpolicy_horizontal = expanding
+
+                        item = {
+                            widget_character_list_item = {
+                                block "item_size" {
+                                    size = { 850 110 }
+                                    layoutpolicy_horizontal = expanding
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            blockoverride "scrollbox_empty"
+            {
+                block "scrollbox_empty_visibility"
+                {
+                    layoutpolicy_vertical = expanding
+                    visible = "[IsDataModelEmpty( CharacterSelectionList.GetList )]"
+                    text = "NO_CHARACTERS_TO_SELECT"
+                }
+            }
+        }
+    }
+
+    type DI_vbox_character_single = vbox {
+        name = "character_single"
+        spacing = 3
+        datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char]"
+
+        layoutpolicy_vertical = expanding
+
+        hbox = {
+            visible = "[Not(Character.IsValid)]"
+
+            layoutpolicy_vertical = expanding
+            vbox = {
+                layoutpolicy_vertical = expanding
+
+                text_single = {
+                    text = "DI_pinned_characters_no_match"
+                    default_format = "#low"
+                }
+            }
+        }
+
+        hbox = {
+            visible = "[Character.IsValid]"
+            layoutpolicy_horizontal = expanding
+            margin_left = 20
+            spacing = 10
+
+            vbox = {
+                layoutpolicy_vertical = expanding
+
+                portrait_head = {}
+
+                hbox = {
+                    button_round = {
+                        size = { 25 25 }
+                        onclick = "[GetScriptedGui('DI_remove_stress_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+                        button_minus_small = {
+                            name = "decrease_skill"
+                            parentanchor = center
+                            alwaystransparent = yes
+                        }
+                    }
+
+                    DI_stress_widget = {}
+
+                    button_round = {
+                        size = { 25 25 }
+                        onclick = "[GetScriptedGui('DI_add_stress_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+                        button_plus_small = {
+                            name = "increase_skill"
+                            parentanchor = center
+                            alwaystransparent = yes
+                        }
+                    }
+                }
+
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin_top = 20
+
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        expand = {}
+
+                        button_round  = {
+                            name = "execute"
+
+                            button_prison_execute = {
+                                parentanchor = center
+                                onclick = "[GetScriptedGui('DI_execute_character').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                                tooltip = DI_execute_tt
+                                using = tooltip_se
+                            }
+                        }
+
+                        button_round = {
+                            name = "house_arrest"
+                            enabled = "[GetScriptedGui('DI_house_arrest_character').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+
+                            DI_button_has_password = {
+                                parentanchor = center
+                                enabled = "[GetScriptedGui('DI_house_arrest_character').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_house_arrest_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                tooltip = DI_house_arrest_tt
+                                using = tooltip_se
+                            }
+                        }
+
+                        button_round = {
+                            name = "imprison"
+                            enabled = "[GetScriptedGui('DI_imprison_character').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+
+                            DI_button_has_password = {
+                                parentanchor = center
+                                enabled = "[GetScriptedGui('DI_imprison_character').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_imprison_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                tooltip = DI_imprison_tt
+                                using = tooltip_se
+                            }
+                        }
+
+                        expand = {}
+                    }
+                }
+                expand = {}
+            }
+
+            vbox = {
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = expanding
+                margin_right = 15
+                spacing = 5
+
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+
+                    background = {
+                        using = Background_Area_Characterlist
+                    }
+
+                    background = {
+                        using = Background_Area_Dark
+
+                        modify_texture = {
+                            texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                            blend_mode = alphamultiply
+                            alpha = 1
+                            rotate_uv = 90
+                            mirror = vertical
+                        }
+                    }
+
+                    hbox = {
+                        margin_left = 3
+                        layoutpolicy_horizontal = expanding
+
+                        text_single = {
+                            using = Font_Size_Medium
+                            layoutpolicy_horizontal = expanding
+                            align = nobaseline
+                            text = "[Character.GetUINameNoTooltip]"
+                            autoresize = no
+                            fontsize_min = 14
+                        }
+
+                        block "character_relation"
+                        {
+                            hbox = {
+                                visible = "[And(Character.HasRelationTo( GetPlayer ), Not(Character.IsPlayer))]"
+                                text_single = {
+                                    raw_text = "•"
+                                    align = nobaseline
+                                    margin = { 5 0 }
+                                }
+
+                                text_single = {
+                                    name = "character_relation"
+                                    text = "[Character.GetRelationToString( GetPlayer )]"
+                                    tooltip = "EXTENDED_RELATIONS_TOOLTIP"
+                                    default_format = "#low"
+                                    align = nobaseline
+                                    fontsize_min = 14
+                                    max_width = 180
+                                }
+                            }
+                        }
+
+                        expand = {}
+                    }
+                }
+
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    spacing = 5
+
+                    hbox = {
+                        button_round = {
+                            size = { 25 25 }
+                            parentanchor = left
+                            enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+                            button_minus_small = {
+                                name = "decrease_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+
+                        button_round = {
+                            size = { 25 25 }
+                            onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+                            button_plus_small = {
+                                name = "increase_skill"
+                                parentanchor = center
+                                alwaystransparent = yes
+                            }
+                        }
+
+                        hbox = {
+                            margin_left = 10
+                            spacing = 10
+
+                            text_single = {
+                                using = Font_Size_Medium
+                                text = DI_age
+                                align = nobaseline
+                                default_format = "#high"
+                                fontsize_min = 14
+                            }
+                        }
+                    }
+
+                    icon = {
+                        visible = "[Not(Character.IsDeadAndValid)]"
+                        size = { 23 23 }
+                        framesize = { 60 60 }
+                        frame = "[Character.GetHealthIconFrame]"
+                        texture = "gfx/interface/icons/character_status/icon_health.dds"
+                        tooltip = "[Character.GetHealthInfo]"
+                    }
+
+                    expand = {}
+
+                    # unpin character
+                    button_round = {
+                        size = { 25 25 }
+                        onclick = "[GetScriptedGui('DI_clear_pinned_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                        onclick = "[GetScriptedGui('DI_clear_primary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+
+                        button_unpin = {
+                            size = { 20 20 }
+                            name = "decrease_skill"
+                            parentanchor = center
+                            alwaystransparent = yes
+                        }
+
+                        tooltip = DI_unpin_tt
+                    }
+                }
+
+                # skills
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    spacing = 3
+
+                    background = {
+                        using = Background_Area_Dark
+                        alpha = 0.5
+                        margin = { 4 10 }
+                    }
+
+                    # diplomacy
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            button_standard = {
+                                name = "apply_diplomacy"
+                                size = { 60 25 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_add_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_diplomacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                text = DI_apply_skill
+                                tooltip = "DI_skill_diplomacy_tt"
+                                using = tooltip_ne
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+                                    text = DI_PC_diplomacy
+                                    tooltip = "diplomacy_concept"
+                                    default_format = "#high"
+                                }
+
+                                background = {
+                                    name = "skill_icon_bg"
+                                    texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                    framesize = { 70 26 }
+                                    margin = { 10 5 }
+
+                                    frame = 1
+                                }
+                            }
+                        }
+                        expand = {}
+
+                        # martial
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                button_standard = {
+                                    name = "apply_martial"
+                                    size = { 60 25 }
+                                    button_ignore = none
+
+                                    onclick = "[GetScriptedGui('DI_add_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_martial').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    text = DI_apply_skill
+                                    tooltip = "DI_skill_martial_tt"
+                                    using = tooltip_ne
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_martial
+                                        tooltip = "martial_concept"
+                                        default_format = "#high"
+                                    }
+
+                                    background = {
+                                        name = "skill_icon_bg"
+                                        texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                        framesize = { 70 26 }
+                                        margin = { 10 5 }
+
+                                        frame = 2
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    # stewardship
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            button_standard = {
+                                name = "apply_stewardship"
+                                size = { 60 25 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_add_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_stewardship').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                text = DI_apply_skill
+                                tooltip = "DI_skill_stewardship_tt"
+                                using = tooltip_ne
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_stewardship
+                                    tooltip = "stewardship_concept"
+                                    default_format = "#high"
+                                }
+
+                                background = {
+                                    name = "skill_icon_bg"
+                                    texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                    framesize = { 70 26 }
+                                    margin = { 10 5 }
+
+                                    frame = 3
+                                }
+                            }
+                        }
+                        expand = {}
+
+                        # intrigue
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                button_standard = {
+                                    name = "apply_intrigue"
+                                    size = { 60 25 }
+                                    button_ignore = none
+
+                                    onclick = "[GetScriptedGui('DI_add_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_intrigue').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    text = DI_apply_skill
+                                    tooltip = "DI_skill_intrigue_tt"
+                                    using = tooltip_ne
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_intrigue
+                                        tooltip = "intrigue_concept"
+                                        default_format = "#high"
+                                    }
+
+                                    background = {
+                                        name = "skill_icon_bg"
+                                        texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                        framesize = { 70 26 }
+                                        margin = { 10 5 }
+
+                                        frame = 4
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    # learning
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            button_standard = {
+                                name = "apply_learning"
+                                size = { 60 25 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_add_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_remove_learning').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                text = DI_apply_skill
+                                tooltip = "DI_skill_learning_tt"
+                                using = tooltip_ne
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_learning
+                                    tooltip = "learning_concept"
+                                    default_format = "#high"
+                                }
+
+                                background = {
+                                    name = "skill_icon_bg"
+                                    texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                    framesize = { 70 26 }
+                                    margin = { 10 5 }
+
+                                    frame = 5
+                                }
+                            }
+                        }
+                        expand = {}
+
+                        # prowess
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                button_standard = {
+                                    name = "apply_prowess"
+                                    size = { 60 25 }
+                                    button_ignore = none
+
+                                    onclick = "[GetScriptedGui('DI_add_prowess').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_prowess').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                    text = DI_apply_skill
+                                    tooltip = "DI_skill_prowess_tt"
+                                    using = tooltip_ne
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_prowess
+                                        tooltip = "prowess_concept"
+                                        default_format = "#high"
+                                    }
+
+                                    background = {
+                                        name = "skill_icon_bg"
+                                        texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                        framesize = { 70 26 }
+                                        margin = { 10 5 }
+
+                                        frame = 6
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                # currencies
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin_top = 10
+                    spacing = 3
+
+                    background = {
+                        using = Background_Area_Dark
+                        alpha = 0.5
+                        margin = { 4 10 }
+                    }
+
+                    # gold
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_gold_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_gold_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_gold_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_gold_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            icon = {
+                                parentanchor = left
+                                size = { 25 25 }
+                                texture = "gfx/interface/icons/icon_gold.dds"
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_gold
+                                    default_format = "#high"
+                                }
+                            }
+                        }
+
+                        expand = {}
+
+                        # prestige
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_prestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_prestige_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_prestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_prestige_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                icon = {
+                                    parentanchor = left
+                                    size = { 25 25 }
+                                    texture = "[Character.GetPrestigeLevelTexture]"
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_prestige
+                                        default_format = "#high"
+                                    }
+                                }
+                            }
+                        }
+
+                        expand = {}
+                    }
+
+                    # piety
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_piety_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_piety_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_piety_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_piety_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            icon = {
+                                parentanchor = left
+                                size = { 25 25 }
+                                texture = "[Character.GetPietyLevelTexture]"
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_piety
+                                    default_format = "#high"
+                                }
+                            }
+                        }
+                        expand = {}
+
+                        # dprestige
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_dprestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_dprestige_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_dprestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_dprestige_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                icon = {
+                                    parentanchor = left
+                                    size = { 25 25 }
+                                    texture = "[Character.GetDynasty.GetDynastyPrestigeLevelTexture]"
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_dprestige
+                                        default_format = "#high"
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    # influence
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            visible = "[HasDlcFeature( 'admin_gov' )]"
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_influence_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_influence_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            icon = {
+                                parentanchor = left
+                                size = { 25 25 }
+                                texture = "[Character.GetInfluenceLevelTexture]"
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_influence
+                                    default_format = "#high"
+                                }
+                            }
+                        }
+                        expand = {}
+
+                        # provisions
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                visible = "[IsLandlessAdventurer( Character )]"
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_provisions_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_provisions_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                icon = {
+                                    parentanchor = left
+                                    size = { 25 25 }
+                                    texture = "gfx/interface/icons/icon_camp_supply.dds"
+                                    framesize = { 60 60 }
+                                    frame = 0
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_provisions
+                                        default_format = "#high"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    expand = {}
+                }
+
+                # religion and culture section
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin_top = 10
+                    spacing = 3
+
+                    background = {
+                        using = Background_Area_Dark
+                        alpha = 0.5
+                        margin = { 4 10 }
+                    }
+
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        # religion 
+                        hbox = {
+                            spacing = 5
+
+                            icon = {
+                                parentanchor = left
+                                size = { 35 35 }
+                                texture = "[Character.GetFaith.GetIcon]"
+                            }
+
+                            button_standard = {
+                                onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+
+                                    text = "[Character.GetFaith.GetNameNoTooltip]"
+                                    default_format = "#high"
+                                }
+
+                                tooltip = "DI_PC_religion_tt"
+                                using = tooltip_ne
+                            }
+                        }
+
+                        expand = {}
+
+                        # culture
+                        hbox = {
+                            spacing = 5
+
+                            icon = {
+                                parentanchor = left
+                                size = { 35 35 }
+                                texture = "gfx/interface/icons/icon_culture.dds"
+                            }
+
+                            button_standard = {
+                                onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+
+                                    text = "[Character.GetCulture.GetNameNoTooltip]"
+                                    default_format = "#high"
+                                }
+
+                                tooltip = "DI_PC_culture_tt"
+                                using = tooltip_ne
+                            }
+                        }
+
+                        expand = {}
+                    }
+
+                    expand = {}
+                }
+
+                # title section
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin_top = 10
+                    spacing = 3
+
+                    background = {
+                        using = Background_Area_Dark
+                        alpha = 0.5
+                        margin = { 4 10 }
+                    }
+
+                    # display owned titles
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        scrollarea = {
+                            layoutpolicy_horizontal = expanding
+                            minimumsize = { 0 100 }
+
+                            scrollbarpolicy_horizontal = always_off
+
+                            scrollbar_vertical = {
+                                using = Scrollbar_Vertical
+                            }
+
+                            scrollwidget = {
+                                dynamicgridbox = {
+                                    name = "titles"
+                                    datamodel = "[Character.GetTitles]"
+                                    
+                                    flipdirection = yes
+                                    datamodel_wrap = 12
+                                    # maxverticalslots = 3
+
+                                    item = {
+                                        coa_title_tiny = {
+                                            blockoverride "coa_tooltip"
+                                            {
+                                                tooltipwidget = {
+                                                    using = DILandedTitleTooltip
+                                                }
+                                            }
+
+                                            blockoverride "coa_onclick"
+                                            {
+                                                button_ignore = none
+                                                onclick = "[GetScriptedGui('DI_PC_title_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End)]"
+                                                onrightclick = "[GetVariableSystem.Toggle('DI_title_window_options_visible')]"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        expand = {}
+                    }
+
+                    expand = {}
+                }
+
+                # legitimacy
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin_top = 10
+                    spacing = 3
+
+                    background = {
+                        using = Background_Area_Dark
+                        alpha = 0.5
+                        margin = { 4 10 }
+                    }
+
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            margin_left = 5
+                            
+                            text_single = {
+                                using = Font_Size_Medium
+                                name = "value"
+                                parentanchor = left
+                                margin_bottom = 4
+
+                                text = game_concept_legitimacy
+                                default_format = "#high"
+                            }
+                        }
+                        
+                        DI_legitimacy_section = {
+                            expand = {}
+                        }
+
+                        expand = {}
+                    }
+                    expand = {}
+                }
+
+                expand = {}
+            }
+            expand = {}
+        }
+        expand = {}
+    }
+
+    type DI_widget_character_list_item_finder = widget {
+        datacontext = "[Scope.GetCharacter]"
+        size = { 700 700 }
+
+        block "divider" {}
+
+        block "widget" {}
+
+        hbox = {
+            margin_right = 15
+            vbox = {
+                portrait_head_small = {}
+
+                hbox = {
+                    button_round = {
+                        size = { 25 25 }
+                        onclick = "[GetScriptedGui('DI_remove_stress_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+                        button_minus_small = {
+                            name = "decrease_skill"
+                            parentanchor = center
+                            alwaystransparent = yes
+                        }
+                    }
+
+                    DI_stress_widget = {}
+
+                    button_round = {
+                        size = { 25 25 }
+                        onclick = "[GetScriptedGui('DI_add_stress_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+                        button_plus_small = {
+                            name = "increase_skill"
+                            parentanchor = center
+                            alwaystransparent = yes
+                        }
+                    }
+                }
+
+                expand = {}
+            }
+
+            block "button_content"
+            {
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+                    margin_top = 5
+
+                    vbox = {
+                        layoutpolicy_horizontal = expanding
+                        layoutpolicy_vertical = expanding
+
+                        # Name and age
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+                            margin = { 0 3 }
+                            margin_left = 5
+                            margin_right = 10
+
+                            background = {
+                                using = Background_Area_Characterlist
+                            }
+
+                            background = {
+                                using = Background_Area_Dark
+
+                                modify_texture = {
+                                    texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                                    blend_mode = alphamultiply
+                                    alpha = 1
+                                    rotate_uv = 90
+                                    mirror = vertical
+                                }
+                            }
+
+                            hbox = {
+                                margin_left = 3
+                                layoutpolicy_horizontal = expanding
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    layoutpolicy_horizontal = expanding
+                                    align = nobaseline
+                                    text = "[Character.GetUINameNoTooltip]"
+                                    autoresize = no
+                                    fontsize_min = 14
+                                }
+
+                                block "character_relation"
+                                {
+                                    hbox = {
+                                        visible = "[And(Character.HasRelationTo( GetPlayer ), Not(Character.IsPlayer))]"
+                                        text_single = {
+                                            raw_text = "•"
+                                            align = nobaseline
+                                            margin = { 5 0 }
+                                        }
+
+                                        text_single = {
+                                            name = "character_relation"
+                                            text = "[Character.GetRelationToString( GetPlayer )]"
+                                            tooltip = "EXTENDED_RELATIONS_TOOLTIP"
+                                            default_format = "#low"
+                                            align = nobaseline
+                                            fontsize_min = 14
+                                            max_width = 180
+                                        }
+                                    }
+                                }
+
+                                expand = {}
+                            }
+
+                            hbox = {
+                                using = DI_character_age_or_death_text
+                            }
+
+                            # Skills
+                            hbox_skills_grid_character_model = {}
+                        }
+
+                        ### BOTTOM ROW ###
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+                            layoutpolicy_vertical = expanding
+
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                layoutpolicy_vertical = expanding
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    layoutpolicy_vertical = expanding
+
+                                    # Dynasty
+                                    widget = {
+                                        size = { 45 40 }
+
+                                        coa_house_small = {
+                                            datacontext = "[Character.GetHouse]"
+                                            parentanchor = center
+                                            scale = 0.7
+                                        }
+                                    }
+
+                                    # Currencies
+                                    hbox = {
+                                        layoutpolicy_vertical = expanding
+                                        layoutpolicy_horizontal = expanding
+                                        margin = { 10 0 }
+
+                                        background = {
+                                            using = Background_Area_Dark
+                                            alpha = 0.5
+                                            margin = { 0 2 }
+                                        }
+
+                                        vbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            hbox = {
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_gold_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "decrease_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "gfx/interface/icons/icon_gold.dds"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetGold|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_gold_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            hbox = {
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_prestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "decrease_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "[Character.GetPrestigeLevelTexture]"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetPrestige|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_prestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            hbox = {
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_piety_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "[Character.GetPietyLevelTexture]"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetPiety|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_piety_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+                                            hbox = {
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_dprestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "[Character.GetDynasty.GetDynastyPrestigeLevelTexture]"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetDynasty.GetPrestige|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_dprestige_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+                                            # influence
+                                            hbox = {
+                                                visible = "[HasDlcFeature( 'admin_gov' )]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "[Character.GetInfluenceLevelTexture]"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetInfluence|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_influence_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            # provisions
+                                            hbox = {
+                                                visible = "[IsLandlessAdventurer( Character )]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        framesize = { 60 60 }
+                                                        frame = 0
+                                                        texture = "gfx/interface/icons/icon_camp_supply.dds"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetDomicile.GetProvisions|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            vbox = {
+                                datacontext = "[Scope.GetCharacter]"
+                                layoutpolicy_vertical = expanding
+
+                                block "bottom_right_box"
+                                {
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        layoutpolicy_vertical = expanding
+                                        minimumsize = { 200 0 }
+
+                                        background = {
+                                            using = Background_Area_Dark
+                                            alpha = 0.5
+                                            margin = { 0 2 }
+                                        }
+
+                                        # Religion and culture
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            layoutpolicy_vertical = expanding
+                                            margin_left = 8
+                                            margin_right = 4
+                                            spacing = 5
+
+                                            icon = {
+                                                name = "faith_button"
+                                                size = { 38 38 }
+                                                datacontext = "[Character.GetFaith]"
+                                                tooltipwidget = { faith_tooltip = {} }
+                                                using = tooltip_se
+
+                                                texture = "[Faith.GetIcon]"
+                                            }
+
+                                            hbox = {
+                                                datacontext = "[Character.GetCulture]"
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 3
+
+                                                tooltipwidget = {
+                                                    culture_tooltip = {}
+                                                }
+                                                using = tooltip_se
+
+                                                icon = {
+                                                    name = "culture"
+                                                    texture = "gfx/interface/icons/icon_culture.dds"
+                                                    size = { 24 24 }
+                                                }
+
+                                                text_single = {
+                                                    layoutpolicy_horizontal = expanding
+                                                    text = "CULTURE_LISTS_WINDOW"
+                                                    autoresize = no
+                                                    align = nobaseline
+                                                }
+                                            }
+
+                                            vbox = {
+                                                margin_right = 10
+                                                button_unpin = {
+                                                    name = pinned_character_clear
+                                                    parentanchor = left
+                                                    onclick = "[GetScriptedGui('DI_clear_pinned_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                                }
+                                            }
+                                        }
+
+                                        DI_legitimacy_section = {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    type DI_stress_widget = widget {
+        name = "stress_widget"
+        size = { 110 40 }
+
+        widget = {
+            parentanchor = center
+            size = { 180 108 }
+
+            tooltip = "DI_STRESS_TOOLTIP"
+            using = tooltip_ne
+
+            widget = {
+                name = "progressbar"
+                parentanchor = center
+                widgetanchor = left|vcenter
+                position = { -13 0 }
+                size = { 60 20 }
+
+                background = {
+                    texture = "gfx/interface/colors/white.dds"
+                    color = { 0.1 0.1 0.1 0.8 }
+                }
+
+                icon = {
+                    visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)2')]"
+                    size = { 100% 100% }
+                    texture = "gfx/interface/colors/white.dds"
+                    color = { 1 0.1 0.1 0.2 }
+
+                    using = Animation_ShowHide_Standard
+
+                    state = {
+                        name = a
+                        next = b
+                        trigger_on_create = yes
+
+                        using = Animation_Curve_Default
+                        duration = 0.8
+                        alpha = 0
+                    }
+
+                    state = {
+                        name = b
+                        next = a
+
+                        using = Animation_Curve_Default
+                        duration = 1.5
+                        alpha = 1
+                    }
+                }
+
+                hbox = {
+                    widget = {
+                        layoutpolicy_horizontal = expanding
+                        layoutpolicy_vertical = expanding
+                        layoutstretchfactor_horizontal = "[GetProgressBarValueMaxScaled( Character.GetStressProgress, '(float)100', '(int32)60' )]"
+
+                        DI_progressbar_hud_stress = {
+                            visible = "[GreaterThanOrEqualTo_int32(Character.GetStressLevel, '(int32)3')]"
+                            size = { 100% 100% }
+
+                            using = Animation_ShowHide_Standard
+
+                            blockoverride "bar_color"
+                            {
+                                texture = "gfx/interface/colors/red.dds"
+                            }
+
+                            blockoverride "bar_color_flow"
+                            {
+                                texture = "gfx/interface/colors/gold.dds"
+                                alpha = 0.7
+                            }
+                        }
+
+                        DI_progressbar_hud_stress = {
+                            visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)2')]"
+                            size = { 100% 100% }
+
+                            using = Animation_ShowHide_Standard
+
+                            blockoverride "bar_color"
+                            {
+                                texture = "gfx/interface/colors/orange.dds"
+                            }
+
+                            blockoverride "bar_color_flow"
+                            {
+                                texture = "gfx/interface/colors/white.dds"
+                                alpha = 0.3
+                            }
+                        }
+
+                        DI_progressbar_hud_stress = {
+                            visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)1')]"
+                            size = { 100% 100% }
+
+                            using = Animation_ShowHide_Standard
+
+                            blockoverride "bar_color"
+                            {
+                                texture = "gfx/interface/colors/gold_darker.dds"
+                            }
+
+                            blockoverride "bar_color_flow"
+                            {
+                                texture = "gfx/interface/colors/white.dds"
+                                alpha = 0.3
+                            }
+                        }
+
+                        DI_progressbar_hud_stress = {
+                            visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)0')]"
+                            size = { 100% 100% }
+
+                            using = Animation_ShowHide_Standard
+
+                            blockoverride "bar_color"
+                            {
+                                texture = "gfx/interface/colors/blue.dds"
+                            }
+
+                            blockoverride "bar_color_flow"
+                            {
+                                texture = "gfx/interface/colors/white.dds"
+                                alpha = 0.3
+                            }
+                        }
+                    }
+
+                    widget = {
+                        layoutpolicy_horizontal = expanding
+                        layoutpolicy_vertical = expanding
+                        layoutstretchfactor_horizontal = "[GetProgressBarValueMaxOtherScaled( Character.GetStressProgress, '(float)100', '(int32)60' )]"
+                    }
+                }
+            }
+
+            widget = {
+                size = { 100% 100% }
+
+
+                DI_progressbar_hud_stress_glow = {
+                    texture = "gfx/interface/hud/hud_stress_glow_red.dds"
+
+                }
+
+                DI_progressbar_hud_stress_glow = {
+                    texture = "gfx/interface/hud/hud_stress_glow_blue.dds"
+
+                }
+
+                DI_progressbar_hud_stress_glow = {
+                    visible = "[EqualTo_int32(Character.GetStressLevel, '(int32)3')]"
+                    texture = "gfx/interface/hud/hud_stress_glow_red.dds"
+
+                    blockoverride "animation_trigger_1" {
+                        name = "lvl3_fire"
+                        trigger_on_create = yes
+                    }
+
+                    blockoverride "animation_trigger_2" {}
+                    blockoverride "lvl_3" {}
+                }
+
+                icon = {
+                    parentanchor = center
+                    position = { -30 0 }
+                    size = { 30 30 }
+                    texture = "gfx/interface/colors/white.dds"
+                    using = Color_Red
+
+
+                    modify_texture = {
+                        name = "mask_1"
+                        texture = "gfx/interface/component_masks/mask_glow.dds"
+                        blend_mode = alphamultiply
+                        rotate_uv = 1
+                    }
+
+                    modify_texture = {
+                        name = "mask_2"
+                        texture = "gfx/interface/component_masks/mask_glow.dds"
+                        blend_mode = alphamultiply
+                        rotate_uv = -1
+                    }
+
+                    modify_texture = {
+                        name = "mask_3"
+                        texture = "gfx/interface/component_masks/mask_clouds.dds"
+                        blend_mode = alphamultiply
+                        alpha = 0.1
+                    }
+
+                    modify_texture = {
+                        name = "mask_4"
+                        texture = "gfx/interface/component_masks/mask_circle.dds"
+                        blend_mode = mask
+                    }
+
+                    modify_texture = {
+                        name = "mask_3"
+                        texture = "gfx/interface/colors/gold.dds"
+                        blend_mode = add
+                    }
+
+
+                    state = {
+                        name = rotate_a
+                        next = rotate_b
+                        trigger_on_create = yes
+
+                        modify_texture = {
+                            name = "mask_1"
+                            rotate_uv = 1
+                        }
+                    }
+
+                    state = {
+                        name = rotate_a
+                        next = rotate_b
+
+                        duration = 1
+
+                        modify_texture = {
+                            name = "mask_1"
+                            rotate_uv = 180
+                        }
+                    }
+
+                    state = {
+                        name = rotate_a_2
+                        next = rotate_b_2
+                        trigger_on_create = yes
+
+                        modify_texture = {
+                            name = "mask_2"
+                            rotate_uv = -1
+                        }
+                    }
+
+                    state = {
+                        name = rotate_a_2
+                        next = rotate_b_2
+
+                        duration = 1
+
+                        modify_texture = {
+                            name = "mask_2"
+                            rotate_uv = -180
+                        }
+                    }
+
+                    state = {
+                        name = rotate_a_3
+                        next = rotate_b_3
+                        trigger_on_create = yes
+
+                        modify_texture = {
+                            name = "mask_3"
+                            rotate_uv = 0
+                            alpha = 0.1
+                        }
+                    }
+
+                    state = {
+                        name = rotate_a_3
+                        next = rotate_b_3
+
+                        duration = 1
+
+                        modify_texture = {
+                            name = "mask_3"
+                            rotate_uv = 40
+                            alpha = 0.8
+                        }
+                    }
+                }
+
+                icon = {
+                    size = { 100% 100% }
+                    texture = "gfx/interface/skinned/hud_stress_bg.dds"
+
+                    icon = {
+                        parentanchor = vcenter
+                        position = { 41 0 }
+                        size = { 35 35 }
+
+                        texture = "gfx/interface/icons/stress/icon_stress_level.dds"
+                        framesize = { 70 70 }
+                        frame = "[IntToFrameIndex( Character.GetStressLevel )]"
+
+                        modify_texture = {
+                            visible = "[GreaterThanOrEqualTo_int32(Character.GetStressLevel, '(int32)2')]"
+                            name = "lvl3_glow"
+                            texture = "gfx/interface/colors/gold.dds"
+                            blend_mode = colordodge
+                            alpha = 0
+                        }
+
+
+                        state = {
+                            name = a
+                            next = b
+                            duration = 0.6
+                            trigger_on_create = yes
+                            using = Animation_Curve_Default
+
+                            modify_texture = {
+                                name = "lvl3_glow"
+                                alpha = 0.3
+                            }
+                        }
+
+                        state = {
+                            name = b
+                            next = a
+                            duration = 1.5
+                            using = Animation_Curve_Default
+
+                            modify_texture = {
+                                name = "lvl3_glow"
+                                alpha = 0
+                            }
+                        }
+
+                        state = {
+                            name = "stress_level_increase"
+                            next = "stress_level_increase_2"
+
+                            modify_texture = {
+                                name = "lvl_increase"
+                                alpha = 0
+                            }
+                        }
+
+                        state = {
+                            name = "stress_level_increase_2"
+                            next = "stress_level_increase_3"
+                            duration = 0.4
+                            bezier = { 0.5 0 1 0.5 }
+
+                            modify_texture = {
+                                name = "lvl_increase"
+                                alpha = 0.7
+                            }
+                        }
+
+                        state = {
+                            name = "stress_level_increase_3"
+                            duration = 0.5
+                            bezier = { 0 0.5 0.5 1 }
+
+                            modify_texture = {
+                                name = "lvl_increase"
+                                alpha = 0
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 template DI_character_age_or_death_text
 {
-	hbox = {
-		block "list_layout" {
-			minimumsize = { 62 0 }
-			expand = {}
-		}
+    hbox = {
+        block "list_layout" {
+            minimumsize = { 62 0 }
+            expand = {}
+        }
 
-		margin_right = 5
-		spacing = 2
+        margin_right = 5
+        spacing = 2
 
-		block "character_age"
-		{
-			button_round = {
-				size = { 20 20 }
-				parentanchor = left
-				enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
-				onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+        block "character_age"
+        {
+            button_round = {
+                size = { 20 20 }
+                parentanchor = left
+                enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
 
-				button_minus_small = {
-					size = { 14 14 }
-					name = "decrease_skill"
-					parentanchor = center
-					alwaystransparent = yes
-				}
-			}
+                button_minus_small = {
+                    size = { 14 14 }
+                    name = "decrease_skill"
+                    parentanchor = center
+                    alwaystransparent = yes
+                }
+            }
 
-			text_single = {
-				text = "[Character.GetAge]"
-				align = nobaseline
-			}
+            text_single = {
+                text = "[Character.GetAge]"
+                align = nobaseline
+            }
 
-			button_round = {
-				size = { 20 20 }
-				onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+            button_round = {
+                size = { 20 20 }
+                onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
 
-				button_plus_small = {
-					size = { 14 14 }
-					name = "increase_skill"
-					parentanchor = center
-					alwaystransparent = yes
-				}
-			}		
-		}
+                button_plus_small = {
+                    size = { 14 14 }
+                    name = "increase_skill"
+                    parentanchor = center
+                    alwaystransparent = yes
+                }
+            }
+        }
 
-		icon = {
-			visible = "[Not(Character.IsDeadAndValid)]"
-			size = { 23 23 }
-			framesize = { 60 60 }
-			frame = "[Character.GetHealthIconFrame]"
-			texture = "gfx/interface/icons/character_status/icon_health.dds"
-			tooltip = "[Character.GetHealthInfo]"
-		}
+        icon = {
+            visible = "[Not(Character.IsDeadAndValid)]"
+            size = { 23 23 }
+            framesize = { 60 60 }
+            frame = "[Character.GetHealthIconFrame]"
+            texture = "gfx/interface/icons/character_status/icon_health.dds"
+            tooltip = "[Character.GetHealthInfo]"
+        }
 
-		block "is_dead"
-		{
-			icon = {
-				name = "is_dead"
-				visible = "[Character.IsDeadAndValid]"
-				size = { 23 23 }
+        block "is_dead"
+        {
+            icon = {
+                name = "is_dead"
+                visible = "[Character.IsDeadAndValid]"
+                size = { 23 23 }
 
-				texture = "[Character.GetDeathReasonIcon]"
-				tooltip = "CHARACTER_DEAD_TOOLTIP"
-			}
-		}
-	}
+                texture = "[Character.GetDeathReasonIcon]"
+                tooltip = "CHARACTER_DEAD_TOOLTIP"
+            }
+        }
+    }
 }
 
 types pinnedHud
 {
-	type DI_legitimacy_hud_tooltip = object_tooltip_pop_out
-	{
-		blockoverride "title_text"
-		{
-			margin = { 0 8 }
-			text = "legitimacy_hud_tt"
-			default_format = "#T"
-		}
+    type DI_legitimacy_hud_tooltip = object_tooltip_pop_out
+    {
+        blockoverride "title_text"
+        {
+            margin = { 0 8 }
+            text = "legitimacy_hud_tt"
+            default_format = "#T"
+        }
 
-		blockoverride "concept_link"
-		{
-			text = "[legitimacy|E]"
-		}
+        blockoverride "concept_link"
+        {
+            text = "[legitimacy|E]"
+        }
 
-		blockoverride "subheading"
-		{
-			text_single = {
-				layoutpolicy_horizontal = expanding
-				autoresize = yes
-				fontsize_min = 14
-				using = Font_Size_Small
-				text = "legitimacy_hud_tt_subheading"
-				default_format = "#weak"
-				fonttintcolor = "[TooltipInfo.GetTintColor]"
-				max_width = 400
+        blockoverride "subheading"
+        {
+            text_single = {
+                layoutpolicy_horizontal = expanding
+                autoresize = yes
+                fontsize_min = 14
+                using = Font_Size_Small
+                text = "legitimacy_hud_tt_subheading"
+                default_format = "#weak"
+                fonttintcolor = "[TooltipInfo.GetTintColor]"
+                max_width = 400
 
-				margin_top = -4
-			}
-		}
+                margin_top = -4
+            }
+        }
 
-		blockoverride "header_additions"
-		{
-			widget = {
-				size = { 120 74 }
+        blockoverride "header_additions"
+        {
+            widget = {
+                size = { 120 74 }
 
-				widget = {
-					size = { 240 74 }
-					position = { -16 0 }
+                widget = {
+                    size = { 240 74 }
+                    position = { -16 0 }
 
-					icon = {
-						size = { 100% 100% }
-						visible = "[GreaterThanOrEqualTo_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
-						texture = "gfx/interface/window_legend_chronicle/expected_legitimacy_decoration.dds"
+                    icon = {
+                        size = { 100% 100% }
+                        visible = "[GreaterThanOrEqualTo_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
+                        texture = "gfx/interface/window_legend_chronicle/expected_legitimacy_decoration.dds"
 
-						using = Mask_Rough_Edges
+                        using = Mask_Rough_Edges
 
-						modify_texture = {
-							texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
-							blend_mode = alphaMultiply
-						}
-					}
+                        modify_texture = {
+                            texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+                            blend_mode = alphaMultiply
+                        }
+                    }
 
-					icon = {
-						size = { 100% 100% }
-						visible = "[LessThan_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
-						texture = "gfx/interface/window_legend_chronicle/under_expected_legitimacy_decoration.dds"
+                    icon = {
+                        size = { 100% 100% }
+                        visible = "[LessThan_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
+                        texture = "gfx/interface/window_legend_chronicle/under_expected_legitimacy_decoration.dds"
 
-						using = Mask_Rough_Edges
+                        using = Mask_Rough_Edges
 
-						modify_texture = {
-							texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
-							blend_mode = alphaMultiply
-						}
-					}
-				}
-			}
-		}
+                        modify_texture = {
+                            texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+                            blend_mode = alphaMultiply
+                        }
+                    }
+                }
+            }
+        }
 
 
-		blockoverride "main_description"
-		{
-			vbox = {
-				layoutpolicy_horizontal = expanding
-				margin_right = 10
+        blockoverride "main_description"
+        {
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                margin_right = 10
 
-				hbox = {
-					layoutpolicy_horizontal = expanding
+                hbox = {
+                    layoutpolicy_horizontal = expanding
 
-					cooltip_paragraph = {
-						text = "LEGITIMACY_EFFECTS"
-						max_width = 500
-					}
-					expand = {
-						layoutpolicy_horizontal = expanding
-					}
-				}
-				spacer = {
-					size = { 0 15 }
-				}
+                    cooltip_paragraph = {
+                        text = "LEGITIMACY_EFFECTS"
+                        max_width = 500
+                    }
+                    expand = {
+                        layoutpolicy_horizontal = expanding
+                    }
+                }
+                spacer = {
+                    size = { 0 15 }
+                }
 
-				hbox = {
-					name = "track_header"
-					layoutpolicy_horizontal = expanding
-					spacing = 5
-					margin_left = -10
+                hbox = {
+                    name = "track_header"
+                    layoutpolicy_horizontal = expanding
+                    spacing = 5
+                    margin_left = -10
 
-					background = {
-						using = Background_Area
-						margin = { -5 -5 }
+                    background = {
+                        using = Background_Area
+                        margin = { -5 -5 }
 
-						modify_texture = {
-							texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
-							blend_mode = alphaMultiply
-						}
-					}
+                        modify_texture = {
+                            texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+                            blend_mode = alphaMultiply
+                        }
+                    }
 
-					icon_legitimacy_flat = {}
+                    icon_legitimacy_flat = {}
 
-					text_single = {
-						text = "LEGITIMACY_TRACK_TITLE"
-						layoutpolicy_horizontal = expanding
-						align = nobaseline
-					}
-				}
+                    text_single = {
+                        text = "LEGITIMACY_TRACK_TITLE"
+                        layoutpolicy_horizontal = expanding
+                        align = nobaseline
+                    }
+                }
 
-				spacer = {
-					size = { 0 15 }
-				}
-				hbox = {
-					layoutpolicy_horizontal = expanding
+                spacer = {
+                    size = { 0 15 }
+                }
+                hbox = {
+                    layoutpolicy_horizontal = expanding
 
-					vbox = {
-						visible = "[Character.HasVassals]"
-						spacing = 10
-						layoutpolicy_horizontal = expanding
+                    vbox = {
+                        visible = "[Character.HasVassals]"
+                        spacing = 10
+                        layoutpolicy_horizontal = expanding
 
-						cooltip_paragraph = {
-							text = "LEGITIMACY_AVERAGE_EXPECTATIONS"
-						}
+                        cooltip_paragraph = {
+                            text = "LEGITIMACY_AVERAGE_EXPECTATIONS"
+                        }
 
-						cooltip_paragraph = {
-							visible = "[LessThan_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
-							text = "LEGITIMACY_BELOW_AVERAGE_EXPECTATIONS"
-						}
-					}
-					expand = {
-						layoutpolicy_horizontal = expanding
-					}
-				}
-			}
-		}
-	}
+                        cooltip_paragraph = {
+                            visible = "[LessThan_int32( LegitimacyLevel.GetIndex, Character.GetAveragePowerfulVassalLegitimacyExpectation.GetIndex )]"
+                            text = "LEGITIMACY_BELOW_AVERAGE_EXPECTATIONS"
+                        }
+                    }
+                    expand = {
+                        layoutpolicy_horizontal = expanding
+                    }
+                }
+            }
+        }
+    }
+
+    type DI_legitimacy_section = hbox 
+    {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+        margin_left = 8
+        margin_right = 4
+        spacing = 5
+
+        hbox = {
+            visible = "[GetVariableSystem.Exists('DI_legitimacy_tab')]"
+
+            hbox = {
+                datacontext = "[Character.GetLegitimacyType]"
+
+                datamodel = "[LegitimacyType.GetLevels]"
+
+                item = {
+                    button_normal = {
+                        name = "legitimacy_button"
+
+                        # visible = "[LessThan_int32( LegitimacyLevel.GetIndex, '(int32)5' )]"
+                        visible = "[LegitimacyType.IsValid]"
+                        onclick = "[GetVariableSystem.Toggle('DI_legitimacy_tab')]"
+                        onclick = "[GetScriptedGui('DI_set_legitimacy').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('threshold', MakeScopeValue(LegitimacyLevel.GetThreshold(Character.Self))).AddScope('legitimacy', MakeScopeValue(Character.GetLegitimacy)).End)]"
+
+                        using = tooltip_ne
+
+                        tooltipwidget = {
+                            DI_legitimacy_hud_tooltip = {}
+                        }
+
+                        size = { 48 48 }
+
+                        icon = {
+                            texture = "gfx/interface/icons/activity_phases/button_activity_base.dds"
+                            size = { 100% 100% }
+                        }
+
+                        icon = {
+                            parentanchor = vcenter
+                            position = { 6 0 }
+                            size = { 36 36 }
+
+                            texture = "gfx/interface/icons/legitimacy_level_icon.dds"
+                            framesize = { 70 70 }
+                            frame = "[IntToFrameIndex( LegitimacyLevel.GetIndex )]"
+
+                            modify_texture = {
+                                name = "lvl_increase"
+                                texture = "gfx/interface/colors/gold.dds"
+                                blend_mode = colordodge
+                                alpha = 0
+                            }
+
+                            modify_texture = {
+                                name = "lvl_decrease"
+                                texture = "gfx/interface/colors/red.dds"
+                                blend_mode = colordodge
+                                alpha = 0
+                            }
+
+                            state = {
+                                name = "legitimacy_level_increase"
+                                next = "legitimacy_level_increase_2"
+
+                                modify_texture = {
+                                    name = "lvl_increase"
+                                    alpha = 0
+                                }
+                            }
+
+                            state = {
+                                name = "legitimacy_level_increase_2"
+                                next = "legitimacy_level_increase_3"
+                                duration = 0.4
+                                bezier = { 0.5 0 1 0.5 }
+
+                                modify_texture = {
+                                    name = "lvl_increase"
+                                    alpha = 0.7
+                                }
+                            }
+
+                            state = {
+                                name = "legitimacy_level_increase_3"
+                                duration = 0.5
+                                bezier = { 0 0.5 0.5 1 }
+
+                                modify_texture = {
+                                    name = "lvl_increase"
+                                    alpha = 0
+                                }
+                            }
+
+                            state = {
+                                name = "legitimacy_level_decrease"
+                                next = "legitimacy_level_decrease_2"
+
+                                modify_texture = {
+                                    name = "lvl_decrease"
+                                    alpha = 0
+                                }
+                            }
+
+                            state = {
+                                name = "legitimacy_level_decrease_2"
+                                next = "legitimacy_level_decrease_3"
+                                duration = 0.4
+                                bezier = { 0.5 0 1 0.5 }
+
+                                modify_texture = {
+                                    name = "lvl_decrease"
+                                    alpha = 0.7
+                                }
+                            }
+
+                            state = {
+                                name = "legitimacy_level_decrease_3"
+                                duration = 0.5
+                                bezier = { 0 0.5 0.5 1 }
+
+                                modify_texture = {
+                                    name = "lvl_decrease"
+                                    alpha = 0
+                                }
+                            }
+
+                            progresspie = {
+                                visible = "[EqualTo_int32(Character.GetLegitimacyLevel.GetIndex, LegitimacyLevel.GetIndex)]"
+                                name = "progress"
+                                size = { 42 42 }
+
+                                texture = "gfx/interface/progressbars/action_progress_thin_blue.dds"
+                                framesize = { 128 128 }
+                                frame = 2
+                                value = "[FixedPointToProgressbarValue('(CFixedPoint)1')]"
+                                parentanchor = center
+
+                                modify_texture = {
+                                    texture = "gfx/interface/colors/blue.dds"
+                                    blend_mode = normal
+                                }
+                            }
+                        }
+
+                        # text_single = {
+                        # 	text = "[LegitimacyLevel.GetThreshold(Character.Self)]"
+                        # }
+                        # text_single = {
+                        # 	text = "[Character.GetLegitimacy]"
+                        # }
+                    }
+                }
+            }
+        }
+
+        hbox = {
+            visible = "[Not(GetVariableSystem.Exists('DI_legitimacy_tab'))]"
+
+            button_normal = {
+                name = "legitimacy_button"
+
+                datacontext = "[Character.GetLegitimacyType]"
+                datacontext = "[Character.GetLegitimacyLevel]"
+
+                visible = "[LegitimacyType.IsValid]"
+                onclick = "[GetVariableSystem.Toggle('DI_legitimacy_tab')]"
+
+                using = tooltip_ne
+
+                tooltipwidget = {
+                    DI_legitimacy_hud_tooltip = {}
+                }
+
+                size = { 48 48 }
+
+                icon = {
+                    texture = "gfx/interface/icons/activity_phases/button_activity_base.dds"
+                    size = { 100% 100% }
+                }
+
+                icon = {
+                    parentanchor = vcenter
+                    position = { 6 0 }
+                    size = { 36 36 }
+
+                    texture = "gfx/interface/icons/legitimacy_level_icon.dds"
+                    framesize = { 70 70 }
+                    frame = "[IntToFrameIndex( LegitimacyLevel.GetIndex )]"
+
+                    modify_texture = {
+                        name = "lvl_increase"
+                        texture = "gfx/interface/colors/gold.dds"
+                        blend_mode = colordodge
+                        alpha = 0
+                    }
+
+                    modify_texture = {
+                        name = "lvl_decrease"
+                        texture = "gfx/interface/colors/red.dds"
+                        blend_mode = colordodge
+                        alpha = 0
+                    }
+
+                    state = {
+                        name = "legitimacy_level_increase"
+                        next = "legitimacy_level_increase_2"
+
+                        modify_texture = {
+                            name = "lvl_increase"
+                            alpha = 0
+                        }
+                    }
+
+                    state = {
+                        name = "legitimacy_level_increase_2"
+                        next = "legitimacy_level_increase_3"
+                        duration = 0.4
+                        bezier = { 0.5 0 1 0.5 }
+
+                        modify_texture = {
+                            name = "lvl_increase"
+                            alpha = 0.7
+                        }
+                    }
+
+                    state = {
+                        name = "legitimacy_level_increase_3"
+                        duration = 0.5
+                        bezier = { 0 0.5 0.5 1 }
+
+                        modify_texture = {
+                            name = "lvl_increase"
+                            alpha = 0
+                        }
+                    }
+
+                    state = {
+                        name = "legitimacy_level_decrease"
+                        next = "legitimacy_level_decrease_2"
+
+                        modify_texture = {
+                            name = "lvl_decrease"
+                            alpha = 0
+                        }
+                    }
+
+                    state = {
+                        name = "legitimacy_level_decrease_2"
+                        next = "legitimacy_level_decrease_3"
+                        duration = 0.4
+                        bezier = { 0.5 0 1 0.5 }
+
+                        modify_texture = {
+                            name = "lvl_decrease"
+                            alpha = 0.7
+                        }
+                    }
+
+                    state = {
+                        name = "legitimacy_level_decrease_3"
+                        duration = 0.5
+                        bezier = { 0 0.5 0.5 1 }
+
+                        modify_texture = {
+                            name = "lvl_decrease"
+                            alpha = 0
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    type DI_button_has_password = button_icon
+    {
+        texture = "gfx/interface/icons/flat_icons/has_password.dds"
+    }
+}
+
+template DILandedTitleTooltip {
+    LandedTitleTooltipBase = {
+        blockoverride "input_info_text" {
+            text = DI_PC_title_tt
+        }
+    }
 }

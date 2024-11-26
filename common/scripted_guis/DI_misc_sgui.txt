@@ -270,7 +270,7 @@ DI_add_increment = {
     is_valid = {
         any_owned_story = {
             story_type = DI_misc_variables_story
-            var:DI_increment_value < 10000
+            var:DI_increment_value < 100000
         }
     }
 
@@ -292,10 +292,20 @@ DI_add_increment = {
                     add = 100
                 }
             }
-            else = {
+            else_if = {
+                limit = {
+                    var:DI_increment_value < 10000
+                    var:DI_increment_value >= 1000
+                }
                 change_variable = {
                     name = DI_increment_value
                     add = 500
+                }
+            }
+            else = {
+                change_variable = {
+                    name = DI_increment_value
+                    add = 10000
                 }
             }
         }
@@ -408,7 +418,17 @@ DI_subtract_increment = {
         scope:DI_story = {
             if = {
                 limit = {
+                    var:DI_increment_value > 10000
+                }
+                change_variable = {
+                    name = DI_increment_value
+                    subtract = 10000
+                }
+            }
+            else_if = {
+                limit = {
                     var:DI_increment_value > 1000
+                    var:DI_increment_value <= 10000
                 }
                 change_variable = {
                     name = DI_increment_value
@@ -509,307 +529,6 @@ DI_char_spawner_age_subtract_increment = {
     }
 }
 
-DI_add_prestige_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            add_prestige = scope:DI_story.var:DI_increment_value
-        }
-    }
-}
-
-
-DI_remove_prestige_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            add_prestige = {
-                value = scope:DI_story.var:DI_increment_value
-                multiply = -1
-            }
-        }
-    }
-}
-
-
-DI_add_piety_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            add_piety = scope:DI_story.var:DI_increment_value
-        }
-    }
-}
-
-
-DI_remove_piety_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            add_piety = {
-                value = scope:DI_story.var:DI_increment_value
-                multiply = -1
-            }
-        }
-    }
-}
-
-DI_add_gold_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            add_gold = scope:DI_story.var:DI_increment_value
-        }
-    }
-}
-
-
-DI_remove_gold_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            remove_short_term_gold = scope:DI_story.var:DI_increment_value
-        }
-    }
-}
-
-
-DI_add_dprestige_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            dynasty = {
-                add_dynasty_prestige = scope:DI_story.var:DI_increment_value
-            }
-        }
-    }
-}
-
-
-DI_remove_dprestige_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            dynasty = {
-                add_dynasty_prestige = {
-                    value = scope:DI_story.var:DI_increment_value
-                    multiply = -1
-                }
-            }
-        }
-    }
-}
-
-DI_add_influence_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            change_influence = scope:DI_story.var:DI_increment_value
-        }
-    }
-}
-
-DI_remove_influence_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-            change_influence = {
-                value = scope:DI_story.var:DI_increment_value
-                multiply = -1
-            }
-        }
-    }
-}
-
-# add / remove provisions
-DI_add_provisions_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-        scope:target = {
-			change_provisions = scope:DI_story.var:DI_increment_value
-        }
-    }
-}
-
-DI_remove_provisions_effect = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        random_owned_story = {
-            limit = {
-                story_type = DI_misc_variables_story
-            }
-            save_scope_as = DI_story
-        }
-
-		scope:target = {
-            change_provisions = {
-				value = scope:DI_story.var:DI_increment_value
-				multiply = -1
-			}
-        }
-    }
-}
-
-DI_clear_pinned_character = {
-    scope = character
-
-    saved_scopes = {
-        target # selected character
-    }
-
-    effect = {
-        remove_character_flag = pinned_for_edit
-        scope:target = {
-            remove_list_variable = { name = pinned_characters target = prev}
-        }
-    }
-}
-
-DI_kill_character = {
-    scope = character
-
-    effect = {
-        death = natural
-    }
-}
-
 DI_set_designated_heir = {
     scope = character
 
@@ -834,27 +553,6 @@ DI_change_name = {
     }
 }
 
-DI_imprison = {
-    scope = character
-
-    effect = {
-        imprison = {
-            target = scope:target
-            type = house_arrest
-        }
-    }
-}
-
-DI_imprison_alternate = {
-    scope = character
-
-    effect = {
-        imprison = {
-            target = scope:target
-            type = dungeon
-        }
-    }
-}
 
 DI_vassalize = {
     scope = character

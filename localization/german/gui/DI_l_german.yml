@@ -77,6 +77,8 @@
  DI_ce_intrigue_lifestyle_button_tt: "#Bold Left-Click#! to finish the intrigue lifestyle tree.\n#Bold Right-Click#! to clear the intrigue lifestyle tree."
  DI_ce_learning_lifestyle_button: "All Learning Lifestyle Perks" # button label
  DI_ce_learning_lifestyle_button_tt: "#Bold Left-Click#! to finish the learning lifestyle tree.\n#Bold Right-Click#! to clear the learning lifestyle tree."
+ DI_ce_wandering_lifestyle_button: "Wandering Lifestyle" # button label
+ DI_ce_wandering_lifestyle_button_tt: "#Bold Left-Click#! to add the wandering lifestyle tree.\n#Bold Right-Click#! to remove the wandering lifestyle tree."
  DI_present_add_lifestyle_all: "All Lifestyle Perks" 
  DI_present_lifestyle_all_TT: "Fills all lifestyle trees.\n#F Left-Click to add, Right-Click to remove#!"
  DI_present_lifestyle_martial: "All Martial Lifestyle Perks"
@@ -386,12 +388,41 @@
  DI_pinned_characters: "Angepinnte Charaktere" # window title
  DI_pinned_characters_no_match: "Keine angehefteten Charaktere, rechtsklicke auf einen Charakter und wähle die Interaktion zum Anheften aus."
  DI_pinned_char_var: "Angeheftet"
+ DI_pinned_list_view: "List View"
+ DI_primary_pinned_character: "[GetPlayer.Custom('DI_primary_pinned_character')]"
  DI_increment: "Increment: [GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_increment_value').GetValue]"
  DI_increment_tt: "Amount to decrease or increase"
  DI_age: "Age: [Character.GetAge|0]"
  DI_kill_tt: "Kill this character"
  DI_vassalize_tt: "Vassalize [Character.GetName]."
  DI_STRESS_TOOLTIP: "#T [stress_level|E]: [Character.GetStressLevel|V]/[GetDefine('NCharacter', 'MAX_STRESS_LEVEL')|V]\n#![ConcatIfNeitherEmpty('#S Effects:#!\n', Character.StressLevelEffect )]\n[AddTextIf(Not(StringIsEmpty(Character.StressLevelEffect)), '\n')]#S [stress|E]: [stress_i][Character.GetStress|V]/[GetMaxStress|V]#!\n[Character.StressProgressDesc]"
+ DI_pinned_age: "$game_concept_age$: [Character.GetAge|0]"
+ DI_PC_diplomacy: "$game_concept_diplomacy$: [Character.GetSkill('diplomacy')]"
+ DI_PC_martial: "$game_concept_martial$: [Character.GetSkill('martial')]"
+ DI_PC_stewardship: "$game_concept_stewardship$: [Character.GetSkill('stewardship')]"
+ DI_PC_intrigue: "$game_concept_intrigue$: [Character.GetSkill('intrigue')]"
+ DI_PC_learning: "$game_concept_learning$: [Character.GetSkill('learning')]"
+ DI_PC_prowess: "$game_concept_prowess$: [Character.GetSkill('prowess')]"
+ DI_PC_gold: "$game_concept_gold$: [Character.GetGold|0]"
+ DI_PC_prestige: "$game_concept_prestige$: [Character.GetPrestige|0]"
+ DI_PC_piety: "$game_concept_piety$: [Character.GetPiety|0]"
+ DI_PC_dprestige: "$game_concept_dynasty_prestige$: [Character.GetDynasty.GetPrestige|0]"
+ DI_PC_influence: "$game_concept_influence$: [Character.GetInfluence|0]"
+ DI_PC_provisions: "$game_concept_provisions$: [Character.GetDomicile.GetProvisions|0]"
+ DI_apply_skill: "Apply" # button label
+ DI_execute_tt: "$game_concept_execute$ [GetPlayer.Custom('DI_primary_pinned_character')]. WIP"
+ DI_house_arrest_tt: "House Arrest [GetPlayer.Custom('DI_primary_pinned_character')]. WIP"
+ DI_imprison_tt: "$game_concept_imprison$ [GetPlayer.Custom('DI_primary_pinned_character')]. WIP"
+ DI_pin_living: "Pin Living Characters" # button label
+ DI_pin_living_tt: "Pins all living characters in the game."
+ DI_pin_pinned: "Pin Pinned Characters" # button label
+ DI_pin_pinned_tt: "Pins all characters that are in the base game pinned list."
+ DI_PC_religion_tt: "Click here to choose a religion to convert this character to."
+ DI_PC_culture_tt: "Click here to choose a culture to convert this character to."
+ DI_PC_title_tt: "#Bold Left-Click#! to take this title for [GetPlayer.GetNameNoTooltip].\n#Bold Right-Click#! #difficulty_hard WIP#!"
+ DI_PC_title_options: "Title Options"
+ DI_PC_title_options_tt: "Choose what happens when you click a title."
+ DI_unpin_tt: "Unpin [Character.GetNameNoTooltip]."
  ### Title Manager ###
  DI_title_manager: "Title Manager" # window title
  DI_title_manager_tt: "Opens a menu where you can manipulate pinned titles in various ways."

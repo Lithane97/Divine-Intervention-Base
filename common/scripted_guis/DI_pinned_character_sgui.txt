@@ -1,0 +1,450 @@
+﻿# Pin all living characters
+DI_pin_all_living = {
+    scope = character
+
+    effect = {
+        every_living_character = {
+            limit = { NOT = { has_character_flag = pinned_for_edit } }
+
+            hidden_effect = {
+                add_character_flag = pinned_for_edit
+                root = {
+                    add_to_variable_list = { name = pinned_characters target = prev }
+                }
+            }
+        }
+    }
+}
+
+DI_pin_pinned - {
+    scope = character
+
+    effect = {
+        every_pinned_character = {
+            limit = { NOT = { has_character_flag = pinned_for_edit } }
+
+            hidden_effect = {
+                add_character_flag = pinned_for_edit
+                root = {
+                    add_to_variable_list = { name = pinned_characters target = prev }
+                }
+            }
+        }
+    }
+}
+
+DI_add_prestige_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_prestige = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+
+DI_remove_prestige_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_prestige = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
+}
+
+
+DI_add_piety_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_piety = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+
+DI_remove_piety_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_piety = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
+}
+
+DI_add_gold_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_gold = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+
+DI_remove_gold_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            remove_short_term_gold = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+
+DI_add_dprestige_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            dynasty = {
+                add_dynasty_prestige = scope:DI_story.var:DI_increment_value
+            }
+        }
+    }
+}
+
+
+DI_remove_dprestige_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            dynasty = {
+                add_dynasty_prestige = {
+                    value = scope:DI_story.var:DI_increment_value
+                    multiply = -1
+                }
+            }
+        }
+    }
+}
+
+DI_add_influence_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            change_influence = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_influence_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            change_influence = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
+}
+
+# add / remove provisions
+DI_add_provisions_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            change_provisions = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_provisions_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            change_provisions = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
+}
+
+DI_clear_pinned_character = {
+    scope = character
+
+    saved_scopes = {
+        root # player character
+        target # selected character
+    }
+
+    effect = {
+        scope:target = { remove_character_flag = pinned_for_edit }
+        remove_list_variable = { name = pinned_characters target = scope:target }
+    }
+}
+
+# Execute character
+DI_execute_character = {
+    scope = character
+
+    effect = {
+        death = natural
+    }
+}
+
+DI_house_arrest_character = {
+    scope = character
+
+    saved_scopes = {
+        root # selected character
+        target # player character
+    }
+
+    is_valid = {
+        scope:target != this
+    }
+
+    effect = {
+        scope:target = {
+            imprison = {
+                target = root
+                type = house_arrest
+            }
+        }
+    }
+}
+
+DI_imprison_character = {
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    is_valid = {
+        scope:target != this
+    }
+
+    effect = {
+        scope:target = {
+            imprison = {
+                target = root
+                type = dungeon
+            }
+        }
+    }
+}
+
+# Catch all sgui for title manipulation #
+DI_PC_title_sgui = {
+    scope = character
+
+    saved_scopes = {
+        root # player character
+        title # selected title
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        # check for selected setting
+        if = {
+            limit = {
+                scope:DI_story.var:DI_PC_title_selected_option = flag:take_title
+            }
+
+            get_title = scope:title
+        }
+        else_if = {
+            limit = {
+                scope:DI_story.var:DI_PC_title_selected_option = flag:claim_title
+            }
+
+
+        }
+    }
+}
+
+### New culture change sgui ###
+DI_PC_culture_change = {
+    scope = character
+
+    saved_scopes = {
+        root # Player Character
+        selected_culture # The selected culture from the culture.gui window
+        target # The selected character
+    }
+
+    effect = {
+        save_scope_as = player_character
+
+        scope:target = {
+            set_culture = scope:selected_culture
+        }
+    }
+}
+
+DI_PC_religion_change = {
+    scope = character
+
+    saved_scopes = {
+        root # Player Character
+        selected_faith # The selected faith from the religion.gui window
+        target # The selected character
+    }
+
+    effect = {
+        save_scope_as = player_character
+
+        scope:target = {
+            set_character_faith = scope:selected_faith
+        }
+    }
+}
