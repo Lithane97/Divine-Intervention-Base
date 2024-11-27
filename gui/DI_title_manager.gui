@@ -106,9 +106,15 @@ window = {
 
                         hbox = {
                             layoutpolicy_horizontal = expanding
-                            spacing = 20
+                            spacing = 18
 
-                            expand = {}
+                            vbox = {
+                                button_standard = {
+                                    onclick = "[GetScriptedGui('DI_clear_all_pinned_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    text = DI_clear_all_pinned_titles
+                                }
+                            }
+
                             vbox = {
                                 button_standard = {
                                     onclick = "[GetScriptedGui('DI_title_sort_by_rank_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -116,22 +122,18 @@ window = {
                                 }
                             }
 
-                            # counties
+                            # unpin selected titles
                             vbox = {
                                 button_standard = {
-                                    button_ignore = none
-                                    onclick = "[GetScriptedGui('DI_select_counties_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    onrightclick = "[GetScriptedGui('DI_deselect_counties_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    text = DI_select_counties
-                                    tooltip = DI_select_counties_tt
+                                    onclick = "[GetScriptedGui('DI_unpin_selected_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    text = DI_unpin_selected_titles
                                 }
                             }
-                            expand = {}
                         }
 
                         hbox = {
                             layoutpolicy_horizontal = expanding
-                            spacing = 20
+                            spacing = 18
 
                             # empires
                             vbox = {
@@ -189,10 +191,14 @@ window = {
                                 }
                             }
 
+                            # counties
                             vbox = {
                                 button_standard = {
-                                    onclick = "[GetScriptedGui('DI_clear_all_pinned_titles_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    text = DI_clear_all_pinned_titles
+                                    button_ignore = none
+                                    onclick = "[GetScriptedGui('DI_select_counties_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_deselect_counties_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    text = DI_select_counties
+                                    tooltip = DI_select_counties_tt
                                 }
                             }
                         }

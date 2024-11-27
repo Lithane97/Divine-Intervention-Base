@@ -10,6 +10,30 @@ DI_clear_all_pinned_titles_sgui = {
     }
 }
 
+DI_unpin_selected_titles_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
+
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_pinned_titles
+                    target = scope:title
+                }
+                remove_list_variable = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+        }
+    }
+}
+
 ### Pin all pinned character's titles ###
 DI_pin_pinned_characters_titles_sgui = {
     scope = character # Player Character

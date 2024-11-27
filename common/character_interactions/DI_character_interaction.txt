@@ -1477,12 +1477,13 @@ DI_designate_heir_interaction = {
                 story_type = DI_misc_variables_story
                 has_variable = DI_cheat_menu
             }
+            any_child = {
+                this = scope:recipient
+            }
         }
         NOR = {
             scope:recipient = scope:actor
             scope:recipient = scope:actor.designated_heir
-            scope:recipient = scope:actor.father
-            scope:recipient = scope:actor.mother
         }
     }
 
@@ -2604,21 +2605,45 @@ DI_vassalize_interaction = {
         }
     }
 
-    is_valid_showing_failures_only = {
-    }
-    ai_accept = {
-        base = 100
-    }
-
     on_accept = {
         offer_vassalization_interaction_effect = yes
     }
+}
 
-    on_decline = {
+### Make Independent ###
+DI_make_independent_interaction = {
+    category = interaction_category_cheat_menu
+    icon = independence
+
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:recipient = {
+            is_independent_ruler = no
+            highest_held_title_tier >= tier_county
+        }
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
     }
 
-    ai_will_do = {
-        base = 0
+    on_accept = {
+        create_title_and_vassal_change = {
+            type = conquest
+            save_scope_as = change
+        }
+        scope:recipient = {
+            becomes_independent = { change = scope:change }
+        }
+        resolve_title_and_vassal_change = scope:change
     }
 }
 
@@ -2654,6 +2679,68 @@ DI_add_to_court_interaction = {
     on_accept = {
         scope:actor = {
             add_courtier = scope:recipient
+        }
+    }
+}
+
+### take hostage ###
+DI_take_hostage_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_hostage
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        NOT = { scope:recipient = scope:actor }
+        scope:recipient = {
+            is_ruler = no
+            is_hostage = no
+        }
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    on_accept = {
+        scope:actor = {
+            take_hostage = scope:recipient
+        }
+    }
+}
+
+### Release Hostage ###
+DI_release_hostage_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_hostage
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:recipient = {
+            is_hostage = yes
+        }
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    on_accept = {
+        scope:recipient = {
+            return_hostage = yes
         }
     }
 }
@@ -3736,18 +3823,18 @@ DI_change_government = {
             has_dlc_feature = admin_gov
         }
     }
-	send_option = {
-		flag = feudal_full
-		localization = DI_change_government_feudal_full
-	}
-	send_option = {
-		flag = clan_full
-		localization = DI_change_government_clan_full
-	}
-	send_option = {
-		flag = tribal_full
-		localization = DI_change_government_tribal_full
-	}
+    send_option = {
+        flag = feudal_full
+        localization = DI_change_government_feudal_full
+    }
+    send_option = {
+        flag = clan_full
+        localization = DI_change_government_clan_full
+    }
+    send_option = {
+        flag = tribal_full
+        localization = DI_change_government_tribal_full
+    }
 
     on_accept = {
         scope:actor = {
@@ -3816,39 +3903,39 @@ DI_change_government = {
                         }
                     }
                 }
-				scope:feudal_full = {
-					scope:recipient = {
-						change_government = feudal_government
-						every_vassal_or_below = {
-							change_government = feudal_government
-						}
-						every_realm_province = {
-							set_holding_type = castle_holding
-						}
-					}
-				}
-				scope:clan_full = {
-					scope:recipient = {
-						change_government = clan_government
-						every_vassal_or_below = {
-							change_government = clan_government
-						}
-						every_realm_province = {
-							set_holding_type = castle_holding
-						}
-					}
-				}
-				scope:tribal_full = {
-					scope:recipient = {
-						change_government = tribal_government
-						every_vassal_or_below = {
-							change_government = tribal_government
-						}
-						every_realm_province = {
-							set_holding_type = tribal_holding
-						}
-					}
-				}
+                scope:feudal_full = {
+                    scope:recipient = {
+                        change_government = feudal_government
+                        every_vassal_or_below = {
+                            change_government = feudal_government
+                        }
+                        every_realm_province = {
+                            set_holding_type = castle_holding
+                        }
+                    }
+                }
+                scope:clan_full = {
+                    scope:recipient = {
+                        change_government = clan_government
+                        every_vassal_or_below = {
+                            change_government = clan_government
+                        }
+                        every_realm_province = {
+                            set_holding_type = castle_holding
+                        }
+                    }
+                }
+                scope:tribal_full = {
+                    scope:recipient = {
+                        change_government = tribal_government
+                        every_vassal_or_below = {
+                            change_government = tribal_government
+                        }
+                        every_realm_province = {
+                            set_holding_type = tribal_holding
+                        }
+                    }
+                }
             }
         }
     }
@@ -4196,7 +4283,7 @@ DI_abdicate = {
                 has_variable = DI_cheat_menu
             }
         }
-        debug_only = yes
+        scope:recipient = scope:actor
     }
 
     on_accept = {
@@ -4372,7 +4459,7 @@ DI_spawn_legend_interaction = {
     use_diplomatic_range = no
     ignores_pending_interaction_block = yes
     auto_accept = yes
-    
+
     is_shown = {
         scope:actor = {
             is_ai = no
@@ -4444,6 +4531,451 @@ DI_spawn_legend_interaction = {
                                 ancestor = scope:recipient
                                 title = scope:recipient.primary_title
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+### Make Laamp ###
+DI_make_laamp_interaction = {
+    category = interaction_category_cheat_menu
+    icon = request_invasion_sponsorship_interaction
+    desc = debug_make_laamp_desc
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    on_accept = {
+        scope:recipient = {
+            if = {
+                limit = { is_ruler = yes }
+                depose = yes
+            }
+            create_landless_adventurer_title_effect = {
+                REASON = flag:voluntary
+                FLAVOR_CHAR = scope:recipient
+            }
+        }
+    }
+}
+
+### Move Domicile ###
+DI_move_domicile_interaction = {
+    category = interaction_category_cheat_menu
+    icon = travel_mixed
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+            has_domicile = yes
+        }
+    }
+
+    send_option = {
+        starts_enabled = { always = yes }
+        flag = move_domicile_option
+    }
+    send_option = {
+        is_shown = {
+            scope:actor = {
+                is_landless_adventurer = yes
+            }
+        }
+        flag = move_with_travel_option
+    }
+    send_options_exclusive = no
+
+    on_accept = {
+        scope:recipient.capital_province = {
+            save_scope_as = relocation_destination
+        }
+        scope:actor = {
+            if = {
+                limit = {
+                    scope:move_domicile_option = yes
+                }
+                if = {
+                    limit = {
+                        scope:move_with_travel_option = yes
+                    }
+                    start_travel_plan = {
+                        destination = scope:relocation_destination
+                        on_start_on_action = on_travel_relocation_start
+                        on_arrival_on_action = on_travel_relocation_end
+                        on_arrival_destinations = last
+                        return_trip = no # One way
+                        travel_with_domicile = yes
+                    }
+                }
+                else = {
+                    domicile = {
+                        move_domicile = scope:relocation_destination
+                    }
+                    populate_location_with_contracts_effect = {
+                        AREA_CHAR = scope:actor
+                        AMOUNT = 5
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = {
+                        scope:move_with_travel_option = yes
+                    }
+                    start_travel_plan = {
+                        destination = scope:relocation_destination
+                        on_start_on_action = on_travel_relocation_start
+                        on_arrival_on_action = on_travel_relocation_end
+                        on_arrival_destinations = last
+                        return_trip = no # One way
+                        travel_with_domicile = yes
+                    }
+                }
+                else = {
+                    domicile = {
+                        move_domicile = scope:relocation_destination
+                    }
+                    populate_location_with_contracts_effect = {
+                        AREA_CHAR = scope:actor
+                        AMOUNT = 5
+                    }
+                }
+            }
+        }
+    }
+}
+
+DI_populate_contracts_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_scheme_learn_language
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    on_accept = {
+        scope:actor = {
+            populate_location_with_contracts_effect = {
+                AREA_CHAR = scope:recipient
+                AMOUNT = 5
+            }
+        }
+    }
+}
+
+DI_infinite_schemes_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_adultery
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = { flag = give_infinite_schemes_of_type_all }
+    send_option = { flag = give_infinite_schemes_of_type_hostile }
+    send_option = { flag = give_infinite_schemes_of_type_contract }
+    send_option = { flag = give_infinite_schemes_of_type_personal }
+    send_option = { flag = give_infinite_schemes_of_type_clear_modifiers }
+
+    on_accept = {
+        scope:actor = {
+            custom_tooltip = give_infinite_schemes_of_type_interaction.tt
+            if = {
+                limit = { scope:give_infinite_schemes_of_type_all = yes }
+                add_character_modifier = infinite_hostile_schemes_modifier
+                add_character_modifier = infinite_contract_schemes_modifier
+                add_character_modifier = infinite_personal_schemes_modifier
+            }
+            if = {
+                limit = { scope:give_infinite_schemes_of_type_hostile = yes }
+                add_character_modifier = infinite_hostile_schemes_modifier
+            }
+            if = {
+                limit = { scope:give_infinite_schemes_of_type_contract = yes }
+                add_character_modifier = infinite_contract_schemes_modifier
+            }
+            if = {
+                limit = { scope:give_infinite_schemes_of_type_personal = yes }
+                add_character_modifier = infinite_personal_schemes_modifier
+            }
+            if = {
+                limit = { scope:give_infinite_schemes_of_type_clear_modifiers = yes }
+                remove_character_modifier = infinite_hostile_schemes_modifier
+                remove_character_modifier = infinite_contract_schemes_modifier
+                remove_character_modifier = infinite_personal_schemes_modifier
+            }
+        }
+    }
+}
+
+DI_buff_schemes_interaction = {
+    category = interaction_category_cheat_menu
+    icon = scheme_assassination
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    # Clear my opportunities.
+    send_option = { flag = debug_buff_schemes_zero_opportunity }
+    # Give me an opportunity.
+    send_option = { flag = debug_buff_schemes_one_opportunity }
+    # Give me max opportunities.
+    send_option = { flag = debug_buff_schemes_many_opportunity }
+    # Give me an agent slot that gives base success chance.
+    send_option = { flag = debug_buff_schemes_give_agent_success_chance_base }
+    # Give me an agent slot that gives success chance growth.
+    send_option = { flag = debug_buff_schemes_give_agent_success_chance_growth }
+    # Give me an agent slot that gives max success chance.
+    send_option = { flag = debug_buff_schemes_give_agent_success_chance_max }
+    # Give me an agent slot that gives speed.
+    send_option = { flag = debug_buff_schemes_give_agent_speed }
+    # Give me an agent slot that gives secrecy.
+    send_option = { flag = debug_buff_schemes_give_agent_secrecy }
+    # Set scheme progress to 1.
+    send_option = { flag = debug_buff_schemes_progress_one }
+    # Set scheme progress to half.
+    send_option = { flag = debug_buff_schemes_progress_half }
+    # Reset scheme progress.
+    send_option = { flag = debug_buff_schemes_progress_reset }
+
+    on_accept = {
+        custom_tooltip = debug_buff_schemes.tt.application_warning
+        scope:recipient = {
+            every_scheme = {
+                if = {
+                    limit = { always = scope:debug_buff_schemes_zero_opportunity }
+                    change_opportunities = {
+                        value = scheme_agent_charges
+                        multiply = -1
+                    }
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_one_opportunity }
+                    change_opportunities = 2
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_many_opportunity }
+                    change_opportunities = opportunity_cap_value
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_give_agent_success_chance_base }
+                    add_agent_slot = agent_wraith
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_give_agent_success_chance_growth }
+                    add_agent_slot = agent_changeling
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_give_agent_success_chance_max }
+                    add_agent_slot = agent_mage
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_give_agent_speed }
+                    add_agent_slot = agent_werewolf
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_give_agent_secrecy }
+                    add_agent_slot = agent_vampire
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_progress_one }
+                    custom_tooltip = {
+                        text = debug_buff_schemes_progress_one
+                        add_scheme_progress = {
+                            value = scheme_phase_duration
+                            subtract = scheme_progress
+                            add = -1
+                        }
+                    }
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_progress_half }
+                    custom_tooltip = {
+                        text = debug_buff_schemes_progress_half
+                        add_scheme_progress = {
+                            value = scheme_progress
+                            multiply = -1
+                        }
+                        add_scheme_progress = {
+                            value = scheme_phase_duration
+                            multiply = 0.5
+                        }
+                    }
+                }
+                if = {
+                    limit = { always = scope:debug_buff_schemes_progress_reset }
+                    custom_tooltip = {
+                        text = debug_buff_schemes_progress_reset
+                        add_scheme_progress = {
+                            value = scheme_progress
+                            multiply = -1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+### antagonize court ###
+DI_antagonize_court_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_hostile
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = {
+        flag = vassals_only
+        localization = antagonise_court_vassals_only
+    }
+
+    send_option = {
+        flag = courtiers_and_guests
+        localization = antagonise_court_courtiers_and_guests
+    }
+
+    send_option = {
+        flag = present_family
+        localization = antagonise_court_present_family
+    }
+
+    send_option = {
+        flag = antagonise_all
+        localization = antagonise_court_antagonise_all
+    }
+
+    on_accept = {
+        scope:recipient = {
+            switch = {
+                trigger = yes
+                scope:vassals_only = {
+                    every_vassal = {
+                        add_opinion = {
+                            target = scope:recipient
+                            modifier = hate_opinion
+                            opinion = -250
+                        }
+                    }
+                }
+                scope:courtiers_and_guests = {
+                    every_courtier_or_guest = {
+                        add_opinion = {
+                            target = scope:recipient
+                            modifier = hate_opinion
+                            opinion = -250
+                        }
+                    }
+                }
+                scope:present_family = {
+                    every_close_or_extended_family_member = {
+                        add_opinion = {
+                            target = scope:recipient
+                            modifier = hate_opinion
+                            opinion = -250
+                        }
+                    }
+                }
+                scope:antagonise_all = {
+                    every_vassal = {
+                        limit = {
+                            NOT = {
+                                is_close_or_extended_family_of = scope:recipient
+                            }
+                        }
+                        add_opinion = {
+                            target = scope:recipient
+                            modifier = hate_opinion
+                            opinion = -250
+                        }
+                    }
+                    every_courtier_or_guest = {
+                        limit = {
+                            NOT = {
+                                is_close_or_extended_family_of = scope:recipient
+                            }
+                        }
+                        add_opinion = {
+                            target = scope:recipient
+                            modifier = hate_opinion
+                            opinion = -250
+                        }
+                    }
+                    every_close_or_extended_family_member = {
+                        add_opinion = {
+                            target = scope:recipient
+                            modifier = hate_opinion
+                            opinion = -250
                         }
                     }
                 }

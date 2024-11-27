@@ -685,6 +685,67 @@ window = {
 											minimumsize = { 76 -1 }
 										}
 									}
+
+									# vassalize
+									hbox = {
+										layoutpolicy_horizontal = expanding
+
+										button_standard = {
+											layoutpolicy_horizontal = expanding
+											size = { 0 50 }
+
+											onclick = "[GetScriptedGui('DI_dip_vassalize').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+											hbox = {
+												margin = { 5 0 }
+												margin_right = 10
+												spacing = 10
+									
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													
+													text = DI_dip_vassalize_button
+									
+													default_format = "#clickable"
+												}
+											}
+											tooltip = DI_dip_vassalize_button_tt
+										}
+										hbox = {
+											minimumsize = { 76 -1 }
+										}
+									}
+
+									# take titles
+									hbox = {
+										layoutpolicy_horizontal = expanding
+
+										button_standard = {
+											layoutpolicy_horizontal = expanding
+											size = { 0 50 }
+											button_ignore = none
+
+											onclick = "[GetScriptedGui('DI_dip_take_titles').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+											onrightclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"										
+											hbox = {
+												margin = { 5 0 }
+												margin_right = 10
+												spacing = 10
+									
+												text_single = {
+													layoutpolicy_horizontal = expanding
+													
+													text = DI_dip_take_titles_button
+									
+													default_format = "#clickable"
+												}
+											}
+											tooltip = DI_dip_take_titles_button_tt
+										}
+										hbox = {
+											minimumsize = { 76 -1 }
+										}
+									}
 								}
 							}
 						}
