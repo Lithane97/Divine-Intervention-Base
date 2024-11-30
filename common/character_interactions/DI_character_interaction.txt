@@ -569,6 +569,40 @@ DI_cultural_acceptance_interaction = {
     }
 }
 
+DI_remove_character_flags_interaction = {
+    category = interaction_category_cheat_menu
+    icon = alliance
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    send_options_exclusive = no
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = { flag = used_lifetime_invasion }
+
+    on_accept = {
+        scope:recipient = {
+            if = {
+                limit = {
+                    always = scope:used_lifetime_invasion
+                }
+                remove_character_flag = used_lifetime_invasion
+            }
+        }
+    }
+}
+
 DI_permanent_health = {
     category = interaction_category_cheat_menu
     icon = icon_health

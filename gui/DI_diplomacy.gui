@@ -1,1465 +1,1469 @@
 ### Diplomacy Manager Window ###
 
 window = {
-	name = "DI_diplomacy_manager_window"
-	parentanchor = top|right
-	position = { -50 100 }
-	layer = windows_layer
-	filter_mouse = all
-	allow_outside = yes
-	alwaystransparent = no
-	
-	using = Window_Background
-	using = Window_Decoration
-	movable = yes
-
-	visible = "[GetVariableSystem.Exists('DI_diplomacy_window_visible')]"
-
-	using = DI_Diplomacy_Anim
-	
-	vbox = {
-		using = Window_Margins
-		using = DI_Diplomacy_Header
-		
-		widget = {
-			size = { 600 220 }
-			widget = {
-				size = { 600 220 }
-				visible = "[Or(GetVariableSystem.HasValue('diplomacy_tab', 'relations'), Or(GetVariableSystem.HasValue('diplomacy_tab', 'treaties'), GetVariableSystem.HasValue('diplomacy_tab', 'wars')))]"
-
-				using = DI_Select_Primary_Character
-				using = DI_Select_Secondary_Character
-				
-				datacontext = "[GetPlayer.MakeScope.Var('DI_secondary_character').Char]"
-
-				text_single = {
-					name = "character_relation"
-					text = "[Character.GetRelationToString( GetPlayer.MakeScope.Var('DI_primary_character').Char )]"
-					tooltip = "EXTENDED_RELATIONS_TOOLTIP"
-					default_format = "#low"
-					align = nobaseline
-					fontsize_min = 14
-					parentanchor = hcenter|bottom
-				}
-			}
-
-			widget = {
-				size = { 600 220 }
-				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
-
-				using = DI_Select_Primary_Character
-				using = DI_Select_Secondary_Character
-				using = DI_Select_Tertiary_Character
-				
-				datacontext = "[GetPlayer.MakeScope.Var('DI_secondary_character').Char]"
-
-				text_single = {
-					name = "character_relation"
-					text = "[Character.GetRelationToString( GetPlayer.MakeScope.Var('DI_primary_character').Char )]"
-					tooltip = "EXTENDED_RELATIONS_TOOLTIP"
-					default_format = "#low"
-					align = nobaseline
-					fontsize_min = 14
-					parentanchor = hcenter|bottom
-				}
-			}
-		}
-		
-
-		hbox = {
-			name = "tabs"
-			layoutpolicy_horizontal = expanding
-			margin_top = 10
-
-			# Relations tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'relations')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'relations')]"
-
-				text_single = {
-					parentanchor = center
-					text = DI_tab_relations
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-
-			# Treaties tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'treaties')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'treaties')]"
-
-				text_single = {
-					parentanchor = center
-					text = DI_tab_treaties
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-
-			# Wars tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'wars')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'wars')]"
-
-				text_single = {
-					parentanchor = center
-					text = DI_tab_wars
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-
-			# Family Tab
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('diplomacy_tab', 'family')]"
-				down = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
-
-				text_single = {
-					parentanchor = center
-					text = DI_tab_family
-					maximumsize = { 400 -1 }
-					default_format = "#low"
-				}
-			}
-		}
-
-		widget = {
-			size = { 600 420 }
-			vbox = {
-				name = "relations_tab"
-				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'relations')]"
-				layoutpolicy_horizontal = expanding
-
-				margin = { 20 10 }
-
-				using = Animation_Tab_Switch
-
-				vbox = {
-					scrollbox = {
-						layoutpolicy_horizontal = expanding
-						size = { 400 300 }
-
-						blockoverride "scrollbox_content"
-						{
-							vbox = {
-								name = "relations_list"
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_potential_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_potential_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "potential_friend"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_potential_friend_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_potential_friend').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_potential_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_potential_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "potential_rival"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_potential_rival_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_potential_rival').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-							
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_potential_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_potential_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "potential_lover"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_potential_lover_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_potential_lover').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# friend
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "friend"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_friend_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_friend').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# rival
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "rival"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_rival_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_rival').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# lover
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "lover"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_lover_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_lover').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# best friend
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_best_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_best_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "best_friend"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_best_friend_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_best_friend').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# nemesis
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_nemesis').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_nemesis').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "nemesis"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_nemesis_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_nemesis').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# soulmate
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_soulmate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_soulmate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "soulmate"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_soulmate_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_soulmate').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# bully
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_bully').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_bully').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "bully"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_bully_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_bully').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-
-								# victim
-								DI_Relation_Button = {
-									blockoverride "onclick_relation"
-									{
-										onclick = "[GetScriptedGui('DI_victim').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										onrightclick = "[GetScriptedGui('DI_remove_victim').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										button_ignore = none
-									}
-
-									blockoverride "text_relation"
-									{
-										text = "victim"
-									}
-
-									hbox = {
-										margin = { 20 0 } 
-							
-										button_checkbox_label = {
-											layoutpolicy_horizontal = expanding
-											onclick = "[GetScriptedGui('DI_victim_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											blockoverride "checkbox" 
-											{
-												checked = "[GetPlayer.MakeScope.Var('DI_victim').IsSet]"
-											}
-											
-											blockoverride "text"
-											{
-												text = ""
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					margin_bottom = 16
-				}
-
-				vbox = {
-					spacing = 8
-
-					hbox = {
-						spacing = 15
-
-						button_standard = {
-							text = DI_reset_relations
-							tooltip = DI_reset_relations_tt
-							onclick = "[GetScriptedGui('DI_reset_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_reset_pinned_relations
-							tooltip = DI_reset_pinned_relations_tt
-							onclick = "[GetScriptedGui('DI_reset_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_reset_all_pinned_relations
-							tooltip = DI_reset_all_pinned_relations_tt
-							onclick = "[GetScriptedGui('DI_reset_all_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-					}
-
-					hbox = {
-						spacing = 15
-
-						button_standard = {
-							text = DI_apply_relations
-							tooltip = DI_apply_relations_tt
-							onclick = "[GetScriptedGui('DI_apply_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_apply_pinned_relations
-							tooltip = DI_apply_pinned_relations_tt
-							onclick = "[GetScriptedGui('DI_apply_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_apply_all_pinned_relations
-							tooltip = DI_apply_all_pinned_relations_tt
-							onclick = "[GetScriptedGui('DI_apply_all_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-					}
-				}
-				expand = {}
-			}
-
-			vbox = {
-				# Treaties Tab
-				name = "treaties_tab"
-				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'treaties')]"
-				layoutpolicy_horizontal = expanding
-
-				margin = { 20 10 }
-
-				using = Animation_Tab_Switch
-
-				hbox = {
-					vbox = {
-						scrollbox = {
-							layoutpolicy_horizontal = expanding
-							size = { 400 300 }
-
-							blockoverride "scrollbox_content"
-							{
-								vbox = {
-									name = "treaties_list"
-									layoutpolicy_horizontal = expanding
-									spacing = 5
-									
-									hbox = {
-										layoutpolicy_horizontal = expanding
-
-										hbox = {
-											margin_bottom = 10
-								
-											button_checkbox_label = {
-												layoutpolicy_horizontal = expanding
-												onclick = "[GetScriptedGui('DI_dip_length_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-												
-												blockoverride "checkbox" 
-												{
-													checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_dip_length').IsSet]"
-												}
-												
-												blockoverride "text"
-												{
-													text = DI_dip_perma
-												}
-											}
-										}
-										expand = {}
-									}
-									
-									hbox = {
-										layoutpolicy_horizontal = expanding
-
-										button_standard = {
-											layoutpolicy_horizontal = expanding
-											size = { 0 50 }
-											button_ignore = none
-
-											onclick = "[GetScriptedGui('DI_dip_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											onrightclick = "[GetScriptedGui('DI_dip_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											hbox = {
-												margin = { 5 0 }
-												margin_right = 10
-												spacing = 10
-									
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													
-													text = DI_dip_treaty_button
-									
-													default_format = "#clickable"
-												}
-											}
-											tooltip = DI_dip_treaty_button_tt
-										}
-										hbox = {
-											minimumsize = { 76 -1 }
-										}
-									}
-
-									hbox = {
-										layoutpolicy_horizontal = expanding
-
-										button_standard = {
-											layoutpolicy_horizontal = expanding
-											size = { 0 50 }
-											button_ignore = none
-
-											onclick = "[GetScriptedGui('DI_dip_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											onrightclick = "[GetScriptedGui('DI_dip_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											
-											hbox = {
-												margin = { 5 0 }
-												margin_right = 10
-												spacing = 10
-									
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													
-													text = DI_dip_alliance_button
-									
-													default_format = "#clickable"
-												}
-											}
-											tooltip = DI_dip_alliance_button_tt
-										}
-										hbox = {
-											minimumsize = { 76 -1 }
-										}
-									}
-
-									# vassalize
-									hbox = {
-										layoutpolicy_horizontal = expanding
-
-										button_standard = {
-											layoutpolicy_horizontal = expanding
-											size = { 0 50 }
-
-											onclick = "[GetScriptedGui('DI_dip_vassalize').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-											hbox = {
-												margin = { 5 0 }
-												margin_right = 10
-												spacing = 10
-									
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													
-													text = DI_dip_vassalize_button
-									
-													default_format = "#clickable"
-												}
-											}
-											tooltip = DI_dip_vassalize_button_tt
-										}
-										hbox = {
-											minimumsize = { 76 -1 }
-										}
-									}
-
-									# take titles
-									hbox = {
-										layoutpolicy_horizontal = expanding
-
-										button_standard = {
-											layoutpolicy_horizontal = expanding
-											size = { 0 50 }
-											button_ignore = none
-
-											onclick = "[GetScriptedGui('DI_dip_take_titles').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-											onrightclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"										
-											hbox = {
-												margin = { 5 0 }
-												margin_right = 10
-												spacing = 10
-									
-												text_single = {
-													layoutpolicy_horizontal = expanding
-													
-													text = DI_dip_take_titles_button
-									
-													default_format = "#clickable"
-												}
-											}
-											tooltip = DI_dip_take_titles_button_tt
-										}
-										hbox = {
-											minimumsize = { 76 -1 }
-										}
-									}
-								}
-							}
-						}
-					}	
-					margin_bottom = 16			
-				}
-				
-
-				vbox = {
-					spacing = 8
-
-					hbox = {
-						spacing = 15
-						button_standard = {
-							text = DI_all_treaty
-							tooltip = DI_all_treaty_tt
-
-							onclick = "[GetScriptedGui('DI_dip_all_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_all_break_treaty
-							tooltip = DI_all_break_treaty_tt
-
-							onclick = "[GetScriptedGui('DI_dip_all_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_every_pinned_treaty
-							tooltip = DI_every_pinned_treaty_tt
-
-							onclick = "[GetScriptedGui('DI_dip_every_pinned_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onrightclick = "[GetScriptedGui('DI_dip_every_pinned_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-							button_ignore = none	
-						}
-					}
-
-					hbox = {
-						spacing = 15
-
-						button_standard = {
-							text = DI_all_alliance
-							tooltip = DI_all_alliance_tt
-
-							onclick = "[GetScriptedGui('DI_dip_all_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_all_break_alliance
-							tooltip = DI_all_break_alliance_tt
-
-							onclick = "[GetScriptedGui('DI_dip_all_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_every_pinned_alliance
-							tooltip = DI_every_pinned_alliance_tt
-
-							onclick = "[GetScriptedGui('DI_dip_every_pinned_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onrightclick = "[GetScriptedGui('DI_dip_every_pinned_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-							button_ignore = none
-						}
-					}
-				}
-				expand = {}
-			}
-
-			vbox = {
-				# Wars
-				name = "wars_tab"
-				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'wars')]"
-				layoutpolicy_horizontal = expanding
-
-				margin = { 20 10 }
-
-				using = Animation_Tab_Switch
-
-				vbox = {
-					scrollbox = {
-						layoutpolicy_horizontal = expanding
-						size = { 400 300 }
-
-						blockoverride "scrollbox_content"
-						{
-							vbox = {
-								name = "wars_list"
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								
-								# casus belli button
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_casus_belli_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_casus_belli_button_tt
-									}
-									# select titles button
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_select_titles_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_select_titles_button_tt
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_war_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_war_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_end_war_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_end_war_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-							}
-						}
-					}
-					margin_bottom = 16
-				}
-
-				vbox = {
-					spacing = 8
-
-					hbox = {
-						spacing = 15
-						button_standard = {
-							text = DI_all_war
-							tooltip = DI_placeholder_tt # DI_all_war_tt
-
-							onclick = "[GetScriptedGui('DI_dip_all_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_all_end_war
-							tooltip = DI_placeholder_tt # DI_all_end_war_tt
-
-							onclick = "[GetScriptedGui('DI_dip_all_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						}
-
-						button_standard = {
-							text = DI_every_pinned_war
-							tooltip = DI_placeholder_tt # DI_every_pinned_war_tt
-
-							onclick = "[GetScriptedGui('DI_dip_every_pinned_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onrightclick = "[GetScriptedGui('DI_dip_every_pinned_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-							button_ignore = none
-						}
-					}
-
-					hbox = {
-						spacing = 15
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt			
-						}
-
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt			
-						}
-
-						button_standard = {
-							text = DI_test
-							tooltip = DI_placeholder_tt			
-						}
-					}
-				}
-			}
-
-			vbox = {
-				# Family
-				name = "family_tab"
-				visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
-				layoutpolicy_horizontal = expanding
-
-				margin = { 20 10 }
-
-				using = Animation_Tab_Switch
-
-				vbox = {
-					scrollbox = {
-						layoutpolicy_horizontal = expanding
-						size = { 400 300 }
-
-						blockoverride "scrollbox_content"
-						{
-							vbox = {
-								name = "family_list"
-								layoutpolicy_horizontal = expanding
-								spacing = 5
-								
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_adoption').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_adoption_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_adoption_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_adoption_house').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_adoption_house_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_adoption_house_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_impregnate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_impregnate_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_impregnate_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								# set pregnancy gender male
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_preg_gender_male').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_preg_gender_male_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_preg_gender_male_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								# set pregnancy gender female
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_preg_gender_female').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_preg_gender_female_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_preg_gender_female_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_marry').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_marry_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_marry_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								# marry_matrilineal
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_marry_matrilineal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_marry_matrilineal_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_marry_matrilineal_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								# divorce
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_divorce').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_divorce_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_divorce_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								# Make Siblings
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									button_standard = {
-										layoutpolicy_horizontal = expanding
-										size = { 0 50 }
-
-										onclick = "[GetScriptedGui('DI_dip_make_siblings').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-										
-										hbox = {
-											margin = { 5 0 }
-											margin_right = 10
-											spacing = 10
-								
-											text_single = {
-												layoutpolicy_horizontal = expanding
-												
-												text = DI_dip_make_siblings_button
-								
-												default_format = "#clickable"
-											}
-										}
-										tooltip = DI_dip_make_siblings_button_tt
-									}
-									hbox = {
-										minimumsize = { 76 -1 }
-									}
-								}
-
-								# Create Cadet Branch
-								# This will take a primary character (the head of the dynasty who the house will belong to)
-								# and a secondary character (the head of the new house)
-							}
-						}
-					}
-					margin_bottom = 16
-				}
-
-				vbox = {
-					spacing = 8
-
-					hbox = {
-						spacing = 15
-
-					}
-
-					hbox = {
-						spacing = 15
-
-					}
-				}
-				expand = {}
-			}
-		}
-	}
+    name = "DI_diplomacy_manager_window"
+    parentanchor = top|right
+    position = { -50 100 }
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+
+    visible = "[GetVariableSystem.Exists('DI_diplomacy_window_visible')]"
+
+    using = DI_Diplomacy_Anim
+
+    vbox = {
+        using = Window_Margins
+        using = DI_Diplomacy_Header
+
+        widget = {
+            size = { 600 220 }
+            widget = {
+                size = { 600 220 }
+                visible = "[Or(GetVariableSystem.HasValue('diplomacy_tab', 'relations'), Or(GetVariableSystem.HasValue('diplomacy_tab', 'treaties'), GetVariableSystem.HasValue('diplomacy_tab', 'wars')))]"
+
+                using = DI_Select_Primary_Character
+                using = DI_Select_Secondary_Character
+
+                datacontext = "[GetPlayer.MakeScope.Var('DI_secondary_character').Char]"
+
+                text_single = {
+                    name = "character_relation"
+                    text = "[Character.GetRelationToString( GetPlayer.MakeScope.Var('DI_primary_character').Char )]"
+                    tooltip = "EXTENDED_RELATIONS_TOOLTIP"
+                    default_format = "#low"
+                    align = nobaseline
+                    fontsize_min = 14
+                    parentanchor = hcenter|bottom
+                }
+            }
+
+            widget = {
+                size = { 600 220 }
+                visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
+
+                using = DI_Select_Primary_Character
+                using = DI_Select_Secondary_Character
+                using = DI_Select_Tertiary_Character
+
+                datacontext = "[GetPlayer.MakeScope.Var('DI_secondary_character').Char]"
+
+                text_single = {
+                    name = "character_relation"
+                    text = "[Character.GetRelationToString( GetPlayer.MakeScope.Var('DI_primary_character').Char )]"
+                    tooltip = "EXTENDED_RELATIONS_TOOLTIP"
+                    default_format = "#low"
+                    align = nobaseline
+                    fontsize_min = 14
+                    parentanchor = hcenter|bottom
+                }
+            }
+        }
+
+
+        hbox = {
+            name = "tabs"
+            layoutpolicy_horizontal = expanding
+            margin_top = 10
+
+            # Relations tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('diplomacy_tab', 'relations')]"
+                down = "[GetVariableSystem.HasValue('diplomacy_tab', 'relations')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_tab_relations
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            # Treaties tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('diplomacy_tab', 'treaties')]"
+                down = "[GetVariableSystem.HasValue('diplomacy_tab', 'treaties')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_tab_treaties
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            # Wars tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('diplomacy_tab', 'wars')]"
+                down = "[GetVariableSystem.HasValue('diplomacy_tab', 'wars')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_tab_wars
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            # Family Tab
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('diplomacy_tab', 'family')]"
+                down = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_tab_family
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+        }
+
+        widget = {
+            size = { 600 420 }
+            vbox = {
+                name = "relations_tab"
+                visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'relations')]"
+                layoutpolicy_horizontal = expanding
+
+                margin = { 20 10 }
+
+                using = Animation_Tab_Switch
+
+                vbox = {
+                    scrollbox = {
+                        layoutpolicy_horizontal = expanding
+                        size = { 400 300 }
+
+                        blockoverride "scrollbox_content"
+                        {
+                            vbox = {
+                                name = "relations_list"
+                                layoutpolicy_horizontal = expanding
+                                spacing = 5
+
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_potential_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_potential_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "potential_friend"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_potential_friend_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_potential_friend').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_potential_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_potential_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "potential_rival"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_potential_rival_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_potential_rival').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_potential_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_potential_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "potential_lover"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_potential_lover_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_potential_lover').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # friend
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "friend"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_friend_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_friend').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # rival
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_rival').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "rival"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_rival_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_rival').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # lover
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_lover').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "lover"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_lover_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_lover').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # best friend
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_best_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_best_friend').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "best_friend"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_best_friend_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_best_friend').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # nemesis
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_nemesis').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_nemesis').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "nemesis"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_nemesis_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_nemesis').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # soulmate
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_soulmate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_soulmate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "soulmate"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_soulmate_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_soulmate').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # bully
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_bully').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_bully').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "bully"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_bully_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_bully').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # victim
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_victim').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_victim').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "victim"
+                                    }
+
+                                    hbox = {
+                                        margin = { 20 0 }
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_victim_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_victim').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    margin_bottom = 16
+                }
+
+                vbox = {
+                    spacing = 8
+
+                    hbox = {
+                        spacing = 15
+
+                        button_standard = {
+                            text = DI_reset_relations
+                            tooltip = DI_reset_relations_tt
+                            onclick = "[GetScriptedGui('DI_reset_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_reset_pinned_relations
+                            tooltip = DI_reset_pinned_relations_tt
+                            onclick = "[GetScriptedGui('DI_reset_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_reset_all_pinned_relations
+                            tooltip = DI_reset_all_pinned_relations_tt
+                            onclick = "[GetScriptedGui('DI_reset_all_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 15
+
+                        button_standard = {
+                            text = DI_apply_relations
+                            tooltip = DI_apply_relations_tt
+                            onclick = "[GetScriptedGui('DI_apply_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_apply_pinned_relations
+                            tooltip = DI_apply_pinned_relations_tt
+                            onclick = "[GetScriptedGui('DI_apply_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_apply_all_pinned_relations
+                            tooltip = DI_apply_all_pinned_relations_tt
+                            onclick = "[GetScriptedGui('DI_apply_all_pinned_relations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                    }
+                }
+                expand = {}
+            }
+
+            vbox = {
+                # Treaties Tab
+                name = "treaties_tab"
+                visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'treaties')]"
+                layoutpolicy_horizontal = expanding
+
+                margin = { 20 10 }
+
+                using = Animation_Tab_Switch
+
+                hbox = {
+                    vbox = {
+                        scrollbox = {
+                            layoutpolicy_horizontal = expanding
+                            size = { 400 300 }
+
+                            blockoverride "scrollbox_content"
+                            {
+                                vbox = {
+                                    name = "treaties_list"
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 5
+
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        hbox = {
+                                            margin_bottom = 10
+
+                                            button_checkbox_label = {
+                                                layoutpolicy_horizontal = expanding
+                                                onclick = "[GetScriptedGui('DI_dip_length_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                                blockoverride "checkbox"
+                                                {
+                                                    checked = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_dip_length').IsSet]"
+                                                }
+
+                                                blockoverride "text"
+                                                {
+                                                    text = DI_dip_perma
+                                                }
+                                            }
+                                        }
+                                        expand = {}
+                                    }
+
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        button_standard = {
+                                            layoutpolicy_horizontal = expanding
+                                            size = { 0 50 }
+                                            button_ignore = none
+
+                                            onclick = "[GetScriptedGui('DI_dip_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            onrightclick = "[GetScriptedGui('DI_dip_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            hbox = {
+                                                margin = { 5 0 }
+                                                margin_right = 10
+                                                spacing = 10
+
+                                                text_single = {
+                                                    layoutpolicy_horizontal = expanding
+
+                                                    text = DI_dip_treaty_button
+
+                                                    default_format = "#clickable"
+                                                }
+                                            }
+                                            tooltip = DI_dip_treaty_button_tt
+                                        }
+                                        hbox = {
+                                            minimumsize = { 76 -1 }
+                                        }
+                                    }
+
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        button_standard = {
+                                            layoutpolicy_horizontal = expanding
+                                            size = { 0 50 }
+                                            button_ignore = none
+
+                                            onclick = "[GetScriptedGui('DI_dip_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            onrightclick = "[GetScriptedGui('DI_dip_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            hbox = {
+                                                margin = { 5 0 }
+                                                margin_right = 10
+                                                spacing = 10
+
+                                                text_single = {
+                                                    layoutpolicy_horizontal = expanding
+
+                                                    text = DI_dip_alliance_button
+
+                                                    default_format = "#clickable"
+                                                }
+                                            }
+                                            tooltip = DI_dip_alliance_button_tt
+                                        }
+                                        hbox = {
+                                            minimumsize = { 76 -1 }
+                                        }
+                                    }
+
+                                    # vassalize
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        button_standard = {
+                                            layoutpolicy_horizontal = expanding
+                                            size = { 0 50 }
+
+                                            onclick = "[GetScriptedGui('DI_dip_vassalize').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            hbox = {
+                                                margin = { 5 0 }
+                                                margin_right = 10
+                                                spacing = 10
+
+                                                text_single = {
+                                                    layoutpolicy_horizontal = expanding
+
+                                                    text = DI_dip_vassalize_button
+
+                                                    default_format = "#clickable"
+                                                }
+                                            }
+                                            tooltip = DI_dip_vassalize_button_tt
+                                        }
+                                        hbox = {
+                                            minimumsize = { 76 -1 }
+                                        }
+                                    }
+
+                                    # take titles
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        button_standard = {
+                                            layoutpolicy_horizontal = expanding
+                                            size = { 0 50 }
+                                            button_ignore = none
+
+                                            onclick = "[GetScriptedGui('DI_dip_take_titles').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                            onrightclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
+                                            hbox = {
+                                                margin = { 5 0 }
+                                                margin_right = 10
+                                                spacing = 10
+
+                                                text_single = {
+                                                    layoutpolicy_horizontal = expanding
+
+                                                    text = DI_dip_take_titles_button
+
+                                                    default_format = "#clickable"
+                                                }
+                                            }
+                                            tooltip = DI_dip_take_titles_button_tt
+                                        }
+                                        hbox = {
+                                            minimumsize = { 76 -1 }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    margin_bottom = 16
+                }
+
+
+                vbox = {
+                    spacing = 8
+
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            text = DI_all_treaty
+                            tooltip = DI_all_treaty_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_all_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_all_break_treaty
+                            tooltip = DI_all_break_treaty_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_all_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_every_pinned_treaty
+                            tooltip = DI_every_pinned_treaty_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_every_pinned_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_dip_every_pinned_break_treaty').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            button_ignore = none
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 15
+
+                        button_standard = {
+                            text = DI_all_alliance
+                            tooltip = DI_all_alliance_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_all_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_all_break_alliance
+                            tooltip = DI_all_break_alliance_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_all_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_every_pinned_alliance
+                            tooltip = DI_every_pinned_alliance_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_every_pinned_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_dip_every_pinned_break_alliance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            button_ignore = none
+                        }
+                    }
+                }
+                expand = {}
+            }
+
+            vbox = {
+                # Wars
+                name = "wars_tab"
+                visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'wars')]"
+                layoutpolicy_horizontal = expanding
+
+                margin = { 20 10 }
+
+                using = Animation_Tab_Switch
+
+                vbox = {
+                    scrollbox = {
+                        layoutpolicy_horizontal = expanding
+                        size = { 400 300 }
+
+                        blockoverride "scrollbox_content"
+                        {
+                            vbox = {
+                                name = "wars_list"
+                                layoutpolicy_horizontal = expanding
+                                spacing = 5
+
+                                # casus belli button
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_casus_belli_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_casus_belli_button_tt
+                                    }
+                                    # select titles button
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_select_titles_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_select_titles_button_tt
+                                    }
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_war_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_war_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_end_war_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_end_war_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    margin_bottom = 16
+                }
+
+                vbox = {
+                    spacing = 8
+
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            text = DI_all_war
+                            tooltip = DI_placeholder_tt # DI_all_war_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_all_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_all_end_war
+                            tooltip = DI_placeholder_tt # DI_all_end_war_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_all_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        button_standard = {
+                            text = DI_every_pinned_war
+                            tooltip = DI_placeholder_tt # DI_every_pinned_war_tt
+
+                            onclick = "[GetScriptedGui('DI_dip_every_pinned_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_dip_every_pinned_end_war').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                            button_ignore = none
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 15
+                        button_standard = {
+                            text = DI_test
+                            tooltip = DI_placeholder_tt
+                        }
+
+                        button_standard = {
+                            text = DI_test
+                            tooltip = DI_placeholder_tt
+                        }
+
+                        button_standard = {
+                            text = DI_test
+                            tooltip = DI_placeholder_tt
+                        }
+                    }
+                }
+            }
+
+            vbox = {
+                # Family
+                name = "family_tab"
+                visible = "[GetVariableSystem.HasValue('diplomacy_tab', 'family')]"
+                layoutpolicy_horizontal = expanding
+
+                margin = { 20 10 }
+
+                using = Animation_Tab_Switch
+
+                vbox = {
+                    scrollbox = {
+                        layoutpolicy_horizontal = expanding
+                        size = { 400 300 }
+
+                        blockoverride "scrollbox_content"
+                        {
+                            vbox = {
+                                name = "family_list"
+                                layoutpolicy_horizontal = expanding
+                                spacing = 5
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_adoption').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_adoption_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_adoption_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_adoption_house').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_adoption_house_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_adoption_house_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_impregnate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_impregnate_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_impregnate_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # set pregnancy gender male
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_preg_gender_male').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_preg_gender_male_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_preg_gender_male_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # set pregnancy gender female
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_preg_gender_female').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_preg_gender_female_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_preg_gender_female_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_marry').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_marry_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_marry_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # marry_matrilineal
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_marry_matrilineal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_marry_matrilineal_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_marry_matrilineal_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # divorce
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_divorce').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_divorce_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_divorce_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # Make Siblings
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        onclick = "[GetScriptedGui('DI_dip_make_siblings').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_make_siblings_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_make_siblings_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # Create Cadet Branch
+                                # This will take a primary character (the head of the dynasty who the house will belong to)
+                                # and a secondary character (the head of the new house)
+                            }
+                        }
+                    }
+                    margin_bottom = 16
+                }
+
+                vbox = {
+                    spacing = 8
+
+                    hbox = {
+                        spacing = 15
+
+                    }
+
+                    hbox = {
+                        spacing = 15
+
+                    }
+                }
+                expand = {}
+            }
+        }
+    }
 }
 
 window = {
-	name = "DI_character_select_window"
-	parentanchor = center
-	layer = hud_layer
-	filter_mouse = all
-	allow_outside = yes
-	alwaystransparent = no
-	
-	using = Window_Background
-	using = Window_Decoration
-	movable = yes
-	visible = "[GetVariableSystem.Exists('DI_char_select_list_visible')]"
-	
-	vbox = {
-		using = Window_Margins
-		restrictparent_min = yes
-		
-		header_pattern = {
-			layoutpolicy_horizontal = expanding
+    name = "DI_character_select_window"
+    parentanchor = center
+    layer = hud_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
 
-			blockoverride "header_text"
-			{
-				text = DI_select_character
-			}
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+    visible = "[GetVariableSystem.Exists('DI_char_select_list_visible')]"
 
-			blockoverride "button_close"
-			{
-				onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
-			}
-		}
-		
-		widget = {
-			size = { 570 650 }
-			vbox = {
-				
-				scrollbox = {
-					name = "title_char_select_list"
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
+    vbox = {
+        using = Window_Margins
+        restrictparent_min = yes
 
-					blockoverride "scrollbox_content" {
-					
-						vbox = {
-							button_standard_hover = {
-								name = DI_clear_primary
-								visible = "[GetVariableSystem.HasValue('character_type', 'primary')]"
-								onclick = "[GetScriptedGui('DI_clear_primary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
 
-								text_label_right = {
-									name = "DI_clear_character"
-									size = { 100 40 }
+            blockoverride "header_text"
+            {
+                text = DI_select_character
+            }
 
-									text = DI_clear_primary
-									autoresize = yes
-								}
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
+            }
+        }
 
-								button_clear = {}
-							}
+        widget = {
+            size = { 570 650 }
+            vbox = {
 
-							button_standard_hover = {
-								name = DI_clear_secondary
-								visible = "[GetVariableSystem.HasValue('character_type', 'secondary')]"
-								onclick = "[GetScriptedGui('DI_clear_secondary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                scrollbox = {
+                    name = "title_char_select_list"
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
 
-								text_label_right = {
-									name = "DI_clear_character"
-									size = { 100 40 }
+                    blockoverride "scrollbox_content" {
 
-									text = DI_clear_secondary
-									autoresize = yes
-								}
+                        vbox = {
+                            button_standard_hover = {
+                                name = DI_clear_primary
+                                visible = "[GetVariableSystem.HasValue('character_type', 'primary')]"
+                                onclick = "[GetScriptedGui('DI_clear_primary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
-								button_clear = {}
-							}
+                                text_label_right = {
+                                    name = "DI_clear_character"
+                                    size = { 100 40 }
 
-							button_standard_hover = {
-								name = DI_clear_tertiary
-								visible = "[GetVariableSystem.HasValue('character_type', 'tertiary')]"
-								onclick = "[GetScriptedGui('DI_clear_tertiary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    text = DI_clear_primary
+                                    autoresize = yes
+                                }
 
-								text_label_right = {
-									name = "DI_clear_character"
-									size = { 100 40 }
+                                button_clear = {}
+                            }
 
-									text = DI_clear_tertiary
-									autoresize = yes
-								}
+                            button_standard_hover = {
+                                name = DI_clear_secondary
+                                visible = "[GetVariableSystem.HasValue('character_type', 'secondary')]"
+                                onclick = "[GetScriptedGui('DI_clear_secondary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
-								button_clear = {}
-							}
-						}
-						vbox = {
-							datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
+                                text_label_right = {
+                                    name = "DI_clear_character"
+                                    size = { 100 40 }
+
+                                    text = DI_clear_secondary
+                                    autoresize = yes
+                                }
+
+                                button_clear = {}
+                            }
+
+                            button_standard_hover = {
+                                name = DI_clear_tertiary
+                                visible = "[GetVariableSystem.HasValue('character_type', 'tertiary')]"
+                                onclick = "[GetScriptedGui('DI_clear_tertiary_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                text_label_right = {
+                                    name = "DI_clear_character"
+                                    size = { 100 40 }
+
+                                    text = DI_clear_tertiary
+                                    autoresize = yes
+                                }
+
+                                button_clear = {}
+                            }
+                        }
+
+                        fixedgridbox = {
+                            addcolumn = 500
+                            addrow = 120
+
+                            name = "characters_grid"
+                            datamodel_reuse_widgets = yes
+                            datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
+							visible = "[Not(IsDataModelEmpty(GetPlayer.MakeScope.GetList('pinned_characters')))]"
 							layoutpolicy_horizontal = expanding
 
-							spacing = 10
-							
-							item = {
-								widget = {
-									layoutpolicy_horizontal = expanding
-									datacontext = [Scope.GetCharacter]
-									size = { 0 100 }
-									visible = "[Character.IsAlive]"
+                            item = {
+                                widget = {
+                                    layoutpolicy_horizontal = expanding
+                                    datacontext = [Scope.GetCharacter]
+                                    size = { 530 100 }
+                                    visible = "[Character.IsAlive]"
 
-									using = Background_Guest
+                                    using = Background_Guest
 
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										spacing = 7
-										
-										DI_Character_Select_Button = {
-											visible = "[GetVariableSystem.HasValue('character_type', 'primary')]"
-										}
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 7
 
-										DI_Character_Select_Button = {
-											visible = "[GetVariableSystem.HasValue('character_type', 'secondary')]"
+                                        DI_Character_Select_Button = {
+                                            visible = "[GetVariableSystem.HasValue('character_type', 'primary')]"
+                                        }
 
-											blockoverride "onclick_select_char"
-											{
-												onclick = "[GetScriptedGui('DI_select_secondary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
-											}
-										}
+                                        DI_Character_Select_Button = {
+                                            visible = "[GetVariableSystem.HasValue('character_type', 'secondary')]"
 
-										DI_Character_Select_Button = {
-											visible = "[GetVariableSystem.HasValue('character_type', 'tertiary')]"
+                                            blockoverride "onclick_select_char"
+                                            {
+                                                onclick = "[GetScriptedGui('DI_select_secondary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                            }
+                                        }
 
-											blockoverride "onclick_select_char"
-											{
-												onclick = "[GetScriptedGui('DI_select_tertiary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
-											}
-										}
+                                        DI_Character_Select_Button = {
+                                            visible = "[GetVariableSystem.HasValue('character_type', 'tertiary')]"
 
-										divider = {
-											layoutpolicy_horizontal = expanding
-										}
-										
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+                                            blockoverride "onclick_select_char"
+                                            {
+                                                onclick = "[GetScriptedGui('DI_select_tertiary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                            }
+                                        }
+
+                                        # divider = {
+                                        #     layoutpolicy_horizontal = expanding
+                                        # }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 ######################################################
@@ -1468,99 +1472,99 @@ window = {
 
 types DIDiplomacyShared
 {
-	type DI_Character_Select_Button = button_standard_hover {
-		layoutpolicy_horizontal = expanding
-		layoutpolicy_vertical = expanding
-		
-		block "onclick_select_char"
-		{
-			onclick = "[GetScriptedGui('DI_select_primary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
-		}
-		onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
+    type DI_Character_Select_Button = button_standard_hover {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
 
-		hbox = {
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
-			margin_right = 5
-			spacing = 10
+        block "onclick_select_char"
+        {
+            onclick = "[GetScriptedGui('DI_select_primary_character').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+        }
+        onclick = "[GetVariableSystem.Toggle('DI_char_select_list_visible')]"
 
-			portrait_head_small = {
-			}
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            margin_right = 5
+            spacing = 10
 
-			vbox = {
-				layoutpolicy_vertical = expanding
-				layoutpolicy_horizontal = expanding
-				spacing = 10
-				margin_top = 15
+            portrait_head_small = {
+            }
 
-				hbox = {
-					layoutpolicy_horizontal = expanding
+            vbox = {
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = expanding
+                spacing = 10
+                margin_top = 15
 
-					hbox = {
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = expanding
+                hbox = {
+                    layoutpolicy_horizontal = expanding
 
-						vbox = {
-							layoutpolicy_horizontal = expanding
-							layoutpolicy_vertical = expanding
-							
-							
-								
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								text = "[Character.GetUINameNotMeNoTooltip]"
-								using = Font_Size_Medium
-								autoresize = no
-							}
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+                        layoutpolicy_vertical = expanding
 
-							text_single = {
-								layoutpolicy_horizontal = expanding
-								text = "[Character.GetRelationToString( GetPlayer )]"
-								default_format = "#low"
-								autoresize = no
-								align = nobaseline
-							}
-							expand = {}
-						}
-					}
-				}
-				expand = {}
-			}
-		}
-	}
+                        vbox = {
+                            layoutpolicy_horizontal = expanding
+                            layoutpolicy_vertical = expanding
 
-	type DI_Relation_Button = hbox {
-		layoutpolicy_horizontal = expanding
 
-		button_standard = {
-			layoutpolicy_horizontal = expanding
 
-			size = { 0 50 }
-			
-			block "onclick_relation"
-			{
-				onclick = "[GetScriptedGui('DI_relation').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
-			}
-	
-			hbox = {
-				margin = { 5 0 }
-				margin_right = 10
-				spacing = 10
-	
-				text_single = {
-					layoutpolicy_horizontal = expanding
-					
-					block "text_relation"
-					{
-						text = ""
-					}
-	
-					default_format = "#clickable"
-				}
-			}
-			tooltip = DI_relations_tt
-		}
-	}
+                            text_single = {
+                                layoutpolicy_horizontal = expanding
+                                text = "[Character.GetUINameNotMeNoTooltip]"
+                                using = Font_Size_Medium
+                                autoresize = no
+                            }
+
+                            text_single = {
+                                layoutpolicy_horizontal = expanding
+                                text = "[Character.GetRelationToString( GetPlayer )]"
+                                default_format = "#low"
+                                autoresize = no
+                                align = nobaseline
+                            }
+                            expand = {}
+                        }
+                    }
+                }
+                expand = {}
+            }
+        }
+    }
+
+    type DI_Relation_Button = hbox {
+        layoutpolicy_horizontal = expanding
+
+        button_standard = {
+            layoutpolicy_horizontal = expanding
+
+            size = { 0 50 }
+
+            block "onclick_relation"
+            {
+                onclick = "[GetScriptedGui('DI_relation').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+            }
+
+            hbox = {
+                margin = { 5 0 }
+                margin_right = 10
+                spacing = 10
+
+                text_single = {
+                    layoutpolicy_horizontal = expanding
+
+                    block "text_relation"
+                    {
+                        text = ""
+                    }
+
+                    default_format = "#clickable"
+                }
+            }
+            tooltip = DI_relations_tt
+        }
+    }
 }
 
 window = {
@@ -1572,101 +1576,101 @@ window = {
     filter_mouse = all
     allow_outside = yes
     alwaystransparent = no
-    
+
     using = Window_Background
     using = Window_Decoration
     movable = yes
-    
+
     datacontext = "[GetVariableSystem]"
-    
+
     visible = "[GetVariableSystem.Exists('DI_dip_CB_window_visible')]"
-    
+
     state = {
         name = _show
         using = Animation_FadeIn_Quick
-        
+
         on_finish = "[PdxGuiWidget.StackTop]"
     }
-    
+
     state = {
         name = _hide
         using = Animation_FadeOut_Quick
     }
-    
+
     vbox = {
         restrictparent_min = yes
         using = Window_Margins
-        
+
         header_pattern = {
             layoutpolicy_horizontal = expanding
-            
-            
+
+
             blockoverride "header_text"
             {
                 text = DI_casus_belli
             }
-            
+
             blockoverride "button_close"
             {
                 onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
-                
+
             }
         }
-        
+
         vbox = {
             name = "casus_belli_selection_panel"
             margin = { 10 15 }
-            
+
             scrollbox = {
                 layoutpolicy_horizontal = expanding
                 size = { 400 600 }
-                
+
                 blockoverride "scrollbox_content"
                 {
                     vbox = {
                         name = "casus_belli_list"
                         layoutpolicy_horizontal = expanding
                         spacing = 5
-                        
-                        # County Conquest CB
-						button_standard_clean = {
-							name = "DI_county_conquest"
-							layoutpolicy_horizontal = expanding
-							size = { 0 60 }
-							onclick = "[GetScriptedGui('DI_county_conquest').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
 
-							background = {
-								using = Background_Area_Dark
-								
-								modify_texture = {
-									texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-									blend_mode = alphamultiply
-									alpha = 0.3
-									rotate_uv = 90
-									mirror = vertical
-								}
-							}
-							
-							hbox = {
-								margin = { 5 0 }
-								margin_right = 10
-								spacing = 10
-								
-								icon = {
-									size = { 50 50 }
-									texture = "gfx/interface/icons/DI_county_conquest.dds"
-								}
-								
-								text_single = {
-									layoutpolicy_horizontal = expanding
-									text = DI_county_conquest
-									default_format = "#bold"
-								}
-							}
-							
-							tooltip = "DI_county_conquest_tt"
-						}
+                        # County Conquest CB
+                        button_standard_clean = {
+                            name = "DI_county_conquest"
+                            layoutpolicy_horizontal = expanding
+                            size = { 0 60 }
+                            onclick = "[GetScriptedGui('DI_county_conquest').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetVariableSystem.Toggle('DI_dip_CB_window_visible')]"
+
+                            background = {
+                                using = Background_Area_Dark
+
+                                modify_texture = {
+                                    texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                                    blend_mode = alphamultiply
+                                    alpha = 0.3
+                                    rotate_uv = 90
+                                    mirror = vertical
+                                }
+                            }
+
+                            hbox = {
+                                margin = { 5 0 }
+                                margin_right = 10
+                                spacing = 10
+
+                                icon = {
+                                    size = { 50 50 }
+                                    texture = "gfx/interface/icons/DI_county_conquest.dds"
+                                }
+
+                                text_single = {
+                                    layoutpolicy_horizontal = expanding
+                                    text = DI_county_conquest
+                                    default_format = "#bold"
+                                }
+                            }
+
+                            tooltip = "DI_county_conquest_tt"
+                        }
                     }
                 }
             }
