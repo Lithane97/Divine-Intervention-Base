@@ -590,15 +590,17 @@ DI_remove_character_flags_interaction = {
     }
 
     send_option = { flag = used_lifetime_invasion }
+    send_option = { flag = declared_major_religious_war_flag }
 
     on_accept = {
         scope:recipient = {
-            if = {
-                limit = {
-                    always = scope:used_lifetime_invasion
-                }
+            if = { limit = { always = scope:used_lifetime_invasion }
                 remove_character_flag = used_lifetime_invasion
             }
+            else_if = { limit = { always = scope:declared_major_religious_war_flag }
+                remove_character_flag = declared_major_religious_war_flag
+            }
+
         }
     }
 }
