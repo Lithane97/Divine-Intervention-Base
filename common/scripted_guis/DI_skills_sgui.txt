@@ -1,48 +1,48 @@
 ﻿DI_skills_sgui = {
     scope = character
-    
+
     effect = {
         if = {
-			limit = {
-				NOT = { has_variable = DI_diplomacy_value }
-			}
-			hidden_effect = {
-				set_variable = {
-					name = DI_diplomacy_value
-					value = 10
-				}
-				set_variable = {
-					name = DI_martial_value
-					value = 10
-				}
-				set_variable = {
-					name = DI_stewardship_value
-					value = 10
-				}
-				set_variable = {
-					name = DI_intrigue_value
-					value = 10
-				}
-				set_variable = {
-					name = DI_learning_value
-					value = 10
-				}
-				set_variable = {
-					name = DI_prowess_value
-					value = 10
-				}
-			}
-		}
+            limit = {
+                NOT = { has_variable = DI_diplomacy_value }
+            }
+            hidden_effect = {
+                set_variable = {
+                    name = DI_diplomacy_value
+                    value = 10
+                }
+                set_variable = {
+                    name = DI_martial_value
+                    value = 10
+                }
+                set_variable = {
+                    name = DI_stewardship_value
+                    value = 10
+                }
+                set_variable = {
+                    name = DI_intrigue_value
+                    value = 10
+                }
+                set_variable = {
+                    name = DI_learning_value
+                    value = 10
+                }
+                set_variable = {
+                    name = DI_prowess_value
+                    value = 10
+                }
+            }
+        }
     }
 }
 
 DI_remove_1_dip = {
     scope = character
-    
+
     is_valid = {
         var:DI_diplomacy_value > 1
     }
-    
+
     effect = {
         change_variable = {
             name = DI_diplomacy_value
@@ -54,11 +54,11 @@ DI_remove_1_dip = {
 
 DI_add_1_dip = {
     scope = character
-    
+
     is_valid = {
         var:DI_diplomacy_value < 100
     }
-    
+
     effect = {
         change_variable = {
             name = DI_diplomacy_value
@@ -70,11 +70,11 @@ DI_add_1_dip = {
 
 DI_remove_1_mar = {
     scope = character
-    
+
     is_valid = {
         var:DI_martial_value > 1
     }
-    
+
     effect = {
         change_variable = {
             name = DI_martial_value
@@ -86,11 +86,11 @@ DI_remove_1_mar = {
 
 DI_add_1_mar = {
     scope = character
-    
+
     is_valid = {
         var:DI_martial_value < 100
     }
-    
+
     effect = {
         change_variable = {
             name = DI_martial_value
@@ -102,11 +102,11 @@ DI_add_1_mar = {
 
 DI_remove_1_ste = {
     scope = character
-    
+
     is_valid = {
         var:DI_stewardship_value > 1
     }
-    
+
     effect = {
         change_variable = {
             name = DI_stewardship_value
@@ -118,11 +118,11 @@ DI_remove_1_ste = {
 
 DI_add_1_ste = {
     scope = character
-    
+
     is_valid = {
         var:DI_stewardship_value < 100
     }
-    
+
     effect = {
         change_variable = {
             name = DI_stewardship_value
@@ -134,11 +134,11 @@ DI_add_1_ste = {
 
 DI_remove_1_int = {
     scope = character
-    
+
     is_valid = {
         var:DI_intrigue_value > 1
     }
-    
+
     effect = {
         change_variable = {
             name = DI_intrigue_value
@@ -150,11 +150,11 @@ DI_remove_1_int = {
 
 DI_add_1_int = {
     scope = character
-    
+
     is_valid = {
         var:DI_intrigue_value < 100
     }
-    
+
     effect = {
         change_variable = {
             name = DI_intrigue_value
@@ -166,11 +166,11 @@ DI_add_1_int = {
 
 DI_remove_1_ler = {
     scope = character
-    
+
     is_valid = {
         var:DI_learning_value > 1
     }
-    
+
     effect = {
         change_variable = {
             name = DI_learning_value
@@ -182,11 +182,11 @@ DI_remove_1_ler = {
 
 DI_add_1_ler = {
     scope = character
-    
+
     is_valid = {
         var:DI_learning_value < 100
     }
-    
+
     effect = {
         change_variable = {
             name = DI_learning_value
@@ -198,11 +198,11 @@ DI_add_1_ler = {
 
 DI_remove_1_pro = {
     scope = character
-    
+
     is_valid = {
         var:DI_prowess_value > 1
     }
-    
+
     effect = {
         change_variable = {
             name = DI_prowess_value
@@ -214,11 +214,11 @@ DI_remove_1_pro = {
 
 DI_add_1_pro = {
     scope = character
-    
+
     is_valid = {
         var:DI_prowess_value < 100
     }
-    
+
     effect = {
         change_variable = {
             name = DI_prowess_value
@@ -229,746 +229,746 @@ DI_add_1_pro = {
 }
 
 DI_add_diplomacy = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_diplomacy_skill = root.var:DI_diplomacy_value
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_diplomacy_skill = root.var:DI_diplomacy_value
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_diplomacy_skill = root.var:DI_diplomacy_value
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_diplomacy_skill = root.var:DI_diplomacy_value
+            }
+        }
+    }
 }
 
 DI_remove_diplomacy = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_diplomacy_skill = {
-						value = root.var:DI_diplomacy_value
-						multiply = -1
-					}
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_diplomacy_skill = {
-					value = root.var:DI_diplomacy_value
-					multiply = -1
-				}
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_diplomacy_skill = {
+                        value = root.var:DI_diplomacy_value
+                        multiply = -1
+                    }
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_diplomacy_skill = {
+                    value = root.var:DI_diplomacy_value
+                    multiply = -1
+                }
+            }
+        }
+    }
 }
 
 DI_add_martial = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_martial_skill = root.var:DI_martial_value
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_martial_skill = root.var:DI_martial_value
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_martial_skill = root.var:DI_martial_value
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_martial_skill = root.var:DI_martial_value
+            }
+        }
+    }
 }
 
 DI_remove_martial = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_martial_skill = {
-						value = root.var:DI_martial_value
-						multiply = -1
-						
-					}
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_martial_skill = {
-					value = root.var:DI_martial_value
-					multiply = -1
-					
-				}
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_martial_skill = {
+                        value = root.var:DI_martial_value
+                        multiply = -1
+
+                    }
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_martial_skill = {
+                    value = root.var:DI_martial_value
+                    multiply = -1
+
+                }
+            }
+        }
+    }
 }
 
 DI_add_stewardship = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_stewardship_skill = root.var:DI_stewardship_value
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_stewardship_skill = root.var:DI_stewardship_value
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_stewardship_skill = root.var:DI_stewardship_value
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_stewardship_skill = root.var:DI_stewardship_value
+            }
+        }
+    }
 }
 
 DI_remove_stewardship = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_stewardship_skill = {
-						value = root.var:DI_stewardship_value
-						multiply = -1
-						
-					}
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_stewardship_skill = {
-					value = root.var:DI_stewardship_value
-					multiply = -1
-					
-				}
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_stewardship_skill = {
+                        value = root.var:DI_stewardship_value
+                        multiply = -1
+
+                    }
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_stewardship_skill = {
+                    value = root.var:DI_stewardship_value
+                    multiply = -1
+
+                }
+            }
+        }
+    }
 }
 
 DI_add_intrigue = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_intrigue_skill = root.var:DI_intrigue_value
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_intrigue_skill = root.var:DI_intrigue_value
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_intrigue_skill = root.var:DI_intrigue_value
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_intrigue_skill = root.var:DI_intrigue_value
+            }
+        }
+    }
 }
 
 DI_remove_intrigue = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_intrigue_skill = {
-						value = root.var:DI_intrigue_value
-						multiply = -1
-						
-					}
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_intrigue_skill = {
-					value = root.var:DI_intrigue_value
-					multiply = -1
-					
-				}
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_intrigue_skill = {
+                        value = root.var:DI_intrigue_value
+                        multiply = -1
+
+                    }
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_intrigue_skill = {
+                    value = root.var:DI_intrigue_value
+                    multiply = -1
+
+                }
+            }
+        }
+    }
 }
 
 DI_add_learning = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_learning_skill = root.var:DI_learning_value
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_learning_skill = root.var:DI_learning_value
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_learning_skill = root.var:DI_learning_value
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_learning_skill = root.var:DI_learning_value
+            }
+        }
+    }
 }
 
 DI_remove_learning = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_learning_skill = {
-						value = root.var:DI_learning_value
-						multiply = -1
-						
-					}
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_learning_skill = {
-					value = root.var:DI_learning_value
-					multiply = -1
-					
-				}
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_learning_skill = {
+                        value = root.var:DI_learning_value
+                        multiply = -1
+
+                    }
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_learning_skill = {
+                    value = root.var:DI_learning_value
+                    multiply = -1
+
+                }
+            }
+        }
+    }
 }
 
 DI_add_prowess = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_prowess_skill = root.var:DI_prowess_value
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_prowess_skill = root.var:DI_prowess_value
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_prowess_skill = root.var:DI_prowess_value
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_prowess_skill = root.var:DI_prowess_value
+            }
+        }
+    }
 }
 
 DI_remove_prowess = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_prowess_skill = {
-						value = root.var:DI_prowess_value
-						multiply = -1
-						
-					}
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_prowess_skill = {
-					value = root.var:DI_prowess_value
-					multiply = -1
-					
-				}
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_prowess_skill = {
+                        value = root.var:DI_prowess_value
+                        multiply = -1
+
+                    }
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_prowess_skill = {
+                    value = root.var:DI_prowess_value
+                    multiply = -1
+
+                }
+            }
+        }
+    }
 }
 
 DI_add_diplomacy_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_diplomacy_lifestyle_perk_points = 1
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_diplomacy_lifestyle_perk_points = 1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_diplomacy_lifestyle_perk_points = 1
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_diplomacy_lifestyle_perk_points = 1
+            }
+        }
+    }
 }
 
 DI_remove_diplomacy_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_diplomacy_lifestyle_perk_points = -1
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_diplomacy_lifestyle_perk_points = -1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_diplomacy_lifestyle_perk_points = -1
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_diplomacy_lifestyle_perk_points = -1
+            }
+        }
+    }
 }
 
 DI_add_martial_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_martial_lifestyle_perk_points = 1
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_martial_lifestyle_perk_points = 1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_martial_lifestyle_perk_points = 1
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_martial_lifestyle_perk_points = 1
+            }
+        }
+    }
 }
 
 DI_remove_martial_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_martial_lifestyle_perk_points = -1
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_martial_lifestyle_perk_points = -1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_martial_lifestyle_perk_points = -1
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_martial_lifestyle_perk_points = -1
+            }
+        }
+    }
 }
 
 DI_add_stewardship_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_stewardship_lifestyle_perk_points = 1
-				}
-			}
-		}
-		else ={
-			hidden_effect = {
-				add_stewardship_lifestyle_perk_points = 1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_stewardship_lifestyle_perk_points = 1
+                }
+            }
+        }
+        else ={
+            hidden_effect = {
+                add_stewardship_lifestyle_perk_points = 1
+            }
+        }
+    }
 }
 
 DI_remove_stewardship_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_stewardship_lifestyle_perk_points = -1
-				}
-			}
-		}
-		else ={
-			hidden_effect = {
-				add_stewardship_lifestyle_perk_points = -1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_stewardship_lifestyle_perk_points = -1
+                }
+            }
+        }
+        else ={
+            hidden_effect = {
+                add_stewardship_lifestyle_perk_points = -1
+            }
+        }
+    }
 }
 
 DI_add_intrigue_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_intrigue_lifestyle_perk_points = 1
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_intrigue_lifestyle_perk_points = 1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_intrigue_lifestyle_perk_points = 1
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_intrigue_lifestyle_perk_points = 1
+            }
+        }
+    }
 }
 
 DI_remove_intrigue_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_intrigue_lifestyle_perk_points = -1
-				}
-			}
-		}
-		else ={
-			hidden_effect = {
-				add_intrigue_lifestyle_perk_points = -1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_intrigue_lifestyle_perk_points = -1
+                }
+            }
+        }
+        else ={
+            hidden_effect = {
+                add_intrigue_lifestyle_perk_points = -1
+            }
+        }
+    }
 }
 
 DI_add_learning_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_learning_lifestyle_perk_points = 1
-				}
-			}
-		}
-		else ={
-			hidden_effect = {
-				add_learning_lifestyle_perk_points = 1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_learning_lifestyle_perk_points = 1
+                }
+            }
+        }
+        else ={
+            hidden_effect = {
+                add_learning_lifestyle_perk_points = 1
+            }
+        }
+    }
 }
 
 DI_remove_learning_pp = {
-	scope = character
-	
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
+    scope = character
 
-				hidden_effect = {
-					add_learning_lifestyle_perk_points = -1
-				}
-			}
-		}
-		else = {
-			hidden_effect = {
-				add_learning_lifestyle_perk_points = -1
-			}
-		}
-	}
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    add_learning_lifestyle_perk_points = -1
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                add_learning_lifestyle_perk_points = -1
+            }
+        }
+    }
 }
 
 DI_add_wanderer_pp = {
-	scope = character
-	
-	effect = {
-		add_wanderer_lifestyle_perk_points = 1
-	}
+    scope = character
+
+    effect = {
+        add_wanderer_lifestyle_perk_points = 1
+    }
 }
 
 DI_remove_wanderer_pp = {
-	scope = character
-	
-	effect = {
-		add_wanderer_lifestyle_perk_points = -1
-	}
+    scope = character
+
+    effect = {
+        add_wanderer_lifestyle_perk_points = -1
+    }
 }
 
