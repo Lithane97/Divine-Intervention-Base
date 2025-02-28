@@ -1,0 +1,269 @@
+﻿### Faith Editor Window ###
+
+window = {
+    name = "DI_faith_editor_window"
+    layer = windows_layer
+    position = { 700 0 }
+
+    using = Window_Size_Sidebar
+    using = Window_Background_Sidebar
+    movable = no
+
+    datacontext = "[GetVariableSystem]"
+    datacontext = "[GetPlayer]"
+
+    visible = "[GetVariableSystem.Exists('DI_faith_editor_window_visible')]"
+
+    state = {
+        name = _init
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
+
+    vbox = {
+        restrictparent_min = yes
+        using = Window_Margins_Sidebar
+        layoutpolicy_vertical = expanding
+
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+
+            blockoverride "header_text"
+            {
+                text = "DI_FAITH_EDITOR_TITLE"
+            }
+
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_faith_editor_window_visible')]"
+            }
+        }
+
+        widget = {
+            size = { 600 200 }
+
+            using = DI_Select_Primary_Character
+            using = DI_Select_Secondary_Character
+        }
+
+        hbox = {
+            layoutpolicy_horizontal = expanding
+
+            visible = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
+            datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+            datacontext = "[GetIllustration( 'religion_interior' )]"
+
+            background = {
+                texture = "[Illustration.GetTexture( Faith.MakeScope )]"
+                spriteType = stretched
+                fittype = fill
+                alpha = 0.35
+
+                modify_texture = {
+                    texture = "gfx/interface/illustrations/window_headers/mask_header_illustration.dds"
+                    blend_mode = alphamultiply
+                }
+            }
+
+            icon = {
+                name = "faith_icon"
+                size = { 100 100 }
+                texture = "[Faith.GetIcon]"
+                using = tooltip_se
+                tooltipwidget = {
+                    faith_tooltip = {}
+                }
+
+                state = {
+                    name = "faith_view_refresh"
+                    using = Animation_Refresh_FadeOut
+                }
+
+                state = {
+                    using = Animation_Refresh_FadeIn
+                }
+            }
+
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+
+                expand = {}
+
+                vbox = {
+                    layoutpolicy_vertical = expanding
+                    margin_bottom = 4
+                    margin_right = 100
+                    spacing = 1
+
+                    text_label_center = {
+                        name = "selected_faith"
+                        text = "FAITH_VIEW_HEADING"
+                        align = nobaseline|center
+
+                        using = Font_Type_Flavor
+                        using = Font_Size_Big
+                    }
+
+                    text_single = {
+                        name = "sub_heading"
+                        text = "FAITH_VIEW_SUBHEADING"
+                        align = nobaseline|center
+                    }
+                }
+
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+
+                    expand = {}
+
+                    vbox = {
+                        layoutpolicy_vertical = expanding
+                        margin_bottom = 15
+                        margin_left = 25
+                        spacing = 1
+
+                        text_single = {
+                            name = "your_faith"
+                            visible = "[ObjectsEqual( GetPlayer.GetFaith, Faith.Self )]"
+                            text = "FAITH_VIEW_YOUR_FAITH"
+                            align = nobaseline|center
+                        }
+
+                        expand = {}
+
+                        text_single = {
+                            name = "our_view"
+                            visible = "[Not(ObjectsEqual( GetPlayer.GetFaith, Faith.Self ))]"
+                            layoutpolicy_horizontal = expanding
+                            text = "FAITH_VIEW_OUR_VIEW"
+                            align = nobaseline|center
+                        }
+
+                        text_single = {
+                            name = "their_view"
+                            visible = "[Not(ObjectsEqual( GetPlayer.GetFaith, Faith.Self ))]"
+                            layoutpolicy_horizontal = expanding
+                            text = "FAITH_VIEW_THEIR_VIEW"
+                            align = nobaseline|center
+                        }
+                    }
+
+                    expand = {}
+
+                    vbox = {
+                        margin = { 10 0 }
+                        spacing = 2
+
+                        fervor_container_vbox = {}
+                    }
+                }
+            }
+        }
+
+        ### Tabs
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            name = "faith_tabs"
+
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set( 'faith_view_tabs', 'beliefs' )]"
+                down = "[GetVariableSystem.HasValue( 'faith_view_tabs', 'beliefs' )]"
+                text = "FAITH_BELIEFS"
+                default_format = "#low"
+
+                using = tooltip_below
+            }
+
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set( 'faith_view_tabs', 'holy_sites' )]"
+                down = "[GetVariableSystem.HasValue( 'faith_view_tabs', 'holy_sites' )]"
+                text = "FAITH_HOLY_SITES"
+                default_format = "#low"
+
+                using = tooltip_below
+            }
+        }
+
+        ### Beliefs Tab
+        vbox = {
+            name = "beliefs_tab"
+            visible = "[GetVariableSystem.HasValue( 'faith_view_tabs', 'beliefs' )]"
+            layoutpolicy_vertical = expanding
+            layoutpolicy_horizontal = expanding
+
+            state = {
+                name = _show
+                using = Animation_FadeIn_Quick
+            }
+
+            state = {
+                name = _hide
+                using = Animation_FadeOut_Quick
+            }
+
+            ### Core Tenets
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 8
+                #margin_top = 15
+                margin = { 8 16 }
+                margin_bottom = 11
+
+                text_label_center = {
+                    text = "FAITH_CORE_TENETS_HEADING"
+                }
+
+                hbox = {
+                    name = "faith_core_tenets"
+                    datamodel = "[GetAllFaithDoctrines]"
+                    spacing = 52
+
+                    state = {
+                        name = "faith_view_refresh"
+                        using = Animation_Refresh_FadeOut
+                    }
+
+                    state = {
+                        using = Animation_Refresh_FadeIn
+                    }
+
+                    item = {
+                        vbox = {
+                            # visible = "[GetPlayer.GetFaith.HasDoctrine( FaithDoctrine.Self )]"
+                            text_single = {
+                                text = "[FaithDoctrine.GetBaseName]"
+                                align = nobaseline|center
+                            }
+
+                            text_single = {
+                                text = "[GetFaithDoctrineGroup( 'doctrine_core_tenets' ).GetName(GetPlayer.GetFaith)]"
+                                align = nobaseline|center
+                            }
+
+                            text_single = {
+                                text = "[FaithDoctrine.GetGroup.GetName(GetPlayer.GetFaith)]"
+                                align = nobaseline|center
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        expand = {}
+    }
+}
