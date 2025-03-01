@@ -5,12 +5,12 @@ window = {
     layer = windows_layer
     position = { 700 0 }
 
-    using = Window_Size_Sidebar
-    using = Window_Background_Sidebar
-    movable = no
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
 
     datacontext = "[GetVariableSystem]"
-    datacontext = "[GetPlayer]"
+    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char]"
 
     visible = "[GetVariableSystem.Exists('DI_faith_editor_window_visible')]"
 
@@ -31,9 +31,29 @@ window = {
         using = Animation_FadeOut_Quick
     }
 
+    state = {
+        name = set_category
+        trigger_when = "[GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+        on_finish = "[GetVariableSystem.Set( 'faith_view_tabs', 'beliefs' )]"
+    }
+
+    state = {
+        name = groups_list
+        trigger_when = "[Not(GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+
+        on_finish = "[GetVariableSystem.Set( 'faith_view_tabs', 'debug' )]"
+    }
+
+    state = {
+        name = DI_fe_select_tenets
+
+        on_finish = "[GetScriptedGui('DI_set_current_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+
     vbox = {
         restrictparent_min = yes
-        using = Window_Margins_Sidebar
+        using = Window_Margins
         layoutpolicy_vertical = expanding
 
         header_pattern = {
@@ -58,10 +78,25 @@ window = {
         }
 
         hbox = {
+            name = "debug_selection_list"
+            layoutpolicy_horizontal = expanding
+
+            visible = "[GetVariableSystem.HasValue( 'faith_view_tabs', 'debug' )]"
+
+            datamodel = "[GetAllFaithDoctrines]"
+            datacontext = "[Character.GetFaith]"
+
+            item = {
+                widget_DI_tenet_group_loader = {
+                }
+            }
+        }
+
+        hbox = {
             layoutpolicy_horizontal = expanding
 
             visible = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
-            datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+            datacontext = "[Character.GetFaith]"
             datacontext = "[GetIllustration( 'religion_interior' )]"
 
             background = {
@@ -216,47 +251,235 @@ window = {
             }
 
             ### Core Tenets
-            vbox = {
+            scrollbox = {
                 layoutpolicy_horizontal = expanding
-                spacing = 8
-                #margin_top = 15
-                margin = { 8 16 }
-                margin_bottom = 11
 
-                text_label_center = {
-                    text = "FAITH_CORE_TENETS_HEADING"
-                }
+                size = { 400 500 }
 
-                hbox = {
-                    name = "faith_core_tenets"
-                    datamodel = "[GetAllFaithDoctrines]"
-                    spacing = 52
+                blockoverride "scrollbox_content" {
+                    
+                    vbox = {
+                        layoutpolicy_horizontal = expanding
+                        spacing = 8
+                        #margin_top = 15
+                        margin = { 8 16 }
+                        margin_bottom = 11
 
-                    state = {
-                        name = "faith_view_refresh"
-                        using = Animation_Refresh_FadeOut
-                    }
+                        text_label_center = {
+                            text = "FAITH_CORE_TENETS_HEADING"
+                        }
 
-                    state = {
-                        using = Animation_Refresh_FadeIn
-                    }
-
-                    item = {
                         vbox = {
-                            # visible = "[GetPlayer.GetFaith.HasDoctrine( FaithDoctrine.Self )]"
-                            text_single = {
-                                text = "[FaithDoctrine.GetBaseName]"
-                                align = nobaseline|center
+                            layoutpolicy_horizontal = expanding
+                            layoutpolicy_vertical = expanding
+                            dynamicgridbox = {
+                                name = "core_tenets_grid"
+                                datamodel = "[GetPlayer.MakeScope.GetList('DI_core_tenets')]"
+                                datacontext = "[Character.GetFaith]"
+                                flipdirection = yes
+                                datamodel_wrap = 3
+
+                                item = {
+                                    button_group = {
+                                        datacontext = "[Scope.FaithDoctrine]"
+
+                                        layoutpolicy_vertical = expanding
+                                        icon = {
+                                            visible = "[Not(Faith.HasDoctrine( FaithDoctrine.Self ))]"
+                                            size = { 130 160 }
+                                            scale = 1.5
+                                            parentanchor = center
+                                            texture = "gfx/portraits/portrait_glow.dds"
+                                            using = Color_Orange
+                                        }
+
+                                        icon = {
+                                            visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                            size = { 130 160 }
+                                            scale = 1.5
+                                            parentanchor = center
+                                            texture = "gfx/portraits/portrait_glow.dds"
+                                            using = Color_Green
+                                        }
+
+                                        DI_container_tenet_item = {
+                                            tooltip = placeholder
+                                        }
+
+                                        onclick = "[GetVariableSystem.Set( 'DI_fe_category', 'core_tenets' )]"
+                                        onclick = "[GetVariableSystem.Set( 'DI_fe_category_group', 'core_tenets' )]"
+                                        onclick = "[GetVariableSystem.Toggle( 'DI_select_tenet_window_visible' )]"
+                                        # Set the current doctrine to replace
+                                        onclick = "[GetScriptedGui('DI_doctrine_to_replace_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+
+                                        expand = {}
+                                    }
+                                }
                             }
 
-                            text_single = {
-                                text = "[GetFaithDoctrineGroup( 'doctrine_core_tenets' ).GetName(GetPlayer.GetFaith)]"
-                                align = nobaseline|center
+                            hbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 5
+                                expand = {}
+
+                                text_label_center = {
+                                    layoutpolicy_horizontal = expanding
+                                    text = "FAITH_DOCTRINES_IMPORTANT"
+                                    default_format = "#low"
+                                }
+
+                                button_standard = {
+                                    size = { 100 20 }
+                                    text = "DI_add_tenet"
+                                    onclick = "[GetVariableSystem.Set( 'DI_fe_category', 'main_group' )]"
+                                    onclick = "[GetVariableSystem.Set( 'DI_fe_category_group', '' )]"
+                                    onclick = "[GetVariableSystem.Toggle( 'DI_select_tenet_window_visible' )]"
+
+                                    tooltip = DI_fe_add_tenet_tooltip
+                                }
                             }
 
-                            text_single = {
-                                text = "[FaithDoctrine.GetGroup.GetName(GetPlayer.GetFaith)]"
-                                align = nobaseline|center
+                            dynamicgridbox = {
+                                name = "tenets_grid"
+                                datamodel = "[GetPlayer.MakeScope.GetList('DI_main_tenets')]"
+                                datacontext = "[Character.GetFaith]"
+                                flipdirection = yes
+                                datamodel_wrap = 6
+
+                                item = {
+                                    button_group = {
+                                        datacontext = "[Scope.FaithDoctrine]"
+
+                                        onclick = "[GetVariableSystem.Set( 'DI_fe_category', '' )]"
+                                        onclick = "[GetVariableSystem.Set( 'DI_fe_category_group', FaithDoctrine.GetGroup.GetName( Faith.Self ))]"
+                                        onclick = "[GetVariableSystem.Toggle( 'DI_select_tenet_window_visible' )]"
+                                        # Set the current doctrine to replace
+                                        onclick = "[GetScriptedGui('DI_doctrine_to_replace_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+
+                                        vbox = {
+                                            layoutpolicy_vertical = expanding
+                                            name = "doctrine_list_item"
+                                            minimumsize = { 84 0 }
+
+                                            icon_doctrine = {
+                                                name = "doctrine_group_icon"
+                                                size = { 60 60 }
+                                                texture = "[FaithDoctrine.GetIcon]"
+                                            }
+
+                                            # doctrine group name
+                                            text_single = {
+                                                name = "doctrine_group_name"
+                                                align = center
+                                                text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                                default_format = "#low"
+                                                multiline = yes
+                                                max_width = 81
+                                            }
+
+                                            text_single = {
+                                                name = "doctrine_name"
+                                                align = center
+                                                text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                                default_format = "#high"
+                                                multiline = yes
+                                                max_width = 81
+                                            }
+
+                                            tooltip = DI_fe_replace_tenet_tooltip
+                                            using = tooltip_ne
+
+                                            expand = {}
+                                        }
+                                    }
+                                }
+                            }
+
+                            text_label_center = {
+                                layoutpolicy_horizontal = expanding
+                                text = "FAITH_DOCTRINES_MARRIAGE"
+                                default_format = "#low"
+                            }
+
+                            dynamicgridbox = {
+                                datamodel = "[GetPlayer.MakeScope.GetList('DI_marriage_tenets')]"
+                                datacontext = "[Character.GetFaith]"
+                                flipdirection = yes
+                                datamodel_wrap = 2
+
+                                item = {
+                                    DI_widget_doctrine_item = {
+                                        datacontext = "[Scope.FaithDoctrine]"
+
+                                        blockoverride "onclick"
+                                        {
+                                            onclick = "[GetVariableSystem.Set( 'DI_fe_category', 'crime' )]"
+                                            onclick = "[GetVariableSystem.Set( 'DI_fe_category_group', FaithDoctrine.GetGroup.GetName( Faith.Self ))]"
+                                            onclick = "[GetVariableSystem.Toggle( 'DI_select_tenet_window_visible' )]"
+                                            # Set the current doctrine to replace
+                                            onclick = "[GetScriptedGui('DI_doctrine_to_replace_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        }
+                                    }
+                                }
+                            }
+
+                            text_label_center = {
+                                layoutpolicy_horizontal = expanding
+                                text = "FAITH_DOCTRINES_CRIMES"
+                                default_format = "#low"
+                            }
+
+                            dynamicgridbox = {
+                                datamodel = "[GetPlayer.MakeScope.GetList('DI_crimes_tenets')]"
+                                datacontext = "[Character.GetFaith]"
+                                ignoreinvisible = yes
+                                flipdirection = yes
+                                datamodel_wrap = 2
+
+                                item = {
+                                    DI_widget_doctrine_item = {
+                                        datacontext = "[Scope.FaithDoctrine]"
+
+                                        blockoverride "onclick"
+                                        {
+                                            onclick = "[GetVariableSystem.Set( 'DI_fe_category', 'crime' )]"
+                                            onclick = "[GetVariableSystem.Set( 'DI_fe_category_group', FaithDoctrine.GetGroup.GetName( Faith.Self ))]"
+                                            onclick = "[GetVariableSystem.Toggle( 'DI_select_tenet_window_visible' )]"
+                                            # Set the current doctrine to replace
+                                            onclick = "[GetScriptedGui('DI_doctrine_to_replace_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        }
+                                    }
+                                }
+                            }
+
+                            # clergy
+                            text_label_center = {
+                                layoutpolicy_horizontal = expanding
+                                text = "FAITH_DOCTRINES_CLERGY"
+                                default_format = "#low"
+                            }
+
+                            dynamicgridbox = {
+                                datamodel = "[GetPlayer.MakeScope.GetList('DI_clergy_tenets')]"
+                                datacontext = "[Character.GetFaith]"
+                                ignoreinvisible = yes
+                                flipdirection = yes
+                                datamodel_wrap = 2
+
+                                item = {
+                                    DI_widget_doctrine_item = {
+                                        datacontext = "[Scope.FaithDoctrine]"
+
+                                        blockoverride "onclick"
+                                        {
+                                            onclick = "[GetVariableSystem.Set( 'DI_fe_category', 'clergy' )]"
+                                            onclick = "[GetVariableSystem.Set( 'DI_fe_category_group', FaithDoctrine.GetGroup.GetName( Faith.Self ))]"
+                                            onclick = "[GetVariableSystem.Toggle( 'DI_select_tenet_window_visible' )]"
+                                            # Set the current doctrine to replace
+                                            onclick = "[GetScriptedGui('DI_doctrine_to_replace_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -264,6 +487,1301 @@ window = {
             }
         }
 
+        vbox = {
+            name = "holy_sites_tab"
+            visible = "[GetVariableSystem.HasValue( 'faith_view_tabs', 'holy_sites' )]"
+            layoutpolicy_vertical = expanding
+
+            text_single = {
+                text = placeholder
+            }
+        }
+
         expand = {}
+    }
+}
+
+Types faithEditorTypes
+{
+    type DI_container_tenet_item = container {
+
+        using = tooltip_se
+
+        highlight_icon = {
+            name = "doctrine_group_bg"
+            texture = "[Faith.GetDoctrineBackgroundIcon]"
+            size = { 130 200 }
+        }
+
+        highlight_icon = {
+            visible = "[ObjectsEqual( FaithDoctrine.GetGroup, GetFaithDoctrineGroup( 'doctrine_core_tenets' ))]"
+            name = "doctrine_group_icon"
+            texture = "[FaithDoctrine.GetIcon]"
+            size = { 130 200 }
+            alpha = 0.85
+            position = {0 0}
+        }
+
+        text_label_center = {
+            name = "doctrine_name"
+            parentanchor = bottom|hcenter
+            widgetanchor = center
+            position = { 0 -24 }
+            maximumsize = { 130 44 }
+            fontsize_min = 12
+            multiline = yes
+            align = center
+            elide = right
+            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+            default_format = "#high"
+
+            using = Font_Size_Medium
+        }
+    }
+
+    type widget_DI_tenet_group_loader = widget {
+        size = { 0 0 }
+
+        vbox = {
+            using = Animation_Tab_Switch
+
+            state = {
+                name = fe_core_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetGroupingKey, 'core_tenets' )]"
+                on_start = "[GetScriptedGui('DI_load_core_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            state = {
+                name = fe_main_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetGroupingKey, 'main_group' )]"
+                on_start = "[GetScriptedGui('DI_load_main_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # load individual main doctrine groups
+            state = {
+                name = fe_main_pilgrimage_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize( 'doctrine_pilgrimage_name' ) )]"
+                on_start = "[GetScriptedGui('DI_load_main_pilgrimage_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # main_hof
+            state = {
+                name = fe_hof_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize( 'doctrine_head_of_faith_name' ) )]"
+                on_start = "[GetScriptedGui('DI_load_hof_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # main_clerical_tradition
+            state = {
+                name = fe_clerical_tradition_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize( 'doctrine_theocracy_name' ) )]"
+                on_start = "[GetScriptedGui('DI_load_clerical_tradition_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # main_religious_attitude
+            state = {
+                name = fe_religious_attitude_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize( 'doctrine_pluralism_name' ) )]"
+                on_start = "[GetScriptedGui('DI_load_religious_attitude_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # main_view_on_g
+            state = {
+                name = fe_view_on_g_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize( 'doctrine_gender_name' ) )]"
+                on_start = "[GetScriptedGui('DI_load_view_on_g_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            state = {
+                name = fe_marriage_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetGroupingKey, 'marriage' )]"
+                on_start = "[GetScriptedGui('DI_load_marriage_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # marriage_consanguinity
+            state = {
+                name = fe_marriage_consanguinity_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_consanguinity_name') )]"
+                on_start = "[GetScriptedGui('DI_load_marriage_consanguinity_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # marriage_bastardry
+            state = {
+                name = fe_marriage_bastardry_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_bastardry_name') )]"
+                on_start = "[GetScriptedGui('DI_load_marriage_bastardry_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # marriage_divorce
+            state = {
+                name = fe_marriage_divorce_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_divorce_name') )]"
+                on_start = "[GetScriptedGui('DI_load_marriage_divorce_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # marriage_type
+            state = {
+                name = fe_marriage_type_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_marriage_type_name') )]"
+                on_start = "[GetScriptedGui('DI_load_marriage_type_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes
+            state = {
+                name = fe_crime_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetGroupingKey, 'crimes' )]"
+                on_start = "[GetScriptedGui('DI_load_crimes_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes_witchcraft
+            state = {
+                name = fe_crime_witchcraft_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_witchcraft_name') )]"
+                on_start = "[GetScriptedGui('DI_load_crime_witchcraft_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes_kinslaying
+            state = {
+                name = fe_crime_kinslaying_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_kinslaying_name') )]"
+                on_start = "[GetScriptedGui('DI_load_crime_kinslaying_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes_adultery_women
+            state = {
+                name = fe_crime_female_adultery_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_adultery_women_name') )]"
+                on_start = "[GetScriptedGui('DI_load_crime_adultery_women_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes_adultery_men
+            state = {
+                name = fe_crime_male_adultery_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_adultery_men_name') )]"
+                on_start = "[GetScriptedGui('DI_load_crime_adultery_men_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes_deviancy
+            state = {
+                name = fe_crime_deviancy_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_deviancy_name') )]"
+                on_start = "[GetScriptedGui('DI_load_crime_deviancy_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # crimes_same_sex_relations
+            state = {
+                name = fe_crime_same_sex_relations_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_homosexuality_name') )]"
+                on_start = "[GetScriptedGui('DI_load_crime_same_sex_relations_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # clergy
+            state = {
+                name = fe_clergy_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetGroupingKey, 'clergy' )]"
+                on_start = "[GetScriptedGui('DI_load_clergy_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # clergy_funerary_tradition
+            state = {
+                name = fe_clergy_funerary_tradition_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_funeral_name') )]"
+                on_start = "[GetScriptedGui('DI_load_clergy_funerary_tradition_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # clergy_clerical_appointment
+            state = {
+                name = fe_clergy_clerical_appointment_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_clerical_succession_name') )]"
+                on_start = "[GetScriptedGui('DI_load_clergy_clerical_appointment_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # clergy_clerical_marriage
+            state = {
+                name = fe_clergy_clerical_marriage_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_clerical_marriage_name') )]"
+                on_start = "[GetScriptedGui('DI_load_clergy_clerical_marriage_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # clergy_clerical_gender
+            state = {
+                name = fe_clergy_clerical_gender_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_clerical_gender_name') )]"
+                on_start = "[GetScriptedGui('DI_load_clergy_clerical_gender_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+
+            # clergy_clerical_function
+            state = {
+                name = fe_clergy_clerical_function_tenet_loader
+                trigger_when = "[EqualTo_string( FaithDoctrine.GetGroup.GetName(Faith.Self), Localize('doctrine_clerical_function_name') )]"
+                on_start = "[GetScriptedGui('DI_load_clergy_clerical_function_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
+            }
+        }
+    }
+
+    type DI_widget_doctrine_item = margin_widget {
+        size = { 210 53 }
+
+        block "background" {
+            background = {
+                using = Background_Area
+                margin = { -2 -2 }
+            }
+        }
+
+        button_standard_hover = {
+            size = { 200 45 }
+            parentanchor = center
+            hbox = {
+                parentanchor = center
+                name = "faith_list_item"
+                block "tooltip" { #### current solution as to not display 2 different tooltips for special doctrines
+                    tooltip = placeholder
+                }
+                spacing = 8
+
+                using = tooltip_ne
+
+                block "doctrine_icon"
+                {
+                    icon_doctrine = {
+                        name = "doctrine_group_icon"
+                        size = { 50 50 }
+
+                        texture = "[FaithDoctrine.GetGroup.GetIcon]"
+                    }
+                }
+
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+
+                    text_single = {
+                        name = "doctrine_group_name"
+                        layoutpolicy_horizontal = expanding
+                        align = left
+                        autoresize = no
+                        fontsize_min = 12
+                        default_format = "#low"
+                        block "text_title"
+                        {
+                            text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                        }
+                    }
+
+                    text_single = {
+                        name = "faith_name"
+                        layoutpolicy_horizontal = expanding
+                        elide = right
+                        autoresize = no
+                        fontsize_min = 12
+                        align = left
+                        default_format = "#high"
+                        block "text_desc"
+                        {
+                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                        }
+                    }
+                }
+            }
+
+            block "onclick" {}
+        }
+    }
+}
+
+### Faith Editor Select Tenet Window ###
+window = {
+    name = "DI_select_tenet_window"
+    parentanchor = center
+    layer = hud_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+
+    visible = "[GetVariableSystem.Exists('DI_select_tenet_window_visible')]"
+
+    vbox = {
+        using = Window_Margins
+        restrictparent_min = yes
+
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+
+            blockoverride "header_text"
+            {
+                text = DI_select_tenet
+            }
+
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+            }
+        }
+
+        widget = {
+            size = { 570 650 }
+            vbox = {
+                scrollbox = {
+                    name = "tenet_select_list"
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+
+                    blockoverride "scrollbox_content" {
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category', 'core_tenets' )]"
+                            datamodel = "[GetGlobalList('DI_core_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    icon = {
+                                        visible = "[Not(Faith.HasDoctrine( FaithDoctrine.Self ))]"
+                                        size = { 130 160 }
+                                        scale = 1.5
+                                        parentanchor = center
+                                        texture = "gfx/portraits/portrait_glow.dds"
+                                        using = Color_Orange
+                                    }
+
+                                    icon = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        size = { 130 160 }
+                                        scale = 1.5
+                                        parentanchor = center
+                                        texture = "gfx/portraits/portrait_glow.dds"
+                                        using = Color_Green
+                                    }
+
+                                    DI_container_tenet_item = {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    # finally close the window
+                                    onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    button_ignore = none
+                                }
+                            }
+                        }
+
+                        # main tenets
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category', 'main_group' )]"
+                            datamodel = "[GetGlobalList('DI_main_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_add_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_remove_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onrightclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    button_ignore = none
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    vbox = {
+                                        layoutpolicy_vertical = expanding
+                                        name = "doctrine_list_item"
+                                        minimumsize = { 84 0 }
+
+                                        icon_doctrine = {
+                                            name = "doctrine_group_icon"
+                                            size = { 60 60 }
+                                            texture = "[FaithDoctrine.GetIcon]"
+                                        }
+
+                                        # # doctrine group name
+                                        # text_single = {
+                                        #     name = "doctrine_group_name"
+                                        #     align = center
+                                        #     text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                        #     default_format = "#low"
+                                        #     multiline = yes
+                                        #     max_width = 81
+                                        # }
+
+                                        text_single = {
+                                            name = "doctrine_name"
+                                            align = center
+                                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                            default_format = "#high"
+                                            multiline = yes
+                                            max_width = 81
+                                        }
+
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                        using = tooltip_ne
+
+                                        expand = {}
+                                    }
+                                }
+                            }
+                        }
+
+                        # main_pilgrimage_tenets
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_pilgrimage_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_main_pilgrimage_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    vbox = {
+                                        layoutpolicy_vertical = expanding
+                                        name = "doctrine_list_item"
+                                        minimumsize = { 84 0 }
+
+                                        icon_doctrine = {
+                                            name = "doctrine_group_icon"
+                                            size = { 60 60 }
+                                            texture = "[FaithDoctrine.GetIcon]"
+                                        }
+
+                                        # # doctrine group name
+                                        # text_single = {
+                                        #     name = "doctrine_group_name"
+                                        #     align = center
+                                        #     text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                        #     default_format = "#low"
+                                        #     multiline = yes
+                                        #     max_width = 81
+                                        # }
+
+                                        text_single = {
+                                            name = "doctrine_name"
+                                            align = center
+                                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                            default_format = "#high"
+                                            multiline = yes
+                                            max_width = 81
+                                        }
+
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                        using = tooltip_ne
+
+                                        expand = {}
+                                    }
+                                }
+                            }
+                        }
+
+                        # main_hof
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_head_of_faith_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_hof_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    vbox = {
+                                        layoutpolicy_vertical = expanding
+                                        name = "doctrine_list_item"
+                                        minimumsize = { 84 0 }
+
+                                        icon_doctrine = {
+                                            name = "doctrine_group_icon"
+                                            size = { 60 60 }
+                                            texture = "[FaithDoctrine.GetIcon]"
+                                        }
+
+                                        # # doctrine group name
+                                        # text_single = {
+                                        #     name = "doctrine_group_name"
+                                        #     align = center
+                                        #     text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                        #     default_format = "#low"
+                                        #     multiline = yes
+                                        #     max_width = 81
+                                        # }
+
+                                        text_single = {
+                                            name = "doctrine_name"
+                                            align = center
+                                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                            default_format = "#high"
+                                            multiline = yes
+                                            max_width = 81
+                                        }
+
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                        using = tooltip_ne
+
+                                        expand = {}
+                                    }
+                                }
+                            }
+                        }
+
+                        # main_clerical_tradition
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_theocracy_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_clerical_tradition_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    vbox = {
+                                        layoutpolicy_vertical = expanding
+                                        name = "doctrine_list_item"
+                                        minimumsize = { 84 0 }
+
+                                        icon_doctrine = {
+                                            name = "doctrine_group_icon"
+                                            size = { 60 60 }
+                                            texture = "[FaithDoctrine.GetIcon]"
+                                        }
+
+                                        # # doctrine group name
+                                        # text_single = {
+                                        #     name = "doctrine_group_name"
+                                        #     align = center
+                                        #     text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                        #     default_format = "#low"
+                                        #     multiline = yes
+                                        #     max_width = 81
+                                        # }
+
+                                        text_single = {
+                                            name = "doctrine_name"
+                                            align = center
+                                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                            default_format = "#high"
+                                            multiline = yes
+                                            max_width = 81
+                                        }
+
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                        using = tooltip_ne
+
+                                        expand = {}
+                                    }
+                                }
+                            }
+                        }
+
+                        # main_religious_attitude
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_pluralism_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_religious_attitude_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    vbox = {
+                                        layoutpolicy_vertical = expanding
+                                        name = "doctrine_list_item"
+                                        minimumsize = { 84 0 }
+
+                                        icon_doctrine = {
+                                            name = "doctrine_group_icon"
+                                            size = { 60 60 }
+                                            texture = "[FaithDoctrine.GetIcon]"
+                                        }
+
+                                        # # doctrine group name
+                                        # text_single = {
+                                        #     name = "doctrine_group_name"
+                                        #     align = center
+                                        #     text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                        #     default_format = "#low"
+                                        #     multiline = yes
+                                        #     max_width = 81
+                                        # }
+
+                                        text_single = {
+                                            name = "doctrine_name"
+                                            align = center
+                                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                            default_format = "#high"
+                                            multiline = yes
+                                            max_width = 81
+                                        }
+
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                        using = tooltip_ne
+
+                                        expand = {}
+                                    }
+                                }
+                            }
+                        }
+
+                        # main_view_on_g
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_gender_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_view_on_g_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 4
+
+                            item = {
+                                button_group = {
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    # onclick execute a script called DI_set_doctrine_sgui, it needs to have addscope for the doctrine
+                                    onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                    onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                    onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+                                    
+                                    vbox = {
+                                        layoutpolicy_vertical = expanding
+                                        name = "doctrine_list_item"
+                                        minimumsize = { 84 0 }
+
+                                        icon_doctrine = {
+                                            name = "doctrine_group_icon"
+                                            size = { 60 60 }
+                                            texture = "[FaithDoctrine.GetIcon]"
+                                        }
+
+                                        # # doctrine group name
+                                        # text_single = {
+                                        #     name = "doctrine_group_name"
+                                        #     align = center
+                                        #     text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                                        #     default_format = "#low"
+                                        #     multiline = yes
+                                        #     max_width = 81
+                                        # }
+
+                                        text_single = {
+                                            name = "doctrine_name"
+                                            align = center
+                                            text = "[FaithDoctrine.GetNameNoTooltip( Faith.Self )]"
+                                            default_format = "#high"
+                                            multiline = yes
+                                            max_width = 81
+                                        }
+
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                        using = tooltip_ne
+
+                                        expand = {}
+                                    }
+                                }
+                            }
+                        }
+
+                        # marriage tenets
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_consanguinity_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_marriage_consanguinity_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # marriage_bastardry
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_bastardry_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_marriage_bastardry_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # marriage_divorce
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_divorce_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_marriage_divorce_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # marriage_type
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_marriage_type_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_marriage_type_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # crimes_witchcraft
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_witchcraft_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_crime_witchcraft_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # crimes_kinslaying
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_kinslaying_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_crime_kinslaying_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # crimes_adultery_women
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_adultery_women_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_crime_adultery_women_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"          
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # crimes_adultery_men
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_adultery_men_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_crime_adultery_men_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # crimes_deviancy
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_deviancy_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_crime_deviancy_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # crimes_same_sex_relations
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_homosexuality_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_crime_same_sex_relations_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # clergy_funerary_tradition
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_funeral_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_clergy_funerary_tradition_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # clergy_clerical_appointment
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_clerical_succession_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_clergy_clerical_appointment_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # clergy_clerical_marriage
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_clerical_marriage_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_clergy_clerical_marriage_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # clergy_clerical_gender
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_clerical_gender_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_clergy_clerical_gender_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+
+                        # clergy_clerical_function
+                        dynamicgridbox = {
+                            visible = "[GetVariableSystem.HasValue( 'DI_fe_category_group', Localize( 'doctrine_clerical_function_name' ) )]"
+                            datamodel = "[GetGlobalList('DI_clergy_clerical_function_tenets')]"
+                            ignoreinvisible = yes
+                            flipdirection = yes
+                            datamodel_wrap = 2
+
+                            item = {
+                                DI_widget_doctrine_item = {
+
+                                    background = {
+                                        visible = "[Faith.HasDoctrine( FaithDoctrine.Self )]"
+                                        using = Background_Area
+                                        margin = { 3 3 }
+                                    }
+
+                                    datacontext = "[Scope.FaithDoctrine]"
+                                    datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFaith]"
+
+                                    blockoverride "tooltip"
+                                    {
+                                        tooltip = FAITH_WINDOW_DOCTRINE_TOOLTIP_WITH_FAITH
+                                    }
+
+                                    blockoverride "onclick"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', FaithDoctrine.MakeScope).End)]"
+                                        onclick = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+                                        onclick = "[GetVariableSystem.Toggle('DI_select_tenet_window_visible')]"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
