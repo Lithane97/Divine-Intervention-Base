@@ -150,16 +150,16 @@ window = {
                     # list view checkbox
                     button_checkbox_label = {
                         layoutpolicy_horizontal = expanding
-                        onclick = "[GetVariableSystem.Toggle('DI_pinned_list_view')]"
+                        onclick = "[GetVariableSystem.Toggle('DI_pinned_single_view')]"
 
                         blockoverride "checkbox"
                         {
-                            checked = "[GetVariableSystem.Exists('DI_pinned_list_view')]"
+                            checked = "[GetVariableSystem.Exists('DI_pinned_single_view')]"
                         }
 
                         blockoverride "text"
                         {
-                            text = DI_pinned_list_view
+                            text = DI_pinned_single_view
                         }
                     }
                 }
@@ -168,7 +168,7 @@ window = {
                     layoutpolicy_horizontal = expanding
                     layoutpolicy_vertical = expanding
 
-                    visible = "[GetVariableSystem.Exists('DI_pinned_list_view')]"
+                    visible = "[Not(GetVariableSystem.Exists('DI_pinned_single_view'))]"
 
                     blockoverride "scrollbox_empty_visibility"
                     {
@@ -197,7 +197,7 @@ window = {
                 vbox = {
                     layoutpolicy_horizontal = expanding
                     layoutpolicy_vertical = expanding
-                    visible = "[Not(GetVariableSystem.Exists('DI_pinned_list_view'))]"
+                    visible = "[GetVariableSystem.Exists('DI_pinned_single_view')]"
                     margin_top = 20
 
                     background = {

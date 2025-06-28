@@ -71,6 +71,7 @@ window = {
             # Province Management
             button_tab = {
                 layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_loading', 'true')]"
                 onclick = "[GetVariableSystem.Set('title_manager_tab', 'province_management')]"
                 down = "[GetVariableSystem.HasValue('title_manager_tab', 'province_management')]"
 
@@ -448,9 +449,11 @@ window = {
                         using = Animation_FadeIn_Quick
 
                         on_start = "[GetScriptedGui('DI_province_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        on_finish = "[GetVariableSystem.Set('DI_loading', 'false')]"
                     }
 
                     vbox = {
+                        visible = "[GetVariableSystem.HasValue('DI_loading', 'false')]"
                         spacing = 10
 
                         hbox = {
@@ -534,7 +537,9 @@ window = {
                     }
                 }
 
-                hbox = {
+                vbox = {
+                    using = DI_Loading_Screen
+
                     vbox = {
                         visible = "[And(Not(GetVariableSystem.HasValue('title_manager_tab', 'filter')), Not(GetVariableSystem.HasValue('title_manager_tab', 'province_management')))]"
                         hbox = {
@@ -560,25 +565,24 @@ window = {
                         }
                     }
 
-                    vbox = {
-                        visible = "[GetVariableSystem.HasValue('title_manager_tab', 'province_management')]"
-                        hbox = {
-                            scrollbox = {
-                                layoutpolicy_horizontal = expanding
-                                size = { 400 450 }
+                    hbox = {
+                        visible = "[And(GetVariableSystem.HasValue('DI_loading', 'false'), GetVariableSystem.HasValue('title_manager_tab', 'province_management'))]"
 
-                                blockoverride "scrollbox_content"
-                                {
-                                    vbox = {
-                                        name = "province_list"
+                        scrollbox = {
+                            layoutpolicy_horizontal = expanding
+                            size = { 400 450 }
+
+                            blockoverride "scrollbox_content"
+                            {
+                                vbox = {
+                                    name = "province_list"
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 5
+
+                                    vbox_DI_title_province_content = {
                                         layoutpolicy_horizontal = expanding
-                                        spacing = 5
+                                        datamodel = "[GetPlayer.MakeScope.GetList('DI_selected_titles_provinces')]"
 
-                                        vbox_DI_title_province_content = {
-                                            layoutpolicy_horizontal = expanding
-                                            datamodel = "[GetPlayer.MakeScope.GetList('DI_selected_titles_provinces')]"
-
-                                        }
                                     }
                                 }
                             }

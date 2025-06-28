@@ -4390,3 +4390,104 @@ DI_bookmaker = {
         }
     }
 }
+
+DI_akolouthos = {
+    scope = character
+
+    effect = {
+        save_scope_as = root_target
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:DI_story = {
+            save_scope_value_as = {
+                name = DI_char_spawner_count_increment_value
+                value = var:DI_char_spawner_count_increment_value
+            }
+        }
+        DI_akolouthos_traits_effect = yes
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_in_list = {
+                variable = pinned_characters
+
+                save_scope_as = target
+
+                while = {
+                    count = scope:DI_char_spawner_count_increment_value
+                    DI_spawn_low_court_character_effect = yes
+
+                    scope:new_courtier = {}
+
+                    if = {
+                        limit = {
+                            NOT = { can_employ_court_position_type = akolouthos_court_position }
+                        }
+
+                        random_court_position_holder = {
+                            type = akolouthos_court_position
+                            save_scope_as = akolouthos
+                        }
+
+                        revoke_court_position = {
+                            court_position = akolouthos_court_position
+                        }
+                    }
+                    appoint_court_position = {
+                        recipient = scope:new_courtier
+                        court_position = akolouthos_court_position
+                    }
+                }
+            }
+        }
+        else = {
+            save_scope_as = target
+
+            while = {
+                count = scope:DI_char_spawner_count_increment_value
+                DI_spawn_low_court_character_effect = yes
+
+                scope:new_courtier = {}
+
+                if = {
+                    limit = {
+                        NOT = { can_employ_court_position_type = akolouthos_court_position }
+                    }
+
+                    random_court_position_holder = {
+                        type = akolouthos_court_position
+                        save_scope_as = akolouthos
+                    }
+
+                    revoke_court_position = {
+                        court_position = akolouthos_court_position
+                    }
+                }
+                appoint_court_position = {
+                    recipient = scope:new_courtier
+                    court_position = akolouthos_court_position
+                }
+            }
+        }
+
+        if = {
+            limit = {
+                scope:root_target.var:DI_cs_random_traits ?= no
+            }
+            DI_no_random_traits_effect = yes
+        }
+        else_if = {
+            limit = {
+                scope:root_target.var:DI_cs_random_traits ?= yes
+            }
+            DI_random_traits_effect = yes
+        }
+    }
+}

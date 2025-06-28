@@ -1,0 +1,26 @@
+template DI_Loading_Screen
+{	
+	vbox = {
+		name = "DI_Loading_Screen"
+		spacing = 3
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+
+		hbox = {
+			visible = "[GetVariableSystem.HasValue('DI_loading', 'true')]"
+			layoutpolicy_vertical = expanding
+
+			vbox = {
+				layoutpolicy_vertical = expanding
+
+				text_single = {
+					text = "DI_loading"
+					using = Font_Size_Big
+					default_format = "#bold"
+				}
+
+				margin_bottom = 300
+			}
+		}
+	}
+}

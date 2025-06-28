@@ -1686,6 +1686,7 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
     category = interaction_category_cheat_menu
     use_diplomatic_range = no
     ignores_pending_interaction_block = yes
+    icon = icon_dynasty
 
     is_shown = {
         scope:actor = {
@@ -1716,6 +1717,35 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
                 custom_tooltip = DI_cadetBranch_event_tooltip.1
                 create_cadet_branch = yes
             }
+        }
+    }
+}
+
+DI_make_house_head_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_dynasty
+    
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        scope:recipient = {
+            exists = scope:recipient.house
+            NOT = { scope:recipient.house.house_head = scope:recipient }
+        }
+    }
+
+    on_accept = {
+        scope:recipient.house = {
+            set_house_head = scope:recipient
         }
     }
 }
@@ -3719,6 +3749,36 @@ DI_add_hook_interaction = {
     }
 }
 
+DI_remove_hook_interaction = {
+    category = interaction_category_cheat_menu
+    icon = hook_icon
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        NOT = { scope:recipient = scope:actor }
+        scope:recipient = {
+            has_hook = scope:actor
+        }
+    }
+
+    on_accept = {
+        scope:recipient = {
+            remove_hook = { target = scope:actor }
+        }
+    }
+}
+
 ### Add Excommunitcated to Character ###
 DI_excommunicate_interaction = {
     category = interaction_category_cheat_menu
@@ -4220,13 +4280,13 @@ DI_start_diarchy_interaction = {
 
                 scope:regency_player = {
                     scope:recipient = {
-                        start_diarchy = regency
+                        try_start_diarchy = regency
                         set_diarch = scope:actor
                     }
                 }
                 scope:regency_npc = {
                     scope:recipient = {
-                        start_diarchy = regency
+                        try_start_diarchy = regency
                     }
                 }
             }
@@ -4326,6 +4386,78 @@ DI_abdicate = {
         scope:actor = {
             depose = yes
         }
+    }
+}
+
+DI_take_artifact_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_scheme_steal_back_artifact
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    target_type = artifact
+    target_filter = recipient_artifacts
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        scope:recipient = {
+            any_character_artifact = { exists = this }
+        }
+    }
+
+    send_option = {
+        is_valid = {
+            NOT = { scope:recipient = scope:actor }
+        }
+        flag = player
+        localization = take_artifact_player
+    }
+    send_option = {
+        is_valid = {
+            scope:recipient = {
+                any_neighboring_top_liege_realm_owner = {
+                    NOR = {
+                        this = scope:recipient
+                        this = scope:actor
+                    }
+                }
+            }
+        }
+        flag = random_neighbor
+        localization = give_away_random_artifact_interaction
+    }
+
+    is_highlighted = { always = yes }
+
+    on_accept = {
+        scope:recipient = {
+            switch = {
+                trigger = yes
+                scope:random_neighbor = {
+                    random_neighboring_top_liege_realm_owner = {
+                        limit = {
+                            NOR = {
+                                this = scope:recipient
+                                this = scope:actor
+                            }
+                        }
+                        save_scope_as = new_owner
+                    }
+                }
+                scope:player = {
+                    scope:actor = { save_scope_as = new_owner }
+                }
+            }
+        }
+        scope:target = { set_owner = scope:new_owner }
     }
 }
 

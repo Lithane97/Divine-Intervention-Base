@@ -532,6 +532,29 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
+            # DI full stomachs
+            dockable_button = {
+                name = "DI_modifier_DI_full_stomachs_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_full_stomachs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_full_stomachs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_full_stomachs')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = {30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
+
 			# no stress change
 			dockable_button = {
 				name = "DI_modifier_no_stress_change_button"
