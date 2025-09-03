@@ -556,34 +556,362 @@ DI_destroy_titles_sgui = {
     }
 }
 
-### Deslect Title ###
-DI_deselect_title = {
+### Load Province Dropdown ###
+DI_load_province_dropdown = {
+    scope = character # Player Character
+
+    is_valid = {
+        NOT = { has_global_variable_list = DI_province_filter_choices }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:all }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:hide }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:capital }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:castle }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:temple }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:city }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:tribal }
+    }
+}
+
+### Apply Filter Choice ###
+DI_apply_province_filter_choice = {
     scope = character # Player Character
 
     saved_scopes = {
-        title # Title to deselect
+        filter_choice # Filter choice to apply
     }
 
     effect = {
         save_scope_as = player
 
         if = {
-            limit = {
-                any_province = {
-                    this = scope:title
+            limit = { scope:filter_choice = flag:all }
+
+            if = {
+                limit = { has_variable_list = DI_action_provinces }
+
+                clear_variable_list = DI_action_provinces
+            }
+            else = {
+                every_in_list = {
+                    variable = DI_selected_titles_provinces
+                    save_scope_as = province
+
+                    scope:player = {
+                        add_to_variable_list = {
+                            name = DI_action_provinces
+                            target = scope:province
+                        }
+                    }
+                }
+
+                if = {
+                    limit = {
+                        has_variable = DI_provinces_hide
+                    }
+                    clear_variable_list = DI_shown_provinces
+
+                    every_in_list = {
+                        variable = DI_selected_titles_provinces
+                        save_scope_as = province
+
+                        scope:player = {
+                            add_to_variable_list = {
+                                name = DI_shown_provinces
+                                target = scope:province
+                            }
+                        }
+                    }
                 }
             }
+        }
+        else_if = {
+            limit = {
+                scope:filter_choice = flag:hide
+            }
+            if = {
+                limit = {
+                    has_variable_list = DI_action_provinces
+                }
+                clear_variable_list = DI_shown_provinces
 
-            remove_list_variable = {
-                name = DI_selected_titles_provinces
-                target = scope:title
+                if = {
+                    limit = {
+                        has_variable = DI_provinces_hide
+                    }
+                    remove_variable = DI_provinces_hide
+
+                    every_in_list = {
+                        variable = DI_selected_titles_provinces
+                        save_scope_as = province
+
+                        scope:player = {
+                            add_to_variable_list = {
+                                name = DI_shown_provinces
+                                target = scope:province
+                            }
+                        }
+                    }
+                }
+                else = {
+                    set_variable = DI_provinces_hide
+
+                    every_in_list = {
+                        variable = DI_action_provinces
+                        save_scope_as = province
+
+                        scope:player = {
+                            add_to_variable_list = {
+                                name = DI_shown_provinces
+                                target = scope:province
+                            }
+                        }
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = {
+                        has_variable = DI_provinces_hide
+                    }
+                    remove_variable = DI_provinces_hide
+                    clear_variable_list = DI_shown_provinces
+
+                    every_in_list = {
+                        variable = DI_selected_titles_provinces
+                        save_scope_as = province
+
+                        scope:player = {
+                            add_to_variable_list = {
+                                name = DI_shown_provinces
+                                target = scope:province
+                            }
+                        }
+                    }
+                }
+                else = {
+                    every_in_list = {
+                        variable = DI_selected_titles_provinces
+                        save_scope_as = province
+
+                        scope:player = {
+                            add_to_variable_list = {
+                                name = DI_shown_provinces
+                                target = scope:province
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                scope:filter_choice = flag:capital
+            }
+            clear_variable_list = DI_action_provinces
+            if = {
+                limit = {
+                    has_variable = DI_provinces_hide
+                }
+                clear_variable_list = DI_shown_provinces
+            }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+
+                # Evaluate the capital check IN the province scope
+                scope:province = {
+                    if = {
+                        limit = { is_county_capital = yes }   # <-- this is the key bit
+                        scope:player = {
+                            add_to_variable_list = { name = DI_action_provinces target = scope:province }
+                            if = {
+                                limit = {
+                                    has_variable = DI_provinces_hide
+                                }
+                                add_to_variable_list = {
+                                    name = DI_shown_provinces
+                                    target = scope:province
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        # ---------- castle ----------
+        else_if = {
+            limit = { scope:filter_choice = flag:castle }
+            clear_variable_list = DI_action_provinces
+            if = { limit = { has_variable = DI_provinces_hide } clear_variable_list = DI_shown_provinces }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+                scope:province = {
+                    if = { limit = { has_holding_type = castle_holding }     # or castle_holding if your build expects it
+                        scope:player = {
+                            add_to_variable_list = { name = DI_action_provinces target = scope:province }
+                            if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
+                        }
+                    }
+                }
+            }
+        }
+
+        # ---------- temple ----------
+        else_if = {
+            limit = { scope:filter_choice = flag:temple }
+            clear_variable_list = DI_action_provinces
+            if = { limit = { has_variable = DI_provinces_hide } clear_variable_list = DI_shown_provinces }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+                scope:province = {
+                    if = { limit = { has_holding_type = church_holding }
+                        scope:player = {
+                            add_to_variable_list = { name = DI_action_provinces target = scope:province }
+                            if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
+                        }
+                    }
+                }
+            }
+        }
+
+        # ---------- city ----------
+        else_if = {
+            limit = { scope:filter_choice = flag:city }
+            clear_variable_list = DI_action_provinces
+            if = { limit = { has_variable = DI_provinces_hide } clear_variable_list = DI_shown_provinces }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+                scope:province = {
+                    if = { limit = { has_holding_type = city_holding }
+                        scope:player = {
+                            add_to_variable_list = { name = DI_action_provinces target = scope:province }
+                            if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
+                        }
+                    }
+                }
+            }
+        }
+
+        # ---------- tribal ----------
+        else_if = {
+            limit = { scope:filter_choice = flag:tribal }
+            clear_variable_list = DI_action_provinces
+            if = { limit = { has_variable = DI_provinces_hide } clear_variable_list = DI_shown_provinces }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+                scope:province = {
+                    if = { limit = { has_holding_type = tribal_holding }
+                        scope:player = {
+                            add_to_variable_list = { name = DI_action_provinces target = scope:province }
+                            if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+### Deselect Province ###
+DI_toggle_action_province = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        province # Province to deselect
+    }
+
+    effect = {
+        save_scope_as = player
+        # Else, toggle the province in DI_action_provinces
+        if = {
+            limit = {
+                is_target_in_variable_list = {
+                    name = DI_action_provinces
+                    target = scope:province
+                }
+            }
+            scope:player = {
+                remove_list_variable = {
+                    name = DI_action_provinces
+                    target = scope:province
+                }
+                if = {
+                    limit = {
+                        has_variable = DI_provinces_hide
+                    }
+                    remove_list_variable = {
+                        name = DI_shown_provinces
+                        target = scope:province
+                    }
+                }
             }
         }
         else = {
-            remove_list_variable = {
-                name = DI_selected_titles
-                target = scope:title
+            scope:player = {
+                add_to_variable_list = {
+                    name = DI_action_provinces
+                    target = scope:province
+                }
+                if = {
+                    limit = {
+                        has_variable = DI_provinces_hide
+                    }
+                    remove_list_variable = {
+                        name = DI_shown_provinces
+                        target = scope:province
+                    }
+                }
             }
+        }
+
+        if = {
+            limit = {
+                has_variable = DI_provinces_hide
+                NOT = { has_variable_list = DI_shown_provinces }
+            }
+            remove_variable = DI_provinces_hide
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_shown_provinces
+                        target = scope:province
+                    }
+                }
+            }
+        }
+    }
+}
+
+### Check Province In List ###
+DI_is_action_province = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        province # Province to check
+    }
+
+    is_valid = {
+        is_target_in_variable_list = {
+            name = DI_action_provinces
+            target = scope:province
         }
     }
 }
@@ -789,6 +1117,8 @@ DI_province_list_load = {
         save_scope_as = player
 
         clear_variable_list = DI_selected_titles_provinces
+        clear_variable_list = DI_shown_provinces
+        clear_variable_list = DI_action_provinces
 
         every_in_list = {
             variable = DI_selected_titles
@@ -803,6 +1133,16 @@ DI_province_list_load = {
                     scope:player = {
                         add_to_variable_list = {
                             name = DI_selected_titles_provinces
+                            target = scope:province
+                        }
+
+                        add_to_variable_list = {
+                            name = DI_action_provinces
+                            target = scope:province
+                        }
+
+                        add_to_variable_list = {
+                            name = DI_shown_provinces
                             target = scope:province
                         }
                     }
@@ -821,11 +1161,37 @@ DI_province_list_load = {
                                 name = DI_selected_titles_provinces
                                 target = scope:province
                             }
+
+                            add_to_variable_list = {
+                                name = DI_action_provinces
+                                target = scope:province
+                            }
+
+                            add_to_variable_list = {
+                                name = DI_shown_provinces
+                                target = scope:province
+                            }
                         }
                     }
                 }
             }
         }
+    }
+}
+
+DI_set_county_capital_sgui = {
+    scope = character
+    saved_scopes = { 
+        province
+        barony
+    }
+
+    is_valid = {
+        scope:province = { is_county_capital = no }
+    }
+
+    effect = {
+        scope:barony = { set_capital_barony = yes }
     }
 }
 
@@ -836,7 +1202,7 @@ DI_remove_holding_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             limit = {
                 is_county_capital = no
             }
@@ -879,7 +1245,7 @@ DI_add_building_slot_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             scope:province = {
@@ -896,7 +1262,7 @@ DI_remove_building_slot_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             scope:province = {
@@ -922,7 +1288,7 @@ DI_set_holding_type_sgui = {
             }
 
             every_in_list = {
-                variable = DI_selected_titles_provinces
+                variable = DI_action_provinces
                 save_scope_as = province
 
                 scope:province = {
@@ -943,7 +1309,7 @@ DI_set_holding_type_sgui = {
             }
 
             every_in_list = {
-                variable = DI_selected_titles_provinces
+                variable = DI_action_provinces
                 save_scope_as = province
 
                 scope:province = {
@@ -964,7 +1330,7 @@ DI_set_holding_type_sgui = {
             }
 
             every_in_list = {
-                variable = DI_selected_titles_provinces
+                variable = DI_action_provinces
                 save_scope_as = province
 
                 scope:province = {
@@ -985,7 +1351,7 @@ DI_set_holding_type_sgui = {
             }
 
             every_in_list = {
-                variable = DI_selected_titles_provinces
+                variable = DI_action_provinces
                 save_scope_as = province
 
                 scope:province = {
@@ -1010,7 +1376,7 @@ DI_remove_buildings_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             scope:province = {
@@ -1126,7 +1492,7 @@ DI_max_building_upgrades_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             if = { limit = { has_building_or_higher = city_01 NOT = { has_building = city_04 } } add_building = city_04 }
@@ -1202,7 +1568,7 @@ DI_generate_buildings_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             scope:province = {
@@ -1223,7 +1589,7 @@ DI_construct_building_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             scope:province = {
@@ -1660,7 +2026,7 @@ DI_destroy_building_sgui = {
         save_scope_as = player
 
         every_in_list = {
-            variable = DI_selected_titles_provinces
+            variable = DI_action_provinces
             save_scope_as = province
 
             scope:province = {
