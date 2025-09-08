@@ -445,9 +445,18 @@ window = {
                     using = Animation_Tab_Switch
 
                     state = {
-                        name = _show
+                        name = init
+                        trigger_on_create = yes
+                        trigger_when = "[GetScriptedGui('DI_load_province_dropdown').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                        on_start = "[GetScriptedGui('DI_load_province_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    }
+
+                    state = {
+                        name = reload
                         using = Animation_FadeIn_Quick
 
+                        trigger_when = "[GetVariableSystem.HasValue('DI_loading', 'true')]"
                         on_start = "[GetScriptedGui('DI_province_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                         on_finish = "[GetVariableSystem.Set('DI_loading', 'false')]"
                     }
@@ -532,7 +541,38 @@ window = {
                                     text = DI_construct_building
                                 }
                             }
+                        }
 
+                        # --- Province filter dropdown (standard Paradox pattern) ---
+                        dropdown_menu_standard = {
+                            name = "di_province_dropdown"
+
+                            # Size of the button itself and the max list height
+                            blockoverride "dropdown_size" { size = { 220 32 } }
+                            blockoverride "dropdown_list_maxsize" { maximumsize = { 260 260 } }
+
+                            # Feed it the list + tell it what to do when a choice is picked
+                            blockoverride "dropdown_properties" {
+                                datamodel = "[GetGlobalList('DI_province_filter_choices')]"
+                                onselectionchanged = "[PdxGuiWidget.FindChild('di_province_dropdown_active').TriggerAnimation('apply_filter_choice')]"
+                            }
+
+                            # What the closed button shows (pick static or dynamic)
+                            blockoverride "dropdown_active_item_properties" {
+                                name = "di_province_dropdown_active"
+                                text = "[Localize(Concatenate(Scope.GetFlagName,'_loc'))]"
+
+                                state = {
+                                    name = apply_filter_choice
+                                    # Dispatch by the selected flag name; easiest is to call a tiny SGUI
+                                    on_finish = "[GetScriptedGui('DI_apply_province_filter_choice').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('filter_choice', MakeScopeFlag(Scope.GetFlagName)).End)]"
+                                }
+                            }
+
+                            # How each row is labeled
+                            blockoverride "dropdown_item_properties" {
+                                text = "[Localize(Concatenate(Scope.GetFlagName,'_loc'))]"
+                            }
                         }
                     }
                 }
@@ -581,7 +621,7 @@ window = {
 
                                     vbox_DI_title_province_content = {
                                         layoutpolicy_horizontal = expanding
-                                        datamodel = "[GetPlayer.MakeScope.GetList('DI_selected_titles_provinces')]"
+                                        datamodel = "[GetPlayer.MakeScope.GetList('DI_shown_provinces')]"
 
                                     }
                                 }
@@ -756,13 +796,34 @@ types DITitleManagerShared
 
                 expand = {}
 
-                hbox = {
-                    button_unpin = {
-                        name = "button_unpin"
-                        onclick = "[GetScriptedGui('DI_deselect_title').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Province.MakeScope).End)]"
-                        size = { 25 25 }
+                # Clickable only when NOT already the county capital
+                button_move_capital = {
+                    name = "button_set_county_capital"
+                    size = { 25 25 }
+                    visible = "[GetScriptedGui('DI_set_county_capital_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_set_county_capital_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                    tooltip = DI_make_county_capital_tt
+                }
+
+                # Optional: show a non-clickable crown when it’s already the county capital
+                button_move_capital = {
+                    name = "button_is_county_capital"
+                    size = { 25 25 }
+                    visible = "[Not(GetScriptedGui('DI_set_county_capital_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End))]"
+                    enabled = no
+                    tooltip = DI_already_county_capital_tt
+                }
+
+
+                # --- NEW: checkbox that toggles province in/out of DI_action_provinces ---
+                button_checkbox_label = {
+                    onclick = "[GetScriptedGui('DI_toggle_action_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('province', Province.MakeScope).End)]"
+
+                    blockoverride "checkbox" {
+                        checked = "[GetScriptedGui('DI_is_action_province').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('province', Province.MakeScope).End)]"
                     }
-                    margin_right = 10
+
+                    blockoverride "text" { text = "" }
                 }
             }
         }
@@ -1447,7 +1508,7 @@ window = {
                                     size = { 35 35 }
 
                                     raw_text = 1
-                                    
+
                                     enabled = "[HasDlcFeature('legends')]"
                                     onclick = "[GetScriptedGui('DI_construct_building_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('building_type', MakeScopeFlag('scriptorium_01')).End)]"
                                 }
@@ -5094,7 +5155,7 @@ window = {
                                 expand = {}
                             }
                         }
-                        
+
                         # horse_pastures 1-8
                         vbox = {
                             layoutpolicy_horizontal = expanding
