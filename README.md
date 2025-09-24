@@ -21,7 +21,7 @@ Manual install
 
 .mod descriptor example
 - You should be able to use the .mod file from this repo; place it in the `mod` folder alongside the `Divine-Intervention` folder.
-- Replace <YOUR_USER> with your own local path to the `Divine Intervention` folder in the `mod` folder if you use an absolute path, or prefer a relative path for portability.
+- Replace path with `path="mod/Divine-Intervention"` or your own path if located outside of the mod folder. 
 
 ```text
 version="0.1.2"
