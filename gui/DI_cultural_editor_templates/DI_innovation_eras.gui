@@ -1,184 +1,48 @@
 template DI_Innovation_Eras
-{	
-	hbox = {
-		name = "tabs"
-		layoutpolicy_horizontal = expanding
-		margin = { 5 5 }
+{
+    hbox = {
+        name = "tabs"
+        layoutpolicy_horizontal = expanding
+        margin = { 5 5 }
+        background = { using = Background_Area_Dark }
 
-		background = {
-			using = Background_Area_Dark
-		}
-		
-		DI_vbox_era_tab = {
-			datacontext = "[GetCultureEraType('culture_era_tribal')]"
+        # Build tabs from every era
+        datamodel = "[GetAllCultureEraTypes]"
 
-			blockoverride "era_onclick"
-			{
-				onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'tribal' )]"
-				down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
-			}
+        item = {
+            # Current item is CultureEraType
+            DI_vbox_era_tab = {
+                # datacontext = "[CultureEraType]"
 
-			blockoverride "era_spacer"
-			{
-				spacer = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
-					size = { 150 0 }
-		
-					state = {
-						name = _show
-						size = { 135 0 }
-						duration = 0.3
-					}
-		
-					state = {
-						name = _hide
-						size = { 0 0 }
-						duration = 0.3
-					}
-				}
-			}
+                # Click selects this era (by its name string); 'down' shows pressed state
+                blockoverride "era_onclick" {
+                    onclick = "[GetVariableSystem.Set('DI_culture_era_tab', CultureEraType.GetName)]"
+                    down    = "[GetVariableSystem.HasValue('DI_culture_era_tab', CultureEraType.GetName)]"
+                }
 
-			blockoverride "era_name"
-			{
-				text_multi = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'tribal' )]"
-					size = { 100% 100% }
-					margin = { 5 10 }
-					autoresize = no
-					text = "[CultureEraType.GetName]"
-					align = top|hcenter
-					default_format = "#low"
-				}
-			}
-		}
+                # Animated spacer only on the selected tab
+                blockoverride "era_spacer" {
+                    spacer = {
+                        visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', CultureEraType.GetName)]"
+                        size    = { 150 0 }
+                        state = { name = _show size = { 135 0 } duration = 0.3 }
+                        state = { name = _hide size = {   0 0 } duration = 0.3 }
+                    }
+                }
 
-		DI_vbox_era_tab = {
-			datacontext = "[GetCultureEraType('culture_era_early_medieval')]"
-
-			blockoverride "era_onclick"
-			{
-				onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'early_medieval' )]"
-				down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' )]"
-			}
-
-			blockoverride "era_spacer"
-			{
-				spacer = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' )]"
-					size = { 150 0 }
-		
-					state = {
-						name = _show
-						size = { 135 0 }
-						duration = 0.3
-					}
-		
-					state = {
-						name = _hide
-						size = { 0 0 }
-						duration = 0.3
-					}
-				}
-			}
-
-			blockoverride "era_name"
-			{
-				text_multi = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'early_medieval' )]"
-					size = { 100% 100% }
-					margin = { 5 10 }
-					autoresize = no
-					text = "[CultureEraType.GetName]"
-					align = top|hcenter
-					default_format = "#low"
-				}
-			}
-		}
-
-		DI_vbox_era_tab = {
-			datacontext = "[GetCultureEraType('culture_era_high_medieval')]"
-
-			blockoverride "era_onclick"
-			{
-				onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'high_medieval' )]"
-				down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' )]"
-			}
-
-			blockoverride "era_spacer"
-			{
-				spacer = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' )]"
-					size = { 150 0 }
-		
-					state = {
-						name = _show
-						size = { 135 0 }
-						duration = 0.3
-					}
-		
-					state = {
-						name = _hide
-						size = { 0 0 }
-						duration = 0.3
-					}
-				}
-			}
-
-			blockoverride "era_name"
-			{
-				text_multi = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'high_medieval' )]"
-					size = { 100% 100% }
-					margin = { 5 10 }
-					autoresize = no
-					text = "[CultureEraType.GetName]"
-					align = top|hcenter
-					default_format = "#low"
-				}
-			}
-		}
-
-		DI_vbox_era_tab = {
-			datacontext = "[GetCultureEraType('culture_era_late_medieval')]"
-
-			blockoverride "era_onclick"
-			{
-				onclick = "[GetVariableSystem.Set( 'DI_culture_era_tab', 'late_medieval' )]"
-				down = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' )]"
-			}
-
-			blockoverride "era_spacer"
-			{
-				spacer = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' )]"
-					size = { 150 0 }
-		
-					state = {
-						name = _show
-						size = { 135 0 }
-						duration = 0.3
-					}
-		
-					state = {
-						name = _hide
-						size = { 0 0 }
-						duration = 0.3
-					}
-				}
-			}
-
-			blockoverride "era_name"
-			{
-				text_multi = {
-					visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', 'late_medieval' )]"
-					size = { 100% 100% }
-					margin = { 5 10 }
-					autoresize = no
-					text = "[CultureEraType.GetName]"
-					align = top|hcenter
-					default_format = "#low"
-				}
-			}
-		}
-	}
+                # Era label
+                blockoverride "era_name" {
+                    text_multi = {
+                        visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', CultureEraType.GetName)]"
+                        size = { 100% 100% }
+                        margin = { 5 10 }
+                        autoresize = no
+                        text = "[CultureEraType.GetName]"     # display string
+                        align = top|hcenter
+                        default_format = "#low"
+                    }
+                }
+            }
+        }
+    }
 }

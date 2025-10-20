@@ -1,103 +1,5 @@
-﻿### Clear All Pinned Titles ###
-DI_clear_all_pinned_titles_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        clear_variable_list = DI_pinned_titles
-        clear_variable_list = DI_selected_titles
-    }
-}
-
-DI_unpin_selected_titles_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_selected_titles
-            save_scope_as = title
-
-            scope:player = {
-                remove_list_variable = {
-                    name = DI_pinned_titles
-                    target = scope:title
-                }
-                remove_list_variable = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### Pin all pinned character's titles ###
-DI_pin_pinned_characters_titles_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_living_character = {
-            limit = { has_character_flag = pinned_for_edit }
-
-            every_held_title = {
-                limit = {
-                    tier > tier_barony
-                }
-
-                scope:player = {
-                    add_to_variable_list = {
-                        name = DI_pinned_titles
-                        target = prev
-                    }
-                    add_to_variable_list = {
-                        name = DI_selected_titles
-                        target = prev
-                    }
-                }
-            }
-        }
-    }
-}
-
-### Set All Pinned Titles as Selected ###
-DI_select_all_pinned_titles_sgui = {
-    scope = character # Player Character
-
-    saved_scopes = {
-        title # Title to pin
-    }
-
-    effect = {
-        save_scope_as = player
-
-        if = {
-            limit = { has_variable_list = DI_selected_titles }
-
-            clear_variable_list = DI_selected_titles
-        }
-        else = {
-            every_in_list = {
-                variable = DI_pinned_titles
-                save_scope_as = title
-
-                scope:player = {
-                    add_to_variable_list = {
-                        name = DI_selected_titles
-                        target = scope:title
-                    }
-                }
-            }
-        }
-    }
-}
-
-### Toggle Title Selected / Deselected ###
-DI_pin_title_toggle = {
+﻿### Toggle Title Selected / Deselected ###
+DI_selected_title_toggle = {
     scope = character # Player Character
 
     saved_scopes = {
@@ -119,6 +21,8 @@ DI_pin_title_toggle = {
                     name = DI_selected_titles
                     target = scope:title
                 }
+
+                change_variable = { name = DI_selected_count subtract = 1 }
             }
         }
         else = {
@@ -127,6 +31,8 @@ DI_pin_title_toggle = {
                     name = DI_selected_titles
                     target = scope:title
                 }
+
+                change_variable = { name = DI_selected_count add = 1 }
             }
         }
     }
@@ -147,11 +53,29 @@ DI_unpin_title = {
             name = DI_pinned_titles
             target = scope:title
         }
+
+        change_variable = { name = DI_pinned_count subtract = 1 }
+
+        if = {
+            limit = {
+                is_target_in_variable_list = {
+                    name = DI_selected_titles
+                    target = scope:title
+                }
+            }
+
+            change_variable = { name = DI_selected_count subtract = 1 }
+        }
+
+        remove_list_variable = {
+            name = DI_selected_titles
+            target = scope:title
+        }
     }
 }
 
 ### Check if title is selected ###
-DI_title_pinned = {
+DI_title_selected = {
     scope = character # Player Character
 
     saved_scopes = {
@@ -166,339 +90,21 @@ DI_title_pinned = {
     }
 }
 
-### sort by rank ###
-DI_title_sort_by_rank_sgui = {
+### Check if hiding titles ###
+DI_titles_hide_toggle_on = {
     scope = character # Player Character
 
-    effect = {
-        save_scope_as = player
-
-        if = {
-            limit = {
-                NOT = { has_variable = DI_sort_descending }
-                NOT = { has_variable = DI_sort_ascending }
-            }
-
-            set_variable = DI_sort_descending
-        }
-
-        if = {
-            limit = { has_variable = DI_sort_descending }
-
-            ordered_in_list = {
-                variable = DI_pinned_titles
-                max = 10000
-                order_by = tier
-                scope:player = {
-                    add_to_variable_list = {
-                        name = DI_sorted_titles
-                        target = prev
-                    }
-                }
-            }
-
-            remove_variable = DI_sort_descending
-            set_variable = DI_sort_ascending
-        }
-        else_if = {
-            limit = { has_variable = DI_sort_ascending }
-
-            ordered_in_list = {
-                variable = DI_pinned_titles
-                max = 10000
-                order_by = {
-                    value = tier
-                    multiply = -1
-                }
-                scope:player = {
-                    add_to_variable_list = {
-                        name = DI_sorted_titles
-                        target = prev
-                    }
-                }
-            }
-
-            remove_variable = DI_sort_ascending
-            set_variable = DI_sort_descending
-        }
-
-        clear_variable_list = DI_pinned_titles
-        every_in_list = {
-            variable = DI_sorted_titles
-            save_scope_as = title
-
-            scope:player = {
-                add_to_variable_list = {
-                    name = DI_pinned_titles
-                    target = scope:title
-                }
-            }
-        }
-        clear_variable_list = DI_sorted_titles
+    is_valid = {
+        has_variable = DI_titles_hide
     }
 }
 
-### select empires ###
-DI_select_empires_sgui = {
+### Check if selected titles exists ###
+DI_selected_titles_exists = {
     scope = character # Player Character
 
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_pinned_titles
-            limit = {
-                tier = tier_empire
-            }
-            save_scope_as = title
-
-            scope:player = {
-                add_to_variable_list = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### deselect empires ###
-DI_deselect_empires_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_selected_titles
-            limit = {
-                tier = tier_empire
-            }
-            save_scope_as = title
-
-            scope:player = {
-                remove_list_variable = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### select kingdoms ###
-DI_select_kingdoms_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_pinned_titles
-            limit = {
-                tier = tier_kingdom
-            }
-            save_scope_as = title
-
-            scope:player = {
-                add_to_variable_list = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### deselect kingdoms ###
-DI_deselect_kingdoms_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_selected_titles
-            limit = {
-                tier = tier_kingdom
-            }
-            save_scope_as = title
-
-            scope:player = {
-                remove_list_variable = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### select duchies ###
-DI_select_duchies_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_pinned_titles
-            limit = {
-                tier = tier_duchy
-            }
-            save_scope_as = title
-
-            scope:player = {
-                add_to_variable_list = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### deselect duchies ###
-DI_deselect_duchies_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_selected_titles
-            limit = {
-                tier = tier_duchy
-            }
-            save_scope_as = title
-
-            scope:player = {
-                remove_list_variable = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### select counties ###
-DI_select_counties_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_pinned_titles
-            limit = {
-                tier = tier_county
-            }
-            save_scope_as = title
-
-            scope:player = {
-                add_to_variable_list = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### deselect counties ###
-DI_deselect_counties_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        every_in_list = {
-            variable = DI_selected_titles
-            limit = {
-                tier = tier_county
-            }
-            save_scope_as = title
-
-            scope:player = {
-                remove_list_variable = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-    }
-}
-
-### Sort Selected Titles ###
-DI_title_sort_selected_by_rank_sgui = {
-    scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        if = {
-            limit = {
-                NOT = { has_variable = DI_sort_descending }
-                NOT = { has_variable = DI_sort_ascending }
-            }
-
-            set_variable = DI_sort_descending
-        }
-
-        if = {
-            limit = { has_variable = DI_sort_descending }
-
-            ordered_in_list = {
-                variable = DI_selected_titles
-                order_by = tier
-                max = 10000
-                scope:player = {
-                    add_to_variable_list = {
-                        name = DI_sorted_titles
-                        target = prev
-                    }
-                }
-            }
-
-            remove_variable = DI_sort_descending
-            set_variable = DI_sort_ascending
-        }
-        else_if = {
-            limit = { has_variable = DI_sort_ascending }
-
-            ordered_in_list = {
-                variable = DI_selected_titles
-                order_by = {
-                    value = tier
-                    multiply = -1
-                }
-                max = 10000
-                scope:player = {
-                    add_to_variable_list = {
-                        name = DI_sorted_titles
-                        target = prev
-                    }
-                }
-            }
-
-            remove_variable = DI_sort_ascending
-            set_variable = DI_sort_descending
-        }
-
-        clear_variable_list = DI_selected_titles
-        every_in_list = {
-            variable = DI_sorted_titles
-            save_scope_as = title
-
-            scope:player = {
-                add_to_variable_list = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
-            }
-        }
-        clear_variable_list = DI_sorted_titles
+    is_valid = {
+        has_variable_list = DI_selected_titles
     }
 }
 
@@ -556,6 +162,376 @@ DI_destroy_titles_sgui = {
     }
 }
 
+### Create Dejure Liege Titles ###
+DI_create_dejure_liege_title_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = player
+
+        scope:player = {
+            every_in_list = {
+                variable = DI_selected_titles
+                save_scope_as = title
+
+                limit = {
+                    tier < tier_empire
+                    this.de_jure_liege = { 
+                        is_title_created = no 
+                    }
+                }
+
+                scope:player = {
+                    get_title = scope:title.de_jure_liege
+                }
+            }
+        }
+    }
+}
+
+### Create direct de jure vassals of each selected title ###
+DI_create_direct_dejure_vassals_sgui = {
+    scope = character  # Player
+
+    effect = {
+        save_scope_as = player
+
+        scope:player = {
+            every_in_list = {
+                variable = DI_selected_titles
+                save_scope_as = title
+
+                every_in_de_jure_hierarchy = {
+                    save_scope_as = dj_title
+                    limit = {
+                        de_jure_liege = { this = scope:title }  # direct child only
+                        is_title_created = no
+                        tier >= county
+                    }
+                    scope:player = { get_title = scope:dj_title }
+                }
+            }
+        }
+    }
+}
+
+### Recursively create all dejure titles attached to selected title ###
+DI_create_dejure_tree_sgui = {
+    scope = character  # Player
+
+    effect = {
+        save_scope_as = player
+
+        scope:player = {
+            every_in_list = {
+                variable = DI_selected_titles
+                save_scope_as = title
+                limit = {
+                    tier < tier_empire
+                }
+
+                every_this_title_or_de_jure_above = {
+                    save_scope_as = up_title
+                    limit = {
+                        is_title_created = no
+                    }
+
+                    scope:player = { get_title = scope:up_title }
+
+                    every_in_de_jure_hierarchy = {
+                        save_scope_as = down_title
+                        limit = {
+                            NOT = { this = scope:up_title }
+                            is_title_created = no
+                            tier >= county
+                        }
+
+                        scope:player = { get_title = scope:down_title }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+### Load Title Manager Dropdown ###
+DI_load_title_manager_dropdown = {
+    scope = character # Player Character
+
+    is_valid = {
+        NOT = { has_global_variable_list = DI_title_manager_filter_choices }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:sort_rank }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:all }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:hide }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:empire }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:kingdom }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:duchy }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:county }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:pinned_characters }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:unpin_selected }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:clear_pinned }
+    }
+}
+
+### Apply Title Manager Filter Choice ###
+DI_apply_title_manager_filter_choice = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        filter_choice # Filter choice to apply
+    }
+
+    effect = {
+        save_scope_as = player
+
+        if = {
+            limit = { scope:filter_choice = flag:sort_rank }
+
+            if = {
+                limit = {
+                    NOT = { has_variable = DI_sort_descending }
+                    NOT = { has_variable = DI_sort_ascending }
+                }
+
+                set_variable = DI_sort_descending
+            }
+
+            if = {
+                limit = { has_variable = DI_sort_descending }
+
+                ordered_in_list = {
+                    variable = DI_pinned_titles
+                    max = 10000
+                    order_by = tier
+                    scope:player = {
+                        add_to_variable_list = {
+                            name = DI_sorted_titles
+                            target = prev
+                        }
+                    }
+                }
+
+                remove_variable = DI_sort_descending
+                set_variable = DI_sort_ascending
+            }
+            else_if = {
+                limit = { has_variable = DI_sort_ascending }
+
+                ordered_in_list = {
+                    variable = DI_pinned_titles
+                    max = 10000
+                    order_by = {
+                        value = tier
+                        multiply = -1
+                    }
+                    scope:player = {
+                        add_to_variable_list = {
+                            name = DI_sorted_titles
+                            target = prev
+                        }
+                    }
+                }
+
+                remove_variable = DI_sort_ascending
+                set_variable = DI_sort_descending
+            }
+
+            clear_variable_list = DI_pinned_titles
+            every_in_list = {
+                variable = DI_sorted_titles
+                save_scope_as = title
+
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_pinned_titles
+                        target = scope:title
+                    }
+                }
+            }
+            clear_variable_list = DI_sorted_titles
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:all }
+
+            if = {
+                limit = { has_variable_list = DI_selected_titles }
+
+                clear_variable_list = DI_selected_titles
+            }
+            else = {
+                every_in_list = {
+                    variable = DI_pinned_titles
+                    save_scope_as = title
+
+                    scope:player = {
+                        add_to_variable_list = {
+                            name = DI_selected_titles
+                            target = scope:title
+                        }
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:hide }
+
+            if = {
+                limit = { has_variable = DI_titles_hide }
+
+                remove_variable = DI_titles_hide
+            }
+            else = {
+                set_variable = DI_titles_hide
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:Empire }
+
+            clear_variable_list = DI_selected_titles
+
+            # Select all empire titles
+            every_in_list = {
+                variable = DI_pinned_titles
+                limit = {
+                    tier = tier_empire
+                }
+                save_scope_as = title
+
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:Kingdom }
+
+            clear_variable_list = DI_selected_titles
+
+            # Select all kingdom titles
+            every_in_list = {
+                variable = DI_pinned_titles
+                limit = {
+                    tier = tier_kingdom
+                }
+                save_scope_as = title
+
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:Duchy }
+
+            clear_variable_list = DI_selected_titles
+
+            # Select all duchy titles
+            every_in_list = {
+                variable = DI_pinned_titles
+                limit = {
+                    tier = tier_duchy
+                }
+                save_scope_as = title
+
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:County }
+
+            clear_variable_list = DI_selected_titles
+
+            # Select all county titles
+            every_in_list = {
+                variable = DI_pinned_titles
+                limit = {
+                    tier = tier_county
+                }
+                save_scope_as = title
+
+                scope:player = {
+                    add_to_variable_list = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:pinned_characters }
+
+            clear_variable_list = DI_selected_titles
+
+            # Select all titles held by pinned characters
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                every_held_title = {
+                    limit = {
+                        tier > tier_barony
+                    }
+                    save_scope_as = title
+
+                    scope:player = {
+                        add_to_variable_list = {
+                            name = DI_pinned_titles
+                            target = scope:title
+                        }
+                        add_to_variable_list = {
+                            name = DI_selected_titles
+                            target = scope:title
+                        }
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:unpin_selected }
+
+            every_in_list = {
+                variable = DI_selected_titles
+                save_scope_as = title
+
+                scope:player = {
+                    remove_list_variable = {
+                        name = DI_pinned_titles
+                        target = scope:title
+                    }
+                    remove_list_variable = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:clear_pinned }
+
+            clear_variable_list = DI_pinned_titles
+            clear_variable_list = DI_selected_titles
+        }
+
+        DI_recount_title_counters = yes
+    }
+}
+
 ### Load Province Dropdown ###
 DI_load_province_dropdown = {
     scope = character # Player Character
@@ -574,6 +550,7 @@ DI_load_province_dropdown = {
         add_to_global_variable_list = { name = DI_province_filter_choices target = flag:temple }
         add_to_global_variable_list = { name = DI_province_filter_choices target = flag:city }
         add_to_global_variable_list = { name = DI_province_filter_choices target = flag:tribal }
+        add_to_global_variable_list = { name = DI_province_filter_choices target = flag:empty }
     }
 }
 
@@ -754,7 +731,8 @@ DI_apply_province_filter_choice = {
                 variable = DI_selected_titles_provinces
                 save_scope_as = province
                 scope:province = {
-                    if = { limit = { has_holding_type = castle_holding }     # or castle_holding if your build expects it
+                    if = {
+                        limit = { has_holding_type = castle_holding }     # or castle_holding if your build expects it
                         scope:player = {
                             add_to_variable_list = { name = DI_action_provinces target = scope:province }
                             if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
@@ -774,7 +752,8 @@ DI_apply_province_filter_choice = {
                 variable = DI_selected_titles_provinces
                 save_scope_as = province
                 scope:province = {
-                    if = { limit = { has_holding_type = church_holding }
+                    if = {
+                        limit = { has_holding_type = church_holding }
                         scope:player = {
                             add_to_variable_list = { name = DI_action_provinces target = scope:province }
                             if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
@@ -794,7 +773,8 @@ DI_apply_province_filter_choice = {
                 variable = DI_selected_titles_provinces
                 save_scope_as = province
                 scope:province = {
-                    if = { limit = { has_holding_type = city_holding }
+                    if = {
+                        limit = { has_holding_type = city_holding }
                         scope:player = {
                             add_to_variable_list = { name = DI_action_provinces target = scope:province }
                             if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
@@ -814,7 +794,29 @@ DI_apply_province_filter_choice = {
                 variable = DI_selected_titles_provinces
                 save_scope_as = province
                 scope:province = {
-                    if = { limit = { has_holding_type = tribal_holding }
+                    if = {
+                        limit = { has_holding_type = tribal_holding }
+                        scope:player = {
+                            add_to_variable_list = { name = DI_action_provinces target = scope:province }
+                            if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
+                        }
+                    }
+                }
+            }
+        }
+
+        # ---------- empty ----------
+        else_if = {
+            limit = { scope:filter_choice = flag:empty }
+            clear_variable_list = DI_action_provinces
+            if = { limit = { has_variable = DI_provinces_hide } clear_variable_list = DI_shown_provinces }
+
+            every_in_list = {
+                variable = DI_selected_titles_provinces
+                save_scope_as = province
+                scope:province = {
+                    if = {
+                        limit = { has_holding = no }
                         scope:player = {
                             add_to_variable_list = { name = DI_action_provinces target = scope:province }
                             if = { limit = { has_variable = DI_provinces_hide } add_to_variable_list = { name = DI_shown_provinces target = scope:province } }
@@ -1181,7 +1183,7 @@ DI_province_list_load = {
 
 DI_set_county_capital_sgui = {
     scope = character
-    saved_scopes = { 
+    saved_scopes = {
         province
         barony
     }

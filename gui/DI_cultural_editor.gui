@@ -642,6 +642,158 @@ window = {
 
                 }
             }
+
+            vbox = {
+                state = {
+                    name = intit 
+                    trigger_on_create = yes
+
+                    on_start = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'all' )]"
+                }
+                margin_top = 10
+                spacing = 10
+
+                hbox = {
+                    name = "DI_cultural_editor_innovation_tabs"
+                    layoutpolicy_horizontal = expanding
+                    
+                    button_tab = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'all' )]"
+                        down = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'all' )]"
+
+                        text_single = {
+                            parentanchor = center
+                            text = "DI_all_innovations"
+                            maximumsize = { 400 -1 }
+                            default_format = "#low"
+                        }
+                    }
+
+                    # era tab
+                    button_tab = {
+                        layoutpolicy_horizontal = expanding
+                        onclick = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'era' )]"
+                        down = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'era' )]"
+
+                        text_single = {
+                            parentanchor = center
+                            text = "DI_innovations_by_era"
+                            maximumsize = { 400 -1 }
+                            default_format = "#low"
+                        }
+                    }   
+                }
+
+                hbox = {
+                    spacing = 20
+                    visible = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'all' )]"
+
+                    # Add all innovations to culture
+                    button_standard = {
+                        name = "DI_add_all_innovations"
+                        onclick = "[GetScriptedGui('DI_ce_add_all_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        text = DI_add_all_innovations
+                        using = tooltip_nw
+                    }
+
+                    # Remove all innovations from culture
+                    button_standard = {
+                        name = "DI_remove_all_innovations"
+                        onclick = "[GetScriptedGui('DI_ce_remove_all_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        text = DI_remove_all_innovations
+                        using = tooltip_nw
+                    }
+                }
+
+                vbox = {
+                    visible = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'era' )]"
+
+                    # tribal innovations
+                    hbox = {
+                        # visible if era tribal
+                        visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_tribal'))]"
+                        spacing = 20
+
+                        button_standard = {
+                            name = "DI_add_tribal_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_add_tribal_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_add_tribal_innovations
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_remove_tribal_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_remove_tribal_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_remove_tribal_innovations
+                            using = tooltip_nw
+                        }
+                    }
+
+                    # early medieval innovations
+                    hbox = {
+                        # visible if era early medieval
+                        visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_early_medieval'))]"
+                        spacing = 20
+
+                        button_standard = {
+                            name = "DI_add_early_medieval_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_add_early_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_add_early_medieval_innovations
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_remove_early_medieval_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_remove_early_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_remove_early_medieval_innovations
+                            using = tooltip_nw
+                        }
+                    }
+
+                    # high medieval innovations
+                    hbox = {
+                        # visible if era high medieval
+                        visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_high_medieval'))]"
+                        spacing = 20
+
+                        button_standard = {
+                            name = "DI_add_high_medieval_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_add_high_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_add_high_medieval_innovations
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_remove_high_medieval_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_remove_high_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_remove_high_medieval_innovations
+                            using = tooltip_nw
+                        }
+                    }
+
+                    # late medieval innovations
+                    hbox = {
+                        # visible if era late medieval
+                        visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_late_medieval'))]"
+                        spacing = 20
+
+                        button_standard = {
+                            name = "DI_add_late_medieval_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_add_late_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_add_late_medieval_innovations
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_remove_late_medieval_innovations"
+                            onclick = "[GetScriptedGui('DI_ce_remove_late_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            text = DI_remove_late_medieval_innovations
+                            using = tooltip_nw
+                        }
+                    }
+                }
+            }
             expand = {}
         }
 
@@ -1458,7 +1610,7 @@ template DI_Innovation_Anim
         using = Sound_WindowShow_Standard
         trigger_on_create = yes
 
-        on_start = "[GetVariableSystem.Set('DI_culture_era_tab', 'tribal')]"
+        on_start = "[GetVariableSystem.Set('DI_culture_era_tab', Localize('culture_era_tribal'))]"
         on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
         on_start = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
     }
