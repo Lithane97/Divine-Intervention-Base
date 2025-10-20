@@ -256,12 +256,271 @@ template DI_CE_Traits_Tab
     }
 }
 
+template DI_CE_Traits_Tab_Big
+{
+    vbox = {
+        name = "traits_tab"
+        visible = "[GetVariableSystem.Exists('DI_trait_window_visible')]"
+        layoutpolicy_horizontal = expanding
+
+        datacontext = "[GetPlayer]"
+
+        margin = { 20 5 }
+
+        using = Animation_Tab_Switch
+
+        state = {
+            name = set_category
+            trigger_when = "[GetScriptedGui('DI_traits_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+            on_finish = "[GetVariableSystem.Set( 'ce_traits_tab', 'physical' )]"
+        }
+
+        state = {
+            name = traits_list
+            trigger_when = "[Not(GetScriptedGui('DI_traits_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+
+            on_finish = "[GetVariableSystem.Set( 'ce_traits_tab', 'debug' )]"
+        }
+
+        vbox = {
+            name = "trait_selection_panel"
+            layoutpolicy_vertical = expanding
+
+            using =  Animation_Tab_Switch
+
+            scrollbox = {
+                name = "debug_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'debug' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    hbox = {
+                        datamodel = "[GetOtherRulerDesignerTraits]"
+
+                        item = {
+                            widget_DI_trait_loader = {
+                            }
+                        }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "physical_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'physical' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_misc_traits')]"
+
+                        blockoverride "test_visible"
+                        {
+                            visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_PHYSICAL'))]"
+                        }
+                    }
+                }
+            }
+
+
+            scrollbox = {
+                name = "education_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'education' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetEducationTraits]"
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "commander_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'commander' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_commander_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_COMMANDER'))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "personality_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'personality' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetPersonalityTraits]"
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "health_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'health' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_health_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_HEALTH'))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "fame_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'fame' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_fame_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[Or(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_FAME')), Or(EqualTo_string(Trait.GetKey, 'poet'), EqualTo_string(Trait.GetKey, 'confider')))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "other_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'other' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_misc_traits')]"
+
+                        blockoverride "test_visible"
+                        {
+                            visible = "[Not(EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_PHYSICAL')))]"
+                        }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "lifestyle_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'lifestyle' )]"
+
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_lifestyle_traits')]"
+
+                        # blockoverride "test_visible"
+                        # {
+                        #     visible = "[EqualTo_string(Trait.GetTraitCategoryLabel, Localize('TRAIT_CATEGORY_LIFESTYLE'))]"
+                        # }
+                    }
+                }
+            }
+
+            scrollbox = {
+                name = "pinned_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'pinned' )]"
+
+                state = {
+                    name = "list_check"
+                    using = Animation_FadeIn_Quick
+                    trigger_when = "[GetScriptedGui('DI_pinned_trait_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    on_start = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    on_start = "[GetScriptedGui('DI_pinned_trait_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                }
+
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetPlayer.MakeScope.GetList('DI_pinned_traits')]"
+                    }
+                }
+            }
+
+            # tracked traits
+            scrollbox = {
+                name = "tracked_trait_selection_list"
+                layoutpolicy_horizontal = expanding
+                size = { 500 780}
+
+                visible = "[GetVariableSystem.HasValue( 'ce_traits_tab', 'tracked' )]"
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox_DI_tracked_trait_selection_content = {
+                        layoutpolicy_horizontal = expanding
+                        datamodel = "[GetGlobalList('DI_tracked_traits')]"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 # Traits Tabs
 template DI_CE_Traits_Tabs
 {
     vbox = {
         name = "traits_tabs"
-        visible = "[GetVariableSystem.HasValue('char_editor_tab', 'traits')]"
+        visible = "[Or(GetVariableSystem.HasValue('char_editor_tab', 'traits'), GetVariableSystem.Exists('DI_trait_window_visible'))]"
         layoutpolicy_horizontal = expanding
         layoutpolicy_vertical = expanding
         margin = { 35 10 }
