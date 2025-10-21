@@ -1,8 +1,7 @@
 ﻿window = {
 	name = "DI_army_spawner_window"
 	parentanchor = top|right
-	position = { -100 60 }
-	size = { 150 100 }
+	position = { -50 100 }
 	layer = windows_layer
 	filter_mouse = all
 	allow_outside = yes
@@ -11,13 +10,14 @@
 	using = Window_Background
 	using = Window_Decoration
 	movable = yes
+
 	visible = "[GetVariableSystem.Exists('DI_army_spawner_window_visible')]"
-    
+
     datacontext = "[GetVariableSystem]"
 	datacontext = "[GetPlayer]"
-	
+
 	using = DI_Army_Spawner_Anim
-	
+
 	vbox = {
 		using = Window_Margins
 		using = DI_Army_Spawner_Header
@@ -25,51 +25,50 @@
 		hbox = {
 			layoutpolicy_horizontal = expanding
 			margin_top = 10
-			spacing = 20
+			margin_left = 180
+			margin_right = 60
 
-			spacer = {
-				size = { 150 0 }
-			}
-			
 			hbox = {
-				hbox = {
-					spacing = 5
-					margin = { 10 0 }	
+				spacing = 5
+				margin = { 10 0 }
 
-					button_round = {
-						size = { 28 28 }
-						enabled = "[GetScriptedGui('DI_army_spawner_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						onclick = "[GetScriptedGui('DI_army_spawner_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				button_round = {
+					size = { 28 28 }
+					enabled = "[GetScriptedGui('DI_army_spawner_subtract_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					onclick = "[GetScriptedGui('DI_army_spawner_subtract_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
-						button_minus_small = {
-							name = "decrease_skill"
-							parentanchor = center
-							alwaystransparent = yes
-						}
+					button_minus_small = {
+						name = "decrease_skill"
+						parentanchor = center
+						alwaystransparent = yes
 					}
-
-					text_label_center = {
-						name = "increment"
-						size = { 30 30 }
-						
-						text = DI_army_spawner_increment
-						tooltip = DI_army_spawner_increment_tt
-						default_format = "#low"
-					}
-
-					button_round = {
-						size = { 28 28 }
-						enabled = "[GetScriptedGui('DI_army_spawner_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						onclick = "[GetScriptedGui('DI_army_spawner_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-						button_plus_small = {
-							name = "decrease_skill"
-							parentanchor = center
-							alwaystransparent = yes
-						}
-					}					
 				}
-            }
+
+				text_label_center = {
+					name = "increment"
+					size = { 30 30 }
+
+					minimumsize = { 150 -1 }
+
+					text = DI_army_spawner_increment
+					tooltip = DI_army_spawner_increment_tt
+					default_format = "#low"
+				}
+
+				button_round = {
+					size = { 28 28 }
+					enabled = "[GetScriptedGui('DI_army_spawner_add_increment').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+					onclick = "[GetScriptedGui('DI_army_spawner_add_increment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+					button_plus_small = {
+						name = "decrease_skill"
+						parentanchor = center
+						alwaystransparent = yes
+					}
+				}
+			}
+
+			expand = {}
 
 			vbox = {
 				button_checkbox_label = {
@@ -87,66 +86,142 @@
 					}
 				}
 			}
-
-			expand = {}
 		}
 
 		vbox = {
 			name = "category_tabs"
 			layoutpolicy_horizontal = expanding
-			margin = { 35 0 }
 			margin_top = 10
-			
+
 			hbox = {
 				layoutpolicy_horizontal = expanding
 
-				# presents tab
+				# skirmishers tab
 				button_tab = {
 					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('show_army_spawner', 'basic')]"
-					down = "[GetVariableSystem.HasValue('show_army_spawner', 'basic')]"
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('skirmishers'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('skirmishers'))]"
 
 					text_single = {
 						parentanchor = center
-						text = DI_basic_army_spawner
+						text = "game_concept_skirmishers"
 						maximumsize = { 400 -1 }
 						default_format = "#low"
 					}
 				}
 
-				# skills tab
+				# archers tab
 				button_tab = {
 					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('show_army_spawner', 'cultural')]"
-					down = "[GetVariableSystem.HasValue('show_army_spawner', 'cultural')]"
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('archers'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('archers'))]"
 
 					text_single = {
 						parentanchor = center
-						text = DI_cultural_army_spawner
+						text = "game_concept_archers"
 						maximumsize = { 400 -1 }
 						default_format = "#low"
 					}
 				}
 
-				# perk_points tab
+				# light cavalry tab
 				button_tab = {
 					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('show_army_spawner', 'retinue')]"
-					down = "[GetVariableSystem.HasValue('show_army_spawner', 'retinue')]"
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('light_cavalry'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('light_cavalry'))]"
 
 					text_single = {
 						parentanchor = center
-						text = DI_retinue_army_spawner
+						text = "game_concept_light_cavalry"
 						maximumsize = { 400 -1 }
 						default_format = "#low"
 					}
 				}
 
-				# modifiers Tab
+				# pikemen tab
 				button_tab = {
 					layoutpolicy_horizontal = expanding
-					onclick = "[GetVariableSystem.Set('show_army_spawner', 'other')]"
-					down = "[GetVariableSystem.HasValue('show_army_spawner', 'other')]"
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('pikemen'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('pikemen'))]"
+
+					text_single = {
+						parentanchor = center
+						text = "game_concept_spearmen"
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+
+				# heavy infantry tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('heavy_infantry'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('heavy_infantry'))]"
+
+					text_single = {
+						parentanchor = center
+						text = "game_concept_heavy_infantry"
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# siege weapon tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('siege_weapon'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('siege_weapon'))]"
+
+					text_single = {
+						parentanchor = center
+						text = "game_concept_siege_weapons"
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# heavy cavalry tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('heavy_cavalry'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('heavy_cavalry'))]"
+
+					text_single = {
+						parentanchor = center
+						text = "game_concept_heavy_cavalry"
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+
+				# archer cavalry tab
+				button_tab = {
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', Localize('archer_cavalry'))]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', Localize('archer_cavalry'))]"
+
+					text_single = {
+						parentanchor = center
+						text = "game_concept_archer_cavalry"
+						maximumsize = { 400 -1 }
+						default_format = "#low"
+					}
+				}
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+
+				# other tab
+				button_tab = {
+					maximumsize = { 200 -1 }
+					layoutpolicy_horizontal = expanding
+					onclick = "[GetVariableSystem.Set('army_spawner_tab', 'other')]"
+					down = "[GetVariableSystem.HasValue('army_spawner_tab', 'other')]"
 
 					text_single = {
 						parentanchor = center
@@ -156,15 +231,26 @@
 					}
 				}
 			}
+			
 		}
 
 		widget = {
-			size = { 450 460 }
+			size = { 600 600 }
 
-			using = DI_AS_Basic_Tab
-			using = DI_AS_Cultural_Tab
-			using = DI_AS_Retinue_Tab
-			using = DI_AS_Other_Tab
+			vbox = {
+				layoutpolicy_vertical = expanding
+				scrollbox = {
+					size = { 400 450 }
+
+					blockoverride "scrollbox_content"
+					{
+						vbox = {
+							margin_top = 20
+							using = DI_AS_All_Types_Vanilla
+						}
+					}
+				}
+			}			
 		}
     }
 }
