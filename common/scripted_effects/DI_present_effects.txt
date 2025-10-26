@@ -977,25 +977,144 @@ remove_health_conflict_forbadgene_effect = {
     if = { limit = { has_trait = physique_good_2 } remove_trait = physique_good_2 }
 }
 
+#add best education traits
+add_education_traits_effect = {
+    if = { limit = { NOT = { has_trait = education_learning_5 } } add_trait = education_learning_5 }
+    if = { limit = { NOT = { has_trait = education_intrigue_5 } } add_trait = education_intrigue_5 }
+    if = { limit = { NOT = { has_trait = education_diplomacy_5 } } add_trait = education_diplomacy_5 }
+    if = { limit = { NOT = { has_trait = education_stewardship_5 } } add_trait = education_stewardship_5 }
+    if = { limit = { NOT = { has_trait = education_martial_5 } } add_trait = education_martial_5 }
+}
+
+#remove all Education traits
 remove_education_traits_effect = {
     if = { limit = { has_trait = education_learning_1 } remove_trait = education_learning_1 }
     if = { limit = { has_trait = education_learning_2 } remove_trait = education_learning_2 }
     if = { limit = { has_trait = education_learning_3 } remove_trait = education_learning_3 }
     if = { limit = { has_trait = education_learning_4 } remove_trait = education_learning_4 }
+    if = { limit = { has_trait = education_learning_4 } remove_trait = education_learning_5 }
     if = { limit = { has_trait = education_intrigue_1 } remove_trait = education_intrigue_1 }
     if = { limit = { has_trait = education_intrigue_2 } remove_trait = education_intrigue_2 }
     if = { limit = { has_trait = education_intrigue_3 } remove_trait = education_intrigue_3 }
     if = { limit = { has_trait = education_intrigue_4 } remove_trait = education_intrigue_4 }
+    if = { limit = { has_trait = education_intrigue_5 } remove_trait = education_intrigue_5 }
     if = { limit = { has_trait = education_diplomacy_1 } remove_trait = education_diplomacy_1 }
     if = { limit = { has_trait = education_diplomacy_2 } remove_trait = education_diplomacy_2 }
     if = { limit = { has_trait = education_diplomacy_3 } remove_trait = education_diplomacy_3 }
     if = { limit = { has_trait = education_diplomacy_4 } remove_trait = education_diplomacy_4 }
+    if = { limit = { has_trait = education_diplomacy_5 } remove_trait = education_diplomacy_5 }
     if = { limit = { has_trait = education_stewardship_1 } remove_trait = education_stewardship_1 }
     if = { limit = { has_trait = education_stewardship_2 } remove_trait = education_stewardship_2 }
     if = { limit = { has_trait = education_stewardship_3 } remove_trait = education_stewardship_3 }
     if = { limit = { has_trait = education_stewardship_4 } remove_trait = education_stewardship_4 }
+    if = { limit = { has_trait = education_stewardship_5 } remove_trait = education_stewardship_5 }
     if = { limit = { has_trait = education_martial_1 } remove_trait = education_martial_1 }
     if = { limit = { has_trait = education_martial_2 } remove_trait = education_martial_2 }
     if = { limit = { has_trait = education_martial_3 } remove_trait = education_martial_3 }
     if = { limit = { has_trait = education_martial_4 } remove_trait = education_martial_4 }
+    if = { limit = { has_trait = education_martial_5 } remove_trait = education_martial_5 }
+}
+
+#boost education traits to best level
+boost_education_traits_effect = {
+    if = { limit = { has_trait = education_learning_1 } remove_trait = education_learning_1 add_trait = education_learning_5 }
+    if = { limit = { has_trait = education_learning_2 } remove_trait = education_learning_2 add_trait = education_learning_5 }
+    if = { limit = { has_trait = education_learning_3 } remove_trait = education_learning_3 add_trait = education_learning_5 }
+    if = { limit = { has_trait = education_learning_4 } remove_trait = education_learning_4 add_trait = education_learning_5 }
+    if = { limit = { has_trait = education_intrigue_1 } remove_trait = education_intrigue_1 add_trait = education_intrigue_5 }
+    if = { limit = { has_trait = education_intrigue_2 } remove_trait = education_intrigue_2 add_trait = education_intrigue_5 }
+    if = { limit = { has_trait = education_intrigue_3 } remove_trait = education_intrigue_3 add_trait = education_intrigue_5 }
+    if = { limit = { has_trait = education_intrigue_4 } remove_trait = education_intrigue_4 add_trait = education_intrigue_5 }
+    if = { limit = { has_trait = education_diplomacy_1 } remove_trait = education_diplomacy_1 add_trait = education_diplomacy_5 }
+    if = { limit = { has_trait = education_diplomacy_2 } remove_trait = education_diplomacy_2 add_trait = education_diplomacy_5 }
+    if = { limit = { has_trait = education_diplomacy_3 } remove_trait = education_diplomacy_3 add_trait = education_diplomacy_5 }
+    if = { limit = { has_trait = education_diplomacy_4 } remove_trait = education_diplomacy_4 add_trait = education_diplomacy_5 }
+    if = { limit = { has_trait = education_stewardship_1 } remove_trait = education_stewardship_1 add_trait = education_stewardship_5 }
+    if = { limit = { has_trait = education_stewardship_2 } remove_trait = education_stewardship_2 add_trait = education_stewardship_5 }
+    if = { limit = { has_trait = education_stewardship_3 } remove_trait = education_stewardship_3 add_trait = education_stewardship_5 }
+    if = { limit = { has_trait = education_stewardship_4 } remove_trait = education_stewardship_4 add_trait = education_stewardship_5 }
+    if = { limit = { has_trait = education_martial_1 } remove_trait = education_martial_1 add_trait = education_martial_5 }
+    if = { limit = { has_trait = education_martial_2 } remove_trait = education_martial_2 add_trait = education_martial_5 }
+    if = { limit = { has_trait = education_martial_3 } remove_trait = education_martial_3 add_trait = education_martial_5 }
+    if = { limit = { has_trait = education_martial_4 } remove_trait = education_martial_4 add_trait = education_martial_5 }
+}
+
+
+# add auxillary traits fitting for education
+boost_education_extra_traits_effect = {  
+    if = {
+        limit = {
+            OR = {
+            has_trait = education_learning_1
+            has_trait = education_learning_2
+            has_trait = education_learning_3
+            has_trait = education_learning_4
+            has_trait = education_learning_5
+            }
+        }
+        add_trait = lifestyle_herbalist
+        add_trait = lifestyle_mystic
+    }
+    if = {
+        limit = {
+            OR = {
+            has_trait = education_intrigue_1
+            has_trait = education_intrigue_2
+            has_trait = education_intrigue_3
+            has_trait = education_intrigue_4
+            has_trait = education_intrigue_5
+            }
+        }
+        add_trait = lifestyle_herbalist
+        add_trait = lifestyle_mystic
+        add_trait = lifestyle_blademaster
+    }
+    if = {
+        limit = {
+            OR = {
+            has_trait = education_diplomacy_1
+            has_trait = education_diplomacy_2
+            has_trait = education_diplomacy_3
+            has_trait = education_diplomacy_4
+            has_trait = education_diplomacy_5
+            }
+        }
+        add_trait = lifestyle_reveler
+        add_trait = poet
+    }
+    if = {
+        limit = {
+            OR = {
+            has_trait = education_stewardship_1
+            has_trait = education_stewardship_2
+            has_trait = education_stewardship_3
+            has_trait = education_stewardship_4
+            has_trait = education_stewardship_5
+            }
+        }
+        add_trait = lifestyle_gardener
+        add_trait = poet
+    }
+    if = {
+        limit = {
+            OR = {
+            has_trait = education_martial_1
+            has_trait = education_martial_2
+            has_trait = education_martial_3
+            has_trait = education_martial_4
+            has_trait = education_martial_5
+            }
+        }
+        add_trait = lifestyle_blademaster
+        add_trait = lifestyle_hunter
+        add_trait = education_martial_prowess_4
+    }
+    if = { limit = { has_trait = education_martial_prowess_1 } remove_trait = education_martial_prowess_1 add_trait = education_martial_prowess_4 } 
+    if = { limit = { has_trait = education_martial_prowess_2 } remove_trait = education_martial_prowess_2 add_trait = education_martial_prowess_4 }
+    if = { limit = { has_trait = education_martial_prowess_3 } remove_trait = education_martial_prowess_3 add_trait = education_martial_prowess_4 }
+    if = { limit = { has_trait = lifestyle_blademaster } add_trait_xp = { trait = lifestyle_blademaster value = 100 } }
+    if = { limit = { has_trait = lifestyle_mystic } add_trait_xp = { trait = lifestyle_herbalist value = 100 } }
+    if = { limit = { has_trait = lifestyle_hunter } add_trait_xp = { trait = lifestyle_hunter track = Venator value = 100 } }
+    if = { limit = { has_trait = lifestyle_hunter } add_trait_xp = { trait = lifestyle_hunter track = Falconer value = 100 } }
+    if = { limit = { has_trait = lifestyle_reveler } add_trait_xp = { trait = lifestyle_reveler value = 100 } }
 }
