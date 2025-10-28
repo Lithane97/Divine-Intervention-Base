@@ -1,4 +1,23 @@
 ﻿### Faith Editor Scripted GUI ###
+DI_faith_editor_init_sgui = {
+	scope = character # Player Character
+
+	effect = {
+		save_scope_as = player_char
+		
+		if = {
+			limit = {
+				NOT = { has_variable = DI_primary_character }
+			}
+
+			set_variable = {
+				name = DI_primary_character
+				value = scope:player_char
+			}
+		}
+	}
+}
+
 DI_faith_group_list = {
 	scope = character
 
@@ -8,26 +27,7 @@ DI_faith_group_list = {
 		has_global_variable_list = DI_marriage_tenets
 		has_global_variable_list = DI_crimes_tenets
 		has_global_variable_list = DI_clergy_tenets
-		has_global_variable_list = DI_main_pilgrimage_tenets
-		has_global_variable_list = DI_hof_tenets
-		has_global_variable_list = DI_clerical_tradition_tenets
-		has_global_variable_list = DI_religious_attitude_tenets
-		has_global_variable_list = DI_view_on_g_tenets
-		has_global_variable_list = DI_marriage_consanguinity_tenets
-		has_global_variable_list = DI_marriage_bastardry_tenets
-		has_global_variable_list = DI_marriage_divorce_tenets
-		has_global_variable_list = DI_marriage_type_tenets
-		has_global_variable_list = DI_crime_witchcraft_tenets
-		has_global_variable_list = DI_crime_kinslaying_tenets
-		has_global_variable_list = DI_crime_adultery_women_tenets
-		has_global_variable_list = DI_crime_adultery_men_tenets
-		has_global_variable_list = DI_crime_deviancy_tenets
-		has_global_variable_list = DI_crime_same_sex_relations_tenets
-		has_global_variable_list = DI_clergy_funerary_tradition_tenets
-		has_global_variable_list = DI_clergy_clerical_appointment_tenets
-		has_global_variable_list = DI_clergy_clerical_marriage_tenets
-		has_global_variable_list = DI_clergy_clerical_gender_tenets
-		has_global_variable_list = DI_clergy_clerical_function_tenets
+		has_global_variable_list = DI_other_tenets
 	}
 }
 
@@ -177,6 +177,34 @@ DI_set_current_tenets_sgui = {
 				}
 			}
 		}
+
+		if = {
+			limit = {
+				has_variable_list = DI_other_tenets
+			}
+
+			clear_variable_list = DI_other_tenets
+		}
+
+		every_in_global_list = {
+			variable = DI_other_tenets
+			save_scope_as = doctrine
+			
+			if = {
+				limit = {
+					scope:selected_char.faith = {
+						has_doctrine = scope:doctrine
+					}
+				}
+
+				scope:player_char = {
+					add_to_variable_list = {
+						name = DI_other_tenets
+						target = scope:doctrine
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -308,139 +336,9 @@ DI_load_main_tenets_sgui = {
 			name = DI_main_tenets
 			target = scope:tenet
 		}
-	}
-}
 
-DI_load_main_pilgrimage_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
 		add_to_global_variable_list = {
-			name = DI_main_pilgrimage_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_hof_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_hof_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_clerical_tradition_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_clerical_tradition_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_religious_attitude_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_religious_attitude_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_view_on_g_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_view_on_g_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_marriage_consanguinity_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_marriage_consanguinity_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_marriage_bastardry_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_marriage_bastardry_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_marriage_divorce_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_marriage_divorce_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_marriage_type_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_marriage_type_tenets
+			name = DI_doctrines_all
 			target = scope:tenet
 		}
 	}
@@ -459,94 +357,9 @@ DI_load_marriage_tenets_sgui = {
 			name = DI_marriage_tenets
 			target = scope:tenet
 		}
-	}
-}
 
-DI_load_crime_witchcraft_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
 		add_to_global_variable_list = {
-			name = DI_crime_witchcraft_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_crime_kinslaying_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_crime_kinslaying_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_crime_adultery_women_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_crime_adultery_women_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_crime_adultery_men_sgui = {
-    scope = character
-
-    saved_scopes = {
-        tenet # scoped tenet
-    }
-
-    effect = {
-        add_to_global_variable_list = {
-            name = DI_crime_adultery_men_tenets
-            target = scope:tenet
-        }
-    }
-}
-
-DI_load_crime_deviancy_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_crime_deviancy_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_crime_same_sex_relations_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_crime_same_sex_relations_tenets
+			name = DI_doctrines_all
 			target = scope:tenet
 		}
 	}
@@ -565,6 +378,11 @@ DI_load_crimes_tenets_sgui = {
 			name = DI_crimes_tenets
 			target = scope:tenet
 		}
+
+		add_to_global_variable_list = {
+			name = DI_doctrines_all
+			target = scope:tenet
+		}
 	}
 }
 
@@ -581,25 +399,15 @@ DI_load_clergy_tenets_sgui = {
 			name = DI_clergy_tenets
 			target = scope:tenet
 		}
-	}
-}
 
-DI_load_clergy_funerary_tradition_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
 		add_to_global_variable_list = {
-			name = DI_clergy_funerary_tradition_tenets
+			name = DI_doctrines_all
 			target = scope:tenet
 		}
 	}
 }
 
-DI_load_clergy_clerical_appointment_tenets_sgui = {
+DI_load_other_tenets_sgui = {
 	scope = character
 
 	saved_scopes = {
@@ -608,52 +416,12 @@ DI_load_clergy_clerical_appointment_tenets_sgui = {
 
 	effect = {
 		add_to_global_variable_list = {
-			name = DI_clergy_clerical_appointment_tenets
+			name = DI_other_tenets
 			target = scope:tenet
 		}
-	}
-}
 
-DI_load_clergy_clerical_marriage_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
 		add_to_global_variable_list = {
-			name = DI_clergy_clerical_marriage_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_clergy_clerical_gender_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_clergy_clerical_gender_tenets
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_clergy_clerical_function_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_clergy_clerical_function_tenets
+			name = DI_doctrines_all
 			target = scope:tenet
 		}
 	}

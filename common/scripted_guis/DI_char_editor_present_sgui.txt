@@ -989,6 +989,126 @@ DI_ce_remove_commander_traits = {
 	}
 }
 
+
+### Add All education Traits
+DI_ce_add_education_traits = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				remove_education_traits_effect = yes
+				add_education_traits_effect = yes
+			}
+		}
+		else = {
+			remove_education_traits_effect = yes
+			add_education_traits_effect = yes
+		}
+	}
+}
+
+### Remove All education Traits
+DI_ce_remove_education_traits = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				remove_education_traits_effect = yes
+			}
+		}
+		else = {
+			remove_education_traits_effect = yes
+		}
+	}
+}
+
+### Boost Education Traits
+DI_ce_boost_education = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				boost_education_traits_effect = yes
+			}
+		}
+		else = {
+			boost_education_traits_effect = yes
+		}
+	}
+}
+
+### Add Extra Education Perks
+DI_ce_boost_education_extra_perks = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				boost_education_extra_traits_effect = yes
+			}
+		}
+		else = {
+			boost_education_extra_traits_effect = yes
+		}
+	}
+}
+
+
 ### Aggressive Traits
 DI_ce_add_aggressive_traits = {
 	scope = character
@@ -1120,6 +1240,61 @@ DI_ce_remove_timid_traits = {
 			remove_trait = shy
 			remove_trait = craven
 			remove_trait = forgiving
+		}
+	}
+}
+
+#Correct Personality Traits
+DI_ce_correct_personality = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				if = { limit = { has_trait = gluttonous } remove_trait = gluttonous add_trait = temperate }
+				if = { limit = { has_trait = greedy } remove_trait = greedy add_trait = generous }
+				if = { limit = { has_trait = wrathful } remove_trait = wrathful add_trait = calm }
+				if = { limit = { has_trait = impatient } remove_trait = impatient add_trait = patient }
+				if = { limit = { has_trait = arrogant } remove_trait = arrogant add_trait = humble }
+				if = { limit = { has_trait = craven } remove_trait = craven add_trait = brave }
+				if = { limit = { has_trait = arbitrary } remove_trait = arbitrary add_trait = just }
+				if = { limit = { has_trait = lustful } remove_trait = lustful add_trait = chaste }
+				if = { limit = { has_trait = deceitful } remove_trait = deceitful add_trait = honest }
+				if = { limit = { has_trait = shy } remove_trait = shy add_trait = gregarious }
+				if = { limit = { has_trait = callous } remove_trait = callous add_trait = compassionate }
+				if = { limit = { has_trait = sadistic } remove_trait = sadistic add_trait = compassionate }
+				if = { limit = { has_trait = vengeful } remove_trait = vengeful add_trait = forgiving }
+				if = { limit = { has_trait = lazy } remove_trait = lazy add_trait = diligent }
+			}
+		}
+		else = {
+			if = { limit = { has_trait = gluttonous } remove_trait = gluttonous add_trait = temperate }
+			if = { limit = { has_trait = greedy } remove_trait = greedy add_trait = generous }
+			if = { limit = { has_trait = wrathful } remove_trait = wrathful add_trait = calm }
+			if = { limit = { has_trait = impatient } remove_trait = impatient add_trait = patient }
+			if = { limit = { has_trait = arrogant } remove_trait = arrogant add_trait = humble }
+			if = { limit = { has_trait = craven } remove_trait = craven add_trait = brave }
+			if = { limit = { has_trait = arbitrary } remove_trait = arbitrary add_trait = just }
+			if = { limit = { has_trait = lustful } remove_trait = lustful add_trait = chaste }
+			if = { limit = { has_trait = deceitful } remove_trait = deceitful add_trait = honest }
+			if = { limit = { has_trait = shy } remove_trait = shy add_trait = gregarious }
+			if = { limit = { has_trait = callous } remove_trait = callous add_trait = compassionate }
+			if = { limit = { has_trait = sadistic } remove_trait = sadistic add_trait = compassionate }
+			if = { limit = { has_trait = vengeful } remove_trait = vengeful add_trait = forgiving }
+			if = { limit = { has_trait = lazy } remove_trait = lazy add_trait = diligent }
 		}
 	}
 }

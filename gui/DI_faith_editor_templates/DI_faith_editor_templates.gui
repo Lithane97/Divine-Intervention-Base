@@ -1,0 +1,48 @@
+template DI_Faith_Editor_Anim
+{
+	state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
+
+    state = {
+        name = set_category
+        trigger_when = "[GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		on_start = "[GetScriptedGui('DI_faith_editor_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		on_finish = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+        on_finish = "[GetVariableSystem.Set( 'faith_view_tabs', 'beliefs' )]"
+    }
+
+    state = {
+        name = DI_fe_select_tenets
+		using = Animation_Refresh_FadeIn
+        on_finish = "[GetScriptedGui('DI_set_current_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+}
+
+template DI_Faith_Editor_Header
+{
+    restrictparent_min = yes
+    using = Window_Margins
+    layoutpolicy_vertical = expanding
+
+    header_pattern = {
+        layoutpolicy_horizontal = expanding
+
+        blockoverride "header_text"
+        {
+            text = "DI_FAITH_EDITOR_TITLE"
+        }
+
+        blockoverride "button_close"
+        {
+            onclick = "[GetVariableSystem.Toggle('DI_faith_editor_window_visible')]"
+        }
+    }
+}
