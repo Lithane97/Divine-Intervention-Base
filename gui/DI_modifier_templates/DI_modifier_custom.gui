@@ -11,6 +11,7 @@ template DI_CE_Modifiers_Custom
             ignoreinvisible = yes
             datacontext = "[GetPlayer]"
 
+            # space_marines (Row 0)(Collum 0)
             dockable_button = {
                 name = "DI_modifier_space_marines_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_space_marines').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -32,7 +33,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # immune_to_schemes
+            # immune_to_schemes (Row 0)(Collum 1)
             dockable_button = {
                 name = "DI_modifier_immune_to_schemes_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_immune_to_schemes').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -54,7 +55,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # contraceptive
+            # contraceptive (Row 0)(Collum 2)
             dockable_button = {
                 name = "DI_modifier_contraceptive_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_contraceptive').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -76,7 +77,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # ultra_build
+            # ultra_build (Row 0)(Collum 3)
             dockable_button = {
                 name = "DI_modifier_ultra_build_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_ultra_build').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -98,7 +99,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # building_slots
+            # building_slots (Row 0)(Collum 4)
             dockable_button = {
                 name = "DI_modifier_building_slots_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_building_slots').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -120,7 +121,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # one_building_slot
+            # one_building_slot (Row 0)(Collum 5)
             dockable_button = {
                 name = "DI_modifier_one_building_slot_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_one_building_slot').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -142,7 +143,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # domain_limit
+            # domain_limit (Row 0)(Collum 6)
             dockable_button = {
                 name = "DI_modifier_domain_limit_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_domain_limit').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -164,7 +165,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # money_printer
+            # money_printer (Row 0)(Collum 7)
             dockable_button = {
                 name = "DI_modifier_money_printer_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_money_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -186,30 +187,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # legacy_of_piracy
-            dockable_button = {
-                name = "DI_modifier_legacy_of_piracy_button"
-                visible = "[GetScriptedGui('DI_fp1_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                onclick = "[GetScriptedGui('DI_add_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                onrightclick = "[GetScriptedGui('DI_remove_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                button_ignore = none
-                using = tooltip_ne
-
-                icon = {
-                    datacontext = "[GetModifier('fp1_legacy_of_piracy_modifier')]"
-                    datacontext = "[GetPlayer.GetFaith]"
-                    parentanchor = center
-                    position = { 0 1 }
-                    size = { 30 30 }
-                    tintcolor = { 0 1 1 1 }
-                    texture = "[StaticModifier.GetIcon]"
-                    tooltipwidget = {
-                        using = modifier_DI_tooltip
-                    }
-                }
-            }
-
-            # DI_trait_xp_boost
+            # DI_trait_xp_boost (Row 0)(Collum 8)
             dockable_button = {
                 name = "DI_modifier_DI_trait_xp_boost_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -237,7 +215,9 @@ template DI_CE_Modifiers_Custom
 
             ###             The only differnece i can see is that the name in modifer_custom.gui has DI_modifer in front of it otherwise the names and functions are the same
 
-            ###adding Row and collum since its seems to be resticted to 9 so i can keep better track of where not to put stuff starting from row 0, collum 0
+            ###     adding Row and collum since its seems to be resticted to 9 so i can keep better track of where not to put stuff.
+            #       index starting from row 0, collum 0
+
             #DI_commander_trait_xp_boost (Row 0)(Collum 9)
             dockable_button = {
                 name = "DI_modifier_DI_commander_trait_xp_boost_button"
@@ -268,7 +248,7 @@ template DI_CE_Modifiers_Custom
             ignoreinvisible = yes
             datacontext = [GetPlayer]
 
-            # DI_godlike_inheritance
+            # DI_godlike_inheritance (Row 1)(Collum 0)
             dockable_button = {
                 name = "DI_modifier_DI_godlike_inheritance_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_godlike_inheritance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -290,7 +270,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_true_rulers
+            # DI_true_rulers (Row 1)(Collum 1)
             dockable_button = {
                 name = "DI_true_rulers_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_true_rulers').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -312,7 +292,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_plague_doctor
+            # DI_plague_doctor (Row 1)(Collum 2)
             dockable_button = {
                 name = "DI_modifier_DI_plague_doctor_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_plague_doctor').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -334,7 +314,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_imperial_march
+            # DI_imperial_march (Row 1)(Collum 3)
             dockable_button = {
                 name = "DI_modifier_DI_imperial_march_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_imperial_march').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -356,7 +336,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_dread_lord
+            # DI_dread_lord (Row 1)(Collum 4)
             dockable_button = {
                 name = "DI_modifier_DI_dread_lord_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_dread_lord').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -378,7 +358,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_lifestyle_mastery
+            # DI_lifestyle_mastery (Row 1)(Collum 5)
             dockable_button = {
                 name = "DI_modifier_DI_lifestyle_mastery_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_lifestyle_mastery').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -400,7 +380,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_travel_speed
+            # DI_travel_speed (Row 1)(Collum 6)
             dockable_button = {
                 name = "DI_modifier_DI_travel_speed_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_travel_speed').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -422,7 +402,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI_travel_safety
+            # DI_travel_safety (Row 1)(Collum 7)
             dockable_button = {
                 name = "DI_modifier_DI_travel_safety_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_travel_safety').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -444,7 +424,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # prestige printer
+            # prestige printer (Row 1)(Collum 8)
             dockable_button = {
                 name = "DI_modifier_prestige_printer_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_prestige_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -466,7 +446,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # piety printer
+            # piety printer (Row 1)(Collum 9)
             dockable_button = {
                 name = "DI_modifier_piety_printer_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_piety_printer').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -495,7 +475,7 @@ template DI_CE_Modifiers_Custom
 			ignoreinvisible = yes
 			datacontext = [GetPlayer]
 
-            # DI_legend_spread
+            # DI_legend_spread (Row 2)(Collum 0)
             dockable_button = {
                 name = "DI_modifier_DI_legend_spread_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_legend_spread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -518,7 +498,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
             
-            # DI everybody loves me
+            # DI everybody loves me (Row 2)(Collum 1)
             dockable_button = {
                 name = "DI_modifier_everybody_loves_me_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_everybody_loves_me').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -540,7 +520,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI full stomachs
+            # DI full stomachs (Row 2)(Collum 2)
             dockable_button = {
                 name = "DI_modifier_DI_full_stomachs_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_full_stomachs').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -562,7 +542,7 @@ template DI_CE_Modifiers_Custom
                 }
             }
 
-            # DI meritorious
+            # DI meritorious (Row 2)(Collum 3)
             dockable_button = {
                 name = "DI_modifier_DI_meritorious_button"
                 onclick = "[GetScriptedGui('DI_add_modifier_DI_meritorious').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -584,7 +564,7 @@ template DI_CE_Modifiers_Custom
                 }
             } 
 
-			# no stress change
+			# no stress change (Row 2)(Collum 4)
 			dockable_button = {
 				name = "DI_modifier_no_stress_change_button"
 				onclick = "[GetScriptedGui('DI_add_modifier_no_stress_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -607,7 +587,7 @@ template DI_CE_Modifiers_Custom
 				}
 			}
 
-			# no tyranny change
+			# no tyranny change (Row 2)(Collum 5)
 			dockable_button = {
 				name = "DI_modifier_no_tyranny_change_button"
 				onclick = "[GetScriptedGui('DI_add_modifier_no_tyranny_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -630,7 +610,7 @@ template DI_CE_Modifiers_Custom
 				}
 			}
 
-			# no dread change 
+			# no dread change (Row 2)(Collum 6)
 			dockable_button = {
 				name = "DI_modifier_no_dread_change_button"
 				onclick = "[GetScriptedGui('DI_add_modifier_no_dread_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -653,7 +633,7 @@ template DI_CE_Modifiers_Custom
 				}
 			}
 
-			# no legitimacy change
+			# no legitimacy change (Row 2)(Collum 7)
 			dockable_button = {
 				name = "DI_modifier_no_legitimacy_change_button"
 				onclick = "[GetScriptedGui('DI_add_modifier_no_legitimacy_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -675,6 +655,29 @@ template DI_CE_Modifiers_Custom
 					}
 				}
 			}
+
+            # legacy_of_piracy  (Row 2)(Collum 8)
+            dockable_button = {
+                name = "DI_modifier_legacy_of_piracy_button"
+                visible = "[GetScriptedGui('DI_fp1_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_add_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_legacy_of_piracy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetModifier('fp1_legacy_of_piracy_modifier')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
         }
     }
 }
