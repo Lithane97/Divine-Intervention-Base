@@ -71,6 +71,7 @@ DI_pin_character_interaction = {
     use_diplomatic_range = no
     ignores_pending_interaction_block = yes
     common_interaction = yes
+    send_options_exclusive = no
 
     is_shown = {
         scope:actor = {
@@ -95,16 +96,40 @@ DI_pin_character_interaction = {
         localization = DI_pin_councillors
     }
     send_option = {
+        is_shown = {
+		    scope:recipient.house ?= { exists = yes } #Only Show if character has House#  
+            # Dont know about the UX for this, on one hand the list ist very long now, on the other hand players may get confused if they dont have the same list for everyone#
+	    }
         flag = house
         localization = DI_pin_house
     }
     send_option = {
+        is_shown = {
+		    scope:recipient.dynasty ?= { exists = yes } #Only Show if character has Dynasty#
+            # Dont know about the UX for this, on one hand the list ist very long now, on the other hand players may get confused if they dont have the same list for everyone#
+	    }
         flag = dynasty
         localization = DI_pin_dynasty
     }
     send_option = {
         flag = lovers
         localization = DI_pin_lovers
+    }
+    send_option = {
+        is_shown = {
+		    scope:recipient.house.house_confederation ?= { exists = yes } #Only Show if House is in Bloc#
+            # Dont know about the UX for this, on one hand the list ist very long now, on the other hand players may get confused if they dont have the same list for everyone#
+	    }
+        flag = house_confederation #House Bloc feature in New DLC / Japan#
+        localization = DI_pin_bloc
+    }
+    send_option = {
+        flag = every_close_family_member #New option For better pinning of important relatives with new DLC#
+        localization = DI_pin_close_family
+    }
+    send_option = {
+        flag = every_extended_family_member #New option For better pinning of important relatives with new DLC#
+        localization = DI_pin_extended_family
     }
 
     on_accept = {
@@ -197,6 +222,42 @@ DI_pin_character_interaction = {
                 }
             }
 
+            if = {
+                limit = { scope:house_confederation = yes }
+
+                scope:recipient.house.house_head.house.house_confederation = {  #Stupid fucking shit why does it only work through the house head i sped 2 hours on this shit.
+                    every_confederation_member_house = {
+                            every_house_member = {
+                            add_character_flag = pinned_for_edit
+                            scope:actor = {
+                                add_to_variable_list = { name = pinned_characters target = prev }
+                            }
+                        }
+                    }
+                }
+            }        
+
+            if = {
+                limit = {scope:every_close_family_member = yes}
+
+                every_close_family_member = {
+                    add_character_flag = pinned_for_edit
+                    scope:actor = {
+                        add_to_variable_list = { name = pinned_characters target = prev }
+                    }
+                }
+            }
+
+            if = {
+                limit = {scope:every_extended_family_member = yes}
+                
+                every_extended_family_member = {
+                    add_character_flag = pinned_for_edit
+                    scope:actor = {
+                        add_to_variable_list = { name = pinned_characters target = prev }
+                    }
+                }
+            }
         }
     }
 
