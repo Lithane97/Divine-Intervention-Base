@@ -49560,76 +49560,6 @@ DI_remove_modifier_money_printer = {
 	}
 }
 
-### Legacy of Piracy ###
-DI_add_modifier_legacy_of_piracy = {
-	scope = character
-
-	effect = {
-		save_scope_as = target
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-
-			every_living_character = {
-				limit = { 
-					has_character_flag = pinned_for_edit
-				}
-
-				dynasty = {
-					add_dynasty_modifier = fp1_legacy_of_piracy_modifier
-				}
-			}
-		}
-		else = {
-			dynasty = {
-				add_dynasty_modifier = fp1_legacy_of_piracy_modifier
-			}
-		}
-	}
-}
-
-DI_remove_modifier_legacy_of_piracy = {
-	scope = character
-
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-
-			every_living_character = {
-				limit = { 
-					has_character_flag = pinned_for_edit
-				}
-
-				dynasty = {
-					remove_dynasty_modifier = fp1_legacy_of_piracy_modifier
-				}
-			}
-		}
-		else = {
-			dynasty = {
-				remove_dynasty_modifier = fp1_legacy_of_piracy_modifier
-			}
-		}
-	}
-}
-
 ### DI_trait_xp_boost ###
 DI_add_modifier_DI_trait_xp_boost = {
 	scope = character
@@ -49693,7 +49623,7 @@ DI_remove_modifier_DI_trait_xp_boost = {
 }
 
 ###DI_commander_trait_xp_boost
-DI_add_DI_commander_trait_xp_boost ={
+DI_add_modifier_DI_commander_trait_xp_boost ={
 	scope = character
 
 	effect = {
@@ -49724,7 +49654,7 @@ DI_add_DI_commander_trait_xp_boost ={
 	}
 }
 
-DI_remove_DI_commander_trait_xp_boost ={
+DI_remove_modifier_DI_commander_trait_xp_boost ={
 	scope = character
 
 	effect = {
@@ -50808,6 +50738,80 @@ DI_remove_modifier_no_dread_change = {
 		}
 		else = {
 			remove_character_modifier = no_dread_change
+		}
+	}
+}
+ 
+	# Moved Here To Keep Things Organized / better track and findabilty for future edits
+	# Japan has a lot of interafctions where you can have inter dynasty conflics and a lot more houses in a dynasty so i want to move this to a new menu for dynasty modifiers
+	# also want to add additional house and dynasty modifiers since they play such a big part in japan.
+
+### Legacy of Piracy ###
+DI_add_modifier_legacy_of_piracy = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				dynasty = {
+					add_dynasty_modifier = fp1_legacy_of_piracy_modifier
+				}
+			}
+		}
+		else = {
+			dynasty = {
+				add_dynasty_modifier = fp1_legacy_of_piracy_modifier
+			}
+		}
+	}
+}
+
+DI_remove_modifier_legacy_of_piracy = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				dynasty = {
+					remove_dynasty_modifier = fp1_legacy_of_piracy_modifier
+				}
+			}
+		}
+		else = {
+			dynasty = {
+				remove_dynasty_modifier = fp1_legacy_of_piracy_modifier
+			}
 		}
 	}
 }
