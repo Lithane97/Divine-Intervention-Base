@@ -175,7 +175,6 @@ DI_create_dejure_liege_title_sgui = {
                 save_scope_as = title
 
                 limit = {
-                    tier < tier_empire
                     this.de_jure_liege = { 
                         is_title_created = no 
                     }
@@ -226,17 +225,17 @@ DI_create_dejure_tree_sgui = {
             every_in_list = {
                 variable = DI_selected_titles
                 save_scope_as = title
-                limit = {
-                    tier < tier_empire
-                }
 
                 every_this_title_or_de_jure_above = {
                     save_scope_as = up_title
-                    limit = {
-                        is_title_created = no
-                    }
+                    
+                    if = {
+                        limit = {
+                            is_title_created = no
+                        }
 
-                    scope:player = { get_title = scope:up_title }
+                        scope:player = { get_title = scope:up_title }
+                    }
 
                     every_in_de_jure_hierarchy = {
                         save_scope_as = down_title
