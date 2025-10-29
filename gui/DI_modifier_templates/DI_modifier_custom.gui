@@ -230,6 +230,36 @@ template DI_CE_Modifiers_Custom
                     }
                 }
             }
+
+            ### What is the correct implementation for this? SInce there is DI_modifers.gui and DI_modifier_custom.gui 
+            ### DI_modifier_custom.gui seems to be the right place? since it has more of the modifiers, that are acutally in game 
+            ### and it was added 7 months later than DI_modifiers.gui but what is the other file doing. or can it be removed?
+
+            ###             The only differnece i can see is that the name in modifer_custom.gui has DI_modifer in front of it otherwise the names and functions are the same
+
+            ###adding Row and collum since its seems to be resticted to 9 so i can keep better track of where not to put stuff starting from row 0, collum 0
+            #DI_commander_trait_xp_boost (Row 0)(Collum 9)
+            dockable_button = {
+                name = "DI_modifier_DI_commander_trait_xp_boost_button"
+                onclick = "[GetScriptedGui('DI_add_modifier_DI_commander_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_remove_modifier_DI_commander_trait_xp_boost').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                using = tooltip_ne
+
+                icon = {
+                    datacontext = "[GetPlayer]"
+                    datacontext = "[GetModifier('DI_commander_trait_xp_boost')]"
+                    datacontext = "[GetPlayer.GetFaith]"
+                    parentanchor = center
+                    position = { 0 1 }
+                    size = { 30 30 }
+                    tintcolor = { 0 1 1 1 }
+                    texture = "[StaticModifier.GetIcon]"
+                    tooltipwidget = {
+                        using = modifier_DI_tooltip
+                    }
+                }
+            }
         }
 
         flowcontainer = {
