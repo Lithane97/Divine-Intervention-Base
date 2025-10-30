@@ -1255,6 +1255,60 @@ template DI_vbox_character_single
 
                         hbox = {
                             layoutpolicy_horizontal = expanding
+
+                            # merit level
+                            hbox = {
+                                visible = "[Character.ShouldShowMerit]"
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GreaterThan_int32( Character.GetMeritLevel, '(int32)0' )]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[LessThan_int32( Character.GetMeritLevel, Character.GetMaxMeritLevelForCharacter )]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                icon = {
+                                    parentanchor = left
+                                    size = { 25 25 }
+                                    texture = "[Character.GetMeritLevelTexture]"
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_merit_level
+                                        default_format = "#high"
+                                    }
+                                }
+                            }
                         }
                     }
 
@@ -2000,6 +2054,53 @@ template DI_widget_character_list_item_finder
                                                 button_round = {
                                                     size = { 25 25 }
                                                     onclick = "[GetScriptedGui('DI_add_treasury_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            # merit level
+                                            hbox = {
+                                                visible = "[Character.ShouldShowMerit]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                                    enabled = "[GreaterThan_int32( Character.GetMeritLevel, '(int32)0' )]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "[Character.GetMeritLevelTexture]"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetMeritLevel|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                                    enabled = "[LessThan_int32( Character.GetMeritLevel, Character.GetMaxMeritLevelForCharacter )]"
 
                                                     button_plus_small = {
                                                         name = "increase_skill"

@@ -281,10 +281,10 @@ template DI_AS_All_Types_Vanilla
         }
 
         DI_army_spawner_vbox = {
-            datacontext = "[GetMenAtArmsType('chu_ko_nu')]"
+            datacontext = "[GetMenAtArmsType('shenbigong')]"
 
             blockoverride "on_add" {
-                onclick = "[GetScriptedGui('DI_chu_ko_nu_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_shenbigong_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
             }
         }
 
@@ -425,10 +425,34 @@ template DI_AS_All_Types_Vanilla
         }
 
         DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('handgunners')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_handgunners_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "visible_when" {
+                visible = "[GetVariableSystem.HasValue('army_spawner_tab', 'other')]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
             datacontext = "[GetMenAtArmsType('house_guard')]"
 
             blockoverride "on_add" {
                 onclick = "[GetScriptedGui('DI_house_guard_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('pikemen_militia')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_pikemen_militia_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "visible_when" {
+                visible = "[GetVariableSystem.HasValue('army_spawner_tab', 'other')]"
             }
         }
 
@@ -541,6 +565,18 @@ template DI_AS_All_Types_Vanilla
 
             blockoverride "on_add" {
                 onclick = "[GetScriptedGui('DI_accolade_maa_horse_archers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('accolade_maa_handgunners')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_accolade_maa_handgunners_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "visible_when" {
+                visible = "[GetVariableSystem.HasValue('army_spawner_tab', 'other')]"
             }
         }
 
@@ -739,48 +775,183 @@ template DI_AS_All_Types_Vanilla
                 onclick = "[GetScriptedGui('DI_maturkan_warriors_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
             }
         }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('emishi_horse_archers')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_emishi_horse_archers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('japanese_horse_archers')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_japanese_horse_archers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('warrior_monks')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_warrior_monks_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('fire_lancers')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_fire_lancers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "visible_when" {
+                visible = "[GetVariableSystem.HasValue('army_spawner_tab', 'other')]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('gakgung_archers')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_gakgung_archers_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('ballista_elephant')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_ballista_elephant_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "visible_when" {
+                visible = "[GetVariableSystem.HasValue('army_spawner_tab', 'other')]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('pesilat_warriors')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_pesilat_warriors_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('samurai')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_samurai_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('zhanmadao_infantry')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_zhanmadao_infantry_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('tiefutu')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_tiefutu_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('burenjia')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_burenjia_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('rocket_carts')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_rocket_carts_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('ballista')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_ballista_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('cloud_ladder')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_cloud_ladder_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('siege_tower')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_siege_tower_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('cannon')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_cannon_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
     }
 }
 
-
 types DI_Army_Spawner_Types
 {
-	type DI_army_spawner_vbox = vbox 
-	{
-		layoutpolicy_horizontal = expanding
-		layoutpolicy_vertical = expanding
-		
-		datacontext = "[MenAtArmsType]"
-		block "visible_when" 
-		{
-			visible = "[GetVariableSystem.HasValue( 'army_spawner_tab', MenAtArmsType.GetBaseTypeName )]"
-		}
+    type DI_army_spawner_vbox = vbox
+    {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
 
-		button_standard = {
-			block "on_add" {}
-			
-			layoutpolicy_horizontal = expanding
-			size = { 300 55 }
+        datacontext = "[MenAtArmsType]"
+        block "visible_when"
+        {
+            visible = "[GetVariableSystem.HasValue( 'army_spawner_tab', MenAtArmsType.GetBaseTypeName )]"
+        }
 
-			hbox = {
-				margin = { 5 0 }
-				margin_right = 10
-				spacing = 10
+        button_standard = {
+            block "on_add" {}
 
-				icon = {
-					size = { 35 35 }
-					texture = "[MenAtArmsType.GetIcon]"
-				}
+            layoutpolicy_horizontal = expanding
+            size = { 300 55 }
 
-				text_single = {
-					# layoutpolicy_horizontal = expanding
-					text = "[MenAtArmsType.GetName]"
-					default_format = "#clickable"
-				}
+            hbox = {
+                margin = { 5 0 }
+                margin_right = 10
+                spacing = 10
 
-				expand = {}
+                icon = {
+                    size = { 35 35 }
+                    texture = "[MenAtArmsType.GetIcon]"
+                }
 
-			}
-		}
-	}
+                text_single = {
+                    # layoutpolicy_horizontal = expanding
+                    text = "[MenAtArmsType.GetName]"
+                    default_format = "#clickable"
+                }
+
+                expand = {}
+
+            }
+        }
+    }
 }
