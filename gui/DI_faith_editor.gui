@@ -29,7 +29,7 @@ window = {
         hbox = {
             layoutpolicy_horizontal = expanding
 
-            visible = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
+            visible = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid]"
             datacontext = "[Character.GetFaith]"
             datacontext = "[GetIllustration( 'religion_interior' )]"
 
@@ -468,7 +468,13 @@ window = {
 widget = {
     name = "DI_faith_editor_loader"
 
-    visible = "[Not(GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+    visible = "[GetVariableSystem.Exists('DI_load_tenets_list')]"
+
+    state = {
+        name = list_loaded
+        trigger_when = "[GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_finish = "[GetVariableSystem.Toggle('DI_load_tenets_list')]"
+    }
 
     container = {
         datamodel = "[GetAllFaithDoctrines]"

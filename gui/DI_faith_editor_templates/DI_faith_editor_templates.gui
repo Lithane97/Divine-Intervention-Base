@@ -7,14 +7,27 @@ template DI_Faith_Editor_Anim
     }
 
     state = {
+        name = DI_Select_Primary_Character
+        using = Animation_Refresh_FadeIn
+        trigger_when = "[Not(GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
+        on_finish = "[GetScriptedGui('DI_faith_editor_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_finish = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
+    }
+
+    state = {
         name = _hide
         using = Animation_FadeOut_Quick
     }
 
     state = {
+        name = load_list
+        trigger_when = "[And(Not(GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)), GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
+        on_finish = "[GetVariableSystem.Toggle('DI_load_tenets_list')]"
+    }
+
+    state = {
         name = set_category
         trigger_when = "[GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-		on_start = "[GetScriptedGui('DI_faith_editor_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 		on_finish = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
         on_finish = "[GetVariableSystem.Set( 'faith_view_tabs', 'beliefs' )]"
     }

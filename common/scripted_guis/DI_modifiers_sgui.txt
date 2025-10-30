@@ -50502,6 +50502,68 @@ DI_remove_modifier_DI_full_stomachs = {
 	}
 }
 
+### Meritorious ###
+DI_add_modifier_DI_meritorious = {
+	scope = character
+
+	effect = {
+		save_scope_as = target
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				add_character_modifier = DI_meritorious
+			}
+		}
+		else = {
+			add_character_modifier = DI_meritorious
+		}
+	}
+}
+
+DI_remove_modifier_DI_meritorious = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+
+			every_living_character = {
+				limit = { 
+					has_character_flag = pinned_for_edit
+				}
+
+				remove_character_modifier = DI_meritorious
+			}
+		}
+		else = {
+			remove_character_modifier = DI_meritorious
+		}
+	}
+}
+
 ### No Legitimacy Change ###
 DI_add_modifier_no_legitimacy_change = {
 	scope = character
