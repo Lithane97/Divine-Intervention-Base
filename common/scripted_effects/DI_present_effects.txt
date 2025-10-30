@@ -85,7 +85,7 @@ set_weight_0 = {
     change_current_weight = -100
 }
 
-add_commander_traits_effect = {
+add_commander_traits_effect_di = {
     add_trait = logistician
     add_trait = military_engineer
     add_trait = aggressive_attacker
@@ -102,7 +102,6 @@ add_commander_traits_effect = {
     add_trait = forest_fighter
     add_trait = cautious_leader
     add_trait = organizer
-    # adding trait xp to newly added commander traits so they can progress right away
     if = { limit = { has_trait = logistician } add_trait_xp = { trait = logistician value = 100 } }
     if = { limit = { has_trait = military_engineer } add_trait_xp = { trait = military_engineer value = 100 } }
     if = { limit = { has_trait = aggressive_attacker } add_trait_xp = { trait = aggressive_attacker value = 100 } }
@@ -119,6 +118,8 @@ add_commander_traits_effect = {
     if = { limit = { has_trait = forest_fighter } add_trait_xp = { trait = forest_fighter value = 100 } }
     if = { limit = { has_trait = cautious_leader } add_trait_xp = { trait = cautious_leader value = 100 } }
     if = { limit = { has_trait = organizer } add_trait_xp = { trait = organizer value = 100 } }
+    # adding trait xp to newly added commander traits so they can progress right away #
+    # effect add_trait_xp = {trait = organizer value=100}}`
 }
 
 remove_commander_traits_effect = {
