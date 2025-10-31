@@ -349,6 +349,7 @@ template modifier_DI_tooltip {
 					size = { 40 40 }
 					texture = "[StaticModifier.GetIcon]"
 					tintcolor = "[TooltipInfo.GetTintColor]"
+					visible = "[StaticModifier.HasValidIcon]"
 				}
 			}
 		}
@@ -357,10 +358,10 @@ template modifier_DI_tooltip {
 		}
 
 		blockoverride "concept_link" {
-			text = "[Trait.GetTraitCategoryLabel]"
+			text = ""
 		}
 		blockoverride "description_text" {
-			block "actual_description_text" {
+			block "description_text_data" {
 				text = "[StaticModifier.GetDescWithEffects]"
 			}
 		}
