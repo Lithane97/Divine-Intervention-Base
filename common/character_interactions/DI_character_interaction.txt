@@ -71,6 +71,7 @@ DI_pin_character_interaction = {
     use_diplomatic_range = no
     ignores_pending_interaction_block = yes
     common_interaction = yes
+    send_options_exclusive = no
 
     is_shown = {
         scope:actor = {
@@ -83,28 +84,66 @@ DI_pin_character_interaction = {
         localization = DI_pin_character
     }
     send_option = {
+        is_shown = { scope:recipient = { any_vassal = { count > 0 }}}
         flag = vassals
         localization = DI_pin_vassals
     }
     send_option = {
+        is_shown = { scope:recipient = { any_courtier = { count > 0 }}}
         flag = courtiers
         localization = DI_pin_courtiers
     }
     send_option = {
+        is_shown = { scope:recipient = { any_councillor = { count > 0 }}}
         flag = councillors
         localization = DI_pin_councillors
     }
     send_option = {
+        is_shown = {
+            scope:recipient.house ?= { exists = yes } #Only Show if character has House#
+            # Dont know about the UX for this, on one hand the list ist very long now, on the other hand players may get confused if they dont have the same list for everyone#
+        }
         flag = house
         localization = DI_pin_house
     }
     send_option = {
+        is_shown = {
+            scope:recipient.dynasty ?= { exists = yes } #Only Show if character has Dynasty#
+            # Dont know about the UX for this, on one hand the list ist very long now, on the other hand players may get confused if they dont have the same list for everyone#
+        }
         flag = dynasty
         localization = DI_pin_dynasty
     }
     send_option = {
+        is_shown = { scope:recipient = { any_relation = { type = lover }}}
         flag = lovers
         localization = DI_pin_lovers
+    }
+    send_option = {
+        is_shown = {
+            scope:recipient.house.house_confederation ?= { exists = yes } #Only Show if House is in Bloc#
+            # Dont know about the UX for this, on one hand the list ist very long now, on the other hand players may get confused if they dont have the same list for everyone#
+        }
+        flag = house_confederation #House Bloc feature in New DLC / Japan#
+        localization = DI_pin_bloc
+    }
+    send_option = {
+        is_shown = { scope:recipient = { any_close_family_member = { count > 0 }}}
+        flag = every_close_family_member #New option For better pinning of important relatives with new DLC#
+        localization = DI_pin_close_family
+    }
+    send_option = {
+        is_shown = { scope:recipient = { any_extended_family_member = { count > 0 }}}
+        flag = every_extended_family_member #New option For better pinning of important relatives with new DLC#
+        localization = DI_pin_extended_family
+    }
+    send_option = {
+        flag = every_faith_member
+        localization = DI_pin_faith_members
+    }
+    send_option = {
+        flag = every_culture_member
+        localization = DI_pin_culture_members
     }
 
     on_accept = {
@@ -197,6 +236,72 @@ DI_pin_character_interaction = {
                 }
             }
 
+            if = {
+                limit = { scope:house_confederation = yes }
+
+                scope:recipient.house.house_head.house.house_confederation = {  #Stupid fucking shit why does it only work through the house head i sped 2 hours on this shit.
+                    every_confederation_member_house = {
+                        every_house_member = {
+                            add_character_flag = pinned_for_edit
+                            scope:actor = {
+                                add_to_variable_list = { name = pinned_characters target = prev }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if = {
+                limit = {scope:every_close_family_member = yes}
+
+                every_close_family_member = {
+                    add_character_flag = pinned_for_edit
+                    scope:actor = {
+                        add_to_variable_list = { name = pinned_characters target = prev }
+                    }
+                }
+            }
+
+            if = {
+                limit = {scope:every_extended_family_member = yes}
+
+                every_extended_family_member = {
+                    add_character_flag = pinned_for_edit
+                    scope:actor = {
+                        add_to_variable_list = { name = pinned_characters target = prev }
+                    }
+                }
+            }
+
+            if = {
+                limit = {scope:every_faith_member = yes}
+
+                every_living_character = {
+                    limit = {
+                        faith = scope:recipient.faith
+                    }
+
+                    add_character_flag = pinned_for_edit
+                    scope:actor = {
+                        add_to_variable_list = { name = pinned_characters target = prev }
+                    }
+                }
+            }
+
+            if = {
+                limit = {scope:every_culture_member = yes}
+
+                every_living_character = {
+                    limit = {
+                        culture = scope:recipient.culture
+                    }
+
+                    add_character_flag = pinned_for_edit
+                    scope:actor = {
+                        add_to_variable_list = { name = pinned_characters target = prev }
+                    }
+                }
+            }
         }
     }
 
@@ -603,14 +708,14 @@ DI_remove_character_flags_interaction = {
     on_accept = {
         scope:recipient = {
             if = { limit = { always = scope:used_lifetime_invasion }
-                remove_character_flag = used_lifetime_invasion
-            }
-            else_if = { limit = { always = scope:declared_major_religious_war_flag }
-                remove_character_flag = declared_major_religious_war_flag
-            }
-
+            remove_character_flag = used_lifetime_invasion
         }
+        else_if = { limit = { always = scope:declared_major_religious_war_flag }
+        remove_character_flag = declared_major_religious_war_flag
     }
+
+}
+}
 }
 
 DI_permanent_health = {
@@ -1734,7 +1839,7 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
 DI_make_house_head_interaction = {
     category = interaction_category_cheat_menu
     icon = icon_dynasty
-    
+
     auto_accept = yes
     use_diplomatic_range = no
     ignores_pending_interaction_block = yes
