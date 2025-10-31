@@ -19,7 +19,10 @@ template DI_Title_Manager_Anim
 		using = Animation_FadeIn_Quick
 		trigger_on_create = yes
 
-		on_finish = "[GetVariableSystem.Set( 'title_manager_tab', 'filter' )]"
+		trigger_when = "[GetScriptedGui('DI_load_title_manager_dropdown').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+		on_start = "[GetScriptedGui('DI_load_title_manager_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+		on_finish = "[GetVariableSystem.Set( 'title_manager_tab', 'quick_actions' )]"
 	}
 }
 
@@ -41,4 +44,38 @@ template DI_Title_Manager_Header
 			onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
 		}
 	}
+}
+
+template DI_title_manager_filter
+{
+    dropdown_menu_standard = {
+        name = "di_title_manager_dropdown"
+
+        # Size of the button itself and the max list height
+        blockoverride "dropdown_size" { size = { 220 32 } }
+        blockoverride "dropdown_list_maxsize" { maximumsize = { 260 260 } }
+
+        # Feed it the list + tell it what to do when a choice is picked
+        blockoverride "dropdown_properties" {
+            datamodel = "[GetGlobalList('DI_title_manager_filter_choices')]"
+            onselectionchanged = "[PdxGuiWidget.FindChild('di_title_manager_dropdown_active').TriggerAnimation('apply_filter_choice')]"
+        }
+
+        # What the closed button shows (pick static or dynamic)
+        blockoverride "dropdown_active_item_properties" {
+            name = "di_title_manager_dropdown_active"
+            text = "DI_title_manager_fiter_loc"
+
+            state = {
+                name = apply_filter_choice
+                # Dispatch by the selected flag name; easiest is to call a tiny SGUI
+                on_finish = "[GetScriptedGui('DI_apply_title_manager_filter_choice').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('filter_choice', MakeScopeFlag(Scope.GetFlagName)).End)]"
+            }
+        }
+
+        # How each row is labeled
+        blockoverride "dropdown_item_properties" {
+            text = "[Localize(Concatenate(Scope.GetFlagName,'_loc'))]"
+        }
+    }
 }

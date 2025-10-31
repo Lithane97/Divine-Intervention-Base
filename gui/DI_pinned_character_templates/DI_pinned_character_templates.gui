@@ -1067,6 +1067,251 @@ template DI_vbox_character_single
                             }
                         }
                     }
+
+                    # Herds
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            visible = "[Not(IsNomad( Character ))]"
+
+                            margin_right = 205
+                        }
+
+                        hbox = {
+                            visible = "[IsNomad( Character )]"
+                            spacing = 5
+                            
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_herd_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_herd_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_herd_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_herd_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            icon = {
+                                parentanchor = left
+                                size = { 25 25 }
+                                frame = 0
+                                texture = "gfx/interface/icons/icon_herd.dds"
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_herd
+                                    default_format = "#high"
+                                }
+                            }
+                        }
+
+                        # barter goods
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            hbox = {
+                                visible = "[Character.HasBarterGoods]"
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_barter_goods_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_remove_barter_goods_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_barter_goods_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GetScriptedGui('DI_add_barter_goods_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                icon = {
+                                    parentanchor = left
+                                    size = { 25 25 }
+                                    texture = "gfx/interface/icons/icon_barter.dds"
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_barter_goods
+                                        default_format = "#high"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+
+                        hbox = {
+                            visible = "[Not(Character.HasTreasury)]"
+                            margin_right = 205
+                        }
+
+                        hbox = {
+                            visible = "[Character.HasTreasury]"
+                            spacing = 5
+
+                            hbox = {
+                                button_round = {
+                                    size = { 25 25 }
+                                    parentanchor = left
+                                    onclick = "[GetScriptedGui('DI_remove_treasury_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_remove_treasury_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_minus_small = {
+                                        name = "decrease_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+
+                                button_round = {
+                                    size = { 25 25 }
+                                    onclick = "[GetScriptedGui('DI_add_treasury_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_add_treasury_effect').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                    button_plus_small = {
+                                        name = "increase_skill"
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+
+                            icon = {
+                                parentanchor = left
+                                size = { 25 25 }
+                                texture = "gfx/interface/icons/icon_imperial_treasury.dds"
+                            }
+
+                            widget = {
+                                size = { 120 25 }
+
+                                text_single = {
+                                    using = Font_Size_Medium
+                                    name = "value"
+                                    parentanchor = center
+                                    margin_bottom = 4
+                                    align = center
+
+                                    text = DI_PC_treasury
+                                    default_format = "#high"
+                                }
+                            }
+                        }
+
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            # merit level
+                            hbox = {
+                                visible = "[Character.ShouldShowMerit]"
+                                spacing = 5
+
+                                hbox = {
+                                    button_round = {
+                                        size = { 25 25 }
+                                        parentanchor = left
+                                        onclick = "[GetScriptedGui('DI_remove_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[GreaterThan_int32( Character.GetMeritLevel, '(int32)0' )]"
+
+                                        button_minus_small = {
+                                            name = "decrease_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+
+                                    button_round = {
+                                        size = { 25 25 }
+                                        onclick = "[GetScriptedGui('DI_add_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                        enabled = "[LessThan_int32( Character.GetMeritLevel, Character.GetMaxMeritLevelForCharacter )]"
+
+                                        button_plus_small = {
+                                            name = "increase_skill"
+                                            parentanchor = center
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+
+                                icon = {
+                                    parentanchor = left
+                                    size = { 25 25 }
+                                    texture = "[Character.GetMeritLevelTexture]"
+                                }
+
+                                widget = {
+                                    size = { 120 25 }
+
+                                    text_single = {
+                                        using = Font_Size_Medium
+                                        name = "value"
+                                        parentanchor = center
+                                        margin_bottom = 4
+                                        align = center
+
+                                        text = DI_PC_merit_level
+                                        default_format = "#high"
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     expand = {}
                 }
 
@@ -1673,6 +1918,189 @@ template DI_widget_character_list_item_finder
                                                 button_round = {
                                                     size = { 25 25 }
                                                     onclick = "[GetScriptedGui('DI_add_provisions_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.GetDomicile.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            # herd
+                                            hbox = {
+                                                visible = "[IsNomad( Character )]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_herd_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        frame = 0
+                                                        texture = "gfx/interface/icons/icon_herd.dds"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetDomicile.GetHerd|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_herd_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            # barter goods
+                                            hbox = {
+                                                visible = "[Character.HasBarterGoods]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_barter_goods_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "gfx/interface/icons/icon_barter.dds"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetCurrency('barter_goods')|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_barter_goods_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            # treasury
+                                            hbox = {
+                                                visible = "[Character.HasTreasury]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_treasury_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "gfx/interface/icons/icon_imperial_treasury.dds"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetTreasury|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_treasury_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+
+                                                    button_plus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+                                            }
+
+                                            # merit level
+                                            hbox = {
+                                                visible = "[Character.ShouldShowMerit]"
+                                                spacing = 25
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_remove_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                                    enabled = "[GreaterThan_int32( Character.GetMeritLevel, '(int32)0' )]"
+
+                                                    button_minus_small = {
+                                                        name = "increase_skill"
+                                                        parentanchor = center
+                                                        alwaystransparent = yes
+                                                    }
+                                                }
+
+                                                hbox = {
+                                                    spacing = 2
+                                                    icon = {
+                                                        parentanchor = left
+                                                        size = { 25 25 }
+                                                        texture = "[Character.GetMeritLevelTexture]"
+                                                    }
+
+                                                    text_single = {
+                                                        size = { 80 20 }
+                                                        text = "[Character.GetMeritLevel|0]"
+                                                        default_format = "#high"
+                                                        autoresize = no
+                                                        align = nobaseline
+                                                    }
+                                                }
+
+                                                button_round = {
+                                                    size = { 25 25 }
+                                                    onclick = "[GetScriptedGui('DI_add_merit_level_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', Character.MakeScope).End)]"
+                                                    enabled = "[LessThan_int32( Character.GetMeritLevel, Character.GetMaxMeritLevelForCharacter )]"
 
                                                     button_plus_small = {
                                                         name = "increase_skill"

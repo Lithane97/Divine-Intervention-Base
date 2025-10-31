@@ -1,4 +1,22 @@
-﻿DI_remove_building_type_effect = {
+﻿### Count Title Manager Titles ###
+DI_recount_title_counters = {
+    save_scope_as = player
+
+    set_variable = { name = DI_selected_count value = 0 }
+    set_variable = { name = DI_pinned_count   value = 0 }
+
+    every_in_list = {
+        variable = DI_selected_titles
+        scope:player = {change_variable = { name = DI_selected_count add = 1 }}
+    }
+
+    every_in_list = {
+        variable = DI_pinned_titles
+        scope:player = {change_variable = { name = DI_pinned_count add = 1 }}
+    }
+}
+
+DI_remove_building_type_effect = {
     if = {
         limit = {
             has_building = $BUILDING$_08

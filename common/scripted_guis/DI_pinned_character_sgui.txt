@@ -311,6 +311,166 @@ DI_remove_provisions_effect = {
     }
 }
 
+# add / remove herd 
+DI_add_herd_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target.domicile = {
+            change_herd = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_herd_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target.domicile = {
+            change_herd = {
+                value = scope:DI_story.var:DI_increment_value
+                multiply = -1
+            }
+        }
+    }
+}
+
+# add / remove barter goods
+DI_add_barter_goods_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_barter_goods = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_barter_goods_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            remove_barter_goods = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+# add / remove treasury
+DI_add_treasury_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            add_treasury = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_remove_treasury_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        scope:target = {
+            remove_treasury = scope:DI_story.var:DI_increment_value
+        }
+    }
+}
+
+DI_add_merit_level_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        scope:target = {
+            change_merit_level = 1
+        }
+    }
+}
+
+DI_remove_merit_level_effect = {
+    scope = character
+
+    saved_scopes = {
+        target # selected character
+    }
+
+    effect = {
+        scope:target = {
+            change_merit_level = -1
+        }
+    }
+}
+
 DI_clear_pinned_character = {
     scope = character
 

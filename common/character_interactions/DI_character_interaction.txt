@@ -248,6 +248,8 @@ DI_pin_title_interaction = {
                         add_to_variable_list = { name = DI_selected_titles target = prev }
                     }
                 }
+
+                DI_recount_title_counters = yes
             }
 
             # vassal titles
@@ -265,6 +267,8 @@ DI_pin_title_interaction = {
                         }
                     }
                 }
+
+                DI_recount_title_counters = yes
             }
 
             # sub realm titles
@@ -280,6 +284,8 @@ DI_pin_title_interaction = {
                         add_to_variable_list = { name = DI_selected_titles target = prev }
                     }
                 }
+
+                DI_recount_title_counters = yes
             }
 
             if = {
@@ -305,6 +311,8 @@ DI_pin_title_interaction = {
                         }
                     }
                 }
+
+                DI_recount_title_counters = yes
             }
         }
     }
@@ -1715,7 +1723,9 @@ DI_cadetBranch_interaction = { #My Dynasty + Dynastyhead
         show_as_tooltip = {
             scope:recipient = {
                 custom_tooltip = DI_cadetBranch_event_tooltip.1
-                create_cadet_branch = yes
+                create_cadet_branch = {
+                    name = cadet_name_style_primary_title
+                }
             }
         }
     }
@@ -2404,6 +2414,39 @@ DI_take_all_titles_interaction = {
                     }
                 }
             }
+        }
+    }
+}
+
+### Make Tributary ###
+DI_make_tributary_interaction = {
+    category = interaction_category_cheat_menu
+    icon = demand_tributary_interaction
+    common_interaction = yes
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        NOT = { scope:actor = scope:recipient }
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        scope:recipient = {
+            is_landed = yes
+            NOT = { is_tributary_of = scope:actor }
+        }
+    }
+
+    on_accept = {
+        start_tributary_interaction_effect = {
+            TRIBUTARY = scope:recipient
+            SUZERAIN = scope:actor
         }
     }
 }
@@ -3880,6 +3923,218 @@ DI_commit_suicide_interaction = {
     ai_will_do = { base = 0 }
 }
 
+DI_change_government_extended = {
+    category = interaction_category_cheat_menu
+    icon = icon_holding_city
+    desc = DI_change_government_desc
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = {
+        flag = nomad
+        localization = DI_change_government_nomad
+    }
+    send_option = {
+        flag = landless_adventurer
+        localization = DI_change_government_landless_adventurer
+    }
+    send_option = {
+        flag = herder
+        localization = DI_change_government_herder
+    }
+    send_option = {
+        flag = celestial
+        localization = DI_change_government_celestial
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+    send_option = {
+        flag = japan_administrative
+        localization = DI_change_government_japan_administrative
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+    send_option = {
+        flag = japan_feudal
+        localization = DI_change_government_japan_feudal
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+    send_option = {
+        flag = wanua
+        localization = DI_change_government_wanua
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+    send_option = {
+        flag = mandala
+        localization = DI_change_government_mandala
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+    send_option = {
+        flag = steppe_admin
+        localization = DI_change_government_steppe_admin
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+    send_option = {
+        flag = meritocratic
+        localization = DI_change_government_meritocratic
+        is_valid = {
+            has_tgp_dlc_trigger = yes
+        }
+    }
+
+    on_accept = {
+        scope:actor = {
+            switch = {
+                trigger = yes
+
+                scope:japan_administrative = {
+                    scope:recipient = {
+                        change_government = japan_administrative_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = japan_administrative_government
+                        }
+                    }
+                }
+                scope:japan_feudal = {
+                    scope:recipient = {
+                        change_government = japan_feudal_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = japan_feudal_government
+                        }
+                    }
+                }
+                scope:nomad = {
+                    scope:recipient = {
+                        change_government = nomad_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = nomad_government
+                        }
+                    }
+                }
+                scope:landless_adventurer = {
+                    scope:recipient = {
+                        change_government = landless_adventurer_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = landless_adventurer_government
+                        }
+                    }
+                }
+                scope:herder = {
+                    scope:recipient = {
+                        change_government = herder_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = herder_government
+                        }
+                    }
+                }
+                scope:celestial = {
+                    scope:recipient = {
+                        change_government = celestial_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = celestial_government
+                        }
+                    }
+                }
+                scope:wanua = {
+                    scope:recipient = {
+                        change_government = wanua_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = wanua_government
+                        }
+                    }
+                }
+                scope:mandala = {
+                    scope:recipient = {
+                        change_government = mandala_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = mandala_government
+                        }
+                    }
+                }
+                scope:steppe_admin = {
+                    scope:recipient = {
+                        change_government = steppe_admin_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = steppe_admin_government
+                        }
+                    }
+                }
+                scope:meritocratic = {
+                    scope:recipient = {
+                        change_government = meritocratic_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = meritocratic_government
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 DI_change_government = {
     category = interaction_category_cheat_menu
     icon = icon_holding_city
@@ -3918,6 +4173,14 @@ DI_change_government = {
         is_valid = {
             has_dlc_feature = admin_gov
         }
+    }
+    send_option = {
+        flag = republic
+        localization = DI_change_government_republic
+    }
+    send_option = {
+        flag = theocracy
+        localization = DI_change_government_theocracy
     }
     send_option = {
         flag = feudal_full
@@ -3996,6 +4259,30 @@ DI_change_government = {
                         change_to_administrative_effect = yes
                         every_vassal_or_below = {
                             change_to_administrative_effect = yes
+                        }
+                    }
+                }
+                scope:republic = {
+                    scope:recipient = {
+                        change_government = republic_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = republic_government
+                        }
+                    }
+                }
+                scope:theocracy = {
+                    scope:recipient = {
+                        change_government = theocracy_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = theocracy_government
                         }
                     }
                 }
