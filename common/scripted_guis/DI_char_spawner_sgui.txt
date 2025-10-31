@@ -331,9 +331,9 @@ DI_learning_councillor = {
                         custom_tooltip = improved_stats_effect_TT
                         hidden_effect = {
                             save_scope_as = new_courtier
-                            remove_health_conflict_effect = yes
-                            remove_education_traits_effect = yes
-                            clear_personality_traits_effect = yes
+                            DI_remove_health_conflict_effect = yes
+                            DI_remove_education_traits_effect = yes
+                            DI_clear_personality_traits_effect = yes
                             add_martial_skill = {5 10}
                             add_prowess_skill = {5 10}
                             add_diplomacy_skill = {8 12}
@@ -386,9 +386,9 @@ DI_learning_councillor = {
                     custom_tooltip = improved_stats_effect_TT
                     hidden_effect = {
                         save_scope_as = new_courtier
-                        remove_health_conflict_effect = yes
-                        remove_education_traits_effect = yes
-                        clear_personality_traits_effect = yes
+                        DI_remove_health_conflict_effect = yes
+                        DI_remove_education_traits_effect = yes
+                        DI_clear_personality_traits_effect = yes
                         add_martial_skill = {5 10}
                         add_prowess_skill = {5 10}
                         add_diplomacy_skill = {8 12}
@@ -526,7 +526,7 @@ DI_commander = {
                     scope:new_courtier = {
                         add_trait_xp = { trait = lifestyle_blademaster value = 100 }
                         add_perk = stalwart_leader_perk
-                        add_commander_traits_effect_di = yes
+                        DI_add_commander_traits_effect = yes
                     }
                 }
             }
@@ -541,7 +541,7 @@ DI_commander = {
                 scope:new_courtier = {
                     add_trait_xp = { trait = lifestyle_blademaster value = 100 }
                     add_perk = stalwart_leader_perk
-                    add_commander_traits_effect_di = yes
+                    DI_add_commander_traits_effect = yes
                 }
             }
         }
@@ -939,9 +939,9 @@ DI_normal_courtier = {
         else = {
             save_scope_as = target
 
-            while = 
+            while =
             {
-                count = scope:DI_char_spawner_count_increment_value    
+                count = scope:DI_char_spawner_count_increment_value
                 DI_spawn_court_character_effect = yes
             }
         }
@@ -1239,7 +1239,7 @@ DI_travel_leader = {
                     DI_spawn_low_court_character_effect = yes
 
                     scope:new_courtier = {
-                        add_commander_traits_effect_di = yes
+                        DI_add_commander_traits_effect = yes
                         add_trait_xp = {
                             trait = lifestyle_traveler
                             track = travel
@@ -1285,7 +1285,7 @@ DI_travel_leader = {
                 DI_spawn_low_court_character_effect = yes
 
                 scope:new_courtier = {
-                    add_commander_traits_effect_di = yes
+                    DI_add_commander_traits_effect = yes
                     add_trait_xp = {
                         trait = lifestyle_traveler
                         track = travel
@@ -1339,104 +1339,104 @@ DI_travel_leader = {
 }
 
 DI_wet_nurse = {
-	scope = character
+    scope = character
 
-	effect = {
-		save_scope_as = root_target
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
+    effect = {
+        save_scope_as = root_target
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
 
-		scope:DI_story = {
-			save_scope_value_as = {
-				name = DI_char_spawner_count_increment_value
-				value = var:DI_char_spawner_count_increment_value
-			}
-		}
-		DI_wet_nurse_traits_effect = yes
+        scope:DI_story = {
+            save_scope_value_as = {
+                name = DI_char_spawner_count_increment_value
+                value = var:DI_char_spawner_count_increment_value
+            }
+        }
+        DI_wet_nurse_traits_effect = yes
 
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_in_list = {
-				variable = pinned_characters
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_in_list = {
+                variable = pinned_characters
 
-				save_scope_as = target
+                save_scope_as = target
 
-				while = {
-					count = scope:DI_char_spawner_count_increment_value
-					DI_spawn_low_court_character_effect = yes
+                while = {
+                    count = scope:DI_char_spawner_count_increment_value
+                    DI_spawn_low_court_character_effect = yes
 
                     scope:new_courtier = {}
 
-					if = {
-						limit = {
-							NOT = { can_employ_court_position_type = wet_nurse_court_position }
-						}
+                    if = {
+                        limit = {
+                            NOT = { can_employ_court_position_type = wet_nurse_court_position }
+                        }
 
-						random_court_position_holder = {
-							type = wet_nurse_court_position
-							save_scope_as = wet_nurse
-						}
+                        random_court_position_holder = {
+                            type = wet_nurse_court_position
+                            save_scope_as = wet_nurse
+                        }
 
-						revoke_court_position = {
-							court_position = wet_nurse_court_position
-						}
-					}
-					appoint_court_position = {
-						recipient = scope:new_courtier
-						court_position = wet_nurse_court_position
-					}
-				}
-			}
-		}
-		else = {
-			save_scope_as = target
+                        revoke_court_position = {
+                            court_position = wet_nurse_court_position
+                        }
+                    }
+                    appoint_court_position = {
+                        recipient = scope:new_courtier
+                        court_position = wet_nurse_court_position
+                    }
+                }
+            }
+        }
+        else = {
+            save_scope_as = target
 
-			while = {
-				count = scope:DI_char_spawner_count_increment_value
-				DI_spawn_low_court_character_effect = yes
+            while = {
+                count = scope:DI_char_spawner_count_increment_value
+                DI_spawn_low_court_character_effect = yes
 
                 scope:new_courtier = {}
 
-				if = {
-					limit = {
-						NOT = { can_employ_court_position_type = wet_nurse_court_position }
-					}
+                if = {
+                    limit = {
+                        NOT = { can_employ_court_position_type = wet_nurse_court_position }
+                    }
 
-					random_court_position_holder = {
-						type = wet_nurse_court_position
-						save_scope_as = wet_nurse
-					}
+                    random_court_position_holder = {
+                        type = wet_nurse_court_position
+                        save_scope_as = wet_nurse
+                    }
 
-					revoke_court_position = {
-						court_position = wet_nurse_court_position
-					}
-				}
-				appoint_court_position = {
-					recipient = scope:new_courtier
-					court_position = wet_nurse_court_position
-				}
-			}
-		}
+                    revoke_court_position = {
+                        court_position = wet_nurse_court_position
+                    }
+                }
+                appoint_court_position = {
+                    recipient = scope:new_courtier
+                    court_position = wet_nurse_court_position
+                }
+            }
+        }
 
-		if = {
-			limit = {
-				scope:root_target.var:DI_cs_random_traits ?= no
-			}
-			DI_no_random_traits_effect = yes
-		}
-		else_if = {
-			limit = {
-				scope:root_target.var:DI_cs_random_traits ?= yes
-			}
-			DI_random_traits_effect = yes
-		}
-	}
+        if = {
+            limit = {
+                scope:root_target.var:DI_cs_random_traits ?= no
+            }
+            DI_no_random_traits_effect = yes
+        }
+        else_if = {
+            limit = {
+                scope:root_target.var:DI_cs_random_traits ?= yes
+            }
+            DI_random_traits_effect = yes
+        }
+    }
 }
 
 DI_court_tutor = {
@@ -3923,7 +3923,7 @@ DI_master_assassin = {
                 scope:root_target.var:DI_cs_random_traits ?= no
             }
             DI_no_random_traits_effect = yes
-        }  
+        }
         else_if = {
             limit = {
                 scope:root_target.var:DI_cs_random_traits ?= yes
