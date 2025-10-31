@@ -11,7 +11,7 @@ window = {
 	using = Window_Background
 	using = Window_Decoration
 	movable = yes
-	visible = "[GetVariableSystem.Exists('DI_main_visible')]"
+	visible = "[And(GetVariableSystem.Exists('DI_main_visible'), Or(Or(And(GetScriptedGui('DI_menu_game_rule_host_sgui').IsShown(GuiScope.End), IsHost), GetScriptedGui('DI_menu_game_rule_everyone_sgui').IsShown(GuiScope.End)), Not(GameHasMultiplePlayers)))]"
     
     datacontext = "[GetVariableSystem]"
 	datacontext = "[GetPlayer]"
@@ -42,6 +42,7 @@ window = {
 
 			blockoverride "button_close"
 			{
+				visible = "[Or(Or(And(GetScriptedGui('DI_menu_game_rule_host_sgui').IsShown(GuiScope.End), IsHost), GetScriptedGui('DI_menu_game_rule_everyone_sgui').IsShown(GuiScope.End)), Not(GameHasMultiplePlayers))]"
 				onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
 			}
 		}
