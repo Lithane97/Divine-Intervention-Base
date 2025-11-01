@@ -5,9 +5,10 @@ window = {
 
     datacontext = "[GetVariableSystem]"
     datacontext = "[GetPlayer]"
-    datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected').Dynasty]"
+    datacontext = "[DynastyView.GetDynasty]"
+    datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
 
-    visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]"
+    visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')" #$ , GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]
 
 
 	size = { 100% 100% }
@@ -50,7 +51,7 @@ window = {
 			blockoverride "button_close"
 			{
 				name = "button_close"
-				onclick = "[DI_Dynasty_Perk_Editor_View.Close]"
+				onclick = "[GetVariableSystem.Toggle('DI_dynasty_perk_editor_window_visible')]"
 				shortcut = "close_window"
 				tooltip = "CLOSE_TOOLTIP"
 			}
