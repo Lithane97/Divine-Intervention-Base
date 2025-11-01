@@ -1213,6 +1213,148 @@ template DI_CE_Laws_Tab
 	}
 }
 
+## Custom Presets Tab
+template DI_CE_Custom_Tab
+{
+	vbox = {
+		name = "custom_tab"
+		visible = "[And( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('ce_presents_tab', 'custom'))]"
+		layoutpolicy_horizontal = expanding
+
+		margin = { 20 5 }
+
+		using = Animation_Tab_Switch
+
+		vbox = {
+			scrollbox = {
+				layoutpolicy_horizontal = expanding
+				size = { 400 350 }
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						name = "presents_list"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+						
+						# Custom 1 Preset Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_custom1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_custom1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/100_stat_man.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_custom1_preset_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_custom1_preset_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Custom 2 Preset Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_custom2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_custom2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/100_stat_man.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_custom2_preset_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_custom2_preset_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+
+						# Custom 3 Preset Button
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							button_standard = {
+								layoutpolicy_horizontal = expanding
+								size = { 0 50 }
+								button_ignore = none
+
+								onclick = "[GetScriptedGui('DI_ce_add_custom3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								onrightclick = "[GetScriptedGui('DI_ce_remove_custom3').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+								
+								hbox = {
+									margin = { 5 0 }
+									margin_right = 10
+									spacing = 10
+						
+									icon = {
+										size = { 35 35 }
+										texture = "gfx/interface/icons/traits/100_stat_man.dds"
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+										
+										text = DI_ce_custom3_preset_button
+						
+										default_format = "#clickable"
+									}
+								}
+								tooltip = DI_ce_custom3_preset_button_tt
+							}
+							hbox = {
+								minimumsize = { 76 -1 }
+							}
+						}
+						
+					}
+				}
+			}
+		}
+	}
+}
+
 # Present Tabs
 template DI_CE_Presents_Tabs
 {
@@ -1282,6 +1424,20 @@ template DI_CE_Presents_Tabs
 					default_format = "#low"
 				}
 			}
+
+			#custom tab
+			button_tab = {
+				layoutpolicy_horizontal = expanding
+				onclick = "[GetVariableSystem.Set('ce_presents_tab', 'custom')]"
+				down = "[GetVariableSystem.HasValue('ce_presents_tab', 'custom')]"
+
+				text_single = {
+					parentanchor = center
+					text = DI_tab_custom
+					maximumsize = { 400 -1 }
+					default_format = "#low"
+				}
+			}			
 		}
 		expand = {}
 	}

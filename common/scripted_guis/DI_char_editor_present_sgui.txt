@@ -2212,7 +2212,7 @@ DI_ce_temporal_hof = {
                 add_doctrine = doctrine_temporal_head
             }
 
-            if = {
+			if = {
                 limit = {
                     has_doctrine = doctrine_temporal_head
                 }
@@ -2221,4 +2221,178 @@ DI_ce_temporal_hof = {
             }
         }
     }
+}
+
+### Run add Custom preset 1
+DI_ce_add_custom1 = {
+	scope = character
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		if = {
+			limit = {
+				scope:DI_story = {
+					has_variable = DI_pinned_char_var
+				}
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				DI_ce_add_custom1_effect = yes
+			}
+		}
+		else = {
+			DI_ce_add_custom1_effect = yes
+		}
+	}
+}
+
+### Run remove Custom preset 1
+DI_ce_remove_custom1 = {
+	scope = character
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		if = {
+			limit = {
+				scope:DI_story = {
+					has_variable = DI_pinned_char_var
+				}
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				DI_ce_remove_custom1_effect = yes
+			}
+		}
+		else = {
+			DI_ce_remove_custom1_effect = yes
+		}
+	}
+}
+
+### Run add Custom preset 2
+DI_ce_add_custom2 = {
+	scope = character
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		if = {
+			limit = {
+				scope:DI_story = {
+					has_variable = DI_pinned_char_var
+				}
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				DI_ce_add_custom2_effect = yes
+			}
+		}
+		else = {
+			DI_ce_add_custom2_effect = yes
+		}
+	}
+}
+
+### Run remove Custom preset 2
+DI_ce_remove_custom2 = {
+	scope = character
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		if = {
+			limit = {
+				scope:DI_story = {
+					has_variable = DI_pinned_char_var
+				}
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				DI_ce_remove_custom2_effect = yes
+			}
+		}
+		else = {
+			DI_ce_remove_custom2_effect = yes
+		}
+	}
+}
+
+### Run add Custom preset 3
+DI_ce_add_custom3 = {
+	scope = character
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		if = {
+			limit = {
+				scope:DI_story = {
+					has_variable = DI_pinned_char_var
+				}
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				DI_ce_add_custom3_effect = yes
+			}
+		}
+		else = {
+			DI_ce_add_custom3_effect = yes
+		}
+	}
+}
+
+### Run remove Custom preset 3
+DI_ce_remove_custom3 = {
+	scope = character
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		if = {
+			limit = {
+				scope:DI_story = {
+					has_variable = DI_pinned_char_var
+				}
+			}
+			every_living_character = {
+				limit = {
+					has_character_flag = pinned_for_edit
+				}
+				DI_ce_remove_custom3_effect = yes
+			}
+		}
+		else = {
+			DI_ce_remove_custom3_effect = yes
+		}
+	}
 }
