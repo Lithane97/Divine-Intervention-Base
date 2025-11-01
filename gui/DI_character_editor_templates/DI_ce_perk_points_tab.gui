@@ -62,6 +62,26 @@ template DI_CE_Perk_Points_Tab
                             onclick = "[GetScriptedGui('DI_add_wanderer_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             onrightclick = "[GetScriptedGui('DI_remove_wanderer_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                         }
+                        
+                        ### More Lifestyles Compatch ###
+
+                        # Prowess - More Lifestyles
+                        DI_perk_point_button = {
+                            visible = "[EqualTo_string( Lifestyle.GetKey, 'nht_prowess_lifestyle' )]"
+                            datacontext = "[GetLifestyle('nht_prowess_lifestyle')]"
+                            onclick = "[GetScriptedGui('DI_add_ML_Prowess_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_ML_Prowess_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        # Leadership - More Lifestyles
+                        DI_perk_point_button = {
+                            visible = "[EqualTo_string( Lifestyle.GetKey, 'nht_leadership_lifestyle' )]"
+                            datacontext = "[GetLifestyle('nht_leadership_lifestyle')]"
+                            onclick = "[GetScriptedGui('DI_add_ML_Leadership_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_ML_Leadership_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        ### More Lifestyles Compatch ###
                     }
                 }
             }
