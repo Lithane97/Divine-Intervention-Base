@@ -47,10 +47,12 @@ window = {
 		}
 		
 		widget = {
-			size = { 740 150 }
+			name = "Main DI Interaction Buttons"
+			size = { 740 200 }
             
             widget = { 
-                size = { 740 110 }
+				name = "Main DI Editor Buttons"
+                size = { 740 160 }
                 vbox = {
                     hbox = {
                         spacing = 5
@@ -145,11 +147,26 @@ window = {
 							button_ignore = none
 						}
 					}
+					hbox = {
+						spacing = 5
+
+						button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_legacy_perks_editor_window
+							onclick = "[GetScriptedGui('DI_legacy_perks_select_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" #Not Implemented
+							onclick = "[GetVariableSystem.Toggle('DI_legacy_perks_editor_window_visible')]" #Not Implemented
+							tooltip = DI_legacy_perks_editor_window_tt
+                            button_ignore = none
+                        }
+
+					}
                 }
             }
 
             widget = {
-                position = { 18 110 }
+				name = "DI Clear Pins and DI Test Window"
+                parentanchor = bottom|left
+				position = { 0 0 }
                 size = { 300 40 }
                 hbox = {
 					spacing = 15
@@ -174,7 +191,9 @@ window = {
             }
             
             widget = {
-                position = { 500 110 }
+				name = "DI Toggle Debug Mode"
+				parentanchor = bottom|hcenter
+                position = { 0 0 }
                 size = { 110 40 }
                 hbox = {
                     button_standard = {
@@ -188,8 +207,10 @@ window = {
 			}
 			
 			widget = {
-                position = { 640 120 }
-                size = { 110 40 }
+				name = "DI Player Username"
+				parentanchor = bottom|right
+                position = { 0 0 }
+                size = { 110 30 } # 30 instead of forty because it has no Border so this lines up the username with the other text inside of borders
                 text_label_left = {
 					visible = "[InDebugMode]"
 					text = "[GetPlayer.GetHumanName]"
