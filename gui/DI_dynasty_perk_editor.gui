@@ -40,7 +40,7 @@ window = {
 	vbox = {
 		margin_top = 10
 
-		header_standard = {
+		header_standard = {  # Dynasty perk editor window header
 			layoutpolicy_horizontal = expanding
 
 			blockoverride "header_text"
@@ -97,13 +97,13 @@ window = {
 									margin = { 3 0 }
 
 									text_single = {
-										text = "DYNASTY_VIEW_SHOW_RENOWN" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
+										text = "DI_DYNASTY_EDITOR_SHOW_RENOWN" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
 									}
 
 									expand = {}
 
 									text_single = {
-										text = "DYNASTY_VIEW_SHOW_LEGACY_COST" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
+										text = "DI_DYNASTY_EDITOR_SHOW_LEGACY_COST" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
 									}
 								}
 
@@ -129,6 +129,16 @@ window = {
 							divider_light = {
 								layoutpolicy_vertical = expanding
 							}
+
+							### Add Copy dynasty char here
+
+							# using = DI_Dynasty_Select_Copy_Character
+
+							# divider_light = {
+							# 	layoutpolicy_vertical = expanding
+							# }
+
+							### Add Copy dynasty char here
 
 							vbox = {  # Explination At the Top of the Dynasty Lecay Window Should show an explination of how the editor modifies the dynasty perks, and if Reknown is still added or removed, and cost is increased
 								layoutpolicy_horizontal = expanding
@@ -220,66 +230,66 @@ window = {
 	}
 }
 
-# confirmation_popup = {
-# 	name = "dynasty_perk_confirmation_popup"  # Need to remove The Popup Completly since it should only add or remove easily on Left and Right click
+di_confirmation_popup = {
+	name = "DI_dynasty_perk_confirmation_popup"  # Need to remove The Popup Completly since it should only add or remove easily on Left and Right click
 
-# 	blockoverride "extra_contents" {
-# 		fixedgridbox = {
-# 			name = "traits_grid"
-# 			addcolumn = 55
-# 			addrow = 55
-# 			maxhorizontalslots = 5
-# 			datamodel_wrap = 5
-# 			flipdirection = yes
+	blockoverride "extra_contents" {
+		fixedgridbox = {
+			name = "traits_grid"
+			addcolumn = 55
+			addrow = 55
+			maxhorizontalslots = 5
+			datamodel_wrap = 5
+			flipdirection = yes
 
-# 			datamodel = "[DynastyPerkConfirmation.GetAssociatedTraits]"
+			datamodel = "[DynastyPerkConfirmation.GetAssociatedTraits]"
 
-# 			item = {
-# 				container = {
-# 					button_group = {
-# 						visible = "[Not( EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ) ]"
-# 						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
-# 						datacontext = "[GetPlayer]"
+			item = {
+				container = {
+					button_group = {
+						visible = "[Not( EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ) ]"
+						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
+						datacontext = "[GetPlayer]"
 
-# 						icon_trait = {
-# 							blockoverride "tooltip_placement"
-# 							{
-# 								using = tooltip_se
-# 							}
-# 							blockoverride "trait_glow"
-# 							{
-# 							}
-# 						}
-# 					}
+						icon_trait = {
+							blockoverride "tooltip_placement"
+							{
+								using = tooltip_se
+							}
+							blockoverride "trait_glow"
+							{
+							}
+						}
+					}
 
-# 					button_group = {
-# 						datacontext = "[GetPlayer]"
+					button_group = {
+						datacontext = "[GetPlayer]"
 
-# 						visible = "[EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ]"
-# 						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
+						visible = "[EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ]"
+						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
 
-# 						icon_trait = {
-# 							blockoverride "tooltip_placement"
-# 							{
-# 								using = tooltip_se
-# 							}
-# 							blockoverride "trait_glow"
-# 							{
-# 								glow = {
-# 									using = Color_Blue
-# 									using = Glow_Standard
-# 									glow_radius = 5
-# 								}
-# 							}
-# 						}
-# 					}
-# 				}
-# 			}
-# 		}
-# 	}
-# }
+						icon_trait = {
+							blockoverride "tooltip_placement"
+							{
+								using = tooltip_se
+							}
+							blockoverride "trait_glow"
+							{
+								glow = {
+									using = Color_Blue
+									using = Glow_Standard
+									glow_radius = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
-types DynastyLegacies {   #Should be able to leave this completly vanilla, since but it should get all Dynasties available in game and maybe add an extra tiptool about left and right click
+types DI_DynastyLegacies {   #Should be able to leave this completly vanilla, since but it should get all Dynasties available in game and maybe add an extra tiptool about left and right click
 	type hbox_legacy_item = hbox {
 		expand = {}
 
