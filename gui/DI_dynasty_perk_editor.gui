@@ -8,7 +8,7 @@ window = {
     # datacontext = "[DynastyView.GetDynasty]"
     datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
 
-    visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')" #$ , GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]
+    visible = "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   # "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]"
 
 
 	size = { 100% 100% }
@@ -70,13 +70,15 @@ window = {
 					margin_left = 40
 					margin_top = 10
 
-					widget = {                  # Guessing This displays Coat of arms, Modify this to show Character Selector to Modify The dynasty thats being Modified
-						coa_dynasty_medium = {
-							blockoverride "coa_button" {
-								alwaystransparent = yes
-							}
-						}
-					}
+					using = DI_Dynasty_Select_Character
+
+					# widget = {                  # Guessing This displays Coat of arms, Modify this to show Character Selector to Modify The dynasty thats being Modified
+					# 	coa_dynasty_medium = {
+					# 		blockoverride "coa_button" {
+					# 			alwaystransparent = yes
+					# 		}
+					# 	}
+					# }
 
 					vbox = {
 						layoutpolicy_horizontal = expanding
@@ -218,64 +220,64 @@ window = {
 	}
 }
 
-confirmation_popup = {
-	name = "dynasty_perk_confirmation_popup"  # Need to remove The Popup Completly since it should only add or remove easily on Left and Right click
+# confirmation_popup = {
+# 	name = "dynasty_perk_confirmation_popup"  # Need to remove The Popup Completly since it should only add or remove easily on Left and Right click
 
-	blockoverride "extra_contents" {
-		fixedgridbox = {
-			name = "traits_grid"
-			addcolumn = 55
-			addrow = 55
-			maxhorizontalslots = 5
-			datamodel_wrap = 5
-			flipdirection = yes
+# 	blockoverride "extra_contents" {
+# 		fixedgridbox = {
+# 			name = "traits_grid"
+# 			addcolumn = 55
+# 			addrow = 55
+# 			maxhorizontalslots = 5
+# 			datamodel_wrap = 5
+# 			flipdirection = yes
 
-			datamodel = "[DynastyPerkConfirmation.GetAssociatedTraits]"
+# 			datamodel = "[DynastyPerkConfirmation.GetAssociatedTraits]"
 
-			item = {
-				container = {
-					button_group = {
-						visible = "[Not( EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ) ]"
-						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
-						datacontext = "[GetPlayer]"
+# 			item = {
+# 				container = {
+# 					button_group = {
+# 						visible = "[Not( EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ) ]"
+# 						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
+# 						datacontext = "[GetPlayer]"
 
-						icon_trait = {
-							blockoverride "tooltip_placement"
-							{
-								using = tooltip_se
-							}
-							blockoverride "trait_glow"
-							{
-							}
-						}
-					}
+# 						icon_trait = {
+# 							blockoverride "tooltip_placement"
+# 							{
+# 								using = tooltip_se
+# 							}
+# 							blockoverride "trait_glow"
+# 							{
+# 							}
+# 						}
+# 					}
 
-					button_group = {
-						datacontext = "[GetPlayer]"
+# 					button_group = {
+# 						datacontext = "[GetPlayer]"
 
-						visible = "[EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ]"
-						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
+# 						visible = "[EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ]"
+# 						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
 
-						icon_trait = {
-							blockoverride "tooltip_placement"
-							{
-								using = tooltip_se
-							}
-							blockoverride "trait_glow"
-							{
-								glow = {
-									using = Color_Blue
-									using = Glow_Standard
-									glow_radius = 5
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
+# 						icon_trait = {
+# 							blockoverride "tooltip_placement"
+# 							{
+# 								using = tooltip_se
+# 							}
+# 							blockoverride "trait_glow"
+# 							{
+# 								glow = {
+# 									using = Color_Blue
+# 									using = Glow_Standard
+# 									glow_radius = 5
+# 								}
+# 							}
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# }
 
 types DynastyLegacies {   #Should be able to leave this completly vanilla, since but it should get all Dynasties available in game and maybe add an extra tiptool about left and right click
 	type hbox_legacy_item = hbox {
