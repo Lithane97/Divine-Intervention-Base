@@ -8,14 +8,14 @@ window = {
     # datacontext = "[DynastyView.GetDynasty]"
     datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
 
-    visible = "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   # "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]"
+    visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]" # "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   # 
 
 
-	size = { 100% 100% }
+	size = { 80% 80% }
 	parentanchor = center|hcenter
-	movable = no
+	movable = yes
 	filter_mouse = all
-	layer = middle
+	layer = windows_layer
 
 	using = Window_Background_No_Edge
 
@@ -45,7 +45,7 @@ window = {
 
 			blockoverride "header_text"
 			{
-				text = "DI_dynasy_perks_editor_heading" # Name at the top of the full size window
+				text = "DI_dynasty_perks_editor_heading" # Name at the top of the full size window
 			}
 
 			blockoverride "button_close"
