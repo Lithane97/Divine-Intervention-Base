@@ -78,3 +78,28 @@ DI_dynasty_perk_select_char_init = {
         debug_log = "[scope:this.GetFullName]"
     }
 }
+
+# DI_dynasty_perk_helper = {
+#     scope = character
+#     effect = {
+#         set_data_model = {
+#             name = DI_dynasty_legacy_browser
+#             type = dynasty_legacy_browser
+#             list = all_dynasty_legacies
+#         }
+#     }
+# }
+
+
+DI_Dynastey_perk_list = {
+    scope = character
+
+    effect = {
+        if = {
+            add_to_global_variable_list = {
+                name = DI_all_dynasty_legacies
+                target = scope:legacy
+            }
+        }
+    }
+}
