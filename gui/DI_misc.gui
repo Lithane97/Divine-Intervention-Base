@@ -1033,15 +1033,8 @@ window = {
 										button_standard_hover = {
 											layoutpolicy_horizontal = expanding
 											layoutpolicy_vertical = expanding
-											onclick = "[GetScriptedGui('DI_dynasty_select_char').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]" #Sets clicked on character as selected char for dynasty gui ## not working
+											onclick = "[GetScriptedGui('DI_dynasty_selected_char').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]" #Sets clicked on character as selected char for dynasty gui ## not working
 											onclick = "[GetVariableSystem.Toggle('DI_dynasty_char_select_list_visible')]"
-											onclick = {
-												debug_log_scopes = yes
-												debug_log = "Clicked on character in dynasty select list"
-												debug_log = "[DI_dynasty_select_char]"
-												debug_log_date = yes
-												debug_log_scopes = yes
-											}
 											hbox = {
 												layoutpolicy_horizontal = expanding
 												layoutpolicy_vertical = expanding
