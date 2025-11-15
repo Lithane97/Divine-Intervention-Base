@@ -5,8 +5,8 @@ window = {
 
     datacontext = "[GetVariableSystem]"
     datacontext = "[GetPlayer]"
-    # datacontext = "[DynastyView.GetDynasty]"
     datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
+	# datacontext = "[Dynasty.GetDynasty]"
 
     visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]" # "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   # 
 
@@ -173,9 +173,12 @@ window = {
 		expand = {}
 	}
 
+	# Eveything Works until here, here is where the Dynasty legacy bars should be added.
+
 	widget = {
 		size = { 100% 100% }
 		parentanchor = center
+		name = "dynasty_legacies_container"
 
 		vbox = {
 			margin_top = 150
@@ -186,23 +189,23 @@ window = {
 			# 	using = Background_Bottom_Fade
 			# }
 
-			vbox = {
-				visible = "[LessThanOrEqualTo_int32(GetDataModelSize(DynastyView.GetLegacies), '(int32)7')]" #Have Not quite Figured out what "DynastyView" is may need to implement a whole new DI_DynastyView for this to function Correctly
-				datamodel = "[DynastyView.GetLegacies]"                                                                     # Vanilla Implementation is in Window_Dynasty_House.gui
-				layoutpolicy_horizontal = expanding                                                                         # Can i use the Vanilla "GetLegacies"
-				margin_bottom = 60
+			# vbox = {
+			# 	visible = "[LessThanOrEqualTo_int32(GetDataModelSize(DI_dynasty_selected_dynasty.GetLegacies), '(int32)7')]" #Ony visible if there are less then 7 legacies thats not even vanilla behaviour? #Have Not quite Figured out what "DynastyView" is may need to implement a whole new DI_DynastyView for this to function Correctly 
+			# 	datamodel = "[DI_dynasty_selected_dynasty.GetLegacies]"                                                                     # Vanilla Implementation is in Window_Dynasty_House.gui
+			# 	layoutpolicy_horizontal = expanding                                                                         # Can i use the Vanilla "GetLegacies"
+			# 	margin_bottom = 60
 
-				spacing = 5
+			# 	spacing = 5
 
-				item = {
-					hbox_legacy_item = {
-						layoutpolicy_horizontal = expanding
-					}
-				}
-			}
+			# 	item = {
+			# 		di_hbox_legacy_item = {   # Injecting Different entires
+			# 			layoutpolicy_horizontal = expanding
+			# 		}
+			# 	}
+			# }
 
 			scrollbox = {
-				visible = "[GreaterThan_int32(GetDataModelSize(DynastyView.GetLegacies), '(int32)7')]"
+				# visible = "[GreaterThan_int32(GetDataModelSize(DI_dynasty_selected_dynasty.GetLegacies), '(int32)7')]" #OK this makes it a scrollbox if there are more than 7 legacies
 				layoutpolicy_horizontal = expanding
 				layoutpolicy_vertical = expanding
 
@@ -213,13 +216,13 @@ window = {
 				{
 
 					vbox = {
-						datamodel = "[DynastyView.GetLegacies]"
+						datamodel = "[GetAllDynasties.GetLegacies]"  # Need a List of Al Dynasty Perk Paths / Legacies Available in game
 						layoutpolicy_horizontal = expanding
 
 						spacing = 5
 
-						item = {
-							hbox_legacy_item = {
+						item = { #injecting Different Entries
+							di_hbox_legacy_item = {
 								layoutpolicy_horizontal = expanding
 							}
 						}
@@ -289,8 +292,8 @@ di_confirmation_popup = {
 	}
 }
 
-types DI_DynastyLegacies {   #Should be able to leave this completly vanilla, since but it should get all Dynasties available in game and maybe add an extra tiptool about left and right click
-	type hbox_legacy_item = hbox {
+types DI_DynastyLegacies {  #This is DynastyView how, how do i hijack that #Should be able to leave this completly vanilla, since but it should get all Dynasties available in game and maybe add an extra tiptool about left and right click 
+	type di_hbox_legacy_item = hbox {
 		expand = {}
 
 		### TEXT ###
@@ -403,8 +406,8 @@ types DI_DynastyLegacies {   #Should be able to leave this completly vanilla, si
 						button = {
 							size = { 296 128 }
 							visible = "[Not( Dynasty.HasPerk( DynastyPerk.Self ) )]"
-							enabled = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
-							onclick = "[DynastyView.SelectPerk( DynastyPerk.Self )]"
+							# enabled = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"         # SHould always be enabled
+							onclick = "[DynastyView.SelectPerk( DynastyPerk.Self )]"            # Select perk should open the Confirmation popup
 
 							background = {
 								size = { 100% 100% }
@@ -414,7 +417,7 @@ types DI_DynastyLegacies {   #Should be able to leave this completly vanilla, si
 							}
 
 							background = {
-								visible = "[Not(DynastyView.CanSelectPerk( DynastyPerk.Self ))]"
+								# visible = "[Not(DynastyView.CanSelectPerk( DynastyPerk.Self ))]"
 								size = { 100% 100% }
 								texture = "gfx/interface/component_masks/mask_frame_horizontal.dds"
 								tintcolor = { 0 0 0 0.8 }
@@ -461,19 +464,19 @@ types DI_DynastyLegacies {   #Should be able to leave this completly vanilla, si
 									}
 
 									text_single = {
-										visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
+										# visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
 										text = "DYNASTY_VIEW_SHOW_UNLOCK"
 										default_format = "#I"
 									}
 								}
 
-								tooltip_visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
+								# tooltip_visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
 								tooltip = "UNLOCK_DYNASTY_PERK_TOOLTIP"
 								using = tooltip_se
 							}
 
 							button_standard_clean = {
-								visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
+								# visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
 								size = { 100% 100% }
 								alwaystransparent = yes
 
