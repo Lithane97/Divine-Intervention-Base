@@ -1,0 +1,105 @@
+﻿### Select Character ###
+DI_dynasty_selected_char = {
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    effect = {
+        save_scope_as = select_char
+
+        scope:target = {
+            set_variable = {
+                name = DI_dynasty_selected_char
+                value = scope:select_char
+
+            }
+            set_variable = {
+                name = DI_dynasty_selected_dynasty
+                value = scope:select_char.dynasty
+            }
+        }
+        debug_log = "Selected dynasty edit character set"
+        debug_log = "[scope:select_char.GetFullName]"
+    }
+}
+
+### Select Character ### 
+DI_dynasty_selected_char_copy = {  #Trying to Copy the Culture copy mechanic, for legacies
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    effect = {
+        save_scope_as = select_char
+
+        scope:target = {
+            set_variable = {
+                name = DI_dynasty_selected_char_copy
+                value = scope:select_char
+            }
+            set_variable = {
+                name = DI_dynasty_selected_dynasty_copy
+                value = scope:select_char.dynasty
+            }
+
+            if = {
+                limit = {
+                    has_variable = DI_dynasty_selected_char_copy
+                    has_variable = DI_dynasty_selected_dynasty_copy
+                }
+            }
+        }
+    }
+}
+
+### Select Character Init ###
+DI_dynasty_perk_select_char_init = {
+    scope = character
+
+    effect = {
+        if = {
+            limit = {
+                NOT = { has_variable = DI_dynasty_selected_char }
+            }
+            set_variable = {
+                name = DI_dynasty_selected_char
+                value = this
+            }
+            set_variable = {
+                name = DI_dynasty_selected_dynasty
+                value = this.dynasty
+            }
+        }
+        debug_log = "Initialized dynasty edit character set"
+        debug_log = "[scope:this.GetFullName]"
+    }
+}
+
+# DI_dynasty_perk_helper = {
+#     scope = character
+#     effect = {
+#         set_data_model = {
+#             name = DI_dynasty_legacy_browser
+#             type = dynasty_legacy_browser
+#             list = all_dynasty_legacies
+#         }
+#     }
+# }
+
+
+DI_Dynastey_perk_list = {
+    scope = character
+
+    effect = {
+        if = {
+            add_to_global_variable_list = {
+                name = DI_all_dynasty_legacies
+                target = scope:legacy
+            }
+        }
+    }
+}

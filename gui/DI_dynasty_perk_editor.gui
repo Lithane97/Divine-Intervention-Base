@@ -1,0 +1,512 @@
+### DYNASTY LEGACIES/Perk editor WINDOW
+
+window = {
+	name = "DI_dynasty_perk_editor_window"
+
+    datacontext = "[GetVariableSystem]"
+    datacontext = "[GetPlayer]"
+    datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
+	# datacontext = "[Dynasty.GetDynasty]"
+
+    visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]" # "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   # 
+
+
+	size = { 80% 80% }
+	parentanchor = center|hcenter
+	movable = yes
+	filter_mouse = all
+	layer = windows_layer
+
+	using = Window_Background_No_Edge
+
+	background = {
+		using = Background_Bottom_Fade
+		alpha = 0.5
+	}
+
+	state = {
+		name = _show
+
+		using = Animation_FadeIn_Standard
+		using = Sound_Panel_Popup_Snapshot
+	}
+
+	state = {
+		name = _hide
+
+		using = Animation_FadeOut_Standard
+	}
+
+	vbox = {
+		margin_top = 10
+
+		header_standard = {  # Dynasty perk editor window header
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				text = "DI_dynasty_perks_editor_heading" # Name at the top of the full size window
+			}
+
+			blockoverride "button_close"
+			{
+				name = "button_close"
+				onclick = "[GetVariableSystem.Toggle('DI_dynasty_perk_editor_window_visible')]"
+				# shortcut = "close_window"
+				# tooltip = "CLOSE_TOOLTIP"
+			}
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				margin = { 10 5 }
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_left = 40
+					margin_top = 10
+
+					using = DI_Dynasty_Select_Character
+
+					# widget = {                  # Guessing This displays Coat of arms, Modify this to show Character Selector to Modify The dynasty thats being Modified
+					# 	coa_dynasty_medium = {
+					# 		blockoverride "coa_button" {
+					# 			alwaystransparent = yes
+					# 		}
+					# 	}
+					# }
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 100 0 }
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							margin = { 0 10 }
+							spacing = 15
+
+							vbox = {
+								layoutpolicy_vertical = expanding
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									margin = { 3 0 }
+
+									text_single = {
+										text = "DI_DYNASTY_EDITOR_SHOW_RENOWN" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
+									}
+
+									expand = {}
+
+									text_single = {
+										text = "DI_DYNASTY_EDITOR_SHOW_LEGACY_COST" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
+									}
+								}
+
+								spacer = {
+									size = { 3 3 }
+								}
+
+								progressbar_standard = {
+									name = "progress"
+									size = { 250 12 }
+									value = "[FixedPointToProgressbarValue(Dynasty.GetNextPerkProgress)]" # Could be interesting But should not go for player Dynasty
+									min = 0
+									tooltip = "DYNASTY_HOUSE_VIEW_PROGRESS_TOOLTIP" # Vanilla Locatization:  DYNASTY_HOUSE_VIEW_PROGRESS_TOOLTIP:0 "Progress: [dynasty_prestige_i][Dynasty.GetPrestige|V0]/
+								}
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									margin = { 3 0 }
+									text = "DYNASTY_VIEW_SHOW_LEGACIES"  # Vanilla Localization:  DYNASTY_VIEW_SHOW_LEGACIES:0 "Legacies: [DynastyView.GetTotalUnlockedPerks]"
+								}
+							}
+
+							divider_light = {
+								layoutpolicy_vertical = expanding
+							}
+
+							### Add Copy dynasty char here
+
+							# using = DI_Dynasty_Select_Copy_Character
+
+							# divider_light = {
+							# 	layoutpolicy_vertical = expanding
+							# }
+
+							### Add Copy dynasty char here
+
+							vbox = {  # Explination At the Top of the Dynasty Lecay Window Should show an explination of how the editor modifies the dynasty perks, and if Reknown is still added or removed, and cost is increased
+								layoutpolicy_horizontal = expanding
+								margin_bottom = 7
+
+								text_multi = {
+									visible = "[GetPlayer.IsDynast]"
+									layoutpolicy_horizontal = expanding
+									text = "DYNASTY_VIEW_SHOW_LEGACY_EXPLANATION_HEAD"
+									autoresize = yes
+									fontsize_min = 14
+									default_format = "#low"
+								}
+
+								text_multi = {
+									visible = "[Not(GetPlayer.IsDynast)]"    # This is funny, its a bug in vanilla wher this only checks if the player is leader of his own dynasty, which means it will also show this text when clicking on other dynasties.
+									layoutpolicy_horizontal = expanding
+									text = "DYNASTY_VIEW_SHOW_LEGACY_EXPLANATION_NOT_HEAD"
+									autoresize = yes
+									fontsize_min = 14
+									default_format = "#low"
+								}
+							}
+						}
+					}
+				}
+
+				expand = {}
+			}
+		}
+
+		expand = {}
+	}
+
+	# Eveything Works until here, here is where the Dynasty legacy bars should be added.
+
+	widget = {
+		size = { 100% 100% }
+		parentanchor = center
+		name = "dynasty_legacies_container"
+
+		vbox = {
+			margin_top = 150
+
+			margin_bottom = 60
+
+			# background = {
+			# 	using = Background_Bottom_Fade
+			# }
+
+			# vbox = {
+			# 	visible = "[LessThanOrEqualTo_int32(GetDataModelSize(DI_dynasty_selected_dynasty.GetLegacies), '(int32)7')]" #Ony visible if there are less then 7 legacies thats not even vanilla behaviour? #Have Not quite Figured out what "DynastyView" is may need to implement a whole new DI_DynastyView for this to function Correctly 
+			# 	datamodel = "[DI_dynasty_selected_dynasty.GetLegacies]"                                                                     # Vanilla Implementation is in Window_Dynasty_House.gui
+			# 	layoutpolicy_horizontal = expanding                                                                         # Can i use the Vanilla "GetLegacies"
+			# 	margin_bottom = 60
+
+			# 	spacing = 5
+
+			# 	item = {
+			# 		di_hbox_legacy_item = {   # Injecting Different entires
+			# 			layoutpolicy_horizontal = expanding
+			# 		}
+			# 	}
+			# }
+
+			scrollbox = {
+				# visible = "[GreaterThan_int32(GetDataModelSize(DI_dynasty_selected_dynasty.GetLegacies), '(int32)7')]" #OK this makes it a scrollbox if there are more than 7 legacies
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				blockoverride "scrollbox_background_fade" {}
+
+				blockoverride "scrollbox_background" {}
+				blockoverride "scrollbox_content"
+				{
+
+					vbox = {
+						datamodel = "[GetAllDynasties.GetLegacies]"  # Need a List of Al Dynasty Perk Paths / Legacies Available in game # DI_allDynasty_legacies not tested yet, probably does not work.
+						layoutpolicy_horizontal = expanding
+
+						spacing = 5
+
+						item = { #injecting Different Entries
+							di_hbox_legacy_item = {
+								layoutpolicy_horizontal = expanding
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+di_confirmation_popup = {
+	name = "DI_dynasty_perk_confirmation_popup"  # Need to remove The Popup Completly since it should only add or remove easily on Left and Right click
+
+	blockoverride "extra_contents" {
+		fixedgridbox = {
+			name = "traits_grid"
+			addcolumn = 55
+			addrow = 55
+			maxhorizontalslots = 5
+			datamodel_wrap = 5
+			flipdirection = yes
+
+			datamodel = "[DynastyPerkConfirmation.GetAssociatedTraits]"
+
+			item = {
+				container = {
+					button_group = {
+						visible = "[Not( EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ) ]"
+						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
+						datacontext = "[GetPlayer]"
+
+						icon_trait = {
+							blockoverride "tooltip_placement"
+							{
+								using = tooltip_se
+							}
+							blockoverride "trait_glow"
+							{
+							}
+						}
+					}
+
+					button_group = {
+						datacontext = "[GetPlayer]"
+
+						visible = "[EqualTo_string( Trait.GetKey, DynastyPerkConfirmation.GetSelectedTrait.GetKey ) ]"
+						onclick = "[DynastyPerkConfirmation.SelectTrait( Trait.Self )]"
+
+						icon_trait = {
+							blockoverride "tooltip_placement"
+							{
+								using = tooltip_se
+							}
+							blockoverride "trait_glow"
+							{
+								glow = {
+									using = Color_Blue
+									using = Glow_Standard
+									glow_radius = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+types DI_DynastyLegacies {  #This is DynastyView how, how do i hijack that #Should be able to leave this completly vanilla, since but it should get all Dynasties available in game and maybe add an extra tiptool about left and right click 
+	type di_hbox_legacy_item = hbox {
+		expand = {}
+
+		### TEXT ###
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			max_width = 330
+			margin_right = 10
+
+			background = {
+				layoutpolicy_horizontal = expanding
+				margin_right = 5
+				using = Background_Area
+			}
+
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				vbox = {
+					layoutpolicy_vertical = expanding
+
+					background = {
+						using = Background_Area
+					}
+
+					icon_doctrine = {
+						size = { 80 80 }
+						texture = "[DynastyLegacy.GetIcon]"
+					}
+
+					expand = {}
+				}
+
+				vbox = {
+					margin = { 5 5 }
+					spacing = 2
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						text = "[DynastyLegacy.GetName]"
+						default_format = "#high"
+						using = Font_Size_Medium
+						fontsize_min = 14
+					}
+
+					text_multi = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+						text = "[DynastyLegacy.GetDesc]"
+						maximumsize = { -1 90 }
+						fontsize_min = 14
+					}
+
+					expand = {}
+				}
+			}
+		}
+
+		#### ILLUSTRATION ####
+		hbox = {
+			background = {
+				texture = "[DynastyLegacy.GetTrackIcon]"
+
+				modify_texture = {
+					texture = "gfx/interface/component_tiles/tile_frame_thin_02.dds"
+					spriteType = Corneredtiled
+					spriteborder = { 50 50 }
+					blend_mode = alphamultiply
+					texture_density = 2
+				}
+
+				modify_texture = {
+					texture = "gfx/interface/component_masks/mask_legacy_track.dds"
+					spriteType = Corneredtiled
+					spriteborder = { 50 50 }
+					blend_mode = alphamultiply
+				}
+			}
+
+			background = {
+				texture = "[DynastyLegacy.GetTrackIcon]"
+
+				modify_texture = {
+					texture = "gfx/interface/component_tiles/tile_frame_thin_02.dds"
+					spriteType = Corneredtiled
+					spriteborder = { 50 50 }
+					blend_mode = alphamultiply
+					texture_density = 2
+				}
+
+				modify_texture = {
+					texture = "gfx/interface/component_masks/mask_legacy_track.dds"
+					spriteType = Corneredtiled
+					spriteborder = { 50 50 }
+					blend_mode = alphamultiply
+				}
+			}
+
+			hbox = {
+				datacontext = "[Dynasty.GetHeadOfDynasty]"
+				datamodel = "[DynastyLegacy.GetPerks]"
+
+				item = {
+					widget = {
+						size = { 296 128 }
+
+						button = {
+							size = { 296 128 }
+							visible = "[Not( Dynasty.HasPerk( DynastyPerk.Self ) )]"
+							# enabled = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"         # SHould always be enabled
+							onclick = "[DynastyView.SelectPerk( DynastyPerk.Self )]"            # Select perk should open the Confirmation popup
+
+							background = {
+								size = { 100% 100% }
+								texture = "gfx/interface/component_masks/mask_frame_horizontal.dds"
+								tintcolor = { 0 0 0 0.7 }
+								alpha = 0.9
+							}
+
+							background = {
+								# visible = "[Not(DynastyView.CanSelectPerk( DynastyPerk.Self ))]"
+								size = { 100% 100% }
+								texture = "gfx/interface/component_masks/mask_frame_horizontal.dds"
+								tintcolor = { 0 0 0 0.8 }
+
+								modify_texture = {
+									texture = "gfx/interface/component_tiles/tile_frame_thin_02.dds"
+									spriteType = Corneredtiled
+									spriteborder = { 50 50 }
+									blend_mode = alphamultiply
+									alpha = 0.2
+									texture_density = 2
+								}
+							}
+
+							vbox = {
+								visible = "[Not(And(Dynasty.GetDynast.IsLocalPlayer, DynastyView.IsNextUnlockablePerk( DynastyPerk.Self )))]"
+								margin = { 10 5 }
+								margin_top = 18
+
+								text_multi = {
+									text = "[DynastyPerk.GetNameNoTooltip]"
+									autoresize = yes
+									max_width = 296
+									fontsize_min = 14
+									default_format = "#low"
+								}
+							}
+
+							### TEXT ###
+							vbox = {
+								visible = "[And(Dynasty.GetDynast.IsLocalPlayer, DynastyView.IsNextUnlockablePerk( DynastyPerk.Self ))]"
+
+								vbox = {
+									layoutpolicy_vertical = expanding
+									margin = { 10 5 }
+									margin_top = 18
+
+									text_multi = {
+										text = "[DynastyPerk.GetNameNoTooltip]"
+										autoresize = yes
+										max_width = 296
+										fontsize_min = 14
+										default_format = "#high"
+									}
+
+									text_single = {
+										# visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
+										text = "DYNASTY_VIEW_SHOW_UNLOCK"
+										default_format = "#I"
+									}
+								}
+
+								# tooltip_visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
+								tooltip = "UNLOCK_DYNASTY_PERK_TOOLTIP"
+								using = tooltip_se
+							}
+
+							button_standard_clean = {
+								# visible = "[DynastyView.CanSelectPerk( DynastyPerk.Self )]"
+								size = { 100% 100% }
+								alwaystransparent = yes
+
+								animation_attention_text = {}
+
+								background = {
+									texture = "gfx/interface/component_tiles/tile_vignette_3px.dds"
+									spriteType = Corneredtiled
+									spriteborder = { 5 5 }
+									margin = { -2 -2 }
+								}
+							}
+
+							tooltip = "LOCKED_DYNASTY_PERK_TOOLTIP"
+							using = tooltip_se
+						}
+
+						widget = {
+							size = { 296 128 }
+
+							vbox = {
+								tooltip = "DYNASTY_PERK_TOOLTIP"
+								using = tooltip_se
+							}
+						}
+					}
+				}
+			}
+		}
+
+		expand = {}
+	}
+}
