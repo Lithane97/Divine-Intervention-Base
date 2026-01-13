@@ -2307,6 +2307,34 @@ DI_dip_adoption_house = {
     }
 }
 
+### Create Cadet Branch ###
+DI_dip_create_cadet_branch = {
+    scope = character
+
+    is_valid = {
+        var:DI_primary_character ?= {
+            is_dynast = no
+            is_house_head = no
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        if = {
+            limit = {
+                has_variable = DI_primary_character
+            }
+            var:DI_primary_character = {
+                save_scope_as = new_house_head
+                create_cadet_branch = {
+                    name = cadet_name_style_primary_title
+                }
+            }
+        }
+    }
+}
+
 ### Impregnate ###
 DI_dip_impregnate = {
     scope = character
