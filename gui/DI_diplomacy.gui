@@ -1075,6 +1075,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_adoption').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_adoption').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1104,6 +1105,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_adoption_house').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_adoption_house').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1164,6 +1166,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_impregnate').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_impregnate').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1194,6 +1197,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_preg_gender_male').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_preg_gender_male').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1224,6 +1228,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_preg_gender_female').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_preg_gender_female').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1246,6 +1251,7 @@ window = {
                                     }
                                 }
 
+                                # set real father
                                 hbox = {
                                     layoutpolicy_horizontal = expanding
 
@@ -1253,6 +1259,68 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_set_real_father').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_set_real_father').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_set_real_father_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_set_real_father_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # set father as real father
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_set_father_as_real_father').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_set_father_as_real_father').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_set_father_as_real_father_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_set_father_as_real_father_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_marry').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_marry').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1283,6 +1351,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_marry_matrilineal').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_marry_matrilineal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1313,6 +1382,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_divorce').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_divorce').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1335,6 +1405,99 @@ window = {
                                     }
                                 }
 
+                                # arrange betrothal
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_arrange_betrothal').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_arrange_betrothal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_arrange_betrothal_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_arrange_betrothal_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # arrange betrothal matrilineal
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_arrange_betrothal_matrilineal').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_arrange_betrothal_matrilineal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_arrange_betrothal_matrilineal_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_arrange_betrothal_matrilineal_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # break betrothal
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_break_betrothal').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_break_betrothal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+
+                                                text = DI_dip_break_betrothal_button
+
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_break_betrothal_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
                                 # Make Siblings
                                 hbox = {
                                     layoutpolicy_horizontal = expanding
@@ -1343,6 +1506,7 @@ window = {
                                         layoutpolicy_horizontal = expanding
                                         size = { 0 50 }
 
+                                        enabled = "[GetScriptedGui('DI_dip_make_siblings').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                         onclick = "[GetScriptedGui('DI_dip_make_siblings').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                                         hbox = {
@@ -1364,10 +1528,6 @@ window = {
                                         minimumsize = { 76 -1 }
                                     }
                                 }
-
-                                # Create Cadet Branch
-                                # This will take a primary character (the head of the dynasty who the house will belong to)
-                                # and a secondary character (the head of the new house)
                             }
                         }
                     }

@@ -14,7 +14,63 @@
  # Tertiary Character #
  DI_tertiary_character_0: "Tertiary Character "
  DI_tertiary_character_1: "[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip] " 
- DI_tertiary_character_2: ""
+ DI_tertiary_character_2: " "
  ### Family ###
  DIAdopt: "adopt "
  DIAdopts: "adopts "
+
+ DI_father_check_1: "Reset [GetPlayer.Custom('DI_flip_primary_character')]'s father to their real father."
+ DI_father_check_2: "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFather.GetNameNoTooltip] is set as the real father of [GetPlayer.Custom('DI_flip_primary_character')]."
+ DI_betrothed_check_1: "[GetPlayer.Custom('DI_flip_primary_character')] breaks their betrothal."
+ DI_betrothed_check_2: "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] breaks their betrothal with [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetBetrothed.GetNameNoTooltip]."
+
+ DI_choose_primary_character: "\n#color_yellow Must choose a primary character.#!"
+ DI_choose_secondary_character: "\n#color_yellow Must choose a secondary character.#!"
+ DI_choose_tertiary_character: "\n#color_yellow Must choose a tertiary character.#!"
+ DI_choose_primary_and_secondary_characters: "[Localize('DI_choose_primary_character')][Localize('DI_choose_secondary_character')]"
+ DI_choose_primary_and_tertiary_characters: "[Localize('DI_choose_primary_character')][Localize('DI_choose_tertiary_character')]"
+
+ ### Adoption Localization Strings ###
+ DI_adoption_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] must be older than [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip].#!"
+ DI_adoption_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip] must be older than [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip].#!"
+ DI_adoption_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] and [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip] are already the parents of [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip].#!"
+ DI_adoption_triggered_desc_4: "\n#color_yellow Can't have two male parents.#!"
+ DI_adoption_triggered_desc_5: "\n#color_yellow Can't have two female parents.#!"
+ 
+ ### Adoption House Localization Strings ###
+ DI_adoption_house_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip] is already a member of House [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetHouse.GetBaseName].#!"
+
+ ### Custom Cadet Branch Localization Strings ###
+ DI_cadet_branch_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] must not be dynasty head.#!"
+ DI_cadet_branch_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] must not be house head.#!"
+ DI_cadet_branch_triggered_desc_3: "[Localize('DI_cadet_branch_triggered_desc_1')][Localize('DI_cadet_branch_triggered_desc_2')]"
+
+ ### Custom Pregnancy Localization Strings ###
+ DI_pregnancy_triggered_desc_1: "\n#color_yellow Can't be two male characters.#!"
+ DI_pregnancy_triggered_desc_2: "\n#color_yellow Can't be two female characters.#!"
+ DI_pregnancy_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] must be pregnant.#!"
+
+ ### Custom Set Real Father Localization Strings ###
+ DI_set_real_father_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip] is already the real father of [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip].#!"
+ DI_set_real_father_triggered_desc_2: "\n#color_yellow Real father must be male.#!"
+ DI_set_real_father_triggered_desc_3: "\n#color_yellow Real father must be older than child.#!"
+ DI_set_father_as_real_father_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] has no father to reset to.#!"
+ DI_set_father_as_real_father_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFather.GetNameNoTooltip] is already the real father of [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip].#!"
+
+ ### Custom Marry Localization Strings ###
+ DI_marry_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] is already married to [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetPrimarySpouse.GetNameNoTooltip].#!"
+ DI_marry_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip] is already married to [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetPrimarySpouse.GetNameNoTooltip].#!"
+ DI_marry_triggered_desc_3: "[Localize('DI_marry_triggered_desc_1')][Localize('DI_marry_triggered_desc_2')]"
+
+ ### Custom Betrothal Localization Strings ###
+ DI_betrothal_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] is already married to [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetPrimarySpouse.GetNameNoTooltip].#!"
+ DI_betrothal_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip] is already married to [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetPrimarySpouse.GetNameNoTooltip].#!"
+ DI_break_betrothal_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] is not betrothed.#!"
+
+ ### Custom Divorce Localization Strings ###
+ DI_divorce_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] is not married to [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip].#!"
+
+ ### Custom Make Siblings Localization Strings ###
+ DI_make_siblings_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] and [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip] are already siblings.#!"
+ DI_make_siblings_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip] is a parent of [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip].#!"
+ DI_make_siblings_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip] is a parent of [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip].#!"
