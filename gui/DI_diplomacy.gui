@@ -165,7 +165,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -198,7 +199,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -231,7 +233,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -265,7 +268,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -299,7 +303,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -333,7 +338,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -367,7 +373,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -401,7 +408,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -435,7 +443,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -444,6 +453,41 @@ window = {
                                             blockoverride "checkbox"
                                             {
                                                 checked = "[GetPlayer.MakeScope.Var('DI_soulmate').IsSet]"
+                                            }
+
+                                            blockoverride "text"
+                                            {
+                                                text = ""
+                                            }
+                                        }
+                                    }
+                                }
+
+                                # crush
+                                DI_Relation_Button = {
+                                    blockoverride "onclick_relation"
+                                    {
+                                        onclick = "[GetScriptedGui('DI_crush').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onrightclick = "[GetScriptedGui('DI_remove_crush').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        button_ignore = none
+                                    }
+
+                                    blockoverride "text_relation"
+                                    {
+                                        text = "crush"
+                                    }
+
+                                    hbox = {
+                                        margin_left = 20
+                                        margin_right = 5
+
+                                        button_checkbox_label = {
+                                            layoutpolicy_horizontal = expanding
+                                            onclick = "[GetScriptedGui('DI_crush_toggle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                            blockoverride "checkbox"
+                                            {
+                                                checked = "[GetPlayer.MakeScope.Var('DI_crush').IsSet]"
                                             }
 
                                             blockoverride "text"
@@ -469,7 +513,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -503,7 +548,8 @@ window = {
                                     }
 
                                     hbox = {
-                                        margin = { 20 0 }
+                                        margin_left = 20
+                                        margin_right = 5
 
                                         button_checkbox_label = {
                                             layoutpolicy_horizontal = expanding
@@ -1549,12 +1595,12 @@ types DIDiplomacyShared
             }
 
             hbox = {
-                margin = { 5 0 }
-                margin_right = 10
+                layoutpolicy_horizontal = expanding
+                margin = { 10 0 }
                 spacing = 10
 
                 text_single = {
-                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_horizontal = shrinking
 
                     block "text_relation"
                     {
@@ -1563,6 +1609,8 @@ types DIDiplomacyShared
 
                     default_format = "#clickable"
                 }
+
+                expand = {}
             }
             tooltip = DI_relations_tt
         }

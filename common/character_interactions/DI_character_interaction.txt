@@ -80,7 +80,6 @@ DI_pin_character_interaction = {
     }
 
     send_option = {
-        is_default = yes
         flag = character
         localization = DI_pin_character
     }
@@ -1545,6 +1544,41 @@ DI_arrange_marriage_interaction = {
             }
         }
     }
+}
+
+### Break Betrothal ###
+DI_break_betrothal_interaction = {
+    category = interaction_category_cheat_menu
+    icon = icon_marriage
+    desc = DI_break_betrothal_desc
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+
+        scope:recipient = {
+            is_betrothed = yes
+            exists = betrothed
+        }
+    }
+
+    on_accept = {
+        scope:recipient = {
+            break_betrothal = betrothed
+        }
+    }
+
+    ai_will_do = { base = 0 }
 }
 
 ### Divorce Character ###

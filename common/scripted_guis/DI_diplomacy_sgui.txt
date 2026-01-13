@@ -260,6 +260,23 @@ DI_soulmate_toggle = {
     }
 }
 
+### Crush Toggle ###
+DI_crush_toggle = {
+    scope = character # Player
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_crush
+            }
+            remove_variable = DI_crush
+        }
+        else = {
+            set_variable = DI_crush
+        }
+    }
+}
+
 ### Bully Toggle ###
 DI_bully_toggle = {
     scope = character # Player
@@ -455,6 +472,12 @@ DI_apply_relations = {
             }
             if = {
                 limit = {
+                    scope:player = { has_variable = DI_crush }
+                }
+                set_relation_crush = scope:secondary_char
+            }
+            if = {
+                limit = {
                     scope:player = { has_variable = DI_bully }
                 }
                 set_relation_bully = scope:secondary_char
@@ -535,6 +558,12 @@ DI_apply_pinned_relations = {
                         scope:player = { has_variable = DI_soulmate }
                     }
                     set_relation_soulmate = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_crush }
+                    }
+                    set_relation_crush = scope:pinned_character
                 }
                 if = {
                     limit = {
@@ -628,6 +657,12 @@ DI_apply_all_pinned_relations = {
                                     scope:player = { has_variable = DI_soulmate }
                                 }
                                 set_relation_soulmate = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_crush }
+                                }
+                                set_relation_crush = scope:second_pinned_character
                             }
                             if = {
                                 limit = {
@@ -1038,6 +1073,47 @@ DI_remove_soulmate = {
                     has_relation_soulmate = scope:secondary_char
                 }
                 remove_relation_soulmate = scope:secondary_char
+            }
+        }
+    }
+}
+
+### Crush ###
+DI_crush = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_crush = scope:secondary_char
+                    }
+                }
+                set_relation_crush = scope:secondary_char
+            }
+        }
+    }
+}
+
+DI_remove_crush = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_crush = scope:secondary_char
+                }
+                remove_relation_crush = scope:secondary_char
             }
         }
     }
