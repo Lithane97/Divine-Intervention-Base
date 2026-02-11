@@ -424,3 +424,105 @@ DI_create_artifact = {
         }
     }
 }
+
+### Load Artifact Creator Dropdowns ###
+DI_load_artifact_quality_dropdown = {
+    scope = character # Player Character
+
+    is_valid = {
+        NOT = { has_global_variable_list = DI_artifact_quality_filter_choices }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        add_to_global_variable_list = { name = DI_artifact_quality_filter_choices target = flag:DI_quality_common }
+        add_to_global_variable_list = { name = DI_artifact_quality_filter_choices target = flag:DI_quality_masterwork }
+        add_to_global_variable_list = { name = DI_artifact_quality_filter_choices target = flag:DI_quality_famed }
+        add_to_global_variable_list = { name = DI_artifact_quality_filter_choices target = flag:DI_quality_illustrious }
+    }
+}
+
+DI_load_artifact_type_dropdown = {
+    scope = character # Player Character
+
+    is_valid = {
+        NOT = { has_global_variable_list = DI_artifact_type_filter_choices }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_weapon }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_armor }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_regalia }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_trinket }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_throne }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_pedestal }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_furniture }
+        add_to_global_variable_list = { name = DI_artifact_type_filter_choices target = flag:DI_category_ornament }
+    }
+}
+
+DI_load_artifact_subtype_dropdown = {
+    scope = character # Player Character
+
+    saved_scopes = {
+        category # artifact category (weapon, armor, etc.)
+    }
+
+    effect = {
+        save_scope_as = player
+
+        clear_global_variable_list = DI_artifact_subtype_filter_choices
+
+        switch = {
+            trigger = scope:category
+            flag:DI_category_weapon = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_axe }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_dagger }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_hammer }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_mace }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_spear }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_sword }
+            }
+            flag:DI_category_armor = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_armor_mail }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_armor_brigandine }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_armor_laminar }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_armor_lamellar }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_armor_scale }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_armor_plate }
+            }
+            flag:DI_category_regalia = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_crown }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_regalia }
+            }
+            flag:DI_category_trinket = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_necklace }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_brooch }
+            }
+            flag:DI_category_throne = {
+
+            }
+            flag:DI_category_pedestal = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_small_box }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_medium_box }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_goblet }
+            }
+            flag:DI_category_furniture = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_cabinet }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_chest }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_divan }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_table }
+            }
+            flag:DI_category_ornament = {
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_small_shield }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_large_shield }
+                add_to_global_variable_list = { name = DI_artifact_subtype_filter_choices target = flag:DI_subtype_tapestry }
+            }
+        }
+    }
+}
+### Dropdown Selection Handlers ###
+
