@@ -1,46 +1,4 @@
-﻿
-
-
-### Dropdown Selection Handlers ###
-
-# Handle category dropdown selection
-DI_artifact_category_select = {
-    scope = character # Player Character
-
-    saved_scopes = {
-        category # Selected category flag
-    }
-
-    effect = {
-        save_scope_as = player
-
-        # Update display variable to match the selected category flag
-        set_variable = {
-            name = DI_artifact_category_display
-            value = scope:category
-        }
-
-        # Handle subtype dropdown visibility and loading
-        if = {
-            limit = { scope:category = flag:DI_category_throne }
-            # Throne has no subtypes, hide the dropdown
-            remove_variable = DI_show_subtype_dropdown
-            set_variable = { name = DI_artifact_type value = flag:throne }
-        }
-        else = {
-            # All other categories have subtypes
-            set_variable = { name = DI_show_subtype_dropdown value = yes }
-
-            # Load the subtype list for the selected category
-            scope:category = {
-                save_scope_as = type
-            }
-            DI_load_artifact_subtype_dropdown = yes
-        }
-    }
-}
-
-# Handle subtype dropdown selection
+﻿# Handle subtype dropdown selection
 DI_artifact_subtype_select = {
     scope = character # Player Character
 
