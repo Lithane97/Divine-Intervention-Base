@@ -1,1425 +1,1018 @@
-﻿DI_add_new_modifiers_effect = {
-	# Prowess from weapon rarity
-	add_scaled_artifact_modifier_prowess_effect = yes
-	
-	if = {
-		limit = {
-			OR = {
-				rarity = famed
-				rarity = illustrious
-			}
-			OR = {
-				has_artifact_feature_group = blade_decoration
-				has_artifact_feature_group = hilt_decoration
-				has_artifact_feature_group = shaft_decoration
-				has_artifact_feature_group = head_decoration
-				scope:weapon_type = flag:artifact_weapon_type_dagger
-			}
-		}
-		if = {
-			limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
-			add_2_scaled_artifact_modifier_intrigue_effect = yes
-		}
-		else = {
-			add_2_scaled_artifact_modifier_combat_effect = yes
-		}
-	}
-	else_if = {
-		limit = {
-			OR = {
-				rarity = common
-				rarity = masterwork
-			}
-			OR = {
-				has_artifact_feature_group = blade_decoration
-				has_artifact_feature_group = hilt_decoration
-				has_artifact_feature_group = shaft_decoration
-				has_artifact_feature_group = head_decoration
-				scope:weapon_type = flag:artifact_weapon_type_dagger
-			}
-		}
-		if = {
-			limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
-			add_scaled_artifact_modifier_intrigue_effect = yes
-		}
-		else = {
-			add_scaled_artifact_modifier_combat_effect = yes
-		}
-	}
-	else_if = {
-		limit = {
-			OR = {
-				rarity = famed
-				rarity = illustrious
-			}
-			# No decorations
-		}
-		if = {
-			limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
-			add_scaled_artifact_modifier_intrigue_effect = yes
-			add_artifact_modifier = artifact_prowess_no_decorations_high_tier_modifier
-		}
-		else = {
-			add_scaled_artifact_modifier_combat_effect = yes
-			add_artifact_modifier = artifact_prowess_no_decorations_high_tier_modifier
-		}
-	}
-	else_if = {
-		limit = {
-			rarity = masterwork
-			# No decorations
-		}
-		if = {
-			limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
-			add_scaled_artifact_modifier_intrigue_effect = yes
-			add_artifact_modifier = artifact_prowess_no_decorations_modifier
-		}
-		else = {
-			add_artifact_modifier = artifact_prowess_no_decorations_medium_tier_modifier
-		}
-	}
-	else = {
-		add_artifact_modifier = artifact_prowess_no_decorations_modifier
-	}
+﻿# === HELPER EFFECTS === #
 
-	# Save the quality and wealth of this artifact in case we need to reference it later. 
-	set_variable = {
-		name = quality
-		value = scope:quality
-	}
-	set_variable = {
-		name = wealth
-		value = scope:wealth
-	}
-		
+# Convert quality flag to rarity string for create_artifact
+DI_get_rarity_string = {
+    # Returns the rarity as a string that can be used in create_artifact
+    # Must be called in player scope
+    if = { limit = { var:DI_artifact_quality = flag:common } save_scope_value_as = { name = rarity_string value = flag:common } }
+    else_if = { limit = { var:DI_artifact_quality = flag:masterwork } save_scope_value_as = { name = rarity_string value = flag:masterwork } }
+    else_if = { limit = { var:DI_artifact_quality = flag:famed } save_scope_value_as = { name = rarity_string value = flag:famed } }
+    else_if = { limit = { var:DI_artifact_quality = flag:illustrious } save_scope_value_as = { name = rarity_string value = flag:illustrious } }
+}
+
+# Set quality and wealth scopes based on selected rarity
+DI_set_rarity_bonus = {
+    # Quality ranges: 100-76 (illustrious), 75-51 (famed), 50-26 (masterwork), 25-0 (common)
+    # Wealth ranges: 85+ (illustrious), 55-84 (famed), 25-54 (masterwork), 0-24 (common)
+    # Random values are weighted toward higher end of range
+
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        # Quality: 0-25 range
+        random_list = {
+            50 = { save_scope_value_as = { name = quality value = 20 } }  # Higher end
+            30 = { save_scope_value_as = { name = quality value = 15 } }
+            15 = { save_scope_value_as = { name = quality value = 10 } }
+            5 = { save_scope_value_as = { name = quality value = 5 } }    # Lower end
+        }
+        # Wealth: 0-24 range
+        random_list = {
+            50 = { save_scope_value_as = { name = wealth value = 20 } }   # Higher end
+            30 = { save_scope_value_as = { name = wealth value = 15 } }
+            15 = { save_scope_value_as = { name = wealth value = 10 } }
+            5 = { save_scope_value_as = { name = wealth value = 5 } }     # Lower end
+        }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        # Quality: 26-50 range
+        random_list = {
+            50 = { save_scope_value_as = { name = quality value = 45 } }  # Higher end
+            30 = { save_scope_value_as = { name = quality value = 38 } }
+            15 = { save_scope_value_as = { name = quality value = 32 } }
+            5 = { save_scope_value_as = { name = quality value = 26 } }   # Lower end
+        }
+        # Wealth: 25-54 range
+        random_list = {
+            50 = { save_scope_value_as = { name = wealth value = 50 } }   # Higher end
+            30 = { save_scope_value_as = { name = wealth value = 42 } }
+            15 = { save_scope_value_as = { name = wealth value = 34 } }
+            5 = { save_scope_value_as = { name = wealth value = 26 } }    # Lower end
+        }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        # Quality: 51-75 range
+        random_list = {
+            50 = { save_scope_value_as = { name = quality value = 70 } }  # Higher end
+            30 = { save_scope_value_as = { name = quality value = 64 } }
+            15 = { save_scope_value_as = { name = quality value = 58 } }
+            5 = { save_scope_value_as = { name = quality value = 52 } }   # Lower end
+        }
+        # Wealth: 55-84 range
+        random_list = {
+            50 = { save_scope_value_as = { name = wealth value = 78 } }   # Higher end
+            30 = { save_scope_value_as = { name = wealth value = 70 } }
+            15 = { save_scope_value_as = { name = wealth value = 62 } }
+            5 = { save_scope_value_as = { name = wealth value = 56 } }    # Lower end
+        }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        # Quality: 76-100 range
+        random_list = {
+            50 = { save_scope_value_as = { name = quality value = 95 } }  # Higher end
+            30 = { save_scope_value_as = { name = quality value = 88 } }
+            15 = { save_scope_value_as = { name = quality value = 82 } }
+            5 = { save_scope_value_as = { name = quality value = 76 } }   # Lower end
+        }
+        # Wealth: 85+ range
+        random_list = {
+            50 = { save_scope_value_as = { name = wealth value = 98 } }   # Higher end
+            30 = { save_scope_value_as = { name = wealth value = 92 } }
+            15 = { save_scope_value_as = { name = wealth value = 88 } }
+            5 = { save_scope_value_as = { name = wealth value = 85 } }    # Lower end
+        }
+    }
+}
+
+# Map artifact type to specific parameters
+DI_get_artifact_params = {
+    # Sets category and subtype for routing - other params passed directly to creation effects
+    # For weapons
+    if = { limit = { scope:player.var:DI_artifact_type = flag:axe }
+    set_variable = { name = artifact_category value = flag:weapon }
+    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_axe }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:dagger }
+set_variable = { name = artifact_category value = flag:weapon }
+set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_dagger }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:hammer }
+set_variable = { name = artifact_category value = flag:weapon }
+set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_hammer }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:mace }
+set_variable = { name = artifact_category value = flag:weapon }
+set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_mace }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:spear }
+set_variable = { name = artifact_category value = flag:weapon }
+set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_spear }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:sword }
+set_variable = { name = artifact_category value = flag:weapon }
+set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_sword }
+}
+# For armor
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_mail }
+set_variable = { name = artifact_category value = flag:armor }
+set_variable = { name = artifact_subtype value = flag:armor_type_mail }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_brigandine }
+set_variable = { name = artifact_category value = flag:armor }
+set_variable = { name = artifact_subtype value = flag:armor_type_brigandine }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_laminar }
+set_variable = { name = artifact_category value = flag:armor }
+set_variable = { name = artifact_subtype value = flag:armor_type_laminar }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_lamellar }
+set_variable = { name = artifact_category value = flag:armor }
+set_variable = { name = artifact_subtype value = flag:armor_type_lamellar }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_scale }
+set_variable = { name = artifact_category value = flag:armor }
+set_variable = { name = artifact_subtype value = flag:armor_type_scale }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_plate }
+set_variable = { name = artifact_category value = flag:armor }
+set_variable = { name = artifact_subtype value = flag:armor_type_plate }
+}
+# Regalia
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:crown }
+set_variable = { name = artifact_category value = flag:regalia }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:regalia }
+set_variable = { name = artifact_category value = flag:regalia }
+}
+# Trinkets
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:necklace }
+set_variable = { name = artifact_category value = flag:trinket }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:brooch }
+set_variable = { name = artifact_category value = flag:trinket }
+}
+# Throne
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:throne }
+set_variable = { name = artifact_category value = flag:throne }
+}
+# Pedestals
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:small_box }
+set_variable = { name = artifact_category value = flag:pedestal }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:medium_box }
+set_variable = { name = artifact_category value = flag:pedestal }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:goblet }
+set_variable = { name = artifact_category value = flag:pedestal }
+}
+# Furniture
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:cabinet }
+set_variable = { name = artifact_category value = flag:furniture }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:chest }
+set_variable = { name = artifact_category value = flag:furniture }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:divan }
+set_variable = { name = artifact_category value = flag:furniture }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:table }
+set_variable = { name = artifact_category value = flag:furniture }
+}
+# Ornaments
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:small_shield }
+set_variable = { name = artifact_category value = flag:ornament }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:large_shield }
+set_variable = { name = artifact_category value = flag:ornament }
+}
+else_if = { limit = { scope:player.var:DI_artifact_type = flag:tapestry }
+set_variable = { name = artifact_category value = flag:ornament }
+}
+}
+
+# === ORIGINAL EFFECTS === #
+
+DI_add_new_modifiers_effect = {
+    # Prowess from weapon rarity
+    add_scaled_artifact_modifier_prowess_effect = yes
+
+    if = {
+        limit = {
+            OR = {
+                rarity = famed
+                rarity = illustrious
+            }
+            OR = {
+                has_artifact_feature_group = blade_decoration
+                has_artifact_feature_group = hilt_decoration
+                has_artifact_feature_group = shaft_decoration
+                has_artifact_feature_group = head_decoration
+                scope:weapon_type = flag:artifact_weapon_type_dagger
+            }
+        }
+        if = {
+            limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
+            add_2_scaled_artifact_modifier_intrigue_effect = yes
+        }
+        else = {
+            add_2_scaled_artifact_modifier_combat_effect = yes
+        }
+    }
+    else_if = {
+        limit = {
+            OR = {
+                rarity = common
+                rarity = masterwork
+            }
+            OR = {
+                has_artifact_feature_group = blade_decoration
+                has_artifact_feature_group = hilt_decoration
+                has_artifact_feature_group = shaft_decoration
+                has_artifact_feature_group = head_decoration
+                scope:weapon_type = flag:artifact_weapon_type_dagger
+            }
+        }
+        if = {
+            limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
+            add_scaled_artifact_modifier_intrigue_effect = yes
+        }
+        else = {
+            add_scaled_artifact_modifier_combat_effect = yes
+        }
+    }
+    else_if = {
+        limit = {
+            OR = {
+                rarity = famed
+                rarity = illustrious
+            }
+            # No decorations
+        }
+        if = {
+            limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
+            add_scaled_artifact_modifier_intrigue_effect = yes
+            add_artifact_modifier = artifact_prowess_no_decorations_high_tier_modifier
+        }
+        else = {
+            add_scaled_artifact_modifier_combat_effect = yes
+            add_artifact_modifier = artifact_prowess_no_decorations_high_tier_modifier
+        }
+    }
+    else_if = {
+        limit = {
+            rarity = masterwork
+            # No decorations
+        }
+        if = {
+            limit = { scope:weapon_type = flag:artifact_weapon_type_dagger }
+            add_scaled_artifact_modifier_intrigue_effect = yes
+            add_artifact_modifier = artifact_prowess_no_decorations_modifier
+        }
+        else = {
+            add_artifact_modifier = artifact_prowess_no_decorations_medium_tier_modifier
+        }
+    }
+    else = {
+        add_artifact_modifier = artifact_prowess_no_decorations_modifier
+    }
+
 }
 
 DI_add_new_armor_modifiers_effect = {
-	# Rarity determines prowess bonus
-	add_scaled_artifact_modifier_prowess_effect = yes
-	# Rarity determines combat bonus
-	add_scaled_artifact_modifier_combat_effect = yes
+    # Rarity determines prowess bonus
+    add_scaled_artifact_modifier_prowess_effect = yes
+    # Rarity determines combat bonus
+    add_scaled_artifact_modifier_combat_effect = yes
 
-	if = { # Chain mail gets a higher prowess due to the lack of decoration
-		limit = { artifact_type = armor_mail }
-		add_artifact_modifier = artifact_prowess_no_decorations_modifier
-	}
-	else_if = { # Fashion gets an attraction boost
-		limit = {
-			OR = {
-				artifact_type = armor_brigandine
-				artifact_type = armor_plate
-			}
-		}
-		add_artifact_modifier = artifact_attraction_opinion_1_modifier
-	}
-	else = { # For all other armor-types you get some prestige
-		add_artifact_modifier = artifact_placeholder_modifier
-	}
+    if = { # Chain mail gets a higher prowess due to the lack of decoration
+        limit = { artifact_type = armor_mail }
+        add_artifact_modifier = artifact_prowess_no_decorations_modifier
+    }
+    else_if = { # Fashion gets an attraction boost
+        limit = {
+            OR = {
+                artifact_type = armor_brigandine
+                artifact_type = armor_plate
+            }
+        }
+        add_artifact_modifier = artifact_attraction_opinion_1_modifier
+    }
+    else = { # For all other armor-types you get some prestige
+        add_artifact_modifier = artifact_placeholder_modifier
+    }
 
-	if = { # Gold gives more prestige
-		limit = {
-			OR = {
-				has_artifact_feature = armor_decoration_gold_plating
-				has_artifact_feature = armor_material_gold
-			}
-		}
-		add_artifact_modifier = artifact_monthly_prestige_2_modifier
-	}
+    if = { # Gold gives more prestige
+        limit = {
+            OR = {
+                has_artifact_feature = armor_decoration_gold_plating
+                has_artifact_feature = armor_material_gold
+            }
+        }
+        add_artifact_modifier = artifact_monthly_prestige_2_modifier
+    }
 
-	set_variable = {
-		name = quality
-		value = scope:quality
-	}
-	set_variable = {
-		name = wealth
-		value = scope:wealth
-	}
-}
-
-
-random_artifact_wealth_effect = {
-
-	random_list = {
-		20 = {
-			save_scope_value_as = {
-				name = random_wealth_bonus
-				value = 5
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_wealth_bonus
-				value = 10
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_wealth_bonus
-				value = 15
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_wealth_bonus
-				value = 20
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_wealth_bonus
-				value = 25
-			} 
-		}
-	}
-	
-	save_scope_value_as = {
-		name = wealth
-		value = {
-			value = scope:random_wealth_bonus
-			add = scope:bonus_from_rarity
-		}
-	}
-}
-
-random_artifact_quality_effect = {
-	random_list = {
-		20 = {
-			save_scope_value_as = {
-				name = random_quality_bonus
-				value = 4
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_quality_bonus
-				value = 8
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_quality_bonus
-				value = 12
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_quality_bonus
-				value = 16
-			} 
-		}
-		20 = {
-			save_scope_value_as = {
-				name = random_quality_bonus
-				value = 20
-			} 
-		}
-	}
-	
-	save_scope_value_as = {
-		name = quality
-		value = {
-			value = scope:random_quality_bonus
-			add = scope:bonus_from_rarity
-		}
-	}
 }
 
 ### Create Artifact Effects ###
 #Weapons#
-DI_create_artifact_weapon = {
-	save_scope_as = player
+# === UNIFIED CREATION EFFECTS === #
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-		save_scope_as = owner
-		set_variable = {
-			name = artifact_weapon_type
-			value = $ARTIFACT_WEAPON_TYPE$
-		}
-		scope:owner = {
-			var:artifact_weapon_type = { save_scope_as = weapon_type }
-			remove_variable = artifact_weapon_type
-		}
+# Internal weapon creation (called from DI_create_artifact_unified)
+DI_create_weapon_internal = {
+    save_scope_as = owner
 
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
+    # Set weapon type for modifier application
+    set_variable = { name = artifact_weapon_type value = var:artifact_subtype }
+    scope:owner = {
+        var:artifact_weapon_type = { save_scope_as = weapon_type }
+        remove_variable = artifact_weapon_type
+    }
 
-		create_artifact = {
-			name = artifact_$TYPE$_name
-			description = placeholder
-			rarity = $RARITY$
-			type = $TYPE$
-			visuals = $TYPE$
-			modifier = artifact_prowess_1_modifier
-			generate_history = yes
-			creator = root
-			wealth = 100
-			quality = 100
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			get_$TYPE$_decoration_effect = yes
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = artifact_$TYPE$_description
-		}
-	}
-
-	scope:newly_created_artifact = {
-		DI_add_new_modifiers_effect = yes
-	}
+    # Create with appropriate rarity
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        DI_create_weapon_rarity = { RARITY = common }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        DI_create_weapon_rarity = { RARITY = masterwork }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        DI_create_weapon_rarity = { RARITY = famed }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        DI_create_weapon_rarity = { RARITY = illustrious }
+    }
 }
 
-# armor
-DI_create_artifact_armor = {
-	save_scope_as = player
-
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		set_variable = {
-			name = artifact_armor_type
-			value = $ARTIFACT_ARMOR_TYPE$
-		}
-		scope:owner = {
-			var:artifact_armor_type = { save_scope_as = armor_type }
-			remove_variable = artifact_armor_type
-		}
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = placeholder
-			description = placeholder # Will be re-generated once decorations are added in the post-creation effects.
-			rarity = $RARITY$
-			type = $ARMOR_TYPE$
-			visuals = $TYPE$
-			wealth = scope:wealth
-			quality = scope:quality
-			modifier = artifact_prowess_1_modifier
-			save_scope_as = newly_created_artifact
-			
-		}
-
-		scope:newly_created_artifact = {
-			set_artifact_feature_group = armor_decoration
-			set_artifact_feature_group = armor_property
-			get_artifact_feature_references_effect = yes
-			set_artifact_name = artifact_armor_name
-			set_artifact_description = artifact_armor_description
-		}
-	}
-
-	scope:newly_created_artifact = {
-		DI_add_new_armor_modifiers_effect = yes
-	}
+DI_create_weapon_rarity = {
+    # Helper to route to final weapon creation with double parameter injection
+    if = {
+        limit = { var:artifact_subtype = flag:artifact_weapon_type_axe }
+        DI_create_weapon_final = { RARITY = $RARITY$ WEAPON_TYPE = axe WEAPON_NAME = artifact_axe_name WEAPON_DESC = artifact_axe_description DECORATION_EFFECT = get_axe_decoration_effect }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:artifact_weapon_type_dagger }
+        DI_create_weapon_final = { RARITY = $RARITY$ WEAPON_TYPE = dagger WEAPON_NAME = artifact_dagger_name WEAPON_DESC = artifact_dagger_description DECORATION_EFFECT = get_dagger_decoration_effect }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:artifact_weapon_type_hammer }
+        DI_create_weapon_final = { RARITY = $RARITY$ WEAPON_TYPE = hammer WEAPON_NAME = artifact_hammer_name WEAPON_DESC = artifact_hammer_description DECORATION_EFFECT = get_hammer_decoration_effect }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:artifact_weapon_type_mace }
+        DI_create_weapon_final = { RARITY = $RARITY$ WEAPON_TYPE = mace WEAPON_NAME = artifact_mace_name WEAPON_DESC = artifact_mace_description DECORATION_EFFECT = get_mace_decoration_effect }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:artifact_weapon_type_spear }
+        DI_create_weapon_final = { RARITY = $RARITY$ WEAPON_TYPE = spear WEAPON_NAME = artifact_spear_name WEAPON_DESC = artifact_spear_description DECORATION_EFFECT = get_spear_decoration_effect }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:artifact_weapon_type_sword }
+        DI_create_weapon_final = { RARITY = $RARITY$ WEAPON_TYPE = sword WEAPON_NAME = artifact_sword_name WEAPON_DESC = artifact_sword_description DECORATION_EFFECT = get_sword_decoration_effect }
+    }
 }
 
-# crown
-DI_create_artifact_crown = {
-	save_scope_as = player
+DI_create_weapon_final = {
+    # Final weapon creation with multiple parameter injection
+    create_artifact = {
+        name = $WEAPON_NAME$
+        description = placeholder
+        rarity = $RARITY$
+        type = $WEAPON_TYPE$
+        visuals = $WEAPON_TYPE$
+        modifier = artifact_prowess_1_modifier
+        generate_history = yes
+        creator = root
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-		create_artifact = {	
-			name = artifact_crown_name
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $TYPE$
-			type = helmet
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			# Get gem type if necessary and update description
-			#Loc
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = artifact_crown_description
-			remove_artifact_modifier = artifact_placeholder_modifier
-			
-			# Crowns with high rarity get more modifiers
-			if = {
-				limit = {
-					rarity = illustrious
-				}
-				add_2_scaled_artifact_modifier_rulership_effect = yes
-				add_scaled_artifact_modifier_majesty_effect = yes
-				add_scaled_artifact_modifier_minor_prestige_effect = yes
-			}
-			else_if = {
-				limit = {
-					rarity = famed
-				}
-				add_2_scaled_artifact_modifier_rulership_effect = yes
-				add_scaled_artifact_modifier_majesty_effect = yes
-				add_scaled_artifact_modifier_minor_prestige_effect = yes
-			}
-			else_if = {
-				limit= {
-					rarity = masterwork
-				}
-				add_scaled_artifact_modifier_minor_prestige_effect = yes
-				add_scaled_artifact_modifier_rulership_effect = yes
-			}
-			else_if = {
-				limit= {
-					rarity = common
-				}
-				add_scaled_artifact_modifier_minor_prestige_effect = yes
-				add_scaled_artifact_modifier_rulership_effect = yes
-			}
-
-			set_variable = {
-				name = quality
-				value = scope:quality
-			}
-			set_variable = {
-				name = wealth
-				value = scope:wealth
-			}
-		}
-	}
+    scope:newly_created_artifact = {
+        $DECORATION_EFFECT$ = yes
+        get_artifact_feature_references_effect = yes
+        set_artifact_description = $WEAPON_DESC$
+        DI_add_new_modifiers_effect = yes
+    }
 }
 
-# regalia
-DI_create_artifact_regalia = {
-	save_scope_as = player
+# Internal armor creation
+DI_create_armor_internal = {
+    save_scope_as = owner
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
+    # Set armor type for modifier application
+    set_variable = { name = artifact_armor_type value = var:artifact_subtype }
+    scope:owner = {
+        var:artifact_armor_type = { save_scope_as = armor_type }
+        remove_variable = artifact_armor_type
+    }
 
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-		create_artifact = {	
-			name = artifact_regalia_name
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $TYPE$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			# Prestige modifier is scaled based on the Wealth of the artifact (opulence).
-			add_scaled_artifact_modifier_minor_prestige_effect = yes
-			#Loc
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = artifact_regalia_description
-			remove_artifact_modifier = artifact_placeholder_modifier
-
-			# If we're using the cross-bearing orb (explicit religious symbol), trade some prestige for piety.
-			if = {
-				limit = {
-					has_artifact_feature = regalia_accessory_orb
-				}
-				add_artifact_modifier = artifact_monthly_prestige_penalty_modifier
-				if = {
-					limit = { # Give a tiny bit more piety for high rarity artifacts.
-						OR = {
-							rarity = famed
-							rarity = illustrious
-						}
-					}
-					add_artifact_modifier = artifact_monthly_piety_5_modifier
-				}
-				else = {
-					add_artifact_modifier = artifact_monthly_piety_2_modifier
-				}
-			}
-
-			# Add a Majesty-related modifier based on the Quality of the artifact.
-			if = {
-				limit = { # Add a second Majesty-related modifier for high rarity artifacts.
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_2_scaled_artifact_modifier_majesty_effect = yes
-			}
-			else = {
-				add_scaled_artifact_modifier_majesty_effect = yes
-			}
-
-			add_scaled_artifact_modifier_attractiveness_effect = yes
-
-			set_variable = {
-				name = quality
-				value = scope:quality
-			}
-			set_variable = {
-				name = wealth
-				value = scope:wealth
-			}
-		}
-	}
+    # Create with appropriate rarity
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        DI_create_armor_rarity = { RARITY = common }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        DI_create_armor_rarity = { RARITY = masterwork }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        DI_create_armor_rarity = { RARITY = famed }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        DI_create_armor_rarity = { RARITY = illustrious }
+    }
 }
 
-# necklace
-DI_create_artifact_necklace = {
-	save_scope_as = player
-
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = artifact_necklace_name
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $TYPE$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			#Loc
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = artifact_necklace_description
-			remove_artifact_modifier = artifact_placeholder_modifier
-			add_scaled_artifact_modifier_minor_prestige_effect = yes
-
-			if = {
-				limit = {
-					rarity = illustrious
-				}
-				add_artifact_modifier = artifact_attraction_opinion_4_modifier
-			}
-			else_if = {
-				limit = {
-					rarity = famed
-				}
-				add_artifact_modifier = artifact_attraction_opinion_3_modifier
-			}
-			else_if = {
-				limit = {
-					rarity = masterwork
-				}
-				add_artifact_modifier = artifact_attraction_opinion_2_modifier
-			} 
-			else_if = {
-				limit = {
-					rarity = common
-				}
-				add_artifact_modifier = artifact_attraction_opinion_1_modifier
-			}
-
-			set_variable = {
-				name = quality
-				value = scope:quality
-			}
-			set_variable = {
-				name = wealth
-				value = scope:wealth
-			}
-		}	
-	}
+DI_create_armor_rarity = {
+    # Helper to create armor with specific rarity and type
+    if = {
+        limit = { var:artifact_subtype = flag:armor_type_mail }
+        DI_create_armor_final = { RARITY = $RARITY$ ARMOR_TYPE = armor_mail }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:armor_type_brigandine }
+        DI_create_armor_final = { RARITY = $RARITY$ ARMOR_TYPE = armor_brigandine }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:armor_type_laminar }
+        DI_create_armor_final = { RARITY = $RARITY$ ARMOR_TYPE = armor_laminar }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:armor_type_lamellar }
+        DI_create_armor_final = { RARITY = $RARITY$ ARMOR_TYPE = armor_lamellar }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:armor_type_scale }
+        DI_create_armor_final = { RARITY = $RARITY$ ARMOR_TYPE = armor_scale }
+    }
+    else_if = {
+        limit = { var:artifact_subtype = flag:armor_type_plate }
+        DI_create_armor_final = { RARITY = $RARITY$ ARMOR_TYPE = armor_plate }
+    }
 }
 
-# brooch
-DI_create_artifact_brooch = {
-	save_scope_as = player
+DI_create_armor_final = {
+    # Final armor creation with double parameter injection
+    create_artifact = {
+        name = placeholder
+        description = placeholder
+        rarity = $RARITY$
+        type = $ARMOR_TYPE$
+        visuals = armor
+        wealth = scope:wealth
+        quality = scope:quality
+        modifier = artifact_prowess_1_modifier
+        save_scope_as = newly_created_artifact
+    }
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = artifact_brooch_name
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $TYPE$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			# Finish generating decorations and update description
-			if = {
-				limit = {
-					OR = {
-						has_artifact_feature = brooch_decoration_adornment
-						has_artifact_feature = brooch_decoration_centerpiece_and_adornment
-					}
-				}
-				set_artifact_feature_group = brooch_adornment
-			}
-			if = {
-				limit = {
-					OR = {
-						has_artifact_feature = brooch_decoration_centerpiece
-						has_artifact_feature = brooch_decoration_centerpiece_and_adornment
-					}
-				}
-				set_artifact_feature_group = brooch_centerpiece
-			}
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = artifact_brooch_description
-
-			# Add artifact modifiers
-			add_scaled_artifact_modifier_minor_prestige_effect = yes
-			add_scaled_artifact_modifier_attractiveness_effect = yes
-
-			set_variable = {
-				name = quality
-				value = scope:quality
-			}
-			set_variable = {
-				name = wealth
-				value = scope:wealth
-			}
-		}	
-	}
+    scope:newly_created_artifact = {
+        set_artifact_feature_group = armor_decoration
+        set_artifact_feature_group = armor_property
+        get_artifact_feature_references_effect = yes
+        set_artifact_name = artifact_armor_name
+        set_artifact_description = artifact_armor_description
+        DI_add_new_armor_modifiers_effect = yes
+    }
 }
 
-# throne
-DI_create_artifact_throne = {
-	save_scope_as = player
+# Internal regalia creation (crown + regalia)
+DI_create_regalia_internal = {
+    save_scope_as = owner
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = artifact_throne_name
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $TYPE$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			set_artifact_description = artifact_throne_description
-			
-			#Let's add modifiers!
-			add_scaled_artifact_modifier_prestige_effect = yes
-			if = {
-				limit = { rarity = illustrious }
-				add_scaled_artifact_modifier_majesty_effect = yes
-				add_scaled_artifact_modifier_rulership_effect = yes
-			}
-			else_if = {
-				limit = { rarity = famed }
-				add_scaled_artifact_modifier_majesty_effect = yes
-			}
-			
-			# All thrones have a chance to get some extra Grandeur
-			add_scaled_artifact_modifier_grandeur_big_effect = yes
-			remove_artifact_modifier = artifact_placeholder_modifier
-		}
-	}
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        DI_create_regalia_rarity = { RARITY = common }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        DI_create_regalia_rarity = { RARITY = masterwork }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        DI_create_regalia_rarity = { RARITY = famed }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        DI_create_regalia_rarity = { RARITY = illustrious }
+    }
 }
 
-# box
-DI_create_artifact_box = {
-	save_scope_as = player
-
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = $DESC$
-
-			# Set grandeur
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			add_scaled_artifact_modifier_piety_effect = yes
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-		}
-	}
+DI_create_regalia_rarity = {
+    if = {
+        limit = { scope:player.var:DI_artifact_type = flag:crown }
+        DI_create_crown_final = { RARITY = $RARITY$ }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:regalia }
+        DI_create_regalia_final = { RARITY = $RARITY$ }
+    }
 }
 
-# goblet
-DI_create_artifact_goblet = {
-	save_scope_as = player
+DI_create_crown_final = {
+    create_artifact = {
+        name = artifact_crown_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = crown
+        type = helmet
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
+    scope:newly_created_artifact = {
+        get_artifact_feature_references_effect = yes
+        set_artifact_description = artifact_crown_description
+        remove_artifact_modifier = artifact_placeholder_modifier
 
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
+        # Crown modifiers based on rarity
+        if = {
+            limit = {
+                OR = {
+                    rarity = illustrious
+                    rarity = famed
+                }
+            }
+            add_2_scaled_artifact_modifier_rulership_effect = yes
+            add_scaled_artifact_modifier_majesty_effect = yes
+            add_scaled_artifact_modifier_minor_prestige_effect = yes
+        }
+        else = {
+            add_scaled_artifact_modifier_minor_prestige_effect = yes
+            add_scaled_artifact_modifier_rulership_effect = yes
+        }
 
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			set_artifact_description = artifact_goblet_description
-
-			# Set grandeur
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			
-			# Let's add another random effect to keep goblets interesting!
-			random_list = {
-				10 = {
-					add_scaled_artifact_modifier_minor_prestige_effect = yes
-				}
-				10 = {
-					add_scaled_artifact_modifier_majesty_effect = yes
-				}
-				30 = {
-					trigger = { rarity = common }
-					# Common goblets have a chance to not get any extra modifiers
-				}
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-		}
-	}
+    }
 }
 
-# cabinet
-DI_create_artifact_cabinet = {
-	save_scope_as = player
+DI_create_regalia_final = {
+    create_artifact = {
+        name = artifact_regalia_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = regalia
+        type = regalia
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
+    scope:newly_created_artifact = {
+        add_scaled_artifact_modifier_minor_prestige_effect = yes
+        get_artifact_feature_references_effect = yes
+        set_artifact_description = artifact_regalia_description
+        remove_artifact_modifier = artifact_placeholder_modifier
 
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
+        # Special regalia feature handling
+        if = {
+            limit = { has_artifact_feature = regalia_accessory_orb }
+            add_artifact_modifier = artifact_monthly_prestige_penalty_modifier
+            if = {
+                limit = {
+                    OR = {
+                        rarity = famed
+                        rarity = illustrious
+                    }
+                }
+                add_artifact_modifier = artifact_monthly_piety_5_modifier
+            }
+            else = {
+                add_artifact_modifier = artifact_monthly_piety_2_modifier
+            }
+        }
 
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
+        # Majesty modifiers
+        if = {
+            limit = {
+                OR = {
+                    rarity = famed
+                    rarity = illustrious
+                }
+            }
+            add_2_scaled_artifact_modifier_majesty_effect = yes
+        }
+        else = {
+            add_scaled_artifact_modifier_majesty_effect = yes
+        }
 
-		scope:newly_created_artifact = {
-			get_artifact_feature_references_effect = yes
+        add_scaled_artifact_modifier_attractiveness_effect = yes
 
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			add_scaled_artifact_modifier_piety_effect = yes
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-			set_variable = {
-				name = cabinet
-				value = yes
-			}
-			set_artifact_description = artifact_cabinet_description
-		}
-	}
+    }
 }
 
-# chest
-DI_create_artifact_chest = {
-	save_scope_as = player
+# Internal trinket creation (necklace + brooch)
+DI_create_trinket_internal = {
+    save_scope_as = owner
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			get_artifact_feature_references_effect = yes
-			set_artifact_description = artifact_chest_description
-			set_variable = {
-				name = big_chest
-				value = yes
-			}
-			
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			add_scaled_artifact_modifier_piety_effect = yes
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-		}
-	}
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        DI_create_trinket_rarity = { RARITY = common }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        DI_create_trinket_rarity = { RARITY = masterwork }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        DI_create_trinket_rarity = { RARITY = famed }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        DI_create_trinket_rarity = { RARITY = illustrious }
+    }
 }
 
-# divan
-DI_create_artifact_divan = {
-	save_scope_as = player
-
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
-
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			get_artifact_feature_references_effect = yes
-
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			add_scaled_artifact_modifier_piety_effect = yes
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-			set_artifact_description = artifact_diwan_description
-		}
-	}
+DI_create_trinket_rarity = {
+    if = {
+        limit = { scope:player.var:DI_artifact_type = flag:necklace }
+        DI_create_necklace_final = { RARITY = $RARITY$ }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:brooch }
+        DI_create_brooch_final = { RARITY = $RARITY$ }
+    }
 }
 
-# table
-DI_create_artifact_table = {
-	save_scope_as = player
+DI_create_necklace_final = {
+    create_artifact = {
+        name = artifact_necklace_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = necklace
+        type = necklace
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
+    scope:newly_created_artifact = {
+        get_artifact_feature_references_effect = yes
+        set_artifact_description = artifact_necklace_description
+        remove_artifact_modifier = artifact_placeholder_modifier
+        add_scaled_artifact_modifier_minor_prestige_effect = yes
 
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
+        if = {
+            limit = { rarity = illustrious }
+            add_artifact_modifier = artifact_attraction_opinion_4_modifier
+        }
+        else_if = {
+            limit = { rarity = famed }
+            add_artifact_modifier = artifact_attraction_opinion_3_modifier
+        }
+        else_if = {
+            limit = { rarity = masterwork }
+            add_artifact_modifier = artifact_attraction_opinion_2_modifier
+        }
+        else = {
+            add_artifact_modifier = artifact_attraction_opinion_1_modifier
+        }
 
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
+        add_scaled_artifact_modifier_attractiveness_effect = yes
 
-		scope:newly_created_artifact = {
-			get_artifact_feature_references_effect = yes
-
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			add_scaled_artifact_modifier_piety_effect = yes
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-			set_artifact_description = artifact_table_description
-		}
-	}
+    }
 }
 
-# small shield
-DI_create_artifact_shield = {
-	save_scope_as = player
+DI_create_brooch_final = {
+    create_artifact = {
+        name = artifact_brooch_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = brooch
+        type = brooch
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
+    scope:newly_created_artifact = {
+        # Brooch decoration handling
+        if = {
+            limit = {
+                OR = {
+                    has_artifact_feature = brooch_decoration_adornment
+                    has_artifact_feature = brooch_decoration_centerpiece_and_adornment
+                }
+            }
+            set_artifact_feature_group = brooch_adornment
+        }
+        if = {
+            limit = {
+                OR = {
+                    has_artifact_feature = brooch_decoration_centerpiece
+                    has_artifact_feature = brooch_decoration_centerpiece_and_adornment
+                }
+            }
+            set_artifact_feature_group = brooch_centerpiece
+        }
+        get_artifact_feature_references_effect = yes
+        set_artifact_description = artifact_brooch_description
+        add_scaled_artifact_modifier_minor_prestige_effect = yes
+        add_scaled_artifact_modifier_attractiveness_effect = yes
 
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
-
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = $DESC$
-			visuals = $VISUALS$
-			visuals_source = root.primary_title
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
-
-		scope:newly_created_artifact = {
-			add_scaled_artifact_modifier_grandeur_small_effect = yes
-			add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_minor_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-		}
-	}
+    }
 }
 
-# tapestry
-DI_create_artifact_tapestry = {
-	save_scope_as = player
+# Internal throne creation
+DI_create_throne_internal = {
+    save_scope_as = owner
 
-	var:DI_artifact_selected_char = {
-		if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:common } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 0
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:masterwork } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 10
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:famed } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 20
-			}
-		}
-		else_if = {
-			limit = { scope:player = { var:DI_artifact_quality = flag:illustrious } }
-			save_scope_value_as = {
-				name = bonus_from_rarity
-				value = 30
-			}
-		}
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        DI_create_throne_rarity = { RARITY = common }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        DI_create_throne_rarity = { RARITY = masterwork }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        DI_create_throne_rarity = { RARITY = famed }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        DI_create_throne_rarity = { RARITY = illustrious }
+    }
+}
 
-		save_scope_as = owner
-		random_artifact_quality_effect = yes
-		random_artifact_wealth_effect = yes
+DI_create_throne_rarity = {
+    DI_create_throne_final = { RARITY = $RARITY$ }
+}
 
-		create_artifact = {	
-			name = $NAME$
-			creator = root
-			rarity = $RARITY$
-			description = placeholder # Will be updated in the post-creation effects after decorations are assigned.
-			visuals = $VISUALS$
-			type = $TYPE$
-			modifier = artifact_placeholder_modifier
-			wealth = scope:wealth
-			quality = scope:quality
-			save_scope_as = newly_created_artifact
-		}
+DI_create_throne_final = {
+    create_artifact = {
+        name = artifact_throne_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = throne
+        type = throne
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
 
-		scope:newly_created_artifact = {
-			set_artifact_description = artifact_wall_tapestry_description
-			# Set grandeur
-			add_scaled_artifact_modifier_grandeur_big_effect = yes
-			
-			if = {
-				limit = {
-					has_artifact_feature = tapestry_scene_religious
-				}
-				add_scaled_artifact_modifier_piety_effect = yes
-			}
-			else = {
-				add_scaled_artifact_modifier_majesty_effect = yes
-			}
+    scope:newly_created_artifact = {
+        set_artifact_description = artifact_throne_description
+        add_scaled_artifact_modifier_prestige_effect = yes
 
-			if = {
-				limit = {
-					OR = {
-						rarity = famed
-						rarity = illustrious
-					}
-				}
-				add_scaled_artifact_modifier_dynasty_prestige_effect = yes
-			}
-			remove_artifact_modifier = artifact_placeholder_modifier
-		}
-	}
+        if = {
+            limit = { rarity = illustrious }
+            add_scaled_artifact_modifier_majesty_effect = yes
+            add_scaled_artifact_modifier_rulership_effect = yes
+        }
+        else_if = {
+            limit = { rarity = famed }
+            add_scaled_artifact_modifier_majesty_effect = yes
+        }
+
+        add_scaled_artifact_modifier_grandeur_big_effect = yes
+        remove_artifact_modifier = artifact_placeholder_modifier
+    }
+}
+
+# Generic court artifact creation (pedestals, furniture, ornaments)
+# These all follow similar patterns
+DI_create_court_artifact_internal = {
+    save_scope_as = owner
+
+    if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:common }
+        DI_create_court_artifact_rarity = { RARITY = common }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:masterwork }
+        DI_create_court_artifact_rarity = { RARITY = masterwork }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:famed }
+        DI_create_court_artifact_rarity = { RARITY = famed }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_quality = flag:illustrious }
+        DI_create_court_artifact_rarity = { RARITY = illustrious }
+    }
+}
+
+DI_create_court_artifact_rarity = {
+    # Route to appropriate final creation effect based on type
+    # Boxes (pedestals with features)
+    if = {
+        limit = { scope:player.var:DI_artifact_type = flag:small_box }
+        DI_create_pedestal_box_final = { RARITY = $RARITY$ ARTIFACT_NAME = artifact_box_small_name VISUALS = small_box DESCRIPTION = artifact_box_small_description }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:medium_box }
+        DI_create_pedestal_box_final = { RARITY = $RARITY$ ARTIFACT_NAME = artifact_box_medium_name VISUALS = medium_box DESCRIPTION = artifact_box_medium_description }
+    }
+    # Goblet (pedestal, special modifiers)
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:goblet }
+        DI_create_goblet_final = { RARITY = $RARITY$ }
+    }
+    # Furniture pieces (cabinet, chest, divan, table)
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:cabinet }
+        DI_create_furniture_final = { RARITY = $RARITY$ ARTIFACT_NAME = artifact_cabinet_name ARTIFACT_TYPE = cabinet VISUALS = cabinet DESCRIPTION = artifact_cabinet_description HAS_CABINET_VAR = yes }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:chest }
+        DI_create_furniture_final = { RARITY = $RARITY$ ARTIFACT_NAME = artifact_chest_name ARTIFACT_TYPE = chest VISUALS = chest DESCRIPTION = artifact_chest_description HAS_CABINET_VAR = no }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:divan }
+        DI_create_furniture_final = { RARITY = $RARITY$ ARTIFACT_NAME = artifact_diwan_name ARTIFACT_TYPE = cabinet VISUALS = diwan DESCRIPTION = artifact_diwan_description HAS_CABINET_VAR = no }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:table }
+        DI_create_furniture_final = { RARITY = $RARITY$ ARTIFACT_NAME = artifact_table_name ARTIFACT_TYPE = cabinet VISUALS = table DESCRIPTION = artifact_table_description HAS_CABINET_VAR = no }
+    }
+    # Shields (ornaments)
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:small_shield }
+        DI_create_shield_final = { RARITY = $RARITY$ ARTIFACT_TYPE = wall_shield VISUALS = wall_shield }
+    }
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:large_shield }
+        DI_create_shield_final = { RARITY = $RARITY$ ARTIFACT_TYPE = wall_shield_special VISUALS = wall_shield_medi }
+    }
+    # Tapestry (ornament)
+    else_if = {
+        limit = { scope:player.var:DI_artifact_type = flag:tapestry }
+        DI_create_tapestry_final = { RARITY = $RARITY$ }
+    }
+}
+
+# Boxes (small/medium) - pedestals with features
+DI_create_pedestal_box_final = {
+    create_artifact = {
+        name = $ARTIFACT_NAME$
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = $VISUALS$
+        type = box
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
+    scope:newly_created_artifact = {
+        get_artifact_feature_references_effect = yes
+        set_artifact_description = $DESCRIPTION$
+        add_scaled_artifact_modifier_grandeur_small_effect = yes
+        add_scaled_artifact_modifier_piety_effect = yes
+        if = {
+            limit = {
+                OR = {
+                    rarity = famed
+                    rarity = illustrious
+                }
+            }
+            add_scaled_artifact_modifier_dynasty_prestige_effect = yes
+        }
+        remove_artifact_modifier = artifact_placeholder_modifier
+    }
+}
+
+# Goblet - special random modifiers
+DI_create_goblet_final = {
+    create_artifact = {
+        name = artifact_goblet_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = goblet
+        type = goblet
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
+    scope:newly_created_artifact = {
+        set_artifact_description = artifact_goblet_description
+        add_scaled_artifact_modifier_grandeur_small_effect = yes
+        random_list = {
+            10 = { add_scaled_artifact_modifier_minor_prestige_effect = yes }
+            10 = { add_scaled_artifact_modifier_majesty_effect = yes }
+            30 = {
+                trigger = { rarity = common }
+                # Common goblets have a chance to not get any extra modifiers
+            }
+        }
+        remove_artifact_modifier = artifact_placeholder_modifier
+    }
+}
+
+# Furniture (cabinet, chest, divan, table)
+DI_create_furniture_final = {
+    create_artifact = {
+        name = $ARTIFACT_NAME$
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = $VISUALS$
+        type = $ARTIFACT_TYPE$
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
+    scope:newly_created_artifact = {
+        get_artifact_feature_references_effect = yes
+        add_scaled_artifact_modifier_grandeur_small_effect = yes
+        add_scaled_artifact_modifier_piety_effect = yes
+        if = {
+            limit = {
+                OR = {
+                    rarity = famed
+                    rarity = illustrious
+                }
+            }
+            add_scaled_artifact_modifier_dynasty_prestige_effect = yes
+        }
+        remove_artifact_modifier = artifact_placeholder_modifier
+        if = {
+            limit = { always = $HAS_CABINET_VAR$ }
+            set_variable = { name = cabinet value = yes }
+        }
+        set_artifact_description = $DESCRIPTION$
+    }
+}
+
+# Shields (small/large wall shields)
+DI_create_shield_final = {
+    create_artifact = {
+        name = artifact_wall_shield_name
+        creator = root
+        rarity = $RARITY$
+        description = artifact_wall_shield_description
+        visuals = $VISUALS$
+        type = $ARTIFACT_TYPE$
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
+    scope:newly_created_artifact = {
+        add_scaled_artifact_modifier_grandeur_small_effect = yes
+        add_scaled_artifact_modifier_dynasty_prestige_effect = yes
+        if = {
+            limit = {
+                OR = {
+                    rarity = famed
+                    rarity = illustrious
+                }
+            }
+            add_scaled_artifact_modifier_minor_prestige_effect = yes
+        }
+        remove_artifact_modifier = artifact_placeholder_modifier
+    }
+}
+
+# Tapestry
+DI_create_tapestry_final = {
+    create_artifact = {
+        name = artifact_wall_tapestry_name
+        creator = root
+        rarity = $RARITY$
+        description = placeholder
+        visuals = tapestry
+        type = tapestry
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
+    scope:newly_created_artifact = {
+        set_artifact_description = artifact_wall_tapestry_description
+        add_scaled_artifact_modifier_grandeur_small_effect = yes
+        add_scaled_artifact_modifier_dynasty_prestige_effect = yes
+        if = {
+            limit = {
+                OR = {
+                    rarity = famed
+                    rarity = illustrious
+                }
+            }
+            add_scaled_artifact_modifier_minor_prestige_effect = yes
+        }
+        remove_artifact_modifier = artifact_placeholder_modifier
+    }
 }
