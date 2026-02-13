@@ -4105,16 +4105,16 @@ DI_change_government_extended = {
     send_option = {
         flag = japan_administrative
         localization = DI_change_government_japan_administrative
-        is_valid = {
-            has_tgp_dlc_trigger = yes
-        }
+        # is_valid = {
+        #     has_tgp_dlc_trigger = yes
+        # }
     }
     send_option = {
         flag = japan_feudal
         localization = DI_change_government_japan_feudal
-        is_valid = {
-            has_tgp_dlc_trigger = yes
-        }
+        # is_valid = {
+        #     has_tgp_dlc_trigger = yes
+        # }
     }
     send_option = {
         flag = wanua
@@ -4152,24 +4152,30 @@ DI_change_government_extended = {
 
                 scope:japan_administrative = {
                     scope:recipient = {
+                        add_character_flag = can_become_japanese_feudal
+                        change_government = japan_feudal_government
                         change_government = japan_administrative_government
 
                         every_vassal_or_below = {
                             limit = {
                                 highest_held_title_tier > tier_barony
                             }
+                            add_character_flag = can_become_japanese_feudal
+                            change_government = japan_feudal_government
                             change_government = japan_administrative_government
                         }
                     }
                 }
                 scope:japan_feudal = {
                     scope:recipient = {
+                        add_character_flag = can_become_japanese_feudal
                         change_government = japan_feudal_government
 
                         every_vassal_or_below = {
                             limit = {
                                 highest_held_title_tier > tier_barony
                             }
+                            add_character_flag = can_become_japanese_feudal
                             change_government = japan_feudal_government
                         }
                     }
