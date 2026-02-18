@@ -1,4 +1,4 @@
-﻿personality_trait_randomizer_effect = {
+﻿DI_personality_trait_randomizer_effect = {
     random_list = {
         10 = { add_trait = lustful }
         10 = { add_trait = chaste }
@@ -42,7 +42,7 @@
     }
 }
 
-clear_personality_traits_effect = {
+DI_clear_personality_traits_effect = {
     if = { limit = { has_trait = lustful } remove_trait = lustful }
     if = { limit = { has_trait = chaste } remove_trait = chaste }
     if = { limit = { has_trait = gluttonous } remove_trait = gluttonous }
@@ -80,12 +80,12 @@ clear_personality_traits_effect = {
     if = { limit = { has_trait = forgiving } remove_trait = forgiving }
 }
 
-set_weight_0 = {
+DI_set_weight_0 = {
     change_current_weight = 200
     change_current_weight = -100
 }
 
-add_commander_traits_effect = {
+DI_add_commander_traits_effect = {
     add_trait = logistician
     add_trait = military_engineer
     add_trait = aggressive_attacker
@@ -102,9 +102,27 @@ add_commander_traits_effect = {
     add_trait = forest_fighter
     add_trait = cautious_leader
     add_trait = organizer
+    if = { limit = { has_trait = logistician } add_trait_xp = { trait = logistician value = 100 } }
+    if = { limit = { has_trait = military_engineer } add_trait_xp = { trait = military_engineer value = 100 } }
+    if = { limit = { has_trait = aggressive_attacker } add_trait_xp = { trait = aggressive_attacker value = 100 } }
+    if = { limit = { has_trait = unyielding_defender } add_trait_xp = { trait = unyielding_defender value = 100 } }
+    if = { limit = { has_trait = forder } add_trait_xp = { trait = forder value = 100 } }
+    if = { limit = { has_trait = flexible_leader } add_trait_xp = { trait = flexible_leader value = 100 } }
+    if = { limit = { has_trait = desert_warrior } add_trait_xp = { trait = desert_warrior value = 100 } }
+    if = { limit = { has_trait = jungle_stalker } add_trait_xp = { trait = jungle_stalker value = 100 } }
+    if = { limit = { has_trait = reaver } add_trait_xp = { trait = reaver value = 100 } }
+    if = { limit = { has_trait = reckless } add_trait_xp = { trait = reckless value = 100 } }
+    if = { limit = { has_trait = holy_warrior } add_trait_xp = { trait = holy_warrior value = 100 } }
+    if = { limit = { has_trait = open_terrain_expert } add_trait_xp = { trait = open_terrain_expert value = 100 } }
+    if = { limit = { has_trait = rough_terrain_expert } add_trait_xp = { trait = rough_terrain_expert value = 100 } }
+    if = { limit = { has_trait = forest_fighter } add_trait_xp = { trait = forest_fighter value = 100 } }
+    if = { limit = { has_trait = cautious_leader } add_trait_xp = { trait = cautious_leader value = 100 } }
+    if = { limit = { has_trait = organizer } add_trait_xp = { trait = organizer value = 100 } }
+    # adding trait xp to newly added commander traits so they can progress right away #
+    # effect add_trait_xp = {trait = organizer value=100}}`
 }
 
-remove_commander_traits_effect = {
+DI_remove_commander_traits_effect = {
     if = { limit = { has_trait = logistician } remove_trait = logistician }
     if = { limit = { has_trait = military_engineer } remove_trait = military_engineer }
     if = { limit = { has_trait = aggressive_attacker } remove_trait = aggressive_attacker }
@@ -123,7 +141,7 @@ remove_commander_traits_effect = {
     if = { limit = { has_trait = organizer } remove_trait = organizer }
 }
 
-lifestyle_martial_present_effect = {
+DI_lifestyle_martial_present_effect = {
     if = { limit = { NOT = { has_perk = bellum_justum_perk } } add_perk = bellum_justum_perk }
     if = { limit = { NOT = { has_perk = parthian_tactics_perk } } add_perk = parthian_tactics_perk }
     if = { limit = { NOT = { has_perk = envelopment_perk } } add_perk = envelopment_perk }
@@ -157,7 +175,7 @@ lifestyle_martial_present_effect = {
     }
 }
 
-lifestyle_diplomacy_present_effect = {
+DI_lifestyle_diplomacy_present_effect = {
     if = { limit = { NOT = { has_perk = thoughtful_perk } } add_perk = thoughtful_perk }
     if = { limit = { NOT = { has_perk = ducal_conquest_perk } } add_perk = ducal_conquest_perk }
     if = { limit = { NOT = { has_perk = forced_vassalage_perk } } add_perk = forced_vassalage_perk }
@@ -191,7 +209,7 @@ lifestyle_diplomacy_present_effect = {
     }
 }
 
-lifestyle_stewardship_present_effect = {
+DI_lifestyle_stewardship_present_effect = {
     if = { limit = { NOT = { has_perk = golden_obligations_perk } } add_perk = golden_obligations_perk }
     if = { limit = { NOT = { has_perk = heregeld_perk } } add_perk = heregeld_perk }
     if = { limit = { NOT = { has_perk = detailed_ledgers_perk } } add_perk = detailed_ledgers_perk }
@@ -225,7 +243,7 @@ lifestyle_stewardship_present_effect = {
     }
 }
 
-lifestyle_intrigue_present_effect = {
+DI_lifestyle_intrigue_present_effect = {
     if = { limit = { NOT = { has_perk = truth_is_relative_perk } } add_perk = truth_is_relative_perk }
     if = { limit = { NOT = { has_perk = digging_for_dirt_perk } } add_perk = digging_for_dirt_perk }
     if = { limit = { NOT = { has_perk = kidnapper_perk } } add_perk = kidnapper_perk }
@@ -259,7 +277,7 @@ lifestyle_intrigue_present_effect = {
     }
 }
 
-lifestyle_learning_present_effect = {
+DI_lifestyle_learning_present_effect = {
     if = { limit = { NOT = { has_perk = anatomical_studies_perk } } add_perk = anatomical_studies_perk }
     if = { limit = { NOT = { has_perk = carefree_perk } } add_perk = carefree_perk }
     if = { limit = { NOT = { has_perk = mental_resilience_perk } } add_perk = mental_resilience_perk }
@@ -293,7 +311,7 @@ lifestyle_learning_present_effect = {
     }
 }
 
-lifestyle_wandering_present_effect = {
+DI_lifestyle_wandering_present_effect = {
     if = { limit = { NOT = { has_perk = mustering_the_troops_perk } } add_perk = mustering_the_troops_perk }
     if = { limit = { NOT = { has_perk = know_your_land_know_your_people_perk } } add_perk = know_your_land_know_your_people_perk }
     if = { limit = { NOT = { has_perk = no_stone_unturned_perk } } add_perk = no_stone_unturned_perk }
@@ -327,7 +345,7 @@ lifestyle_wandering_present_effect = {
     }
 }
 
-lifestyle_martial_present_no_effect = {
+DI_lifestyle_martial_present_no_effect = {
     if = { limit = { has_perk = bellum_justum_perk } remove_perk = bellum_justum_perk }
     if = { limit = { has_perk = parthian_tactics_perk } remove_perk = parthian_tactics_perk }
     if = { limit = { has_perk = envelopment_perk } remove_perk = envelopment_perk }
@@ -362,7 +380,7 @@ lifestyle_martial_present_no_effect = {
 }
 
 
-lifestyle_diplomacy_present_no_effect = {
+DI_lifestyle_diplomacy_present_no_effect = {
     if = { limit = { has_perk = thoughtful_perk } remove_perk = thoughtful_perk }
     if = { limit = { has_perk = ducal_conquest_perk } remove_perk = ducal_conquest_perk }
     if = { limit = { has_perk = forced_vassalage_perk } remove_perk = forced_vassalage_perk }
@@ -396,7 +414,7 @@ lifestyle_diplomacy_present_no_effect = {
     remove_character_modifier = no_lifestyle_diplomacy
 }
 
-lifestyle_stewardship_present_no_effect = {
+DI_lifestyle_stewardship_present_no_effect = {
     if = { limit = { has_perk = golden_obligations_perk } remove_perk = golden_obligations_perk }
     if = { limit = { has_perk = heregeld_perk } remove_perk = heregeld_perk }
     if = { limit = { has_perk = detailed_ledgers_perk } remove_perk = detailed_ledgers_perk }
@@ -430,7 +448,7 @@ lifestyle_stewardship_present_no_effect = {
     remove_character_modifier = no_lifestyle_stewardship
 }
 
-lifestyle_intrigue_present_no_effect = {
+DI_lifestyle_intrigue_present_no_effect = {
     if = { limit = { has_perk = truth_is_relative_perk } remove_perk = truth_is_relative_perk }
     if = { limit = { has_perk = digging_for_dirt_perk } remove_perk = digging_for_dirt_perk }
     if = { limit = { has_perk = kidnapper_perk } remove_perk = kidnapper_perk }
@@ -464,7 +482,7 @@ lifestyle_intrigue_present_no_effect = {
     remove_character_modifier = no_lifestyle_intrigue
 }
 
-lifestyle_learning_present_no_effect = {
+DI_lifestyle_learning_present_no_effect = {
     if = { limit = { has_perk = anatomical_studies_perk } remove_perk = anatomical_studies_perk }
     if = { limit = { has_perk = carefree_perk } remove_perk = carefree_perk }
     if = { limit = { has_perk = mental_resilience_perk } remove_perk = mental_resilience_perk }
@@ -498,7 +516,7 @@ lifestyle_learning_present_no_effect = {
     remove_character_modifier = no_lifestyle_learning
 }
 
-lifestyle_wandering_present_no_effect = {
+DI_lifestyle_wandering_present_no_effect = {
     if = { limit = { has_perk = mustering_the_troops_perk } remove_perk = mustering_the_troops_perk }
     if = { limit = { has_perk = know_your_land_know_your_people_perk } remove_perk = know_your_land_know_your_people_perk }
     if = { limit = { has_perk = no_stone_unturned_perk } remove_perk = no_stone_unturned_perk }
@@ -532,7 +550,7 @@ lifestyle_wandering_present_no_effect = {
     remove_character_modifier = no_lifestyle_wandering
 }
 
-eliminated_health_problem_effect = {
+DI_eliminated_health_problem_effect = {
     if = { limit = { has_trait = drunkard } remove_trait = drunkard }
     if = { limit = { has_trait = depressed_1 } remove_trait = depressed_1 }
     if = { limit = { has_trait = depressed_genetic } remove_trait = depressed_genetic }
@@ -684,7 +702,7 @@ eliminated_health_problem_effect = {
     }
 }
 
-remove_health_conflict_effect = {
+DI_remove_health_conflict_effect = {
     if = { limit = { has_trait = beauty_bad_1 } remove_trait = beauty_bad_1 }
     if = { limit = { has_trait = beauty_bad_2 } remove_trait = beauty_bad_2 }
     if = { limit = { has_trait = beauty_bad_3 } remove_trait = beauty_bad_3 }
@@ -718,7 +736,7 @@ remove_health_conflict_effect = {
 }
 
 #remove health conflicts other than worst traits (for bad genes present only)
-remove_health_conflict_forbadgene_effect = {
+DI_remove_health_conflict_forbadgene_effect = {
     if = { limit = { has_trait = beauty_bad_1 } remove_trait = beauty_bad_1 }
     if = { limit = { has_trait = beauty_bad_2 } remove_trait = beauty_bad_2 }
     if = { limit = { has_trait = beauty_good_1 } remove_trait = beauty_good_1 }
@@ -734,7 +752,7 @@ remove_health_conflict_forbadgene_effect = {
 }
 
 #add best education traits
-add_education_traits_effect = {
+DI_add_education_traits_effect = {
     if = { limit = { NOT = { has_trait = education_learning_5 } } add_trait = education_learning_5 }
     if = { limit = { NOT = { has_trait = education_intrigue_5 } } add_trait = education_intrigue_5 }
     if = { limit = { NOT = { has_trait = education_diplomacy_5 } } add_trait = education_diplomacy_5 }
@@ -743,7 +761,7 @@ add_education_traits_effect = {
 }
 
 #remove all Education traits
-remove_education_traits_effect = {
+DI_remove_education_traits_effect = {
     if = { limit = { has_trait = education_learning_1 } remove_trait = education_learning_1 }
     if = { limit = { has_trait = education_learning_2 } remove_trait = education_learning_2 }
     if = { limit = { has_trait = education_learning_3 } remove_trait = education_learning_3 }
@@ -772,7 +790,7 @@ remove_education_traits_effect = {
 }
 
 #boost education traits to best level
-boost_education_traits_effect = {
+DI_boost_education_traits_effect = {
     if = { limit = { has_trait = education_learning_1 } remove_trait = education_learning_1 add_trait = education_learning_5 }
     if = { limit = { has_trait = education_learning_2 } remove_trait = education_learning_2 add_trait = education_learning_5 }
     if = { limit = { has_trait = education_learning_3 } remove_trait = education_learning_3 add_trait = education_learning_5 }
@@ -797,15 +815,15 @@ boost_education_traits_effect = {
 
 
 # add auxillary traits fitting for education
-boost_education_extra_traits_effect = {  
+DI_boost_education_extra_traits_effect = {
     if = {
         limit = {
             OR = {
-            has_trait = education_learning_1
-            has_trait = education_learning_2
-            has_trait = education_learning_3
-            has_trait = education_learning_4
-            has_trait = education_learning_5
+                has_trait = education_learning_1
+                has_trait = education_learning_2
+                has_trait = education_learning_3
+                has_trait = education_learning_4
+                has_trait = education_learning_5
             }
         }
         add_trait = lifestyle_herbalist
@@ -814,11 +832,11 @@ boost_education_extra_traits_effect = {
     if = {
         limit = {
             OR = {
-            has_trait = education_intrigue_1
-            has_trait = education_intrigue_2
-            has_trait = education_intrigue_3
-            has_trait = education_intrigue_4
-            has_trait = education_intrigue_5
+                has_trait = education_intrigue_1
+                has_trait = education_intrigue_2
+                has_trait = education_intrigue_3
+                has_trait = education_intrigue_4
+                has_trait = education_intrigue_5
             }
         }
         add_trait = lifestyle_herbalist
@@ -828,11 +846,11 @@ boost_education_extra_traits_effect = {
     if = {
         limit = {
             OR = {
-            has_trait = education_diplomacy_1
-            has_trait = education_diplomacy_2
-            has_trait = education_diplomacy_3
-            has_trait = education_diplomacy_4
-            has_trait = education_diplomacy_5
+                has_trait = education_diplomacy_1
+                has_trait = education_diplomacy_2
+                has_trait = education_diplomacy_3
+                has_trait = education_diplomacy_4
+                has_trait = education_diplomacy_5
             }
         }
         add_trait = lifestyle_reveler
@@ -841,11 +859,11 @@ boost_education_extra_traits_effect = {
     if = {
         limit = {
             OR = {
-            has_trait = education_stewardship_1
-            has_trait = education_stewardship_2
-            has_trait = education_stewardship_3
-            has_trait = education_stewardship_4
-            has_trait = education_stewardship_5
+                has_trait = education_stewardship_1
+                has_trait = education_stewardship_2
+                has_trait = education_stewardship_3
+                has_trait = education_stewardship_4
+                has_trait = education_stewardship_5
             }
         }
         add_trait = lifestyle_gardener
@@ -854,18 +872,18 @@ boost_education_extra_traits_effect = {
     if = {
         limit = {
             OR = {
-            has_trait = education_martial_1
-            has_trait = education_martial_2
-            has_trait = education_martial_3
-            has_trait = education_martial_4
-            has_trait = education_martial_5
+                has_trait = education_martial_1
+                has_trait = education_martial_2
+                has_trait = education_martial_3
+                has_trait = education_martial_4
+                has_trait = education_martial_5
             }
         }
         add_trait = lifestyle_blademaster
         add_trait = lifestyle_hunter
         add_trait = education_martial_prowess_4
     }
-    if = { limit = { has_trait = education_martial_prowess_1 } remove_trait = education_martial_prowess_1 add_trait = education_martial_prowess_4 } 
+    if = { limit = { has_trait = education_martial_prowess_1 } remove_trait = education_martial_prowess_1 add_trait = education_martial_prowess_4 }
     if = { limit = { has_trait = education_martial_prowess_2 } remove_trait = education_martial_prowess_2 add_trait = education_martial_prowess_4 }
     if = { limit = { has_trait = education_martial_prowess_3 } remove_trait = education_martial_prowess_3 add_trait = education_martial_prowess_4 }
     if = { limit = { has_trait = lifestyle_blademaster } add_trait_xp = { trait = lifestyle_blademaster value = 100 } }

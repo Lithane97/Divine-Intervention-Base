@@ -260,6 +260,23 @@ DI_soulmate_toggle = {
     }
 }
 
+### Crush Toggle ###
+DI_crush_toggle = {
+    scope = character # Player
+
+    effect = {
+        if = {
+            limit = {
+                has_variable = DI_crush
+            }
+            remove_variable = DI_crush
+        }
+        else = {
+            set_variable = DI_crush
+        }
+    }
+}
+
 ### Bully Toggle ###
 DI_bully_toggle = {
     scope = character # Player
@@ -455,6 +472,12 @@ DI_apply_relations = {
             }
             if = {
                 limit = {
+                    scope:player = { has_variable = DI_crush }
+                }
+                set_relation_crush = scope:secondary_char
+            }
+            if = {
+                limit = {
                     scope:player = { has_variable = DI_bully }
                 }
                 set_relation_bully = scope:secondary_char
@@ -535,6 +558,12 @@ DI_apply_pinned_relations = {
                         scope:player = { has_variable = DI_soulmate }
                     }
                     set_relation_soulmate = scope:pinned_character
+                }
+                if = {
+                    limit = {
+                        scope:player = { has_variable = DI_crush }
+                    }
+                    set_relation_crush = scope:pinned_character
                 }
                 if = {
                     limit = {
@@ -628,6 +657,12 @@ DI_apply_all_pinned_relations = {
                                     scope:player = { has_variable = DI_soulmate }
                                 }
                                 set_relation_soulmate = scope:second_pinned_character
+                            }
+                            if = {
+                                limit = {
+                                    scope:player = { has_variable = DI_crush }
+                                }
+                                set_relation_crush = scope:second_pinned_character
                             }
                             if = {
                                 limit = {
@@ -1038,6 +1073,47 @@ DI_remove_soulmate = {
                     has_relation_soulmate = scope:secondary_char
                 }
                 remove_relation_soulmate = scope:secondary_char
+            }
+        }
+    }
+}
+
+### Crush ###
+DI_crush = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+
+        scope:primary_char = {
+            if = {
+                limit = {
+                    NOR = {
+                        has_relation_crush = scope:secondary_char
+                    }
+                }
+                set_relation_crush = scope:secondary_char
+            }
+        }
+    }
+}
+
+DI_remove_crush = {
+    scope = character # Player Character
+
+    effect = {
+        save_scope_as = target
+        scope:target.var:DI_primary_character = { save_scope_as = primary_char }
+        scope:target.var:DI_secondary_character = { save_scope_as = secondary_char }
+
+        scope:primary_char = {
+            if = {
+                limit = {
+                    has_relation_crush = scope:secondary_char
+                }
+                remove_relation_crush = scope:secondary_char
             }
         }
     }
@@ -2168,6 +2244,34 @@ DI_county_conquest = {
 DI_dip_adoption = {
     scope = character
 
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_secondary_character
+
+        var:DI_primary_character.age > var:DI_secondary_character.age
+        OR = {
+            NOT = { has_variable = DI_tertiary_character }
+            var:DI_tertiary_character.age > var:DI_secondary_character.age
+        }
+        OR = {
+            NOT = { var:DI_primary_character ?= { is_parent_of = root.var:DI_secondary_character }}
+            NOT = { var:DI_tertiary_character ?= { is_parent_of = root.var:DI_secondary_character }}
+        }
+
+        NOT = {
+            OR = {
+                AND = {
+                    var:DI_primary_character = { is_male = yes }
+                    var:DI_tertiary_character = { is_male = yes }
+                }
+                AND = {
+                    var:DI_primary_character = { is_female = yes }
+                    var:DI_tertiary_character = { is_female = yes }
+                }
+            }
+        }
+    }
+
     effect = {
         save_scope_as = player
 
@@ -2216,6 +2320,13 @@ DI_dip_adoption = {
 DI_dip_adoption_house = {
     scope = character
 
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_secondary_character
+
+        var:DI_primary_character.house != var:DI_secondary_character.house
+    }
+
     effect = {
         save_scope_as = player
 
@@ -2231,9 +2342,16 @@ DI_dip_adoption_house = {
     }
 }
 
-### Impregnate ###
-DI_dip_impregnate = {
+### Create Cadet Branch ###
+DI_dip_create_cadet_branch = {
     scope = character
+
+    is_valid = {
+        var:DI_primary_character ?= {
+            is_dynast = no
+            is_house_head = no
+        }
+    }
 
     effect = {
         save_scope_as = player
@@ -2241,29 +2359,49 @@ DI_dip_impregnate = {
         if = {
             limit = {
                 has_variable = DI_primary_character
-                has_variable = DI_tertiary_character
             }
-            if = {
-                limit = {
-                    var:DI_primary_character = { is_male = yes }
-                    var:DI_tertiary_character = { is_female = yes }
-                }
-                var:DI_tertiary_character = {
-                    make_pregnant = {
-                        father = scope:player.var:DI_primary_character
-                    }
+            var:DI_primary_character = {
+                save_scope_as = new_house_head
+                create_cadet_branch = {
+                    name = cadet_name_style_primary_title
                 }
             }
-            else_if = {
-                limit = {
-                    var:DI_tertiary_character = { is_male = yes }
-                    var:DI_primary_character = { is_female = yes }
-                }
-                var:DI_primary_character = {
-                    make_pregnant = {
-                        father = scope:player.var:DI_tertiary_character
-                    }
-                }
+        }
+    }
+}
+
+### Impregnate ###
+DI_dip_impregnate = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+
+        OR = {
+            AND = {
+                var:DI_primary_character ?= { is_female = no }
+                var:DI_tertiary_character ?= { is_female = yes }
+            }
+            AND = {
+                var:DI_primary_character ?= { is_female = yes }
+                var:DI_tertiary_character ?= { is_female = no }
+            }
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        if = {
+            limit = { var:DI_primary_character = { is_male = yes } }
+            var:DI_tertiary_character = {
+                make_pregnant_no_checks = { father = scope:player.var:DI_primary_character }
+            }
+        }
+        else = {
+            var:DI_primary_character = {
+                make_pregnant_no_checks = { father = scope:player.var:DI_tertiary_character }
             }
         }
     }
@@ -2272,17 +2410,18 @@ DI_dip_impregnate = {
 DI_dip_marry = {
     scope = character
 
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        var:DI_primary_character = { is_married = no }
+        var:DI_tertiary_character = { is_married = no }
+    }
+
     effect = {
         save_scope_as = player
 
-        if = {
-            limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_tertiary_character
-            }
-            scope:player.var:DI_primary_character = {
-                marry = scope:player.var:DI_tertiary_character
-            }
+        scope:player.var:DI_primary_character = {
+            marry = scope:player.var:DI_tertiary_character
         }
     }
 }
@@ -2290,6 +2429,13 @@ DI_dip_marry = {
 # DI_dip_marry_matrilineal
 DI_dip_marry_matrilineal = {
     scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        var:DI_primary_character = { is_married = no }
+        var:DI_tertiary_character = { is_married = no }
+    }
 
     effect = {
         save_scope_as = player
@@ -2309,16 +2455,72 @@ DI_dip_marry_matrilineal = {
 DI_dip_divorce = {
     scope = character
 
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        var:DI_primary_character.primary_spouse = var:DI_tertiary_character
+    }
+
     effect = {
         save_scope_as = player
 
-        if = {
-            limit = {
-                has_variable = DI_primary_character
-            }
-            var:DI_primary_character = {
-                divorce = scope:player.var:DI_tertiary_character
-            }
+        var:DI_primary_character = {
+            divorce = scope:player.var:DI_tertiary_character
+        }
+    }
+}
+
+DI_dip_arrange_betrothal = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        var:DI_primary_character = { is_married = no }
+        var:DI_tertiary_character = { is_married = no }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        scope:player.var:DI_primary_character = {
+            create_betrothal = scope:player.var:DI_tertiary_character
+        }
+    }
+}
+
+DI_dip_arrange_betrothal_matrilineal = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        var:DI_primary_character = { is_married = no }
+        var:DI_tertiary_character = { is_married = no }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        scope:player.var:DI_primary_character = {
+            create_betrothal_matrilineal = scope:player.var:DI_tertiary_character
+        }
+    }
+}
+
+DI_dip_break_betrothal = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        var:DI_primary_character = { is_betrothed = yes }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        var:DI_primary_character = {
+            break_betrothal = betrothed
         }
     }
 }
@@ -2326,6 +2528,18 @@ DI_dip_divorce = {
 # DI_dip_make_siblings
 DI_dip_make_siblings = {
     scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_secondary_character
+        NOT = {
+            OR = {
+                var:DI_primary_character = { is_sibling_of = root.var:DI_secondary_character }
+                var:DI_primary_character = { is_parent_of = root.var:DI_secondary_character }
+                var:DI_primary_character = { is_child_of = root.var:DI_secondary_character }
+            }
+        }
+    }
 
     effect = {
         save_scope_as = player
@@ -2347,6 +2561,12 @@ DI_dip_make_siblings = {
 DI_dip_preg_gender_male = {
     scope = character
 
+    is_valid = {
+        var:DI_primary_character ?= {
+            is_pregnant = yes
+        }
+    }
+
     effect = {
         save_scope_as = player
 
@@ -2365,6 +2585,12 @@ DI_dip_preg_gender_male = {
 DI_dip_preg_gender_female = {
     scope = character
 
+    is_valid = {
+        var:DI_primary_character ?= {
+            is_pregnant = yes
+        }
+    }
+
     effect = {
         save_scope_as = player
 
@@ -2375,6 +2601,46 @@ DI_dip_preg_gender_female = {
             var:DI_primary_character = {
                 set_pregnancy_gender = female
             }
+        }
+    }
+}
+
+# set real father
+DI_dip_set_real_father = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_secondary_character
+        var:DI_secondary_character = { is_male = yes }
+        var:DI_secondary_character.age > var:DI_primary_character.age
+        NOT = { var:DI_primary_character.real_father = var:DI_secondary_character }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        var:DI_primary_character = {
+            set_real_father = scope:player.var:DI_secondary_character
+        }
+    }
+}
+
+# reset real father
+DI_dip_set_father_as_real_father = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        var:DI_primary_character.father = { exists = this }
+        var:DI_primary_character.real_father != var:DI_primary_character.father
+    }
+
+    effect = {
+        save_scope_as = player
+
+        var:DI_primary_character = {
+            set_real_father = var:DI_primary_character.father
         }
     }
 }
