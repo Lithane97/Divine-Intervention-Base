@@ -241,7 +241,7 @@ window = {
                 parentanchor = bottom|hcenter
                 # artifact type vbox
                 vbox = {
-                    visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList('DI_artifact_type_filter_choices')), '(int32)0')]"
+                    # visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList('DI_artifact_type_filter_choices')), '(int32)0')]"
 
                     scrollbox = {
                         name = "artifact_type_scrollbox"
@@ -250,7 +250,13 @@ window = {
                         minimumsize = { 200 100% }
 
                         blockoverride "scrollbox_content" {
+                            button_standard = {
+                                name = "artifact_type_button"
+                                size = { 100% 30 }
+                                text = "testbutton"
 
+                                onclick = "[GetScriptedGui('DI_test_animal_hide').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
                         }
                     }
                 }

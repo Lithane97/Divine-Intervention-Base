@@ -430,3 +430,21 @@ DI_artifact_quality_select = {
         }
     }
 }
+
+DI_test_animal_hide = {
+    scope = character
+
+    effect = {
+        save_scope_as = player
+
+        DI_set_rarity_bonus = yes
+        scope:player = { save_scope_as = owner }
+        scope:player = { save_scope_as = hunter }
+        scope:player = { save_scope_as = creator }
+        save_scope_value_as = { name = hide_size value = flag:big }
+        save_scope_value_as = { name = animal value = flag:bear }
+        save_scope_value_as = { name = legendary value = yes }
+
+        DI_create_animal_hide_test = { RARITY = illustrious }
+    }
+}

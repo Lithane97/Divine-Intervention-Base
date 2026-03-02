@@ -1016,3 +1016,72 @@ DI_create_tapestry_final = {
         remove_artifact_modifier = artifact_placeholder_modifier
     }
 }
+
+# Minimal deterministic animal hide creation for testing.
+# - No hunt randomization / location logic.
+# - You control animal + size.
+#
+# Required injections you can hardcode for a test button:
+#   $OWNER$        -> scope:some_character (or root)
+#   $CREATOR$      -> root (or whoever)
+#   $RARITY$       -> common / masterwork / famed / illustrious ...
+#   $ANIMAL$       -> flag:stag / flag:boar / flag:wolf / flag:roe / flag:bear ...
+#   $HIDE_SIZE$    -> flag:big or flag:small
+
+DI_create_animal_hide_test = {
+    # Choose a location scope for the description to reference.
+    # If your injected hunter has a .location, prefer that; otherwise fall back to owner.location.
+    if = {
+        limit = { exists = scope:hunter }
+        scope:hunter.location = { save_scope_as = location }
+    }
+    else = {
+        scope:owner.location = { save_scope_as = location }
+    }
+
+    # Seed the variable that animal_hide_type_* triggers read.
+    scope:owner = {
+        set_variable = { name = animal_type value = scope:animal days = 5 }
+    }
+
+    create_artifact = {
+        name = artifact_animal_hide_name_base
+        creator = scope:creator
+        rarity = $RARITY$
+        description = placeholder
+        visuals = large_animal_hide
+        type = animal_hide_big
+        modifier = artifact_placeholder_modifier
+        wealth = scope:wealth
+        quality = scope:quality
+        save_scope_as = newly_created_artifact
+    }
+
+    scope:newly_created_artifact = {
+        # Debug / introspection
+        set_variable = { name = animal_type value = scope:owner.var:animal_type }
+        set_artifact_feature = animal_hide_type_bear
+        # Force-pick the required hide feature group.
+        # set_artifact_feature_group = animal_hide_type
+
+
+        # These two are what your description string is almost certainly missing:
+        # (Vanilla uses "adventure_artifact_hunter" and "adventure_artifact_location")
+        set_variable = { name = adventure_artifact_hunter value = scope:hunter }
+        set_variable = { name = adventure_artifact_location value = scope:location }
+
+        # Fill common reference groups (patterns/material refs/etc.) if needed
+        get_artifact_feature_references_effect = yes
+
+        remove_artifact_modifier = artifact_placeholder_modifier
+
+        # If you want to keep vanilla-ish hide description:
+        set_artifact_description = artifact_animal_hide_description
+        set_artifact_name = artifact_animal_hide_name_base
+    }
+
+    # Cleanup
+    scope:owner = {
+        remove_variable = animal_type
+    }
+}
