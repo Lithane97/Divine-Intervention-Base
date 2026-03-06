@@ -1,0 +1,75 @@
+﻿### Select Character ###
+DI_innovation_select_char = {
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    effect = {
+        save_scope_as = select_char
+
+        scope:target = {
+            set_variable = {
+                name = DI_innovation_selected_char
+                value = scope:select_char
+            }
+            set_variable = {
+                name = DI_innovation_selected_culture
+                value = scope:select_char.culture
+            }
+        }
+    }
+}
+
+### Select Character ###
+DI_innovation_select_char_copy = {
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    effect = {
+        save_scope_as = select_char
+
+        scope:target = {
+            set_variable = {
+                name = DI_innovation_selected_char_copy
+                value = scope:select_char
+            }
+            set_variable = {
+                name = DI_innovation_selected_culture_copy
+                value = scope:select_char.culture
+            }
+
+            if = {
+                limit = {
+                    has_variable = DI_innovation_selected_char_copy
+                    has_variable = DI_innovation_selected_culture_copy
+                }
+            }
+        }
+    }
+}
+
+### Select Character Init ###
+DI_innovation_select_char_init = {
+    scope = character
+
+    effect = {
+        if = {
+            limit = {
+                NOT = { has_variable = DI_innovation_selected_char }
+            }
+            set_variable = {
+                name = DI_innovation_selected_char
+                value = this
+            }
+            set_variable = {
+                name = DI_innovation_selected_culture
+                value = this.culture
+            }
+        }
+    }
+}

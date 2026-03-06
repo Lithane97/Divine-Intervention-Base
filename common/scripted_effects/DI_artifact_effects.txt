@@ -91,105 +91,105 @@ DI_get_artifact_params = {
     # Sets category and subtype for routing - other params passed directly to creation effects
     # For weapons
     if = { limit = { scope:player.var:DI_artifact_type = flag:axe }
+        set_variable = { name = artifact_category value = flag:weapon }
+        set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_axe }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:dagger }
     set_variable = { name = artifact_category value = flag:weapon }
-    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_axe }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:dagger }
-set_variable = { name = artifact_category value = flag:weapon }
-set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_dagger }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:hammer }
-set_variable = { name = artifact_category value = flag:weapon }
-set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_hammer }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:mace }
-set_variable = { name = artifact_category value = flag:weapon }
-set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_mace }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:spear }
-set_variable = { name = artifact_category value = flag:weapon }
-set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_spear }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:sword }
-set_variable = { name = artifact_category value = flag:weapon }
-set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_sword }
-}
-# For armor
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_mail }
-set_variable = { name = artifact_category value = flag:armor }
-set_variable = { name = artifact_subtype value = flag:armor_type_mail }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_brigandine }
-set_variable = { name = artifact_category value = flag:armor }
-set_variable = { name = artifact_subtype value = flag:armor_type_brigandine }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_laminar }
-set_variable = { name = artifact_category value = flag:armor }
-set_variable = { name = artifact_subtype value = flag:armor_type_laminar }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_lamellar }
-set_variable = { name = artifact_category value = flag:armor }
-set_variable = { name = artifact_subtype value = flag:armor_type_lamellar }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_scale }
-set_variable = { name = artifact_category value = flag:armor }
-set_variable = { name = artifact_subtype value = flag:armor_type_scale }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_plate }
-set_variable = { name = artifact_category value = flag:armor }
-set_variable = { name = artifact_subtype value = flag:armor_type_plate }
-}
-# Regalia
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:crown }
-set_variable = { name = artifact_category value = flag:regalia }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:regalia }
-set_variable = { name = artifact_category value = flag:regalia }
-}
-# Trinkets
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:necklace }
-set_variable = { name = artifact_category value = flag:trinket }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:brooch }
-set_variable = { name = artifact_category value = flag:trinket }
-}
-# Throne
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:throne }
-set_variable = { name = artifact_category value = flag:throne }
-}
-# Pedestals
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:small_box }
-set_variable = { name = artifact_category value = flag:pedestal }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:medium_box }
-set_variable = { name = artifact_category value = flag:pedestal }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:goblet }
-set_variable = { name = artifact_category value = flag:pedestal }
-}
-# Furniture
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:cabinet }
-set_variable = { name = artifact_category value = flag:furniture }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:chest }
-set_variable = { name = artifact_category value = flag:furniture }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:divan }
-set_variable = { name = artifact_category value = flag:furniture }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:table }
-set_variable = { name = artifact_category value = flag:furniture }
-}
-# Ornaments
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:small_shield }
-set_variable = { name = artifact_category value = flag:ornament }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:large_shield }
-set_variable = { name = artifact_category value = flag:ornament }
-}
-else_if = { limit = { scope:player.var:DI_artifact_type = flag:tapestry }
-set_variable = { name = artifact_category value = flag:ornament }
-}
+    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_dagger }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:hammer }
+    set_variable = { name = artifact_category value = flag:weapon }
+    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_hammer }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:mace }
+    set_variable = { name = artifact_category value = flag:weapon }
+    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_mace }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:spear }
+    set_variable = { name = artifact_category value = flag:weapon }
+    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_spear }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:sword }
+    set_variable = { name = artifact_category value = flag:weapon }
+    set_variable = { name = artifact_subtype value = flag:artifact_weapon_type_sword }
+    }
+    # For armor
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_mail }
+    set_variable = { name = artifact_category value = flag:armor }
+    set_variable = { name = artifact_subtype value = flag:armor_type_mail }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_brigandine }
+    set_variable = { name = artifact_category value = flag:armor }
+    set_variable = { name = artifact_subtype value = flag:armor_type_brigandine }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_laminar }
+    set_variable = { name = artifact_category value = flag:armor }
+    set_variable = { name = artifact_subtype value = flag:armor_type_laminar }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_lamellar }
+    set_variable = { name = artifact_category value = flag:armor }
+    set_variable = { name = artifact_subtype value = flag:armor_type_lamellar }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_scale }
+    set_variable = { name = artifact_category value = flag:armor }
+    set_variable = { name = artifact_subtype value = flag:armor_type_scale }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:armor_plate }
+    set_variable = { name = artifact_category value = flag:armor }
+    set_variable = { name = artifact_subtype value = flag:armor_type_plate }
+    }
+    # Regalia
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:crown }
+    set_variable = { name = artifact_category value = flag:regalia }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:regalia }
+    set_variable = { name = artifact_category value = flag:regalia }
+    }
+    # Trinkets
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:necklace }
+    set_variable = { name = artifact_category value = flag:trinket }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:brooch }
+    set_variable = { name = artifact_category value = flag:trinket }
+    }
+    # Throne
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:throne }
+    set_variable = { name = artifact_category value = flag:throne }
+    }
+    # Pedestals
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:small_box }
+    set_variable = { name = artifact_category value = flag:pedestal }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:medium_box }
+    set_variable = { name = artifact_category value = flag:pedestal }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:goblet }
+    set_variable = { name = artifact_category value = flag:pedestal }
+    }
+    # Furniture
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:cabinet }
+    set_variable = { name = artifact_category value = flag:furniture }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:chest }
+    set_variable = { name = artifact_category value = flag:furniture }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:divan }
+    set_variable = { name = artifact_category value = flag:furniture }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:table }
+    set_variable = { name = artifact_category value = flag:furniture }
+    }
+    # Ornaments
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:small_shield }
+    set_variable = { name = artifact_category value = flag:ornament }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:large_shield }
+    set_variable = { name = artifact_category value = flag:ornament }
+    }
+    else_if = { limit = { scope:player.var:DI_artifact_type = flag:tapestry }
+    set_variable = { name = artifact_category value = flag:ornament }
+    }
 }
 
 # === ORIGINAL EFFECTS === #
@@ -1022,11 +1022,10 @@ DI_create_tapestry_final = {
 # - You control animal + size.
 #
 # Required injections you can hardcode for a test button:
-#   $OWNER$        -> scope:some_character (or root)
-#   $CREATOR$      -> root (or whoever)
+#   scope:owner        -> scope:some_character (or root)
+#   scope:creator      -> root (or whoever)
 #   $RARITY$       -> common / masterwork / famed / illustrious ...
-#   $ANIMAL$       -> flag:stag / flag:boar / flag:wolf / flag:roe / flag:bear ...
-#   $HIDE_SIZE$    -> flag:big or flag:small
+#   scope:animal      -> flag:stag / flag:boar / flag:wolf / flag:roe / flag:bear ...
 
 DI_create_animal_hide_test = {
     # Choose a location scope for the description to reference.
