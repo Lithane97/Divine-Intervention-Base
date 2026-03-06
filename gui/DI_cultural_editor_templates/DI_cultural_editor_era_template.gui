@@ -1,0 +1,95 @@
+﻿# === DI UPDATER TOOL: CULTURAL CUSTOMS (AUTO-GENERATED) ===
+# Source: CK3 common/culture/eras/*.txt
+# Output: gui/DI_cultural_editor_templates/DI_cultural_editor_era_template.gui
+
+template DI_cultural_editor_era_template
+{
+    vbox = {
+        visible = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'era' )]"
+
+        # tribal innovations
+        hbox = {
+            # visible if era tribal
+            visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_tribal'))]"
+            spacing = 20
+
+            button_standard = {
+                name = "DI_add_tribal_innovations"
+                onclick = "[GetScriptedGui('DI_ce_add_tribal_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_add_tribal_innovations
+                using = tooltip_nw
+            }
+
+            button_standard = {
+                name = "DI_remove_tribal_innovations"
+                onclick = "[GetScriptedGui('DI_ce_remove_tribal_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_remove_tribal_innovations
+                using = tooltip_nw
+            }
+        }
+
+        # early medieval innovations
+        hbox = {
+            # visible if era early medieval
+            visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_early_medieval'))]"
+            spacing = 20
+
+            button_standard = {
+                name = "DI_add_early_medieval_innovations"
+                onclick = "[GetScriptedGui('DI_ce_add_early_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_add_early_medieval_innovations
+                using = tooltip_nw
+            }
+
+            button_standard = {
+                name = "DI_remove_early_medieval_innovations"
+                onclick = "[GetScriptedGui('DI_ce_remove_early_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_remove_early_medieval_innovations
+                using = tooltip_nw
+            }
+        }
+
+        # high medieval innovations
+        hbox = {
+            # visible if era high medieval
+            visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_high_medieval'))]"
+            spacing = 20
+
+            button_standard = {
+                name = "DI_add_high_medieval_innovations"
+                onclick = "[GetScriptedGui('DI_ce_add_high_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_add_high_medieval_innovations
+                using = tooltip_nw
+            }
+
+            button_standard = {
+                name = "DI_remove_high_medieval_innovations"
+                onclick = "[GetScriptedGui('DI_ce_remove_high_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_remove_high_medieval_innovations
+                using = tooltip_nw
+            }
+        }
+
+        # late medieval innovations
+        hbox = {
+            # visible if era late medieval
+            visible = "[GetVariableSystem.HasValue( 'DI_culture_era_tab', Localize('culture_era_late_medieval'))]"
+            spacing = 20
+
+            button_standard = {
+                name = "DI_add_late_medieval_innovations"
+                onclick = "[GetScriptedGui('DI_ce_add_late_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_add_late_medieval_innovations
+                using = tooltip_nw
+            }
+
+            button_standard = {
+                name = "DI_remove_late_medieval_innovations"
+                onclick = "[GetScriptedGui('DI_ce_remove_late_medieval_innovations').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                text = DI_remove_late_medieval_innovations
+                using = tooltip_nw
+            }
+        }
+
+    }
+}
