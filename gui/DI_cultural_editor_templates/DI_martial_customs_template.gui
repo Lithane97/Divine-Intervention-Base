@@ -1,0 +1,59 @@
+﻿# === DI UPDATER TOOL: CULTURAL CUSTOMS (AUTO-GENERATED) ===
+# Source: CK3 common/culture/pillars/*.txt
+# Output: gui/DI_cultural_editor_templates/DI_martial_customs_template.gui
+
+template DI_martial_customs_template
+{
+    vbox = {
+        margin_top = 5
+        spacing = 15
+
+        ### MARTIAL CUSTOM START ###
+        ##########################
+
+        # male_only
+        DI_widget_martial_pillar_item = {
+            blockoverride "datacontext"
+            {
+                datacontext = "[GetCulturePillar('martial_custom_male_only')]"
+                datacontext = "[GetPlayer.GetCulture]"
+            }
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_martial_custom_male_only_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        # equal
+        DI_widget_martial_pillar_item = {
+            blockoverride "datacontext"
+            {
+                datacontext = "[GetCulturePillar('martial_custom_equal')]"
+                datacontext = "[GetPlayer.GetCulture]"
+            }
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_martial_custom_equal_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        # female_only
+        DI_widget_martial_pillar_item = {
+            blockoverride "datacontext"
+            {
+                datacontext = "[GetCulturePillar('martial_custom_female_only')]"
+                datacontext = "[GetPlayer.GetCulture]"
+            }
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_martial_custom_female_only_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        ### MARTIAL CUSTOM END ###
+        ########################
+    }
+}
