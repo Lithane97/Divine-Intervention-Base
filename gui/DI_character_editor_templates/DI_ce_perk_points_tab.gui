@@ -1,4 +1,4 @@
-template DI_CE_Perk_Points_Tab
+﻿template DI_CE_Perk_Points_Tab
 {
     vbox = {
         name = "perk_points_tab"
@@ -28,20 +28,6 @@ template DI_CE_Perk_Points_Tab
                             onrightclick = "[GetScriptedGui('DI_remove_diplomacy_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                         }
 
-                        # Martial
-                        DI_perk_point_button = {
-                            datacontext = "[GetLifestyle('martial_lifestyle')]"
-                            onclick = "[GetScriptedGui('DI_add_martial_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                            onrightclick = "[GetScriptedGui('DI_remove_martial_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        }
-
-                        # Stewardship
-                        DI_perk_point_button = {
-                            datacontext = "[GetLifestyle('stewardship_lifestyle')]"
-                            onclick = "[GetScriptedGui('DI_add_stewardship_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                            onrightclick = "[GetScriptedGui('DI_remove_stewardship_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        }
-
                         # Intrigue
                         DI_perk_point_button = {
                             datacontext = "[GetLifestyle('intrigue_lifestyle')]"
@@ -56,12 +42,27 @@ template DI_CE_Perk_Points_Tab
                             onrightclick = "[GetScriptedGui('DI_remove_learning_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                         }
 
+                        # Martial
+                        DI_perk_point_button = {
+                            datacontext = "[GetLifestyle('martial_lifestyle')]"
+                            onclick = "[GetScriptedGui('DI_add_martial_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_martial_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
+                        # Stewardship
+                        DI_perk_point_button = {
+                            datacontext = "[GetLifestyle('stewardship_lifestyle')]"
+                            onclick = "[GetScriptedGui('DI_add_stewardship_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_remove_stewardship_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+
                         # Wanderer
                         DI_perk_point_button = {
                             datacontext = "[GetLifestyle('wanderer_lifestyle')]"
                             onclick = "[GetScriptedGui('DI_add_wanderer_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             onrightclick = "[GetScriptedGui('DI_remove_wanderer_pp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                         }
+
                     }
                 }
             }
