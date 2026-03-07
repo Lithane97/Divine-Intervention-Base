@@ -1,0 +1,302 @@
+﻿template DI_CE_Lifestyle_Tab
+{
+    vbox = {
+        name = "lifestyle_tab"
+        visible = "[And( GetVariableSystem.HasValue('char_editor_tab', 'presents'), GetVariableSystem.HasValue('ce_presents_tab', 'lifestyle'))]"
+        layoutpolicy_horizontal = expanding
+
+        margin = { 20 5 }
+
+        using = Animation_Tab_Switch
+
+        vbox = {
+            scrollbox = {
+                layoutpolicy_horizontal = expanding
+                size = { 400 350 }
+
+                blockoverride "scrollbox_content"
+                {
+                    vbox = {
+                        name = "presents_list"
+                        layoutpolicy_horizontal = expanding
+                        spacing = 5
+
+                        # All Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_all_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_all_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/event_types/type_majesty.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_all_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_all_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        # All Diplomacy Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_diplomacy_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_diplomacy_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/lifestyles/diplomacy_lifestyle.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_diplomacy_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_diplomacy_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        # All Intrigue Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_intrigue_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_intrigue_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/lifestyles/intrigue_lifestyle.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_intrigue_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_intrigue_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        # All Learning Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_learning_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_learning_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/lifestyles/learning_lifestyle.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_learning_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_learning_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        # All Martial Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_martial_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_martial_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/lifestyles/martial_lifestyle.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_martial_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_martial_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        # All Stewardship Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_stewardship_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_stewardship_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/lifestyles/stewardship_lifestyle.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_stewardship_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_stewardship_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                        # All Wanderer Lifestyle Button
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+
+                            button_standard = {
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 50 }
+                                button_ignore = none
+
+                                onclick = "[GetScriptedGui('DI_ce_add_wanderer_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onrightclick = "[GetScriptedGui('DI_ce_remove_wanderer_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                hbox = {
+                                    margin = { 5 0 }
+                                    margin_right = 10
+                                    spacing = 10
+
+                                    icon = {
+                                        size = { 35 35 }
+                                        framesize = { 160 160 }
+                                        frame = "1"
+                                        texture = "gfx/interface/icons/lifestyles/wanderer_lifestyle.dds"
+                                    }
+
+                                    text_single = {
+                                        layoutpolicy_horizontal = expanding
+
+                                        text = DI_ce_wanderer_lifestyle_button
+
+                                        default_format = "#clickable"
+                                    }
+                                }
+                                tooltip = DI_ce_wanderer_lifestyle_button_tt
+                            }
+                            hbox = {
+                                minimumsize = { 76 -1 }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
