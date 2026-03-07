@@ -25,10 +25,22 @@
                         hbox = {
                             layoutpolicy_horizontal = expanding
 
-                            button_standard = {
-                                layoutpolicy_horizontal = expanding
-                                size = { 0 50 }
+                            button_standard_clean = {
                                 button_ignore = none
+                                layoutpolicy_horizontal = expanding
+                                size = { 0 60 }
+
+                                background = {
+                                    using = Background_Area_Dark
+
+                                    modify_texture = {
+                                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                                        blend_mode = alphamultiply
+                                        alpha = 0.3
+                                        rotate_uv = 90
+                                        mirror = vertical
+                                    }
+                                }
 
                                 onclick = "[GetScriptedGui('DI_ce_add_all_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_all_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -39,7 +51,7 @@
                                     spacing = 10
 
                                     icon = {
-                                        size = { 35 35 }
+                                        size = { 50 50 }
                                         framesize = { 160 160 }
                                         frame = "1"
                                         texture = "gfx/interface/icons/event_types/type_majesty.dds"
@@ -50,13 +62,11 @@
 
                                         text = DI_ce_all_lifestyle_button
 
-                                        default_format = "#clickable"
+                                        default_format = "#bold"
                                     }
                                 }
                                 tooltip = DI_ce_all_lifestyle_button_tt
-                            }
-                            hbox = {
-                                minimumsize = { 76 -1 }
+                                using = tooltip_ne
                             }
                         }
 
@@ -69,9 +79,6 @@
                                 onclick = "[GetScriptedGui('DI_ce_add_diplomacy_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_diplomacy_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             }
-                            hbox = {
-                                minimumsize = { 76 -1 }
-                            }
                         }
 
                         # All Intrigue Lifestyle Button
@@ -82,9 +89,6 @@
                                 datacontext = "[GetLifestyle('intrigue_lifestyle')]"
                                 onclick = "[GetScriptedGui('DI_ce_add_intrigue_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_intrigue_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                            }
-                            hbox = {
-                                minimumsize = { 76 -1 }
                             }
                         }
 
@@ -97,9 +101,6 @@
                                 onclick = "[GetScriptedGui('DI_ce_add_learning_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_learning_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             }
-                            hbox = {
-                                minimumsize = { 76 -1 }
-                            }
                         }
 
                         # All Martial Lifestyle Button
@@ -110,9 +111,6 @@
                                 datacontext = "[GetLifestyle('martial_lifestyle')]"
                                 onclick = "[GetScriptedGui('DI_ce_add_martial_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_martial_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                            }
-                            hbox = {
-                                minimumsize = { 76 -1 }
                             }
                         }
 
@@ -125,9 +123,6 @@
                                 onclick = "[GetScriptedGui('DI_ce_add_stewardship_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_stewardship_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             }
-                            hbox = {
-                                minimumsize = { 76 -1 }
-                            }
                         }
 
                         # All Wanderer Lifestyle Button
@@ -138,9 +133,6 @@
                                 datacontext = "[GetLifestyle('wanderer_lifestyle')]"
                                 onclick = "[GetScriptedGui('DI_ce_add_wanderer_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                                 onrightclick = "[GetScriptedGui('DI_ce_remove_wanderer_lifestyle').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                            }
-                            hbox = {
-                                minimumsize = { 76 -1 }
                             }
                         }
 
@@ -153,10 +145,22 @@
 
 types DILifestylePresentsShared
 {
-    type DI_lifestyle_present_button = button_standard {
-        layoutpolicy_horizontal = expanding
-        size = { 0 50 }
+    type DI_lifestyle_present_button = button_standard_clean {
         button_ignore = none
+        layoutpolicy_horizontal = expanding
+        size = { 0 60 }
+
+        background = {
+            using = Background_Area_Dark
+
+            modify_texture = {
+                texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                blend_mode = alphamultiply
+                alpha = 0.3
+                rotate_uv = 90
+                mirror = vertical
+            }
+        }
 
         hbox = {
             margin = { 5 0 }
@@ -164,7 +168,8 @@ types DILifestylePresentsShared
             spacing = 10
 
             icon = {
-                size = { 35 35 }
+                parentanchor = left|top
+                size = { 50 50 }
                 framesize = { 160 160 }
                 frame = "1"
                 texture = "[Lifestyle.GetIcon]"
@@ -173,10 +178,11 @@ types DILifestylePresentsShared
             text_single = {
                 layoutpolicy_horizontal = expanding
                 text = "DI_ce_lifestyle_button"
-                default_format = "#clickable"
+                default_format = "#bold"
             }
         }
 
         tooltip = "DI_ce_lifestyle_button_tt"
+        using = tooltip_ne
     }
 }
