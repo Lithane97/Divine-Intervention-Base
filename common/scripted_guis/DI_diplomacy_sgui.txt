@@ -2413,8 +2413,8 @@ DI_dip_marry = {
     is_valid = {
         has_variable = DI_primary_character
         has_variable = DI_tertiary_character
-        var:DI_primary_character = { is_married = no }
-        var:DI_tertiary_character = { is_married = no }
+        var:DI_primary_character = { allowed_more_spouses = yes }
+        var:DI_tertiary_character = { allowed_more_spouses = yes }
     }
 
     effect = {
@@ -2433,8 +2433,8 @@ DI_dip_marry_matrilineal = {
     is_valid = {
         has_variable = DI_primary_character
         has_variable = DI_tertiary_character
-        var:DI_primary_character = { is_married = no }
-        var:DI_tertiary_character = { is_married = no }
+        var:DI_primary_character = { allowed_more_spouses = yes }
+        var:DI_tertiary_character = { allowed_more_spouses = yes }
     }
 
     effect = {
@@ -2458,7 +2458,7 @@ DI_dip_divorce = {
     is_valid = {
         has_variable = DI_primary_character
         has_variable = DI_tertiary_character
-        var:DI_primary_character.primary_spouse = var:DI_tertiary_character
+        var:DI_primary_character = {is_spouse_of = var:DI_tertiary_character}
     }
 
     effect = {
@@ -2476,8 +2476,8 @@ DI_dip_arrange_betrothal = {
     is_valid = {
         has_variable = DI_primary_character
         has_variable = DI_tertiary_character
-        var:DI_primary_character = { is_married = no }
-        var:DI_tertiary_character = { is_married = no }
+        var:DI_primary_character = { allowed_more_spouses = yes }
+        var:DI_tertiary_character = { allowed_more_spouses = yes }
     }
 
     effect = {
@@ -2495,8 +2495,8 @@ DI_dip_arrange_betrothal_matrilineal = {
     is_valid = {
         has_variable = DI_primary_character
         has_variable = DI_tertiary_character
-        var:DI_primary_character = { is_married = no }
-        var:DI_tertiary_character = { is_married = no }
+        var:DI_primary_character = { allowed_more_spouses = yes }
+        var:DI_tertiary_character = { allowed_more_spouses = yes }
     }
 
     effect = {

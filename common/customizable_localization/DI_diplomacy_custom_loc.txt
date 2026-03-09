@@ -604,7 +604,7 @@ DI_divorce_triggered_desc = {
     }
     text = {
         trigger = {
-            var:DI_primary_character.primary_spouse != var:DI_tertiary_character
+            NOT = { var:DI_primary_character = {is_spouse_of = root.var:DI_tertiary_character } }
         }
         localization_key = DI_divorce_triggered_desc_1
     }
