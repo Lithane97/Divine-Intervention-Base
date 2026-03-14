@@ -19,16 +19,27 @@ window = {
     datacontext = "[InventoryView.GetCharacter.GetInventory]"
 
     state = {
-        name = init
-        trigger_on_create = yes
+        name = init_quality
 
-        # Initialize dropdown lists
-        on_start = "[GetScriptedGui('DI_load_artifact_quality_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-        on_start = "[GetScriptedGui('DI_load_artifact_type_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        trigger_when = "[GetScriptedGui('DI_load_artifact_quality_dropdown').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
-        # Set initial display variables for dropdowns
-        on_start = "[GetScriptedGui('DI_load_artifact_subtype_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('category', MakeScopeFlag('DI_category_weapon')).End)]"
-        on_start = "[GetScriptedGui('DI_artifact_quality_select').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('quality', MakeScopeFlag('DI_quality_common')).End)]"
+        on_finish = "[GetScriptedGui('DI_load_artifact_quality_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_finish = "[GetScriptedGui('DI_artifact_quality_select').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('quality', MakeScopeFlag('DI_quality_common')).End)]"
+
+        on_finish = "[PdxGuiTriggerAllAnimations('init_type')]"
+    }
+
+    state = {
+        name = init_type
+
+        on_finish = "[GetScriptedGui('DI_load_artifact_type_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_finish = "[PdxGuiTriggerAllAnimations('init_subtype')]"
+    }
+
+    state = {
+        name = init_subtype
+
+        on_finish = "[GetScriptedGui('DI_load_artifact_subtype_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('category', MakeScopeFlag('DI_category_weapon')).End)]"
     }
 
     state = {
@@ -254,6 +265,8 @@ window = {
                                 name = "artifact_type_button"
                                 size = { 100% 30 }
                                 text = "testbutton"
+
+                                visible = "[InDebugMode]"
 
                                 onclick = "[GetScriptedGui('DI_test_animal_hide').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             }

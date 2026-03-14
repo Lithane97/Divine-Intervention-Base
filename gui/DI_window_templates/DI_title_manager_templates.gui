@@ -1,49 +1,49 @@
 template DI_Title_Manager_Anim
 {
-	state = {
-		name = _show
-		using = Animation_FadeIn_Quick
-		using = Sound_WindowShow_Standard
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        using = Sound_WindowShow_Standard
 
-		on_finish = "[PdxGuiWidget.StackTop]"
-	}
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
 
-	state = {
-		name = _hide
-		using = Animation_FadeOut_Quick
-		using = Sound_WindowHide_Standard
-	}
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+        using = Sound_WindowHide_Standard
+    }
 
-	state = {
-		name = init
-		using = Animation_FadeIn_Quick
-		trigger_on_create = yes
+    state = {
+        name = init
+        using = Animation_FadeIn_Quick
+        trigger_on_create = yes
 
-		trigger_when = "[GetScriptedGui('DI_load_title_manager_dropdown').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        trigger_when = "[GetScriptedGui('DI_load_title_manager_dropdown').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
-		on_start = "[GetScriptedGui('DI_load_title_manager_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-		on_finish = "[GetVariableSystem.Set( 'title_manager_tab', 'quick_actions' )]"
-	}
+        on_start = "[GetScriptedGui('DI_load_title_manager_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_finish = "[GetVariableSystem.Set( 'title_manager_tab', 'quick_actions' )]"
+    }
 }
 
 template DI_Title_Manager_Header
 {
-	restrictparent_min = yes
-	
-	header_pattern = {
-		layoutpolicy_horizontal = expanding
+    restrictparent_min = yes
 
-		blockoverride "header_text"
-		{
-			text = "DI_title_manager"
-			
-		}
+    header_pattern = {
+        layoutpolicy_horizontal = expanding
 
-		blockoverride "button_close"
-		{
-			onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
-		}
-	}
+        blockoverride "header_text"
+        {
+            text = "DI_title_manager"
+
+        }
+
+        blockoverride "button_close"
+        {
+            onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
+        }
+    }
 }
 
 template DI_title_manager_filter
@@ -64,7 +64,7 @@ template DI_title_manager_filter
         # What the closed button shows (pick static or dynamic)
         blockoverride "dropdown_active_item_properties" {
             name = "di_title_manager_dropdown_active"
-            text = "DI_title_manager_fiter_loc"
+            text = "DI_title_manager_filter_loc"
 
             state = {
                 name = apply_filter_choice
