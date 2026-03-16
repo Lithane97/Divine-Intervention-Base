@@ -392,6 +392,332 @@ Types Pinned_Characters
         }
     }
 
+    type DI_widget_merit_hud = widget {
+		visible = "[And(Character.ShouldShowMerit, Character.IsAlive)]"
+		size = { 44 54 }
+
+		using = tooltip_ne
+
+		block "merit_widget_tooltip"
+		{
+			tooltipwidget = {
+				DI_merit_hud_tooltip = {
+					block "merit_tooltip" {}
+				}
+			}
+		}
+
+		# WIDGET BACKGROUND TEXTURE
+		icon = {
+			texture = "gfx/interface/hud/tgp_widget_merit_background.dds"
+			size = { 100% 100% }
+		}
+
+		# MERIT ICON
+		icon = {
+			parentanchor = top|hcenter
+			position = { 0 8 }
+			size = { 25 25 }
+
+			texture = "[Character.GetMeritLevelTexture]"
+			frame = "[IntToFrameIndex( Character.GetMeritLevel )]"
+
+			modify_texture = {
+				name = "lvl_increase"
+				texture = "gfx/interface/colors/gold.dds"
+				blend_mode = colordodge
+				alpha = 0
+			}
+
+			modify_texture = {
+				name = "lvl_decrease"
+				texture = "gfx/interface/colors/red.dds"
+				blend_mode = colordodge
+				alpha = 0
+			}
+
+			state = {
+				name = "merit_level_increase"
+				next = "merit_level_increase_2"
+
+				modify_texture = {
+					name = "lvl_increase"
+					alpha = 0
+				}
+			}
+
+			state = {
+				name = "merit_level_increase_2"
+				next = "merit_level_increase_3"
+				duration = 0.4
+				bezier = { 0.5 0 1 0.5 }
+
+				modify_texture = {
+					name = "lvl_increase"
+					alpha = 0.7
+				}
+			}
+
+			state = {
+				name = "merit_level_increase_3"
+				duration = 0.5
+				bezier = { 0 0.5 0.5 1 }
+
+				modify_texture = {
+					name = "lvl_increase"
+					alpha = 0
+				}
+			}
+
+			state = {
+				name = "merit_level_decrease"
+				next = "merit_level_decrease_2"
+
+				modify_texture = {
+					name = "lvl_decrease"
+					alpha = 0
+				}
+			}
+
+			state = {
+				name = "merit_level_decrease_2"
+				next = "merit_level_decrease_3"
+				duration = 0.4
+				bezier = { 0.5 0 1 0.5 }
+
+				modify_texture = {
+					name = "lvl_decrease"
+					alpha = 0.7
+				}
+			}
+
+			state = {
+				name = "merit_level_decrease_3"
+				duration = 0.5
+				bezier = { 0 0.5 0.5 1 }
+
+				modify_texture = {
+					name = "lvl_decrease"
+					alpha = 0
+				}
+			}
+		}
+
+		# RANK
+		text_single = {
+			visible = "[GreaterThan_int32( Character.GetMeritLevel, '(int32)0' )]"
+			parentanchor = bottom|hcenter
+			position = { 0 0 }
+
+			text = "[GetMeritLevelShortNameNoTooltip( Character.GetMeritLevel)|V]"
+			align = nobaseline
+			using = Font_Size_Small
+		}
+
+		# IF YOU HAVE NO RANK
+		text_single = {
+			visible = "[EqualTo_int32( Character.GetMeritLevel, '(int32)0' )]"
+			parentanchor = bottom|hcenter
+			position = { 0 0 }
+
+			raw_text = "-"
+			align = nobaseline
+			using = Font_Size_Small
+		}
+	}
+
+	type DI_merit_hud_tooltip = object_tooltip_pop_out {
+		datacontext = "[MeritItem.GetValueItem]"
+		datacontext = "[MeritItem.GetComplexBar]"
+		visible = "[Character.HasMerit]"
+
+		blockoverride "title_text"
+		{
+			text = "[GetMeritModifierByLevel( Character.GetMeritLevel ).GetName]"
+			default_format = "#T"
+		}
+
+		blockoverride "concept_link"
+		{
+			text = "[merit_level|E]"
+		}
+
+		blockoverride "subheading"
+		{
+			text_single = {
+				max_width = 400
+				layoutpolicy_horizontal = expanding
+
+				text = "[Character.GetCareerPathDesc]"
+				fonttintcolor = "[TooltipInfo.GetTintColor]"
+				using = Font_Size_Small
+				fontsize_min = 14
+				autoresize = yes
+				default_format = "#weak_glow"
+			}
+		}
+
+		blockoverride "header_additions"
+		{
+			widget = {
+				size = { 60 74 }
+
+				icon = {
+					size = { 64 64 }
+					parentanchor = center
+					position = { -8 0 }
+
+					texture = "[Character.GetMeritLevelTexture]"
+					frame = "[IntToFrameIndex( Character.GetMeritLevel )]"
+				}
+			}
+		}
+
+		blockoverride "main_description"
+		{
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin_right = 5
+				spacing = 16
+
+				### MERIT EFFECTS
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					### modifier effects
+					cooltip_paragraph = {
+						visible = "[Not( StringIsEmpty( GetMeritLevelEffects( Character.GetMeritLevel ) ) )]"
+						max_width = 500
+						text = "[GetMeritLevelEffects( Character.GetMeritLevel )]"
+					}
+
+					### Merit affecting Movement Power
+					cooltip_paragraph = {
+						visible = "[Character.ShouldShowMovementPower]"
+						max_width = 500
+						text = "MERIT_MOVEMENT_POWER"
+					}
+
+					### Merit enabling appointment
+					cooltip_paragraph = {
+						max_width = 500
+						name = "merit_appointment"
+						layoutpolicy_horizontal = expanding
+
+						text = "[GetMaxAppointmentRankDescription( 'merit', Character.GetMeritLevel )]"
+					}
+				}
+
+				vbox = {
+					layoutpolicy_horizontal = expanding
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+
+						### MERIT TOTAL
+						text_single = {
+							layoutpolicy_horizontal = expanding
+
+							text = "[Character.GetTotalMerit]"
+							align = nobaseline
+						}
+					}
+
+					hbox = {
+						layoutpolicy_horizontal = expanding
+
+						### MERIT BREAKDOWN WITH TOOLTIP
+						text_single = {
+
+							text = "[Character.GetMeritBalanceBreakdown]"
+							align = nobaseline
+
+						}
+
+						expand = {}
+					}
+				}
+
+				### MERIT EXAMINATIONS
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 5
+
+					text_label_left = {
+						layoutpolicy_horizontal = expanding
+
+						text = "MERIT_TOOLTIP_COMPLETED_EXAMINATIONS"
+					}
+
+					hbox = {
+						datacontext = "[Character.MakeScope]"
+						spacing = 50
+
+						button_normal = {
+							size = {60 60}
+							button_ignore = none
+
+							onclick = "[GetScriptedGui('DI_pass_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('childrens')).End)]"
+							onrightclick = "[GetScriptedGui('DI_revoke_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('childrens')).End)]"
+
+							widget_childrens_exam_status = {}
+						}
+
+
+						button_normal = {
+							size = {60 60}
+							button_ignore = none
+
+							onclick = "[GetScriptedGui('DI_pass_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('provincial')).End)]"
+							onrightclick = "[GetScriptedGui('DI_revoke_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('provincial')).End)]"
+
+							widget_provincial_exam_status = {}
+						}
+
+						button_normal = {
+							size = {60 60}
+							button_ignore = none
+
+							onclick = "[GetScriptedGui('DI_pass_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('metropolitan')).End)]"
+							onrightclick = "[GetScriptedGui('DI_revoke_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('metropolitan')).End)]"
+
+							widget_metropolitan_exam_status = {}
+						}
+
+						button_normal = {
+							size = {60 60}
+							button_ignore = none
+
+							onclick = "[GetScriptedGui('DI_pass_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('palace')).End)]"
+							onrightclick = "[GetScriptedGui('DI_revoke_exam').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('exam', MakeScopeFlag('palace')).End)]"
+
+							widget_palace_exam_status = {}
+						}
+					}
+
+					text_single = {
+						layoutpolicy_horizontal = expanding
+
+						text = "MERIT_TOOLTIP_EXAMINATION_DISCLAIMER"
+						default_format = "#weak"
+					}
+				}
+			}
+		}
+	}
+
+    type DI_merit_button_hbox = hbox
+	{
+		button_normal = {
+			size = {56 56}
+			button_ignore = none
+			onclick = "[GetScriptedGui('add_merit_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+
+			onrightclick = "[GetScriptedGui('remove_merit_effect').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+			DI_widget_merit_hud = {}
+		}
+	}
+
     type DI_vbox_character_list = vbox {
         name = "character_list"
         spacing = 3

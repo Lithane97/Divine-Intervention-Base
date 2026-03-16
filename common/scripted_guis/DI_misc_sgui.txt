@@ -582,13 +582,106 @@ DI_add_stress_effect = {
     }
 }
 
-
 DI_remove_stress_effect = {
     scope = character
 
     effect = {
         add_stress = -20
     }
+}
+
+DI_pass_exam = {
+	scope = character
+
+	saved_scopes = { exam }
+
+
+	effect = {
+		if = {
+			limit = { scope:exam = flag:childrens}
+
+			add_character_flag = passed_child_exam
+		}
+		if = {
+			limit = { scope:exam = flag:provincial}
+
+			add_character_flag = passed_provincial_exam
+			add_character_modifier = {
+				modifier = tgp_passed_provincial_exam_modifier
+			}
+		}
+		if = {
+			limit = { scope:exam = flag:metropolitan}
+
+			add_character_flag = passed_metropolitan_exam
+			add_character_modifier = {
+				modifier = tgp_passed_metropolitan_exam_modifier
+			}
+		}
+		if = {
+			limit = { scope:exam = flag:palace}
+
+			add_character_flag = passed_palace_exam
+			add_character_modifier = {
+				modifier = tgp_passed_palace_exam_modifier
+			}
+		}
+	}
+	
+}
+
+DI_revoke_exam = {
+	scope = character
+
+	saved_scopes = { exam }
+
+
+	effect = {
+		if = {
+			limit = { scope:exam = flag:childrens}
+
+			remove_character_flag = passed_child_exam
+		}
+		if = {
+			limit = { scope:exam = flag:provincial}
+
+			remove_character_flag = passed_provincial_exam
+			remove_character_modifier = tgp_passed_provincial_exam_modifier
+		}
+		if = {
+			limit = { scope:exam = flag:metropolitan}
+
+			remove_character_flag = passed_metropolitan_exam
+			remove_character_modifier =  tgp_passed_metropolitan_exam_modifier
+		}
+		if = {
+			limit = { scope:exam = flag:palace}
+
+			remove_character_flag = passed_palace_exam
+			remove_character_modifier = tgp_passed_palace_exam_modifier
+			
+		}
+	}
+	
+}
+
+add_merit_effect = {
+	scope = character
+	
+	effect = {
+		change_merit = global_var:advcm_increment_value
+	}
+}
+
+remove_merit_effect = {
+	scope = character
+	
+	effect = {
+		change_merit = {
+			value = global_var:advcm_increment_value
+			multiply = -1
+		}
+	}
 }
 
 DI_strong_claim = {
