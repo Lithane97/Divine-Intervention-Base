@@ -810,6 +810,23 @@ template DI_heritage_template
             blockoverride "icon" {}
         }
 
+        # phoenician
+        DI_widget_martial_pillar_item = {
+            blockoverride "datacontext"
+            {
+                datacontext = "[GetCulturePillar('heritage_phoenician')]"
+                datacontext = "[GetPlayer.GetCulture]"
+            }
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_heritage_phoenician_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "highlight" {}
+            blockoverride "icon" {}
+        }
+
         # gothic
         DI_widget_martial_pillar_item = {
             blockoverride "datacontext"

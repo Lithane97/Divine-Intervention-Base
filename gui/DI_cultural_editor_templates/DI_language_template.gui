@@ -96,6 +96,23 @@ template DI_language_template
             blockoverride "icon" {}
         }
 
+        # carthaginian
+        DI_widget_martial_pillar_item = {
+            blockoverride "datacontext"
+            {
+                datacontext = "[GetCulturePillar('language_carthaginian')]"
+                datacontext = "[GetPlayer.GetCulture]"
+            }
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_language_carthaginian_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "highlight" {}
+            blockoverride "icon" {}
+        }
+
         # papuan
         DI_widget_martial_pillar_item = {
             blockoverride "datacontext"

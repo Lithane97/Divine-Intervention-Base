@@ -501,7 +501,7 @@ Types faithEditorTypes
         }
 
         highlight_icon = {
-            visible = "[ObjectsEqual( FaithDoctrine.GetGroup, GetFaithDoctrineGroup( 'doctrine_core_tenets' ))]"
+            visible = "[ObjectsEqual( FaithDoctrine.GetGroup, GetDoctrineGroupType( 'doctrine_core_tenets' ))]"
             name = "doctrine_group_icon"
             texture = "[FaithDoctrine.GetIcon]"
             size = { 130 200 }
@@ -533,37 +533,37 @@ Types faithEditorTypes
         vbox = {
             state = {
                 name = faith_editor_core_tenet_loader
-                trigger_when = "[ObjectsEqual( FaithDoctrine.GetGroup, GetFaithDoctrineGroup( 'doctrine_core_tenets' ))]"
+                trigger_when = "[ObjectsEqual( FaithDoctrine.GetGroup, GetDoctrineGroupType( 'doctrine_core_tenets' ))]"
                 on_finish = "[GetScriptedGui('DI_load_core_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
             }
 
             state = {
                 name = faith_editor_main_tenet_loader
-                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'main_group')]"
+                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'main_group')]"
                 on_finish = "[GetScriptedGui('DI_load_main_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
             }
 
             state = {
                 name = faith_editor_marriage_tenet_loader
-                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'marriage')]"
+                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'marriage')]"
                 on_finish = "[GetScriptedGui('DI_load_marriage_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
             }
 
             state = {
                 name = faith_editor_crimes_tenet_loader
-                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'crimes')]"
+                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'crimes')]"
                 on_finish = "[GetScriptedGui('DI_load_crimes_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
             }
 
             state = {
                 name = faith_editor_clergy_tenet_loader
-                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'clergy')]"
+                trigger_when = "[EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'clergy')]"
                 on_finish = "[GetScriptedGui('DI_load_clergy_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
             }
 
             state = {
                 name = faith_editor_other_loader
-                trigger_when = "[And( Not(ObjectsEqual( FaithDoctrine.GetGroup, GetFaithDoctrineGroup( 'doctrine_core_tenets' ))), And( Not(EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'main_group')), And( Not(EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'marriage')), And( Not(EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'crimes')), And(  Not(EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'clergy')), And(Not(EqualTo_string(FaithDoctrine.GetGroup.GetGroupingKey, 'not_creatable')), Not(EqualTo_string(FaithDoctrine.GetNameNoTooltip( Faith.Self ), Localize(''))) ) ) ) ) ) )]"
+                trigger_when = "[And( Not(ObjectsEqual( FaithDoctrine.GetGroup, GetDoctrineGroupType( 'doctrine_core_tenets' ))), And( Not(EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'main_group')), And( Not(EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'marriage')), And( Not(EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'crimes')), And(  Not(EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'clergy')), And(Not(EqualTo_string(FaithDoctrine.GetGroup.GetCategory, 'not_creatable')), Not(EqualTo_string(FaithDoctrine.GetNameNoTooltip( Faith.Self ), Localize(''))) ) ) ) ) ) )]"
                 on_finish = "[GetScriptedGui('DI_load_other_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', FaithDoctrine.MakeScope).End)]"
             }
         }
@@ -616,6 +616,7 @@ Types faithEditorTypes
                         block "text_title"
                         {
                             text = "[FaithDoctrine.GetGroup.GetName( Faith.Self )]"
+                            # text = "[FaithDoctrine.GetGroup.GetCategory]"
                         }
                     }
 

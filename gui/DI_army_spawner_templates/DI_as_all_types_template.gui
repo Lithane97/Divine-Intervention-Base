@@ -821,6 +821,14 @@ template DI_AS_All_Types
         }
 
         DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('teulu')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_teulu_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
             datacontext = "[GetMenAtArmsType('teutonic_knights')]"
 
             blockoverride "on_add" {
