@@ -1,7 +1,7 @@
-version="0.3.0"
+version="0.4.0"
 tags={
 "Utilities"
 }
 name="Divine Intervention Cheat Menu"
-supported_version="1.18.3.1"
+supported_version="1.19.0.4"
 remote_file_id="2986538297"
