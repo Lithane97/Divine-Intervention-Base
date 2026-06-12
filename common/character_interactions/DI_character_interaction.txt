@@ -682,6 +682,45 @@ DI_cultural_acceptance_interaction = {
     }
 }
 
+DI_add_character_flags_interaction = {
+    category = interaction_category_cheat_menu
+    icon = alliance
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    send_options_exclusive = no
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = { flag = used_lifetime_invasion }
+    send_option = { flag = declared_major_religious_war_flag }
+    send_option = { flag = conqueror }
+
+    on_accept = {
+        scope:recipient = {
+            if = { limit = { always = scope:used_lifetime_invasion }
+                set_character_flag = used_lifetime_invasion
+            }
+            else_if = { limit = { always = scope:declared_major_religious_war_flag }
+                set_character_flag = declared_major_religious_war_flag
+            }
+            else_if = { limit = { always = scope:conqueror }
+                set_variable = conqueror
+            }
+        }
+    }
+}
+
 DI_remove_character_flags_interaction = {
     category = interaction_category_cheat_menu
     icon = alliance
@@ -704,6 +743,7 @@ DI_remove_character_flags_interaction = {
 
     send_option = { flag = used_lifetime_invasion }
     send_option = { flag = declared_major_religious_war_flag }
+    send_option = { flag = conqueror }
 
     on_accept = {
         scope:recipient = {
@@ -712,6 +752,9 @@ DI_remove_character_flags_interaction = {
             }
             else_if = { limit = { always = scope:declared_major_religious_war_flag }
                 remove_character_flag = declared_major_religious_war_flag
+            }
+            else_if = { limit = { always = scope:conqueror }
+                remove_variable = conqueror
             }
         }
     }   
