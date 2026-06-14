@@ -1,0 +1,15 @@
+﻿# Hand-maintained court-position availability exceptions.
+DI_court_position_availability_override = {
+    switch = {
+        trigger = scope:court_position_type
+        court_position_type:chief_eunuch_court_position = {
+            NOT = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_char_spawner_female
+                }
+            }
+        }
+        fallback = { always = yes }
+    }
+}
