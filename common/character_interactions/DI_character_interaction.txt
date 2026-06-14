@@ -709,10 +709,10 @@ DI_add_character_flags_interaction = {
     on_accept = {
         scope:recipient = {
             if = { limit = { always = scope:used_lifetime_invasion }
-                set_character_flag = used_lifetime_invasion
+                add_character_flag = used_lifetime_invasion
             }
             else_if = { limit = { always = scope:declared_major_religious_war_flag }
-                set_character_flag = declared_major_religious_war_flag
+                add_character_flag = declared_major_religious_war_flag
             }
             else_if = { limit = { always = scope:conqueror }
                 set_variable = conqueror
