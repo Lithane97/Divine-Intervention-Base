@@ -1,0 +1,216 @@
+﻿types DI_trait_menu_types
+{
+    type widget_DI_tracked_trait_marker_buttons = widget
+    {
+        parentanchor = center
+        size = { 0 40 }
+        position = { -15 5 }
+        allow_outside = yes
+
+        button_round = {
+            scale = 0.75
+            visible = "[LessThan_int32(GetDataModelSize(Trait.GetLevelTracks), '(int32)2')]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag(TraitLevelTrack.GetName)).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # bandit
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_bandit'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('bandit')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # bow
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_bow'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('bow')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # danger
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_danger'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('danger')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # falconer
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_falconer'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('falconer')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # foot
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_foot'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('foot')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # horse
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_horse'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('horse')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # hunter
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_hunter'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('hunter')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # marauder
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_marauder'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('marauder')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # poacher
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_poacher'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('poacher')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # thief
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_thief'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('thief')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # travel
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_travel'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('travel')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # trickster
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_trickster'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('trickster')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # wit
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_wit'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('wit')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# brawn
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_brawn'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_brawn')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# endurance
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_endurance'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_endurance')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# instincts
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_instincts'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_instincts')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# adaptability
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_adaptability'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_adaptability')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# memory
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_memory'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_memory')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# focus
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_focus'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_focus')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# visage
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_visage'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_visage')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# magnetism
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_magnetism'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_magnetism')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+		
+		# grace
+        button_round = {
+            scale = 0.75
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_abomab_grace'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('abomab_grace')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+    }
+}
