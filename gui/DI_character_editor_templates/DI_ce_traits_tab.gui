@@ -782,63 +782,10 @@ template DI_character_trait_tooltip {
 
                                             blockoverride "marker"
                                             {
-                                                widget_level_marker = {
-                                                    scale = 0.75
-                                                    datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
-                                                    visible = "[GreaterThanOrEqualTo_int32( TraitLevelTrackEntry.GetLevel, '(int32)0' )]"
-
-                                                    blockoverride "visible_active"
-                                                    {
-                                                        visible = "[EqualTo_int32( Character.GetTraitTrackLevel( Trait.Self, TraitLevelTrack.Self ), TraitLevelTrackEntry.GetLevel )]"
-                                                    }
-
-                                                    blockoverride "visible_inactive"
-                                                    {
-                                                        visible = "[Not( EqualTo_int32( Character.GetTraitTrackLevel( Trait.Self, TraitLevelTrack.Self ), TraitLevelTrackEntry.GetLevel ) )]"
-                                                    }
-
-                                                    blockoverride "marker_tooltip"
-                                                    {
-                                                        tooltip = "TRAIT_LEVEL_TRACK_TT"
-                                                        using = tooltip_se
-                                                    }
-
-                                                    blockoverride "marker_text"
-                                                    {
-                                                        text = "[TraitLevelTrackEntry.GetLevel]"
-                                                    }
-                                                }
+                                                widget_DI_tracked_trait_marker_buttons = {}
                                             }
                                         }
                                     }
-                                }
-                            }
-                            hbox = {
-                                spacing = 5
-                                margin_left = 18
-
-                                button_round = {
-                                    size = { 30 30 }
-                                    raw_text = "0"
-                                    onclick = "[GetScriptedGui('DI_add_trait_xp_0').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag(TraitLevelTrack.GetName)).End)]"
-                                }
-
-                                button_round = {
-                                    size = { 30 30 }
-                                    raw_text = "1"
-                                    onclick = "[GetScriptedGui('DI_add_trait_xp_1').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag(TraitLevelTrack.GetName)).End)]"
-                                }
-
-                                button_round = {
-                                    size = { 30 30 }
-                                    raw_text = "2"
-                                    onclick = "[GetScriptedGui('DI_add_trait_xp_2').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag(TraitLevelTrack.GetName)).End)]"
-                                }
-
-                                text_label_center = {
-                                    visible = "[InDebugMode]"
-                                    layoutpolicy_horizontal = expanding
-                                    text = "[TraitLevelTrack.GetName]"
                                 }
                             }
                         }
