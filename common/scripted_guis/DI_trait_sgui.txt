@@ -250,9 +250,20 @@ DI_trait_loader_sgui = {
                 scope:tracked = flag:yes
             }
 
-            add_to_global_variable_list = {
-                name = DI_tracked_traits
-                target = scope:trait
+            if = {
+                limit = {
+                    NOT = {
+                        is_target_in_global_variable_list = {
+                            name = DI_tracked_traits
+                            target = scope:trait
+                        }
+                    }
+                }
+
+                add_to_global_variable_list = {
+                    name = DI_tracked_traits
+                    target = scope:trait
+                }
             }
         }
     }
