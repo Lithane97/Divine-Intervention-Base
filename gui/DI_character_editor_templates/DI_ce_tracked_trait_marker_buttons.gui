@@ -1,5 +1,12 @@
 ﻿types DI_trait_menu_types
 {
+    type DI_tracked_trait_marker_button = button_round
+    {
+        scale = 0.75
+        tooltip = DI_tracked_trait_marker_tt
+        using = tooltip_es
+    }
+
     type widget_DI_tracked_trait_marker_buttons = widget
     {
         parentanchor = center
@@ -7,8 +14,7 @@
         position = { -15 5 }
         allow_outside = yes
 
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[LessThan_int32(GetDataModelSize(Trait.GetLevelTracks), '(int32)2')]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -16,8 +22,7 @@
         }
 
         # bandit
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_bandit'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -25,8 +30,7 @@
         }
 
         # bow
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_bow'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -34,8 +38,7 @@
         }
 
         # danger
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_danger'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -43,8 +46,7 @@
         }
 
         # falconer
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_falconer'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -52,8 +54,7 @@
         }
 
         # foot
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_foot'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -61,8 +62,7 @@
         }
 
         # horse
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_horse'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -70,8 +70,7 @@
         }
 
         # hunter
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_hunter'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -79,8 +78,7 @@
         }
 
         # marauder
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_marauder'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -88,8 +86,7 @@
         }
 
         # poacher
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_poacher'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -97,8 +94,7 @@
         }
 
         # thief
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_thief'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -106,8 +102,7 @@
         }
 
         # travel
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_travel'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -115,8 +110,7 @@
         }
 
         # trickster
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_trickster'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
@@ -124,8 +118,7 @@
         }
 
         # wit
-        button_round = {
-            scale = 0.75
+        DI_tracked_trait_marker_button = {
             visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_wit'))]"
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"

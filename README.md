@@ -14,23 +14,24 @@ Manual install
   - Linux: ~/.local/share/Paradox Interactive/Crusader Kings III/mod
   - macOS: ~/Documents/Paradox Interactive/Crusader Kings III/mod
 - Download the release ZIP or clone this repository and copy the folder named `Divine-Intervention` into the `mod` folder above.
-- Ensure the mod folder contains both:
+- Ensure the CK3 `mod` folder contains both:
   - `Divine-Intervention/` (the folder with the mod contents)
-  - `Divine-Intervention.mod` (the descriptor file placed next to the folder)
+  - `Divine-Intervention.mod` (the launcher descriptor file placed next to the folder)
 - Start the Paradox Launcher, add this mod to your intended playset, and select the playset before launching the game.
 
-.mod descriptor example
-- You should be able to use the .mod file from this repo; place it in the `mod` folder alongside the `Divine-Intervention` folder.
-- Replace path with `path="mod/Divine-Intervention"` or your own path if located outside of the mod folder. 
+Local descriptor template
+- This repo includes `Divine Intervention.local_descriptor.template.txt` as a starter launcher descriptor.
+- Copy it into the CK3 `mod` folder alongside the `Divine-Intervention` folder, rename the copy to `Divine-Intervention.mod`, and update the `path=` value.
+- Use `path="mod/Divine-Intervention"` for a portable local install, or your own absolute path if located outside of the mod folder.
 
 ```text
-version="0.1.2"
+version="0.4.0"
 tags={
 	"Utilities"
 }
 name="Divine Intervention Cheat Menu"
-supported_version="1.16.2.3"
-path="C:/Users/<YOUR_USER>/OneDrive/Documents/Paradox Interactive/Crusader Kings III/Divine Intervention"
+supported_version="1.19.0.4"
+path="mod/Divine-Intervention"
 remote_file_id="2986538297"
 ```
 

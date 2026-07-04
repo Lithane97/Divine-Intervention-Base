@@ -704,7 +704,7 @@ DI_add_character_flags_interaction = {
 
     send_option = { flag = used_lifetime_invasion }
     send_option = { flag = declared_major_religious_war_flag }
-    send_option = { flag = conqueror }
+    send_option = { flag = trait_conqueror }
 
     on_accept = {
         scope:recipient = {
@@ -714,7 +714,7 @@ DI_add_character_flags_interaction = {
             else_if = { limit = { always = scope:declared_major_religious_war_flag }
                 add_character_flag = declared_major_religious_war_flag
             }
-            else_if = { limit = { always = scope:conqueror }
+            else_if = { limit = { always = scope:trait_conqueror }
                 set_variable = conqueror
             }
         }
@@ -743,7 +743,7 @@ DI_remove_character_flags_interaction = {
 
     send_option = { flag = used_lifetime_invasion }
     send_option = { flag = declared_major_religious_war_flag }
-    send_option = { flag = conqueror }
+    send_option = { flag = trait_conqueror }
 
     on_accept = {
         scope:recipient = {
@@ -753,7 +753,7 @@ DI_remove_character_flags_interaction = {
             else_if = { limit = { always = scope:declared_major_religious_war_flag }
                 remove_character_flag = declared_major_religious_war_flag
             }
-            else_if = { limit = { always = scope:conqueror }
+            else_if = { limit = { always = scope:trait_conqueror }
                 remove_variable = conqueror
             }
         }
