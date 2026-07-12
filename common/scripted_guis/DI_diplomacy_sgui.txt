@@ -2258,15 +2258,20 @@ DI_dip_adoption = {
             NOT = { var:DI_tertiary_character ?= { is_parent_of = root.var:DI_secondary_character }}
         }
 
-        NOT = {
-            OR = {
-                AND = {
-                    var:DI_primary_character = { is_male = yes }
-                    var:DI_tertiary_character = { is_male = yes }
-                }
-                AND = {
-                    var:DI_primary_character = { is_female = yes }
-                    var:DI_tertiary_character = { is_female = yes }
+        trigger_if = {
+            limit = {
+                has_variable = DI_tertiary_character
+            }
+            NOT = {
+                OR = {
+                    AND = {
+                        var:DI_primary_character = { is_male = yes }
+                        var:DI_tertiary_character = { is_male = yes }
+                    }
+                    AND = {
+                        var:DI_primary_character = { is_female = yes }
+                        var:DI_tertiary_character = { is_female = yes }
+                    }
                 }
             }
         }
@@ -2458,7 +2463,9 @@ DI_dip_divorce = {
     is_valid = {
         has_variable = DI_primary_character
         has_variable = DI_tertiary_character
-        var:DI_primary_character = {is_spouse_of = var:DI_tertiary_character}
+        var:DI_primary_character ?= {
+            is_spouse_of = root.var:DI_tertiary_character
+        }
     }
 
     effect = {

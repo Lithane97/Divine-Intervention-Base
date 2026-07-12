@@ -230,29 +230,30 @@ DI_adoption_triggered_desc = {
     }
     text = {
         trigger = {
-            has_variable = DI_tertiary_character
-            var:DI_tertiary_character.age <= var:DI_secondary_character.age
+            var:DI_tertiary_character ?= {
+                age <= root.var:DI_secondary_character.age
+            }
         }
         localization_key = DI_adoption_triggered_desc_2
     }
     text = {
         trigger = {
             var:DI_primary_character = { is_parent_of = root.var:DI_secondary_character }
-            var:DI_tertiary_character = { is_parent_of = root.var:DI_secondary_character }
+            var:DI_tertiary_character ?= { is_parent_of = root.var:DI_secondary_character }
         }
         localization_key = DI_adoption_triggered_desc_3
     }
     text = {
         trigger = {
             var:DI_primary_character = { is_male = yes }
-            var:DI_tertiary_character = { is_male = yes }
+            var:DI_tertiary_character ?= { is_male = yes }
         }
         localization_key = DI_adoption_triggered_desc_4
     }
     text = {
         trigger = {
             var:DI_primary_character = { is_female = yes }
-            var:DI_tertiary_character = { is_female = yes }
+            var:DI_tertiary_character ?= { is_female = yes }
         }
         localization_key = DI_adoption_triggered_desc_5
     }
