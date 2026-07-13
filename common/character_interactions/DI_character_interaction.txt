@@ -3533,6 +3533,47 @@ DI_add_concubine_interaction = {
     }
 }
 
+### Remove Character as Concubine ###
+DI_remove_concubine_interaction = {
+    category = interaction_category_cheat_menu
+    icon = concubine_icon
+    desc = DI_remove_concubine_desc
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+
+        scope:recipient = {
+            OR = {
+                is_concubine_of = scope:actor
+
+                AND = {
+                    is_concubine = yes
+                    is_ai = yes
+                }
+            }
+        }
+    }
+
+    on_send = {
+        scope:recipient = {
+            this.concubinist = {
+                remove_concubine = scope:recipient
+            }
+        }
+    }
+}
+
 ### Impregnate Character ###
 DI_impregnate_interaction = {
     category = interaction_category_cheat_menu

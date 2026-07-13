@@ -437,13 +437,27 @@ DI_set_father_as_real_father_triggered_desc = {
     }
     text = {
         trigger = {
-            NOT = { var:DI_primary_character.father = { exists = this } }
+            NOT = {
+                var:DI_primary_character ?= {
+                    exists = father
+                }
+            }
         }
         localization_key = DI_set_father_as_real_father_triggered_desc_1
     }
     text = {
         trigger = {
-            var:DI_primary_character.real_father = var:DI_primary_character.father
+            trigger_if = {
+                limit = {
+                    var:DI_primary_character ?= {
+                        exists = father
+                    }
+                }
+                var:DI_primary_character.real_father = var:DI_primary_character.father
+            }
+            trigger_else = {
+                always = no
+            }
         }
         localization_key = DI_set_father_as_real_father_triggered_desc_2
     }
@@ -456,7 +470,11 @@ DI_father_check = {
 		trigger = {
 			OR = {
 				NOT = { has_variable = DI_primary_character }
-				NOT = { var:DI_primary_character.father = { exists = this } }
+				NOT = {
+					var:DI_primary_character ?= {
+						exists = father
+					}
+				}
 			}
 		}
 		localization_key = DI_father_check_1
@@ -608,6 +626,100 @@ DI_divorce_triggered_desc = {
             NOT = { var:DI_primary_character = {is_spouse_of = root.var:DI_tertiary_character } }
         }
         localization_key = DI_divorce_triggered_desc_1
+    }
+}
+
+DI_add_concubine_triggered_desc = {
+    type = character
+
+    text = {
+        trigger = {
+            NOT = { has_variable = DI_primary_character }
+            NOT = { has_variable = DI_tertiary_character }
+        }
+        localization_key = DI_choose_primary_and_tertiary_characters
+    }
+    text = {
+        trigger = { NOT = { has_variable = DI_primary_character } }
+        localization_key = DI_choose_primary_character
+    }
+    text = {
+        trigger = { NOT = { has_variable = DI_tertiary_character } }
+        localization_key = DI_choose_tertiary_character
+    }
+    text = {
+        trigger = {
+            trigger_if = {
+                limit = {
+                    has_variable = DI_primary_character
+                    has_variable = DI_tertiary_character
+                }
+                var:DI_primary_character = var:DI_tertiary_character
+            }
+        }
+        localization_key = DI_add_concubine_triggered_desc_1
+    }
+    text = {
+        trigger = {
+            trigger_if = {
+                limit = {
+                    has_variable = DI_primary_character
+                    has_variable = DI_tertiary_character
+                }
+                var:DI_tertiary_character = {
+                    is_concubine_of = root.var:DI_primary_character
+                }
+            }
+        }
+        localization_key = DI_add_concubine_triggered_desc_2
+    }
+    text = {
+        trigger = { var:DI_tertiary_character ?= { is_married = yes } }
+        localization_key = DI_add_concubine_triggered_desc_3
+    }
+    text = {
+        trigger = { var:DI_tertiary_character ?= { is_betrothed = yes } }
+        localization_key = DI_add_concubine_triggered_desc_4
+    }
+    text = {
+        trigger = { var:DI_tertiary_character ?= { is_concubine = yes } }
+        localization_key = DI_add_concubine_triggered_desc_5
+    }
+}
+
+DI_remove_concubine_triggered_desc = {
+    type = character
+
+    text = {
+        trigger = {
+            NOT = { has_variable = DI_primary_character }
+            NOT = { has_variable = DI_tertiary_character }
+        }
+        localization_key = DI_choose_primary_and_tertiary_characters
+    }
+    text = {
+        trigger = { NOT = { has_variable = DI_primary_character } }
+        localization_key = DI_choose_primary_character
+    }
+    text = {
+        trigger = { NOT = { has_variable = DI_tertiary_character } }
+        localization_key = DI_choose_tertiary_character
+    }
+    text = {
+        trigger = {
+            NOT = {
+                trigger_if = {
+                    limit = {
+                        has_variable = DI_primary_character
+                        has_variable = DI_tertiary_character
+                    }
+                    var:DI_tertiary_character = {
+                        is_concubine_of = root.var:DI_primary_character
+                    }
+                }
+            }
+        }
+        localization_key = DI_remove_concubine_triggered_desc_1
     }
 }
 

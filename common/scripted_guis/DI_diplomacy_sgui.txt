@@ -2302,6 +2302,61 @@ DI_dip_divorce = {
     }
 }
 
+DI_dip_add_concubine = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        trigger_if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_tertiary_character
+            }
+            var:DI_primary_character != var:DI_tertiary_character
+        }
+        var:DI_tertiary_character ?= {
+            is_married = no
+            is_betrothed = no
+            is_concubine = no
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        scope:player.var:DI_primary_character = {
+            make_concubine = scope:player.var:DI_tertiary_character
+        }
+    }
+}
+
+DI_dip_remove_concubine = {
+    scope = character
+
+    is_valid = {
+        has_variable = DI_primary_character
+        has_variable = DI_tertiary_character
+        trigger_if = {
+            limit = {
+                has_variable = DI_primary_character
+                has_variable = DI_tertiary_character
+            }
+            var:DI_tertiary_character = {
+                is_concubine_of = root.var:DI_primary_character
+            }
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        scope:player.var:DI_primary_character = {
+            remove_concubine = scope:player.var:DI_tertiary_character
+        }
+    }
+}
+
 DI_dip_arrange_betrothal = {
     scope = character
 
@@ -2464,8 +2519,20 @@ DI_dip_set_father_as_real_father = {
 
     is_valid = {
         has_variable = DI_primary_character
-        var:DI_primary_character.father = { exists = this }
-        var:DI_primary_character.real_father != var:DI_primary_character.father
+        var:DI_primary_character ?= {
+            exists = father
+        }
+        trigger_if = {
+            limit = {
+                var:DI_primary_character ?= {
+                    exists = father
+                }
+            }
+            var:DI_primary_character.real_father != var:DI_primary_character.father
+        }
+        trigger_else = {
+            always = no
+        }
     }
 
     effect = {

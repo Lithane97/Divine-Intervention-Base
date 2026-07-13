@@ -109,4 +109,53 @@ types DICharEditorShared
 			}
 		}
 	}
+
+	type DI_ce_present_dark_button = hbox {
+		layoutpolicy_horizontal = expanding
+
+		button_standard_clean = {
+			button_ignore = none
+			layoutpolicy_horizontal = expanding
+			size = { 0 60 }
+
+			background = {
+				using = Background_Area_Dark
+
+				modify_texture = {
+					texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+					blend_mode = alphamultiply
+					alpha = 0.3
+					rotate_uv = 90
+					mirror = vertical
+				}
+			}
+
+			block "button_onleftclick" { }
+			block "button_onrightclick" { }
+
+			hbox = {
+				margin = { 5 0 }
+				margin_right = 10
+				spacing = 10
+
+				icon = {
+					size = { 50 50 }
+					block "button_icon_framesize" { }
+					block "button_icon_texture" {
+						texture = "gfx/interface/icons/event_types/type_majesty.dds"
+					}
+					block "button_icon_modify_texture" { }
+				}
+
+				text_single = {
+					layoutpolicy_horizontal = expanding
+					block "button_text" { text = placeholder }
+					default_format = "#bold"
+				}
+			}
+
+			block "button_tooltip" { tooltip = placeholder }
+			using = tooltip_ne
+		}
+	}
 }

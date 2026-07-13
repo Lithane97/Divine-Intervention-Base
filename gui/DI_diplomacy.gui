@@ -1407,6 +1407,64 @@ window = {
                                     }
                                 }
 
+                                # add concubine
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_add_concubine').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_add_concubine').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+                                                text = DI_dip_add_concubine_button
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_add_concubine_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
+                                # remove concubine
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+
+                                    button_standard = {
+                                        layoutpolicy_horizontal = expanding
+                                        size = { 0 50 }
+
+                                        enabled = "[GetScriptedGui('DI_dip_remove_concubine').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                        onclick = "[GetScriptedGui('DI_dip_remove_concubine').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                                        hbox = {
+                                            margin = { 5 0 }
+                                            margin_right = 10
+                                            spacing = 10
+
+                                            text_single = {
+                                                layoutpolicy_horizontal = expanding
+                                                text = DI_dip_remove_concubine_button
+                                                default_format = "#clickable"
+                                            }
+                                        }
+                                        tooltip = DI_dip_remove_concubine_button_tt
+                                    }
+                                    hbox = {
+                                        minimumsize = { 76 -1 }
+                                    }
+                                }
+
                                 # arrange betrothal
                                 hbox = {
                                     layoutpolicy_horizontal = expanding
