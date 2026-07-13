@@ -51,10 +51,21 @@ window = {
 
         DI_religion_scrollbox = {
             datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char]"
+			visible = "[GetVariableSystem.HasValue('DI_religion_window_mode', 'pinned_character')]"
 			
 			blockoverride "footer" {}
             blockoverride "onclick" {
                 onclick = "[GetScriptedGui('DI_PC_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).AddScope('target', Character.MakeScope).End)]"
+            }
+        }
+
+        DI_religion_scrollbox = {
+            visible = "[GetVariableSystem.HasValue('DI_religion_window_mode', 'char_spawner')]"
+
+			blockoverride "footer" {}
+            blockoverride "onclick" {
+                onclick = "[GetScriptedGui('DI_char_spawner_select_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
+                onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
             }
         }
     }

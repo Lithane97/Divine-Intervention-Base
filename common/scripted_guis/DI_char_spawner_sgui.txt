@@ -1,4 +1,277 @@
 ﻿### Councillors ###
+### Origin Selection ###
+DI_char_spawner_initialize_origin = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            if = {
+                limit = { NOT = { has_variable = DI_char_spawner_culture_mode } }
+                set_variable = { name = DI_char_spawner_culture_mode value = flag:target }
+            }
+            if = {
+                limit = { NOT = { has_variable = DI_char_spawner_faith_mode } }
+                set_variable = { name = DI_char_spawner_faith_mode value = flag:target }
+            }
+            if = {
+                limit = { NOT = { has_variable = DI_char_spawner_random_culture_mode } }
+                set_variable = { name = DI_char_spawner_random_culture_mode value = flag:global }
+            }
+            if = {
+                limit = { NOT = { has_variable = DI_char_spawner_random_faith_mode } }
+                set_variable = { name = DI_char_spawner_random_faith_mode value = flag:global }
+            }
+            if = {
+                limit = { NOT = { has_variable = DI_char_spawner_selected_culture } }
+                set_variable = { name = DI_char_spawner_selected_culture value = root.culture }
+            }
+            if = {
+                limit = { NOT = { has_variable = DI_char_spawner_selected_faith } }
+                set_variable = { name = DI_char_spawner_selected_faith value = root.faith }
+            }
+        }
+    }
+}
+
+DI_char_spawner_culture_target = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:target }
+        }
+    }
+}
+
+DI_char_spawner_culture_random = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_global = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:global }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_heritage = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:heritage }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_language = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:language }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_realm = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:realm }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_low_acceptance = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:low_acceptance }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_moderate_acceptance = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:moderate_acceptance }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_culture_high_acceptance = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_culture_mode value = flag:high_acceptance }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_culture_selected = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:selected }
+        }
+    }
+}
+
+DI_char_spawner_select_culture = {
+    scope = character
+    saved_scopes = { selected_culture }
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_selected_culture value = scope:selected_culture }
+            set_variable = { name = DI_char_spawner_culture_mode value = flag:selected }
+        }
+    }
+}
+
+DI_char_spawner_faith_target = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:target }
+        }
+    }
+}
+
+DI_char_spawner_faith_random = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_global = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:global }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_religion = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:religion }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_family = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:family }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_realm = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:realm }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_accepted = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:accepted }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_astray = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:astray }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_random_faith_hostile = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_random_faith_mode value = flag:hostile }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:random }
+        }
+    }
+}
+
+DI_char_spawner_faith_selected = {
+    scope = character
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:selected }
+        }
+    }
+}
+
+DI_char_spawner_select_faith = {
+    scope = character
+    saved_scopes = { selected_faith }
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_selected_faith value = scope:selected_faith }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:selected }
+        }
+    }
+}
+
+### Councillors ###
 DI_martial_councillor = {
     scope = character
 

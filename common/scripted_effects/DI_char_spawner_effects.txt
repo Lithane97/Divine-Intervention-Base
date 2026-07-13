@@ -1375,6 +1375,162 @@ DI_set_spouse_effect = {
 	}
 }
 
+DI_char_spawner_resolve_origin_effect = {
+	scope:target.culture = { save_scope_as = DI_cs_spawn_culture }
+	scope:target.faith = { save_scope_as = DI_cs_spawn_faith }
+
+	if = {
+		limit = { scope:DI_story.var:DI_char_spawner_culture_mode = flag:selected }
+		scope:DI_story.var:DI_char_spawner_selected_culture = {
+			save_scope_as = DI_cs_spawn_culture
+		}
+	}
+	else_if = {
+		limit = { scope:DI_story.var:DI_char_spawner_culture_mode = flag:random }
+		switch = {
+			trigger = scope:DI_story.var:DI_char_spawner_random_culture_mode
+			flag:heritage = {
+				random_culture_global = {
+					limit = { has_same_culture_heritage = scope:target.culture }
+					save_scope_as = DI_cs_spawn_culture
+				}
+			}
+			flag:language = {
+				random_culture_global = {
+					limit = { has_same_culture_language = scope:target.culture }
+					save_scope_as = DI_cs_spawn_culture
+				}
+			}
+			flag:low_acceptance = {
+				random_culture_global = {
+					limit = {
+						this != scope:target.culture
+						cultural_acceptance = { target = scope:target.culture value < 30 }
+					}
+					save_scope_as = DI_cs_spawn_culture
+				}
+			}
+			flag:moderate_acceptance = {
+				random_culture_global = {
+					limit = {
+						this != scope:target.culture
+						cultural_acceptance = { target = scope:target.culture value >= 30 }
+						cultural_acceptance = { target = scope:target.culture value < 70 }
+					}
+					save_scope_as = DI_cs_spawn_culture
+				}
+			}
+			flag:high_acceptance = {
+				random_culture_global = {
+					limit = {
+						this != scope:target.culture
+						cultural_acceptance = { target = scope:target.culture value >= 70 }
+					}
+					save_scope_as = DI_cs_spawn_culture
+				}
+			}
+			flag:realm = {
+				scope:target = {
+					random_realm_county = {
+						culture = { save_scope_as = DI_cs_spawn_culture }
+					}
+				}
+			}
+			fallback = {
+				random_culture_global = { save_scope_as = DI_cs_spawn_culture }
+			}
+		}
+	}
+
+	if = {
+		limit = { scope:DI_story.var:DI_char_spawner_faith_mode = flag:selected }
+		scope:DI_story.var:DI_char_spawner_selected_faith = {
+			save_scope_as = DI_cs_spawn_faith
+		}
+	}
+	else_if = {
+		limit = { scope:DI_story.var:DI_char_spawner_faith_mode = flag:random }
+		switch = {
+			trigger = scope:DI_story.var:DI_char_spawner_random_faith_mode
+			flag:religion = {
+				scope:target.faith.religion = {
+					random_faith = { save_scope_as = DI_cs_spawn_faith }
+				}
+			}
+			flag:family = {
+				scope:target.faith.religion = {
+					switch = {
+						trigger = is_in_family
+						rf_abrahamic = {
+							random_religion_global = {
+								limit = { is_in_family = rf_abrahamic }
+								random_faith = { save_scope_as = DI_cs_spawn_faith }
+							}
+						}
+						rf_eastern = {
+							random_religion_global = {
+								limit = { is_in_family = rf_eastern }
+								random_faith = { save_scope_as = DI_cs_spawn_faith }
+							}
+						}
+						rf_sinitic = {
+							random_religion_global = {
+								limit = { is_in_family = rf_sinitic }
+								random_faith = { save_scope_as = DI_cs_spawn_faith }
+							}
+						}
+						rf_pagan = {
+							random_religion_global = {
+								limit = { is_in_family = rf_pagan }
+								random_faith = { save_scope_as = DI_cs_spawn_faith }
+							}
+						}
+					}
+				}
+			}
+			flag:accepted = {
+				random_religion_global = {
+					limit = { any_faith = { DI_random_faith_accepted_by_target = yes } }
+					random_faith = {
+						limit = { DI_random_faith_accepted_by_target = yes }
+						save_scope_as = DI_cs_spawn_faith
+					}
+				}
+			}
+			flag:astray = {
+				random_religion_global = {
+					limit = { any_faith = { DI_random_faith_astray_from_target = yes } }
+					random_faith = {
+						limit = { DI_random_faith_astray_from_target = yes }
+						save_scope_as = DI_cs_spawn_faith
+					}
+				}
+			}
+			flag:hostile = {
+				random_religion_global = {
+					limit = { any_faith = { DI_random_faith_hostile_from_target = yes } }
+					random_faith = {
+						limit = { DI_random_faith_hostile_from_target = yes }
+						save_scope_as = DI_cs_spawn_faith
+					}
+				}
+			}
+			flag:realm = {
+				scope:target = {
+					random_realm_county = {
+						faith = { save_scope_as = DI_cs_spawn_faith }
+					}
+				}
+			}
+			fallback = {
+				random_religion_global = {
+					random_faith = { save_scope_as = DI_cs_spawn_faith }
+				}
+			}
+		}
+	}
+}
+
 DI_spawn_family_character_effect = {
 	scope:DI_story = {
 		save_scope_value_as = {
@@ -1403,14 +1559,16 @@ DI_spawn_family_character_effect = {
 		}
 	}
 
+	DI_char_spawner_resolve_origin_effect = yes
+
 	create_character = {
 		age = scope:DI_char_spawner_age_increment_value
 		gender_female_chance = scope:DI_female_chance
 		health = 5
 		fertility = 0.5
 		employer = scope:target
-		faith = scope:target.faith
-		culture = scope:target.culture
+		faith = scope:DI_cs_spawn_faith
+		culture = scope:DI_cs_spawn_culture
 		dynasty_house = scope:target_house
 		martial = scope:root_target.var:DI_cs_martial
 		prowess = scope:root_target.var:DI_cs_prowess
@@ -1464,14 +1622,16 @@ DI_spawn_court_character_effect = {
 		}
 	}
 
+	DI_char_spawner_resolve_origin_effect = yes
+
 	create_character = {
 		age = scope:DI_story.var:DI_char_spawner_age_increment_value
 		gender_female_chance = scope:DI_story.var:DI_female_chance
 		health = 6
 		fertility = 6
 		employer = scope:target
-		faith = scope:target.faith
-		culture = scope:target.culture
+		faith = scope:DI_cs_spawn_faith
+		culture = scope:DI_cs_spawn_culture
 		dynasty = generate
 		martial = scope:root_target.var:DI_cs_martial
 		prowess = scope:root_target.var:DI_cs_prowess
@@ -1543,14 +1703,16 @@ DI_spawn_low_court_character_effect = {
 		}
 	}
 
+	DI_char_spawner_resolve_origin_effect = yes
+
 	create_character = {
 		age = scope:DI_char_spawner_age_increment_value
 		gender_female_chance = scope:DI_female_chance
 		health = 5
 		fertility = 0.5
 		employer = scope:target
-		faith = scope:target.faith
-		culture = scope:target.culture
+		faith = scope:DI_cs_spawn_faith
+		culture = scope:DI_cs_spawn_culture
 		dynasty = none
 		martial = scope:root_target.var:DI_cs_martial
 		prowess = scope:root_target.var:DI_cs_prowess

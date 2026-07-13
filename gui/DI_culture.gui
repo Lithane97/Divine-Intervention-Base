@@ -70,5 +70,15 @@ window = {
                 onclick = "[GetScriptedGui('DI_title_manager_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
             }
         }
+
+        DI_culture_scrollbox = {
+            visible = "[GetVariableSystem.HasValue('DI_culture_window_mode', 'char_spawner')]"
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_char_spawner_select_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_culture', Culture.MakeScope).End)]"
+                onclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+            }
+        }
     }
 }

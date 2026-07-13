@@ -19,6 +19,7 @@
     state = {
         name = _show
         using = Animation_FadeIn_Quick
+        on_start = "[GetScriptedGui('DI_char_spawner_initialize_origin').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_finish = "[PdxGuiWidget.StackTop]"
     }
 
@@ -55,6 +56,139 @@
             blockoverride "button_close"
             {
                 onclick = "[GetVariableSystem.Toggle('DI_char_spawner_window_visible')]"
+            }
+        }
+
+        vbox = {
+            name = "origin_options"
+            layoutpolicy_horizontal = expanding
+            margin = { 10 5 }
+            spacing = 5
+
+            text_label_center = {
+                layoutpolicy_horizontal = expanding
+                text = DI_char_spawner_origins
+                default_format = "#bold"
+            }
+
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 5
+
+                widget = {
+                    minimumsize = { 40 35 }
+                    maximumsize = { 40 35 }
+                    icon = {
+                        parentanchor = center
+                        size = { 30 30 }
+                        texture = "[GetPlayer.GetFaith.GetIcon]"
+                        tooltip = DI_char_spawner_faith
+                    }
+                }
+
+                button_tab = {
+                    minimumsize = { 65 35 }
+                    maximumsize = { 65 35 }
+                    tooltip = DI_char_spawner_origin_target_tt
+                    onclick = "[GetScriptedGui('DI_char_spawner_faith_target').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    down = "[EqualTo_string('target', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_faith_mode').GetFlagName)]"
+                    text_single = { parentanchor = center text = DI_char_spawner_origin_target default_format = "#low" }
+                }
+
+                button_tab = {
+                    datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_selected_faith').Faith]"
+                    minimumsize = { 210 35 }
+                    maximumsize = { 210 35 }
+                    tooltip = DI_char_spawner_select_faith_tt
+                    onclick = "[GetScriptedGui('DI_char_spawner_faith_selected').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onrightclick = "[GetVariableSystem.Set('DI_religion_window_mode', 'char_spawner')]"
+                    onrightclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
+                    down = "[EqualTo_string('selected', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_faith_mode').GetFlagName)]"
+                    button_ignore = none
+
+                    hbox = {
+                        margin = { 5 0 }
+                        spacing = 5
+                        icon = { size = { 25 25 } texture = "[Faith.GetIcon]" }
+                        text_single = {
+                            layoutpolicy_horizontal = expanding
+                            text = "[Faith.GetNameNoTooltip]"
+                            default_format = "#clickable"
+                        }
+                    }
+                }
+
+                button_tab = {
+                    minimumsize = { 65 35 }
+                    maximumsize = { 65 35 }
+                    tooltip = DI_char_spawner_random_faith_tt
+                    onclick = "[GetScriptedGui('DI_char_spawner_faith_random').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onrightclick = "[GetVariableSystem.Set('DI_CS_random_window_mode', 'faith')]"
+                    onrightclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    down = "[EqualTo_string('random', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_faith_mode').GetFlagName)]"
+                    button_ignore = none
+                    text_single = { parentanchor = center text = DI_char_spawner_origin_random default_format = "#low" }
+                }
+            }
+
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 5
+
+                widget = {
+                    minimumsize = { 40 35 }
+                    maximumsize = { 40 35 }
+                    icon = {
+                        parentanchor = center
+                        size = { 30 30 }
+                        texture = "gfx/interface/icons/message_feed/culture.dds"
+                        tooltip = DI_char_spawner_culture
+                    }
+                }
+
+                button_tab = {
+                    minimumsize = { 65 35 }
+                    maximumsize = { 65 35 }
+                    tooltip = DI_char_spawner_origin_target_tt
+                    onclick = "[GetScriptedGui('DI_char_spawner_culture_target').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    down = "[EqualTo_string('target', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_culture_mode').GetFlagName)]"
+                    text_single = { parentanchor = center text = DI_char_spawner_origin_target default_format = "#low" }
+                }
+
+                button_tab = {
+                    datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_selected_culture').Culture]"
+                    minimumsize = { 210 35 }
+                    maximumsize = { 210 35 }
+                    tooltip = DI_char_spawner_select_culture_tt
+                    onclick = "[GetScriptedGui('DI_char_spawner_culture_selected').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onrightclick = "[GetVariableSystem.Set('DI_culture_window_mode', 'char_spawner')]"
+                    onrightclick = "[GetVariableSystem.Toggle('DI_culture_window_visible')]"
+                    down = "[EqualTo_string('selected', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_culture_mode').GetFlagName)]"
+                    button_ignore = none
+
+                    hbox = {
+                        margin = { 5 0 }
+                        spacing = 5
+                        icon = { size = { 25 25 } texture = "gfx/interface/icons/icon_culture.dds" }
+                        text_single = {
+                            layoutpolicy_horizontal = expanding
+                            text = "[Culture.GetNameNoTooltip]"
+                            default_format = "#clickable"
+                        }
+                    }
+                }
+
+                button_tab = {
+                    minimumsize = { 65 35 }
+                    maximumsize = { 65 35 }
+                    tooltip = DI_char_spawner_random_culture_tt
+                    onclick = "[GetScriptedGui('DI_char_spawner_culture_random').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onrightclick = "[GetVariableSystem.Set('DI_CS_random_window_mode', 'culture')]"
+                    onrightclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    down = "[EqualTo_string('random', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_culture_mode').GetFlagName)]"
+                    button_ignore = none
+                    text_single = { parentanchor = center text = DI_char_spawner_origin_random default_format = "#low" }
+                }
             }
         }
 
@@ -877,6 +1011,183 @@
                             DI_character_spawner_court_position_list = {}
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+window = {
+    name = "DI_CS_random_window"
+    parentanchor = top|right
+    position = { -520 220 }
+    size = { 360 500 }
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+
+    datacontext = "[GetVariableSystem]"
+    visible = "[GetVariableSystem.Exists('DI_CS_random_window_visible')]"
+
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
+
+    vbox = {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+        restrictparent_min = yes
+        using = Window_Margins
+
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+            blockoverride "header_text" { text = DI_char_spawner_random_options }
+            blockoverride "button_close" {
+                onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+            }
+        }
+
+        widget = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+
+            # Dark rail behind the left edge of the vertical tabs.
+            widget = {
+                parentanchor = top|left
+                size = { 8 100% }
+                alwaystransparent = yes
+                background = { using = Background_Tab_Area }
+            }
+
+            vbox = {
+                parentanchor = top|hcenter
+                size = { 100% 100% }
+                visible = "[GetVariableSystem.HasValue('DI_CS_random_window_mode', 'culture')]"
+                margin_left = 5
+                margin_right = 5
+
+                text_label_center = { text = DI_char_spawner_random_culture_title default_format = "#bold" }
+
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('global', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_global').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_global default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('heritage', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_heritage').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_same_heritage default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('language', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_language').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_same_language default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('realm', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_realm').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_realm default_format = "#low" }
+                }
+
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('high_acceptance', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_high_acceptance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_high_acceptance default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('moderate_acceptance', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_moderate_acceptance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_moderate_acceptance default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('low_acceptance', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_culture_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_culture_low_acceptance').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_low_acceptance default_format = "#low" }
+                }
+            }
+
+            vbox = {
+                parentanchor = top|hcenter
+                size = { 100% 100% }
+                visible = "[GetVariableSystem.HasValue('DI_CS_random_window_mode', 'faith')]"
+                margin_left = 5
+                margin_right = 5
+
+                text_label_center = { text = DI_char_spawner_random_faith_title default_format = "#bold" }
+
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('global', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_global').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_global default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('religion', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_religion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_same_religion default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('family', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_family').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_same_family default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('realm', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_realm').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_realm default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('accepted', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_accepted').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_faith_accepted default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('astray', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_astray').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_faith_astray default_format = "#low" }
+                }
+                button_tab_vertical = {
+                    layoutpolicy_horizontal = expanding
+                    down = "[EqualTo_string('hostile', GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_random_faith_mode').GetFlagName)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_random_faith_hostile').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_CS_random_window_visible')]"
+                    text_single = { parentanchor = center text = DI_char_spawner_random_faith_hostile default_format = "#low" }
                 }
             }
         }

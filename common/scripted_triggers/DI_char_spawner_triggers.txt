@@ -1,0 +1,32 @@
+﻿DI_random_faith_accepted_by_target = {
+    this != scope:target.faith
+    save_temporary_scope_as = DI_candidate_faith
+    scope:target.faith = {
+        faith_hostility_level = {
+            target = scope:DI_candidate_faith
+            value = faith_fully_accepted_level
+        }
+    }
+}
+
+DI_random_faith_astray_from_target = {
+    this != scope:target.faith
+    save_temporary_scope_as = DI_candidate_faith
+    scope:target.faith = {
+        faith_hostility_level = {
+            target = scope:DI_candidate_faith
+            value = faith_astray_level
+        }
+    }
+}
+
+DI_random_faith_hostile_from_target = {
+    this != scope:target.faith
+    save_temporary_scope_as = DI_candidate_faith
+    scope:target.faith = {
+        faith_hostility_level = {
+            target = scope:DI_candidate_faith
+            value >= faith_hostile_level
+        }
+    }
+}
