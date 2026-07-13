@@ -1,0 +1,49 @@
+﻿DI_has_selected_relation_trigger = {
+    OR = {
+        has_variable = DI_potential_friend
+        has_variable = DI_potential_rival
+        has_variable = DI_potential_lover
+        has_variable = DI_friend
+        has_variable = DI_rival
+        has_variable = DI_lover
+        has_variable = DI_best_friend
+        has_variable = DI_nemesis
+        has_variable = DI_soulmate
+        has_variable = DI_crush
+        has_variable = DI_bully
+        has_variable = DI_victim
+    }
+}
+
+DI_friendship_family_selected_trigger = {
+    OR = {
+        has_variable = DI_potential_friend
+        has_variable = DI_friend
+        has_variable = DI_best_friend
+    }
+}
+
+DI_rivalry_family_selected_trigger = {
+    OR = {
+        has_variable = DI_potential_rival
+        has_variable = DI_rival
+        has_variable = DI_nemesis
+    }
+}
+
+# Multiple levels from one relation family are valid; the add effect applies
+# only the highest selected level. Different, conflicting social families may
+# not be added together. Removal deliberately does not use this trigger, since
+# different pinned pairs may currently have relations from several families.
+DI_selected_relations_are_compatible_trigger = {
+    # Only one of the friendship, rivalry, bully, or victim families may be
+    # active. Each family trigger counts once regardless of how many levels
+    # within that family are selected.
+    calc_true_if = {
+        amount < 2
+        DI_friendship_family_selected_trigger = yes
+        DI_rivalry_family_selected_trigger = yes
+        has_variable = DI_bully
+        has_variable = DI_victim
+    }
+}

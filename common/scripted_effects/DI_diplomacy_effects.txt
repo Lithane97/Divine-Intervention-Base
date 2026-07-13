@@ -1,0 +1,162 @@
+# Applies one selected relation from the current character to TARGET, but only
+# when that exact relation is not already present.
+DI_add_selected_relation_effect = {
+    if = {
+        limit = {
+            scope:DI_relation_player = { has_variable = DI_$RELATION$ }
+            NOT = { has_relation_$RELATION$ = $TARGET$ }
+        }
+        set_relation_$RELATION$ = $TARGET$
+    }
+}
+
+# Removes one selected relation from the current character to TARGET, but only
+# when that exact relation is present.
+DI_remove_selected_relation_effect = {
+    if = {
+        limit = {
+            scope:DI_relation_player = { has_variable = DI_$RELATION$ }
+            has_relation_$RELATION$ = $TARGET$
+        }
+        remove_relation_$RELATION$ = $TARGET$
+    }
+}
+
+# Base relation triggers also match their upgraded aliases. This helper makes
+# removal exact by excluding the upgraded relation.
+DI_remove_selected_base_relation_effect = {
+    if = {
+        limit = {
+            scope:DI_relation_player = { has_variable = DI_$RELATION$ }
+            has_relation_$RELATION$ = $TARGET$
+            NOT = { has_relation_$UPGRADE$ = $TARGET$ }
+        }
+        remove_relation_$RELATION$ = $TARGET$
+    }
+}
+
+# Removes one relation regardless of the selection checkboxes.
+DI_remove_relation_if_present_effect = {
+    if = {
+        limit = { has_relation_$RELATION$ = $TARGET$ }
+        remove_relation_$RELATION$ = $TARGET$
+    }
+}
+
+DI_remove_base_relation_if_present_effect = {
+    if = {
+        limit = {
+            has_relation_$RELATION$ = $TARGET$
+            NOT = { has_relation_$UPGRADE$ = $TARGET$ }
+        }
+        remove_relation_$RELATION$ = $TARGET$
+    }
+}
+
+DI_add_selected_relations_to_target_effect = {
+    # Apply only the highest selected friendship level.
+    if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_best_friend } }
+        DI_add_selected_relation_effect = { RELATION = best_friend TARGET = $TARGET$ }
+    }
+    else_if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_friend } }
+        DI_add_selected_relation_effect = { RELATION = friend TARGET = $TARGET$ }
+    }
+    else_if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_potential_friend } }
+        DI_add_selected_relation_effect = { RELATION = potential_friend TARGET = $TARGET$ }
+    }
+
+    # Apply only the highest selected rivalry level.
+    if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_nemesis } }
+        DI_add_selected_relation_effect = { RELATION = nemesis TARGET = $TARGET$ }
+    }
+    else_if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_rival } }
+        DI_add_selected_relation_effect = { RELATION = rival TARGET = $TARGET$ }
+    }
+    else_if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_potential_rival } }
+        DI_add_selected_relation_effect = { RELATION = potential_rival TARGET = $TARGET$ }
+    }
+
+    # Apply only the highest selected romantic level.
+    if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_soulmate } }
+        DI_add_selected_relation_effect = { RELATION = soulmate TARGET = $TARGET$ }
+    }
+    else_if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_lover } }
+        DI_add_selected_relation_effect = { RELATION = lover TARGET = $TARGET$ }
+    }
+    else_if = {
+        limit = { scope:DI_relation_player = { has_variable = DI_potential_lover } }
+        DI_add_selected_relation_effect = { RELATION = potential_lover TARGET = $TARGET$ }
+    }
+
+    DI_add_selected_relation_effect = { RELATION = crush TARGET = $TARGET$ }
+    DI_add_selected_relation_effect = { RELATION = bully TARGET = $TARGET$ }
+    DI_add_selected_relation_effect = { RELATION = victim TARGET = $TARGET$ }
+}
+
+# DI_relation_first and DI_relation_second represent one unique unordered pair.
+DI_add_selected_relations_for_pair_effect = {
+    scope:DI_relation_first = {
+        DI_add_selected_relations_to_target_effect = { TARGET = scope:DI_relation_second }
+    }
+
+    # Crush has no corresponding reverse relation, so preserve the previous
+    # all-pinned behavior by applying it in both directions.
+    scope:DI_relation_second = {
+        DI_add_selected_relation_effect = { RELATION = crush TARGET = scope:DI_relation_first }
+    }
+}
+
+DI_remove_selected_relations_for_pair_effect = {
+    scope:DI_relation_first = {
+        DI_remove_selected_relation_effect = { RELATION = potential_friend TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = potential_rival TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = potential_lover TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = best_friend TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = nemesis TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = soulmate TARGET = scope:DI_relation_second }
+        DI_remove_selected_base_relation_effect = { RELATION = friend UPGRADE = best_friend TARGET = scope:DI_relation_second }
+        DI_remove_selected_base_relation_effect = { RELATION = rival UPGRADE = nemesis TARGET = scope:DI_relation_second }
+        DI_remove_selected_base_relation_effect = { RELATION = lover UPGRADE = soulmate TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = crush TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = bully TARGET = scope:DI_relation_second }
+        DI_remove_selected_relation_effect = { RELATION = victim TARGET = scope:DI_relation_second }
+    }
+
+    # Directional relations must be checked from both sides of the pair.
+    scope:DI_relation_second = {
+        DI_remove_selected_relation_effect = { RELATION = crush TARGET = scope:DI_relation_first }
+        DI_remove_selected_relation_effect = { RELATION = bully TARGET = scope:DI_relation_first }
+        DI_remove_selected_relation_effect = { RELATION = victim TARGET = scope:DI_relation_first }
+    }
+}
+
+DI_reset_relations_for_pair_effect = {
+    scope:DI_relation_first = {
+        DI_remove_relation_if_present_effect = { RELATION = potential_friend TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = potential_rival TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = potential_lover TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = best_friend TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = nemesis TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = soulmate TARGET = scope:DI_relation_second }
+        DI_remove_base_relation_if_present_effect = { RELATION = friend UPGRADE = best_friend TARGET = scope:DI_relation_second }
+        DI_remove_base_relation_if_present_effect = { RELATION = rival UPGRADE = nemesis TARGET = scope:DI_relation_second }
+        DI_remove_base_relation_if_present_effect = { RELATION = lover UPGRADE = soulmate TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = crush TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = bully TARGET = scope:DI_relation_second }
+        DI_remove_relation_if_present_effect = { RELATION = victim TARGET = scope:DI_relation_second }
+    }
+
+    scope:DI_relation_second = {
+        DI_remove_relation_if_present_effect = { RELATION = crush TARGET = scope:DI_relation_first }
+        DI_remove_relation_if_present_effect = { RELATION = bully TARGET = scope:DI_relation_first }
+        DI_remove_relation_if_present_effect = { RELATION = victim TARGET = scope:DI_relation_first }
+    }
+}
