@@ -120,8 +120,13 @@ DI_dynasty_splendor_reset = {
 	}
 }
 
-### Select Character Init ###
-DI_dynasty_perk_select_char_init = {
+### Perk editor window open/close (atomic; single execution per click) ###
+# The old design used window _show/_hide on_start hooks for the free-mode default
+# and reset - but on_start is a documented engine bug ("triggers twice"; wiki,
+# Animation states) and vanilla never puts scripted-gui Execute in on_start. The
+# open/close effects now own the full lifecycle: free mode defaults ON per open,
+# and closing clears it so normal gameplay never inherits it.
+DI_dynasty_perk_editor_open = {
     scope = character
 
     effect = {
@@ -138,9 +143,25 @@ DI_dynasty_perk_select_char_init = {
                 value = this.dynasty
             }
         }
-        debug_log = "Initialized dynasty edit character set"
-        # NOTE: removed debug_log = "[scope:this.GetFullName]" — scope:this is not resolvable
-        # in the debug_log datacontext and produced a pdx_data_factory error on every open.
+        set_variable = {
+            name = DI_legacy_editor_free_mode
+            value = 1
+        }
+        set_variable = {
+            name = DI_dynasty_perk_editor_window_visible
+            value = 1
+        }
+        debug_log = "DI perk editor opened (free mode ON)"
+    }
+}
+
+DI_dynasty_perk_editor_close = {
+    scope = character
+
+    effect = {
+        remove_variable = DI_dynasty_perk_editor_window_visible
+        remove_variable = DI_legacy_editor_free_mode
+        debug_log = "DI perk editor closed (free mode reset)"
     }
 }
 

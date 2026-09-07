@@ -7,7 +7,10 @@ window = {
 	# (GetVariableSystem and GetPlayer are globally accessible and need no datacontext)
 	datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
 
-    visible = "[And(GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible'), GetPlayer.MakeScope.Var('DI_dynasty_selected_char').Char.IsValid)]" # "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   # 
+	# FIX-2: visibility is a player-scope SCRIPT variable set by the atomic open
+	# effect (DI_dynasty_perk_editor_open) - single-sourced, no GetVariableSystem
+	# toggle on the opener button, no state-hook side effects.
+	visible = "[GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('DI_dynasty_perk_editor_window_visible').GetValue, '(CFixedPoint)0' )]" # "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   #
 
 
 	# Responsive sizing, vanilla pattern (window_activity_guest_list.gui: 1200 90%,
@@ -29,24 +32,23 @@ window = {
 		alpha = 0.5
 	}
 
+	# FIX-1: the _show/_hide on_start hooks were REMOVED. on_start is a documented
+	# engine bug ("triggers twice" - wiki, Animation states) and both machine
+	# freezes logged mode_on x2 as their final lines. Lifecycle ownership moved to
+	# the open/close scripted guis (DI_dynasty_perk_editor_open/_close): free mode
+	# defaults ON per open, closing resets it. The states remain for the
+	# fade animations only.
 	state = {
 		name = _show
 
 		using = Animation_FadeIn_Standard
 		using = Sound_Panel_Popup_Snapshot
-
-		# free mode defaults ON every time the window opens (reliable lifecycle hook,
-		# unlike widget default= which didn't fire on the toggled window)
-		on_start = "[GetScriptedGui('DI_dynasty_perk_editor_mode_on').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 
 	state = {
 		name = _hide
 
 		using = Animation_FadeOut_Standard
-
-		# and resets on close, so normal gameplay never inherits free mode
-		on_start = "[GetScriptedGui('DI_dynasty_perk_editor_mode_off').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 
 	vbox = {
@@ -131,7 +133,7 @@ window = {
 			blockoverride "button_close"
 			{
 				name = "button_close"
-				onclick = "[GetVariableSystem.Toggle('DI_dynasty_perk_editor_window_visible')]"
+				onclick = "[GetScriptedGui('DI_dynasty_perk_editor_close').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 				# shortcut = "close_window"
 				# tooltip = "CLOSE_TOOLTIP"
 			}
@@ -249,17 +251,24 @@ window = {
 				# GENERATED per-perk toggle grid (tools/generate_perk_editor.ps1)
 				# left click adds, right click removes; buttons are never disabled
 				# (an `enabled` bound to the add direction blocks right-click removal)
-				di_generated_perk_grid = {}
+				# ladder 7: scrollbox_content allows only ONE child without siblings
+				# (shared/lists.gui:3182) - both sections wrapped in a single vbox
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
 
-				# Phase 3 extension slot. The base mod defines this type as an empty vbox
-				# (see the generated gui/DI_generated_perk_grid.gui) so this instantiation
-				# always resolves - with no compatch enabled it simply renders nothing.
-				# Standalone sub-mods / combined-playset mods redefine the same type with
-				# their modded-track rows, which then render right below the vanilla grid.
-				# Exactly ONE DI Perks compatch per modlist, because the type name is
-				# shared. UNVERIFIED which definition wins across load order; see
-				# docs/DYNASTY_PERK_EDITOR_AUDIT.md, "Open experiment".
-				di_perk_grid_extension = {}
+					di_generated_perk_grid = {}
+
+					# Phase 3 extension slot. The base mod defines this type as an empty vbox
+					# (see the generated gui/DI_generated_perk_grid.gui) so this instantiation
+					# always resolves - with no compatch enabled it simply renders nothing.
+					# Standalone sub-mods / combined-playset mods redefine the same type with
+					# their modded-track rows, which then render right below the vanilla grid.
+					# Exactly ONE DI Perks compatch per modlist, because the type name is
+					# shared. UNVERIFIED which definition wins across load order; see
+					# docs/DYNASTY_PERK_EDITOR_AUDIT.md, "Open experiment".
+					di_perk_grid_extension = {}
+				}
 			}
 		}
 	}

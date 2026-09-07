@@ -24,7 +24,7 @@
 
 # --- One perk button (296x128), wired to DI_perk_add_<key> / DI_perk_remove_<key> --
 function Write-VanillaPerkButton {
-    param($Sb, [string]$Key, [string]$Track)
+    param($Sb, [string]$Key, [string]$Track, [switch]$DisableOwnedState)
     [void]$Sb.AppendLine("                button_standard = {")
     [void]$Sb.AppendLine("                    size = { 296 128 }")
     [void]$Sb.AppendLine("                    button_ignore = none")
@@ -39,33 +39,22 @@ function Write-VanillaPerkButton {
     [void]$Sb.AppendLine("                        alpha = 0.9")
     [void]$Sb.AppendLine("                    }")
     [void]$Sb.AppendLine("")
-    [void]$Sb.AppendLine("                    background = {")
-    [void]$Sb.AppendLine("                        size = { 100% 100% }")
-    [void]$Sb.AppendLine("                        texture = ""gfx/interface/component_masks/mask_frame_horizontal.dds""")
-    [void]$Sb.AppendLine("                        tintcolor = { 0 0 0 0.8 }")
-    [void]$Sb.AppendLine("")
-    [void]$Sb.AppendLine("                        modify_texture = {")
-    [void]$Sb.AppendLine("                            texture = ""gfx/interface/component_tiles/tile_frame_thin_02.dds""")
-    [void]$Sb.AppendLine("                            spriteType = Corneredtiled")
-    [void]$Sb.AppendLine("                            spriteborder = { 50 50 }")
-    [void]$Sb.AppendLine("                            blend_mode = alphamultiply")
-    [void]$Sb.AppendLine("                            alpha = 0.2")
-    [void]$Sb.AppendLine("                            texture_density = 2")
-    [void]$Sb.AppendLine("                        }")
-    [void]$Sb.AppendLine("                    }")
-    [void]$Sb.AppendLine("")
     # owned layer: gold border (frame, not a fill) + checkmark, visible only when
-    # the selected dynasty owns the perk (the remove SGUI's is_shown). Both are
-    # direct children of the button and alwaystransparent so clicks pass through.
+    # the selected dynasty owns the perk. FIX-4a: the visibility bindings are PURE
+    # datafunctions (Dynasty.HasPerk over GetDynastyPerk) - the previous
+    # GetScriptedGui IsShown form executed a scripted-gui trigger per cell per
+    # binding re-evaluation (2,554 script runs per wave), which correlated with
+    # machine freezes. Effects stay on onclick/onrightclick (click-time only).
+    if (-not $DisableOwnedState) {
     [void]$Sb.AppendLine("                    background = {")
-    [void]$Sb.AppendLine("                        visible = ""[GetScriptedGui('DI_perk_remove_$Key').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
+    [void]$Sb.AppendLine("                        visible = ""[Dynasty.HasPerk( GetDynastyPerk('$Key') )]""")
     [void]$Sb.AppendLine("                        size = { 100% 100% }")
     [void]$Sb.AppendLine("                        using = Background_Frame_Gold")
     [void]$Sb.AppendLine("                        alwaystransparent = yes")
     [void]$Sb.AppendLine("                    }")
     [void]$Sb.AppendLine("")
     [void]$Sb.AppendLine("                    icon = {")
-    [void]$Sb.AppendLine("                        visible = ""[GetScriptedGui('DI_perk_remove_$Key').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
+    [void]$Sb.AppendLine("                        visible = ""[Dynasty.HasPerk( GetDynastyPerk('$Key') )]""")
     [void]$Sb.AppendLine("                        parentanchor = top|right")
     [void]$Sb.AppendLine("                        position = { -4 4 }")
     [void]$Sb.AppendLine("                        texture = ""gfx/interface/icons/symbols/icon_check.dds""")
@@ -73,13 +62,16 @@ function Write-VanillaPerkButton {
     [void]$Sb.AppendLine("                        alwaystransparent = yes")
     [void]$Sb.AppendLine("                    }")
     [void]$Sb.AppendLine("")
+    }
     [void]$Sb.AppendLine("                    vbox = {")
     [void]$Sb.AppendLine("                        margin = { 10 5 }")
     [void]$Sb.AppendLine("                        margin_top = 18")
     [void]$Sb.AppendLine("")
-    [void]$Sb.AppendLine("                        text_multi = {")
+    # ladder 4: fixed-size text_single - text_multi autoresize re-measures 1,277
+    # cells at layout time; names are single-line so the dynamic re-measure is cost
+    # without benefit.
+    [void]$Sb.AppendLine("                        text_single = {")
     [void]$Sb.AppendLine('                            text = "[Localize(''' + $Key + '_name'')]"')
-    [void]$Sb.AppendLine("                            autoresize = yes")
     [void]$Sb.AppendLine("                            max_width = 296")
     [void]$Sb.AppendLine("                            fontsize_min = 14")
     [void]$Sb.AppendLine("                            default_format = ""#low""")
@@ -93,7 +85,8 @@ function Write-VanillaPerkButton {
 # $Gate is a DLC feature name (or empty); when set the whole section is hidden with
 # visible = "[HasDlcFeature( '<gate>' )]" so a missing DLC leaves no dead buttons.
 function Write-VanillaTrackSection {
-    param($Sb, [string]$Track, $PerkList, [string]$Gate)
+    param($Sb, [string]$Track, $PerkList, [string]$Gate, [switch]$DisableOwnedState)
+    if (@($PerkList).Count -eq 0) { throw "Cannot generate empty dynasty track '$Track'." }
     [void]$Sb.AppendLine("        # ---- $Track ($($PerkList.Count) perks)$(if ($Gate) { "" [DLC: $Gate]"" }) ----")
     [void]$Sb.AppendLine("        vbox = {")
     if ($Gate) {
@@ -138,18 +131,26 @@ function Write-VanillaTrackSection {
     [void]$Sb.AppendLine("                    onclick = ""[GetScriptedGui('DI_track_add_all_$Track').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
     [void]$Sb.AppendLine("                    onrightclick = ""[GetScriptedGui('DI_track_remove_all_$Track').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
     [void]$Sb.AppendLine("                    tooltip = DI_DYNASTY_EDITOR_TRACK_BUTTON_TT")
-    # fully-owned tint: replaces button_standard's default background_color block
-    # (the override REPLACES, so the not-owned branch re-supplies Background_Color).
+    # fully-owned tint: pure datafunction form (FIX-4a) - And over the track's perk
+    # keys; the old IsShown bindings executed a scripted-gui trigger per track per
+    # re-evaluation wave (262+ script runs per flip).
+    if (-not $DisableOwnedState) {
+    $terms = @($PerkList | ForEach-Object { "Dynasty.HasPerk( GetDynastyPerk('$_') )" })
+    $ownedExpr = $terms[-1]
+    for ($i = $terms.Count - 2; $i -ge 0; $i--) {
+        $ownedExpr = "And( $($terms[$i]), $ownedExpr )"
+    }
     [void]$Sb.AppendLine("                    blockoverride ""background_color"" {")
     [void]$Sb.AppendLine("                        background = {")
-    [void]$Sb.AppendLine("                            visible = ""[Not(GetScriptedGui('DI_track_add_all_$Track').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End))]""")
+    [void]$Sb.AppendLine("                            visible = ""[$ownedExpr]""")
     [void]$Sb.AppendLine("                            using = Background_Frame_Gold")
     [void]$Sb.AppendLine("                        }")
     [void]$Sb.AppendLine("                        background = {")
-    [void]$Sb.AppendLine("                            visible = ""[GetScriptedGui('DI_track_add_all_$Track').IsShown(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
+    [void]$Sb.AppendLine("                            visible = ""[Not( $ownedExpr )]""")
     [void]$Sb.AppendLine("                            using = Background_Color")
     [void]$Sb.AppendLine("                        }")
     [void]$Sb.AppendLine("                    }")
+    }
     [void]$Sb.AppendLine("                }")
     [void]$Sb.AppendLine("            }")
     [void]$Sb.AppendLine("")
@@ -158,7 +159,7 @@ function Write-VanillaTrackSection {
     [void]$Sb.AppendLine("                spacing = 5")
     [void]$Sb.AppendLine("")
     foreach ($k in $PerkList) {
-        Write-VanillaPerkButton $Sb $k $Track
+        Write-VanillaPerkButton $Sb $k $Track -DisableOwnedState:$DisableOwnedState
     }
     [void]$Sb.AppendLine("            }")
     [void]$Sb.AppendLine("        }")

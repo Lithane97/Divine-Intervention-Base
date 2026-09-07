@@ -33,6 +33,9 @@
 # =============================================================================
 
 param(
+    [switch]$DiagnosticEmptyGrid,
+    [string[]]$DiagnosticGridTracks = @(),
+    [switch]$DiagnosticDisableOwnedState,
     [switch]$Scan,                      # F1: list installed perk mods (read-only)
     [string]$SubMod = "",               # F3: standalone compatch for one perk mod
     [string]$SubModName = "",           # override the compatch display name (default "DI Perks - <mod name>")
@@ -56,6 +59,14 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "_grid_diagnostics.ps1")
+$diagnostic = $DiagnosticEmptyGrid -or $DiagnosticGridTracks.Count -gt 0 -or $DiagnosticDisableOwnedState
+if ($diagnostic) {
+    if (-not $SubMod -and -not $PlaysetJson) { throw 'Diagnostic grid options require the SubMod route (-SubMod or -PlaysetJson).' }
+    if ($Scan -or $Playset -or $PlaysetMods -or $SubMods -or $Open) { throw 'Diagnostic grid options cannot be combined with other generation routes or -Open.' }
+    Assert-DiDiagnosticOutput $TargetFolder
+}
+if ($DiagnosticEmptyGrid -and $DiagnosticGridTracks.Count) { throw 'DiagnosticEmptyGrid and DiagnosticGridTracks are mutually exclusive.' }
 
 # --- Shared parser (dot-sourced) ------------------------------------------------
 . (Join-Path $PSScriptRoot "_perk_parser.ps1")
@@ -410,6 +421,7 @@ function New-DiSubMod {
     if ($perks.Count -eq 0) { Write-Warning "No perks parsed from $perkDir or $vanillaPerkDir"; return }
     if (-not (Test-PerksModel $perks)) { throw "Parsed perk model is inconsistent - aborting before writing" }
     $tracks = Group-PerksByTrack $perks
+    $gridTracks = @(Get-DiGridSelection $tracks -EmptyGrid:$DiagnosticEmptyGrid -TrackKeys $DiagnosticGridTracks)
 
     # --- DLC gates from the same merged sources' dynasty_legacies folders ---------
     # Mod ROOTS in REVERSE engine order + vanilla last: Get-TrackDlcGates is
@@ -500,22 +512,27 @@ function New-DiSubMod {
     # This compatch therefore ships the ENTIRE grid (vanilla + mod perks) at the base
     # mod's exact path and must load AFTER the base mod in the playset.
     $gui = [System.Text.StringBuilder]::new()
+    if ($diagnostic) { [void]$gui.AppendLine("### DIAGNOSTIC GRID - GUI only; full effects retained. See DI_grid_manifest.json.") }
     [void]$gui.AppendLine("### GENERATED FILE - do not hand-edit. generate_mod_perks.ps1 -SubMod")
     [void]$gui.AppendLine("### Same-path full-file override of the base mod's gui/DI_generated_perk_grid.gui.")
     [void]$gui.AppendLine("### This compatch must be loaded AFTER the base mod in the playset.")
-    [void]$gui.AppendLine("### Owned state IS rendered via the remove SGUI's IsShown binding (gold border +")
-    [void]$gui.AppendLine("### checkmark; fully-owned tracks tint gold). Buttons stay enabled for left-add /")
-    [void]$gui.AppendLine("### right-remove; the SGUI is_shown guards make wrong-direction clicks no-ops.")
+    if ($DiagnosticDisableOwnedState) {
+        [void]$gui.AppendLine("### Ownership indicators and their bindings are omitted for diagnosis; click actions remain.")
+    } else {
+        [void]$gui.AppendLine("### Owned state IS rendered via pure datafunction bindings (gold border +")
+        [void]$gui.AppendLine("### checkmark; fully-owned tracks tint gold). Buttons stay enabled for left-add /")
+        [void]$gui.AppendLine("### right-remove; the SGUI is_shown guards make wrong-direction clicks no-ops.")
+    }
     [void]$gui.AppendLine("")
     [void]$gui.AppendLine("types DI_DynastyGeneratedPerks {")
     [void]$gui.AppendLine("    type di_generated_perk_grid = vbox {")
     [void]$gui.AppendLine("        layoutpolicy_horizontal = expanding")
     [void]$gui.AppendLine("        spacing = 5")
     [void]$gui.AppendLine("")
-    foreach ($t in $tracks.Keys) {
+    foreach ($t in $gridTracks) {
         $gate = $null
         if ($trackGates.ContainsKey($t)) { $gate = $trackGates[$t] }
-        Write-VanillaTrackSection $gui $t $tracks[$t] $gate
+        Write-VanillaTrackSection $gui $t $tracks[$t] $gate -DisableOwnedState:$DiagnosticDisableOwnedState
     }
     [void]$gui.AppendLine("    }")
     [void]$gui.AppendLine("    type di_perk_grid_extension = vbox {")
@@ -618,9 +635,9 @@ function New-DiSubMod {
     }
     # deps were computed before the WhatIf gate; only the write happens here.
 
-    Write-Descriptor -OutDir $outDir -ModName $modDisplayName -Depends $deps -UserFolder $UserFolder -WriteLauncher $true
+    Write-Descriptor -OutDir $outDir -ModName $modDisplayName -Depends $deps -UserFolder $UserFolder -WriteLauncher ([string]::IsNullOrEmpty($TargetFolder))
     Write-Host "Wrote sub-mod to $outDir"
-    Write-Host "Launcher mod: $(Join-Path $UserFolder "mod\$modDisplayName.mod")"
+    Write-DiGridManifest -OutputDir $outDir -GridPath (Join-Path $outDir 'gui/DI_generated_perk_grid.gui') -InputPaths (@($GameDir) + @($modRoots)) -Tracks $tracks -SelectedTracks $gridTracks -Gates $trackGates -Diagnostic $diagnostic -DisableOwnedState $DiagnosticDisableOwnedState
     if ($Open) { Start-Process explorer.exe $outDir }
 }
 

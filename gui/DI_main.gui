@@ -153,8 +153,10 @@ window = {
 						button_standard = {
                             layoutpolicy_horizontal = expanding
                             text = DI_dynasty_perk_editor_window
-							onclick = "[GetScriptedGui('DI_dynasty_perk_select_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" #Not Implemented
-							onclick = "[GetVariableSystem.Toggle('DI_dynasty_perk_editor_window_visible')]" #Not Implemented 				#maybe Need to Make this windows Close/invisible 
+							# FIX-2: atomic open - one effect does char-select init, free-mode
+							# default-ON and the visibility flag (the old two-onclick form ran
+							# select_char_init + a GetVariableSystem toggle as separate steps)
+							onclick = "[GetScriptedGui('DI_dynasty_perk_editor_open').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 							tooltip = DI_dynasty_perk_editor_window_tt
                             button_ignore = none
                         }

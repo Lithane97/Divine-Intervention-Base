@@ -24,11 +24,21 @@ param(
     [string]$ModDir  = "$PSScriptRoot\..",
     [string[]]$ExtraPerkDirs = @(),   # e.g. AGOT mod's common/dynasty_perks
     [string[]]$LocDirs = @("H:\SteamLibrary\steamapps\common\Crusader Kings III\game\localization\english"),
+    [switch]$DiagnosticEmptyGrid,
+    [string[]]$DiagnosticGridTracks = @(),
+    [switch]$DiagnosticDisableOwnedState,
     [switch]$WhatIf,
     [switch]$Check   # dry-run summary only (no writes); used by validate_perk_editor.ps1
 )
 
 $ErrorActionPreference = "Stop"
+. (Join-Path $PSScriptRoot "_grid_diagnostics.ps1")
+$diagnostic = $DiagnosticEmptyGrid -or $DiagnosticGridTracks.Count -gt 0 -or $DiagnosticDisableOwnedState
+if ($diagnostic) {
+    if (-not $PSBoundParameters.ContainsKey('ModDir')) { throw 'Diagnostic generation requires explicit -ModDir staging output.' }
+    Assert-DiDiagnosticOutput $ModDir
+}
+if ($DiagnosticEmptyGrid -and $DiagnosticGridTracks.Count) { throw 'DiagnosticEmptyGrid and DiagnosticGridTracks are mutually exclusive.' }
 $WhatIf = $WhatIf -or $Check
 
 $perkDirs   = @("$GameDir\common\dynasty_perks") + $ExtraPerkDirs
@@ -110,6 +120,7 @@ Write-Host "Parsed $($perks.Count) perks ($gatedCount DLC-gated tracks)"
 
 # group by track, preserving first-seen order
 $tracks = Group-PerksByTrack $perks
+$gridTracks = @(Get-DiGridSelection $tracks -EmptyGrid:$DiagnosticEmptyGrid -TrackKeys $DiagnosticGridTracks)
 Write-Host "Parsed $($perks.Count) perks across $($tracks.Count) tracks"
 
 # --- Output encoding -----------------------------------------------------------
@@ -326,11 +337,16 @@ if (-not $WhatIf) {
 # Vanilla loc: perk names = <perk_key>_name; track name/desc = <track>_name / <track>_desc.
 # Track icons: gfx/interface/icons/dynasty/<track>.dds (verified in vanilla files).
 $gui = [System.Text.StringBuilder]::new()
+if ($diagnostic) { [void]$gui.AppendLine("### DIAGNOSTIC GRID - GUI only; full effects retained. See DI_grid_manifest.json.") }
 [void]$gui.AppendLine("### GENERATED FILE - do not hand-edit. Regenerate with: tools/generate_perk_editor.ps1")
 [void]$gui.AppendLine("### Per-perk toggle grid for the DI dynasty perk editor.")
-[void]$gui.AppendLine("### Owned state IS rendered via the remove SGUI's IsShown binding (gold border +")
-[void]$gui.AppendLine("### checkmark; fully-owned tracks tint gold). Buttons stay enabled for left-add /")
-[void]$gui.AppendLine("### right-remove.")
+if ($DiagnosticDisableOwnedState) {
+    [void]$gui.AppendLine("### Ownership indicators and their bindings are omitted for diagnosis; click actions remain.")
+} else {
+    [void]$gui.AppendLine("### Owned state IS rendered via pure datafunction bindings (gold border +")
+    [void]$gui.AppendLine("### checkmark; fully-owned tracks tint gold). Buttons stay enabled for left-add /")
+    [void]$gui.AppendLine("### right-remove.")
+}
 [void]$gui.AppendLine("### left click = add (no-op if already owned via the add SGUI's is_shown guard),")
 [void]$gui.AppendLine("### right click = remove (no-op if not owned). Out-of-order add/remove is intended.")
 [void]$gui.AppendLine("")
@@ -339,11 +355,11 @@ $gui = [System.Text.StringBuilder]::new()
 [void]$gui.AppendLine("        layoutpolicy_horizontal = expanding")
 [void]$gui.AppendLine("        spacing = 5")
 [void]$gui.AppendLine("")
-foreach ($t in $tracks.Keys) {
+foreach ($t in $gridTracks) {
     $perkList = $tracks[$t]
     $gate = $null
     if ($trackGates.ContainsKey($t)) { $gate = $trackGates[$t] }
-    Write-VanillaTrackSection $gui $t $perkList $gate
+    Write-VanillaTrackSection $gui $t $perkList $gate -DisableOwnedState:$DiagnosticDisableOwnedState
 }
 [void]$gui.AppendLine("    }")
     # Empty extension slot (Phase 3). Sub-mods and combined-playset mods REDEFINE this
@@ -361,6 +377,7 @@ if (-not $WhatIf) {
     New-Item -ItemType Directory -Force -Path (Split-Path $outGui) | Out-Null
     [System.IO.File]::WriteAllText($outGui, $gui.ToString(), $utf8Bom)
     Write-Host "Wrote $outGui"
+    Write-DiGridManifest -OutputDir $ModDir -GridPath $outGui -InputPaths $perkDirs -Tracks $tracks -SelectedTracks $gridTracks -Gates $trackGates -Diagnostic $diagnostic -DisableOwnedState $DiagnosticDisableOwnedState
 }
 
 # --- Generate tooltip loc ---------------------------------------------------------
@@ -422,4 +439,3 @@ if (-not $WhatIf) {
 }
 
 Write-Host "Done. $($perks.Count) toggles, $($tracks.Count) track rows generated."
-
