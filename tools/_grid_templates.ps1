@@ -12,7 +12,7 @@
 #
 # Look is modelled on the vanilla legacy window
 # (game/gui/window_dynasty_legacy.gui, hbox_legacy_item + perk button): 80x80 track
-# icon, localized <track>_name / <track>_desc header, then 296x128 perk buttons on a
+# icon, localized <track>_name / <track>_desc header, then 296x64 perk buttons on a
 # mask_frame_horizontal / tile_frame_thin_02 background.
 #
 # Buttons are ALWAYS ENABLED (no `enabled = GetScriptedGui(...).IsValid(...)`):
@@ -22,11 +22,11 @@
 # not owned). Out-of-order add/remove is intended.
 # =============================================================================
 
-# --- One perk button (296x128), wired to DI_perk_add_<key> / DI_perk_remove_<key> --
+# --- One perk button (296x64), wired to DI_perk_add_<key> / DI_perk_remove_<key> --
 function Write-VanillaPerkButton {
     param($Sb, [string]$Key, [string]$Track, [switch]$DisableOwnedState)
     [void]$Sb.AppendLine("                button_standard = {")
-    [void]$Sb.AppendLine("                    size = { 296 128 }")
+    [void]$Sb.AppendLine("                    size = { 296 64 }")
     [void]$Sb.AppendLine("                    button_ignore = none")
     [void]$Sb.AppendLine("                    onclick = ""[GetScriptedGui('DI_perk_add_$Key').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
     [void]$Sb.AppendLine("                    onrightclick = ""[GetScriptedGui('DI_perk_remove_$Key').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]""")
@@ -65,7 +65,7 @@ function Write-VanillaPerkButton {
     }
     [void]$Sb.AppendLine("                    vbox = {")
     [void]$Sb.AppendLine("                        margin = { 10 5 }")
-    [void]$Sb.AppendLine("                        margin_top = 18")
+    [void]$Sb.AppendLine("                        margin_top = 8")
     [void]$Sb.AppendLine("")
     # ladder 4: fixed-size text_single - text_multi autoresize re-measures 1,277
     # cells at layout time; names are single-line so the dynamic re-measure is cost

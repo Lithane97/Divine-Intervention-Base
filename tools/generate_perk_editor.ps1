@@ -33,6 +33,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 . (Join-Path $PSScriptRoot "_grid_diagnostics.ps1")
+. (Join-Path $PSScriptRoot "_grid_order.ps1")
 $diagnostic = $DiagnosticEmptyGrid -or $DiagnosticGridTracks.Count -gt 0 -or $DiagnosticDisableOwnedState
 if ($diagnostic) {
     if (-not $PSBoundParameters.ContainsKey('ModDir')) { throw 'Diagnostic generation requires explicit -ModDir staging output.' }
@@ -355,6 +356,7 @@ if ($DiagnosticDisableOwnedState) {
 [void]$gui.AppendLine("        layoutpolicy_horizontal = expanding")
 [void]$gui.AppendLine("        spacing = 5")
 [void]$gui.AppendLine("")
+$gridTracks = @(Get-DiSortedGridTracks -TrackKeys $gridTracks -LocMap $locMap)
 foreach ($t in $gridTracks) {
     $perkList = $tracks[$t]
     $gate = $null

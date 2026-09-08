@@ -23,8 +23,10 @@ Both generators support `-DiagnosticEmptyGrid`, `-DiagnosticGridTracks <keys>`
 and `-DiagnosticDisableOwnedState`. Supply `-ModDir` for Base or `-TargetFolder`
 for SubMod. Diagnostics require a staging subdirectory of TEMP or this repository's
 `.ck3modding`; they cannot target installed mod roots. Empty-grid and track-list
-options are mutually exclusive, unknown keys fail, and selection preserves the
-original generator order. Pass multiple keys as a PowerShell array when invoking
+options are mutually exclusive and unknown keys fail. Selection preserves source
+order internally; newly generated grids display the selected tracks alphabetically
+by English heading, with perk order within each track unchanged. Older staged
+crash-test artifacts are retained as generated. Pass multiple keys as a PowerShell array when invoking
 the script from PowerShell; do not rely on native-shell comma splitting.
 
 `DI_grid_manifest.json` records ordered source paths, selected keys, cell and

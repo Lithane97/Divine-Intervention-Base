@@ -103,6 +103,7 @@ try {
     # Regeneration can faithfully reproduce an invalid expression: check arity
     # and ownership truth tables independently of the generator's output.
     & (Join-Path $PSScriptRoot 'test_grid_diagnostics.ps1') -GridPaths (Join-Path $ModDir 'gui/DI_generated_perk_grid.gui')
+    & (Join-Path $PSScriptRoot 'test_grid_layout.ps1')
 
     # --- structural sanity: the hand-written editor window must still wire up ---
     $editorGui = Join-Path $ModDir "gui\DI_dynasty_perk_editor.gui"
