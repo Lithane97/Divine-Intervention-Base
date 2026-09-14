@@ -178,6 +178,8 @@ function Write-Descriptor {
     param([string]$OutDir, [string]$ModName, [string[]]$Depends, [string]$UserFolder, [bool]$WriteLauncher)
     $utf8Bom = [System.Text.UTF8Encoding]::new($true)
     $depsBlock = ($Depends | ForEach-Object { "`t`"$_`"" }) -join "`n"
+    # Internal descriptor.mod must never carry path=; it belongs only in the
+    # external launcher registration .mod written below.
     $desc = @"
 version="0.1.0"
 tags={
@@ -188,22 +190,23 @@ supported_version="1.19.*"
 dependencies = {
 $depsBlock
 }
-path="$($OutDir -replace '[\\/]','/')"
 "@
+    $launcherDesc = $desc + "path=`"$($OutDir -replace '[\\/]','/')`"`n"
     $internalPath = Join-Path $OutDir "descriptor.mod"
     if (-not (Test-Path -LiteralPath $internalPath)) {
         [System.IO.File]::WriteAllText($internalPath, $desc, $utf8Bom)
     } else {
         # F7: regeneration must refresh generator-owned fields (name, version,
-        # supported_version, path, dependencies) in the EXISTING internal
+        # supported_version, dependencies) in the EXISTING internal
         # descriptor too - previously a changed dependency set left it stale while
-        # only the launcher .mod was rewritten. User-owned lines (tags,
+        # only the launcher .mod was rewritten. Any path= line is removed (it
+        # belongs only in the launcher .mod). User-owned lines (tags,
         # remote_file_id, ...) are preserved.
         $t = [System.IO.File]::ReadAllText($internalPath)
         $t = [regex]::Replace($t, '(?m)^version\s*=\s*"[^"]*"', 'version="0.1.0"')
         $t = [regex]::Replace($t, '(?m)^name\s*=\s*"[^"]*"', "name=`"$ModName`"")
         $t = [regex]::Replace($t, '(?m)^supported_version\s*=\s*"[^"]*"', 'supported_version="1.19.*"')
-        $t = [regex]::Replace($t, '(?m)^path\s*=\s*"[^"]*"', "path=`"$($OutDir -replace '[\\/]','/')`"")
+        $t = [regex]::Replace($t, '(?m)^path\s*=\s*"[^"]*"\r?\n?', '')
         $t = [regex]::Replace($t, '(?s)dependencies\s*=\s*\{.*?\r?\n\}', "dependencies = {`n$depsBlock`n}")
         $missing = @($Depends | Where-Object { $t -notmatch [regex]::Escape("`"$_`"") })
         if ($missing.Count -gt 0) { Write-Warning "Internal descriptor is missing dependency entries after update: $($missing -join ', ')" }
@@ -213,7 +216,7 @@ path="$($OutDir -replace '[\\/]','/')"
     if ($WriteLauncher) {
         $launcherModDir = Join-Path $UserFolder "mod"
         if (-not (Test-Path $launcherModDir)) { New-Item -ItemType Directory -Force -Path $launcherModDir | Out-Null }
-        [System.IO.File]::WriteAllText((Join-Path $launcherModDir "$ModName.mod"), $desc, $utf8Bom)
+        [System.IO.File]::WriteAllText((Join-Path $launcherModDir "$ModName.mod"), $launcherDesc, $utf8Bom)
         Write-Host "Registered launcher mod: $($launcherModDir)\$ModName.mod"
     }
 }
