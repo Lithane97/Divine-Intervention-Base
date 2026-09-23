@@ -1,0 +1,62 @@
+﻿# Keyboard step is supplied at click time; Control takes precedence over Shift.
+DI_ce_stats_step_value = {
+    value = 1
+    if = {
+        limit = { exists = scope:DI_ce_stats_step }
+        value = scope:DI_ce_stats_step
+        min = 1
+        max = 10
+    }
+}
+
+# Live stat values and bounded adjustments; no cached display values.
+
+DI_ce_dread_value = { value = dread }
+DI_ce_dread_min_delta = { value = 0 subtract = dread }
+DI_ce_dread_subtract_value = {
+    value = dread
+    subtract = DI_ce_stats_step_value
+    min = 0
+    max = 100
+}
+DI_ce_dread_subtract_delta = { value = DI_ce_dread_subtract_value subtract = dread }
+DI_ce_dread_mid_delta = { value = 50 subtract = dread }
+DI_ce_dread_add_value = {
+    value = dread
+    add = DI_ce_stats_step_value
+    min = 0
+    max = 100
+}
+DI_ce_dread_add_delta = { value = DI_ce_dread_add_value subtract = dread }
+DI_ce_dread_max_delta = { value = 100 subtract = dread }
+
+DI_ce_tyranny_value = { value = tyranny }
+DI_ce_tyranny_min_delta = { value = 0 subtract = tyranny }
+DI_ce_tyranny_subtract_value = {
+    value = tyranny
+    subtract = DI_ce_stats_step_value
+    min = 0
+    max = 1000
+}
+DI_ce_tyranny_subtract_delta = { value = DI_ce_tyranny_subtract_value subtract = tyranny }
+DI_ce_tyranny_mid_delta = { value = 500 subtract = tyranny }
+DI_ce_tyranny_add_value = {
+    value = tyranny
+    add = DI_ce_stats_step_value
+    min = 0
+    max = 1000
+}
+DI_ce_tyranny_add_delta = { value = DI_ce_tyranny_add_value subtract = tyranny }
+DI_ce_tyranny_max_delta = { value = 1000 subtract = tyranny }
+
+DI_ce_visual_age_value = { value = effective_age }
+DI_ce_visual_age_subtract_value = {
+    value = effective_age
+    subtract = DI_ce_stats_step_value
+    min = 1
+}
+DI_ce_visual_age_add_value = {
+    value = effective_age
+    add = DI_ce_stats_step_value
+    min = 1
+}

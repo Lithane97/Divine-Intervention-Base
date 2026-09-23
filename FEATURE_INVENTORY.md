@@ -183,6 +183,18 @@ Allows direct editing of the six character skills:
 
 Each skill can be increased or decreased by the current increment value.
 
+### Stats Tab
+
+Edits one selected character, defaulting to the player. The character button opens the pinned-character list, and Select Player returns to the player. This tab does not use the bulk Pinned checkbox.
+
+Each stat has an icon, name, live gold-colored value, and minimum / decrease / midpoint / increase / preset controls:
+
+- **Dread**: 0 to 100; midpoint 50; one-point steps.
+- **Tyranny**: 0 to 1,000; midpoint 500; one-point steps.
+- **Immortal Visual Age**: minimum 1, midpoint 50, and a 100 preset; one-year steps with no editor maximum. Controls are disabled for mortal characters.
+
+The single-arrow controls use one-point steps normally, five with Shift, or ten with Control. Control takes precedence when both keys are held. Steps stop at the stat bounds; visual age has no editor maximum.
+
 ### Perk Points Tab
 
 Adds or removes perk points for:
@@ -217,6 +229,8 @@ Modifier categories include:
 - Custom Mods
 
 The custom modifier list includes Space Marines, Contraceptive, Immune to Schemes, Ultra Build, Extra Building Slots, One Building Slot, Extra Domain Limit, Money Printer, Permanent Health, Trait XP Boost, Commander Trait XP Boost, Godlike Inheritance, True Rulers, Plague Doctor, Imperial March, Dread Lord, Lifestyle Mastery, Travel Speed, Travel Safety, Legend Spread, Prestige Printer, Piety Printer, Everybody Loves Me, Full Stomachs, Meritorious, and Legitimacy Locked.
+
+Additional custom modifiers include **Permanent Health Cleanup**, which runs the existing health cleanup once per year for characters with the modifier without increasing Health, and **Rapid Levy Reinforcement**, which adds 10,000% levy reinforcement rate. Ultra Build also reduces herd construction costs. The cleanup check includes unlanded characters and uses the modifier itself as its marker.
 
 There is also a **Clear all modifiers** action that removes mod-added modifiers from all pinned characters.
 
@@ -562,4 +576,3 @@ This is labeled as proof of concept/placeholder. Current visible event categorie
 - Example Event
 - Pregnancy
 - Harm
-

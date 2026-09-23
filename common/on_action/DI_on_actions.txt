@@ -16,6 +16,16 @@ yearly_playable_pulse = {
 	on_actions = { DI_yearly_playable_pulse }
 }
 
+# Fires once per year for every character, including unlanded characters.
+random_yearly_everyone_pulse = {
+	on_actions = { DI_yearly_health_cleanup }
+}
+
+DI_yearly_health_cleanup = {
+	trigger = { has_character_modifier = DI_health_cleanup }
+	effect = { DI_eliminated_health_problem_effect = yes }
+}
+
 DI_on_game_start = {
 	effect = {
 		set_global_variable = DI_loaded
@@ -100,14 +110,9 @@ DI_on_title_lost = {
 
 ### Yearly Pulse, Handle Character Flags ###
 DI_yearly_playable_pulse = {
+	trigger = { has_character_flag = DI_perma_health }
 	effect = {
-		# Check for character flag - DI_perma_health
-		if = {
-			limit = {
-				has_character_flag = DI_perma_health
-			}
-			# If the character has the flag, call eliminate health problems
-			DI_eliminated_health_problem_effect = yes
-		}
+		# If the character has the flag, call eliminate health problems
+		DI_eliminated_health_problem_effect = yes
 	}
 }

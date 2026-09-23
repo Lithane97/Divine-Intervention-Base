@@ -1,0 +1,77 @@
+﻿# Custom modifier actions use the same player/pinned targeting as the editor.
+
+DI_add_modifier_health_cleanup = {
+    scope = character
+    effect = {
+        if = {
+            limit = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_pinned_char_var
+                }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+                add_character_modifier = DI_health_cleanup
+            }
+        }
+        else = { add_character_modifier = DI_health_cleanup }
+    }
+}
+
+DI_remove_modifier_health_cleanup = {
+    scope = character
+    effect = {
+        if = {
+            limit = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_pinned_char_var
+                }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+                remove_character_modifier = DI_health_cleanup
+            }
+        }
+        else = { remove_character_modifier = DI_health_cleanup }
+    }
+}
+
+DI_add_modifier_rapid_levy_reinforcement = {
+    scope = character
+    effect = {
+        if = {
+            limit = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_pinned_char_var
+                }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+                add_character_modifier = DI_rapid_levy_reinforcement
+            }
+        }
+        else = { add_character_modifier = DI_rapid_levy_reinforcement }
+    }
+}
+
+DI_remove_modifier_rapid_levy_reinforcement = {
+    scope = character
+    effect = {
+        if = {
+            limit = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_pinned_char_var
+                }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+                remove_character_modifier = DI_rapid_levy_reinforcement
+            }
+        }
+        else = { remove_character_modifier = DI_rapid_levy_reinforcement }
+    }
+}

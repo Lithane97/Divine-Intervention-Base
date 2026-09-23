@@ -1,0 +1,409 @@
+﻿template DI_CE_Stats_Tab
+{
+    vbox = {
+        name = "character_stats_tab"
+        visible = "[GetVariableSystem.HasValue('char_editor_tab', 'stats')]"
+        margin = { 20 5 }
+        spacing = 8
+        using = Animation_Tab_Switch
+
+        hbox = {
+            spacing = 8
+            button_standard = {
+                size = { 340 40 }
+                datacontext = "[GetPlayer.MakeScope.Var('DI_ce_stats_character').Char]"
+                text = DI_ce_stats_target
+                using = DI_CE_Stats_Character_Tooltip
+                onclick = "[GetVariableSystem.Toggle('DI_ce_stats_picker')]"
+            }
+            button_standard = {
+                size = { 180 40 }
+                text = DI_ce_stats_player
+                onclick = "[GetScriptedGui('DI_ce_stats_select').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                onclick = "[GetVariableSystem.Clear('DI_ce_stats_picker')]"
+            }
+        }
+
+        vbox = {
+            visible = "[Not(GetVariableSystem.Exists('DI_ce_stats_picker'))]"
+            datacontext = "[GetPlayer.MakeScope.Var('DI_ce_stats_character').Char]"
+            spacing = 8
+            text_single = {
+                visible = "[Not(Character.IsAlive)]"
+                text = DI_ce_stats_dead
+            }
+            vbox = {
+                visible = "[Character.IsAlive]"
+                spacing = 10
+
+                vbox = {
+                    spacing = 4
+                    hbox = {
+                        spacing = 8
+                        icon = { size = { 28 28 } texture = "gfx/interface/icons/icon_dread.dds" }
+                        text_single = { text = DI_ce_stats_dread }
+                        expand = {}
+                        text_single = {
+                            size = { 150 36 }
+                            text = "[Character.MakeScope.ScriptValue('DI_ce_dread_value')|0]"
+                            using = Font_Size_Big
+                            default_format = "#difficulty_medium"
+                        }
+                    }
+                    hbox = {
+                        spacing = 8
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_dread_min').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_dread_min').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_dread_min_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_dread_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_dread_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_dread_subtract_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_dread_mid').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_dread_mid').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_dread_mid_tt
+                            icon = {
+                                parentanchor = center
+                                size = { 20 20 }
+                                framesize = { 80 80 }
+                                texture = "gfx/interface/buttons/button_radio.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_dread_add').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_dread_add').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_dread_add_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_dread_max').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_dread_max').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_dread_max_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                    }
+                }
+
+                vbox = {
+                    spacing = 4
+                    hbox = {
+                        spacing = 8
+                        icon = { size = { 28 28 } texture = "gfx/interface/icons/icon_tyranny.dds" }
+                        text_single = { text = DI_ce_stats_tyranny }
+                        expand = {}
+                        text_single = {
+                            size = { 150 36 }
+                            text = "[Character.MakeScope.ScriptValue('DI_ce_tyranny_value')|0]"
+                            using = Font_Size_Big
+                            default_format = "#difficulty_medium"
+                        }
+                    }
+                    hbox = {
+                        spacing = 8
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_tyranny_min').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_tyranny_min').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_tyranny_min_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_tyranny_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_tyranny_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_tyranny_subtract_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_tyranny_mid').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_tyranny_mid').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_tyranny_mid_tt
+                            icon = {
+                                parentanchor = center
+                                size = { 20 20 }
+                                framesize = { 80 80 }
+                                texture = "gfx/interface/buttons/button_radio.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_tyranny_add').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_tyranny_add').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_tyranny_add_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_tyranny_max').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_tyranny_max').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_tyranny_max_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                    }
+                }
+
+                vbox = {
+                    spacing = 4
+                    hbox = {
+                        spacing = 8
+                        icon = { size = { 28 28 } texture = "gfx/interface/icons/icon_time.dds" }
+                        text_single = { text = DI_ce_stats_visual_age }
+                        expand = {}
+                        text_single = {
+                            size = { 150 36 }
+                            text = "[Character.MakeScope.ScriptValue('DI_ce_visual_age_value')|0]"
+                            using = Font_Size_Big
+                            default_format = "#difficulty_medium"
+                            visible = "[GetScriptedGui('DI_ce_stats_is_immortal').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                        }
+                        text_single = {
+                            size = { 150 36 }
+                            text = DI_ce_stats_na
+                            using = Font_Size_Big
+                            visible = "[Not(GetScriptedGui('DI_ce_stats_is_immortal').IsValid(GuiScope.SetRoot(Character.MakeScope).End))]"
+                        }
+                    }
+                    hbox = {
+                        spacing = 8
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_visual_age_min').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_visual_age_min').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_visual_age_min_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_visual_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_visual_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_visual_age_subtract_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_visual_age_mid').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_visual_age_mid').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_visual_age_mid_tt
+                            icon = {
+                                parentanchor = center
+                                size = { 20 20 }
+                                framesize = { 80 80 }
+                                texture = "gfx/interface/buttons/button_radio.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_visual_age_add').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_visual_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_visual_age_add_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_visual_age_max').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_visual_age_max').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            tooltip = DI_ce_visual_age_max_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                    }
+                }
+
+                text_single = {
+                    visible = "[Not(GetScriptedGui('DI_ce_stats_is_immortal').IsValid(GuiScope.SetRoot(Character.MakeScope).End))]"
+                    text = DI_ce_stats_immortal_only
+                    default_format = "#low"
+                }
+            }
+        }
+
+        vbox = {
+            visible = "[GetVariableSystem.Exists('DI_ce_stats_picker')]"
+            spacing = 5
+            button_standard = {
+                size = { 160 30 }
+                text = DI_ce_stats_back
+                onclick = "[GetVariableSystem.Clear('DI_ce_stats_picker')]"
+            }
+            text_single = {
+                visible = "[IsDataModelEmpty(GetPlayer.MakeScope.GetList('pinned_characters'))]"
+                text = DI_ce_stats_empty
+            }
+            scrollbox = {
+                size = { 530 255 }
+                blockoverride "scrollbox_content"
+                {
+                    vbox = {
+                        spacing = 5
+                        datamodel = "[GetPlayer.MakeScope.GetList('pinned_characters')]"
+                        item = {
+                            button_standard = {
+                                datacontext = "[Scope.GetCharacter]"
+                                visible = "[Character.IsAlive]"
+                                size = { 500 40 }
+                                text = "[Character.GetShortUINameNoTooltip]"
+                                using = DI_CE_Stats_Character_Tooltip
+                                enabled = "[GetScriptedGui('DI_ce_stats_select').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_ce_stats_select').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('target', GetPlayer.MakeScope).End)]"
+                                onclick = "[GetVariableSystem.Clear('DI_ce_stats_picker')]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+# The normal character tooltip provides identity details without changing button size.
+template DI_CE_Stats_Character_Tooltip
+{
+    using = tooltip_es
+    tooltipwidget = {
+        cooltip_type = {
+            blockoverride "interaction_info" {
+                text = DI_ce_stats_target_tt
+            }
+        }
+    }
+}
