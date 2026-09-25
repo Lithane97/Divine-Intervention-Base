@@ -1,0 +1,247 @@
+﻿# Diplomacy additions: primary acts, secondary receives the action.
+DI_dip_refresh_wars = {
+    scope = character
+    effect = { DI_dip_load_primary_wars_effect = yes }
+}
+
+DI_dip_add_to_court = {
+    scope = character
+    is_valid = { DI_dip_can_add_to_court = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_add_to_court = yes }
+            var:DI_primary_character = { add_courtier = root.var:DI_secondary_character }
+            var:DI_secondary_character = {
+                set_location = root.var:DI_primary_character.location
+            }
+        }
+    }
+}
+
+DI_dip_make_tributary = {
+    scope = character
+    is_valid = { DI_dip_can_make_tributary = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_make_tributary = yes }
+            start_tributary_interaction_effect = {
+                TRIBUTARY = root.var:DI_secondary_character
+                SUZERAIN = root.var:DI_primary_character
+            }
+        }
+    }
+}
+
+DI_dip_abdicate_primary = {
+    scope = character
+    is_valid = { DI_dip_can_abdicate_primary = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_abdicate_primary = yes }
+            var:DI_primary_character = { depose = yes }
+        }
+    }
+}
+
+DI_dip_peace_white_peace = {
+    scope = character
+    saved_scopes = { selected_war }
+    is_valid = { DI_dip_can_end_selected_war = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_end_selected_war = yes }
+            scope:selected_war = {
+                end_war = white_peace
+            }
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+DI_dip_peace_win = {
+    scope = character
+    saved_scopes = { selected_war }
+    is_valid = { DI_dip_can_end_selected_war = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_end_selected_war = yes }
+            scope:selected_war = {
+                if = {
+                    limit = { is_attacker = root.var:DI_primary_character }
+                    end_war = attacker
+                }
+                else = { end_war = defender }
+            }
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+DI_dip_peace_lose = {
+    scope = character
+    saved_scopes = { selected_war }
+    is_valid = { DI_dip_can_end_selected_war = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_end_selected_war = yes }
+            scope:selected_war = {
+                if = {
+                    limit = { is_attacker = root.var:DI_primary_character }
+                    end_war = defender
+                }
+                else = { end_war = attacker }
+            }
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+# Deliberate bulk action on every current war of the primary character.
+DI_dip_peace_all_white_peace = {
+    scope = character
+    is_valid = { DI_dip_has_primary_war = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_has_primary_war = yes }
+            var:DI_primary_character = {
+                every_character_war = {
+                    end_war = white_peace
+                }
+            }
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+# Deliberate bulk action on every current war of the primary character.
+DI_dip_peace_all_win = {
+    scope = character
+    is_valid = { DI_dip_has_primary_war = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_has_primary_war = yes }
+            var:DI_primary_character = {
+                every_character_war = {
+                    if = {
+                        limit = { is_attacker = root.var:DI_primary_character }
+                        end_war = attacker
+                    }
+                    else = { end_war = defender }
+                }
+            }
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+# Deliberate bulk action on every current war of the primary character.
+DI_dip_peace_all_lose = {
+    scope = character
+    is_valid = { DI_dip_has_primary_war = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_has_primary_war = yes }
+            var:DI_primary_character = {
+                every_character_war = {
+                    if = {
+                        limit = { is_attacker = root.var:DI_primary_character }
+                        end_war = defender
+                    }
+                    else = { end_war = attacker }
+                }
+            }
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+DI_dip_peace_pinned_win = {
+    scope = character
+    is_valid = { DI_dip_pinned_has_wars = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_pinned_has_wars = yes }
+            DI_dip_load_pinned_wars_effect = yes
+            every_in_list = {
+                variable = DI_dip_pinned_wars
+                limit = { exists = this }
+                save_scope_as = DI_dip_bulk_war
+                if = {
+                    limit = {
+                        root = {
+                            DI_dip_pinned_attackers = yes
+                            NOT = { DI_dip_pinned_defenders = yes }
+                        }
+                    }
+                    end_war = attacker
+                }
+                else_if = {
+                    limit = {
+                        root = {
+                            DI_dip_pinned_defenders = yes
+                            NOT = { DI_dip_pinned_attackers = yes }
+                        }
+                    }
+                    end_war = defender
+                }
+            }
+            clear_variable_list = DI_dip_pinned_wars
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+DI_dip_peace_pinned_white_peace = {
+    scope = character
+    is_valid = { DI_dip_pinned_has_wars = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_pinned_has_wars = yes }
+            DI_dip_load_pinned_wars_effect = yes
+            every_in_list = {
+                variable = DI_dip_pinned_wars
+                limit = { exists = this }
+                save_scope_as = DI_dip_bulk_war
+                end_war = white_peace
+            }
+            clear_variable_list = DI_dip_pinned_wars
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}
+
+DI_dip_peace_pinned_lose = {
+    scope = character
+    is_valid = { DI_dip_pinned_has_wars = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_pinned_has_wars = yes }
+            DI_dip_load_pinned_wars_effect = yes
+            every_in_list = {
+                variable = DI_dip_pinned_wars
+                limit = { exists = this }
+                save_scope_as = DI_dip_bulk_war
+                if = {
+                    limit = {
+                        root = {
+                            DI_dip_pinned_attackers = yes
+                            NOT = { DI_dip_pinned_defenders = yes }
+                        }
+                    }
+                    end_war = defender
+                }
+                else_if = {
+                    limit = {
+                        root = {
+                            DI_dip_pinned_defenders = yes
+                            NOT = { DI_dip_pinned_attackers = yes }
+                        }
+                    }
+                    end_war = attacker
+                }
+            }
+            clear_variable_list = DI_dip_pinned_wars
+        }
+        DI_dip_load_primary_wars_effect = yes
+    }
+}

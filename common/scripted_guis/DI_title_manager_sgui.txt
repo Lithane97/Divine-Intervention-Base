@@ -265,17 +265,17 @@ DI_load_title_manager_dropdown = {
     effect = {
         save_scope_as = player
 
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:sort_rank }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:all }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:hide }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_hegemony }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:Empire }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:Kingdom }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:Duchy }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:County }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:pinned_characters }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:unpin_selected }
-        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:clear_pinned }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_sort_rank }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_all }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_hide }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_hegemony }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_empire }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_kingdom }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_duchy }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_county }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_pinned_characters }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_unpin_selected }
+        add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_clear_pinned }
     }
 }
 
@@ -291,7 +291,7 @@ DI_apply_title_manager_filter_choice = {
         save_scope_as = player
 
         if = {
-            limit = { scope:filter_choice = flag:sort_rank }
+            limit = { scope:filter_choice = flag:DI_title_filter_sort_rank }
 
             if = {
                 limit = {
@@ -357,7 +357,7 @@ DI_apply_title_manager_filter_choice = {
             clear_variable_list = DI_sorted_titles
         }
         else_if = {
-            limit = { scope:filter_choice = flag:all }
+            limit = { scope:filter_choice = flag:DI_title_filter_all }
 
             if = {
                 limit = { has_variable_list = DI_selected_titles }
@@ -379,7 +379,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:hide }
+            limit = { scope:filter_choice = flag:DI_title_filter_hide }
 
             if = {
                 limit = { has_variable = DI_titles_hide }
@@ -391,7 +391,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:DI_hegemony }
+            limit = { scope:filter_choice = flag:DI_title_filter_hegemony }
 
             clear_variable_list = DI_selected_titles
 
@@ -412,7 +412,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:Empire }
+            limit = { scope:filter_choice = flag:DI_title_filter_empire }
 
             clear_variable_list = DI_selected_titles
 
@@ -433,7 +433,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:Kingdom }
+            limit = { scope:filter_choice = flag:DI_title_filter_kingdom }
 
             clear_variable_list = DI_selected_titles
 
@@ -454,7 +454,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:Duchy }
+            limit = { scope:filter_choice = flag:DI_title_filter_duchy }
 
             clear_variable_list = DI_selected_titles
 
@@ -475,7 +475,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:County }
+            limit = { scope:filter_choice = flag:DI_title_filter_county }
 
             clear_variable_list = DI_selected_titles
 
@@ -496,7 +496,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:pinned_characters }
+            limit = { scope:filter_choice = flag:DI_title_filter_pinned_characters }
 
             clear_variable_list = DI_selected_titles
 
@@ -524,7 +524,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:unpin_selected }
+            limit = { scope:filter_choice = flag:DI_title_filter_unpin_selected }
 
             every_in_list = {
                 variable = DI_selected_titles
@@ -543,7 +543,7 @@ DI_apply_title_manager_filter_choice = {
             }
         }
         else_if = {
-            limit = { scope:filter_choice = flag:clear_pinned }
+            limit = { scope:filter_choice = flag:DI_title_filter_clear_pinned }
 
             clear_variable_list = DI_pinned_titles
             clear_variable_list = DI_selected_titles

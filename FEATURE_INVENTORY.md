@@ -122,7 +122,7 @@ After it is enabled, **(DI) Interactions Off** becomes available and hides the e
 - **Vassalize**: Makes the selected character the player's vassal when government and tier rules allow it.
 - **Make Independent**: Makes the selected character independent.
 - **Make Tributary**: Makes the selected character a tributary.
-- **Add to Court/Add to Camp**: Forces the selected character to join the player's court or camp.
+- **Add to Court/Add to Camp**: Forces the selected character to join the player's court or camp and moves them to the player's current location.
 - **End Wars**: Ends the selected character's wars using options such as white peace all wars, lose all wars, win all wars, lose wars to player, white peace with player, or white peace with player vassals.
 
 ### Health, Death, Imprisonment, and Flags
@@ -132,7 +132,7 @@ After it is enabled, **(DI) Interactions Off** becomes available and hides the e
 - **Excommunicate**: Excommunicates the selected character.
 - **Remove Excommunicated**: Removes excommunication.
 - **Commit Suicide**: Makes the player character commit suicide.
-- **Abdicate**: Abdication interaction hook.
+- **Abdicate**: Deposes the player or a selected landed AI ruler, resolving succession without killing the character.
 - **Permanent Health**: Toggles a flag that yearly removes bad health flags, modifiers, and traits, similar to the Character Editor's Eliminate Health Issues present.
 - **Add Character Flags**: Adds flags such as used lifetime invasion, declared major religious war, and conqueror.
 - **Remove Character Flags**: Removes those same flags.
@@ -430,6 +430,11 @@ Controls relationship states between selected characters:
 
 It can reset or apply selected relationship states between the primary and secondary character, between the primary character and all pinned characters, or between all pinned characters.
 
+### Political Tab
+
+- Add the secondary character to the primary character's court/camp and move them to that character's current location. The recipient must be a free, non-hostage non-ruler, and the primary must be playable.
+- Abdicate the primary landed ruler (player or AI), allowing the game to resolve succession.
+
 ### Treaties Tab
 
 Controls diplomatic bindings:
@@ -437,11 +442,12 @@ Controls diplomatic bindings:
 - Form or break treaties between primary and secondary characters.
 - Form or break alliances between primary and secondary characters.
 - Vassalize the secondary character under the primary character when the title-tier condition is valid.
+- Make the secondary ruler a tributary of the primary ruler. Both must be independent landed rulers, the secondary cannot already be a tributary, and the relationship cannot form a tributary cycle.
 - Take selected titles for the primary character.
 - Make every pinned character form or break a treaty with the primary character.
 - Make every pinned character form or break an alliance with the primary character.
 - Make every pinned character form or break treaties/alliances with every other pinned character.
-- Toggle whether generated treaties are permanent.
+- Toggle whether generated treaties are permanent using the checkbox beside Treaty.
 
 ### Wars Tab
 
@@ -450,8 +456,13 @@ Controls war actions:
 - Select a casus belli.
 - Declare war between primary and secondary characters.
 - Use selected pinned titles as war targets where the casus belli supports title targets.
-- End the war between primary and secondary characters in white peace.
-- Use bulk pinned-character war actions such as all declare war, all end war, and every pinned wars.
+- Use the dynamically named Show Character's Wars button at the top of the scrollbox to open a popup listing every current war of the primary character; no secondary selection is required.
+- End one listed war in white peace, victory for the primary character's side, or defeat for that side.
+- Win all, white-peace all, or lose all wars of the primary character, using quick actions in the Wars scrollbox or the popup.
+- The bottom-bar peace buttons affect all pinned characters. Shared wars are processed once; win/lose actions skip wars with pinned characters on both sides, while white peace handles those wars as well.
+- Refresh the list after changing the primary character. Finished wars are removed after DI peace actions, and stale selections are checked before applying an outcome.
+
+The separate All Declare War and Every Pinned Wars controls remain unfinished.
 
 The available casus belli window currently includes County Conquest, described as a debug war CB.
 
@@ -459,7 +470,7 @@ The available casus belli window currently includes County Conquest, described a
 
 Controls family and marriage links:
 
-- Adopt one character into another's family.
+- Set the primary character (and optionally the tertiary character) as parents of the secondary character, preserving the child's existing house or lowborn status. Parents must be older than the child; two selected parents must be distinct and of opposite sexes. House changes remain a separate action.
 - Change a character's house.
 - Create a cadet branch.
 - Start a pregnancy.

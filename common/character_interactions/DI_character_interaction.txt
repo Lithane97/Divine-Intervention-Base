@@ -709,16 +709,16 @@ DI_add_character_flags_interaction = {
     on_accept = {
         scope:recipient = {
             if = { limit = { always = scope:used_lifetime_invasion }
-                add_character_flag = used_lifetime_invasion
-            }
-            else_if = { limit = { always = scope:declared_major_religious_war_flag }
-                add_character_flag = declared_major_religious_war_flag
-            }
-            else_if = { limit = { always = scope:trait_conqueror }
-                set_variable = conqueror
-            }
+            add_character_flag = used_lifetime_invasion
         }
+        else_if = { limit = { always = scope:declared_major_religious_war_flag }
+        add_character_flag = declared_major_religious_war_flag
     }
+    else_if = { limit = { always = scope:trait_conqueror }
+    set_variable = conqueror
+}
+}
+}
 }
 
 DI_remove_character_flags_interaction = {
@@ -748,16 +748,16 @@ DI_remove_character_flags_interaction = {
     on_accept = {
         scope:recipient = {
             if = { limit = { always = scope:used_lifetime_invasion }
-                remove_character_flag = used_lifetime_invasion
-            }
-            else_if = { limit = { always = scope:declared_major_religious_war_flag }
-                remove_character_flag = declared_major_religious_war_flag
-            }
-            else_if = { limit = { always = scope:trait_conqueror }
-                remove_variable = conqueror
-            }
+            remove_character_flag = used_lifetime_invasion
         }
-    }   
+        else_if = { limit = { always = scope:declared_major_religious_war_flag }
+        remove_character_flag = declared_major_religious_war_flag
+    }
+    else_if = { limit = { always = scope:trait_conqueror }
+    remove_variable = conqueror
+}
+}
+}
 }
 
 DI_permanent_health = {
@@ -2558,13 +2558,73 @@ DI_take_all_titles_interaction = {
     }
 
     send_option = {
+        is_shown = { NOT = { scope:recipient = scope:actor }}
+        flag = take_character_titles
+        localization = DI_take_character_titles
+    }
+    send_option = {
+        is_shown = {
+            scope:recipient = {
+                any_held_title = {
+                    tier = tier_duchy
+                    NOT = { holder = scope:actor }
+                }
+            }
+        }
+        flag = take_duchy_titles
+        localization = DI_take_duchy_titles
+    }
+    send_option = {
+        is_shown = {
+            scope:recipient = {
+                any_held_title = {
+                    tier = tier_kingdom
+                    NOT = { holder = scope:actor }
+                }
+            }
+        }
+        flag = take_kingdom_titles
+        localization = DI_take_kingdom_titles
+    }
+    send_option = {
+        is_shown = {
+            scope:recipient = {
+                any_held_title = {
+                    tier >= tier_empire
+                    NOT = { holder = scope:actor }
+                }
+            }
+        }
+        flag = take_empire_titles
+        localization = DI_take_empire_titles
+    }
+    send_option = {
         flag = take_sub_realm_titles
         localization = DI_take_sub_realm_titles
     }
     send_option = {
-        is_shown = { NOT = { scope:recipient = scope:actor }}
-        flag = take_character_titles
-        localization = DI_take_character_titles
+        is_valid = {
+            scope:recipient = {
+                any_sub_realm_title = {
+                    tier = tier_duchy
+                    NOT = { holder = scope:actor }
+                }
+            }
+        }
+        flag = take_sub_realm_duchy_titles
+        localization = DI_take_sub_realm_duchy_titles
+    }
+    send_option = {
+        is_valid = {
+            scope:recipient = {
+                any_sub_realm_title = {
+                    tier = tier_kingdom
+                    NOT = { holder = scope:actor }
+                }
+            }
+        }
+        flag = take_sub_realm_kingdom_titles
+        localization = DI_take_sub_realm_kingdom_titles
     }
 
     auto_accept = yes
@@ -2589,6 +2649,61 @@ DI_take_all_titles_interaction = {
                         every_held_title = {
                             limit = {
                                 tier >= tier_county
+                                NOT = { holder = scope:actor }
+                            }
+                            scope:actor = { get_title = prev }
+                        }
+                    }
+                }
+                scope:take_duchy_titles = {
+                    scope:recipient = {
+                        every_held_title = {
+                            limit = {
+                                tier = tier_duchy
+                                NOT = { holder = scope:actor }
+                            }
+                            scope:actor = { get_title = prev }
+                        }
+                    }
+                }
+                scope:take_kingdom_titles = {
+                    scope:recipient = {
+                        every_held_title = {
+                            limit = {
+                                tier = tier_kingdom
+                                NOT = { holder = scope:actor }
+                            }
+                            scope:actor = { get_title = prev }
+                        }
+                    }
+                }
+                scope:take_empire_titles = {
+                    scope:recipient = {
+                        every_held_title = {
+                            limit = {
+                                tier >= tier_empire
+                                NOT = { holder = scope:actor }
+                            }
+                            scope:actor = { get_title = prev }
+                        }
+                    }
+                }
+                scope:take_sub_realm_duchy_titles = {
+                    scope:recipient = {
+                        every_sub_realm_title = {
+                            limit = {
+                                tier = tier_duchy
+                                NOT = { holder = scope:actor }
+                            }
+                            scope:actor = { get_title = prev }
+                        }
+                    }
+                }
+                scope:take_sub_realm_kingdom_titles = {
+                    scope:recipient = {
+                        every_sub_realm_title = {
+                            limit = {
+                                tier = tier_kingdom
                                 NOT = { holder = scope:actor }
                             }
                             scope:actor = { get_title = prev }
@@ -2867,6 +2982,59 @@ DI_take_title_interaction = {
     }
 }
 
+### Take Title Alternate ###
+DI_take_title_alternate_interaction = {
+    category = interaction_category_cheat_menu
+    desc = DI_take_title_desc
+
+    use_diplomatic_range = no
+    auto_accept = yes
+    ignores_pending_interaction_block = yes
+
+    target_type = title
+    target_filter = recipient_domain_titles
+    icon = revoke_title
+
+    is_shown = {
+        NOT = { scope:actor = scope:recipient }
+        scope:recipient = {
+            is_landed = yes
+        }
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    is_valid_showing_failures_only = {
+        scope:actor = { is_ai = no }
+    }
+
+    can_be_picked_title = {
+        scope:target = {
+            holder = scope:recipient
+        }
+    }
+
+    on_accept = {
+        create_title_and_vassal_change = {
+            type = conquest
+            save_scope_as = change
+            add_claim_on_loss = no
+        }
+        scope:target = {
+            change_title_holder = {
+                holder = scope:actor
+                change = scope:change
+            }
+        }
+        resolve_title_and_vassal_change = scope:change
+    }
+}
+
 ### Vassalize Character ###
 DI_vassalize_interaction = {
     category = interaction_category_cheat_menu
@@ -2970,6 +3138,9 @@ DI_add_to_court_interaction = {
     on_accept = {
         scope:actor = {
             add_courtier = scope:recipient
+        }
+        scope:recipient = {
+            set_location = scope:actor.location
         }
     }
 }
@@ -4880,7 +5051,7 @@ DI_change_house_name_interaction = {
 DI_abdicate = {
     category = interaction_category_cheat_menu
     icon = heir
-    desc = DI_test_desc
+    desc = DI_abdicate_desc
     common_interaction = no
 
     auto_accept = yes
@@ -4895,12 +5066,18 @@ DI_abdicate = {
                 has_variable = DI_cheat_menu
             }
         }
-        scope:recipient = scope:actor
+        scope:recipient = {
+            DI_can_abdicate_character = yes
+            OR = { this = scope:actor is_ai = yes }
+        }
     }
 
     on_accept = {
-        scope:actor = {
-            depose = yes
+        scope:recipient = {
+            if = {
+                limit = { DI_can_abdicate_character = yes }
+                depose = yes
+            }
         }
     }
 }

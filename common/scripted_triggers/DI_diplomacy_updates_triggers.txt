@@ -1,0 +1,130 @@
+﻿# These triggers are evaluated with the controlling player as root.
+DI_dip_pair_valid = {
+    exists = var:DI_primary_character
+    exists = var:DI_secondary_character
+    var:DI_primary_character = { is_alive = yes }
+    var:DI_secondary_character = { is_alive = yes }
+    NOT = { var:DI_primary_character = var:DI_secondary_character }
+}
+
+DI_dip_can_add_to_court = {
+    DI_dip_pair_valid = yes
+    var:DI_primary_character = { is_playable_character = yes }
+    var:DI_secondary_character = {
+        is_ruler = no
+        is_imprisoned = no
+        is_hostage = no
+        NOT = { is_courtier_of = root.var:DI_primary_character }
+    }
+}
+
+DI_dip_can_make_tributary = {
+    DI_dip_pair_valid = yes
+    var:DI_primary_character = {
+        is_landed = yes
+        is_independent_ruler = yes
+        NOT = { is_tributary_of_suzerain_or_above = root.var:DI_secondary_character }
+    }
+    var:DI_secondary_character = {
+        is_landed = yes
+        is_independent_ruler = yes
+        is_tributary = no
+    }
+}
+
+DI_dip_can_vassalize = {
+    DI_dip_pair_valid = yes
+    var:DI_primary_character = {
+        is_landed = yes
+        primary_title.tier > root.var:DI_secondary_character.primary_title.tier
+    }
+    var:DI_secondary_character = {
+        is_landed = yes
+    }
+}
+
+DI_dip_has_primary_war = {
+    exists = var:DI_primary_character
+    var:DI_primary_character = {
+        is_alive = yes
+        any_character_war = { always = yes }
+    }
+}
+
+# Confirm the selected war is still active and involves the current primary character.
+DI_dip_can_end_selected_war = {
+    exists = var:DI_primary_character
+    exists = scope:selected_war
+    var:DI_primary_character = {
+        is_alive = yes
+        any_character_war = { this = scope:selected_war }
+    }
+}
+
+DI_dip_can_set_parents = {
+    DI_dip_pair_valid = yes
+    var:DI_primary_character.age > var:DI_secondary_character.age
+    trigger_if = {
+        limit = { has_variable = DI_tertiary_character }
+        var:DI_tertiary_character = { is_alive = yes }
+        var:DI_tertiary_character.age > var:DI_secondary_character.age
+        NOT = { var:DI_tertiary_character = var:DI_primary_character }
+        OR = {
+            AND = {
+                var:DI_primary_character = { is_male = yes }
+                var:DI_tertiary_character = { is_female = yes }
+            }
+            AND = {
+                var:DI_primary_character = { is_female = yes }
+                var:DI_tertiary_character = { is_male = yes }
+            }
+        }
+    }
+    OR = {
+        var:DI_primary_character = {
+            NOT = { is_parent_of = root.var:DI_secondary_character }
+        }
+        AND = {
+            exists = var:DI_tertiary_character
+            var:DI_tertiary_character = {
+                NOT = { is_parent_of = root.var:DI_secondary_character }
+            }
+        }
+    }
+}
+
+DI_can_abdicate_character = {
+    is_alive = yes
+    is_landed = yes
+}
+
+DI_dip_can_abdicate_primary = {
+    exists = var:DI_primary_character
+    var:DI_primary_character = {
+        DI_can_abdicate_character = yes
+    }
+}
+
+DI_dip_pinned_has_wars = {
+    any_in_list = {
+        variable = pinned_characters
+        is_alive = yes
+        any_character_war = { always = yes }
+    }
+}
+
+# Player scope, with the current war supplied by the bulk action.
+DI_dip_pinned_attackers = {
+    any_in_list = {
+        variable = pinned_characters
+        is_alive = yes
+        is_attacker_in_war = scope:DI_dip_bulk_war
+    }
+}
+DI_dip_pinned_defenders = {
+    any_in_list = {
+        variable = pinned_characters
+        is_alive = yes
+        is_defender_in_war = scope:DI_dip_bulk_war
+    }
+}

@@ -1,0 +1,160 @@
+﻿window = {
+    name = "DI_diplomacy_peace_window"
+    parentanchor = center
+    size = { 620 600 }
+    layer = windows_layer
+    movable = yes
+    filter_mouse = all
+    using = Window_Background
+    using = Window_Decoration
+    visible = "[GetVariableSystem.Exists('DI_dip_peace_visible')]"
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+    vbox = {
+        using = Window_Margins
+        spacing = 5
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+            blockoverride "header_text" { text = DI_dip_peace_title }
+            blockoverride "button_close" {
+                onclick = "[GetVariableSystem.Clear('DI_dip_peace_visible')]"
+            }
+        }
+
+        hbox = {
+            layoutpolicy_horizontal = expanding
+
+            button_replace = {
+                parentanchor = hcenter
+                size = { 36 36 }
+                tooltip = DI_dip_peace_refresh
+                onclick = "[GetScriptedGui('DI_dip_refresh_wars').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+            expand = {}
+        }
+
+        text_multi = {
+            align = center
+            layoutpolicy_horizontal = expanding
+            visible = "[IsDataModelEmpty(GetPlayer.MakeScope.GetList('DI_dip_primary_wars'))]"
+            text = DI_dip_peace_empty
+            max_width = 520
+            margin_bottom = 15
+        }
+        hbox = {
+            spacing = 6
+            button_standard = {
+                size = { 172 36 }
+                text = DI_dip_peace_all_lose
+                tooltip = DI_dip_peace_all_lose_tt
+                enabled = "[GetScriptedGui('DI_dip_peace_all_lose').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_dip_peace_all_lose').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+            button_standard = {
+                size = { 172 36 }
+                text = DI_dip_peace_all_white_peace
+                tooltip = DI_dip_peace_all_white_peace_tt
+                enabled = "[GetScriptedGui('DI_dip_peace_all_white_peace').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_dip_peace_all_white_peace').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+            button_standard = {
+                size = { 172 36 }
+                text = DI_dip_peace_all_win
+                tooltip = DI_dip_peace_all_win_tt
+                enabled = "[GetScriptedGui('DI_dip_peace_all_win').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_dip_peace_all_win').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+        scrollbox = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            size = { 520 280 }
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    spacing = 12
+                    datamodel = "[GetPlayer.MakeScope.GetList('DI_dip_primary_wars')]"
+                    item = {
+                        vbox = {
+                            layoutpolicy_horizontal = expanding
+                            datacontext = "[Scope.War]"
+                            visible = "[War.IsValid]"
+                            spacing = 5
+
+                            background = {
+                                using = Background_Area_Dark
+                            }
+
+                            hbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 8
+
+                                widget = {
+                                    layoutpolicy_vertical = expanding
+                                    size = { 64 68 }
+
+                                    icon = {
+                                        parentanchor = center
+                                        size = { 100% 100% }
+                                        texture = "gfx/interface/icons/war_status/war_icon.dds"
+                                    }
+
+                                    coa_realm_small = {
+                                        datacontext = "[War.GetPrimaryPlayerEnemy]"
+                                        parentanchor = center
+                                        scale = 0.8
+                                        position = { 0 5 }
+                                        tooltip_visible = no
+                                        alwaystransparent = yes
+                                    }
+
+                                    text_single = {
+                                        parentanchor = bottom|hcenter
+                                        position = { 0 -7 }
+                                        size = { 44 10 }
+                                        align = center
+                                        text = "[War.GetWarScore|0=+]%"
+
+                                        background = {
+                                            using = Background_Area_Dark
+                                        }
+                                    }
+                                }
+
+                                text_multi = {
+                                    layoutpolicy_horizontal = expanding
+                                    text = "[War.GetName]"
+                                    max_width = 424
+                                }
+                            }
+                            hbox = {
+                                spacing = 60
+                                button_icon_war_defeat = {
+                                    size = { 50 50 }
+                                    tooltip = DI_dip_peace_lose_tt
+                                    enabled = "[GetScriptedGui('DI_dip_peace_lose').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_war', War.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_dip_peace_lose').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_war', War.MakeScope).End)]"
+                                }
+                                button_icon_war_peace = {
+                                    size = { 50 50 }
+                                    tooltip = DI_dip_peace_white_peace_tt
+                                    enabled = "[GetScriptedGui('DI_dip_peace_white_peace').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_war', War.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_dip_peace_white_peace').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_war', War.MakeScope).End)]"
+                                }
+                                button_icon_war_victory = {
+                                    size = { 50 50 }
+                                    tooltip = DI_dip_peace_win_tt
+                                    enabled = "[GetScriptedGui('DI_dip_peace_win').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_war', War.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_dip_peace_win').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_war', War.MakeScope).End)]"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

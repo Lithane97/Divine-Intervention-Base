@@ -464,25 +464,25 @@ DI_set_father_as_real_father_triggered_desc = {
 }
 
 DI_father_check = {
-	type = character
+    type = character
 
-	text = {
-		trigger = {
-			OR = {
-				NOT = { has_variable = DI_primary_character }
-				NOT = {
-					var:DI_primary_character ?= {
-						exists = father
-					}
-				}
-			}
-		}
-		localization_key = DI_father_check_1
-	}
-	text = {
-		fallback = yes
-		localization_key = DI_father_check_2
-	}
+    text = {
+        trigger = {
+            OR = {
+                NOT = { has_variable = DI_primary_character }
+                NOT = {
+                    var:DI_primary_character ?= {
+                        exists = father
+                    }
+                }
+            }
+        }
+        localization_key = DI_father_check_1
+    }
+    text = {
+        fallback = yes
+        localization_key = DI_father_check_2
+    }
 }
 
 DI_marry_triggered_desc = {
@@ -529,74 +529,74 @@ DI_marry_triggered_desc = {
 }
 
 DI_betrothal_triggered_desc = {
-	type = character
+    type = character
 
-	text = {
-		trigger = {
-			NOT = { has_variable = DI_primary_character }
-			NOT = { has_variable = DI_tertiary_character }
-		}
-		localization_key = DI_choose_primary_and_tertiary_characters
-	}
-	text = {
-		trigger = {
-			NOT = { has_variable = DI_primary_character }
-		}
-		localization_key = DI_choose_primary_character
-	}
-	text = {
-		trigger = {
-			NOT = { has_variable = DI_tertiary_character }
-		}
-		localization_key = DI_choose_tertiary_character
-	}
-	text = {
-		trigger = {
-			var:DI_primary_character = { is_married = yes }
-		}
-		localization_key = DI_betrothal_triggered_desc_1
-	}
-	text = {
-		trigger = {
-			var:DI_tertiary_character = { is_married = yes }
-		}
-		localization_key = DI_betrothal_triggered_desc_2
-	}
+    text = {
+        trigger = {
+            NOT = { has_variable = DI_primary_character }
+            NOT = { has_variable = DI_tertiary_character }
+        }
+        localization_key = DI_choose_primary_and_tertiary_characters
+    }
+    text = {
+        trigger = {
+            NOT = { has_variable = DI_primary_character }
+        }
+        localization_key = DI_choose_primary_character
+    }
+    text = {
+        trigger = {
+            NOT = { has_variable = DI_tertiary_character }
+        }
+        localization_key = DI_choose_tertiary_character
+    }
+    text = {
+        trigger = {
+            var:DI_primary_character = { is_married = yes }
+        }
+        localization_key = DI_betrothal_triggered_desc_1
+    }
+    text = {
+        trigger = {
+            var:DI_tertiary_character = { is_married = yes }
+        }
+        localization_key = DI_betrothal_triggered_desc_2
+    }
 }
 
 DI_break_betrothal_triggered_desc = {
-	type = character
+    type = character
 
-	text = {
-		trigger = {
-			NOT = { has_variable = DI_primary_character }
-		}
-		localization_key = DI_choose_primary_character
-	}
-	text = {
-		trigger = {
-			var:DI_primary_character = { is_betrothed = no }
-		}
-		localization_key = DI_break_betrothal_triggered_desc_1
-	}
+    text = {
+        trigger = {
+            NOT = { has_variable = DI_primary_character }
+        }
+        localization_key = DI_choose_primary_character
+    }
+    text = {
+        trigger = {
+            var:DI_primary_character = { is_betrothed = no }
+        }
+        localization_key = DI_break_betrothal_triggered_desc_1
+    }
 }
 
 DI_betrothed_check = {
-	type = character
+    type = character
 
-	text = {
-		trigger = {
-			OR = {
-				NOT = { has_variable = DI_primary_character }
-				var:DI_primary_character = { is_betrothed = no }
-			}
-		}
-		localization_key = DI_betrothed_check_1
-	}
-	text = {
-		fallback = yes
-		localization_key = DI_betrothed_check_2
-	}
+    text = {
+        trigger = {
+            OR = {
+                NOT = { has_variable = DI_primary_character }
+                var:DI_primary_character = { is_betrothed = no }
+            }
+        }
+        localization_key = DI_betrothed_check_1
+    }
+    text = {
+        fallback = yes
+        localization_key = DI_betrothed_check_2
+    }
 }
 
 DI_divorce_triggered_desc = {
@@ -763,4 +763,370 @@ DI_make_siblings_triggered_desc = {
         }
         localization_key = DI_make_siblings_triggered_desc_3
     }
+}
+
+### Diplomacy manager court, tributary, succession, and war descriptions ###
+DI_dip_court_or_camp = {
+    type = character
+    text = {
+        trigger = {
+            var:DI_primary_character ?= {
+                is_landed = yes
+            }
+        }
+        localization_key = DI_dip_court_word
+    }
+    text = { fallback = yes localization_key = DI_dip_camp_word }
+}
+
+DI_dip_conflict_vassalize_tier = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_primary_character = {
+                primary_title.tier <= root.var:DI_secondary_character.primary_title.tier
+            }
+        }
+        localization_key = DI_dip_conflict_vassalize_tier_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_additional_parent = {
+    type = character
+    text = {
+        trigger = {
+            has_variable = DI_tertiary_character
+        }
+        localization_key = DI_dip_additional_parent_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_parent_role = {
+    type = character
+    text = {
+        trigger = {
+            has_variable = DI_tertiary_character
+        }
+        localization_key = DI_dip_parent_role_plural
+    }
+    text = { fallback = yes localization_key = DI_dip_parent_role_single }
+}
+
+### Individually applicable diplomacy validity conflicts ###
+DI_dip_conflict_primary_missing = {
+    type = character
+    text = {
+        trigger = {
+            NOT = { exists = var:DI_primary_character }
+        }
+        localization_key = DI_dip_conflict_primary_missing_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_dead = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = { is_alive = no }
+        }
+        localization_key = DI_dip_conflict_primary_dead_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_secondary_missing = {
+    type = character
+    text = {
+        trigger = {
+            NOT = { exists = var:DI_secondary_character }
+        }
+        localization_key = DI_dip_conflict_secondary_missing_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_secondary_dead = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = { is_alive = no }
+        }
+        localization_key = DI_dip_conflict_secondary_dead_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_tertiary_dead = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_tertiary_character
+            var:DI_tertiary_character = { is_alive = no }
+        }
+        localization_key = DI_dip_conflict_tertiary_dead_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_same = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            exists = var:DI_secondary_character
+            var:DI_primary_character = var:DI_secondary_character
+        }
+        localization_key = DI_dip_conflict_same_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_not_playable = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                NOT = { is_playable_character = yes }
+            }
+        }
+        localization_key = DI_dip_conflict_not_playable_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_ruler = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_ruler = yes
+            }
+        }
+        localization_key = DI_dip_conflict_ruler_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_prisoner = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_imprisoned = yes
+            }
+        }
+        localization_key = DI_dip_conflict_prisoner_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_hostage = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_hostage = yes
+            }
+        }
+        localization_key = DI_dip_conflict_hostage_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_employed = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = {
+                is_courtier_of = root.var:DI_primary_character
+            }
+        }
+        localization_key = DI_dip_conflict_employed_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_unlanded = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                is_landed = no
+            }
+        }
+        localization_key = DI_dip_conflict_primary_unlanded_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_dependent = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                is_landed = yes
+                is_independent_ruler = no
+            }
+        }
+        localization_key = DI_dip_conflict_primary_dependent_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_secondary_unlanded = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_landed = no
+            }
+        }
+        localization_key = DI_dip_conflict_secondary_unlanded_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_secondary_dependent = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_landed = yes
+                is_independent_ruler = no
+            }
+        }
+        localization_key = DI_dip_conflict_secondary_dependent_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_tributary = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_tributary = yes
+            }
+        }
+        localization_key = DI_dip_conflict_tributary_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_cycle = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_primary_character = {
+                is_tributary_of_suzerain_or_above = root.var:DI_secondary_character
+            }
+        }
+        localization_key = DI_dip_conflict_cycle_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_young = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_primary_character.age <= var:DI_secondary_character.age
+        }
+        localization_key = DI_dip_conflict_primary_young_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_tertiary_young = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_tertiary_character
+            exists = var:DI_secondary_character
+            var:DI_tertiary_character = { is_alive = yes }
+            var:DI_secondary_character = { is_alive = yes }
+            var:DI_tertiary_character.age <= var:DI_secondary_character.age
+        }
+        localization_key = DI_dip_conflict_tertiary_young_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_duplicate_parents = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            exists = var:DI_tertiary_character
+            var:DI_primary_character = var:DI_tertiary_character
+        }
+        localization_key = DI_dip_conflict_duplicate_parents_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_parent_sexes = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_tertiary_character
+            DI_dip_pair_valid = yes
+            NOT = { var:DI_primary_character = var:DI_tertiary_character }
+            var:DI_tertiary_character = { is_alive = yes }
+            OR = {
+                AND = {
+                    var:DI_primary_character = { is_male = yes }
+                    var:DI_tertiary_character = { is_male = yes }
+                }
+                AND = {
+                    var:DI_primary_character = { is_female = yes }
+                    var:DI_tertiary_character = { is_female = yes }
+                }
+            }
+        }
+        localization_key = DI_dip_conflict_parent_sexes_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_already_parents = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_primary_character = {
+                is_parent_of = root.var:DI_secondary_character
+            }
+            OR = {
+                NOT = { exists = var:DI_tertiary_character }
+                var:DI_tertiary_character = {
+                    is_parent_of = root.var:DI_secondary_character
+                }
+            }
+        }
+        localization_key = DI_dip_conflict_already_parents_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_no_wars = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                NOT = {
+                    any_character_war = { always = yes }
+                }
+            }
+        }
+        localization_key = DI_dip_conflict_no_wars_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
 }

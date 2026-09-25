@@ -1,0 +1,42 @@
+﻿# Refresh the popup's list without retaining references to ended wars.
+DI_dip_load_primary_wars_effect = {
+    clear_variable_list = DI_dip_primary_wars
+    save_scope_as = DI_dip_player
+    if = {
+        limit = { DI_dip_has_primary_war = yes }
+        var:DI_primary_character = {
+            every_character_war = {
+                save_scope_as = DI_dip_primary_war
+                scope:DI_dip_player = {
+                    add_to_variable_list = { name = DI_dip_primary_wars target = scope:DI_dip_primary_war }
+                }
+            }
+        }
+    }
+}
+
+# Snapshot and deduplicate before ending wars, so a shared war is resolved only once.
+DI_dip_load_pinned_wars_effect = {
+    clear_variable_list = DI_dip_pinned_wars
+    save_scope_as = DI_dip_player
+    every_in_list = {
+        variable = pinned_characters
+        limit = { is_alive = yes }
+        every_character_war = {
+            save_scope_as = DI_dip_bulk_war
+            scope:DI_dip_player = {
+                if = {
+                    limit = {
+                        NOT = {
+                            any_in_list = {
+                                variable = DI_dip_pinned_wars
+                                this = scope:DI_dip_bulk_war
+                            }
+                        }
+                    }
+                    add_to_variable_list = { name = DI_dip_pinned_wars target = scope:DI_dip_bulk_war }
+                }
+            }
+        }
+    }
+}

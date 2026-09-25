@@ -1317,18 +1317,16 @@ DI_dip_alliance = {
 DI_dip_vassalize = {
     scope = character
 
+    is_valid = {
+        DI_dip_can_vassalize = yes
+    }
+
     effect = {
         save_scope_as = player
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
-                var:DI_primary_character = {
-                    is_landed = yes
-                    primary_title.tier > scope:player.var:DI_secondary_character.primary_title.tier
-                }
-                var:DI_secondary_character = { is_landed = yes }
+                DI_dip_can_vassalize = yes
             }
 
             create_title_and_vassal_change = {
@@ -2019,22 +2017,8 @@ DI_dip_war = {
 ### End War ###
 DI_dip_end_war = {
     scope = character
-
-    effect = {
-        save_scope_as = player
-
-        if = {
-            limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
-            }
-            var:DI_primary_character = {
-                every_character_war = {
-                    end_war = white_peace
-                }
-            }
-        }
-    }
+    is_valid = { DI_dip_has_primary_war = yes }
+    effect = { DI_dip_load_primary_wars_effect = yes }
 }
 
 ### Casus Belli ###
@@ -2068,48 +2052,15 @@ DI_county_conquest = {
 ### Initiate Adoption ###
 DI_dip_adoption = {
     scope = character
-
-    is_valid = {
-        has_variable = DI_primary_character
-        has_variable = DI_secondary_character
-
-        var:DI_primary_character.age > var:DI_secondary_character.age
-        OR = {
-            NOT = { has_variable = DI_tertiary_character }
-            var:DI_tertiary_character.age > var:DI_secondary_character.age
-        }
-        OR = {
-            NOT = { var:DI_primary_character ?= { is_parent_of = root.var:DI_secondary_character }}
-            NOT = { var:DI_tertiary_character ?= { is_parent_of = root.var:DI_secondary_character }}
-        }
-
-        trigger_if = {
-            limit = {
-                has_variable = DI_tertiary_character
-            }
-            NOT = {
-                OR = {
-                    AND = {
-                        var:DI_primary_character = { is_male = yes }
-                        var:DI_tertiary_character = { is_male = yes }
-                    }
-                    AND = {
-                        var:DI_primary_character = { is_female = yes }
-                        var:DI_tertiary_character = { is_female = yes }
-                    }
-                }
-            }
-        }
-    }
-
+    is_valid = { DI_dip_can_set_parents = yes }
+    # set_father/set_mother only: preserve the child's current house or lowborn status.
     effect = {
         save_scope_as = player
 
         if = {
             limit = {
-                has_variable = DI_primary_character
+                DI_dip_can_set_parents = yes
                 has_variable = DI_tertiary_character
-                has_variable = DI_secondary_character
             }
 
             var:DI_secondary_character = {
@@ -2128,8 +2079,7 @@ DI_dip_adoption = {
         }
         else_if = {
             limit =  {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                DI_dip_can_set_parents = yes
             }
             var:DI_secondary_character = {
                 if = {
