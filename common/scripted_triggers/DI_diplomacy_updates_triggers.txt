@@ -32,6 +32,24 @@ DI_dip_can_make_tributary = {
     }
 }
 
+DI_dip_can_break_vassalage = {
+    exists = var:DI_primary_character
+    var:DI_primary_character = {
+        is_alive = yes
+        is_landed = yes
+        is_independent_ruler = no
+        is_tributary = no
+    }
+}
+
+DI_dip_can_break_tributary = {
+    exists = var:DI_primary_character
+    var:DI_primary_character = {
+        is_alive = yes
+        is_tributary = yes
+    }
+}
+
 DI_dip_can_vassalize = {
     DI_dip_pair_valid = yes
     var:DI_primary_character = {
@@ -40,6 +58,7 @@ DI_dip_can_vassalize = {
     }
     var:DI_secondary_character = {
         is_landed = yes
+        NOT = { is_vassal_of = root.var:DI_primary_character }
     }
 }
 

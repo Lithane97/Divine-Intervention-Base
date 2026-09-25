@@ -792,6 +792,21 @@ DI_dip_conflict_vassalize_tier = {
     }
     text = { fallback = yes localization_key = DI_dip_empty_text }
 }
+DI_dip_conflict_vassalize_secondary_dependent = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_secondary_character
+            var:DI_secondary_character = {
+                is_alive = yes
+                is_landed = yes
+                is_vassal_of = root.var:DI_primary_character
+            }
+        }
+        localization_key = DI_dip_conflict_vassalize_secondary_dependent_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
 
 DI_dip_additional_parent = {
     type = character
@@ -1019,6 +1034,50 @@ DI_dip_conflict_tributary = {
             }
         }
         localization_key = DI_dip_conflict_tributary_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_not_vassal = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                is_landed = yes
+                is_independent_ruler = yes
+                is_tributary = no
+            }
+        }
+        localization_key = DI_dip_conflict_primary_not_vassal_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_is_tributary = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                is_tributary = yes
+            }
+        }
+        localization_key = DI_dip_conflict_primary_is_tributary_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+DI_dip_conflict_primary_not_tributary = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = {
+                is_alive = yes
+                is_tributary = no
+            }
+        }
+        localization_key = DI_dip_conflict_primary_not_tributary_text
     }
     text = { fallback = yes localization_key = DI_dip_empty_text }
 }
