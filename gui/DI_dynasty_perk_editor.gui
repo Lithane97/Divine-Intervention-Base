@@ -1,0 +1,283 @@
+### DYNASTY LEGACIES/Perk editor WINDOW
+
+window = {
+	name = "DI_dynasty_perk_editor_window"
+
+	# single root datacontext: the dynasty of the character selected in the DI picker
+	# (GetVariableSystem and GetPlayer are globally accessible and need no datacontext)
+	datacontext = "[GetPlayer.MakeScope.Var('DI_dynasty_selected_dynasty').Dynasty]"
+
+	# FIX-2: visibility is a player-scope SCRIPT variable set by the atomic open
+	# effect (DI_dynasty_perk_editor_open) - single-sourced, no GetVariableSystem
+	# toggle on the opener button, no state-hook side effects.
+	visible = "[GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('DI_dynasty_perk_editor_window_visible').GetValue, '(CFixedPoint)0' )]" # "[GetVariableSystem.Exists('DI_dynasty_perk_editor_window_visible')]"   #
+
+
+	# Responsive sizing, vanilla pattern (window_activity_guest_list.gui: 1200 90%,
+	# window_ledger.gui: 745 89%): STATIC pixel width + percentage height.
+	# Static width 1680px fits exactly 4 × 296px perk buttons per row at 1080p and up,
+	# so the grid wraps cleanly at any aspect ratio and never clips. % height adapts
+	# to any screen. parentanchor = center|hcenter centers the window (margin_left is
+	# not a valid window property - the engine logs 'Property margin_left not handled').
+	size = { 1680 90% }
+	parentanchor = center|hcenter
+	movable = yes
+	filter_mouse = all
+	layer = windows_layer
+
+	using = Window_Background_No_Edge
+
+	background = {
+		using = Background_Bottom_Fade
+		alpha = 0.5
+	}
+
+	# FIX-1: the _show/_hide on_start hooks were REMOVED. on_start is a documented
+	# engine bug ("triggers twice" - wiki, Animation states) and both machine
+	# freezes logged mode_on x2 as their final lines. Lifecycle ownership moved to
+	# the open/close scripted guis (DI_dynasty_perk_editor_open/_close): free mode
+	# defaults ON per open, closing resets it. The states remain for the
+	# fade animations only.
+	state = {
+		name = _show
+
+		using = Animation_FadeIn_Standard
+		using = Sound_Panel_Popup_Snapshot
+	}
+
+	state = {
+		name = _hide
+
+		using = Animation_FadeOut_Standard
+	}
+
+	vbox = {
+		margin_top = 10
+
+		# control bar: free-mode toggle + splendor level editor, top-left, fixed sizes
+		hbox = {
+			margin_left = 15
+			margin_bottom = 5
+			spacing = 10
+
+			button_standard = {
+				size = { 210 26 }
+				visible = "[GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('DI_legacy_editor_free_mode').GetValue, '(CFixedPoint)0' )]"
+				text = "DI_DYNASTY_EDITOR_CHEAT_MODE_OFF"   # "Disable Free Mode (vanilla renown cost)"
+				onclick = "[GetScriptedGui('DI_dynasty_perk_editor_mode_off').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_CHEAT_MODE_TT"
+				button_ignore = none
+			}
+
+			button_standard = {
+				size = { 210 26 }
+				visible = "[Not( GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('DI_legacy_editor_free_mode').GetValue, '(CFixedPoint)0' ) )]"
+				text = "DI_DYNASTY_EDITOR_CHEAT_MODE_ON"   # "Enable Free Mode (no renown cost)"
+				onclick = "[GetScriptedGui('DI_dynasty_perk_editor_mode_on').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_CHEAT_MODE_TT"
+				button_ignore = none
+			}
+
+			text_single = {
+				text = "DI_DYNASTY_EDITOR_SPLENDOR_LABEL"
+				tooltip = "DI_DYNASTY_EDITOR_SPLENDOR_TT"
+				default_format = "#high"
+			}
+
+			button_standard = {
+				size = { 40 26 }
+				text = "DI_DYNASTY_EDITOR_MINUS_ONE"
+				onclick = "[GetScriptedGui('DI_dynasty_splendor_subtract').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_SPLENDOR_TT"
+			}
+
+			button_standard = {
+				size = { 40 26 }
+				text = "DI_DYNASTY_EDITOR_PLUS_ONE"
+				onclick = "[GetScriptedGui('DI_dynasty_splendor_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_SPLENDOR_TT"
+			}
+
+			button_standard = {
+				size = { 90 26 }
+				text = "DI_DYNASTY_EDITOR_RESET_SPLENDOR"
+				onclick = "[GetScriptedGui('DI_dynasty_splendor_reset').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_SPLENDOR_RESET_TT"
+			}
+
+			button_standard = {
+				size = { 120 26 }
+				text = "DI_DYNASTY_EDITOR_UNLOCK_ALL"
+				onclick = "[GetScriptedGui('DI_perk_unlock_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_UNLOCK_ALL_TT"
+			}
+
+			button_standard = {
+				size = { 120 26 }
+				text = "DI_DYNASTY_EDITOR_LOCK_ALL"
+				onclick = "[GetScriptedGui('DI_perk_lock_all').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				tooltip = "DI_DYNASTY_EDITOR_LOCK_ALL_TT"
+			}
+		}
+
+		header_standard = {  # Dynasty perk editor window header
+			layoutpolicy_horizontal = expanding
+
+			blockoverride "header_text"
+			{
+				# loc key embeds the selected dynasty's name (vanilla pattern: datafunction
+				# inside the loc string, resolved against the root datacontext = selected dynasty)
+				text = "DI_dynasty_perks_editor_heading"
+			}
+
+			blockoverride "button_close"
+			{
+				name = "button_close"
+				onclick = "[GetScriptedGui('DI_dynasty_perk_editor_close').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+				# shortcut = "close_window"
+				# tooltip = "CLOSE_TOOLTIP"
+			}
+		}
+
+		hbox = {
+			layoutpolicy_horizontal = expanding
+
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+				margin = { 10 5 }
+
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_left = 40
+					margin_top = 10
+
+					using = DI_Dynasty_Select_Character
+
+					# widget = {                  # Guessing This displays Coat of arms, Modify this to show Character Selector to Modify The dynasty thats being Modified
+					# 	coa_dynasty_medium = {
+					# 		blockoverride "coa_button" {
+					# 			alwaystransparent = yes
+					# 		}
+					# 	}
+					# }
+
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						margin = { 100 0 }
+						maximumsize = { 900 -1 }   # keep renown/progress block from stretching the row
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+							margin = { 0 10 }
+							spacing = 15
+
+							vbox = {
+								layoutpolicy_vertical = expanding
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									margin = { 3 0 }
+
+									text_single = {
+										text = "DI_DYNASTY_EDITOR_SHOW_RENOWN" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
+									}
+
+									expand = {}
+
+									text_single = {
+										text = "DI_DYNASTY_EDITOR_SHOW_LEGACY_COST" # May Not be Needed, This depends if i can add the perk While automatically offsetting costs and offsetting increasing costs, since the console command still does both of those.
+									}
+								}
+
+								spacer = {
+									size = { 3 3 }
+								}
+
+								progressbar_standard = {
+									name = "progress"
+									size = { 250 12 }
+									value = "[FixedPointToProgressbarValue(Dynasty.GetNextPerkProgress)]" # Could be interesting But should not go for player Dynasty
+									min = 0
+									tooltip = "DYNASTY_HOUSE_VIEW_PROGRESS_TOOLTIP" # Vanilla Locatization:  DYNASTY_HOUSE_VIEW_PROGRESS_TOOLTIP:0 "Progress: [dynasty_prestige_i][Dynasty.GetPrestige|V0]/
+								}
+
+								text_single = {
+									layoutpolicy_horizontal = expanding
+									margin = { 3 0 }
+									text = "DYNASTY_VIEW_SHOW_LEGACIES"  # Vanilla Localization:  DYNASTY_VIEW_SHOW_LEGACIES:0 "Legacies: [DynastyView.GetTotalUnlockedPerks]"
+								}
+							}
+
+							divider_light = {
+								layoutpolicy_vertical = expanding
+							}
+
+							vbox = {  # Short DI-specific instructions (replaces the long vanilla
+								# DYNASTY_VIEW_SHOW_LEGACY_EXPLANATION_* paragraph, which forced
+								# this hbox wider than the window and pushed the track buttons,
+								# scrollbar and close button outside the clickable background).
+								# maximumsize caps the width so this can never overflow again.
+								layoutpolicy_horizontal = expanding
+								maximumsize = { 560 -1 }
+								margin_bottom = 7
+
+								text_multi = {
+									layoutpolicy_horizontal = expanding
+									text = "DI_dynasty_perks_editor_explanation"
+									autoresize = yes
+									max_width = 540
+									fontsize_min = 14
+									default_format = "#low"
+								}
+							}
+						}
+					}
+				}
+
+				expand = {}
+			}
+		}
+
+		# perk grid in the main layout flow. Takes the remaining window height and scrolls.
+		# NOTE: scrollarea does not support 'margin' (pdx_gui_widget error) — spacing is
+		# handled by the parent vbox instead.
+		scrollbox = {
+			name = "DI_dynasty_perk_grid_scrollbox"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			blockoverride "scrollbox_content" {
+				# GENERATED per-perk toggle grid (tools/generate_perk_editor.ps1)
+				# left click adds, right click removes; buttons are never disabled
+				# (an `enabled` bound to the add direction blocks right-click removal)
+				# ladder 7: scrollbox_content allows only ONE child without siblings
+				# (shared/lists.gui:3182) - both sections wrapped in a single vbox
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					di_generated_perk_grid = {}
+
+					# Phase 3 extension slot. The base mod defines this type as an empty vbox
+					# (see the generated gui/DI_generated_perk_grid.gui) so this instantiation
+					# always resolves - with no compatch enabled it simply renders nothing.
+					# Standalone sub-mods / combined-playset mods redefine the same type with
+					# their modded-track rows, which then render right below the vanilla grid.
+					# Exactly ONE DI Perks compatch per modlist, because the type name is
+					# shared. UNVERIFIED which definition wins across load order; see
+					# docs/DYNASTY_PERK_EDITOR_AUDIT.md, "Open experiment".
+					di_perk_grid_extension = {}
+				}
+			}
+		}
+	}
+
+	# (the old 'dynasty_legacies_container' overlay widget was removed - the grid lives
+	#  in the scrollbox above; the overlay was what caused the early overlap bugs)
+}
+
+# NOTE: the old top-level `di_confirmation_popup` block was removed (Phase 0 cleanup):
+# confirmation popups are not valid at file top level, and the editor design grants/removes
+# perks directly on left/right click without a trait-confirmation step.
+

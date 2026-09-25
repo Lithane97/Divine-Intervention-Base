@@ -1,0 +1,173 @@
+﻿### Select Character ###
+DI_dynasty_selected_char = {
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    effect = {
+        save_scope_as = select_char
+
+        scope:target = {
+            set_variable = {
+                name = DI_dynasty_selected_char
+                value = scope:select_char
+
+            }
+            set_variable = {
+                name = DI_dynasty_selected_dynasty
+                value = scope:select_char.dynasty
+            }
+        }
+        debug_log = "Selected dynasty edit character set"
+        # NOTE: removed debug_log = "[scope:select_char.GetFullName]" — saved scopes are not
+        # resolvable in the debug_log datacontext and produced pdx_data_factory errors per click.
+    }
+}
+
+### Select Character ### 
+DI_dynasty_selected_char_copy = {  #Trying to Copy the Culture copy mechanic, for legacies
+    scope = character
+
+    saved_scopes = {
+        target # player character
+    }
+
+    effect = {
+        save_scope_as = select_char
+
+        # NOTE (Phase 2): setters commented out until the "Dynasty to Copy" feature is
+        # built — the engine logged "set but is never used" for both variables because
+        # GUI-only reads (Var('...')) are invisible to the effect validator.
+        # scope:target = {
+        #     set_variable = {
+        #         name = DI_dynasty_selected_char_copy
+        #         value = scope:select_char
+        #     }
+        #     set_variable = {
+        #         name = DI_dynasty_selected_dynasty_copy
+        #         value = scope:select_char.dynasty
+        #     }
+        # }
+    }
+}
+
+### Select Character Init ###
+
+### Legacy editor free-mode toggle (Phase 1) ###
+# Sets/clears DI_legacy_editor_free_mode on the player. The generated perk toggles
+# (DI_generated_perk_toggles_sgui.txt) top up renown before granting while this is set,
+# making perks effectively free. Without it, vanilla renown costs apply.
+DI_dynasty_perk_editor_mode_on = {
+	scope = character
+
+	effect = {
+		set_variable = {
+			name = DI_legacy_editor_free_mode
+			value = 1
+		}
+		debug_log = "DI legacy editor FREE MODE ENABLED"
+	}
+}
+
+DI_dynasty_perk_editor_mode_off = {
+	scope = character
+
+	effect = {
+		remove_variable = DI_legacy_editor_free_mode
+		debug_log = "DI legacy editor FREE MODE DISABLED"
+	}
+}
+
+### Splendor level editor ###
+# Free-mode refunds raise the splendor level (it tracks lifetime earned prestige,
+# per LEVELS_PRESTIGE in defines) - these let the user set it back afterwards.
+# add_dynasty_prestige_level moves the level relative up/down.
+DI_dynasty_splendor_add = {
+	scope = character
+
+	effect = {
+		var:DI_dynasty_selected_dynasty = {
+			add_dynasty_prestige_level = 1
+		}
+		debug_log = "DI legacy editor: splendor +1"
+	}
+}
+
+DI_dynasty_splendor_subtract = {
+	scope = character
+
+	effect = {
+		var:DI_dynasty_selected_dynasty = {
+			add_dynasty_prestige_level = -1
+		}
+		debug_log = "DI legacy editor: splendor -1"
+	}
+}
+
+DI_dynasty_splendor_reset = {
+	scope = character
+
+	effect = {
+		var:DI_dynasty_selected_dynasty = {
+			while = {
+				limit = { dynasty_prestige_level > 0 }
+				add_dynasty_prestige_level = -1
+			}
+		}
+		debug_log = "DI legacy editor: splendor reset to 0"
+	}
+}
+
+### Perk editor window open/close (atomic; single execution per click) ###
+# The old design used window _show/_hide on_start hooks for the free-mode default
+# and reset - but on_start is a documented engine bug ("triggers twice"; wiki,
+# Animation states) and vanilla never puts scripted-gui Execute in on_start. The
+# open/close effects now own the full lifecycle: free mode defaults ON per open,
+# and closing clears it so normal gameplay never inherits it.
+DI_dynasty_perk_editor_open = {
+    scope = character
+
+    effect = {
+        if = {
+            limit = {
+                NOT = { has_variable = DI_dynasty_selected_char }
+            }
+            set_variable = {
+                name = DI_dynasty_selected_char
+                value = this
+            }
+            set_variable = {
+                name = DI_dynasty_selected_dynasty
+                value = this.dynasty
+            }
+        }
+        set_variable = {
+            name = DI_legacy_editor_free_mode
+            value = 1
+        }
+        set_variable = {
+            name = DI_dynasty_perk_editor_window_visible
+            value = 1
+        }
+        debug_log = "DI perk editor opened (free mode ON)"
+    }
+}
+
+DI_dynasty_perk_editor_close = {
+    scope = character
+
+    effect = {
+        remove_variable = DI_dynasty_perk_editor_window_visible
+        remove_variable = DI_legacy_editor_free_mode
+        debug_log = "DI perk editor closed (free mode reset)"
+    }
+}
+
+# NOTE (Phase 0 cleanup): removed dead code here —
+#   - commented `DI_dynasty_perk_helper` (set_data_model with nonexistent
+#     `dynasty_legacy_browser` type — engine-bound, see docs/DYNASTY_PERK_EDITOR_OPTIONS.md)
+#   - `DI_Dynastey_perk_list` (referenced undefined `scope:legacy`, never functional)
+# Runtime enumeration of legacy tracks is not possible; see
+# docs/DYNASTY_PERK_EDITOR_PLAN.md Phase 3 for the generator approach.

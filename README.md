@@ -50,3 +50,9 @@ Troubleshooting
 License and Contact
 - No formal licence file is included in this repository. The mod is published for use with Crusader Kings III under the terms and allowances provided by Paradox Interactive to the modding community; consult Paradox Interactive's EULA and modding policies if you need explicit legal guidance.
 - For issues, questions, or help installing, open an issue in this repository or contact the maintainer via GitHub: @Lithane97.
+
+Dynasty Perk Editor
+-------------------
+- The skull menu's **Dynasty Perks Editor** toggles any of the 105 vanilla legacy perks (21 tracks) on any dynasty: left click adds a perk, right click removes it; track buttons add/remove whole tracks.
+- Includes a renown-free cheat mode, a splendor-level editor, and foreign-dynasty editing via character selection.
+- The grid, toggle effects, and cost values are generated from the installed game files by `tools/generate_perk_editor.ps1`; `tools/validate_perk_editor.ps1` verifies they are in sync.
