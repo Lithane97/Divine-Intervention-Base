@@ -1,4 +1,4 @@
-### Cultural Editor Window ###
+﻿### Cultural Editor Window ###
 
 window = {
     name = "DI_cultural_editor_window"
@@ -108,6 +108,20 @@ window = {
             }
 
             button_tab = {
+                name = "acceptance_tab"
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('culture_view_tabs', 'acceptance')]"
+                onclick = "[GetVariableSystem.Set('reformation_mode', 'hide')]"
+                down = "[GetVariableSystem.HasValue('culture_view_tabs', 'acceptance')]"
+                text_single = {
+                    parentanchor = center
+                    text = DI_ca_tab
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+            }
+
+            button_tab = {
                 name = "convert_culture_tab"
                 layoutpolicy_horizontal = expanding
                 onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'convert' )]"
@@ -121,6 +135,164 @@ window = {
                     default_format = "#low"
                 }
             }
+        }
+
+        vbox = {
+            name = "cultural_acceptance_tab"
+            visible = "[GetVariableSystem.HasValue('culture_view_tabs', 'acceptance')]"
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            margin = { 20 10 }
+            spacing = 10
+            using = Animation_Tab_Switch
+            text_single = {
+                align = center
+                layoutpolicy_horizontal = expanding
+                text = DI_ca_heading
+                default_format = "#bold"
+            }
+            text_multi = {
+                layoutpolicy_horizontal = expanding
+                text = DI_ca_help
+                autoresize = yes
+                max_width = 540
+            }
+            vbox = {
+                visible = "[GetScriptedGui('DI_ca_pair_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                layoutpolicy_horizontal = expanding
+                spacing = 8
+                text_multi = {
+                    align = center
+                    layoutpolicy_horizontal = expanding
+                    text = DI_ca_pair
+                    autoresize = yes
+                    max_width = 540
+                }
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    expand = {}
+                    text_single = {
+                        text = DI_ca_value
+                        align = right
+                    }
+                    text_single = {
+                        text = DI_ca_value_diff
+                        align = left
+                        tooltip = DI_ca_value_diff_tt
+                    }
+                    expand = {}
+                }
+            }
+            text_multi = {
+                layoutpolicy_horizontal = expanding
+                text = DI_ca_status
+                autoresize = yes
+                max_width = 540
+            }
+            hbox = {
+                spacing = 8
+                margin_bottom = 20
+                button_standard = {
+                    size = { 58 36 }
+                    enabled = "[GetScriptedGui('DI_ca_min').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_ca_min').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    tooltip = DI_ca_min_tt
+                    hbox = {
+                        parentanchor = center
+                        alwaystransparent = yes
+                        icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+                        icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+                    }
+                }
+                button_standard = {
+                    size = { 58 36 }
+                    enabled = "[GetScriptedGui('DI_ca_subtract').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_ca_subtract').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('acceptance_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                    tooltip = DI_ca_subtract_tt
+                    hbox = {
+                        parentanchor = center
+                        alwaystransparent = yes
+                        icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+                    }
+                }
+                button_standard = {
+                    size = { 58 36 }
+                    enabled = "[GetScriptedGui('DI_ca_mid').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_ca_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    tooltip = DI_ca_mid_tt
+                    icon = { parentanchor = center size = { 20 20 } framesize = { 80 80 } texture = "gfx/interface/buttons/button_radio.dds" alwaystransparent = yes }
+                }
+                button_standard = {
+                    size = { 58 36 }
+                    enabled = "[GetScriptedGui('DI_ca_add').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_ca_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('acceptance_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                    tooltip = DI_ca_add_tt
+                    hbox = {
+                        parentanchor = center
+                        alwaystransparent = yes
+                        icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+                    }
+                }
+                button_standard = {
+                    size = { 58 36 }
+                    enabled = "[GetScriptedGui('DI_ca_max').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_ca_max').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                    tooltip = DI_ca_max_tt
+                    hbox = {
+                        parentanchor = center
+                        alwaystransparent = yes
+                        icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+                        icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+                    }
+                }
+            }
+
+            hbox = {
+                name = "DI_ca_culture_comparison"
+                layoutpolicy_horizontal = expanding
+                spacing = 20
+                vbox = {
+                    name = "DI_ca_primary_culture"
+                    layoutpolicy_vertical = expanding
+                    minimumsize = { 260 0 }
+                    maximumsize = { 260 -1 }
+                    spacing = 8
+                    text_single = { text = DI_ca_primary_culture_heading default_format = "#bold" }
+                    vbox = {
+                        visible = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid]"
+                        datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.GetCulture]"
+                        using = DI_CA_Culture_Summary
+                    }
+                    text_multi = {
+                        visible = "[Not(GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+                        text = DI_ca_summary_no_character
+                        max_width = 260
+                        autoresize = yes
+                    }
+                    expand = {}
+                }
+                vbox = {
+                    name = "DI_ca_secondary_culture"
+                    layoutpolicy_vertical = expanding
+                    minimumsize = { 260 0 }
+                    maximumsize = { 260 -1 }
+                    spacing = 8
+                    text_single = { text = DI_ca_secondary_culture_heading default_format = "#bold" }
+                    vbox = {
+                        visible = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char.IsValid]"
+                        datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char.GetCulture]"
+                        using = DI_CA_Culture_Summary
+                    }
+                    text_multi = {
+                        visible = "[Not(GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char.IsValid)]"
+                        text = DI_ca_summary_no_character
+                        max_width = 260
+                        autoresize = yes
+                    }
+                    expand = {}
+                }
+            }
+            expand = {}
         }
 
         vbox = {
@@ -212,7 +384,7 @@ window = {
 
                                 button_change = {
                                     onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
-									onclick = "[GetVariableSystem.Toggle( 'DI_heritage_window_visible' )]"
+                                    onclick = "[GetVariableSystem.Toggle( 'DI_heritage_window_visible' )]"
 
                                     tooltip = "CULTURE_CLICK_TO_REPLACE"
                                 }
@@ -331,11 +503,11 @@ window = {
                                 button_change = {
                                     layoutpolicy_horizontal = expanding
 
-									onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+                                    onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
                                     onclick = "[GetVariableSystem.Toggle( 'DI_language_window_visible' )]"
                                     visible = "[HasDlcFeature( 'royal_court' )]"
 
-									tooltip = "CULTURE_CLICK_TO_REPLACE"
+                                    tooltip = "CULTURE_CLICK_TO_REPLACE"
                                 }
                             }
 
@@ -645,7 +817,7 @@ window = {
 
             vbox = {
                 state = {
-                    name = init 
+                    name = init
                     trigger_on_create = yes
 
                     on_start = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'all' )]"
@@ -656,7 +828,7 @@ window = {
                 hbox = {
                     name = "DI_cultural_editor_innovation_tabs"
                     layoutpolicy_horizontal = expanding
-                    
+
                     button_tab = {
                         layoutpolicy_horizontal = expanding
                         onclick = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'all' )]"
@@ -682,7 +854,7 @@ window = {
                             maximumsize = { 400 -1 }
                             default_format = "#low"
                         }
-                    }   
+                    }
                 }
 
                 hbox = {

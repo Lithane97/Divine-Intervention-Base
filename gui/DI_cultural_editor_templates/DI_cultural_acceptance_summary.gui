@@ -1,0 +1,81 @@
+﻿# Shared by the primary and secondary culture panels in the existing Acceptance tab.
+template DI_CA_Culture_Summary
+{
+    spacing = 8
+    layoutpolicy_horizontal = expanding
+    text_multi = {
+        text = "[Culture.GetName]"
+        default_format = "#high;bold"
+        max_width = 260
+        autoresize = yes
+    }
+    text_multi = {
+        text = "[Culture.GetPlayerRelationString]"
+        max_width = 260
+        autoresize = yes
+    }
+    hbox = {
+        spacing = 6
+        icon_doctrine = {
+            size = { 24 24 }
+            texture = "gfx/interface/icons/culture_pillars/heritage.dds"
+        }
+        text_multi = {
+            datacontext = "[Culture.GetHeritage]"
+            text = CULTURE_VIEW_HERITAGE_TEXT
+            max_width = 230
+            autoresize = yes
+            tooltipwidget = { using = culture_pillar_tooltip }
+        }
+    }
+    hbox = {
+        spacing = 6
+        icon_culture_pillar = {
+            size = { 24 24 }
+            texture = "gfx/interface/icons/culture_pillars/language.dds"
+        }
+        text_multi = {
+            datacontext = "[Culture.GetLanguage]"
+            text = CULTURE_VIEW_LANGUAGE_TEXT
+            max_width = 230
+            autoresize = yes
+            tooltipwidget = { using = culture_pillar_tooltip }
+        }
+    }
+    text_multi = {
+        text = CULTURE_COOLTIP_ERA
+        max_width = 260
+        autoresize = yes
+    }
+    divider_light = { layoutpolicy_horizontal = expanding }
+    hbox = {
+        datacontext = "[Culture.GetFascination]"
+        visible = "[Culture.HasFascination]"
+        spacing = 8
+        tooltipwidget = culture_innovation_tooltip
+        widget = {
+            size = { 65 45 }
+            icon_innovation = { scale = 0.7 }
+        }
+        vbox = {
+            spacing = 8
+            text_multi = {
+                text = CULTURE_COOLTIP_FASCINATION
+                max_width = 185
+                autoresize = yes
+            }
+            progressbar_standard = {
+                size = { 180 15 }
+                min = 0
+                max = 100
+                value = "[FixedPointToFloat(CultureInnovation.GetProgress)]"
+            }
+        }
+    }
+    text_multi = {
+        visible = "[Not(Culture.HasFascination)]"
+        text = DI_ca_summary_no_fascination
+        max_width = 260
+        autoresize = yes
+    }
+}

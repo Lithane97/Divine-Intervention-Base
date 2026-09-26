@@ -1,0 +1,11 @@
+﻿DI_ca_step_value = {
+    value = 1
+    if = {
+        limit = { exists = scope:acceptance_step }
+        value = scope:acceptance_step
+        min = 1
+        max = 10
+    }
+}
+DI_ca_negative_step_value = { value = DI_ca_step_value multiply = -1 }
+DI_ca_upper_step_threshold = { value = 100 subtract = DI_ca_step_value }

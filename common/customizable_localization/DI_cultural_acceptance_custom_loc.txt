@@ -1,0 +1,15 @@
+﻿DI_ca_status_description = {
+    type = character
+    text = {
+        trigger = { NOT = { DI_ca_has_characters = yes } }
+        localization_key = DI_ca_missing
+    }
+    text = {
+        trigger = {
+            DI_ca_has_characters = yes
+            var:DI_innovation_selected_char.culture = var:DI_innovation_selected_char_copy.culture
+        }
+        localization_key = DI_ca_same
+    }
+    text = { fallback = yes localization_key = DI_ca_empty }
+}

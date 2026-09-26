@@ -1,0 +1,80 @@
+﻿DI_ca_min = {
+    scope = character
+    is_valid = { DI_ca_can_min = yes }
+    effect = {
+        if = {
+            limit = { DI_ca_can_min = yes }
+            var:DI_innovation_selected_char_copy.culture = { save_scope_as = DI_ca_target }
+            var:DI_innovation_selected_char.culture = {
+                set_cultural_acceptance = { target = scope:DI_ca_target value = 0 }
+            }
+        }
+    }
+}
+DI_ca_subtract = {
+    scope = character
+    saved_scopes = { acceptance_step }
+    is_valid = { DI_ca_can_subtract = yes }
+    effect = {
+        if = {
+            limit = { DI_ca_can_subtract = yes }
+            var:DI_innovation_selected_char_copy.culture = { save_scope_as = DI_ca_target }
+            var:DI_innovation_selected_char.culture = {
+                if = {
+                    limit = { cultural_acceptance = { target = scope:DI_ca_target value < DI_ca_step_value } }
+                    set_cultural_acceptance = { target = scope:DI_ca_target value = 0 }
+                }
+                else = {
+                    change_cultural_acceptance = { target = scope:DI_ca_target value = DI_ca_negative_step_value desc = DI_ca_change_reason }
+                }
+            }
+        }
+    }
+}
+DI_ca_mid = {
+    scope = character
+    is_valid = { DI_ca_can_mid = yes }
+    effect = {
+        if = {
+            limit = { DI_ca_can_mid = yes }
+            var:DI_innovation_selected_char_copy.culture = { save_scope_as = DI_ca_target }
+            var:DI_innovation_selected_char.culture = {
+                set_cultural_acceptance = { target = scope:DI_ca_target value = 50 }
+            }
+        }
+    }
+}
+DI_ca_add = {
+    scope = character
+    saved_scopes = { acceptance_step }
+    is_valid = { DI_ca_can_add = yes }
+    effect = {
+        if = {
+            limit = { DI_ca_can_add = yes }
+            var:DI_innovation_selected_char_copy.culture = { save_scope_as = DI_ca_target }
+            var:DI_innovation_selected_char.culture = {
+                if = {
+                    limit = { cultural_acceptance = { target = scope:DI_ca_target value > DI_ca_upper_step_threshold } }
+                    set_cultural_acceptance = { target = scope:DI_ca_target value = 100 }
+                }
+                else = {
+                    change_cultural_acceptance = { target = scope:DI_ca_target value = DI_ca_step_value desc = DI_ca_change_reason }
+                }
+            }
+        }
+    }
+}
+DI_ca_max = {
+    scope = character
+    is_valid = { DI_ca_can_max = yes }
+    effect = {
+        if = {
+            limit = { DI_ca_can_max = yes }
+            var:DI_innovation_selected_char_copy.culture = { save_scope_as = DI_ca_target }
+            var:DI_innovation_selected_char.culture = {
+                set_cultural_acceptance = { target = scope:DI_ca_target value = 100 }
+            }
+        }
+    }
+}
+DI_ca_pair_available = { scope = character is_valid = { DI_ca_valid_pair = yes } }

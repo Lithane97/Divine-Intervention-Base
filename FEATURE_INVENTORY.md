@@ -577,6 +577,18 @@ Culture conversion is divided into people, counties, sub-realm, and realm tools:
 - Convert all pinned sub-realms to player culture.
 - Quick convert the player sub-realm to player culture.
 
+### Acceptance Tab
+
+Two lower panels compare the primary and secondary cultures side by side: name, player relationship, player-relative acceptance/change, heritage, language, current era, discovered innovations, and fascination icon/progress.
+
+Uses the two existing selected characters' current cultures. Cultural acceptance is one shared value between the cultures, displayed live as a percentage.
+
+- Set acceptance to 0%, 50%, or 100%.
+- Increase/decrease by 1 percentage point, Shift for 5, or Control for 10 (Control takes precedence).
+- Clamp steps to 0–100; disable controls at their relevant limits or preset value.
+- Require two different cultures; show a selection prompt or same-culture explanation otherwise.
+
+
 ## 11. GUI: Faith Editor
 
 Open the skull button menu, then select **Faith Editor**.
