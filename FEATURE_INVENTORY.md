@@ -187,6 +187,8 @@ Each skill can be increased or decreased by the current increment value.
 
 Edits one selected character, defaulting to the player. The character button opens the pinned-character list, and Select Player returns to the player. This tab does not use the bulk Pinned checkbox.
 
+The Stats picker includes a fixed All option above the pinned list. All applies each action to every pinned character without individual validity checks; current values display as a dash. Selecting a character or Select Player restores individual editing. Keyboard steps and numerical bounds still apply.
+
 Each stat has an icon, name, live gold-colored value, and minimum / decrease / midpoint / increase / preset controls:
 
 - **Dread**: 0 to 100; midpoint 50; one-point steps.
