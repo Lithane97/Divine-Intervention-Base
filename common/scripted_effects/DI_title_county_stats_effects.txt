@@ -1,0 +1,105 @@
+﻿DI_tm_refresh_counties_effect = {
+
+        save_scope_as = player
+        clear_variable_list = DI_tm_source_counties
+        every_in_list = {
+            variable = DI_selected_titles
+            save_scope_as = title
+            if = {
+                limit = {
+                    tier = tier_county
+                    exists = holder
+                }
+                save_scope_as = county
+                scope:player = {
+                    if = {
+                        limit = {
+                            NOT = {
+                                is_target_in_variable_list = {
+                                    name = DI_tm_source_counties
+                                    target = scope:county
+                                }
+                            }
+                        }
+                        add_to_variable_list = {
+                            name = DI_tm_source_counties
+                            target = scope:county
+                        }
+                    }
+                }
+            }
+            else_if = {
+                limit = { exists = holder }
+                if = {
+                    limit = { scope:title.holder.primary_title = scope:title }
+                    scope:title.holder = {
+                        every_sub_realm_county = {
+                            save_scope_as = county
+                            scope:player = {
+                                if = {
+                                    limit = {
+                                        NOT = {
+                                            is_target_in_variable_list = {
+                                                name = DI_tm_source_counties
+                                                target = scope:county
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_tm_source_counties
+                                        target = scope:county
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else = {
+                    every_de_jure_county = {
+                        save_scope_as = county
+                        if = {
+                            limit = {
+                                scope:title.holder = {
+                                    any_sub_realm_county = { this = scope:county }
+                                }
+                            }
+                            scope:player = {
+                                if = {
+                                    limit = {
+                                        NOT = {
+                                            is_target_in_variable_list = {
+                                                name = DI_tm_source_counties
+                                                target = scope:county
+                                            }
+                                        }
+                                    }
+                                    add_to_variable_list = {
+                                        name = DI_tm_source_counties
+                                        target = scope:county
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        set_variable = { name = DI_tm_county_total value = 0 }
+        every_in_list = {
+            variable = DI_tm_source_counties
+            limit = { exists = holder }
+            scope:player = { change_variable = { name = DI_tm_county_total add = 1 } }
+        }
+        clear_variable_list = DI_selected_titles_counties
+        set_variable = { name = DI_tm_county_count value = 0 }
+        every_in_list = {
+            variable = DI_tm_source_counties
+            limit = { DI_tm_county_matches_filter = yes }
+            save_scope_as = county
+            scope:player = {
+                add_to_variable_list = { name = DI_selected_titles_counties target = scope:county }
+                change_variable = { name = DI_tm_county_count add = 1 }
+            }
+        }
+}

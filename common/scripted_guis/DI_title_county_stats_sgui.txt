@@ -1,0 +1,166 @@
+﻿DI_tm_choose_county_filter = {
+    scope = character
+    saved_scopes = {
+        filter_choice
+    }
+    effect = {
+        save_scope_as = player
+
+        remove_variable = DI_tm_filter_active_control
+        remove_variable = DI_tm_filter_active_development
+        remove_variable = DI_tm_filter_active_domain
+
+        if = {
+            limit = { scope:filter_choice = flag:DI_tm_filter_control }
+            set_variable = DI_tm_filter_active_control
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:DI_tm_filter_development }
+            set_variable = DI_tm_filter_active_development
+        }
+        else_if = {
+            limit = { scope:filter_choice = flag:DI_tm_filter_domain }
+            set_variable = DI_tm_filter_active_domain
+        }
+        else = {
+            add_gold = 100
+        }
+
+        DI_tm_refresh_counties_effect = yes
+    }
+}
+DI_tm_move_realm_capital = {
+    scope = character
+    saved_scopes = { province barony }
+    is_valid = { DI_tm_can_move_realm_capital = yes }
+    effect = {
+        if = {
+            limit = { DI_tm_can_move_realm_capital = yes }
+            scope:barony.holder = { set_realm_capital = scope:barony.county }
+        }
+    }
+}
+DI_tm_control_min_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder county_control > 0 } }
+}
+DI_tm_control_subtract_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder county_control > 0 } }
+}
+DI_tm_control_mid_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder NOT = { county_control = 50 } } }
+}
+DI_tm_control_add_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder county_control < 100 } }
+}
+DI_tm_control_max_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder county_control < 100 } }
+}
+DI_tm_development_min_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder development_level > 0 } }
+}
+DI_tm_development_subtract_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder development_level > 0 } }
+}
+DI_tm_development_mid_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder NOT = { development_level = 50 } } }
+}
+DI_tm_development_add_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder development_level < 100 } }
+}
+DI_tm_development_max_available = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder development_level < 100 } }
+}
+DI_tm_opinion_add = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties if = { limit = { NOT = { has_county_modifier = DI_tm_county_opinion } } add_county_modifier = { modifier = DI_tm_county_opinion } } }
+    }
+}
+DI_tm_opinion_remove = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties remove_all_county_modifier_instances = DI_tm_county_opinion }
+    }
+}
+DI_tm_taxes_add = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties if = { limit = { NOT = { has_county_modifier = DI_tm_county_taxes } } add_county_modifier = { modifier = DI_tm_county_taxes } } }
+    }
+}
+DI_tm_taxes_remove = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties remove_all_county_modifier_instances = DI_tm_county_taxes }
+    }
+}
+DI_tm_levies_add = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties if = { limit = { NOT = { has_county_modifier = DI_tm_county_levies } } add_county_modifier = { modifier = DI_tm_county_levies } } }
+    }
+}
+DI_tm_levies_remove = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties remove_all_county_modifier_instances = DI_tm_county_levies }
+    }
+}
+
+DI_tm_supply_add = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties if = { limit = { NOT = { has_county_modifier = DI_tm_county_supply } } add_county_modifier = { modifier = DI_tm_county_supply } } }
+    }
+}
+
+DI_tm_supply_remove = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties remove_all_county_modifier_instances = DI_tm_county_supply }
+    }
+}
+
+DI_tm_plague_add = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties if = { limit = { NOT = { has_county_modifier = DI_tm_county_plague } } add_county_modifier = { modifier = DI_tm_county_plague } } }
+    }
+}
+
+DI_tm_plague_remove = {
+    scope = character
+    is_valid = { any_in_list = { variable = DI_selected_titles_counties exists = holder } }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        every_in_list = { variable = DI_selected_titles_counties remove_all_county_modifier_instances = DI_tm_county_plague }
+    }
+}

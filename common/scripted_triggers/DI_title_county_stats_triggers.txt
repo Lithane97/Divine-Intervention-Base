@@ -1,0 +1,35 @@
+﻿DI_tm_county_matches_filter = {
+    exists = holder
+    OR = {
+        scope:player = {
+            AND = {
+                NOT = { has_variable = DI_tm_filter_active_control }
+                NOT = { has_variable = DI_tm_filter_active_development }
+                NOT = { has_variable = DI_tm_filter_active_domain }
+            }
+        }
+        AND = {
+            scope:player = { has_variable = DI_tm_filter_active_control }
+            county_control < 100
+        }
+        AND = {
+            scope:player = { has_variable = DI_tm_filter_active_development }
+            development_level < 100
+        }
+        AND = {
+            scope:player = { has_variable = DI_tm_filter_active_domain }
+            holder = scope:player
+        }
+    }
+}
+DI_tm_can_move_realm_capital = {
+    exists = scope:barony.holder
+    scope:province = { is_county_capital = yes }
+    scope:barony.holder = {
+        is_alive = yes
+        is_landed = yes
+        is_independent_ruler = yes
+        NOT = { capital_province = scope:province }
+    }
+    scope:barony.county.holder = scope:barony.holder
+}

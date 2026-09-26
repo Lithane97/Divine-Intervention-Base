@@ -68,6 +68,22 @@ window = {
                     default_format = "#low"
                 }
             }
+
+            # County stats
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetScriptedGui('DI_title_manager_county_stats_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetVariableSystem.Set('title_manager_tab', 'county_stats')]"
+                down = "[GetVariableSystem.HasValue('title_manager_tab', 'county_stats')]"
+
+                text_single = {
+                    parentanchor = center
+                    text = DI_tab_county_stats
+                    maximumsize = { 400 -1 }
+                    default_format = "#low"
+                }
+                tooltip = DI_tab_county_stats_tt
+            }
         }
 
         widget = {
@@ -76,7 +92,9 @@ window = {
             vbox = {
                 layoutpolicy_vertical = expanding
 
-                expand = {}
+                expand = {
+                    visible = "[Not(GetVariableSystem.HasValue('title_manager_tab', 'county_stats'))]"
+                }
 
                 # Quick Actions Tab
                 vbox = {
@@ -488,11 +506,148 @@ window = {
                     }
                 }
 
+                # County Stats Tab
+                vbox = {
+                    name = "county_stats_tab"
+                    visible = "[GetVariableSystem.HasValue('title_manager_tab', 'county_stats')]"
+                    layoutpolicy_horizontal = expanding
+                    margin = { 20 10 }
+                    using = Animation_Tab_Switch
+
+                    vbox = {
+                        spacing = 12
+
+                        dropdown_menu_standard = {
+                            name = "di_county_dropdown"
+
+                            # Size of the button itself and the max list height
+                            blockoverride "dropdown_size" { size = { 220 32 } }
+                            blockoverride "dropdown_list_maxsize" { maximumsize = { 260 260 } }
+
+                            # Feed it the list + tell it what to do when a choice is picked
+                            blockoverride "dropdown_properties" {
+                                datamodel = "[GetGlobalList('DI_county_filter_choices')]"
+                                onselectionchanged = "[PdxGuiWidget.FindChild('di_county_dropdown_active').TriggerAnimation('apply_filter_choice')]"
+                            }
+
+                            # What the closed button shows (pick static or dynamic)
+                            blockoverride "dropdown_active_item_properties" {
+                                name = "di_county_dropdown_active"
+                                text = "DI_tm_filter_label"
+
+                                state = {
+                                    name = apply_filter_choice
+                                    # Dispatch by the selected flag name; easiest is to call a tiny SGUI
+                                    on_finish = "[GetScriptedGui('DI_tm_choose_county_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('filter_choice', MakeScopeFlag(Scope.GetFlagName)).End)]"
+                                }
+                            }
+
+                            # How each row is labeled
+                            blockoverride "dropdown_item_properties" {
+                                text = "[Localize(Concatenate(Scope.GetFlagName,'_loc'))]"
+                            }
+                        }
+                        hbox = {
+                            spacing = 12
+                            text_single = { text = DI_tm_county_count }
+                            button_replace = {
+                                size = { 30 30 }
+                                tooltip = DI_tm_county_refresh
+                                onclick = "[GetScriptedGui('DI_title_manager_county_stats_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                        }
+                        text_single = {
+                            text = DI_tm_county_stats_scope
+                            default_format = "#low"
+                        }
+
+                        vbox = {
+                            spacing = 8
+                            text_single = {
+                                size = { 150 36 }
+                                text = DI_tm_county_control
+                                default_format = "#bold"
+                            }
+                            vbox = {
+                                using = DI_TM_County_Control_Stat_Buttons
+                            }
+                        }
+
+                        vbox = {
+                            spacing = 8
+                            text_single = {
+                                size = { 150 36 }
+                                text = DI_tm_county_development
+                                default_format = "#bold"
+                            }
+                            vbox = {
+                                using = DI_TM_County_Development_Stat_Buttons
+                            }
+                        }
+
+                        text_single = { text = DI_tm_county_modifiers default_format = "#bold" }
+                        button_standard = {
+                            size = { 340 36 }
+                            button_ignore = none
+                            text = DI_tm_county_opinion
+                            tooltip = DI_tm_county_opinion_tt
+                            enabled = "[GetScriptedGui('DI_title_manager_county_stats_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tm_opinion_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_tm_opinion_remove').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        button_standard = {
+                            size = { 340 36 }
+                            button_ignore = none
+                            text = DI_tm_county_taxes
+                            tooltip = DI_tm_county_taxes_tt
+                            enabled = "[GetScriptedGui('DI_title_manager_county_stats_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tm_taxes_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_tm_taxes_remove').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        button_standard = {
+                            size = { 340 36 }
+                            button_ignore = none
+                            text = DI_tm_county_levies
+                            tooltip = DI_tm_county_levies_tt
+                            enabled = "[GetScriptedGui('DI_title_manager_county_stats_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tm_levies_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_tm_levies_remove').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        button_standard = {
+                            size = { 340 36 }
+                            button_ignore = none
+                            text = DI_tm_county_supply
+                            tooltip = DI_tm_county_supply_tt
+                            enabled = "[GetScriptedGui('DI_title_manager_county_stats_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tm_supply_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_tm_supply_remove').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        button_standard = {
+                            size = { 340 36 }
+                            button_ignore = none
+                            text = DI_tm_county_plague
+                            tooltip = DI_tm_county_plague_tt
+                            enabled = "[GetScriptedGui('DI_title_manager_county_stats_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tm_plague_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_tm_plague_remove').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        text_single = {
+                            visible = "[Not(GetScriptedGui('DI_title_manager_county_stats_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                            text = DI_tm_county_stats_no_counties
+                            default_format = "#low"
+                        }
+                    }
+                }
+
+                expand = {
+                    visible = "[GetVariableSystem.HasValue('title_manager_tab', 'county_stats')]"
+                }
+
                 vbox = {
                     using = DI_Loading_Screen
 
                     vbox = {
-                        visible = "[And(Not(GetVariableSystem.HasValue('title_manager_tab', 'filter')), Not(GetVariableSystem.HasValue('title_manager_tab', 'province_management')))]"
+                        visible = "[And(Not(GetVariableSystem.HasValue('title_manager_tab', 'filter')), And(Not(GetVariableSystem.HasValue('title_manager_tab', 'province_management')), Not(GetVariableSystem.HasValue('title_manager_tab', 'county_stats'))))]"
                         hbox = {
                             scrollbox = {
                                 layoutpolicy_horizontal = expanding
@@ -549,6 +704,138 @@ window = {
 ######################################################
 ################ TYPES AND TEMPLATES #################
 ######################################################
+
+template DI_TM_County_Control_Stat_Buttons
+{
+    hbox = {
+        spacing = 8
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_control_min_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_control')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_min')).End)]"
+            tooltip = DI_tm_county_stats_min_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_control_subtract_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_control')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_subtract')).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+            tooltip = DI_tm_county_stats_subtract_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_control_mid_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_control')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_mid')).End)]"
+            tooltip = DI_tm_county_stats_mid_tt
+            icon = {
+                parentanchor = center
+                size = { 20 20 }
+                framesize = { 80 80 }
+                texture = "gfx/interface/buttons/button_radio.dds"
+                alwaystransparent = yes
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_control_add_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_control')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_add')).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+            tooltip = DI_tm_county_stats_add_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_control_max_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_control')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_max')).End)]"
+            tooltip = DI_tm_county_stats_max_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+            }
+        }
+    }
+}
+
+template DI_TM_County_Development_Stat_Buttons
+{
+    hbox = {
+        spacing = 8
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_development_min_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_development')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_min')).End)]"
+            tooltip = DI_tm_county_stats_min_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_development_subtract_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_development')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_subtract')).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+            tooltip = DI_tm_county_stats_subtract_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds" alwaystransparent = yes }
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_development_mid_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_development')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_mid')).End)]"
+            tooltip = DI_tm_county_stats_mid_tt
+            icon = {
+                parentanchor = center
+                size = { 20 20 }
+                framesize = { 80 80 }
+                texture = "gfx/interface/buttons/button_radio.dds"
+                alwaystransparent = yes
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_development_add_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_development')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_add')).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+            tooltip = DI_tm_county_stats_add_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+            }
+        }
+        button_standard = {
+            size = { 58 36 }
+            enabled = "[GetScriptedGui('DI_tm_development_max_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_title_manager_county_stats_apply').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('stat', MakeScopeFlag('DI_tm_county_stat_development')).AddScope('operation', MakeScopeFlag('DI_tm_county_op_max')).End)]"
+            tooltip = DI_tm_county_stats_max_tt
+            hbox = {
+                parentanchor = center
+                alwaystransparent = yes
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+                icon = { size = { 16 20 } texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds" alwaystransparent = yes }
+            }
+        }
+    }
+}
 
 types DITitleManagerShared
 {
@@ -658,6 +945,14 @@ types DITitleManagerShared
                 }
 
                 expand = {}
+
+                button_move_capital = {
+                    name = "button_set_realm_capital"
+                    size = { 25 25 }
+                    visible = "[GetScriptedGui('DI_tm_move_realm_capital').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_tm_move_realm_capital').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                    tooltip = DI_tm_realm_capital_tt
+                }
 
                 # Clickable only when NOT already the county capital
                 button_move_capital = {
@@ -953,7 +1248,7 @@ window = {
 
 types DITitleManagerBuildingTypes
 {
-    type DI_Title_Manager_Building_Vbox = vbox 
+    type DI_Title_Manager_Building_Vbox = vbox
     {
         layoutpolicy_horizontal = expanding
         spacing = 5
@@ -964,7 +1259,7 @@ types DITitleManagerBuildingTypes
 
             text_single = {
                 block "building_text" {}
-                
+
                 default_format = "#bold"
             }
 
@@ -988,13 +1283,13 @@ types DITitleManagerBuildingTypes
         }
     }
 
-    type DI_Title_Manager_Button_Construct = button_round 
+    type DI_Title_Manager_Button_Construct = button_round
     {
         size = { 35 35 }
         block "onclick_construct" {}
     }
 
-    type DI_Title_Manager_Button_Destroy = button_round 
+    type DI_Title_Manager_Button_Destroy = button_round
     {
         size = { 35 35 }
         block "onclick_destroy" {}

@@ -1,0 +1,24 @@
+﻿DI_tm_county_stats_step_value = {
+    value = 1
+    if = {
+        limit = { exists = scope:step }
+        value = scope:step
+        min = 1
+        max = 10
+    }
+}
+
+DI_tm_county_stats_negative_step_value = {
+    value = DI_tm_county_stats_step_value
+    multiply = -1
+}
+
+DI_tm_county_control_mid_delta = {
+    value = 50
+    subtract = county_control
+}
+
+DI_tm_county_development_mid_delta = {
+    value = 50
+    subtract = development_level
+}

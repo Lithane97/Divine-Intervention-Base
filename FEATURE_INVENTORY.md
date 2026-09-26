@@ -331,6 +331,18 @@ Converts selected or pinned title data:
 - Convert selected titles to a chosen de jure title.
 - Choose whether actions prioritize selected titles or the full pinned-title list.
 
+### County Stats Tab
+
+- Supply Limit (+100%) and Plague Resistance (+100): permanent, non-stacking county modifiers; left-click applies to filtered counties and right-click removes.
+
+Edits the deduplicated counties resolved from selected titles. Primary titles include the holder's subrealm; other higher titles include de jure counties within that holder's subrealm.
+
+- Filter to all eligible counties, control below 100, development below 100, or the player's personal domain.
+- Show affected / total eligible counties and refresh the selection on demand.
+- Adjust control/development to 0, 50, or 100, or by 1 (Shift: 5, Control: 10). Buttons disable when every affected county is already at the relevant value or limit.
+- Apply permanent, non-stacking +100 popular opinion, +50% taxes, or +50% levies. Right-click removes that DI modifier.
+- Filters and counts refresh after stat changes; actions rebuild the eligible county list before applying effects.
+
 ### Province Manager Tab
 
 Works on provinces/holdings belonging to selected titles:
@@ -338,6 +350,7 @@ Works on provinces/holdings belonging to selected titles:
 - Load and filter province lists.
 - Select action provinces with checkboxes.
 - Make a barony the county capital where valid.
+- Move the realm capital to a county capital personally held by the independent top liege; the current realm capital is excluded.
 - Remove holdings, except protected county capitals.
 - Add building slots. This is warned as irreversible.
 - Set holding type after choosing a holding type.
@@ -587,3 +600,4 @@ This is labeled as proof of concept/placeholder. Current visible event categorie
 - Example Event
 - Pregnancy
 - Harm
+

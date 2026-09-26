@@ -908,6 +908,101 @@ DI_province_list_load = {
     }
 }
 
+DI_title_manager_county_stats_load = {
+    scope = character
+    effect = {
+        # Versioned initialization mirrors the province manager and replaces old saved lists.
+        if = {
+            limit = { NOT = { has_global_variable = DI_county_filters_standard_loaded } }
+            clear_global_variable_list = DI_county_filter_choices
+            set_global_variable = DI_county_filters_standard_loaded
+            add_to_global_variable_list = { name = DI_county_filter_choices target = flag:DI_tm_filter_all }
+            add_to_global_variable_list = { name = DI_county_filter_choices target = flag:DI_tm_filter_control }
+            add_to_global_variable_list = { name = DI_county_filter_choices target = flag:DI_tm_filter_development }
+            add_to_global_variable_list = { name = DI_county_filter_choices target = flag:DI_tm_filter_domain }
+        }
+        DI_tm_refresh_counties_effect = yes
+    }
+}
+
+DI_title_manager_county_stats_available = {
+    scope = character
+    is_valid = {
+        any_in_list = {
+            variable = DI_selected_titles_counties
+            always = yes
+        }
+    }
+}
+
+DI_title_manager_county_stats_apply = {
+    scope = character
+    saved_scopes = { stat operation step }
+    is_valid = {
+        any_in_list = {
+            variable = DI_selected_titles_counties
+            always = yes
+        }
+    }
+    effect = {
+        DI_tm_refresh_counties_effect = yes
+        save_scope_as = player
+        every_in_list = {
+            variable = DI_selected_titles_counties
+            save_scope_as = county
+            scope:county = {
+                if = {
+                    limit = { scope:stat = flag:DI_tm_county_stat_control }
+                    if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_min }
+                        change_county_control = -100
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_subtract }
+                        change_county_control = DI_tm_county_stats_negative_step_value
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_mid }
+                        change_county_control = DI_tm_county_control_mid_delta
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_add }
+                        change_county_control = DI_tm_county_stats_step_value
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_max }
+                        change_county_control = 100
+                    }
+                }
+                else_if = {
+                    limit = { scope:stat = flag:DI_tm_county_stat_development }
+                    if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_min }
+                        change_development_level = -100
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_subtract }
+                        change_development_level = DI_tm_county_stats_negative_step_value
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_mid }
+                        change_development_level = DI_tm_county_development_mid_delta
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_add }
+                        change_development_level = DI_tm_county_stats_step_value
+                    }
+                    else_if = {
+                        limit = { scope:operation = flag:DI_tm_county_op_max }
+                        change_development_level = 100
+                    }
+                }
+            }
+        }
+        DI_tm_refresh_counties_effect = yes
+    }
+}
+
 DI_set_county_capital_sgui = {
     scope = character
     saved_scopes = {
