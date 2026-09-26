@@ -50,6 +50,20 @@
                         spacing = 8
                         icon = { size = { 28 28 } texture = "gfx/interface/icons/icon_dread.dds" }
                         text_single = { text = DI_ce_stats_dread }
+                        button_standard = {
+                            size = { 36 36 }
+                            button_ignore = none
+                            enabled = "[GetScriptedGui('DI_ce_stats_lock_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_stats_lock_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_ce_stats_unlock_dread').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_lock_dread_button_tt
+                            icon_flat_standard_gold = {
+                                parentanchor = center
+                                size = { 24 24 }
+                                texture = "gfx/interface/window_activities/tournament/contest_selection_locked_icon.dds"
+                                alwaystransparent = yes
+                            }
+                        }
                         expand = {}
                         text_single = {
                             size = { 150 36 }
@@ -159,6 +173,20 @@
                         spacing = 8
                         icon = { size = { 28 28 } texture = "gfx/interface/icons/icon_tyranny.dds" }
                         text_single = { text = DI_ce_stats_tyranny }
+                        button_standard = {
+                            size = { 36 36 }
+                            button_ignore = none
+                            enabled = "[GetScriptedGui('DI_ce_stats_lock_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_stats_lock_tyranny').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_ce_stats_unlock_tyranny').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_lock_tyranny_button_tt
+                            icon_flat_standard_gold = {
+                                parentanchor = center
+                                size = { 24 24 }
+                                texture = "gfx/interface/window_activities/tournament/contest_selection_locked_icon.dds"
+                                alwaystransparent = yes
+                            }
+                        }
                         expand = {}
                         text_single = {
                             size = { 150 36 }
@@ -244,6 +272,252 @@
                             enabled = "[GetScriptedGui('DI_ce_editor_tyranny_max').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             onclick = "[GetScriptedGui('DI_ce_editor_tyranny_max').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             tooltip = DI_ce_tyranny_max_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                    }
+                }
+
+                vbox = {
+                    spacing = 4
+                    hbox = {
+                        spacing = 8
+                        icon = { size = { 28 28 } texture = "gfx/interface/icons/message_feed/legitimacy.dds" }
+                        text_single = { text = DI_ce_stats_legitimacy }
+                        button_standard = {
+                            size = { 36 36 }
+                            button_ignore = none
+                            enabled = "[GetScriptedGui('DI_ce_stats_lock_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_stats_lock_legitimacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_ce_stats_unlock_legitimacy').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_lock_legitimacy_button_tt
+                            icon_flat_standard_gold = {
+                                parentanchor = center
+                                size = { 24 24 }
+                                texture = "gfx/interface/window_activities/tournament/contest_selection_locked_icon.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        expand = {}
+                        text_single = {
+                            size = { 150 36 }
+                            visible = "[Not(GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet)]"
+                            text = "[Character.MakeScope.ScriptValue('DI_ce_legitimacy_value')|0]"
+                            using = Font_Size_Big
+                            default_format = "#difficulty_medium"
+                        }
+                        text_single = {
+                            size = { 150 36 }
+                            visible = "[GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet]"
+                            text = DI_ce_stats_na
+                            using = Font_Size_Big
+                        }
+                    }
+                    hbox = {
+                        spacing = 8
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_legitimacy_min').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_legitimacy_min').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_legitimacy_min_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_legitimacy_subtract').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_legitimacy_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)100', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_legitimacy_subtract').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_legitimacy_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)100', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_legitimacy_subtract_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_legitimacy_mid').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_legitimacy_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_legitimacy_mid_tt
+                            icon = {
+                                parentanchor = center
+                                size = { 20 20 }
+                                framesize = { 80 80 }
+                                texture = "gfx/interface/buttons/button_radio.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_legitimacy_add').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_legitimacy_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)100', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_legitimacy_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_legitimacy_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)100', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_legitimacy_add_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_legitimacy_max').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_legitimacy_max').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_legitimacy_max_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                    }
+                }
+
+                vbox = {
+                    spacing = 4
+                    hbox = {
+                        spacing = 8
+                        icon = { size = { 28 28 } texture = "gfx/interface/icons/stress/icon_stress.dds" }
+                        text_single = { text = DI_ce_stats_stress }
+                        button_standard = {
+                            size = { 36 36 }
+                            button_ignore = none
+                            enabled = "[GetScriptedGui('DI_ce_stats_lock_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_stats_lock_stress').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onrightclick = "[GetScriptedGui('DI_ce_stats_unlock_stress').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_stats_lock_stress_tt
+                            icon_flat_standard_gold = {
+                                parentanchor = center
+                                size = { 24 24 }
+                                texture = "gfx/interface/window_activities/tournament/contest_selection_locked_icon.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        expand = {}
+                        text_single = {
+                            size = { 150 36 }
+                            visible = "[Not(GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet)]"
+                            text = "[Character.MakeScope.ScriptValue('DI_ce_stress_value')|0]"
+                            using = Font_Size_Big
+                            default_format = "#difficulty_medium"
+                        }
+                        text_single = {
+                            size = { 150 36 }
+                            visible = "[GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet]"
+                            text = DI_ce_stats_na
+                            using = Font_Size_Big
+                        }
+                    }
+                    hbox = {
+                        spacing = 8
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_stress_min').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_stress_min').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_stress_min_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_stress_subtract').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stress_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)50', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_stress_subtract').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stress_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)50', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_stress_subtract_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_stress_mid').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_stress_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_stress_mid_tt
+                            icon = {
+                                parentanchor = center
+                                size = { 20 20 }
+                                framesize = { 80 80 }
+                                texture = "gfx/interface/buttons/button_radio.dds"
+                                alwaystransparent = yes
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_stress_add').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stress_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)50', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_stress_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stress_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)50', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)10', '(CFixedPoint)1')))).End)]"
+                            tooltip = DI_ce_stress_add_tt
+                            hbox = {
+                                parentanchor = center
+                                alwaystransparent = yes
+                                icon = {
+                                    size = { 16 20 }
+                                    texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                    alwaystransparent = yes
+                                }
+                            }
+                        }
+                        button_standard = {
+                            size = { 58 36 }
+                            enabled = "[GetScriptedGui('DI_ce_editor_stress_max').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_editor_stress_max').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            tooltip = DI_ce_stress_max_tt
                             hbox = {
                                 parentanchor = center
                                 alwaystransparent = yes

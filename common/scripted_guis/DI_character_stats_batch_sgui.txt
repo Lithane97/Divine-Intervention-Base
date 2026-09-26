@@ -592,3 +592,529 @@ DI_ce_editor_visual_age_max = {
         }
     }
 }
+
+DI_ce_stats_lock_available = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            var:DI_ce_stats_character ?= { is_alive = yes }
+        }
+    }
+}
+DI_ce_stats_lock_dread = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                if = { limit = { NOT = { has_character_modifier = no_dread_change } } add_character_modifier = no_dread_change }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { if = { limit = { NOT = { has_character_modifier = no_dread_change } } add_character_modifier = no_dread_change } }
+        }
+    }
+}
+DI_ce_stats_unlock_dread = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                remove_character_modifier = no_dread_change
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { remove_character_modifier = no_dread_change }
+        }
+    }
+}
+DI_ce_stats_lock_tyranny = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                if = { limit = { NOT = { has_character_modifier = no_tyranny_change } } add_character_modifier = no_tyranny_change }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { if = { limit = { NOT = { has_character_modifier = no_tyranny_change } } add_character_modifier = no_tyranny_change } }
+        }
+    }
+}
+DI_ce_stats_unlock_tyranny = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                remove_character_modifier = no_tyranny_change
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { remove_character_modifier = no_tyranny_change }
+        }
+    }
+}
+
+# Legitimacy has its own step sizes and a mod-friendly editor ceiling.
+DI_ce_editor_legitimacy_min = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    has_legitimacy = yes
+                    NOT = { legitimacy = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_legitimacy = DI_ce_legitimacy_min_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                    has_legitimacy = yes
+                        NOT = { legitimacy = 0 }
+                    }
+                    add_legitimacy = DI_ce_legitimacy_min_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_legitimacy_subtract = {
+    scope = character
+    saved_scopes = { DI_ce_legitimacy_step }
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    has_legitimacy = yes
+                    legitimacy > 0
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_legitimacy = DI_ce_legitimacy_subtract_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                    has_legitimacy = yes
+                        legitimacy > 0
+                    }
+                    add_legitimacy = DI_ce_legitimacy_subtract_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_legitimacy_mid = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    has_legitimacy = yes
+                    NOT = { legitimacy = 600 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_legitimacy = DI_ce_legitimacy_mid_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                    has_legitimacy = yes
+                        NOT = { legitimacy = 600 }
+                    }
+                    add_legitimacy = DI_ce_legitimacy_mid_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_legitimacy_add = {
+    scope = character
+    saved_scopes = { DI_ce_legitimacy_step }
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    has_legitimacy = yes
+                    legitimacy < 10000
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_legitimacy = DI_ce_legitimacy_add_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                    has_legitimacy = yes
+                        legitimacy < 10000
+                    }
+                    add_legitimacy = DI_ce_legitimacy_add_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_legitimacy_max = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    has_legitimacy = yes
+                    NOT = { legitimacy = 1500 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_legitimacy = DI_ce_legitimacy_max_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                    has_legitimacy = yes
+                        NOT = { legitimacy = 1500 }
+                    }
+                    add_legitimacy = DI_ce_legitimacy_max_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_stats_lock_legitimacy = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                if = { limit = { NOT = { has_character_modifier = no_legitimacy_change } } add_character_modifier = no_legitimacy_change }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { if = { limit = { NOT = { has_character_modifier = no_legitimacy_change } } add_character_modifier = no_legitimacy_change } }
+        }
+    }
+}
+DI_ce_stats_unlock_legitimacy = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                remove_character_modifier = no_legitimacy_change
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { remove_character_modifier = no_legitimacy_change }
+        }
+    }
+}
+
+# Stress: 0/200/300 presets and 1/10/50 keyboard steps.
+DI_ce_editor_stress_min = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+
+                    NOT = { stress = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_stress = DI_ce_stress_min_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+
+                        NOT = { stress = 0 }
+                    }
+                    add_stress = DI_ce_stress_min_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_stress_subtract = {
+    scope = character
+    saved_scopes = { DI_ce_stress_step }
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+
+                    stress > 0
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_stress = DI_ce_stress_subtract_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+
+                        stress > 0
+                    }
+                    add_stress = DI_ce_stress_subtract_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_stress_mid = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+
+                    NOT = { stress = 200 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_stress = DI_ce_stress_mid_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+
+                        NOT = { stress = 200 }
+                    }
+                    add_stress = DI_ce_stress_mid_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_stress_add = {
+    scope = character
+    saved_scopes = { DI_ce_stress_step }
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+
+                    stress < 300
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_stress = DI_ce_stress_add_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+
+                        stress < 300
+                    }
+                    add_stress = DI_ce_stress_add_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_editor_stress_max = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+
+                    NOT = { stress = 300 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                add_stress = DI_ce_stress_max_delta
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+
+                        NOT = { stress = 300 }
+                    }
+                    add_stress = DI_ce_stress_max_delta
+                }
+            }
+        }
+    }
+}
+DI_ce_stats_lock_stress = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                if = { limit = { NOT = { has_character_modifier = no_stress_change } } add_character_modifier = no_stress_change }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { if = { limit = { NOT = { has_character_modifier = no_stress_change } } add_character_modifier = no_stress_change } }
+        }
+    }
+}
+DI_ce_stats_unlock_stress = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                remove_character_modifier = no_stress_change
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { remove_character_modifier = no_stress_change }
+        }
+    }
+}

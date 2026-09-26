@@ -189,6 +189,10 @@ Edits one selected character, defaulting to the player. The character button ope
 
 The Stats picker includes a fixed All option above the pinned list. All applies each action to every pinned character without individual validity checks; current values display as a dash. Selecting a character or Select Player restores individual editing. Keyboard steps and numerical bounds still apply.
 
+Stress uses 0 / 200 / 300 presets, 1-point steps (Shift: 10, Control: 50), and its existing stress-lock modifier. All mode is supported.
+
+Legitimacy uses 0 / 600 / 1,500 presets, 1-point steps (Shift: 10, Control: 100), and a 10,000 editor ceiling for increases. Its lock button applies/removes the existing legitimacy lock modifier, including in All mode. Individual editing requires a character who uses legitimacy.
+
 Each stat has an icon, name, live gold-colored value, and minimum / decrease / midpoint / increase / preset controls:
 
 - **Dread**: 0 to 100; midpoint 50; one-point steps.

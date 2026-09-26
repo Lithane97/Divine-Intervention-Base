@@ -60,3 +60,58 @@ DI_ce_visual_age_add_value = {
     add = DI_ce_stats_step_value
     min = 1
 }
+
+DI_ce_legitimacy_step_value = {
+    value = 1
+    if = {
+        limit = { exists = scope:DI_ce_legitimacy_step }
+        value = scope:DI_ce_legitimacy_step
+        min = 1
+        max = 100
+    }
+}
+DI_ce_legitimacy_value = { value = legitimacy }
+DI_ce_legitimacy_min_delta = { value = 0 subtract = legitimacy }
+DI_ce_legitimacy_mid_delta = { value = 600 subtract = legitimacy }
+DI_ce_legitimacy_max_delta = { value = 1500 subtract = legitimacy }
+DI_ce_legitimacy_subtract_value = {
+    value = legitimacy
+    subtract = DI_ce_legitimacy_step_value
+    min = 0
+}
+DI_ce_legitimacy_subtract_delta = { value = DI_ce_legitimacy_subtract_value subtract = legitimacy }
+DI_ce_legitimacy_add_value = {
+    value = legitimacy
+    add = DI_ce_legitimacy_step_value
+    max = 10000
+    # All mode must not decrease values that a mod already raised beyond the ceiling.
+    min = legitimacy
+}
+DI_ce_legitimacy_add_delta = { value = DI_ce_legitimacy_add_value subtract = legitimacy }
+
+DI_ce_stress_step_value = {
+    value = 1
+    if = {
+        limit = { exists = scope:DI_ce_stress_step }
+        value = scope:DI_ce_stress_step
+        min = 1
+        max = 50
+    }
+}
+DI_ce_stress_value = { value = stress }
+DI_ce_stress_min_delta = { value = 0 subtract = stress }
+DI_ce_stress_mid_delta = { value = 200 subtract = stress }
+DI_ce_stress_max_delta = { value = 300 subtract = stress }
+DI_ce_stress_subtract_value = {
+    value = stress
+    subtract = DI_ce_stress_step_value
+    min = 0
+}
+DI_ce_stress_subtract_delta = { value = DI_ce_stress_subtract_value subtract = stress }
+DI_ce_stress_add_value = {
+    value = stress
+    add = DI_ce_stress_step_value
+    max = 300
+    min = stress
+}
+DI_ce_stress_add_delta = { value = DI_ce_stress_add_value subtract = stress }
