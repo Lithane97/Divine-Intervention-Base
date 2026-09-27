@@ -259,11 +259,17 @@ DI_load_title_manager_dropdown = {
     scope = character # Player Character
 
     is_valid = {
-        NOT = { has_global_variable_list = DI_title_manager_filter_choices }
+        OR = {
+            NOT = { has_global_variable_list = DI_title_manager_filter_choices }
+            NOT = { has_global_variable = DI_title_filters_3f8a92c4e1b7_loaded }
+        }
     }
 
     effect = {
         save_scope_as = player
+
+        clear_global_variable_list = DI_title_manager_filter_choices
+        set_global_variable = DI_title_filters_3f8a92c4e1b7_loaded
 
         add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_sort_rank }
         add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_all }
