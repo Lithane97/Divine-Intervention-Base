@@ -27,6 +27,7 @@ template DI_Faith_Editor_Anim {
 types DI_Faith_Editor_Types {
     type DI_fe_tenet_card = button_standard_hover {
         size = { 185 96 }
+        enabled = "[GetScriptedGui('DI_fe_select_tenet_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
         tooltip = "DI_fe_tenet_tooltip"
         using = tooltip_es
         block "DI_fe_tenet_action" {}
@@ -193,8 +194,8 @@ types DI_Faith_Editor_Types {
                     # a construction gate; DoctrineType remains inherited here.
                     vbox = {
                         layoutpolicy_horizontal = expanding
-                        visible = "[And3(DoctrineType.IsVisible, ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only'))))]"
-                        datamodel = "[DataModelFirst(GetAllDoctrineCategoryTypes, Select_int32(And3(DoctrineType.IsVisible, ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only')))), '(int32)1', '(int32)0'))]"
+                        visible = "[And3(Or3(DoctrineType.IsVisible, ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_head_of_faith')), ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('special_tolerance'))), ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only'))))]"
+                        datamodel = "[DataModelFirst(GetAllDoctrineCategoryTypes, Select_int32(And3(Or3(DoctrineType.IsVisible, ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_head_of_faith')), ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('special_tolerance'))), ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only')))), '(int32)1', '(int32)0'))]"
                         item = { DI_fe_doctrine_row = {} }
                     }
                 }
@@ -205,9 +206,11 @@ types DI_Faith_Editor_Types {
     type DI_fe_doctrine_row = button_standard_hover {
         layoutpolicy_horizontal = expanding
         min_height = 30
-        visible = "[And(DoctrineType.IsVisible, ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self))]"
+        visible = "[And(ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Or3(DoctrineType.IsVisible, ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_head_of_faith')), ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('special_tolerance'))))]"
         enabled = "[And(GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), Or(Rite.IsMain, Not(DoctrineType.GetGroup.IsOnlyForMainRite)))]"
         onclick = "[GetScriptedGui('DI_fe_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('doctrine', DoctrineType.MakeScope).AddScope('main_only', MakeScopeFlag(Select_CString(DoctrineType.GetGroup.IsOnlyForMainRite, 'yes', 'no'))).End)]"
+        onrightclick = "[GetScriptedGui('DI_fe_remove_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('doctrine', DoctrineType.MakeScope).AddScope('main_only', MakeScopeFlag(Select_CString(DoctrineType.GetGroup.IsOnlyForMainRite, 'yes', 'no'))).End)]"
+        button_ignore = none
         tooltip = "DI_fe_doctrine_tooltip"
         using = tooltip_ne
         background = {

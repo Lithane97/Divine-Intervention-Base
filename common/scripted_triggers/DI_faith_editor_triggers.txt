@@ -1,0 +1,72 @@
+﻿DI_fe_tenets_require_pam_dlc_trigger = {
+    OR = {
+        scope:tenet = tenet:tenet_peace_of_god
+        scope:tenet = tenet:tenet_dulia
+        scope:tenet = tenet:tenet_transubstantiation
+        scope:tenet = tenet:tenet_ora_et_labora
+        scope:tenet = tenet:tenet_hyperdulia
+        scope:tenet = tenet:tenet_simony
+        scope:tenet = tenet:tenet_monophysitism
+        scope:tenet = tenet:tenet_acts_of_apostles
+        scope:tenet = tenet:tenet_purgatory
+        scope:tenet = tenet:tenet_be_fruitful_and_multiply
+        scope:tenet = tenet:tenet_apostolic_succession
+        scope:tenet = tenet:tenet_confession
+        scope:tenet = tenet:tenet_original_sin
+        scope:tenet = tenet:tenet_celestial_hierarchy
+        scope:tenet = tenet:tenet_miles_christi
+        scope:tenet = tenet:tenet_philanthropia
+        scope:tenet = tenet:tenet_scholasticism
+        scope:tenet = tenet:tenet_adoptionism
+        scope:tenet = tenet:tenet_love_thy_neighbour
+        scope:tenet = tenet:tenet_divine_liturgy
+        scope:tenet = tenet:tenet_miaphysitism
+        scope:tenet = tenet:tenet_hesychasm
+        scope:tenet = tenet:tenet_anachoresis
+        scope:tenet = tenet:tenet_mortification_of_the_flesh
+        scope:tenet = tenet:tenet_holy_myron
+        scope:tenet = tenet:tenet_khachkar
+    }
+}
+
+DI_fe_tenets_require_fp1_dlc_trigger = {
+    scope:tenet = tenet:tenet_gruesome_festivals
+}
+
+DI_fe_tenets_require_tgp_dlc_trigger = {
+    OR = {
+        scope:tenet = tenet:tenet_extinction_of_dharma
+        scope:tenet = tenet:tenet_cranial_trophies
+        scope:tenet = tenet:tenet_pursuit_of_knowledge
+        scope:tenet = tenet:tenet_benevolent_governance
+        scope:tenet = tenet:tenet_filial_piety
+        scope:tenet = tenet:tenet_harmonious_society
+        scope:tenet = tenet:tenet_takamin
+    }
+}
+
+DI_fe_tenet_requires_dlc_trigger = {
+    OR = {
+        DI_fe_tenets_require_pam_dlc_trigger = yes
+        DI_fe_tenets_require_fp1_dlc_trigger = yes
+        DI_fe_tenets_require_tgp_dlc_trigger = yes
+    }
+}
+
+DI_fe_tenet_dlc_available_trigger = {
+    OR = {
+        AND = {
+            DI_fe_tenets_require_pam_dlc_trigger = yes
+            has_pam_dlc_trigger = yes
+        }
+        AND = {
+            DI_fe_tenets_require_fp1_dlc_trigger = yes
+            has_fp1_dlc_trigger = yes
+        }
+        AND = {
+            DI_fe_tenets_require_tgp_dlc_trigger = yes
+            has_tgp_dlc_trigger = yes
+        }
+        NOT = { DI_fe_tenet_requires_dlc_trigger = yes }
+    }
+}

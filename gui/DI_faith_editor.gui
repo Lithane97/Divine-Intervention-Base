@@ -78,21 +78,29 @@ window = {
             visible = "[Rite.IsValid]"
             tooltip = "DI_fe_target_help"
         }
-        text_multi = {
-            layoutpolicy_horizontal = expanding
-            text = "DI_fe_invalid_target"
-            visible = "[Not(GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
-        }
         scrollbox = {
             layoutpolicy_horizontal = expanding
             layoutpolicy_vertical = expanding
-            visible = "[GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
             blockoverride "scrollbox_content" {
                 vbox = {
                     layoutpolicy_horizontal = expanding
+                    visible = "[GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                     spacing = 8
                     margin = { 8 8 }
-                    text_label_center = { text = "FAITH_CORE_TENETS_HEADING" }
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+                        text_label_center = {
+                            layoutpolicy_horizontal = expanding
+                            text = "FAITH_CORE_TENETS_HEADING"
+                        }
+                        button_standard = {
+                            text = "DI_add_tenet"
+                            tooltip = "DI_fe_add_tenet_tooltip"
+                            using = tooltip_ne
+                            enabled = "[GetScriptedGui('DI_fe_open_add_tenet_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_fe_open_add_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).End)]"
+                        }
+                    }
                     flowcontainer = {
                         layoutpolicy_horizontal = expanding
                         wrap_count = 3
@@ -135,6 +143,18 @@ window = {
                         }
                     }
                 }
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+                    visible = "[Not(GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                    expand = {}
+                    text_multi = {
+                        layoutpolicy_horizontal = expanding
+                        align = center|vcenter|nobaseline
+                        text = "DI_fe_invalid_target"
+                    }
+                    expand = {}
+                }
             }
         }
     }
@@ -148,7 +168,7 @@ window = {
     movable = yes
     using = Window_Background
     using = Window_Decoration
-    visible = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), GetPlayer.MakeScope.Var('DI_fe_old_tenet').TenetType.IsValid)]"
+    visible = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), Or(GetPlayer.MakeScope.Var('DI_fe_old_tenet').TenetType.IsValid, GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet))]"
     datacontext = "[GetPlayer.MakeScope.Var('DI_fe_rite').Rite]"
     datacontext = "[Rite.GetFaith]"
     state = {
@@ -163,11 +183,19 @@ window = {
         spacing = 10
         header_pattern = {
             layoutpolicy_horizontal = expanding
-            blockoverride "header_text" { text = "DI_fe_replace_tenet_title" }
+            blockoverride "header_text" {
+                text = "[SelectLocalization(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet, 'DI_add_tenet', 'DI_fe_replace_tenet_title')]"
+            }
             blockoverride "button_close" { onclick = "[GetScriptedGui('DI_fe_cancel_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
         }
         text_multi = {
             layoutpolicy_horizontal = expanding
+            visible = "[GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet]"
+            text = "DI_select_tenet"
+        }
+        text_multi = {
+            layoutpolicy_horizontal = expanding
+            visible = "[Not(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet)]"
             text = "DI_fe_replacing_tenet"
         }
         scrollbox = {
@@ -183,7 +211,24 @@ window = {
                     datamodel = "[GetAllTenetTypes]"
                     item = {
                         DI_fe_tenet_picker_card = {
-                            visible = "[TenetType.IsVisible]"
+                            visible = "[And(TenetType.IsVisible, Not(GetScriptedGui('DI_fe_tenet_dlc_required_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', TenetType.MakeScope).End)))]"
+                            enabled = "[GetScriptedGui('DI_fe_replace_tenet_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
+                            blockoverride "DI_fe_tenet_action" {
+                                onclick = "[GetScriptedGui('DI_fe_replace_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
+                            }
+                        }
+                    }
+                }
+                flowcontainer = {
+                    layoutpolicy_horizontal = expanding
+                    wrap_count = 4
+                    spacing = 12
+                    margin = { 8 8 }
+                    ignoreinvisible = yes
+                    datamodel = "[GetAllTenetTypes]"
+                    item = {
+                        DI_fe_tenet_picker_card = {
+                            visible = "[GetScriptedGui('DI_fe_tenet_dlc_required_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
                             enabled = "[GetScriptedGui('DI_fe_replace_tenet_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
                             blockoverride "DI_fe_tenet_action" {
                                 onclick = "[GetScriptedGui('DI_fe_replace_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
