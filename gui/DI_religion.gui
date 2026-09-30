@@ -1,4 +1,4 @@
-window = {
+﻿window = {
     name = "DI_religion_window"
     parentanchor = top|right
     position = { -600 100 }
@@ -51,9 +51,9 @@ window = {
 
         DI_religion_scrollbox = {
             datacontext = "[GetPlayer.MakeScope.Var('DI_primary_character').Char]"
-			visible = "[GetVariableSystem.HasValue('DI_religion_window_mode', 'pinned_character')]"
-			
-			blockoverride "footer" {}
+            visible = "[GetVariableSystem.HasValue('DI_religion_window_mode', 'pinned_character')]"
+
+            blockoverride "footer" {}
             blockoverride "onclick" {
                 onclick = "[GetScriptedGui('DI_PC_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).AddScope('target', Character.MakeScope).End)]"
             }
@@ -62,7 +62,7 @@ window = {
         DI_religion_scrollbox = {
             visible = "[GetVariableSystem.HasValue('DI_religion_window_mode', 'char_spawner')]"
 
-			blockoverride "footer" {}
+            blockoverride "footer" {}
             blockoverride "onclick" {
                 onclick = "[GetScriptedGui('DI_char_spawner_select_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
                 onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
@@ -98,7 +98,7 @@ types DIReligionShared
 
                             hbox = {
                                 layoutpolicy_horizontal = expanding
-                                tooltip = "RULER_DESIGNER_LIST_FAITH_ENTRY_TOOLTIP"
+                                tooltip = "RULER_DESIGNER_LIST_RELIGION_ENTRY_SELECT_TOOLTIP"
 
                                 button_standard_hover = {
                                     layoutpolicy_horizontal = expanding

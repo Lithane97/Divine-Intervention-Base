@@ -1,61 +1,254 @@
-template DI_Faith_Editor_Anim
-{
-	state = {
+﻿# Refresh only editor state; catalogues and active-choice styling are live.
+template DI_Faith_Editor_Anim {
+    state = {
         name = _show
         using = Animation_FadeIn_Quick
+        on_start = "[GetScriptedGui('DI_faith_editor_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetScriptedGui('DI_fe_sync_target_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_finish = "[PdxGuiWidget.StackTop]"
     }
-
-    state = {
-        name = DI_Select_Primary_Character
-        using = Animation_Refresh_FadeIn
-        trigger_when = "[Not(GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
-        on_finish = "[GetScriptedGui('DI_faith_editor_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-        on_finish = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
-    }
-
     state = {
         name = _hide
         using = Animation_FadeOut_Quick
+        on_start = "[GetScriptedGui('DI_fe_cancel_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
-
     state = {
-        name = load_list
-        trigger_when = "[And(Not(GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)), GetPlayer.MakeScope.Var('DI_primary_character').Char.IsValid)]"
-        on_finish = "[GetVariableSystem.Toggle('DI_load_tenets_list')]"
+        name = DI_fe_target_changed
+        trigger_when = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), Not(GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)))]"
+        on_start = "[GetScriptedGui('DI_fe_sync_target_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
-
-    state = {
-        name = set_category
-        trigger_when = "[GetScriptedGui('DI_faith_group_list').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-		on_finish = "[PdxGuiTriggerAllAnimations('DI_fe_select_tenets')]"
-        on_finish = "[GetVariableSystem.Set( 'faith_view_tabs', 'beliefs' )]"
-    }
-
+    # Kept for the shared character-selection animation broadcast.
     state = {
         name = DI_fe_select_tenets
-		using = Animation_Refresh_FadeIn
-        on_finish = "[GetScriptedGui('DI_set_current_tenets_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetScriptedGui('DI_fe_sync_target_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
 }
 
-template DI_Faith_Editor_Header
-{
-    restrictparent_min = yes
-    using = Window_Margins
-    layoutpolicy_vertical = expanding
-
-    header_pattern = {
-        layoutpolicy_horizontal = expanding
-
-        blockoverride "header_text"
-        {
-            text = "DI_FAITH_EDITOR_TITLE"
+types DI_Faith_Editor_Types {
+    type DI_fe_tenet_card = button_standard_hover {
+        size = { 185 96 }
+        tooltip = "DI_fe_tenet_tooltip"
+        using = tooltip_es
+        block "DI_fe_tenet_action" {}
+        background = {
+            visible = "[Rite.HasTenet(TenetType.Self)]"
+            using = Status_Good
+            using = Color_Blue
+            alpha = 0.15
         }
+        highlight_icon = {
+            block "DI_fe_tenet_icon_layout" {
+                size = { 72 88 }
+                parentanchor = left|vcenter
+            }
+            texture = "[Faith.GetTenetBackgroundSmallIcon(Rite.Self, TenetType.Self)]"
+            alwaystransparent = yes
+            proportional_icon = {
+                size = { 95% 95% }
+                parentanchor = top|hcenter
+                texture = "[TenetType.GetIcon(Faith.Self)]"
+                alpha = 0.85
+                alwaystransparent = yes
+            }
+        }
+        vbox = {
+            block "DI_fe_tenet_label_layout" {
+                position = { 40 4 }
+                size = { 104 88 }
+            }
+            alwaystransparent = yes
+            text_multi = {
+                autoresize = no
+                block "DI_fe_tenet_name_layout" {
+                    size = { 104 64 }
+                    max_width = 104
+                    align = vcenter|nobaseline
+                }
+                text = "[TenetType.GetNameNoTooltip(Rite.Self)]"
+                default_format = "#high"
+                fontsize_min = 12
+            }
+            text_single = {
+                block "DI_fe_tenet_status_layout" {
+                    max_width = 104
+                }
+                visible = "[Rite.HasTenet(TenetType.Self)]"
+                text = "DI_fe_current"
+                default_format = "#low"
+            }
+        }
+    }
 
-        blockoverride "button_close"
-        {
-            onclick = "[GetVariableSystem.Toggle('DI_faith_editor_window_visible')]"
+    # Four 160px cards plus three 12px gaps occupy 676px, leaving room
+    # in the 800px picker for window margins, content padding and scrollbar.
+    type DI_fe_tenet_picker_card = DI_fe_tenet_card {
+        size = { 160 140 }
+        blockoverride "DI_fe_tenet_icon_layout" {
+            size = { 88 108 }
+            parentanchor = top|hcenter
+            position = { 0 6 }
+        }
+        blockoverride "DI_fe_tenet_label_layout" {
+            position = { 0 50 }
+            size = { 144 80 }
+        }
+        blockoverride "DI_fe_tenet_name_layout" {
+            size = { 144 56 }
+            max_width = 144
+            align = center|vcenter|nobaseline
+        }
+        blockoverride "DI_fe_tenet_status_layout" {
+            size = { 144 24 }
+            max_width = 144
+            align = center
+        }
+    }
+
+    type DI_fe_doctrine_category = vbox {
+        layoutpolicy_horizontal = expanding
+        visible = "[DoctrineCategoryType.IsVisible]"
+        oncreate = "[BindFoldOutContext]"
+        button_expandable_toggle_field = {
+            blockoverride "text" {
+                text = "[DoctrineCategoryType.GetName]"
+                default_format = "#T"
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            visible = "[PdxGuiFoldOut.IsUnfolded]"
+            ignoreinvisible = yes
+            # Gate construction of rows for folded or hidden categories.
+            block "DI_fe_group_model" {
+                datamodel = "[DataModelFirst(GetAllDoctrineGroupTypes, Select_int32(And(PdxGuiFoldOut.IsUnfolded, DoctrineCategoryType.IsVisible), GetDataModelSize(GetAllDoctrineGroupTypes), '(int32)0'))]"
+            }
+            item = {
+                DI_fe_doctrine_group = {}
+            }
+        }
+    }
+
+    type DI_fe_doctrine_group = vbox {
+        layoutpolicy_horizontal = expanding
+        visible = "[ObjectsEqual(DoctrineGroupType.GetCategory, DoctrineCategoryType.Self)]"
+        margin = { 10 6 }
+        spacing = 4
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            min_height = 30
+            background = { using = Background_Area_Solid }
+            text_single = {
+                layoutpolicy_horizontal = expanding
+                margin = { 8 3 }
+                text = "[DoctrineGroupType.GetName(Faith.Self)]"
+                default_format = "#S"
+            }
+        }
+        text_multi = {
+            visible = "[And(DoctrineGroupType.IsOnlyForMainRite, Not(Rite.IsMain))]"
+            layoutpolicy_horizontal = expanding
+            text = "DI_fe_main_rite_only"
+            default_format = "#low"
+        }
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            spacing = 8
+            icon_doctrine = {
+                size = { 50 50 }
+                visible = "[DoctrineGroupType.HasIcon]"
+                texture = "[DoctrineGroupType.GetIcon]"
+            }
+            # Main and special groups use the selected doctrine's icon in vanilla.
+            flowcontainer = {
+                ignoreinvisible = yes
+                datamodel = "[DataModelFirst(GetAllDoctrineTypes, Select_int32(Not(DoctrineGroupType.HasIcon), GetDataModelSize(GetAllDoctrineTypes), '(int32)0'))]"
+                item = {
+                    icon_doctrine = {
+                        size = { 50 50 }
+                        visible = "[And(ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Rite.HasDoctrine(DoctrineType.Self))]"
+                        texture = "[DoctrineType.GetIcon]"
+                    }
+                }
+            }
+            divider_light = { layoutpolicy_vertical = expanding }
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 2
+                ignoreinvisible = yes
+                # This vanilla group is defined in file order 0, 2, 1 rather
+                # than its UI index order. Render its three built-in choices
+                # explicitly; additional modded alternatives still appear below.
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    visible = "[ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_clerical_gender'))]"
+                    spacing = 2
+                    DI_fe_doctrine_row = { datacontext = "[GetDoctrineType('doctrine_clerical_gender_male_only')]" }
+                    DI_fe_doctrine_row = { datacontext = "[GetDoctrineType('doctrine_clerical_gender_either')]" }
+                    DI_fe_doctrine_row = { datacontext = "[GetDoctrineType('doctrine_clerical_gender_female_only')]" }
+                }
+                datamodel = "[DataModelFirst(GetAllDoctrineTypes, Select_int32(ObjectsEqual(DoctrineGroupType.GetCategory, DoctrineCategoryType.Self), GetDataModelSize(GetAllDoctrineTypes), '(int32)0'))]"
+                item = {
+                    # A lightweight filter keeps thousands of invisible full rows
+                    # out of the widget tree. The one-item category model is only
+                    # a construction gate; DoctrineType remains inherited here.
+                    vbox = {
+                        layoutpolicy_horizontal = expanding
+                        visible = "[And3(DoctrineType.IsVisible, ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only'))))]"
+                        datamodel = "[DataModelFirst(GetAllDoctrineCategoryTypes, Select_int32(And3(DoctrineType.IsVisible, ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only')))), '(int32)1', '(int32)0'))]"
+                        item = { DI_fe_doctrine_row = {} }
+                    }
+                }
+            }
+        }
+    }
+
+    type DI_fe_doctrine_row = button_standard_hover {
+        layoutpolicy_horizontal = expanding
+        min_height = 30
+        visible = "[And(DoctrineType.IsVisible, ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self))]"
+        enabled = "[And(GetScriptedGui('DI_fe_target_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), Or(Rite.IsMain, Not(DoctrineType.GetGroup.IsOnlyForMainRite)))]"
+        onclick = "[GetScriptedGui('DI_fe_set_doctrine_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('doctrine', DoctrineType.MakeScope).AddScope('main_only', MakeScopeFlag(Select_CString(DoctrineType.GetGroup.IsOnlyForMainRite, 'yes', 'no'))).End)]"
+        tooltip = "DI_fe_doctrine_tooltip"
+        using = tooltip_ne
+        background = {
+            using = Background_Area
+            alpha = 0.6
+        }
+        background = {
+            visible = "[Rite.GetFaith.GetMainRite.HasDoctrine(DoctrineType.Self)]"
+            using = Status_Good
+            using = Color_Blue
+            alpha = 0.25
+        }
+        background = {
+            visible = "[And(Rite.HasDoctrine(DoctrineType.Self), Not(Rite.GetFaith.GetMainRite.HasDoctrine(DoctrineType.Self)))]"
+            using = Status_Good
+            using = Color_Bright_Yellow
+            alpha = 0.25
+        }
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            margin = { 6 3 }
+            spacing = 8
+            alwaystransparent = yes
+            text_multi = {
+                layoutpolicy_horizontal = expanding
+                autoresize = no
+                min_height = 24
+                align = vcenter|nobaseline
+                text = "[DoctrineType.GetNameNoTooltip(Faith.Self)]"
+                default_format = "#high"
+            }
+            text_single = {
+                visible = "[Rite.HasDoctrine(DoctrineType.Self)]"
+                text = "DI_fe_current"
+                default_format = "#high"
+            }
+            text_single = {
+                visible = "[And(Rite.GetFaith.GetMainRite.HasDoctrine(DoctrineType.Self), Not(Rite.HasDoctrine(DoctrineType.Self)))]"
+                text = "DI_fe_mainline"
+                default_format = "#low"
+            }
         }
     }
 }

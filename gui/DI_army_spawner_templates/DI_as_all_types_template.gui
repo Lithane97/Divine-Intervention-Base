@@ -665,6 +665,22 @@ template DI_AS_All_Types
         }
 
         DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('order_knights')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_order_knights_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('order_serjeants')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_order_serjeants_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
             datacontext = "[GetMenAtArmsType('paiks')]"
 
             blockoverride "on_add" {
@@ -825,14 +841,6 @@ template DI_AS_All_Types
 
             blockoverride "on_add" {
                 onclick = "[GetScriptedGui('DI_teulu_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-            }
-        }
-
-        DI_army_spawner_vbox = {
-            datacontext = "[GetMenAtArmsType('teutonic_knights')]"
-
-            blockoverride "on_add" {
-                onclick = "[GetScriptedGui('DI_teutonic_knights_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
             }
         }
 

@@ -8216,6 +8216,173 @@ template DI_TM_Building_List_Template
                     layoutpolicy_horizontal = expanding
                     align = left
                     margin = { 0 7 }
+                    text = "DI_pam_buildings"
+                    default_format = "#bold"
+                    fontsize_min = 14
+                }
+
+                button_standard = {
+                    parentanchor = left|vcenter
+                    size = { 100% 100% }
+                    alpha = 0
+                    text = ""
+                    onclick = "[GetVariableSystem.Toggle('DI_TM_pam_buildings_open')]"
+                }
+            }
+
+            button_list_expand = {
+                checked = "[GetVariableSystem.Exists('DI_TM_pam_buildings_open')]"
+                onclick = "[GetVariableSystem.Toggle('DI_TM_pam_buildings_open')]"
+            }
+        }
+
+        vbox = {
+            visible = "[GetVariableSystem.Exists('DI_TM_pam_buildings_open')]"
+
+            layoutpolicy_horizontal = expanding
+            spacing = 5
+
+            button_standard_clean = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 44 }
+                enabled = "[GetScriptedGui('DI_tm_building_great_project_cathedral_under_construction_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_tm_building_great_project_cathedral_under_construction_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_tm_destroy_building_great_project_cathedral_under_construction_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                tooltip = "DI_tm_building_button_tt"
+                using = tooltip_w
+
+                background = { using = Background_Area_Dark }
+
+                text_single = {
+                    parentanchor = left|vcenter
+                    margin_left = 8
+                    text = "building_type_great_project_cathedral_under_construction"
+                    default_format = "#low"
+                    }
+            }
+
+            button_standard_clean = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 44 }
+                enabled = "[GetScriptedGui('DI_tm_building_great_project_cathedral_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_tm_building_great_project_cathedral_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_tm_destroy_building_great_project_cathedral_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                tooltip = "DI_tm_building_button_tt"
+                using = tooltip_w
+
+                background = { using = Background_Area_Dark }
+
+                text_single = {
+                    parentanchor = left|vcenter
+                    margin_left = 8
+                    text = "building_type_great_project_cathedral_01"
+                    default_format = "#low"
+                    }
+            }
+
+            button_standard_clean = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 44 }
+                enabled = "[GetScriptedGui('DI_tm_building_pam_abbey_of_st_gall_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_tm_building_pam_abbey_of_st_gall_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_tm_destroy_building_pam_abbey_of_st_gall_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                tooltip = "DI_tm_building_button_tt"
+                using = tooltip_w
+
+                background = { using = Background_Area_Dark }
+
+                text_single = {
+                    parentanchor = left|vcenter
+                    margin_left = 8
+                    text = "building_type_pam_abbey_of_st_gall_01"
+                    default_format = "#low"
+                    }
+            }
+
+            button_standard_clean = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 44 }
+                enabled = "[GetScriptedGui('DI_tm_building_pam_palais_de_papes_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_tm_building_pam_palais_de_papes_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_tm_destroy_building_pam_palais_de_papes_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                tooltip = "DI_tm_building_button_tt"
+                using = tooltip_w
+
+                background = { using = Background_Area_Dark }
+
+                text_single = {
+                    parentanchor = left|vcenter
+                    margin_left = 8
+                    text = "building_type_pam_palais_de_papes_01"
+                    default_format = "#low"
+                    }
+            }
+
+            button_standard_clean = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 44 }
+                enabled = "[GetScriptedGui('DI_tm_building_pam_lateran_basilica_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_tm_building_pam_lateran_basilica_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_tm_destroy_building_pam_lateran_basilica_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                tooltip = "DI_tm_building_button_tt"
+                using = tooltip_w
+
+                background = { using = Background_Area_Dark }
+
+                text_single = {
+                    parentanchor = left|vcenter
+                    margin_left = 8
+                    text = "building_type_pam_lateran_basilica_01"
+                    default_format = "#low"
+                    }
+            }
+
+            button_standard_clean = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 44 }
+                enabled = "[GetScriptedGui('DI_tm_building_pam_reims_cathedral_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_tm_building_pam_reims_cathedral_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_tm_destroy_building_pam_reims_cathedral_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                button_ignore = none
+                tooltip = "DI_tm_building_button_tt"
+                using = tooltip_w
+
+                background = { using = Background_Area_Dark }
+
+                text_single = {
+                    parentanchor = left|vcenter
+                    margin_left = 8
+                    text = "building_type_pam_reims_cathedral_01"
+                    default_format = "#low"
+                    }
+            }
+        }
+
+        hbox = {
+            layoutpolicy_horizontal = expanding
+
+            widget = {
+                layoutpolicy_horizontal = expanding
+                size = { 0 36 }
+
+                background = {
+                    using = Background_Area_Dark
+
+                    modify_texture = {
+                        texture = "gfx/interface/component_masks/mask_fade_horizontal_right.dds"
+                        blend_mode = alphamultiply
+                    }
+                }
+
+                text_label_left = {
+                    layoutpolicy_horizontal = expanding
+                    align = left
+                    margin = { 0 7 }
                     text = "DI_tgp_great_project_buildings"
                     default_format = "#bold"
                     fontsize_min = 14

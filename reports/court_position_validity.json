@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "counts": {
-    "supported": 3,
+    "supported": 2,
     "game_checked": 75,
-    "best_effort": 2,
+    "best_effort": 1,
     "disabled_by_mod": 0,
-    "needs_review": 1
+    "needs_review": 3
   },
   "profiles": [
     {
@@ -17,7 +17,7 @@
         "scope:employee={ akolouthos_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_empire",
         "save_temporary_scope_as=root_scope",
         "custom_tooltip={ text=akolouthos_founded_varangians_trigger_tt primary_title={ has_variable=founded_varangian_guard } }"
@@ -38,7 +38,7 @@
         "scope:employee={ antiquarian_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
         "trigger_if={ limit={ is_ai=yes } has_any_artifact=yes }"
       ],
       "review_reasons": [],
@@ -110,7 +110,7 @@
         "scope:employee={ bookmaker_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "culture={ has_cultural_parameter=hosts_chariot_races }"
       ],
       "review_reasons": [],
@@ -200,8 +200,8 @@
         "scope:employee={ cave_hermit_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
-        "custom_tooltip={ text=cave_hermit_court_position_tt has_variable=encountered_recruitable_hermit }"
+        "is_landed_or_landless_administrative_or_theocratic=yes",
+        "OR={ has_personal_tenet_flag=tenet_anachoresis_always_cave_hermit custom_tooltip={ text=cave_hermit_court_position_tt has_variable=encountered_recruitable_hermit } }"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -218,7 +218,7 @@
         "scope:employee={ champion_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes"
+        "is_landed_or_landless_administrative_or_theocratic=yes"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -236,7 +236,7 @@
         "scope:employee={ charioteer_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "culture={ has_cultural_parameter=hosts_chariot_races }"
       ],
       "review_reasons": [],
@@ -292,7 +292,7 @@
         "scope:employee={ liege?=scope:liege chief_eunuch_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
         "highest_held_title_tier>=tier_duchy",
         "save_temporary_scope_as=root_scope",
         "can_employ_court_eunuchs_trigger={ CHAR=scope:root_scope }"
@@ -330,7 +330,7 @@
         "scope:employee={ chief_qadi_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "has_religion=religion:islam_religion",
         "highest_held_title_tier>=tier_kingdom"
       ],
@@ -343,21 +343,23 @@
       "conditional_requirements": [
         {
           "when": [
-            "AND={ scope:liege.faith={ has_doctrine=doctrine_gender_male_dominated } }"
+            "AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_male_dominated } }"
           ],
           "satisfiable": true,
           "review_reasons": []
         },
         {
           "when": [
-            "AND={ scope:liege.faith={ has_doctrine=doctrine_gender_female_dominated } }"
+            "NOT={ AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_male_dominated } } }",
+            "AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_female_dominated } }"
           ],
           "satisfiable": true,
           "review_reasons": []
         },
         {
           "when": [
-            "NOT={ AND={ scope:liege.faith={ has_doctrine=doctrine_gender_female_dominated } } }"
+            "NOT={ AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_male_dominated } } }",
+            "NOT={ AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_female_dominated } } }"
           ],
           "satisfiable": true,
           "review_reasons": []
@@ -374,7 +376,7 @@
       ],
       "employer_requirements": [
         "trigger_if={ limit={ government_has_flag=government_is_nomadic } domicile?={ has_domicile_building_or_higher=court_yurt_01 } }",
-        "trigger_else={ is_landed_or_landless_administrative=yes }"
+        "trigger_else={ is_landed_or_landless_administrative_or_theocratic=yes }"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -391,7 +393,7 @@
         "valid_camp_officer_trigger={ OFFICER=court_artificer }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "has_royal_court=yes"
       ],
       "review_reasons": [],
@@ -427,7 +429,7 @@
         "scope:employee={ court_brahmin_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_duchy"
       ],
       "review_reasons": [],
@@ -445,7 +447,7 @@
         "scope:employee={ liege=scope:liege court_brewmaster_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
         "custom_tooltip={ text=court_brewmaster_requirement_tt any_sub_realm_barony={ county.holder=root title_province={ has_building_or_higher=breweries_01 } } }"
       ],
       "review_reasons": [],
@@ -463,7 +465,7 @@
         "scope:employee={ court_gardener_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "culture={ has_cultural_parameter=can_appoint_court_gardener }"
       ],
       "review_reasons": [],
@@ -481,7 +483,7 @@
         "scope:employee={ court_guru_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes"
+        "is_landed_or_landless_administrative_or_theocratic=yes"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -498,7 +500,7 @@
         "scope:employee={ court_jester_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_duchy"
       ],
       "review_reasons": [],
@@ -516,7 +518,7 @@
         "scope:employee={ court_musician_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
         "trigger_if={ limit={ government_has_flag=government_is_nomadic root.culture?={ has_cultural_parameter=better_court_musicians } } OR={ has_realm_law=nomadic_authority_5 has_realm_law=nomadic_authority_4 has_realm_law=nomadic_authority_3 has_realm_law=nomadic_authority_2 } }",
         "trigger_else_if={ limit={ government_has_flag=government_is_nomadic } OR={ has_realm_law=nomadic_authority_5 has_realm_law=nomadic_authority_4 has_realm_law=nomadic_authority_3 } }",
         "trigger_else_if={ limit={ root.culture?={ has_cultural_parameter=better_court_musicians } } highest_held_title_tier>=tier_duchy }",
@@ -552,11 +554,11 @@
         "scope:employee={ court_poet_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
         "trigger_if={ limit={ government_has_flag=government_is_nomadic root.culture?={ has_cultural_parameter=better_court_poets } } OR={ has_realm_law=nomadic_authority_5 has_realm_law=nomadic_authority_4 has_realm_law=nomadic_authority_3 has_realm_law=nomadic_authority_2 } }",
         "trigger_else_if={ limit={ government_has_flag=government_is_nomadic } OR={ has_realm_law=nomadic_authority_5 has_realm_law=nomadic_authority_4 has_realm_law=nomadic_authority_3 } }",
+        "trigger_else_if={ limit={ dynasty?={ has_dynasty_perk=tgp_japan_legacy_2 } is_house_head=yes } highest_held_title_tier>=tier_county }",
         "trigger_else_if={ limit={ root.culture?={ has_cultural_parameter=better_court_poets } } highest_held_title_tier>=tier_duchy }",
-        "trigger_else_if={ limit={ dynasty?={ has_dynasty_perk=tgp_japan_legacy_2 } } highest_held_title_tier>=tier_county }",
         "trigger_else={ highest_held_title_tier>=tier_kingdom }"
       ],
       "review_reasons": [],
@@ -574,9 +576,10 @@
         "scope:employee={ court_scholar_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
-        "highest_held_title_tier>=tier_kingdom",
-        "culture={ has_cultural_tradition=tradition_fp3_beacon_of_learning }"
+        "is_landed_or_landless_administrative_or_theocratic=yes",
+        "court_scholar_court_position_unlocked_trigger=yes",
+        "trigger_if={ limit={ government_has_flag=government_is_ecclesiastical any_held_title={ has_clerical_region=yes } } highest_held_title_tier>=tier_duchy }",
+        "trigger_else={ highest_held_title_tier>=tier_kingdom }"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -593,8 +596,8 @@
         "scope:employee={ court_tutor_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "trigger_if={ limit={ government_has_flag=government_is_nomadic } domicile?={ has_domicile_parameter=nomad_unlock_court_tutor } }",
-        "trigger_else={ is_landed_or_landless_administrative=yes }"
+        "trigger_if={ limit={ government_has_flag=government_is_nomadic } custom_tooltip={ text=has_court_tutor_domicile_building domicile?={ has_domicile_parameter=nomad_unlock_court_tutor } } }",
+        "trigger_else={ is_landed_or_landless_administrative_or_theocratic=yes }"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -629,7 +632,7 @@
       ],
       "employer_requirements": [
         "highest_held_title_tier>=tier_kingdom",
-        "is_landed_or_landless_administrative=yes"
+        "is_landed_or_landless_administrative_or_theocratic=yes"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -657,17 +660,19 @@
     },
     {
       "position": "eparch_court_position",
-      "status": "supported",
-      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
+      "status": "game_checked",
+      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_admin_court_position.txt",
       "requirements": [
-        "scope:employee={ liege=scope:liege OR={ is_landed=no custom_tooltip={ text=eparch_distance_trigger_desc capital_province?={ squared_distance={ target=scope:liege.capital_province value<50000 } } government_allows=administrative } } NOT={ has_trait=eunuch } }"
+        "scope:employee={ eparch_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
         "highest_held_title_tier>=tier_empire"
       ],
       "review_reasons": [],
-      "runtime_conditions": [],
+      "runtime_conditions": [
+        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+      ],
       "conditional_requirements": []
     },
     {
@@ -679,12 +684,12 @@
         "scope:employee={ executioner_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_kingdom"
       ],
       "review_reasons": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+        "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
     },
@@ -733,7 +738,7 @@
         "scope:employee={ food_taster_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "trigger_if={ limit={ root.culture?={ has_cultural_parameter=better_food_tasters } } highest_held_title_tier>=tier_duchy }",
         "trigger_else={ highest_held_title_tier>=tier_kingdom }"
       ],
@@ -745,7 +750,7 @@
       "conditional_requirements": [
         {
           "when": [
-            "AND={ scope:liege.faith={ NOT={ has_doctrine=doctrine_clerical_function_recruitment } } }"
+            "AND={ scope:liege.rite={ NOT={ rite_has_doctrine=doctrine_clerical_function_recruitment } } }"
           ],
           "satisfiable": true,
           "review_reasons": []
@@ -779,7 +784,7 @@
         "valid_camp_officer_trigger={ OFFICER=garuda }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
         "highest_held_title_tier>=tier_kingdom",
         "culture={ has_cultural_tradition=tradition_garuda_warriors }"
       ],
@@ -928,8 +933,10 @@
         "scope:employee={ high_almoner_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
-        "highest_held_title_tier>=tier_kingdom"
+        "is_landed_or_landless_administrative_or_theocratic=yes",
+        "trigger_if={ limit={ rite?={ rite_has_parameter=tenet_philanthropia_high_almoner_court_position } } highest_held_title_tier>=tier_county }",
+        "trigger_else_if={ limit={ government_has_flag=government_is_ecclesiastical any_held_title={ has_clerical_region=yes } } highest_held_title_tier>=tier_duchy }",
+        "trigger_else={ highest_held_title_tier>=tier_kingdom }"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -982,7 +989,7 @@
         "scope:employee={ keeper_of_swans_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_kingdom",
         "culture={ has_cultural_pillar=heritage_west_germanic }"
       ],
@@ -1058,7 +1065,7 @@
         "scope:employee={ khlon_glan_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes"
+        "is_landed_or_landless_administrative_or_theocratic=yes"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -1075,7 +1082,7 @@
         "scope:employee={ lady_in_waiting_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_duchy",
         "is_female=yes"
       ],
@@ -1141,18 +1148,24 @@
     },
     {
       "position": "master_assassin_court_position",
-      "status": "best_effort",
-      "explanation": "Some requirements cannot be supplied to a fresh courtier. Apply the remaining adjustments, spawn, and let the game decide assignment.",
+      "status": "needs_review",
+      "explanation": "Some requirements cannot be generated. Spawning and the assignment attempt still proceed.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ master_assassin_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }",
-        "faith={ has_doctrine=tenet_fp3_fedayeen }"
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
+        "rite={ rite_has_parameter=master_assassin_court_position_unlocked }"
       ],
-      "review_reasons": [],
-      "runtime_conditions": [],
+      "review_reasons": [
+        "character:rite={ rite_has_parameter=master_assassin_court_position_unlocked NOR={ rite_has_tenet=tenet_pacifism rite_has_tenet=tenet_dharmic_pacifism } } via master_assassin_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:898]"
+      ],
+      "runtime_conditions": [
+        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
+        "government_has_flag=government_is_herder",
+        "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
+      ],
       "conditional_requirements": []
     },
     {
@@ -1200,7 +1213,7 @@
         "scope:employee={ master_of_horse_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_duchy"
       ],
       "review_reasons": [],
@@ -1211,16 +1224,19 @@
     },
     {
       "position": "master_of_hunt_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "needs_review",
+      "explanation": "Some requirements cannot be generated. Spawning and the assignment attempt still proceed.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
-        "scope:employee={ master_of_hunt_validity_trigger={ EMPLOYER=scope:liege } }"
+        "scope:employee={ master_of_hunt_validity_trigger={ EMPLOYER=scope:liege } NOT={ culture={ has_cultural_parameter=cannot_hunt } } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative=yes government_has_flag=government_is_nomadic }"
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
+        "NOT={ culture={ has_cultural_parameter=cannot_hunt } }"
       ],
-      "review_reasons": [],
+      "review_reasons": [
+        "culture:NOT { has_cultural_parameter=cannot_hunt } [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt:4226]"
+      ],
       "runtime_conditions": [
         "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
@@ -1341,7 +1357,7 @@
         "scope:employee={ royal_architect_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes",
+        "is_landed_or_landless_administrative_or_theocratic=yes",
         "highest_held_title_tier>=tier_kingdom"
       ],
       "review_reasons": [],
@@ -1377,7 +1393,7 @@
         "scope:employee={ seneschal_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative=yes"
+        "is_landed_or_landless_administrative_or_theocratic=yes"
       ],
       "review_reasons": [],
       "runtime_conditions": [
@@ -1454,7 +1470,7 @@
       ],
       "employer_requirements": [
         "trigger_if={ limit={ government_has_flag=government_is_nomadic } custom_tooltip={ text=has_wet_nurse_domicile_building domicile?={ has_domicile_parameter=nomad_unlock_wet_nurse } } }",
-        "trigger_else={ is_landed_or_landless_administrative=yes }"
+        "trigger_else={ is_landed_or_landless_administrative_or_theocratic=yes }"
       ],
       "review_reasons": [],
       "runtime_conditions": [

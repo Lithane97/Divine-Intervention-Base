@@ -24603,6 +24603,332 @@ DI_tm_destroy_building_temples_angkor_sgui = {
     }
 }
 
+DI_tm_building_great_project_cathedral_under_construction_sgui = {
+    scope = character # Player Character
+
+    is_valid = {
+        OR = {
+            NOT = { has_variable = DI_title_manager_building_level }
+            var:DI_title_manager_building_level = 1
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { scope:player = { has_variable = DI_title_manager_building_level } }
+                            scope:player = { var:DI_title_manager_building_level = 1 }
+                        }
+                        NOT = { has_building = great_project_cathedral_under_construction }
+                    }
+                    add_building = great_project_cathedral_under_construction
+                }
+            }
+        }
+    }
+}
+
+DI_tm_destroy_building_great_project_cathedral_under_construction_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = { limit = { has_building = great_project_cathedral_under_construction } remove_building = great_project_cathedral_under_construction }
+            }
+        }
+    }
+}
+
+DI_tm_building_great_project_cathedral_sgui = {
+    scope = character # Player Character
+
+    is_valid = {
+        OR = {
+            NOT = { has_variable = DI_title_manager_building_level }
+            var:DI_title_manager_building_level = 1
+            var:DI_title_manager_building_level = 2
+            var:DI_title_manager_building_level = 3
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { scope:player = { has_variable = DI_title_manager_building_level } }
+                            scope:player = { var:DI_title_manager_building_level = 1 }
+                        }
+                        NOT = { has_building = great_project_cathedral_01 }
+                    }
+                    add_building = great_project_cathedral_01
+                }
+                else_if = {
+                    limit = {
+                        scope:player = { var:DI_title_manager_building_level = 2 }
+                        NOT = { has_building = great_project_cathedral_02 }
+                    }
+                    add_building = great_project_cathedral_02
+                }
+                else_if = {
+                    limit = {
+                        scope:player = { var:DI_title_manager_building_level = 3 }
+                        NOT = { has_building = great_project_cathedral_03 }
+                    }
+                    add_building = great_project_cathedral_03
+                }
+            }
+        }
+    }
+}
+
+DI_tm_destroy_building_great_project_cathedral_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = { limit = { has_building = great_project_cathedral_03 } remove_building = great_project_cathedral_03 }
+                else_if = { limit = { has_building = great_project_cathedral_02 } remove_building = great_project_cathedral_02 }
+                else_if = { limit = { has_building = great_project_cathedral_01 } remove_building = great_project_cathedral_01 }
+            }
+        }
+    }
+}
+
+DI_tm_building_pam_abbey_of_st_gall_sgui = {
+    scope = character # Player Character
+
+    is_valid = {
+        OR = {
+            NOT = { has_variable = DI_title_manager_building_level }
+            var:DI_title_manager_building_level = 1
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { scope:player = { has_variable = DI_title_manager_building_level } }
+                            scope:player = { var:DI_title_manager_building_level = 1 }
+                        }
+                        NOT = { has_building = pam_abbey_of_st_gall_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_abbey_of_st_gall_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_abbey_of_st_gall_01
+                }
+            }
+        }
+    }
+}
+
+DI_tm_destroy_building_pam_abbey_of_st_gall_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = { limit = { has_building = pam_abbey_of_st_gall_01 } remove_building = pam_abbey_of_st_gall_01 }
+            }
+        }
+    }
+}
+
+DI_tm_building_pam_palais_de_papes_sgui = {
+    scope = character # Player Character
+
+    is_valid = {
+        OR = {
+            NOT = { has_variable = DI_title_manager_building_level }
+            var:DI_title_manager_building_level = 1
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { scope:player = { has_variable = DI_title_manager_building_level } }
+                            scope:player = { var:DI_title_manager_building_level = 1 }
+                        }
+                        NOT = { has_building = pam_palais_de_papes_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_palais_de_papes_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_palais_de_papes_01
+                }
+            }
+        }
+    }
+}
+
+DI_tm_destroy_building_pam_palais_de_papes_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = { limit = { has_building = pam_palais_de_papes_01 } remove_building = pam_palais_de_papes_01 }
+            }
+        }
+    }
+}
+
+DI_tm_building_pam_lateran_basilica_sgui = {
+    scope = character # Player Character
+
+    is_valid = {
+        OR = {
+            NOT = { has_variable = DI_title_manager_building_level }
+            var:DI_title_manager_building_level = 1
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { scope:player = { has_variable = DI_title_manager_building_level } }
+                            scope:player = { var:DI_title_manager_building_level = 1 }
+                        }
+                        NOT = { has_building = pam_lateran_basilica_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_lateran_basilica_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_lateran_basilica_01
+                }
+            }
+        }
+    }
+}
+
+DI_tm_destroy_building_pam_lateran_basilica_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = { limit = { has_building = pam_lateran_basilica_01 } remove_building = pam_lateran_basilica_01 }
+            }
+        }
+    }
+}
+
+DI_tm_building_pam_reims_cathedral_sgui = {
+    scope = character # Player Character
+
+    is_valid = {
+        OR = {
+            NOT = { has_variable = DI_title_manager_building_level }
+            var:DI_title_manager_building_level = 1
+        }
+    }
+
+    effect = {
+        save_scope_as = player
+
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = {
+                    limit = {
+                        OR = {
+                            NOT = { scope:player = { has_variable = DI_title_manager_building_level } }
+                            scope:player = { var:DI_title_manager_building_level = 1 }
+                        }
+                        NOT = { has_building = pam_reims_cathedral_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_reims_cathedral_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_reims_cathedral_01
+                }
+            }
+        }
+    }
+}
+
+DI_tm_destroy_building_pam_reims_cathedral_sgui = {
+    scope = character # Player Character
+
+    effect = {
+        every_in_list = {
+            variable = DI_action_provinces
+            save_scope_as = province
+
+            scope:province = {
+                if = { limit = { has_building = pam_reims_cathedral_01 } remove_building = pam_reims_cathedral_01 }
+            }
+        }
+    }
+}
+
 DI_tm_building_temple_citadel_sgui = {
     scope = character # Player Character
 
@@ -25475,6 +25801,10 @@ DI_remove_buildings_sgui = {
                 if = { limit = { has_building = golden_gate_of_kiev_01 } remove_building = golden_gate_of_kiev_01 }
                 if = { limit = { has_building = gongsanseong_fortress_01 } remove_building = gongsanseong_fortress_01 }
                 if = { limit = { has_building = great_megalith_01 } remove_building = great_megalith_01 }
+                if = { limit = { has_building = great_project_cathedral_03 } remove_building = great_project_cathedral_03 }
+                else_if = { limit = { has_building = great_project_cathedral_02 } remove_building = great_project_cathedral_02 }
+                else_if = { limit = { has_building = great_project_cathedral_01 } remove_building = great_project_cathedral_01 }
+                if = { limit = { has_building = great_project_cathedral_under_construction } remove_building = great_project_cathedral_under_construction }
                 if = { limit = { has_building = great_wall_of_gorgan_01 } remove_building = great_wall_of_gorgan_01 }
                 DI_remove_building_type_effect = { BUILDING = guild_halls }
                 if = { limit = { has_building = guiyang_mines_04 } remove_building = guiyang_mines_04 }
@@ -25727,6 +26057,10 @@ DI_remove_buildings_sgui = {
                 else_if = { limit = { has_building = palace_of_ctesiphon_01 } remove_building = palace_of_ctesiphon_01 }
                 if = { limit = { has_building = palisades_02 } remove_building = palisades_02 }
                 else_if = { limit = { has_building = palisades_01 } remove_building = palisades_01 }
+                if = { limit = { has_building = pam_abbey_of_st_gall_01 } remove_building = pam_abbey_of_st_gall_01 }
+                if = { limit = { has_building = pam_lateran_basilica_01 } remove_building = pam_lateran_basilica_01 }
+                if = { limit = { has_building = pam_palais_de_papes_01 } remove_building = pam_palais_de_papes_01 }
+                if = { limit = { has_building = pam_reims_cathedral_01 } remove_building = pam_reims_cathedral_01 }
                 if = { limit = { has_building = pansjhir_mines_04 } remove_building = pansjhir_mines_04 }
                 else_if = { limit = { has_building = pansjhir_mines_03 } remove_building = pansjhir_mines_03 }
                 else_if = { limit = { has_building = pansjhir_mines_02 } remove_building = pansjhir_mines_02 }
@@ -26977,6 +27311,20 @@ DI_max_building_upgrades_sgui = {
                         NOT = { has_building = great_megalith_01 }
                     }
                     add_building = great_megalith_01
+                }
+                if = {
+                    limit = {
+                        has_building_or_higher = great_project_cathedral_01
+                        NOT = { has_building = great_project_cathedral_03 }
+                    }
+                    add_building = great_project_cathedral_03
+                }
+                if = {
+                    limit = {
+                        has_building_or_higher = great_project_cathedral_under_construction
+                        NOT = { has_building = great_project_cathedral_under_construction }
+                    }
+                    add_building = great_project_cathedral_under_construction
                 }
                 if = {
                     limit = {
@@ -28579,6 +28927,54 @@ DI_max_building_upgrades_sgui = {
                         NOT = { has_building = palisades_02 }
                     }
                     add_building = palisades_02
+                }
+                if = {
+                    limit = {
+                        has_building_or_higher = pam_abbey_of_st_gall_01
+                        NOT = { has_building = pam_abbey_of_st_gall_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_abbey_of_st_gall_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_abbey_of_st_gall_01
+                }
+                if = {
+                    limit = {
+                        has_building_or_higher = pam_lateran_basilica_01
+                        NOT = { has_building = pam_lateran_basilica_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_lateran_basilica_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_lateran_basilica_01
+                }
+                if = {
+                    limit = {
+                        has_building_or_higher = pam_palais_de_papes_01
+                        NOT = { has_building = pam_palais_de_papes_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_palais_de_papes_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_palais_de_papes_01
+                }
+                if = {
+                    limit = {
+                        has_building_or_higher = pam_reims_cathedral_01
+                        NOT = { has_building = pam_reims_cathedral_01 }
+                    }
+                    if = {
+                        limit = { has_special_building_slot = no }
+                        add_special_building_slot = pam_reims_cathedral_01
+                    }
+                    DI_clear_special_building_effect = yes
+                    add_special_building = pam_reims_cathedral_01
                 }
                 if = {
                     limit = {

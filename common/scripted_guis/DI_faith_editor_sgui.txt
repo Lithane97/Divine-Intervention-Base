@@ -1,428 +1,267 @@
-﻿### Faith Editor Scripted GUI ###
+﻿# Faith editor for CK3 1.20. Live GUI catalogues; no saved catalogue lists.
+# All mutations revalidate the selected character and rite at execution time.
+
 DI_faith_editor_init_sgui = {
-	scope = character # Player Character
-
-	effect = {
-		save_scope_as = player_char
-		
-		if = {
-			limit = {
-				NOT = { has_variable = DI_primary_character }
-			}
-
-			set_variable = {
-				name = DI_primary_character
-				value = scope:player_char
-			}
-		}
-	}
+    scope = character
+    effect = {
+        if = { limit = { NOT = { exists = var:DI_primary_character } } set_variable = { name = DI_primary_character value = root } }
+        remove_variable = DI_fe_main_rite_mode
+        remove_variable = DI_doctrine_to_replace
+        clear_variable_list = DI_core_tenets
+        clear_global_variable_list = DI_core_tenets
+        clear_variable_list = DI_main_tenets
+        clear_global_variable_list = DI_main_tenets
+        clear_variable_list = DI_marriage_tenets
+        clear_global_variable_list = DI_marriage_tenets
+        clear_variable_list = DI_crimes_tenets
+        clear_global_variable_list = DI_crimes_tenets
+        clear_variable_list = DI_clergy_tenets
+        clear_global_variable_list = DI_clergy_tenets
+        clear_variable_list = DI_other_tenets
+        clear_global_variable_list = DI_other_tenets
+        clear_variable_list = DI_doctrines_all
+        clear_global_variable_list = DI_doctrines_all
+    }
 }
 
-DI_faith_group_list = {
-	scope = character
-
-	is_valid = {
-		has_global_variable_list = DI_core_tenets
-		has_global_variable_list = DI_main_tenets
-		has_global_variable_list = DI_marriage_tenets
-		has_global_variable_list = DI_crimes_tenets
-		has_global_variable_list = DI_clergy_tenets
-		has_global_variable_list = DI_other_tenets
-	}
+DI_fe_target_current_sgui = {
+    scope = character
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = { is_alive = yes }
+        exists = var:DI_fe_character
+        var:DI_fe_character = var:DI_primary_character
+        exists = var:DI_fe_rite
+        OR = {
+            AND = {
+                has_variable = DI_fe_main_rite_mode
+                var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+            }
+            AND = {
+                NOT = { has_variable = DI_fe_main_rite_mode }
+                var:DI_primary_character.rite = var:DI_fe_rite
+            }
+        }
+    }
 }
 
-DI_set_current_tenets_sgui = {
-	scope = character # Player Character
-
-	effect = {
-		save_scope_as = player_char
-		var:DI_primary_character = { save_scope_as = selected_char }
-
-		if = {
-			limit = {
-				has_variable_list = DI_core_tenets
-			}
-
-			clear_variable_list = DI_core_tenets
-		}
-
-		every_in_global_list = {
-			variable = DI_core_tenets
-			save_scope_as = doctrine
-			
-			if = {
-				limit = {
-					scope:selected_char.faith = {
-						has_doctrine = scope:doctrine
-					}
-				}
-
-				scope:player_char = {
-					add_to_variable_list = {
-						name = DI_core_tenets
-						target = scope:doctrine
-					}
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				has_variable_list = DI_main_tenets
-			}
-
-			clear_variable_list = DI_main_tenets
-		}
-
-		every_in_global_list = {
-			variable = DI_main_tenets
-			save_scope_as = doctrine
-			
-			if = {
-				limit = {
-					scope:selected_char.faith = {
-						has_doctrine = scope:doctrine
-					}
-				}
-
-				scope:player_char = {
-					add_to_variable_list = {
-						name = DI_main_tenets
-						target = scope:doctrine
-					}
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				has_variable_list = DI_marriage_tenets
-			}
-
-			clear_variable_list = DI_marriage_tenets
-		}
-
-		every_in_global_list = {
-			variable = DI_marriage_tenets
-			save_scope_as = doctrine
-			
-			if = {
-				limit = {
-					scope:selected_char.faith = {
-						has_doctrine = scope:doctrine
-					}
-				}
-
-				scope:player_char = {
-					add_to_variable_list = {
-						name = DI_marriage_tenets
-						target = scope:doctrine
-					}
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				has_variable_list = DI_crimes_tenets
-			}
-
-			clear_variable_list = DI_crimes_tenets
-		}
-
-		every_in_global_list = {
-			variable = DI_crimes_tenets
-			save_scope_as = doctrine
-			
-			if = {
-				limit = {
-					scope:selected_char.faith = {
-						has_doctrine = scope:doctrine
-					}
-				}
-
-				scope:player_char = {
-					add_to_variable_list = {
-						name = DI_crimes_tenets
-						target = scope:doctrine
-					}
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				has_variable_list = DI_clergy_tenets
-			}
-
-			clear_variable_list = DI_clergy_tenets
-		}
-
-		every_in_global_list = {
-			variable = DI_clergy_tenets
-			save_scope_as = doctrine
-			
-			if = {
-				limit = {
-					scope:selected_char.faith = {
-						has_doctrine = scope:doctrine
-					}
-				}
-
-				scope:player_char = {
-					add_to_variable_list = {
-						name = DI_clergy_tenets
-						target = scope:doctrine
-					}
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				has_variable_list = DI_other_tenets
-			}
-
-			clear_variable_list = DI_other_tenets
-		}
-
-		every_in_global_list = {
-			variable = DI_other_tenets
-			save_scope_as = doctrine
-			
-			if = {
-				limit = {
-					scope:selected_char.faith = {
-						has_doctrine = scope:doctrine
-					}
-				}
-
-				scope:player_char = {
-					add_to_variable_list = {
-						name = DI_other_tenets
-						target = scope:doctrine
-					}
-				}
-			}
-		}
-	}
+DI_fe_sync_target_sgui = {
+    scope = character
+    effect = {
+        remove_variable = DI_fe_old_tenet
+        remove_variable = DI_fe_picker_rite
+        remove_variable = DI_fe_rite
+        remove_variable = DI_fe_character
+        if = {
+            limit = { exists = var:DI_primary_character var:DI_primary_character = { is_alive = yes } }
+            set_variable = { name = DI_fe_character value = var:DI_primary_character }
+            if = {
+                limit = { has_variable = DI_fe_main_rite_mode exists = var:DI_primary_character.faith.main_rite }
+                set_variable = { name = DI_fe_rite value = var:DI_primary_character.faith.main_rite }
+            }
+            else_if = {
+                limit = { NOT = { has_variable = DI_fe_main_rite_mode } exists = var:DI_primary_character.rite }
+                set_variable = { name = DI_fe_rite value = var:DI_primary_character.rite }
+            }
+        }
+    }
 }
 
-DI_doctrine_to_replace_sgui = {
-	scope = character # Player Character
-
-	saved_scopes = {
-		doctrine # scoped doctrine
-	}
-
-	effect = {
-		if = {
-			limit = {
-				# if player character has a variable called DI_doctrine_to_replace
-				has_variable = DI_doctrine_to_replace
-			}
-			# remove the variable
-			remove_variable = DI_doctrine_to_replace
-		}
-
-		# add the doctrine to the variable
-		set_variable = {
-			name = DI_doctrine_to_replace
-			value = scope:doctrine
-		}
-	}
+DI_fe_use_character_rite_sgui = {
+    scope = character
+    effect = {
+        remove_variable = DI_fe_main_rite_mode
+    }
 }
 
-DI_set_doctrine_sgui = {
-	scope = character # Player Character
-
-	saved_scopes = {
-		doctrine # scoped doctrine
-	}
-
-	effect = {
-		save_scope_as = player_char
-		var:DI_primary_character.faith = { save_scope_as = selected_faith }
-
-		if = {
-			limit = {
-				# if player character has a variable called DI_tenet_to_replace
-				has_variable = DI_doctrine_to_replace
-				NOT = { scope:player_char.var:DI_doctrine_to_replace = scope:doctrine }
-				NOT = { scope:selected_faith = { has_doctrine = scope:doctrine } }
-			}
-			scope:selected_faith = {
-				remove_doctrine = scope:player_char.var:DI_doctrine_to_replace
-				add_doctrine = scope:doctrine
-			}
-
-			set_variable = {
-				name = DI_doctrine_to_replace
-				value = scope:doctrine
-			}
-		}
-	}
+DI_fe_use_main_rite_sgui = {
+    scope = character
+    effect = {
+        set_variable = { name = DI_fe_main_rite_mode value = yes }
+    }
 }
 
-DI_add_doctrine_sgui = {
-	scope = character # Player Character
-
-	saved_scopes = {
-		doctrine # scoped doctrine
-	}
-
-	effect = {
-		save_scope_as = player_char
-		var:DI_primary_character.faith = { save_scope_as = selected_faith }
-
-		if = {
-			limit = {
-				NOT = { scope:selected_faith = { has_doctrine = scope:doctrine } }
-			}
-			scope:selected_faith = {
-				add_doctrine = scope:doctrine
-			}
-		}
-	}
+DI_fe_cancel_tenet_sgui = {
+    scope = character
+    effect = {
+        remove_variable = DI_fe_old_tenet
+        remove_variable = DI_fe_picker_rite
+    }
 }
 
-DI_remove_doctrine_sgui = {
-	scope = character # Player Character
-
-	saved_scopes = {
-		doctrine # scoped doctrine
-	}
-
-	effect = {
-		save_scope_as = player_char
-		var:DI_primary_character.faith = { save_scope_as = selected_faith }
-
-		if = {
-			limit = {
-				scope:selected_faith = { has_doctrine = scope:doctrine }
-			}
-			scope:selected_faith = {
-				remove_doctrine = scope:doctrine
-			}
-		}
-	}
+DI_fe_select_tenet_sgui = {
+    scope = character
+    saved_scopes = { tenet target_rite }
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = { is_alive = yes }
+        exists = var:DI_fe_character
+        var:DI_fe_character = var:DI_primary_character
+        exists = var:DI_fe_rite
+        OR = {
+            AND = {
+                has_variable = DI_fe_main_rite_mode
+                var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+            }
+            AND = {
+                NOT = { has_variable = DI_fe_main_rite_mode }
+                var:DI_primary_character.rite = var:DI_fe_rite
+            }
+        }
+        exists = scope:tenet
+        scope:target_rite = var:DI_fe_rite
+        scope:target_rite = { rite_has_tenet = scope:tenet }
+    }
+    effect = {
+        if = {
+            limit = {
+                exists = var:DI_primary_character
+                var:DI_primary_character = { is_alive = yes }
+                exists = var:DI_fe_character
+                var:DI_fe_character = var:DI_primary_character
+                exists = var:DI_fe_rite
+                OR = {
+                    AND = {
+                        has_variable = DI_fe_main_rite_mode
+                        var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+                    }
+                    AND = {
+                        NOT = { has_variable = DI_fe_main_rite_mode }
+                        var:DI_primary_character.rite = var:DI_fe_rite
+                    }
+                }
+                exists = scope:tenet
+                scope:target_rite = var:DI_fe_rite
+                scope:target_rite = { rite_has_tenet = scope:tenet }
+            }
+            set_variable = { name = DI_fe_old_tenet value = scope:tenet }
+            set_variable = { name = DI_fe_picker_rite value = scope:target_rite }
+        }
+    }
 }
 
-DI_load_core_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_core_tenets
-			target = scope:tenet
-		}
-	}
+DI_fe_replace_tenet_sgui = {
+    scope = character
+    saved_scopes = { tenet target_rite }
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = { is_alive = yes }
+        exists = var:DI_fe_character
+        var:DI_fe_character = var:DI_primary_character
+        exists = var:DI_fe_rite
+        OR = {
+            AND = {
+                has_variable = DI_fe_main_rite_mode
+                var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+            }
+            AND = {
+                NOT = { has_variable = DI_fe_main_rite_mode }
+                var:DI_primary_character.rite = var:DI_fe_rite
+            }
+        }
+        exists = scope:tenet
+        exists = var:DI_fe_old_tenet
+        exists = var:DI_fe_picker_rite
+        scope:target_rite = var:DI_fe_rite
+        var:DI_fe_picker_rite = scope:target_rite
+        scope:target_rite = {
+            rite_has_tenet = root.var:DI_fe_old_tenet
+            NOT = { rite_has_tenet = scope:tenet }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                exists = var:DI_primary_character
+                var:DI_primary_character = { is_alive = yes }
+                exists = var:DI_fe_character
+                var:DI_fe_character = var:DI_primary_character
+                exists = var:DI_fe_rite
+                OR = {
+                    AND = {
+                        has_variable = DI_fe_main_rite_mode
+                        var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+                    }
+                    AND = {
+                        NOT = { has_variable = DI_fe_main_rite_mode }
+                        var:DI_primary_character.rite = var:DI_fe_rite
+                    }
+                }
+                exists = scope:tenet
+                exists = var:DI_fe_old_tenet
+                exists = var:DI_fe_picker_rite
+                scope:target_rite = var:DI_fe_rite
+                var:DI_fe_picker_rite = scope:target_rite
+                scope:target_rite = {
+                    rite_has_tenet = root.var:DI_fe_old_tenet
+                    NOT = { rite_has_tenet = scope:tenet }
+                }
+            }
+            scope:target_rite = {
+                remove_rite_tenet = root.var:DI_fe_old_tenet
+                add_rite_tenet = scope:tenet
+            }
+            remove_variable = DI_fe_old_tenet
+            remove_variable = DI_fe_picker_rite
+        }
+    }
 }
 
-# main tenets
-DI_load_main_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_main_tenets
-			target = scope:tenet
-		}
-
-		add_to_global_variable_list = {
-			name = DI_doctrines_all
-			target = scope:tenet
-		}
-	}
-}
-
-# marriage tenets
-DI_load_marriage_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_marriage_tenets
-			target = scope:tenet
-		}
-
-		add_to_global_variable_list = {
-			name = DI_doctrines_all
-			target = scope:tenet
-		}
-	}
-}
-
-# crimes tenets
-DI_load_crimes_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_crimes_tenets
-			target = scope:tenet
-		}
-
-		add_to_global_variable_list = {
-			name = DI_doctrines_all
-			target = scope:tenet
-		}
-	}
-}
-
-# clergy tenets
-DI_load_clergy_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_clergy_tenets
-			target = scope:tenet
-		}
-
-		add_to_global_variable_list = {
-			name = DI_doctrines_all
-			target = scope:tenet
-		}
-	}
-}
-
-DI_load_other_tenets_sgui = {
-	scope = character
-
-	saved_scopes = {
-		tenet # scoped tenet
-	}
-
-	effect = {
-		add_to_global_variable_list = {
-			name = DI_other_tenets
-			target = scope:tenet
-		}
-
-		add_to_global_variable_list = {
-			name = DI_doctrines_all
-			target = scope:tenet
-		}
-	}
+DI_fe_set_doctrine_sgui = {
+    scope = character
+    saved_scopes = { doctrine target_rite main_only }
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = { is_alive = yes }
+        exists = var:DI_fe_character
+        var:DI_fe_character = var:DI_primary_character
+        exists = var:DI_fe_rite
+        OR = {
+            AND = {
+                has_variable = DI_fe_main_rite_mode
+                var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+            }
+            AND = {
+                NOT = { has_variable = DI_fe_main_rite_mode }
+                var:DI_primary_character.rite = var:DI_fe_rite
+            }
+        }
+        exists = scope:doctrine
+        scope:target_rite = var:DI_fe_rite
+        OR = {
+            scope:main_only = flag:no
+            scope:target_rite = var:DI_primary_character.faith.main_rite
+        }
+        scope:target_rite = { NOT = { rite_has_doctrine = scope:doctrine } }
+    }
+    effect = {
+        if = {
+            limit = {
+                exists = var:DI_primary_character
+                var:DI_primary_character = { is_alive = yes }
+                exists = var:DI_fe_character
+                var:DI_fe_character = var:DI_primary_character
+                exists = var:DI_fe_rite
+                OR = {
+                    AND = {
+                        has_variable = DI_fe_main_rite_mode
+                        var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+                    }
+                    AND = {
+                        NOT = { has_variable = DI_fe_main_rite_mode }
+                        var:DI_primary_character.rite = var:DI_fe_rite
+                    }
+                }
+                exists = scope:doctrine
+                scope:target_rite = var:DI_fe_rite
+                OR = {
+                    scope:main_only = flag:no
+                    scope:target_rite = var:DI_primary_character.faith.main_rite
+                }
+                scope:target_rite = { NOT = { rite_has_doctrine = scope:doctrine } }
+            }
+            # Native replacement overwrites only this doctrine group.
+            scope:target_rite = { change_rite_doctrine = scope:doctrine }
+        }
+    }
 }

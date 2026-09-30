@@ -3511,6 +3511,96 @@ DI_onager_effect = {
 	}
 }
 
+### Order Knights Spawner
+DI_order_knights_effect = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = { has_character_flag = pinned_for_edit }
+				save_scope_as = target
+
+				spawn_army = {
+					men_at_arms = {
+						type = order_knights
+						men = scope:DI_story.var:DI_army_spawner_increment_value
+					}
+					location = scope:target.location
+					inheritable = no
+					name = order_knights
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				men_at_arms = {
+					type = order_knights
+					men = scope:DI_story.var:DI_army_spawner_increment_value
+				}
+				location = root.location
+				inheritable = no
+				name = order_knights
+			}
+		}
+	}
+}
+
+### Order Serjeants Spawner
+DI_order_serjeants_effect = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_living_character = {
+				limit = { has_character_flag = pinned_for_edit }
+				save_scope_as = target
+
+				spawn_army = {
+					men_at_arms = {
+						type = order_serjeants
+						men = scope:DI_story.var:DI_army_spawner_increment_value
+					}
+					location = scope:target.location
+					inheritable = no
+					name = order_serjeants
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				men_at_arms = {
+					type = order_serjeants
+					men = scope:DI_story.var:DI_army_spawner_increment_value
+				}
+				location = root.location
+				inheritable = no
+				name = order_serjeants
+			}
+		}
+	}
+}
+
 ### Paiks Spawner
 DI_paiks_effect = {
 	scope = character
@@ -4406,51 +4496,6 @@ DI_teulu_effect = {
 				location = root.location
 				inheritable = no
 				name = teulu
-			}
-		}
-	}
-}
-
-### Teutonic Knights Spawner
-DI_teutonic_knights_effect = {
-	scope = character
-
-	effect = {
-		random_owned_story = {
-			limit = {
-				story_type = DI_misc_variables_story
-			}
-			save_scope_as = DI_story
-		}
-		
-		if = {
-			limit = {
-				scope:DI_story = { has_variable = DI_pinned_char_var }
-			}
-			every_living_character = {
-				limit = { has_character_flag = pinned_for_edit }
-				save_scope_as = target
-
-				spawn_army = {
-					men_at_arms = {
-						type = teutonic_knights
-						men = scope:DI_story.var:DI_army_spawner_increment_value
-					}
-					location = scope:target.location
-					inheritable = no
-					name = teutonic_knights
-				}
-			}
-		}
-		else = {
-			spawn_army = {
-				men_at_arms = {
-					type = teutonic_knights
-					men = scope:DI_story.var:DI_army_spawner_increment_value
-				}
-				location = root.location
-				inheritable = no
-				name = teutonic_knights
 			}
 		}
 	}
