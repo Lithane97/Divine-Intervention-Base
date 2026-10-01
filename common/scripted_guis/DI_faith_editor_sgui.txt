@@ -437,3 +437,53 @@ DI_fe_remove_doctrine_sgui = {
         }
     }
 }
+
+DI_fe_remove_tenet_sgui = {
+    scope = character
+    saved_scopes = { tenet target_rite }
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = { is_alive = yes }
+        exists = var:DI_fe_character
+        var:DI_fe_character = var:DI_primary_character
+        exists = var:DI_fe_rite
+        OR = {
+            AND = {
+                has_variable = DI_fe_main_rite_mode
+                var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+            }
+            AND = {
+                NOT = { has_variable = DI_fe_main_rite_mode }
+                var:DI_primary_character.rite = var:DI_fe_rite
+            }
+        }
+        exists = scope:tenet
+        scope:target_rite = var:DI_fe_rite
+        scope:target_rite = { rite_has_tenet = scope:tenet }
+    }
+    effect = {
+        if = {
+            limit = {
+                exists = var:DI_primary_character
+                var:DI_primary_character = { is_alive = yes }
+                exists = var:DI_fe_character
+                var:DI_fe_character = var:DI_primary_character
+                exists = var:DI_fe_rite
+                OR = {
+                    AND = {
+                        has_variable = DI_fe_main_rite_mode
+                        var:DI_primary_character.faith.main_rite = var:DI_fe_rite
+                    }
+                    AND = {
+                        NOT = { has_variable = DI_fe_main_rite_mode }
+                        var:DI_primary_character.rite = var:DI_fe_rite
+                    }
+                }
+                exists = scope:tenet
+                scope:target_rite = var:DI_fe_rite
+                scope:target_rite = { rite_has_tenet = scope:tenet }
+            }
+            scope:target_rite = { remove_rite_tenet = scope:tenet }
+        }
+    }
+}

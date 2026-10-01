@@ -108,6 +108,9 @@ window = {
                         datamodel = "[Rite.GetTenets]"
                         item = {
                             DI_fe_tenet_card = {
+                                button_ignore = none
+                                onrightclick = "[GetScriptedGui('DI_fe_remove_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
+                                tooltip = "DI_fe_tenet_core_tooltip"
                                 blockoverride "DI_fe_tenet_action" {
                                     onclick = "[GetScriptedGui('DI_fe_select_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
                                 }
