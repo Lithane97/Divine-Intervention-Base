@@ -35,13 +35,15 @@ window = {
             layoutpolicy_horizontal = expanding
             visible = "[Character.IsValid]"
             spacing = 12
+
+            # Icon+vbox are kept content-sized and flanked by expand spacers so the pair floats as one centered unit
+            expand = {}
             icon = {
                 size = { 65 65 }
                 texture = "[Faith.GetIcon]"
                 tooltipwidget = { faith_tooltip = {} }
             }
             vbox = {
-                layoutpolicy_horizontal = expanding
                 text_label_center = { text = "FAITH_VIEW_HEADING" }
                 text_single = { text = "FAITH_VIEW_SUBHEADING" align = center }
                 hbox = {
@@ -51,6 +53,9 @@ window = {
                     expand = {}
                 }
             }
+            # Mirrors the icon's footprint so the vbox (not just the group) centers on the window
+            spacer = { size = { 65 0 } }
+            expand = {}
         }
         text_label_center = { text = "FAITH_BELIEFS" }
         hbox = {
@@ -117,33 +122,12 @@ window = {
                             }
                         }
                     }
-                    DI_fe_doctrine_category = {
-                        datacontext = "[GetDoctrineCategoryType('main_group')]"
-                    }
-                    DI_fe_doctrine_category = {
-                        datacontext = "[GetDoctrineCategoryType('special')]"
-                    }
-                    DI_fe_doctrine_category = {
-                        datacontext = "[GetDoctrineCategoryType('marriage')]"
-                    }
-                    DI_fe_doctrine_category = {
-                        datacontext = "[GetDoctrineCategoryType('crimes')]"
-                    }
-                    DI_fe_doctrine_category = {
-                        datacontext = "[GetDoctrineCategoryType('clergy')]"
-                    }
-                    # Include additional visible categories supplied by other mods.
                     vbox = {
                         layoutpolicy_horizontal = expanding
-                        datamodel = "[GetAllDoctrineCategoryTypes]"
-                        item = {
-                            DI_fe_doctrine_category = {
-                                visible = "[And(DoctrineCategoryType.IsVisible, Nor5(ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('main_group')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('special')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('marriage')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('crimes')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('clergy'))))]"
-                                blockoverride "DI_fe_group_model" {
-                                    datamodel = "[DataModelFirst(GetAllDoctrineGroupTypes, Select_int32(And3(PdxGuiFoldOut.IsUnfolded, DoctrineCategoryType.IsVisible, Nor5(ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('main_group')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('special')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('marriage')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('crimes')), ObjectsEqual(DoctrineCategoryType.Self, GetDoctrineCategoryType('clergy')))), GetDataModelSize(GetAllDoctrineGroupTypes), '(int32)0'))]"
-                                }
-                            }
-                        }
+                        spacing = 8
+                        margin = { 8 8 }
+
+                        using = DI_fe_generated_catalogue
                     }
                 }
                 vbox = {

@@ -109,6 +109,9 @@ types DI_Faith_Editor_Types {
         layoutpolicy_horizontal = expanding
         visible = "[DoctrineCategoryType.IsVisible]"
         oncreate = "[BindFoldOutContext]"
+        block "DI_fe_initial_fold" {
+            oncreate = "[PdxGuiFoldOut.Fold]"
+        }
         button_expandable_toggle_field = {
             blockoverride "text" {
                 text = "[DoctrineCategoryType.GetName]"
@@ -119,12 +122,17 @@ types DI_Faith_Editor_Types {
             layoutpolicy_horizontal = expanding
             visible = "[PdxGuiFoldOut.IsUnfolded]"
             ignoreinvisible = yes
-            # Gate construction of rows for folded or hidden categories.
-            block "DI_fe_group_model" {
-                datamodel = "[DataModelFirst(GetAllDoctrineGroupTypes, Select_int32(And(PdxGuiFoldOut.IsUnfolded, DoctrineCategoryType.IsVisible), GetDataModelSize(GetAllDoctrineGroupTypes), '(int32)0'))]"
-            }
+            # A one-item gate builds only this category's generated groups.
+            # TenetType is unused here; the category context remains inherited.
+            datamodel = "[DataModelFirst(GetAllTenetTypes, Select_int32(And(PdxGuiFoldOut.IsUnfolded, DoctrineCategoryType.IsVisible), '(int32)1', '(int32)0'))]"
             item = {
-                DI_fe_doctrine_group = {}
+                # A datamodel item accepts exactly one root widget. Keep all
+                # generated sibling groups inside this shared layout container.
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    ignoreinvisible = yes
+                    block "DI_fe_category_groups" {}
+                }
             }
         }
     }
@@ -159,44 +167,74 @@ types DI_Faith_Editor_Types {
                 visible = "[DoctrineGroupType.HasIcon]"
                 texture = "[DoctrineGroupType.GetIcon]"
             }
-            # Main and special groups use the selected doctrine's icon in vanilla.
             flowcontainer = {
                 ignoreinvisible = yes
-                datamodel = "[DataModelFirst(GetAllDoctrineTypes, Select_int32(Not(DoctrineGroupType.HasIcon), GetDataModelSize(GetAllDoctrineTypes), '(int32)0'))]"
-                item = {
-                    icon_doctrine = {
-                        size = { 50 50 }
-                        visible = "[And(ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Rite.HasDoctrine(DoctrineType.Self))]"
-                        texture = "[DoctrineType.GetIcon]"
-                    }
-                }
+                block "DI_fe_group_icons" {}
             }
             divider_light = { layoutpolicy_vertical = expanding }
             vbox = {
                 layoutpolicy_horizontal = expanding
                 spacing = 2
                 ignoreinvisible = yes
-                # This vanilla group is defined in file order 0, 2, 1 rather
-                # than its UI index order. Render its three built-in choices
-                # explicitly; additional modded alternatives still appear below.
-                vbox = {
-                    layoutpolicy_horizontal = expanding
-                    visible = "[ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_clerical_gender'))]"
-                    spacing = 2
-                    DI_fe_doctrine_row = { datacontext = "[GetDoctrineType('doctrine_clerical_gender_male_only')]" }
-                    DI_fe_doctrine_row = { datacontext = "[GetDoctrineType('doctrine_clerical_gender_either')]" }
-                    DI_fe_doctrine_row = { datacontext = "[GetDoctrineType('doctrine_clerical_gender_female_only')]" }
-                }
-                datamodel = "[DataModelFirst(GetAllDoctrineTypes, Select_int32(ObjectsEqual(DoctrineGroupType.GetCategory, DoctrineCategoryType.Self), GetDataModelSize(GetAllDoctrineTypes), '(int32)0'))]"
+                block "DI_fe_group_rows" {}
+            }
+        }
+    }
+
+    type DI_fe_selected_doctrine_icon = icon_doctrine {
+        size = { 50 50 }
+        visible = "[And(Not(DoctrineGroupType.HasIcon), Rite.HasDoctrine(DoctrineType.Self))]"
+        texture = "[DoctrineType.GetIcon]"
+    }
+
+    # One catalogue scan, only when Overflow is expanded. Unknown definitions
+    # remain editable without generating a group-by-catalogue widget product.
+    type DI_fe_overflow_category = vbox {
+        layoutpolicy_horizontal = expanding
+        oncreate = "[BindFoldOutContext]"
+        oncreate = "[PdxGuiFoldOut.Fold]"
+        button_expandable_toggle_field = {
+            blockoverride "text" {
+                text = "DI_fe_overflow"
+                default_format = "#T"
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            visible = "[PdxGuiFoldOut.IsUnfolded]"
+            spacing = 4
+            text_multi = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_fe_overflow_help"
+                default_format = "#low"
+            }
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                ignoreinvisible = yes
+                datamodel = "[DataModelFirst(GetAllDoctrineTypes, Select_int32(PdxGuiFoldOut.IsUnfolded, GetDataModelSize(GetAllDoctrineTypes), '(int32)0'))]"
                 item = {
-                    # A lightweight filter keeps thousands of invisible full rows
-                    # out of the widget tree. The one-item category model is only
-                    # a construction gate; DoctrineType remains inherited here.
                     vbox = {
                         layoutpolicy_horizontal = expanding
-                        visible = "[And3(Or3(DoctrineType.IsVisible, ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_head_of_faith')), ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('special_tolerance'))), ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only'))))]"
-                        datamodel = "[DataModelFirst(GetAllDoctrineCategoryTypes, Select_int32(And3(Or3(DoctrineType.IsVisible, ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('doctrine_head_of_faith')), ObjectsEqual(DoctrineGroupType.Self, GetDoctrineGroupType('special_tolerance'))), ObjectsEqual(DoctrineType.GetGroup, DoctrineGroupType.Self), Nor3(ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_male_only')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_either')), ObjectsEqual(DoctrineType.Self, GetDoctrineType('doctrine_clerical_gender_female_only')))), '(int32)1', '(int32)0'))]"
-                        item = { DI_fe_doctrine_row = {} }
+                        datacontext = "[DoctrineType.GetGroup]"
+                        datamodel = "[DataModelFirst(GetAllTenetTypes, Select_int32(And(DoctrineType.IsVisible, GetScriptedGui('DI_fe_uncatalogued_doctrine_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('doctrine', DoctrineType.MakeScope).End)), '(int32)1', '(int32)0'))]"
+                        item = {
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 2
+                                margin = { 10 4 }
+                                text_single = {
+                                    text = "[DoctrineGroupType.GetName(Faith.Self)]"
+                                    default_format = "#S"
+                                }
+                                text_multi = {
+                                    layoutpolicy_horizontal = expanding
+                                    visible = "[And(DoctrineGroupType.IsOnlyForMainRite, Not(Rite.IsMain))]"
+                                    text = "DI_fe_main_rite_only"
+                                    default_format = "#low"
+                                }
+                                DI_fe_doctrine_row = {}
+                            }
+                        }
                     }
                 }
             }
