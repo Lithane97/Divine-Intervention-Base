@@ -1,0 +1,290 @@
+﻿# Rite-aware picker for the faith editor. Native foldouts avoid localized keys.
+types DI_fe_conversion_types {
+    type DI_fe_rite_picker = vbox {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+        scrollbox = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            minimumsize = { 0 120 }
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    block "DI_rite_picker_model" {
+                        datamodel = "[DataModelFirst(GetGlobalList('DI_religion_list'), Select_int32(GetVariableSystem.HasValue('DI_fe_tab', 'conversion'), GetDataModelSize(GetGlobalList('DI_religion_list')), '(int32)0'))]"
+                    }
+                    item = {
+                        vbox = {
+                            layoutpolicy_horizontal = expanding
+                            datacontext = "[Scope.Religion]"
+                            oncreate = "[BindFoldOutContext]"
+                            button_expandable_toggle_field = {
+                                tooltip = "RULER_DESIGNER_LIST_RELIGION_ENTRY_SELECT_TOOLTIP"
+                                blockoverride "text" { text = "[Religion.GetNameNoTooltip]" }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                margin_left = 15
+                                ignoreinvisible = yes
+                                datamodel = "[DataModelFirst(Religion.GetFaiths, Select_int32(PdxGuiFoldOut.IsUnfolded, GetDataModelSize(Religion.GetFaiths), '(int32)0'))]"
+                                item = {
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        oncreate = "[BindFoldOutContext]"
+                                        button_expandable_toggle_field = {
+                                            tooltip = "DI_rite_picker_faith_tt"
+                                            blockoverride "text" { text = "[Faith.GetNameNoTooltip]" }
+                                        }
+                                        vbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            margin_left = 15
+                                            spacing = 2
+                                            datamodel = "[DataModelFirst(Faith.GetRites, Select_int32(PdxGuiFoldOut.IsUnfolded, GetDataModelSize(Faith.GetRites), '(int32)0'))]"
+                                            item = {
+                                                button_standard_hover = {
+                                                    layoutpolicy_horizontal = expanding
+                                                    min_height = 44
+                                                    block "DI_rite_picker_action" {
+                                                        enabled = "[Rite.IsValid]"
+                                                        down = "[ObjectsEqual(Rite.Self, GetPlayer.MakeScope.Var('DI_fe_conversion_rite').Rite)]"
+                                                        onclick = "[GetScriptedGui('DI_fe_select_conversion_rite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"
+                                                    }
+                                                    hbox = {
+                                                        layoutpolicy_horizontal = expanding
+                                                        spacing = 8
+                                                        margin = { 6 4 }
+                                                        alwaystransparent = yes
+                                                        icon = { size = { 32 32 } texture = "[Rite.GetFaith.GetIcon]" }
+                                                        text_multi = {
+                                                            layoutpolicy_horizontal = expanding
+                                                            text = "[Rite.GetNameNoTooltip]"
+                                                            default_format = "#high"
+                                                        }
+                                                        text_single = {
+                                                            visible = "[Rite.IsMain]"
+                                                            text = "DI_fe_picker_main_rite"
+                                                            default_format = "#low"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        expand = {}
+    }
+    type DI_fe_conversion_panel = vbox {
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+        visible = "[GetVariableSystem.HasValue('DI_fe_tab', 'conversion')]"
+
+        text_multi = {
+            layoutpolicy_horizontal = expanding
+            align = center
+            text = "DI_fe_conversion_destination"
+            default_format = "#high"
+        }
+        text_multi = {
+            margin_left = 16
+            layoutpolicy_horizontal = expanding
+            text = "DI_fe_conversion_help"
+            default_format = "#low"
+        }
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            spacing = 6
+            button_standard = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_fe_use_primary_rite"
+                enabled = "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetRite.IsValid]"
+                onclick = "[GetScriptedGui('DI_fe_select_conversion_rite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', GetPlayer.MakeScope.Var('DI_primary_character').Char.GetRite.MakeScope).End)]"
+            }
+            button_standard = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_fe_use_secondary_rite"
+                enabled = "[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetRite.IsValid]"
+                onclick = "[GetScriptedGui('DI_fe_select_conversion_rite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetRite.MakeScope).End)]"
+            }
+            button_standard = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_fe_use_player_rite"
+                enabled = "[GetPlayer.GetRite.IsValid]"
+                onclick = "[GetScriptedGui('DI_fe_select_conversion_rite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', GetPlayer.GetRite.MakeScope).End)]"
+            }
+        }
+        DI_fe_rite_picker = {}
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_people"
+                down = "[Not(GetVariableSystem.Exists('DI_fe_conversion_area'))]"
+                onclick = "[GetVariableSystem.Clear('DI_fe_conversion_area')]"
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_counties"
+                down = "[GetVariableSystem.HasValue('DI_fe_conversion_area', 'counties')]"
+                onclick = "[GetVariableSystem.Set('DI_fe_conversion_area', 'counties')]"
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_sub_realm"
+                down = "[GetVariableSystem.HasValue('DI_fe_conversion_area', 'sub_realm')]"
+                onclick = "[GetVariableSystem.Set('DI_fe_conversion_area', 'sub_realm')]"
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                text = "DI_realm"
+                down = "[GetVariableSystem.HasValue('DI_fe_conversion_area', 'realm')]"
+                onclick = "[GetVariableSystem.Set('DI_fe_conversion_area', 'realm')]"
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            visible = "[Not(GetVariableSystem.Exists('DI_fe_conversion_area'))]"
+            spacing = 6
+            text_multi = { 
+                margin_left = 16
+                layoutpolicy_horizontal = expanding 
+                text = "DI_fe_conversion_people_help" 
+            }
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 6
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_people_selected_picked"
+                    tooltip = "DI_fe_convert_people_selected_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_people_pinned_picked"
+                    tooltip = "DI_fe_convert_people_pinned_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+            }
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 6
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_people_courtiers_picked"
+                    tooltip = "DI_fe_convert_people_courtiers_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('courtiers')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('courtiers')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_people_vassals_picked"
+                    tooltip = "DI_fe_convert_people_vassals_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('vassals')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('people')).AddScope('audience', MakeScopeFlag('vassals')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            visible = "[GetVariableSystem.HasValue('DI_fe_conversion_area', 'counties')]"
+            spacing = 6
+            text_multi = { 
+                margin_left = 16
+                layoutpolicy_horizontal = expanding 
+                text = "DI_fe_conversion_counties_help" 
+            }
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 6
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_counties_selected_picked"
+                    tooltip = "DI_fe_convert_counties_selected_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('counties')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('counties')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_counties_pinned_picked"
+                    tooltip = "DI_fe_convert_counties_pinned_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('counties')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('counties')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            visible = "[GetVariableSystem.HasValue('DI_fe_conversion_area', 'sub_realm')]"
+            spacing = 6
+            text_multi = { 
+                margin_left = 16
+                layoutpolicy_horizontal = expanding 
+                text = "DI_fe_conversion_sub_realm_help" 
+            }
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 6
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_sub_realm_selected_picked"
+                    tooltip = "DI_fe_convert_sub_realm_selected_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('sub_realm')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('sub_realm')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_sub_realm_pinned_picked"
+                    tooltip = "DI_fe_convert_sub_realm_pinned_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('sub_realm')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('sub_realm')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            visible = "[GetVariableSystem.HasValue('DI_fe_conversion_area', 'realm')]"
+            spacing = 6
+            text_multi = { 
+                margin_left = 16
+                layoutpolicy_horizontal = expanding 
+                text = "DI_fe_conversion_realm_help" 
+            }
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                spacing = 6
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_realm_selected_picked"
+                    tooltip = "DI_fe_convert_realm_selected_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('realm')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('realm')).AddScope('audience', MakeScopeFlag('selected')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "DI_fe_convert_realm_pinned_picked"
+                    tooltip = "DI_fe_convert_realm_pinned_picked_tt"
+                    using = tooltip_ne
+                    enabled = "[GetScriptedGui('DI_fe_convert_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('realm')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                    onclick = "[GetScriptedGui('DI_fe_convert_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('area', MakeScopeFlag('realm')).AddScope('audience', MakeScopeFlag('pinned')).AddScope('target_mode', MakeScopeFlag('picked')).End)]"
+                }
+            }
+        }
+    }
+}

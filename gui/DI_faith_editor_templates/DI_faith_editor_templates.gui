@@ -2,6 +2,7 @@
 template DI_Faith_Editor_Anim {
     state = {
         name = _show
+        on_start = "[GetVariableSystem.Clear('DI_fe_tab')]"
         using = Animation_FadeIn_Quick
         on_start = "[GetScriptedGui('DI_faith_editor_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_start = "[GetScriptedGui('DI_fe_sync_target_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"

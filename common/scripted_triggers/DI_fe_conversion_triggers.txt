@@ -1,0 +1,31 @@
+﻿# Root is the player. All conversion commands validate the same argument set.
+DI_fe_conversion_valid_trigger = {
+    OR = {
+        scope:area = flag:people
+        scope:area = flag:counties
+        scope:area = flag:sub_realm
+        scope:area = flag:realm
+    }
+    OR = {
+        AND = { scope:target_mode = flag:picked exists = var:DI_fe_conversion_rite }
+        AND = { scope:target_mode = flag:player exists = root.rite }
+    }
+    OR = {
+        AND = {
+            scope:audience = flag:selected
+            exists = var:DI_primary_character
+            var:DI_primary_character = { is_alive = yes }
+        }
+        AND = {
+            scope:audience = flag:pinned
+            any_in_list = { variable = pinned_characters is_alive = yes }
+        }
+        AND = { scope:audience = flag:player is_alive = yes }
+        AND = {
+            scope:area = flag:people
+            OR = { scope:audience = flag:courtiers scope:audience = flag:vassals }
+            exists = var:DI_primary_character
+            var:DI_primary_character = { is_alive = yes }
+        }
+    }
+}

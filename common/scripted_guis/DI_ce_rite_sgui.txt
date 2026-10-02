@@ -1,0 +1,40 @@
+﻿# The character editor edits the player unless its shared pinned checkbox is set.
+DI_ce_convert_to_rite_sgui = {
+    scope = character
+    saved_scopes = { selected_rite }
+    is_valid = {
+        exists = scope:selected_rite
+        OR = {
+            AND = {
+                var:DI_misc_variables_story = { has_variable = DI_pinned_char_var }
+                any_in_list = { variable = pinned_characters is_alive = yes }
+            }
+            AND = {
+                NOT = { var:DI_misc_variables_story = { has_variable = DI_pinned_char_var } }
+                is_alive = yes
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { exists = scope:selected_rite }
+            if = {
+                limit = { var:DI_misc_variables_story = { has_variable = DI_pinned_char_var } }
+                every_in_list = {
+                    variable = pinned_characters
+                    limit = { is_alive = yes }
+                    add_to_list = DI_ce_rite_targets
+                }
+            }
+            else_if = {
+                limit = { is_alive = yes }
+                add_to_list = DI_ce_rite_targets
+            }
+            every_in_list = {
+                list = DI_ce_rite_targets
+                limit = { is_alive = yes NOT = { rite = scope:selected_rite } }
+                set_character_rite = scope:selected_rite
+            }
+        }
+    }
+}

@@ -1,0 +1,104 @@
+﻿DI_fe_conversion_init_sgui = {
+    scope = character
+    effect = {
+        if = {
+            limit = { NOT = { exists = var:DI_fe_conversion_rite } }
+            if = {
+                limit = { exists = var:DI_secondary_character.rite }
+                set_variable = { name = DI_fe_conversion_rite value = var:DI_secondary_character.rite }
+            }
+            else_if = {
+                limit = { exists = var:DI_primary_character.rite }
+                set_variable = { name = DI_fe_conversion_rite value = var:DI_primary_character.rite }
+            }
+        }
+    }
+}
+
+DI_fe_select_conversion_rite_sgui = {
+    scope = character
+    saved_scopes = { selected_rite }
+    is_valid = { exists = scope:selected_rite }
+    effect = {
+        if = {
+            limit = { exists = scope:selected_rite }
+            set_variable = { name = DI_fe_conversion_rite value = scope:selected_rite }
+        }
+    }
+}
+
+DI_fe_convert_sgui = {
+    scope = character
+    saved_scopes = { area audience target_mode }
+    is_valid = { DI_fe_conversion_valid_trigger = yes }
+    effect = {
+        if = {
+            limit = { DI_fe_conversion_valid_trigger = yes }
+            # Save the actual destination before any character changes rite.
+            if = {
+                limit = { scope:target_mode = flag:player }
+                root.rite = { save_scope_as = DI_fe_destination }
+            }
+            else = {
+                var:DI_fe_conversion_rite = { save_scope_as = DI_fe_destination }
+            }
+            if = {
+                limit = { scope:audience = flag:selected }
+                var:DI_primary_character = { add_to_list = DI_fe_conversion_roots }
+            }
+            else_if = {
+                limit = { scope:audience = flag:pinned }
+                every_in_list = {
+                    variable = pinned_characters
+                    limit = { is_alive = yes }
+                    add_to_list = DI_fe_conversion_roots
+                }
+            }
+            else_if = {
+                limit = { scope:audience = flag:player }
+                add_to_list = DI_fe_conversion_roots
+            }
+            else_if = {
+                limit = { scope:audience = flag:courtiers }
+                var:DI_primary_character = {
+                    every_courtier = { DI_fe_collect_conversion_person_effect = yes }
+                }
+            }
+            else_if = {
+                limit = { scope:audience = flag:vassals }
+                var:DI_primary_character = {
+                    every_vassal = { DI_fe_collect_conversion_person_effect = yes }
+                }
+            }
+            every_in_list = {
+                list = DI_fe_conversion_roots
+                if = {
+                    limit = { scope:area = flag:people }
+                    DI_fe_collect_conversion_person_effect = yes
+                }
+                else_if = {
+                    limit = { scope:area = flag:counties }
+                    every_sub_realm_county = { DI_fe_collect_conversion_county_effect = yes }
+                }
+                else_if = {
+                    limit = { scope:area = flag:sub_realm }
+                    DI_fe_collect_conversion_sub_realm_effect = yes
+                }
+                else_if = {
+                    limit = { scope:area = flag:realm }
+                    top_liege = { DI_fe_collect_conversion_sub_realm_effect = yes }
+                }
+            }
+            every_in_list = {
+                list = DI_fe_conversion_people
+                limit = { is_alive = yes NOT = { rite = scope:DI_fe_destination } }
+                set_character_rite = scope:DI_fe_destination
+            }
+            every_in_list = {
+                list = DI_fe_conversion_counties
+                limit = { NOT = { rite = scope:DI_fe_destination } }
+                set_county_rite = scope:DI_fe_destination
+            }
+        }
+    }
+}

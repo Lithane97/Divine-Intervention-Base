@@ -1,103 +1,29 @@
-﻿template DI_CE_Religion_Tab
-{
+﻿# Share the faith editor picker, with immediate character conversion on click.
+template DI_CE_Religion_Tab {
     vbox = {
         name = "religion_tab"
         visible = "[GetVariableSystem.HasValue('char_editor_tab', 'religion')]"
         layoutpolicy_horizontal = expanding
-
         margin = { 20 5 }
-
+        spacing = 6
         using = Animation_Tab_Switch
-
-        vbox = {
-            scrollbox = {
-                layoutpolicy_horizontal = expanding
-                size = { 400 350 }
-
-                blockoverride "scrollbox_content"
-                {
-                    vbox = {
-                        name = "religions"
-                        layoutpolicy_horizontal = expanding
-                        datamodel = "[GetGlobalList('DI_religion_list')]"
-
-                        item = {
-                            vbox = {
-                                name = "religion"
-                                datacontext = "[Scope.Religion]"
-                                layoutpolicy_horizontal = expanding
-
-                                hbox = {
-                                    layoutpolicy_horizontal = expanding
-                                    tooltip = "RULER_DESIGNER_LIST_RELIGION_ENTRY_SELECT_TOOLTIP"
-
-                                    button_standard_hover = {
-                                        layoutpolicy_horizontal = expanding
-                                        onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
-
-                                        hbox = {
-                                            margin = { 5 0 }
-                                            spacing = 10
-
-                                            button_list_expand = {
-                                                checked = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
-                                                onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
-                                            }
-
-                                            text_single = {
-                                                layoutpolicy_horizontal = expanding
-                                                text = "[Religion.GetNameNoTooltip]"
-                                                size = { 0 40 }
-                                                align = nobaseline
-                                                default_format = "#clickable"
-                                                autoresize = no
-                                            }
-                                        }
-                                    }
-                                }
-
-                                vbox = {
-                                    name = "faiths"
-                                    datamodel = "[Religion.GetFaiths]"
-                                    visible = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(Religion.GetNameNoTooltip, '_children_visible'))]"
-                                    layoutpolicy_horizontal = expanding
-
-                                    item = {
-                                        hbox = {
-                                            layoutpolicy_horizontal = expanding
-
-                                            button_standard_hover = {
-                                                name = "faith_item"
-                                                layoutpolicy_horizontal = expanding
-                                                size = { 0 55 }
-                                                using = Button_Select_Faith
-                                                onclick = "[GetScriptedGui('DI_religion_change').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
-
-                                                hbox = {
-                                                    margin = { 5 0 }
-                                                    margin_left = 30
-                                                    spacing = 10
-
-                                                    icon = {
-                                                        name = "faith_icon"
-                                                        size = { 50 50 }
-                                                        texture = "[Faith.GetIcon]"
-                                                    }
-
-                                                    text_single = {
-                                                        layoutpolicy_horizontal = expanding
-                                                        text = "[Faith.GetNameNoTooltip]"
-                                                        default_format = "#clickable"
-                                                        autoresize = no
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+        text_multi = {
+            layoutpolicy_horizontal = expanding
+            text = "DI_ce_rite_picker_help"
+        }
+        widget = {
+            size = { 540 300 }
+            DI_fe_rite_picker = {
+                size = { 100% 100% }
+                blockoverride "DI_rite_picker_model" {
+                    datamodel = "[DataModelFirst(GetGlobalList('DI_religion_list'), Select_int32(GetVariableSystem.HasValue('char_editor_tab', 'religion'), GetDataModelSize(GetGlobalList('DI_religion_list')), '(int32)0'))]"
+                }
+                blockoverride "DI_rite_picker_action" {
+                    enabled = "[GetScriptedGui('DI_ce_convert_to_rite_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"
+                    down = "[And(Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet), ObjectsEqual(Rite.Self, GetPlayer.GetRite))]"
+                    tooltip = "DI_ce_rite_picker_tt"
+                    using = tooltip_ne
+                    onclick = "[GetScriptedGui('DI_ce_convert_to_rite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"
                 }
             }
         }
