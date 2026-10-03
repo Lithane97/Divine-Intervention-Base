@@ -4,15 +4,22 @@ template DI_CE_Culture_Tab
 		name = "culture_tab"
 		visible = "[GetVariableSystem.HasValue('char_editor_tab', 'culture')]"
 		layoutpolicy_horizontal = expanding
+		spacing = 6
 
 		margin = { 20 5 }
 
 		using = Animation_Tab_Switch
 
+		text_multi = {
+			layoutpolicy_horizontal = expanding
+			text = "DI_ce_culture_picker_help"
+		}
+
 		vbox = {
 			scrollbox = {
 				layoutpolicy_horizontal = expanding
-				size = { 400 350 }
+				size = { 540 300 }
+				maximumsize = { 540 300 }
 
 				blockoverride "scrollbox_content"
 				{

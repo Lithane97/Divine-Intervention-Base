@@ -299,6 +299,10 @@ DI_apply_title_manager_filter_choice = {
         if = {
             limit = { scope:filter_choice = flag:DI_title_filter_sort_rank }
 
+            # Ordered iterators default to one result; sort the entire pinned list.
+            DI_recount_title_counters = yes
+            clear_variable_list = DI_sorted_titles
+
             if = {
                 limit = {
                     NOT = { has_variable = DI_sort_descending }
@@ -313,11 +317,14 @@ DI_apply_title_manager_filter_choice = {
 
                 ordered_in_list = {
                     variable = DI_pinned_titles
+                    max = scope:player.var:DI_pinned_count
+                    check_range_bounds = no
                     order_by = tier
+                    save_scope_as = title
                     scope:player = {
                         add_to_variable_list = {
                             name = DI_sorted_titles
-                            target = prev
+                            target = scope:title
                         }
                     }
                 }
@@ -330,14 +337,17 @@ DI_apply_title_manager_filter_choice = {
 
                 ordered_in_list = {
                     variable = DI_pinned_titles
+                    max = scope:player.var:DI_pinned_count
+                    check_range_bounds = no
                     order_by = {
                         value = tier
                         multiply = -1
                     }
+                    save_scope_as = title
                     scope:player = {
                         add_to_variable_list = {
                             name = DI_sorted_titles
-                            target = prev
+                            target = scope:title
                         }
                     }
                 }
