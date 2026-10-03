@@ -1,5 +1,25 @@
 ﻿# Rite-aware picker for the faith editor. Native foldouts avoid localized keys.
 types DI_fe_conversion_types {
+    # Use list-row toggle graphics directly, avoiding framed-button overframe.
+    type DI_picker_expandable_selected = button_standard_hover {
+        layoutpolicy_horizontal = expanding
+        min_height = 37
+        block "onclick" { onclick = "[PdxGuiFoldOut.Toggle]" }
+        hbox = {
+            margin = { 10 0 }
+            layoutpolicy_horizontal = expanding
+            spacing = 5
+            button_expand_fold_out = { block "foldout_button" {} }
+            text_single = {
+                layoutpolicy_horizontal = expanding
+                align = nobaseline
+                alwaystransparent = yes
+                autoresize = no
+                block "text" {}
+            }
+        }
+    }
+
     type DI_fe_rite_picker = vbox {
         layoutpolicy_horizontal = expanding
         layoutpolicy_vertical = expanding
@@ -18,7 +38,10 @@ types DI_fe_conversion_types {
                             layoutpolicy_horizontal = expanding
                             datacontext = "[Scope.Religion]"
                             oncreate = "[BindFoldOutContext]"
-                            button_expandable_toggle_field = {
+                            DI_picker_expandable_selected = {
+                                block "DI_rite_picker_religion_selection" {
+                                    down = "[ObjectsEqual(Religion.Self, GetPlayer.MakeScope.Var('DI_fe_conversion_rite').Rite.GetFaith.GetReligion)]"
+                                }
                                 tooltip = "RULER_DESIGNER_LIST_RELIGION_ENTRY_SELECT_TOOLTIP"
                                 blockoverride "text" { text = "[Religion.GetNameNoTooltip]" }
                             }
@@ -31,7 +54,10 @@ types DI_fe_conversion_types {
                                     vbox = {
                                         layoutpolicy_horizontal = expanding
                                         oncreate = "[BindFoldOutContext]"
-                                        button_expandable_toggle_field = {
+                                        DI_picker_expandable_selected = {
+                                            block "DI_rite_picker_faith_selection" {
+                                                down = "[ObjectsEqual(Faith.Self, GetPlayer.MakeScope.Var('DI_fe_conversion_rite').Rite.GetFaith)]"
+                                            }
                                             tooltip = "DI_rite_picker_faith_tt"
                                             blockoverride "text" { text = "[Faith.GetNameNoTooltip]" }
                                         }

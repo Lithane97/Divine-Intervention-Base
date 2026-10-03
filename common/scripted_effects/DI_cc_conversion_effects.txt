@@ -1,0 +1,24 @@
+﻿# Snapshot and deduplicate targets before conversion on-actions can change them.
+DI_cc_collect_conversion_person_effect = {
+    if = {
+        limit = { is_alive = yes NOT = { is_in_list = DI_cc_conversion_people } }
+        add_to_list = DI_cc_conversion_people
+    }
+}
+
+DI_cc_collect_conversion_county_effect = {
+    if = {
+        limit = { NOT = { is_in_list = DI_cc_conversion_counties } }
+        add_to_list = DI_cc_conversion_counties
+    }
+}
+
+DI_cc_collect_conversion_sub_realm_effect = {
+    DI_cc_collect_conversion_person_effect = yes
+    every_courtier = { DI_cc_collect_conversion_person_effect = yes }
+    every_vassal_or_below = {
+        DI_cc_collect_conversion_person_effect = yes
+        every_courtier = { DI_cc_collect_conversion_person_effect = yes }
+    }
+    every_sub_realm_county = { DI_cc_collect_conversion_county_effect = yes }
+}

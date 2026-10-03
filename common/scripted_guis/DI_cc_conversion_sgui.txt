@@ -1,0 +1,94 @@
+﻿# Reopening starts with the cultural editor's primary character's culture.
+DI_cc_conversion_init_sgui = {
+    scope = character
+    effect = {
+        remove_variable = DI_cc_conversion_culture
+        if = {
+            limit = { exists = var:DI_innovation_selected_char.culture }
+            set_variable = { name = DI_cc_conversion_culture value = var:DI_innovation_selected_char.culture }
+        }
+    }
+}
+
+# Picking a destination never converts a character or changes the editing culture.
+DI_cc_select_conversion_culture_sgui = {
+    scope = character
+    saved_scopes = { selected_culture }
+    is_valid = { exists = scope:selected_culture }
+    effect = {
+        if = {
+            limit = { exists = scope:selected_culture }
+            set_variable = { name = DI_cc_conversion_culture value = scope:selected_culture }
+        }
+    }
+}
+
+DI_cc_convert_sgui = {
+    scope = character
+    saved_scopes = { area audience }
+    is_valid = { DI_cc_conversion_valid_trigger = yes }
+    effect = {
+        if = {
+            limit = { DI_cc_conversion_valid_trigger = yes }
+            # Save the destination before any target changes culture.
+            var:DI_cc_conversion_culture = { save_scope_as = DI_cc_destination }
+            if = {
+                limit = { scope:audience = flag:selected }
+                var:DI_innovation_selected_char = { add_to_list = DI_cc_conversion_roots }
+            }
+            else_if = {
+                limit = { scope:audience = flag:pinned }
+                every_in_list = {
+                    variable = pinned_characters
+                    limit = { is_alive = yes }
+                    add_to_list = DI_cc_conversion_roots
+                }
+            }
+            else_if = {
+                limit = { scope:audience = flag:player }
+                add_to_list = DI_cc_conversion_roots
+            }
+            else_if = {
+                limit = { scope:audience = flag:courtiers }
+                var:DI_innovation_selected_char = {
+                    every_courtier = { DI_cc_collect_conversion_person_effect = yes }
+                }
+            }
+            else_if = {
+                limit = { scope:audience = flag:vassals }
+                var:DI_innovation_selected_char = {
+                    every_vassal = { DI_cc_collect_conversion_person_effect = yes }
+                }
+            }
+            every_in_list = {
+                list = DI_cc_conversion_roots
+                if = {
+                    limit = { scope:area = flag:people }
+                    DI_cc_collect_conversion_person_effect = yes
+                }
+                else_if = {
+                    limit = { scope:area = flag:counties }
+                    every_sub_realm_county = { DI_cc_collect_conversion_county_effect = yes }
+                }
+                else_if = {
+                    limit = { scope:area = flag:sub_realm }
+                    DI_cc_collect_conversion_sub_realm_effect = yes
+                }
+                else_if = {
+                    limit = { scope:area = flag:realm }
+                    top_liege = { DI_cc_collect_conversion_sub_realm_effect = yes }
+                }
+            }
+            every_in_list = {
+                list = DI_cc_conversion_people
+                limit = { is_alive = yes NOT = { culture = scope:DI_cc_destination } }
+                set_culture = scope:DI_cc_destination
+            }
+            every_in_list = {
+                list = DI_cc_conversion_counties
+                limit = { NOT = { culture = scope:DI_cc_destination } }
+                set_county_culture = scope:DI_cc_destination
+            }
+        }
+    }
+}

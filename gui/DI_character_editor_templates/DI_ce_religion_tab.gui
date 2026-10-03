@@ -18,6 +18,12 @@ template DI_CE_Religion_Tab {
                 blockoverride "DI_rite_picker_model" {
                     datamodel = "[DataModelFirst(GetGlobalList('DI_religion_list'), Select_int32(GetVariableSystem.HasValue('char_editor_tab', 'religion'), GetDataModelSize(GetGlobalList('DI_religion_list')), '(int32)0'))]"
                 }
+                blockoverride "DI_rite_picker_religion_selection" {
+                    down = "[And(Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet), ObjectsEqual(Religion.Self, GetPlayer.GetRite.GetFaith.GetReligion))]"
+                }
+                blockoverride "DI_rite_picker_faith_selection" {
+                    down = "[And(Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet), ObjectsEqual(Faith.Self, GetPlayer.GetRite.GetFaith))]"
+                }
                 blockoverride "DI_rite_picker_action" {
                     enabled = "[GetScriptedGui('DI_ce_convert_to_rite_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"
                     down = "[And(Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet), ObjectsEqual(Rite.Self, GetPlayer.GetRite))]"

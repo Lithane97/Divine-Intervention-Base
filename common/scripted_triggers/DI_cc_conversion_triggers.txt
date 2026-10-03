@@ -1,0 +1,28 @@
+﻿# Root is the player. All conversion commands validate the same argument set.
+DI_cc_conversion_valid_trigger = {
+    OR = {
+        scope:area = flag:people
+        scope:area = flag:counties
+        scope:area = flag:sub_realm
+        scope:area = flag:realm
+    }
+    exists = var:DI_cc_conversion_culture
+    OR = {
+        AND = {
+            scope:audience = flag:selected
+            exists = var:DI_innovation_selected_char
+            var:DI_innovation_selected_char = { is_alive = yes }
+        }
+        AND = {
+            scope:audience = flag:pinned
+            any_in_list = { variable = pinned_characters is_alive = yes }
+        }
+        AND = { scope:audience = flag:player is_alive = yes }
+        AND = {
+            scope:area = flag:people
+            OR = { scope:audience = flag:courtiers scope:audience = flag:vassals }
+            exists = var:DI_innovation_selected_char
+            var:DI_innovation_selected_char = { is_alive = yes }
+        }
+    }
+}

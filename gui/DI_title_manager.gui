@@ -43,6 +43,7 @@ window = {
             # Conversion tab
             button_tab = {
                 layoutpolicy_horizontal = expanding
+                onclick = "[GetScriptedGui('DI_tm_rite_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                 onclick = "[GetVariableSystem.Set('title_manager_tab', 'conversion')]"
                 down = "[GetVariableSystem.HasValue('title_manager_tab', 'conversion')]"
 
@@ -225,7 +226,9 @@ window = {
                             vbox = {
                                 button_standard = {
                                     onclick = "[GetScriptedGui('DI_convert_titles_faith_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    text = DI_convert_religion
+                                    enabled = "[GetScriptedGui('DI_convert_titles_faith_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    tooltip = DI_tm_convert_rite_tt
+                                    text = DI_tm_convert_rite
                                 }
                             }
 
@@ -252,18 +255,19 @@ window = {
 
                             # religion selector
                             button_standard = {
-                                datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_religion').Faith]"
+                                datacontext = "[GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_rite').Rite]"
+                                tooltip = DI_tm_select_rite_tt
                                 onclick = "[GetVariableSystem.Toggle('DI_TM_religion_window_visible')]"
 
                                 hbox = {
                                     icon = {
                                         size = { 30 30 }
-                                        texture = "[Faith.GetIcon]"
+                                        texture = "[Rite.GetFaith.GetIcon]"
                                     }
 
                                     text_single = {
                                         layoutpolicy_horizontal = expanding
-                                        text = "[Faith.GetNameNoTooltip]"
+                                        text = "[Rite.GetNameNoTooltip]"
                                         default_format = "#clickable"
                                     }
                                 }
@@ -1028,7 +1032,7 @@ window = {
     name = "DI_TM_religion_window"
     parentanchor = top|right
     position = { -600 100 }
-    size = { 500 700 }
+    size = { 600 700 }
     layer = windows_layer
     filter_mouse = all
     allow_outside = yes
@@ -1046,6 +1050,7 @@ window = {
         name = _show
         using = Animation_FadeIn_Quick
 
+        on_start = "[GetScriptedGui('DI_tm_rite_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_start = "[GetScriptedGui('DI_religion_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_finish = "[PdxGuiWidget.StackTop]"
     }
@@ -1065,7 +1070,7 @@ window = {
 
             blockoverride "header_text"
             {
-                text = DI_religion_menu_title
+                text = DI_tm_rite_menu_title
             }
 
             blockoverride "button_close"
@@ -1075,16 +1080,21 @@ window = {
             }
         }
 
-        DI_religion_scrollbox = {
-            blockoverride "onclick"
-            {
-                onclick = "[GetScriptedGui('DI_title_manager_religion').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
-                onclick = "[GetVariableSystem.Toggle('DI_TM_religion_window_visible')]"
+        DI_fe_rite_picker = {
+            blockoverride "DI_rite_picker_model" {
+                datamodel = "[DataModelFirst(GetGlobalList('DI_religion_list'), Select_int32(GetVariableSystem.Exists('DI_TM_religion_window_visible'), GetDataModelSize(GetGlobalList('DI_religion_list')), '(int32)0'))]"
             }
-
-            blockoverride "footer"
-            {
-
+            blockoverride "DI_rite_picker_religion_selection" {
+                down = "[ObjectsEqual(Religion.Self, GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_rite').Rite.GetFaith.GetReligion)]"
+            }
+            blockoverride "DI_rite_picker_faith_selection" {
+                down = "[ObjectsEqual(Faith.Self, GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_rite').Rite.GetFaith)]"
+            }
+            blockoverride "DI_rite_picker_action" {
+                enabled = "[Rite.IsValid]"
+                down = "[ObjectsEqual(Rite.Self, GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_title_manager_rite').Rite)]"
+                tooltip = DI_tm_pick_rite_tt
+                onclick = "[GetScriptedGui('DI_tm_select_rite_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"
             }
         }
     }

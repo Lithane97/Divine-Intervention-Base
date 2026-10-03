@@ -707,6 +707,8 @@ DI_title_manager_religion = {
 DI_convert_titles_faith_sgui = {
     scope = character # Player Character
 
+    is_valid = { exists = var:DI_misc_variables_story.var:DI_title_manager_rite }
+
     effect = {
         save_scope_as = player
 
@@ -718,24 +720,27 @@ DI_convert_titles_faith_sgui = {
         }
 
         scope:DI_story = {
-            var:DI_title_manager_religion = { save_scope_as = DI_selected_religion }
+            var:DI_title_manager_rite = { save_scope_as = DI_selected_rite }
         }
 
-        every_in_list = {
-            variable = DI_selected_titles
-            save_scope_as = title
-            if = {
-                limit = {
-                    tier = tier_county
+        if = {
+            limit = { exists = scope:DI_selected_rite }
+            every_in_list = {
+                variable = DI_selected_titles
+                save_scope_as = title
+                if = {
+                    limit = {
+                        tier = tier_county
+                    }
+                    set_county_rite = scope:DI_selected_rite
                 }
-                set_county_faith = scope:DI_selected_religion
-            }
-            else_if = {
-                limit = {
-                    tier > tier_county
-                }
-                every_de_jure_county = {
-                    set_county_faith = scope:DI_selected_religion
+                else_if = {
+                    limit = {
+                        tier > tier_county
+                    }
+                    every_de_jure_county = {
+                        set_county_rite = scope:DI_selected_rite
+                    }
                 }
             }
         }

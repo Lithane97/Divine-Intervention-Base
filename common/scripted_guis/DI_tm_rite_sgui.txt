@@ -1,0 +1,33 @@
+﻿# Independent destination for the title manager; migrate existing faith selections.
+DI_tm_rite_init_sgui = {
+    scope = character
+    effect = {
+        var:DI_misc_variables_story = {
+            if = {
+                limit = { NOT = { exists = var:DI_title_manager_rite } }
+                if = {
+                    limit = { exists = var:DI_title_manager_religion.main_rite }
+                    set_variable = { name = DI_title_manager_rite value = var:DI_title_manager_religion.main_rite }
+                }
+                else_if = {
+                    limit = { exists = root.rite }
+                    set_variable = { name = DI_title_manager_rite value = root.rite }
+                }
+            }
+        }
+    }
+}
+
+DI_tm_select_rite_sgui = {
+    scope = character
+    saved_scopes = { selected_rite }
+    is_valid = { exists = scope:selected_rite exists = var:DI_misc_variables_story }
+    effect = {
+        if = {
+            limit = { exists = scope:selected_rite exists = var:DI_misc_variables_story }
+            var:DI_misc_variables_story = {
+                set_variable = { name = DI_title_manager_rite value = scope:selected_rite }
+            }
+        }
+    }
+}

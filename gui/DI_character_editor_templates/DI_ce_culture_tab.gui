@@ -33,11 +33,12 @@ template DI_CE_Culture_Tab
 		
 									size = { 0 40 }
 									onclick = "[GetVariableSystem.Toggle(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
-									tooltip = RULER_DESIGNER_LIST_CULTURE_ENTRY_TOOLTIP
+									down = "[And(Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet), ObjectsEqual(CulturePillar.Self, GetPlayer.GetCulture.GetHeritage))]"
+									tooltip = DI_culture_picker_category_tt
 		
 									hbox = {
-										margin = { 5 0 }
-										spacing = 10
+										margin = { 10 0 }
+										spacing = 5
 		
 										button_list_expand = {
 											checked = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
@@ -56,6 +57,8 @@ template DI_CE_Culture_Tab
 		
 								vbox = {
 									name = "cultures"
+									margin_left = 15
+									spacing = 2
 									layoutpolicy_horizontal = expanding
 									datamodel = "[CulturePillar.GetCulturesWithPillar]"
 									visible = "[GetVariableSystem.Exists(ConcatIfNeitherEmpty(CulturePillar.GetNameNoTooltip,'children_visible'))]"
@@ -68,7 +71,8 @@ template DI_CE_Culture_Tab
 											button_standard_hover = {
 												name = "culture_item"
 												layoutpolicy_horizontal = expanding
-												size = { 0 35 }
+												down = "[And(Not(GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_pinned_char_var').IsSet), ObjectsEqual(Culture.Self, GetPlayer.GetCulture))]"
+												min_height = 44
 												tooltipwidget = {
 													ruler_designer_culture_tooltip = {}
 												}
@@ -80,13 +84,14 @@ template DI_CE_Culture_Tab
 												}
 
 												hbox = {
-													margin_left = 50
+													layoutpolicy_horizontal = expanding
+													margin = { 6 4 }
+													alwaystransparent = yes
 		
-													text_single = {
-														margin = { 5 0 }
+													text_multi = {
+														layoutpolicy_horizontal = expanding
 														text = "[Culture.GetNameNoTooltip]"
-														default_format = "#clickable"
-														align = nobaseline
+														default_format = "#high"
 													}
 		
 													expand = {}
