@@ -47,3 +47,18 @@ DI_selected_relations_are_compatible_trigger = {
         has_variable = DI_victim
     }
 }
+
+# Shared requirements for the Diplomacy Manager title actions.
+DI_dip_can_use_title_actions = {
+    exists = var:DI_primary_character
+    any_in_list = {
+        variable = DI_pinned_titles
+        always = yes
+    }
+}
+
+# Character selections required by the Treaty and Form Alliance buttons.
+DI_dip_has_treaty_characters = {
+    exists = var:DI_primary_character
+    exists = var:DI_secondary_character
+}

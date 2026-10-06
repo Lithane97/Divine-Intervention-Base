@@ -1059,6 +1059,8 @@ DI_dip_length_toggle = {
 DI_dip_treaty = {
     scope = character
 
+    is_valid = { DI_dip_has_treaty_characters = yes }
+
     effect = {
         save_scope_as = player
         random_owned_story = {
@@ -1070,8 +1072,7 @@ DI_dip_treaty = {
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                DI_dip_has_treaty_characters = yes
             }
             var:DI_primary_character = {
                 if = {
@@ -1102,13 +1103,14 @@ DI_dip_treaty = {
 DI_dip_break_treaty = {
     scope = character
 
+    is_valid = { DI_dip_has_treaty_characters = yes }
+
     effect = {
         save_scope_as = player
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                DI_dip_has_treaty_characters = yes
             }
             var:DI_primary_character = {
                 cancel_truce_both_ways = scope:player.var:DI_secondary_character
@@ -1285,13 +1287,14 @@ DI_dip_every_pinned_break_treaty = {
 DI_dip_alliance = {
     scope = character
 
+    is_valid = { DI_dip_has_treaty_characters = yes }
+
     effect = {
         save_scope_as = player
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                DI_dip_has_treaty_characters = yes
             }
             var:DI_primary_character = {
                 allow_alliance = scope:player.var:DI_secondary_character
@@ -1349,15 +1352,43 @@ DI_dip_vassalize = {
     }
 }
 
-DI_dip_take_titles = {
+### Claim Titles ###
+DI_dip_claim_titles = {
     scope = character
+
+    is_valid = { DI_dip_can_use_title_actions = yes }
 
     effect = {
         save_scope_as = player
 
         if = {
             limit = {
-                has_variable = DI_primary_character
+                DI_dip_can_use_title_actions = yes
+            }
+
+            every_in_list = {
+                variable = DI_selected_titles
+                save_scope_as = selected_title
+
+                scope:player.var:DI_primary_character = {
+                    add_pressed_claim = scope:selected_title
+                }
+            }
+        }
+    }
+}
+
+DI_dip_take_titles = {
+    scope = character
+
+    is_valid = { DI_dip_can_use_title_actions = yes }
+
+    effect = {
+        save_scope_as = player
+
+        if = {
+            limit = {
+                DI_dip_can_use_title_actions = yes
             }
 
             every_in_list = {
@@ -1376,13 +1407,14 @@ DI_dip_take_titles = {
 DI_dip_break_alliance = {
     scope = character
 
+    is_valid = { DI_dip_has_treaty_characters = yes }
+
     effect = {
         save_scope_as = player
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                DI_dip_has_treaty_characters = yes
             }
             var:DI_primary_character = {
                 if = {
