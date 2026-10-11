@@ -1098,7 +1098,7 @@ DI_dip_conflict_primary_young = {
     type = character
     text = {
         trigger = {
-            DI_dip_pair_valid = yes
+            DI_dip_family_pair_valid = yes
             var:DI_primary_character.age <= var:DI_secondary_character.age
         }
         localization_key = DI_dip_conflict_primary_young_text
@@ -1111,8 +1111,6 @@ DI_dip_conflict_tertiary_young = {
         trigger = {
             exists = var:DI_tertiary_character
             exists = var:DI_secondary_character
-            var:DI_tertiary_character = { is_alive = yes }
-            var:DI_secondary_character = { is_alive = yes }
             var:DI_tertiary_character.age <= var:DI_secondary_character.age
         }
         localization_key = DI_dip_conflict_tertiary_young_text
@@ -1136,9 +1134,8 @@ DI_dip_conflict_parent_sexes = {
     text = {
         trigger = {
             exists = var:DI_tertiary_character
-            DI_dip_pair_valid = yes
+            DI_dip_family_pair_valid = yes
             NOT = { var:DI_primary_character = var:DI_tertiary_character }
-            var:DI_tertiary_character = { is_alive = yes }
             OR = {
                 AND = {
                     var:DI_primary_character = { is_male = yes }
@@ -1158,7 +1155,7 @@ DI_dip_conflict_already_parents = {
     type = character
     text = {
         trigger = {
-            DI_dip_pair_valid = yes
+            DI_dip_family_pair_valid = yes
             var:DI_primary_character = {
                 is_parent_of = root.var:DI_secondary_character
             }

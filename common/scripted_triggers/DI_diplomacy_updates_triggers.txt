@@ -1,4 +1,11 @@
 ﻿# These triggers are evaluated with the controlling player as root.
+# Family edits can target living or dead characters.
+DI_dip_family_pair_valid = {
+    exists = var:DI_primary_character
+    exists = var:DI_secondary_character
+    NOT = { var:DI_primary_character = var:DI_secondary_character }
+}
+
 DI_dip_pair_valid = {
     exists = var:DI_primary_character
     exists = var:DI_secondary_character
@@ -81,11 +88,11 @@ DI_dip_can_end_selected_war = {
 }
 
 DI_dip_can_set_parents = {
-    DI_dip_pair_valid = yes
+    DI_dip_family_pair_valid = yes
     var:DI_primary_character.age > var:DI_secondary_character.age
     trigger_if = {
         limit = { has_variable = DI_tertiary_character }
-        var:DI_tertiary_character = { is_alive = yes }
+        exists = var:DI_tertiary_character
         var:DI_tertiary_character.age > var:DI_secondary_character.age
         NOT = { var:DI_tertiary_character = var:DI_primary_character }
         OR = {

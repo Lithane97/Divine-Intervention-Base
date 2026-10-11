@@ -1,4 +1,4 @@
-﻿### Select Primary Character ###
+### Select Primary Character ###
 DI_select_primary_character = {
     scope = character # Selected Character
 
@@ -2133,8 +2133,8 @@ DI_dip_adoption_house = {
     scope = character
 
     is_valid = {
-        has_variable = DI_primary_character
-        has_variable = DI_secondary_character
+        exists = var:DI_primary_character
+        exists = var:DI_secondary_character
 
         var:DI_primary_character.house != var:DI_secondary_character.house
     }
@@ -2144,8 +2144,8 @@ DI_dip_adoption_house = {
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                exists = var:DI_primary_character
+                exists = var:DI_secondary_character
             }
             var:DI_secondary_character = {
                 set_house = scope:player.var:DI_primary_character.house
@@ -2399,8 +2399,8 @@ DI_dip_make_siblings = {
     scope = character
 
     is_valid = {
-        has_variable = DI_primary_character
-        has_variable = DI_secondary_character
+        exists = var:DI_primary_character
+        exists = var:DI_secondary_character
         NOT = {
             OR = {
                 var:DI_primary_character = { is_sibling_of = root.var:DI_secondary_character }
@@ -2415,8 +2415,8 @@ DI_dip_make_siblings = {
 
         if = {
             limit = {
-                has_variable = DI_primary_character
-                has_variable = DI_secondary_character
+                exists = var:DI_primary_character
+                exists = var:DI_secondary_character
             }
             var:DI_secondary_character = {
                 set_mother = scope:player.var:DI_primary_character.mother
@@ -2479,8 +2479,7 @@ DI_dip_set_real_father = {
     scope = character
 
     is_valid = {
-        has_variable = DI_primary_character
-        has_variable = DI_secondary_character
+        DI_dip_family_pair_valid = yes
         var:DI_secondary_character = { is_male = yes }
         var:DI_secondary_character.age > var:DI_primary_character.age
         NOT = { var:DI_primary_character.real_father = var:DI_secondary_character }
@@ -2489,8 +2488,16 @@ DI_dip_set_real_father = {
     effect = {
         save_scope_as = player
 
-        var:DI_primary_character = {
-            set_real_father = scope:player.var:DI_secondary_character
+        if = {
+            limit = {
+                DI_dip_family_pair_valid = yes
+                var:DI_secondary_character = { is_male = yes }
+                var:DI_secondary_character.age > var:DI_primary_character.age
+                NOT = { var:DI_primary_character.real_father = var:DI_secondary_character }
+            }
+            var:DI_primary_character = {
+                set_real_father = scope:player.var:DI_secondary_character
+            }
         }
     }
 }
