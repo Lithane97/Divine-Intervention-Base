@@ -3,5 +3,5 @@ tags={
 	"Utilities"
 }
 name="Divine Intervention Cheat Menu"
-supported_version="1.20.0.3"
+supported_version="1.20.0.4"
 remote_file_id="2986538297"

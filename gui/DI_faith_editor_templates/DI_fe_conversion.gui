@@ -10,6 +10,7 @@ types DI_fe_conversion_types {
             layoutpolicy_horizontal = expanding
             spacing = 5
             button_expand_fold_out = { block "foldout_button" {} }
+            block "row_icon" {}
             text_single = {
                 layoutpolicy_horizontal = expanding
                 align = nobaseline
@@ -59,6 +60,13 @@ types DI_fe_conversion_types {
                                                 down = "[ObjectsEqual(Faith.Self, GetPlayer.MakeScope.Var('DI_fe_conversion_rite').Rite.GetFaith)]"
                                             }
                                             tooltip = "DI_rite_picker_faith_tt"
+                                            blockoverride "row_icon" {
+                                                icon = {
+                                                    size = { 25 25 }
+                                                    alwaystransparent = yes
+                                                    texture = "[Faith.GetIcon]"
+                                                }
+                                            }
                                             blockoverride "text" { text = "[Faith.GetNameNoTooltip]" }
                                         }
                                         vbox = {
@@ -80,7 +88,7 @@ types DI_fe_conversion_types {
                                                         spacing = 8
                                                         margin = { 6 4 }
                                                         alwaystransparent = yes
-                                                        icon = { size = { 32 32 } texture = "[Rite.GetFaith.GetIcon]" }
+                                                        icon = { size = { 32 32 } texture = "[Rite.GetIcon]" }
                                                         text_multi = {
                                                             layoutpolicy_horizontal = expanding
                                                             text = "[Rite.GetNameNoTooltip]"
