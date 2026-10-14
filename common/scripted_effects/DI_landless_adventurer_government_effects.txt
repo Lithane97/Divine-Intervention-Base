@@ -1,0 +1,20 @@
+# Character scope. Religious rulers need vanilla's Adventurer title and camp
+# setup; other rulers retain the interaction's direct government change.
+DI_create_landless_adventurer_government_effect = {
+    if = {
+        limit = {
+            has_dlc_feature = roads_to_power
+            NOT = { government_has_flag = government_is_landless_adventurer }
+        }
+        if = {
+            limit = { government_has_flag = government_is_theocracy }
+            create_landless_adventurer_title_effect = {
+                REASON = flag:voluntary
+                FLAVOR_CHAR = this
+            }
+        }
+        else = {
+            change_government = landless_adventurer_government
+        }
+    }
+}
