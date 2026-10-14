@@ -1,0 +1,238 @@
+﻿# Spiritual Fulfillment row of the Character Editor Stats tab (By God Alone).
+# Same routing as the other stats: one selected character, or every pinned character in All mode.
+# Only playable characters have Spiritual Fulfillment. Values are set through DI_bga_set_fulfillment_effect.
+
+DI_ce_editor_fulfillment_min = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    is_playable_character = yes
+                    NOT = { spiritual_fulfillment = -100 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes is_playable_character = yes }
+                DI_bga_set_fulfillment_effect = { TARGET = -100 }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                        is_playable_character = yes
+                        NOT = { spiritual_fulfillment = -100 }
+                    }
+                    DI_bga_set_fulfillment_effect = { TARGET = -100 }
+                }
+            }
+        }
+    }
+}
+
+DI_ce_editor_fulfillment_subtract = {
+    scope = character
+    saved_scopes = { DI_ce_stats_step }
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    is_playable_character = yes
+                    spiritual_fulfillment > -100
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes is_playable_character = yes }
+                DI_bga_set_fulfillment_effect = { TARGET = DI_ce_fulfillment_subtract_target }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                        is_playable_character = yes
+                        spiritual_fulfillment > -100
+                    }
+                    DI_bga_set_fulfillment_effect = { TARGET = DI_ce_fulfillment_subtract_target }
+                }
+            }
+        }
+    }
+}
+
+DI_ce_editor_fulfillment_mid = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    is_playable_character = yes
+                    NOT = { spiritual_fulfillment = 0 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes is_playable_character = yes }
+                DI_bga_set_fulfillment_effect = { TARGET = 0 }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                        is_playable_character = yes
+                        NOT = { spiritual_fulfillment = 0 }
+                    }
+                    DI_bga_set_fulfillment_effect = { TARGET = 0 }
+                }
+            }
+        }
+    }
+}
+
+DI_ce_editor_fulfillment_add = {
+    scope = character
+    saved_scopes = { DI_ce_stats_step }
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    is_playable_character = yes
+                    spiritual_fulfillment < 100
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes is_playable_character = yes }
+                DI_bga_set_fulfillment_effect = { TARGET = DI_ce_fulfillment_add_target }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                        is_playable_character = yes
+                        spiritual_fulfillment < 100
+                    }
+                    DI_bga_set_fulfillment_effect = { TARGET = DI_ce_fulfillment_add_target }
+                }
+            }
+        }
+    }
+}
+
+DI_ce_editor_fulfillment_max = {
+    scope = character
+    is_valid = {
+        OR = {
+            has_variable = DI_ce_stats_all
+            AND = {
+                exists = var:DI_ce_stats_character
+                var:DI_ce_stats_character = {
+                    is_alive = yes
+                    is_playable_character = yes
+                    NOT = { spiritual_fulfillment = 100 }
+                }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes is_playable_character = yes }
+                DI_bga_set_fulfillment_effect = { TARGET = 100 }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = {
+                if = {
+                    limit = {
+                        is_alive = yes
+                        is_playable_character = yes
+                        NOT = { spiritual_fulfillment = 100 }
+                    }
+                    DI_bga_set_fulfillment_effect = { TARGET = 100 }
+                }
+            }
+        }
+    }
+}
+# Divine Grace toggle: blocks every Spiritual Fulfillment loss while active.
+DI_ce_stats_grace_fulfillment = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                if = { limit = { NOT = { has_character_modifier = DI_divine_grace } } add_character_modifier = DI_divine_grace }
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { if = { limit = { NOT = { has_character_modifier = DI_divine_grace } } add_character_modifier = DI_divine_grace } }
+        }
+    }
+}
+DI_ce_stats_ungrace_fulfillment = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_variable = DI_ce_stats_all }
+            every_in_list = {
+                variable = pinned_characters
+                remove_character_modifier = DI_divine_grace
+            }
+        }
+        else_if = {
+            limit = { exists = var:DI_ce_stats_character }
+            var:DI_ce_stats_character = { remove_character_modifier = DI_divine_grace }
+        }
+    }
+}

@@ -7,6 +7,8 @@ DI_faith_editor_init_sgui = {
         if = { limit = { NOT = { exists = var:DI_primary_character } } set_variable = { name = DI_primary_character value = root } }
         remove_variable = DI_fe_main_rite_mode
         remove_variable = DI_fe_add_tenet_mode
+        remove_variable = DI_fe_personal_add_mode
+        remove_variable = DI_fe_personal_remove_mode
         remove_variable = DI_doctrine_to_replace
         clear_variable_list = DI_core_tenets
         clear_global_variable_list = DI_core_tenets
@@ -71,6 +73,8 @@ DI_fe_sync_target_sgui = {
         remove_variable = DI_fe_add_tenet_mode
         remove_variable = DI_fe_picker_rite
         remove_variable = DI_fe_rite
+        remove_variable = DI_fe_personal_add_mode
+        remove_variable = DI_fe_personal_remove_mode
         remove_variable = DI_fe_character
         if = {
             limit = { exists = var:DI_primary_character var:DI_primary_character = { is_alive = yes } }
@@ -105,6 +109,8 @@ DI_fe_cancel_tenet_sgui = {
     scope = character
     effect = {
         remove_variable = DI_fe_old_tenet
+        remove_variable = DI_fe_personal_add_mode
+        remove_variable = DI_fe_personal_remove_mode
         remove_variable = DI_fe_add_tenet_mode
         remove_variable = DI_fe_picker_rite
     }
@@ -155,6 +161,8 @@ DI_fe_open_add_tenet_sgui = {
             }
             remove_variable = DI_fe_old_tenet
             set_variable = { name = DI_fe_add_tenet_mode value = yes }
+            remove_variable = DI_fe_personal_add_mode
+            remove_variable = DI_fe_personal_remove_mode
             set_variable = { name = DI_fe_picker_rite value = scope:target_rite }
         }
     }
@@ -209,6 +217,8 @@ DI_fe_select_tenet_sgui = {
             }
             remove_variable = DI_fe_add_tenet_mode
             set_variable = { name = DI_fe_old_tenet value = scope:tenet }
+            remove_variable = DI_fe_personal_add_mode
+            remove_variable = DI_fe_personal_remove_mode
             set_variable = { name = DI_fe_picker_rite value = scope:target_rite }
         }
     }

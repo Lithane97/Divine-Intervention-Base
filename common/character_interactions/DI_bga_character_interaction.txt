@@ -1,0 +1,137 @@
+﻿# Divine Intervention - By God Alone additions (CK3 1.20.1).
+# Study Rite and Cardinalate interactions.
+# All of them follow the same visibility rules as the rest of the DI interaction set.
+
+# Study Rite: fires DI_bga_study_rite.0001, a copy of the game's Study Faith success event (study_faith_outcome.1000),
+# which lets the player choose between only learning the rite or learning it and converting.
+DI_study_rite_interaction = {
+    category = interaction_category_cheat_menu
+    icon = religious
+    desc = DI_study_rite_interaction_desc
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+        NOT = { scope:recipient = scope:actor }
+        NOT = { scope:recipient.rite = scope:actor.rite }
+    }
+
+    is_valid_showing_failures_only = {
+        custom_tooltip = {
+            text = DI_study_rite_not_playable_tt
+            scope:actor = { is_playable_character = yes }
+        }
+        custom_tooltip = {
+            text = DI_study_rite_nothing_to_learn_tt
+            scope:actor = {
+                study_faith_has_anything_to_learn_trigger = { RITE = scope:recipient.rite }
+            }
+        }
+    }
+
+    on_accept = {
+        scope:recipient = { save_scope_as = target }
+        scope:actor = {
+            save_scope_as = owner
+            custom_tooltip = DI_study_rite_interaction_tt
+            trigger_event = DI_bga_study_rite.0001
+        }
+    }
+}
+
+# Appoint / remove a cardinal without the Head of Faith requirements.
+# The game's own rules for who may hold a cardinalate still apply and are shown as failure reasons.
+DI_cardinal_interaction = {
+    category = interaction_category_cheat_menu
+    icon = cardinal
+    desc = DI_cardinal_interaction_desc
+    common_interaction = no
+
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+
+    is_shown = {
+        scope:actor = {
+            is_ai = no
+            has_pam_dlc_trigger = yes
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+
+    send_option = {
+        flag = appoint
+        localization = DI_cardinal_option_appoint
+        is_valid = {
+            scope:recipient = {
+                custom_tooltip = {
+                    text = DI_cardinal_already_tt
+                    NOT = { exists = clerical_elector_title }
+                }
+                custom_tooltip = {
+                    text = DI_cardinal_faith_tt
+                    pam_can_hold_cardinalate_trigger = yes
+                }
+                custom_tooltip = {
+                    text = DI_cardinal_government_tt
+                    pam_can_receive_cardinalate_trigger = yes
+                }
+                custom_tooltip = {
+                    text = DI_cardinal_pope_tt
+                    pam_pope_is_head_of_faith_or_rite_trigger = yes
+                }
+            }
+        }
+    }
+    send_option = {
+        flag = remove
+        localization = DI_cardinal_option_remove
+        is_valid = {
+            scope:recipient = {
+                custom_tooltip = {
+                    text = DI_cardinal_not_cardinal_tt
+                    exists = clerical_elector_title
+                }
+            }
+        }
+    }
+
+    on_accept = {
+        switch = {
+            trigger = yes
+            scope:appoint = {
+                scope:recipient = {
+                    custom_tooltip = DI_cardinal_appoint_tt
+                    hidden_effect = {
+                        grant_cardinal_title_effect = { CARDINAL_COUNTY = capital_county }
+                    }
+                }
+            }
+            scope:remove = {
+                scope:recipient = {
+                    custom_tooltip = DI_cardinal_remove_tt
+                    hidden_effect = {
+                        if = {
+                            limit = { exists = clerical_elector_title }
+                            clerical_elector_title = { save_scope_as = DI_removed_cardinalate }
+                            pam_destroy_cardinal_title_effect = { CARDINALATE = scope:DI_removed_cardinalate }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

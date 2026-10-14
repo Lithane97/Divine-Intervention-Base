@@ -1,0 +1,64 @@
+﻿# Sets the scoped (playable) character's Spiritual Fulfillment to $TARGET$ (-100 to 100).
+# change_spiritual_fulfillment is multiplied by the character's gain/loss modifiers, so each step is
+# measured and the next request is divided by the observed ratio. Stops when within 1 point, when a
+# step makes no progress (e.g. Divine Grace blocking losses), or after 8 steps.
+DI_bga_set_fulfillment_effect = {
+    set_variable = { name = DI_bga_ful_target value = $TARGET$ }
+    if = {
+        limit = { var:DI_bga_ful_target > 100 }
+        set_variable = { name = DI_bga_ful_target value = 100 }
+    }
+    else_if = {
+        limit = { var:DI_bga_ful_target < -100 }
+        set_variable = { name = DI_bga_ful_target value = -100 }
+    }
+    set_variable = { name = DI_bga_ful_gain_ratio value = 1 }
+    set_variable = { name = DI_bga_ful_loss_ratio value = 1 }
+    set_variable = { name = DI_bga_ful_steps value = 0 }
+    while = {
+        limit = {
+            var:DI_bga_ful_steps < 8
+            DI_bga_ful_absdiff_value >= 1
+            NOT = { has_variable = DI_bga_ful_stop }
+        }
+        change_variable = { name = DI_bga_ful_steps add = 1 }
+        set_variable = { name = DI_bga_ful_before value = spiritual_fulfillment }
+        set_variable = { name = DI_bga_ful_last_absdiff value = DI_bga_ful_absdiff_value }
+        if = {
+            limit = { DI_bga_ful_diff_value > 0 }
+            set_variable = { name = DI_bga_ful_request value = DI_bga_ful_gain_request_value }
+            change_spiritual_fulfillment = { value = var:DI_bga_ful_request }
+            if = {
+                limit = { DI_bga_ful_measured_value > 0 }
+                set_variable = { name = DI_bga_ful_gain_ratio value = DI_bga_ful_ratio_value }
+            }
+            else = {
+                set_variable = DI_bga_ful_stop
+            }
+        }
+        else = {
+            set_variable = { name = DI_bga_ful_request value = DI_bga_ful_loss_request_value }
+            change_spiritual_fulfillment = { value = var:DI_bga_ful_request }
+            if = {
+                limit = { DI_bga_ful_measured_value < 0 }
+                set_variable = { name = DI_bga_ful_loss_ratio value = DI_bga_ful_ratio_value }
+            }
+            else = {
+                set_variable = DI_bga_ful_stop
+            }
+        }
+        # No progress (overshooting back and forth): stop where we are.
+        if = {
+            limit = { DI_bga_ful_absdiff_value >= var:DI_bga_ful_last_absdiff }
+            set_variable = DI_bga_ful_stop
+        }
+    }
+    remove_variable = DI_bga_ful_target
+    remove_variable = DI_bga_ful_gain_ratio
+    remove_variable = DI_bga_ful_loss_ratio
+    remove_variable = DI_bga_ful_steps
+    remove_variable = DI_bga_ful_before
+    remove_variable = DI_bga_ful_last_absdiff
+    remove_variable = DI_bga_ful_request
+    remove_variable = DI_bga_ful_stop
+}

@@ -1,0 +1,122 @@
+﻿# Faith Editor: personal tenets of the selected (primary) character (By God Alone).
+# Reuses the tenet picker window. Mode variables live on the player, like the other picker modes:
+#   DI_fe_personal_add_mode    - clicking a tenet adds it as a personal tenet
+#   DI_fe_personal_remove_mode - only the character's personal tenets are listed; clicking removes it
+# Adding uses force_set_personal_tenet: with no free slot, the game drops the worst personal tenet.
+
+DI_fe_personal_tenet_target_sgui = {
+    scope = character
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = {
+            is_alive = yes
+            is_playable_character = yes
+        }
+    }
+}
+
+DI_fe_open_personal_add_sgui = {
+    scope = character
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = {
+            is_alive = yes
+            is_playable_character = yes
+        }
+    }
+    effect = {
+        remove_variable = DI_fe_old_tenet
+        remove_variable = DI_fe_add_tenet_mode
+        remove_variable = DI_fe_picker_rite
+        remove_variable = DI_fe_personal_remove_mode
+        set_variable = { name = DI_fe_personal_add_mode value = yes }
+    }
+}
+
+DI_fe_open_personal_remove_sgui = {
+    scope = character
+    is_valid = {
+        exists = var:DI_primary_character
+        var:DI_primary_character = {
+            is_alive = yes
+            is_playable_character = yes
+            any_personal_tenet = { count >= 1 }
+        }
+    }
+    effect = {
+        remove_variable = DI_fe_old_tenet
+        remove_variable = DI_fe_add_tenet_mode
+        remove_variable = DI_fe_picker_rite
+        remove_variable = DI_fe_personal_add_mode
+        set_variable = { name = DI_fe_personal_remove_mode value = yes }
+    }
+}
+
+DI_fe_close_personal_sgui = {
+    scope = character
+    effect = {
+        remove_variable = DI_fe_personal_add_mode
+        remove_variable = DI_fe_personal_remove_mode
+    }
+}
+
+# Used for card visibility in remove mode.
+DI_fe_has_personal_tenet_sgui = {
+    scope = character
+    saved_scopes = { tenet }
+    is_valid = {
+        exists = scope:tenet
+        exists = var:DI_primary_character
+        var:DI_primary_character = { has_personal_tenet = scope:tenet }
+    }
+}
+
+DI_fe_personal_tenet_pick_sgui = {
+    scope = character
+    saved_scopes = { tenet }
+    is_valid = {
+        exists = scope:tenet
+        exists = var:DI_primary_character
+        var:DI_primary_character = {
+            is_alive = yes
+            is_playable_character = yes
+        }
+        OR = {
+            AND = {
+                has_variable = DI_fe_personal_add_mode
+                DI_fe_tenet_dlc_available_trigger = yes
+                var:DI_primary_character = { NOT = { has_personal_tenet = scope:tenet } }
+            }
+            AND = {
+                has_variable = DI_fe_personal_remove_mode
+                var:DI_primary_character = { has_personal_tenet = scope:tenet }
+            }
+        }
+    }
+    effect = {
+        if = {
+            limit = {
+                exists = scope:tenet
+                exists = var:DI_primary_character
+                var:DI_primary_character = {
+                    is_alive = yes
+                    is_playable_character = yes
+                }
+            }
+            if = {
+                limit = {
+                    has_variable = DI_fe_personal_add_mode
+                    var:DI_primary_character = { NOT = { has_personal_tenet = scope:tenet } }
+                }
+                var:DI_primary_character = { force_set_personal_tenet = scope:tenet }
+            }
+            else_if = {
+                limit = {
+                    has_variable = DI_fe_personal_remove_mode
+                    var:DI_primary_character = { has_personal_tenet = scope:tenet }
+                }
+                var:DI_primary_character = { remove_personal_tenet = scope:tenet }
+            }
+        }
+    }
+}

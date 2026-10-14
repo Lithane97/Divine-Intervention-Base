@@ -653,6 +653,132 @@
                             }
                         }
 
+                        # By God Alone: Spiritual Fulfillment (-100 to 100)
+                        vbox = {
+                            visible = "[HasDlcFeature( 'by_god_alone' )]"
+                            spacing = 4
+                            hbox = {
+                                spacing = 8
+                                icon = { size = { 28 28 } texture = "gfx/interface/icons/spiritual_fulfillment_levels/spiritual_fulfillment_05.dds" }
+                                text_single = { text = DI_ce_stats_fulfillment }
+                                expand = {}
+                                text_single = {
+                                    size = { 150 36 }
+                                    visible = "[Not(GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet)]"
+                                    text = "[Character.MakeScope.ScriptValue('DI_ce_fulfillment_value')|0]"
+                                    using = Font_Size_Big
+                                    default_format = "#difficulty_medium"
+                                }
+                                text_single = {
+                                    size = { 150 36 }
+                                    visible = "[GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet]"
+                                    text = DI_ce_stats_na
+                                    using = Font_Size_Big
+                                }
+                            }
+                            hbox = {
+                                spacing = 8
+                                button_standard = {
+                                    size = { 58 36 }
+                                    enabled = "[GetScriptedGui('DI_ce_editor_fulfillment_min').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_editor_fulfillment_min').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    tooltip = DI_ce_fulfillment_min_tt
+                                    hbox = {
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                        icon = {
+                                            size = { 16 20 }
+                                            texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                            alwaystransparent = yes
+                                        }
+                                        icon = {
+                                            size = { 16 20 }
+                                            texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+                                button_standard = {
+                                    size = { 58 36 }
+                                    enabled = "[GetScriptedGui('DI_ce_editor_fulfillment_subtract').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_editor_fulfillment_subtract').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                                    tooltip = DI_ce_fulfillment_subtract_tt
+                                    hbox = {
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                        icon = {
+                                            size = { 16 20 }
+                                            texture = "gfx/interface/window_dynasty_house/small_arrow_left.dds"
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+                                button_standard = {
+                                    size = { 58 36 }
+                                    enabled = "[GetScriptedGui('DI_ce_editor_fulfillment_mid').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_editor_fulfillment_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    tooltip = DI_ce_fulfillment_mid_tt
+                                    icon = {
+                                        parentanchor = center
+                                        size = { 20 20 }
+                                        framesize = { 80 80 }
+                                        texture = "gfx/interface/buttons/button_radio.dds"
+                                        alwaystransparent = yes
+                                    }
+                                }
+                                button_standard = {
+                                    size = { 58 36 }
+                                    enabled = "[GetScriptedGui('DI_ce_editor_fulfillment_add').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_editor_fulfillment_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('DI_ce_stats_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                                    tooltip = DI_ce_fulfillment_add_tt
+                                    hbox = {
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                        icon = {
+                                            size = { 16 20 }
+                                            texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+                                button_standard = {
+                                    size = { 58 36 }
+                                    enabled = "[GetScriptedGui('DI_ce_editor_fulfillment_max').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_editor_fulfillment_max').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    tooltip = DI_ce_fulfillment_max_tt
+                                    hbox = {
+                                        parentanchor = center
+                                        alwaystransparent = yes
+                                        icon = {
+                                            size = { 16 20 }
+                                            texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                            alwaystransparent = yes
+                                        }
+                                        icon = {
+                                            size = { 16 20 }
+                                            texture = "gfx/interface/window_dynasty_house/small_arrow_right.dds"
+                                            alwaystransparent = yes
+                                        }
+                                    }
+                                }
+                                button_standard = {
+                                    size = { 36 36 }
+                                    button_ignore = none
+                                    enabled = "[GetScriptedGui('DI_ce_stats_lock_available').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_stats_grace_fulfillment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onrightclick = "[GetScriptedGui('DI_ce_stats_ungrace_fulfillment').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    tooltip = DI_ce_grace_fulfillment_button_tt
+                                    icon_flat_standard_gold = {
+                                        parentanchor = center
+                                        size = { 24 24 }
+                                        texture = "gfx/interface/window_activities/tournament/contest_selection_locked_icon.dds"
+                                        alwaystransparent = yes
+                                    }
+                                }
+                            }
+                        }
+
+
                         text_single = {
                             visible = "[And(Not(GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet), Not(GetScriptedGui('DI_ce_stats_is_immortal').IsValid(GuiScope.SetRoot(Character.MakeScope).End)))]"
                             text = DI_ce_stats_immortal_only
