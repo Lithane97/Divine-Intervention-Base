@@ -11,7 +11,7 @@ window = {
 	using = Window_Background
 	using = Window_Decoration
 	movable = yes
-	visible = "[GetVariableSystem.Exists('DI_main_visible')]"
+	visible = "[And(GetVariableSystem.Exists('DI_main_visible'), GetScriptedGui('DI_menu_access_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
     
     datacontext = "[GetVariableSystem]"
 	datacontext = "[GetPlayer]"

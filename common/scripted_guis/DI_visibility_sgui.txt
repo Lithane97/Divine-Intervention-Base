@@ -1,0 +1,87 @@
+### Multiplayer access control ###
+
+# Saves the host's lobby player ID globally. Valid (and therefore fired by the GUI state) only while it is unset or outdated.
+DI_set_host_id_sgui = {
+	scope = character
+
+	saved_scopes = {
+		host_id
+	}
+
+	is_valid = {
+		OR = {
+			NOT = { exists = global_var:DI_host_player_id }
+			NOT = { global_var:DI_host_player_id = scope:host_id }
+		}
+	}
+
+	effect = {
+		set_global_variable = {
+			name = DI_host_player_id
+			value = scope:host_id
+		}
+	}
+}
+
+# Stamps the local player's lobby player ID on their current character. Valid while missing or stale (character swap, death).
+DI_stamp_player_id_sgui = {
+	scope = character
+
+	saved_scopes = {
+		player_id
+	}
+
+	is_valid = {
+		OR = {
+			NOT = { has_variable = DI_player_id }
+			NOT = { var:DI_player_id = scope:player_id }
+		}
+	}
+
+	effect = {
+		set_variable = {
+			name = DI_player_id
+			value = scope:player_id
+		}
+	}
+}
+
+# Valid when the character may use the menu / interactions under the current game rule.
+DI_menu_access_sgui = {
+	scope = character
+
+	is_valid = {
+		DI_can_access_menu_trigger = yes
+	}
+}
+
+DI_interaction_access_sgui = {
+	scope = character
+
+	is_valid = {
+		DI_can_access_interactions_trigger = yes
+	}
+}
+
+# Closes the interaction cheat menu for characters that lost access (e.g. host change). Fired by the GUI state in DI_button.gui.
+DI_revoke_interaction_access_sgui = {
+	scope = character
+
+	is_valid = {
+		NOT = { DI_can_access_interactions_trigger = yes }
+		any_owned_story = {
+			story_type = DI_misc_variables_story
+			has_variable = DI_cheat_menu
+		}
+	}
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+				has_variable = DI_cheat_menu
+			}
+			remove_variable = DI_cheat_menu
+		}
+	}
+}

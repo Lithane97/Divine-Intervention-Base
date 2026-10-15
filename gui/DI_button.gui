@@ -14,9 +14,41 @@
         on_start = "[GetScriptedGui('DI_misc_variable_story_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
 
+    # Closes the interaction cheat menu if the game rule says this player may no longer use it
+    state = {
+        name = "access_revoke_check"
+        trigger_when = "[GetScriptedGui('DI_revoke_interaction_access_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetScriptedGui('DI_revoke_interaction_access_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+
+    # Tracks the host's lobby player ID globally and stamps the local player's ID on their character (multiplayer only)
+    vbox = {
+        name = "DI_player_id_tracker"
+        size = { 0 0 }
+        datamodel = "[LobbyView.Players]"
+
+        item = {
+            widget = {
+                size = { 0 0 }
+
+                state = {
+                    name = "host_id_check"
+                    trigger_when = "[And(LobbyPlayer.IsHost, GetScriptedGui('DI_set_host_id_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('host_id', MakeScopeValue(LobbyPlayer.GetID)).End))]"
+                    on_start = "[GetScriptedGui('DI_set_host_id_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('host_id', MakeScopeValue(LobbyPlayer.GetID)).End)]"
+                }
+
+                state = {
+                    name = "player_id_check"
+                    trigger_when = "[And(LobbyPlayer.IsLocalPlayer, GetScriptedGui('DI_stamp_player_id_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('player_id', MakeScopeValue(LobbyPlayer.GetID)).End))]"
+                    on_start = "[GetScriptedGui('DI_stamp_player_id_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('player_id', MakeScopeValue(LobbyPlayer.GetID)).End)]"
+                }
+            }
+        }
+    }
+
     flowcontainer = {
         ignoreinvisible = no
-        visible = "[GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End )]" # This has to go here to prevent error log spam from observer mode
+        visible = "[And(GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End ), GetScriptedGui('DI_menu_access_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]" # This has to go here to prevent error log spam from observer mode
 
         button_round = {
             name = "DI_shortcut_button_advcm"
