@@ -1,12 +1,11 @@
 # Access control for the Divine Intervention menu and cheat interactions in multiplayer.
-# The host's lobby player ID is stored in global_var:DI_host_player_id, and each client stamps its own player ID
-# on its player character as var:DI_player_id (see DI_visibility_sgui.txt and gui/DI_button.gui).
+# The host client registers its current character using the global GUI function IsHost.
+# The shared character scope lets interactions check host access without a LobbyView context.
 # Scope: character
 
 DI_is_host_character_trigger = {
-	exists = global_var:DI_host_player_id
-	has_variable = DI_player_id
-	var:DI_player_id = global_var:DI_host_player_id
+	exists = global_var:DI_host_character
+	this = global_var:DI_host_character
 }
 
 DI_can_access_menu_trigger = {

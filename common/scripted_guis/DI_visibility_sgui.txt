@@ -1,48 +1,31 @@
 ### Multiplayer access control ###
 
-# Saves the host's lobby player ID globally. Valid (and therefore fired by the GUI state) only while it is unset or outdated.
-DI_set_host_id_sgui = {
+# Called by the host client's GUI using the global IsHost function.
+# Store a character scope so script-side access checks do not need lobby data.
+DI_register_host_character_sgui = {
 	scope = character
-
-	saved_scopes = {
-		host_id
-	}
 
 	is_valid = {
 		OR = {
-			NOT = { exists = global_var:DI_host_player_id }
-			NOT = { global_var:DI_host_player_id = scope:host_id }
+			NOT = { exists = global_var:DI_host_character }
+			NOT = { this = global_var:DI_host_character }
 		}
 	}
 
 	effect = {
 		set_global_variable = {
-			name = DI_host_player_id
-			value = scope:host_id
+			name = DI_host_character
+			value = root
 		}
 	}
 }
 
-# Stamps the local player's lobby player ID on their current character. Valid while missing or stale (character swap, death).
-DI_stamp_player_id_sgui = {
+# Debug check: has the local player's character been registered as the host?
+DI_host_character_check_sgui = {
 	scope = character
 
-	saved_scopes = {
-		player_id
-	}
-
 	is_valid = {
-		OR = {
-			NOT = { has_variable = DI_player_id }
-			NOT = { var:DI_player_id = scope:player_id }
-		}
-	}
-
-	effect = {
-		set_variable = {
-			name = DI_player_id
-			value = scope:player_id
-		}
+		DI_is_host_character_trigger = yes
 	}
 }
 

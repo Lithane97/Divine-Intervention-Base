@@ -21,29 +21,12 @@
         on_start = "[GetScriptedGui('DI_revoke_interaction_access_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
 
-    # Tracks the host's lobby player ID globally and stamps the local player's ID on their character (multiplayer only)
-    vbox = {
-        name = "DI_player_id_tracker"
-        size = { 0 0 }
-        datamodel = "[LobbyView.Players]"
-
-        item = {
-            widget = {
-                size = { 0 0 }
-
-                state = {
-                    name = "host_id_check"
-                    trigger_when = "[And(LobbyPlayer.IsHost, GetScriptedGui('DI_set_host_id_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('host_id', MakeScopeValue(LobbyPlayer.GetID)).End))]"
-                    on_start = "[GetScriptedGui('DI_set_host_id_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('host_id', MakeScopeValue(LobbyPlayer.GetID)).End)]"
-                }
-
-                state = {
-                    name = "player_id_check"
-                    trigger_when = "[And(LobbyPlayer.IsLocalPlayer, GetScriptedGui('DI_stamp_player_id_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('player_id', MakeScopeValue(LobbyPlayer.GetID)).End))]"
-                    on_start = "[GetScriptedGui('DI_stamp_player_id_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('player_id', MakeScopeValue(LobbyPlayer.GetID)).End)]"
-                }
-            }
-        }
+    # IsHost is global: no LobbyView context is needed. Register before checking access.
+    # Re-registers when the host takes over another character or a new host takes over.
+    state = {
+        name = "host_character_check"
+        trigger_when = "[And(IsHost, GetScriptedGui('DI_register_host_character_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+        on_start = "[GetScriptedGui('DI_register_host_character_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
 
     flowcontainer = {

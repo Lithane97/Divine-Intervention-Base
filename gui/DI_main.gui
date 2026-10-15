@@ -1,8 +1,8 @@
-﻿# Main window
+# Main window
 window = {
 	name = "DI_main_window"
 	parentanchor = center|hcenter
-	size = { 640 100 }
+	size = { 640 10 }
 	layer = windows_layer
 	filter_mouse = all
 	allow_outside = yes
@@ -29,6 +29,7 @@ window = {
 	
 	vbox = {
 		restrictparent_min = yes
+		ignoreinvisible = yes
 		using = Window_Margins
 		
 		header_pattern = {
@@ -187,25 +188,39 @@ window = {
                 }
 			}
 			
-			widget = {
-                position = { 640 120 }
-                size = { 110 40 }
+		}
+
+            # Hidden debug information takes no space in the window's vertical layout.
+            hbox = {
+                size = { 740 30 }
+                spacing = 10
+                visible = "[InDebugMode]"
+
                 text_label_left = {
-					visible = "[InDebugMode]"
-					text = "[GetPlayer.GetHumanName]"
+                    size = { 220 30 }
+                    max_width = 220
+                    using = Font_Size_Small
+                    raw_text = "Player: [GetPlayer.GetHumanName]"
+                    tooltip = "[GetPlayer.GetHumanName]"
+                }
+
+                text_label_left = {
+                    size = { 100 30 }
+                    using = Font_Size_Small
+                    raw_text = "IsHost: [Select_CString(IsHost, 'yes', 'no')]"
+                }
+
+                text_label_left = {
+                    size = { 170 30 }
+                    using = Font_Size_Small
+                    raw_text = "Host or local: [Select_CString(JominiIsHostOrLocal, 'yes', 'no')]"
+                }
+
+                text_label_left = {
+                    size = { 220 30 }
+                    using = Font_Size_Small
+                    raw_text = "Registered host: [Select_CString(GetScriptedGui('DI_host_character_check_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'yes', 'no')]"
                 }
             }
-
-			# Temporary: verify the ID stamped on the current player character
-			widget = {
-				position = { 640 140 }
-				size = { 300 40 }
-				visible = "[InDebugMode]"
-				text_label_left = {
-					text = "Player ID: [GetPlayer.MakeScope.Var('DI_player_id').GetValue|0]"
-				}
-			}
-			
-		}            
 	}
 }
