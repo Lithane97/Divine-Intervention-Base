@@ -4564,6 +4564,14 @@ DI_change_government = {
         flag = theocracy
         localization = DI_change_government_theocracy
     }
+    # By God Alone: Christian bishops and the Papacy (treasury, cardinal budget)
+    send_option = {
+        flag = ecclesiastical
+        localization = DI_change_government_ecclesiastical
+        is_valid = {
+            has_dlc_feature = by_god_alone
+        }
+    }
     send_option = {
         flag = feudal_full
         localization = DI_change_government_feudal_full
@@ -4665,6 +4673,18 @@ DI_change_government = {
                                 highest_held_title_tier > tier_barony
                             }
                             change_government = theocracy_government
+                        }
+                    }
+                }
+                scope:ecclesiastical = {
+                    scope:recipient = {
+                        change_government = ecclesiastical_government
+
+                        every_vassal_or_below = {
+                            limit = {
+                                highest_held_title_tier > tier_barony
+                            }
+                            change_government = ecclesiastical_government
                         }
                     }
                 }

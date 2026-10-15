@@ -136,6 +136,31 @@ window = {
                                 }
                             }
                         }
+                        # By God Alone: personal tenets of the selected character
+                        hbox = {
+                            layoutpolicy_horizontal = expanding
+                            visible = "[HasDlcFeature( 'by_god_alone' )]"
+                            spacing = 8
+                            text_label_center = {
+                                layoutpolicy_horizontal = expanding
+                                text = "DI_fe_personal_tenets_heading"
+                                tooltip = "DI_fe_personal_tenets_heading_tt"
+                            }
+                            button_standard = {
+                                text = "DI_fe_add_personal_tenet"
+                                tooltip = "DI_fe_add_personal_tenet_tt"
+                                using = tooltip_ne
+                                enabled = "[GetScriptedGui('DI_fe_open_personal_add_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_fe_open_personal_add_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                            button_standard = {
+                                text = "DI_fe_remove_personal_tenet"
+                                tooltip = "DI_fe_remove_personal_tenet_tt"
+                                using = tooltip_ne
+                                enabled = "[GetScriptedGui('DI_fe_open_personal_remove_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_fe_open_personal_remove_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            }
+                        }
                         vbox = {
                             layoutpolicy_horizontal = expanding
                             spacing = 8
@@ -171,7 +196,7 @@ window = {
     movable = yes
     using = Window_Background
     using = Window_Decoration
-    visible = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), Or(GetPlayer.MakeScope.Var('DI_fe_old_tenet').TenetType.IsValid, GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet))]"
+    visible = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), Or(Or(GetPlayer.MakeScope.Var('DI_fe_old_tenet').TenetType.IsValid, GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet), Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet)))]"
     datacontext = "[GetPlayer.MakeScope.Var('DI_fe_rite').Rite]"
     datacontext = "[Rite.GetFaith]"
     state = {
@@ -187,19 +212,32 @@ window = {
         header_pattern = {
             layoutpolicy_horizontal = expanding
             blockoverride "header_text" {
-                text = "[SelectLocalization(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet, 'DI_add_tenet', 'DI_fe_replace_tenet_title')]"
+                text = "[SelectLocalization(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, 'DI_fe_add_personal_tenet', SelectLocalization(GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet, 'DI_fe_remove_personal_tenet', SelectLocalization(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet, 'DI_add_tenet', 'DI_fe_replace_tenet_title')))]"
             }
-            blockoverride "button_close" { onclick = "[GetScriptedGui('DI_fe_cancel_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+            blockoverride "button_close" {
+                onclick = "[GetScriptedGui('DI_fe_cancel_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_fe_close_personal_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
         }
         text_multi = {
             layoutpolicy_horizontal = expanding
-            visible = "[GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet]"
+            visible = "[And(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet, Not(Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet)))]"
             text = "DI_select_tenet"
         }
         text_multi = {
             layoutpolicy_horizontal = expanding
-            visible = "[Not(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet)]"
+            visible = "[And(Not(GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet), Not(Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet)))]"
             text = "DI_fe_replacing_tenet"
+        }
+        text_multi = {
+            layoutpolicy_horizontal = expanding
+            visible = "[GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet]"
+            text = "DI_fe_personal_add_help"
+        }
+        text_multi = {
+            layoutpolicy_horizontal = expanding
+            visible = "[GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet]"
+            text = "DI_fe_personal_remove_help"
         }
         scrollbox = {
             layoutpolicy_horizontal = expanding
@@ -207,6 +245,7 @@ window = {
             blockoverride "scrollbox_content" {
                 flowcontainer = {
                     layoutpolicy_horizontal = expanding
+                    visible = "[Not(Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet))]"
                     wrap_count = 4
                     spacing = 12
                     margin = { 8 8 }
@@ -224,6 +263,7 @@ window = {
                 }
                 flowcontainer = {
                     layoutpolicy_horizontal = expanding
+                    visible = "[Not(Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet))]"
                     wrap_count = 4
                     spacing = 12
                     margin = { 8 8 }
@@ -235,6 +275,25 @@ window = {
                             enabled = "[GetScriptedGui('DI_fe_replace_tenet_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
                             blockoverride "DI_fe_tenet_action" {
                                 onclick = "[GetScriptedGui('DI_fe_replace_tenet_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('target_rite', Rite.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
+                            }
+                        }
+                    }
+                }
+                # By God Alone: personal tenet picker (add: every visible tenet; remove: only the current personal tenets)
+                flowcontainer = {
+                    layoutpolicy_horizontal = expanding
+                    visible = "[Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet)]"
+                    wrap_count = 4
+                    spacing = 12
+                    margin = { 8 8 }
+                    ignoreinvisible = yes
+                    datamodel = "[GetAllTenetTypes]"
+                    item = {
+                        DI_fe_tenet_picker_card = {
+                            visible = "[And(TenetType.IsVisible, Or(Not(GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet), GetScriptedGui('DI_fe_has_personal_tenet_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', TenetType.MakeScope).End)))]"
+                            enabled = "[GetScriptedGui('DI_fe_personal_tenet_pick_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
+                            blockoverride "DI_fe_tenet_action" {
+                                onclick = "[GetScriptedGui('DI_fe_personal_tenet_pick_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tenet', TenetType.MakeScope).End)]"
                             }
                         }
                     }

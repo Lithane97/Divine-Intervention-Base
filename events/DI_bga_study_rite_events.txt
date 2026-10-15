@@ -1,0 +1,60 @@
+﻿namespace = DI_bga_study_rite
+
+# Study Rite (DI interaction). Copy of the vanilla Study Faith success event (study_faith_outcome.1000)
+# without the scheme widget and with an option text that does not need a scheme scope.
+# Expects scope:target (character whose rite is studied) and scope:owner (= root).
+DI_bga_study_rite.0001 = {
+	type = character_event
+	title = study_faith_outcome.1000.t
+	desc = study_faith_outcome.1000.desc
+	theme = study_faith
+	left_portrait = {
+		character = root
+		animation = happy_teacher
+	}
+	right_portrait = {
+		trigger = { root = { is_travelling = no } }
+		character = scope:target
+		animation = prayer
+	}
+	lower_right_portrait = {
+		trigger = { root = { is_travelling = yes } }
+		character = scope:target
+	}
+
+	override_background = {
+		trigger = { is_travelling = yes }
+		reference = terrain_travel
+	}
+
+	trigger = {
+		study_faith_has_anything_to_learn_trigger = { RITE = scope:target.rite }
+	}
+
+	immediate = {
+		add_known_rite = scope:target.rite
+	}
+
+	option = {
+		name = study_faith_outcome.1000.a
+		discover_syncretism_tenet_effect = yes
+	}
+
+	option = {
+		name = DI_bga_study_rite.0001.b
+		add_internal_flag = dangerous
+		trigger = {
+			is_ruler = yes
+		}
+		discover_syncretism_tenet_effect = yes
+		convert_to_rite_with_consequences_effect = { RITE = scope:target.rite }
+	}
+
+	after = {
+		send_interface_toast = {
+			title = study_faith_complete
+			left_icon = root
+			add_scholar_trait_or_xp_effect = { VALUE = 10 }
+		}
+	}
+}

@@ -1,0 +1,53 @@
+﻿# Spiritual Fulfillment (By God Alone). Range is -100 to 100 (MIN/MAX_SPIRITUAL_FULFILLMENT).
+# change_spiritual_fulfillment is scaled by the character's fulfillment gain/loss modifiers,
+# so DI_bga_set_fulfillment_effect measures each step and corrects until it reaches the target.
+
+DI_ce_fulfillment_value = { value = spiritual_fulfillment }
+
+# Targets for the Stats tab buttons (current value +/- the keyboard step, clamped).
+DI_ce_fulfillment_subtract_target = {
+    value = spiritual_fulfillment
+    subtract = DI_ce_stats_step_value
+    min = -100
+    max = 100
+}
+DI_ce_fulfillment_add_target = {
+    value = spiritual_fulfillment
+    add = DI_ce_stats_step_value
+    min = -100
+    max = 100
+}
+
+# Helpers for DI_bga_set_fulfillment_effect (character scope, uses its variables).
+DI_bga_ful_diff_value = {
+    value = var:DI_bga_ful_target
+    subtract = spiritual_fulfillment
+}
+DI_bga_ful_absdiff_value = {
+    value = DI_bga_ful_diff_value
+    if = {
+        limit = { DI_bga_ful_diff_value < 0 }
+        multiply = -1
+    }
+}
+# Raw amount to request so that, after the character's gain modifiers, it lands on the target.
+DI_bga_ful_gain_request_value = {
+    value = DI_bga_ful_diff_value
+    divide = var:DI_bga_ful_gain_ratio
+    round = yes
+    min = 1
+}
+DI_bga_ful_loss_request_value = {
+    value = DI_bga_ful_diff_value
+    divide = var:DI_bga_ful_loss_ratio
+    round = yes
+    max = -1
+}
+DI_bga_ful_measured_value = {
+    value = spiritual_fulfillment
+    subtract = var:DI_bga_ful_before
+}
+DI_bga_ful_ratio_value = {
+    value = DI_bga_ful_measured_value
+    divide = var:DI_bga_ful_request
+}

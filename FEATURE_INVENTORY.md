@@ -619,3 +619,22 @@ This is labeled as proof of concept/placeholder. Current visible event categorie
 - Pregnancy
 - Harm
 
+## 13. By God Alone Additions
+
+These features need the By God Alone DLC and are hidden without it (except Study Rite, which only needs the base game's Study Faith scheme).
+
+### Character Interactions
+
+- **Study Rite**: Fires a copy of the game's Study Faith success event (`study_faith_outcome.1000`, reusing its texts) for the selected character's rite. The player learns every tenet and doctrine of that rite, discovers the matching syncretism tenet, and chooses between only learning or learning and converting (the conversion uses the game's normal consequences). Unlike the scheme, it also works for other rites of the player's own faith. The player must be a playable character.
+- **Cardinalate**: Appoints the selected character as a cardinal through the game's cardinalate effect, or removes their cardinalate. The game's own eligibility rules still apply and are shown as failure reasons.
+- **Change Government**: New **Ecclesiastical** option, applied to the character and their vassals above baron tier, like Theocracy.
+
+### Character Editor
+
+- **Stats tab - Spiritual Fulfillment**: -100 / 0 / 100 presets and 1-point steps (Shift: 5, Control: 10), with All mode support. Only playable characters have spiritual fulfillment. The game scales fulfillment changes by the character's gain/loss modifiers, so the editor measures each change and corrects it until the value is within 1 point of the target. The lock button grants or removes **Divine Grace**.
+- **Modifiers tab - Divine Grace**: New custom modifier. No spiritual fulfillment is ever lost while it is active, which also blocks decreases made from the editor.
+
+### Faith Editor
+
+- **Personal Tenets**: Add Personal Tenet opens the tenet picker and adds any tenet as a personal tenet of the selected character (if no slot is free, the game replaces the worst one). Remove Personal Tenet lists only the character's current personal tenets and removes the one clicked.
+
