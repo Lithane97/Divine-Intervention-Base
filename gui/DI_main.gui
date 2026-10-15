@@ -1,61 +1,61 @@
-# Main window
+﻿# Main window
 window = {
-	name = "DI_main_window"
-	parentanchor = center|hcenter
-	size = { 640 10 }
-	layer = windows_layer
-	filter_mouse = all
-	allow_outside = yes
-	alwaystransparent = no
-	
-	using = Window_Background
-	using = Window_Decoration
-	movable = yes
-	visible = "[And(GetVariableSystem.Exists('DI_main_visible'), GetScriptedGui('DI_menu_access_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
-    
+    name = "DI_main_window"
+    parentanchor = center|hcenter
+    size = { 640 10 }
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+    visible = "[And(GetPlayer.IsValid, And(GetVariableSystem.Exists('DI_main_visible'), GetScriptedGui('DI_menu_access_sgui').IsValid(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End)))]"
+
     datacontext = "[GetVariableSystem]"
-	datacontext = "[GetPlayer]"
+    datacontext = "[GetPlayer]"
 
-	state = {
-		name = _show
-		using = Animation_FadeIn_Quick
-		on_finish = "[PdxGuiWidget.StackTop]"
-	}
-	
-	state = {
-		name = _hide
-		using = Animation_FadeOut_Quick
-	}
-	
-	vbox = {
-		restrictparent_min = yes
-		ignoreinvisible = yes
-		using = Window_Margins
-		
-		header_pattern = {
-			layoutpolicy_horizontal = expanding
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+    }
+
+    vbox = {
+        restrictparent_min = yes
+        ignoreinvisible = yes
+        using = Window_Margins
+
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
 
 
-			blockoverride "header_text"
-			{
-				text = "DI_VIEW_TITLE"
-			}
+            blockoverride "header_text"
+            {
+                text = "DI_VIEW_TITLE"
+            }
 
-			blockoverride "button_close"
-			{
-				onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
-			}
-		}
-		
-		widget = {
-			size = { 740 150 }
-            
-            widget = { 
+            blockoverride "button_close"
+            {
+                onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
+            }
+        }
+
+        widget = {
+            size = { 740 150 }
+
+            widget = {
                 size = { 740 110 }
                 vbox = {
                     hbox = {
                         spacing = 5
-                        
+
                         button_standard = {
                             layoutpolicy_horizontal = expanding
                             text = DI_char_editor
@@ -64,88 +64,88 @@ window = {
                             tooltip = DI_char_editor_tt
                         }
 
-						button_standard = {
+                        button_standard = {
                             layoutpolicy_horizontal = expanding
                             text = DI_pinned_characters
-							onclick = "[GetScriptedGui('DI_skills_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_skills_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             onclick = "[GetVariableSystem.Toggle('DI_pinned_characters_window_visible')]"
                             tooltip = DI_pinned_characters_tt
                         }
 
-						# title_manager
-						button_standard = {
-							layoutpolicy_horizontal = expanding
-							text = DI_title_manager
-							onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
-							tooltip = DI_title_manager_tt
-						}
+                        # title_manager
+                        button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_title_manager
+                            onclick = "[GetVariableSystem.Toggle('DI_title_manager_window_visible')]"
+                            tooltip = DI_title_manager_tt
+                        }
 
-						button_standard = {
-							layoutpolicy_horizontal = expanding
-							text = DI_event_manager_title
-							visible = "[And(InDebugMode, Not(InReleaseMode))]"
-							onclick = "[GetVariableSystem.Toggle('DI_event_manager_window_visible')]"
-							tooltip = DI_event_manager_tt
-						}
+                        button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_event_manager_title
+                            visible = "[And(InDebugMode, Not(InReleaseMode))]"
+                            onclick = "[GetVariableSystem.Toggle('DI_event_manager_window_visible')]"
+                            tooltip = DI_event_manager_tt
+                        }
                     }
-					
-					hbox = {
-						spacing = 5
-						
-						button_standard = {
-							layoutpolicy_horizontal = expanding
-							text = DI_char_spawner
-							onclick = "[GetVariableSystem.Toggle('DI_char_spawner_window_visible')]"
-							tooltip = DI_char_spawner_tt
+
+                    hbox = {
+                        spacing = 5
+
+                        button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_char_spawner
+                            onclick = "[GetVariableSystem.Toggle('DI_char_spawner_window_visible')]"
+                            tooltip = DI_char_spawner_tt
                             button_ignore = none
                         }
 
-						button_standard = {
+                        button_standard = {
                             layoutpolicy_horizontal = expanding
                             text = DI_army_spawner
-							onclick = "[GetVariableSystem.Toggle('DI_army_spawner_window_visible')]"
-							tooltip = DI_army_spawner_tt
+                            onclick = "[GetVariableSystem.Toggle('DI_army_spawner_window_visible')]"
+                            tooltip = DI_army_spawner_tt
                             button_ignore = none
                         }
 
-						button_standard = {
-							layoutpolicy_horizontal = expanding
-							text = DI_diplomacy
-							onclick = "[GetVariableSystem.Toggle('DI_diplomacy_window_visible')]"
-							tooltip = DI_diplomacy_tt
-							button_ignore = none
-						}
-					}
-					
-					hbox = {
-						spacing = 5
-						
-						button_standard = {
+                        button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_diplomacy
+                            onclick = "[GetVariableSystem.Toggle('DI_diplomacy_window_visible')]"
+                            tooltip = DI_diplomacy_tt
+                            button_ignore = none
+                        }
+                    }
+
+                    hbox = {
+                        spacing = 5
+
+                        button_standard = {
                             layoutpolicy_horizontal = expanding
                             text = DI_artifact_creator
-							onclick = "[GetScriptedGui('DI_artifact_select_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onclick = "[GetVariableSystem.Toggle('DI_artifact_window_visible')]"
-							tooltip = DI_artifact_creator_tt
+                            onclick = "[GetScriptedGui('DI_artifact_select_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetVariableSystem.Toggle('DI_artifact_window_visible')]"
+                            tooltip = DI_artifact_creator_tt
                             button_ignore = none
                         }
 
-						button_standard = {
-							layoutpolicy_horizontal = expanding
-							text = DI_cultural_editor_window
-							onclick = "[GetScriptedGui('DI_innovation_select_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-							onclick = "[GetVariableSystem.Toggle('DI_cultural_editor_window_visible')]"
-							tooltip = DI_cultural_editor_window_tt
-							button_ignore = none
-						}
+                        button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_cultural_editor_window
+                            onclick = "[GetScriptedGui('DI_innovation_select_char_init').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetVariableSystem.Toggle('DI_cultural_editor_window_visible')]"
+                            tooltip = DI_cultural_editor_window_tt
+                            button_ignore = none
+                        }
 
-						button_standard = {
-							layoutpolicy_horizontal = expanding
-							text = DI_faith_editor_window
-							onclick = "[GetVariableSystem.Toggle('DI_faith_editor_window_visible')]"
-							tooltip = DI_faith_editor_window_tt
-							button_ignore = none
-						}
-					}
+                        button_standard = {
+                            layoutpolicy_horizontal = expanding
+                            text = DI_faith_editor_window
+                            onclick = "[GetVariableSystem.Toggle('DI_faith_editor_window_visible')]"
+                            tooltip = DI_faith_editor_window_tt
+                            button_ignore = none
+                        }
+                    }
                 }
             }
 
@@ -153,7 +153,7 @@ window = {
                 position = { 18 110 }
                 size = { 300 40 }
                 hbox = {
-					spacing = 15
+                    spacing = 15
                     button_standard = {
                         name = "DI_clear_pin_button"
                         onclick = "[GetScriptedGui('DI_clear_all_pins').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
@@ -163,64 +163,64 @@ window = {
                         text = DI_clear_pins
                     }
 
-					button_standard = {
-						name = "DI_test_button"
-						onclick = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-						tooltip = DI_test_button_tt
-						using = tooltip_ne
-						size = { 130 35 }
-						text = DI_test_button
-					}
+                    button_standard = {
+                        name = "DI_test_button"
+                        onclick = "[GetScriptedGui('DI_create_pinned_trait_list').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        tooltip = DI_test_button_tt
+                        using = tooltip_ne
+                        size = { 130 35 }
+                        text = DI_test_button
+                    }
                 }
             }
-            
+
             widget = {
                 position = { 500 110 }
                 size = { 110 40 }
                 hbox = {
                     button_standard = {
-						layoutpolicy_horizontal = expanding
-						size = { 100 30 }
-						text = DI_debug_mode
-						onclick = "[ExecuteConsoleCommand('debug_mode')]"
-						tooltip = DI_debug_mode_tt
+                        layoutpolicy_horizontal = expanding
+                        size = { 100 30 }
+                        text = DI_debug_mode
+                        onclick = "[ExecuteConsoleCommand('debug_mode')]"
+                        tooltip = DI_debug_mode_tt
                     }
                 }
-			}
-			
-		}
-
-            # Hidden debug information takes no space in the window's vertical layout.
-            hbox = {
-                size = { 740 30 }
-                spacing = 10
-                visible = "[InDebugMode]"
-
-                text_label_left = {
-                    size = { 220 30 }
-                    max_width = 220
-                    using = Font_Size_Small
-                    raw_text = "Player: [GetPlayer.GetHumanName]"
-                    tooltip = "[GetPlayer.GetHumanName]"
-                }
-
-                text_label_left = {
-                    size = { 100 30 }
-                    using = Font_Size_Small
-                    raw_text = "IsHost: [Select_CString(IsHost, 'yes', 'no')]"
-                }
-
-                text_label_left = {
-                    size = { 170 30 }
-                    using = Font_Size_Small
-                    raw_text = "Host or local: [Select_CString(JominiIsHostOrLocal, 'yes', 'no')]"
-                }
-
-                text_label_left = {
-                    size = { 220 30 }
-                    using = Font_Size_Small
-                    raw_text = "Registered host: [Select_CString(GetScriptedGui('DI_host_character_check_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'yes', 'no')]"
-                }
             }
-	}
+
+        }
+
+        # Hidden debug information takes no space in the window's vertical layout.
+        hbox = {
+            size = { 740 30 }
+            spacing = 10
+            visible = "[InDebugMode]"
+
+            text_label_left = {
+                size = { 220 30 }
+                max_width = 220
+                using = Font_Size_Small
+                raw_text = "Player: [GetPlayer.GetHumanName]"
+                tooltip = "[GetPlayer.GetHumanName]"
+            }
+
+            text_label_left = {
+                size = { 100 30 }
+                using = Font_Size_Small
+                raw_text = "IsHost: [Select_CString(IsHost, 'yes', 'no')]"
+            }
+
+            text_label_left = {
+                size = { 170 30 }
+                using = Font_Size_Small
+                raw_text = "Host or local: [Select_CString(JominiIsHostOrLocal, 'yes', 'no')]"
+            }
+
+            text_label_left = {
+                size = { 220 30 }
+                using = Font_Size_Small
+                raw_text = "Registered host: [Select_CString(GetScriptedGui('DI_host_character_check_sgui').IsValid(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End), 'yes', 'no')]"
+            }
+        }
+    }
 }
