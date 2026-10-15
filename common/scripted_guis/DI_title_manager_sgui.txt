@@ -256,8 +256,7 @@ DI_create_dejure_tree_sgui = {
 
 ### Load Title Manager Dropdown ###
 DI_load_title_manager_dropdown = {
-    scope = character # Player Character
-
+    # Global filter choices can be initialized before a character is selected.
     is_valid = {
         OR = {
             NOT = { has_global_variable_list = DI_title_manager_filter_choices }
@@ -266,8 +265,6 @@ DI_load_title_manager_dropdown = {
     }
 
     effect = {
-        save_scope_as = player
-
         clear_global_variable_list = DI_title_manager_filter_choices
         set_global_variable = DI_title_filters_3f8a92c4e1b7_loaded
 
@@ -282,6 +279,24 @@ DI_load_title_manager_dropdown = {
         add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_pinned_characters }
         add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_unpin_selected }
         add_to_global_variable_list = { name = DI_title_manager_filter_choices target = flag:DI_title_filter_clear_pinned }
+    }
+}
+
+# Initialize character-specific defaults when opening the Title Manager.
+# A named scope lets this safely ignore calls made without a player character.
+DI_tm_initialize_building_level_sgui = {
+    saved_scopes = { DI_tm_player }
+
+    effect = {
+        if = {
+            limit = { exists = scope:DI_tm_player }
+            scope:DI_tm_player = {
+                if = {
+                    limit = { NOT = { has_variable = DI_title_manager_building_level } }
+                    set_variable = { name = DI_title_manager_building_level value = 1 }
+                }
+            }
+        }
     }
 }
 
