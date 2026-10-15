@@ -195,6 +195,16 @@ window = {
 					text = "[GetPlayer.GetHumanName]"
                 }
             }
+
+			# Temporary: verify the ID stamped on the current player character
+			widget = {
+				position = { 640 140 }
+				size = { 300 40 }
+				visible = "[InDebugMode]"
+				text_label_left = {
+					text = "Player ID: [GetPlayer.MakeScope.Var('DI_player_id').GetValue|0]"
+				}
+			}
 			
 		}            
 	}
