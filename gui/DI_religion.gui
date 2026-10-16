@@ -30,8 +30,13 @@
     }
 
     vbox = {
-        restrictparent_min = yes
+        layoutpolicy_horizontal = expanding
+        layoutpolicy_vertical = expanding
+        ignoreinvisible = yes
+        spacing = 0
         using = Window_Margins
+        margin_top = 14
+        margin_bottom = 18
 
         header_pattern = {
             layoutpolicy_horizontal = expanding
@@ -39,7 +44,7 @@
 
             blockoverride "header_text"
             {
-                text = DI_religion_menu_title
+                text = "[SelectLocalization(GetVariableSystem.HasValue('DI_religion_window_mode', 'char_spawner'), 'DI_char_spawner_select_faith', 'DI_religion_menu_title')]"
             }
 
             blockoverride "button_close"
@@ -62,13 +67,28 @@
             }
         }
 
-        DI_religion_scrollbox = {
+        widget = {
             visible = "[GetVariableSystem.HasValue('DI_religion_window_mode', 'char_spawner')]"
-
-            blockoverride "footer" {}
-            blockoverride "onclick" {
-                onclick = "[GetScriptedGui('DI_char_spawner_select_faith').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_faith', Faith.MakeScope).End)]"
-                onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            DI_fe_rite_picker = {
+                size = { 100% 100% }
+                blockoverride "DI_rite_picker_footer" {}
+                blockoverride "DI_rite_picker_model" {
+                    datamodel = "[DataModelFirst(GetGlobalList('DI_religion_list'), Select_int32(And(GetVariableSystem.Exists('DI_religion_window_visible'), GetVariableSystem.HasValue('DI_religion_window_mode', 'char_spawner')), GetDataModelSize(GetGlobalList('DI_religion_list')), '(int32)0'))]"
+                }
+                blockoverride "DI_rite_picker_religion_selection" {
+                    down = "[ObjectsEqual(Religion.Self, GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_selected_rite').Rite.GetFaith.GetReligion)]"
+                }
+                blockoverride "DI_rite_picker_faith_selection" {
+                    down = "[ObjectsEqual(Faith.Self, GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_selected_rite').Rite.GetFaith)]"
+                }
+                blockoverride "DI_rite_picker_action" {
+                    enabled = "[Rite.IsValid]"
+                    down = "[ObjectsEqual(Rite.Self, GetPlayer.MakeScope.Var('DI_misc_variables_story').Var('DI_char_spawner_selected_rite').Rite)]"
+                    onclick = "[GetScriptedGui('DI_char_spawner_select_rite').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"
+                    onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
+                }
             }
             blockoverride "rite_onclick" {
                 onclick = "[GetScriptedGui('DI_char_spawner_select_rite').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_rite', Rite.MakeScope).End)]"

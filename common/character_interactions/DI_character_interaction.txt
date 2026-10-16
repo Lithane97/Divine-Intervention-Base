@@ -2625,7 +2625,7 @@ DI_take_all_titles_interaction = {
                                 tier >= tier_county
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2636,7 +2636,7 @@ DI_take_all_titles_interaction = {
                                 tier >= tier_county
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2647,7 +2647,7 @@ DI_take_all_titles_interaction = {
                                 tier = tier_duchy
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2658,7 +2658,7 @@ DI_take_all_titles_interaction = {
                                 tier = tier_kingdom
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2669,7 +2669,7 @@ DI_take_all_titles_interaction = {
                                 tier >= tier_empire
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2680,7 +2680,7 @@ DI_take_all_titles_interaction = {
                                 tier = tier_duchy
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2691,7 +2691,7 @@ DI_take_all_titles_interaction = {
                                 tier = tier_kingdom
                                 NOT = { holder = scope:actor }
                             }
-                            scope:actor = { get_title = prev }
+                            scope:actor = { DI_get_title_effect = { TITLE = prev } }
                         }
                     }
                 }
@@ -2960,6 +2960,11 @@ DI_take_title_interaction = {
         }
     }
 
+    # The native handler performs the transfer before on_accept can prepare it.
+    on_send = {
+        scope:actor = { DI_prepare_title_recipient_effect = yes }
+    }
+
     on_auto_accept = {
     }
 
@@ -3005,6 +3010,7 @@ DI_take_title_alternate_interaction = {
     }
 
     on_accept = {
+        scope:actor = { DI_prepare_title_recipient_effect = yes }
         create_title_and_vassal_change = {
             type = conquest
             save_scope_as = change
