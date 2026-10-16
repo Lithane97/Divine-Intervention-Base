@@ -525,6 +525,16 @@ DI_char_spawner_resolve_origin_effect = {
 			}
 		}
 	}
+
+	# 1.20: rites. create_character only takes a faith (and gives its default rite) unless a rite is passed.
+	# Same faith as the target: use the target's rite. Any other faith: that faith's main rite.
+	if = {
+		limit = { scope:DI_cs_spawn_faith = scope:target.faith }
+		scope:target.rite = { save_scope_as = DI_cs_spawn_rite }
+	}
+	else = {
+		scope:DI_cs_spawn_faith.main_rite = { save_scope_as = DI_cs_spawn_rite }
+	}
 }
 
 DI_spawn_family_character_effect = {
@@ -564,6 +574,7 @@ DI_spawn_family_character_effect = {
 		fertility = 0.5
 		employer = scope:target
 		faith = scope:DI_cs_spawn_faith
+		rite = scope:DI_cs_spawn_rite
 		culture = scope:DI_cs_spawn_culture
 		dynasty_house = scope:target_house
 		martial = scope:root_target.var:DI_cs_martial
@@ -627,6 +638,7 @@ DI_spawn_court_character_effect = {
 		fertility = 6
 		employer = scope:target
 		faith = scope:DI_cs_spawn_faith
+		rite = scope:DI_cs_spawn_rite
 		culture = scope:DI_cs_spawn_culture
 		dynasty = generate
 		martial = scope:root_target.var:DI_cs_martial
@@ -708,6 +720,7 @@ DI_spawn_low_court_character_effect = {
 		fertility = 0.5
 		employer = scope:target
 		faith = scope:DI_cs_spawn_faith
+		rite = scope:DI_cs_spawn_rite
 		culture = scope:DI_cs_spawn_culture
 		dynasty = none
 		martial = scope:root_target.var:DI_cs_martial
