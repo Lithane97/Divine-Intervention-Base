@@ -29,6 +29,22 @@ DI_char_spawner_initialize_origin = {
                 limit = { NOT = { has_variable = DI_char_spawner_selected_faith } }
                 set_variable = { name = DI_char_spawner_selected_faith value = root.faith }
             }
+            # 1.20: the selected origin is a rite; older saves only stored a faith
+            if = {
+                limit = {
+                    OR = {
+                        NOT = { has_variable = DI_char_spawner_selected_rite }
+                        NOT = { var:DI_char_spawner_selected_rite.faith = var:DI_char_spawner_selected_faith }
+                    }
+                }
+                if = {
+                    limit = { root.faith = var:DI_char_spawner_selected_faith }
+                    set_variable = { name = DI_char_spawner_selected_rite value = root.rite }
+                }
+                else = {
+                    set_variable = { name = DI_char_spawner_selected_rite value = var:DI_char_spawner_selected_faith.main_rite }
+                }
+            }
         }
     }
 }
@@ -266,6 +282,21 @@ DI_char_spawner_select_faith = {
         random_owned_story = {
             limit = { story_type = DI_misc_variables_story }
             set_variable = { name = DI_char_spawner_selected_faith value = scope:selected_faith }
+            set_variable = { name = DI_char_spawner_selected_rite value = scope:selected_faith.main_rite }
+            set_variable = { name = DI_char_spawner_faith_mode value = flag:selected }
+        }
+    }
+}
+
+# 1.20: pick a specific rite (from the unfolded faith in the religion window)
+DI_char_spawner_select_rite = {
+    scope = character
+    saved_scopes = { selected_rite }
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_char_spawner_selected_faith value = scope:selected_rite.faith }
+            set_variable = { name = DI_char_spawner_selected_rite value = scope:selected_rite }
             set_variable = { name = DI_char_spawner_faith_mode value = flag:selected }
         }
     }

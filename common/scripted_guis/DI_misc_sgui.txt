@@ -768,6 +768,42 @@ DI_religion_list_load = {
     }
 }
 
+# 1.20: rite pickers from the religion window (unfolded faith)
+DI_rite_change = {
+    scope = character
+
+    saved_scopes = {
+        selected_rite
+    }
+
+    effect = {
+        random_owned_story = {
+            limit = {
+                story_type = DI_misc_variables_story
+            }
+            save_scope_as = DI_story
+        }
+
+        if = {
+            limit = {
+                scope:DI_story = { has_variable = DI_pinned_char_var }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+
+                hidden_effect = {
+                    set_character_rite = scope:selected_rite
+                }
+            }
+        }
+        else = {
+            hidden_effect = {
+                set_character_rite = scope:selected_rite
+            }
+        }
+    }
+}
+
 DI_change_myreligion = {
     scope = character
 

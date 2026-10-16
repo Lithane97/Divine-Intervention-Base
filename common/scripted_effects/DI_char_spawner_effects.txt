@@ -527,8 +527,17 @@ DI_char_spawner_resolve_origin_effect = {
 	}
 
 	# 1.20: rites. create_character only takes a faith (and gives its default rite) unless a rite is passed.
-	# Same faith as the target: use the target's rite. Any other faith: that faith's main rite.
+	# Selected mode: the rite picked in the religion window. Same faith as the target: the target's rite.
+	# Any other faith: that faith's main rite.
 	if = {
+		limit = {
+			scope:DI_story.var:DI_char_spawner_faith_mode = flag:selected
+			exists = scope:DI_story.var:DI_char_spawner_selected_rite
+			scope:DI_story.var:DI_char_spawner_selected_rite.faith = scope:DI_cs_spawn_faith
+		}
+		scope:DI_story.var:DI_char_spawner_selected_rite = { save_scope_as = DI_cs_spawn_rite }
+	}
+	else_if = {
 		limit = { scope:DI_cs_spawn_faith = scope:target.faith }
 		scope:target.rite = { save_scope_as = DI_cs_spawn_rite }
 	}
