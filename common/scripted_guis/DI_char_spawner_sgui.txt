@@ -29,6 +29,16 @@ DI_char_spawner_initialize_origin = {
                 limit = { NOT = { has_variable = DI_char_spawner_selected_faith } }
                 set_variable = { name = DI_char_spawner_selected_faith value = root.faith }
             }
+            if = {
+                limit = { NOT = { exists = var:DI_char_spawner_selected_rite } }
+                if = {
+                    limit = { exists = var:DI_char_spawner_selected_faith.main_rite }
+                    set_variable = { name = DI_char_spawner_selected_rite value = var:DI_char_spawner_selected_faith.main_rite }
+                }
+                else = {
+                    set_variable = { name = DI_char_spawner_selected_rite value = root.rite }
+                }
+            }
         }
     }
 }
@@ -266,7 +276,25 @@ DI_char_spawner_select_faith = {
         random_owned_story = {
             limit = { story_type = DI_misc_variables_story }
             set_variable = { name = DI_char_spawner_selected_faith value = scope:selected_faith }
+            set_variable = { name = DI_char_spawner_selected_rite value = scope:selected_faith.main_rite }
             set_variable = { name = DI_char_spawner_faith_mode value = flag:selected }
+        }
+    }
+}
+
+DI_char_spawner_select_rite = {
+    scope = character
+    saved_scopes = { selected_rite }
+    is_valid = { exists = scope:selected_rite }
+    effect = {
+        if = {
+            limit = { exists = scope:selected_rite }
+            random_owned_story = {
+                limit = { story_type = DI_misc_variables_story }
+                set_variable = { name = DI_char_spawner_selected_rite value = scope:selected_rite }
+                set_variable = { name = DI_char_spawner_selected_faith value = scope:selected_rite.faith }
+                set_variable = { name = DI_char_spawner_faith_mode value = flag:selected }
+            }
         }
     }
 }

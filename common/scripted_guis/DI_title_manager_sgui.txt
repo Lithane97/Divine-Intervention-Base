@@ -138,7 +138,7 @@ DI_take_titles_sgui = {
             save_scope_as = title
 
             scope:player = {
-                get_title = scope:title
+                DI_get_title_effect = { TITLE = scope:title }
             }
         }
     }
@@ -181,7 +181,7 @@ DI_create_dejure_liege_title_sgui = {
                 }
 
                 scope:player = {
-                    get_title = scope:title.de_jure_liege
+                    DI_get_title_effect = { TITLE = scope:title.de_jure_liege }
                 }
             }
         }
@@ -207,7 +207,7 @@ DI_create_direct_dejure_vassals_sgui = {
                         is_title_created = no
                         tier >= county
                     }
-                    scope:player = { get_title = scope:dj_title }
+                    scope:player = { DI_get_title_effect = { TITLE = scope:dj_title } }
                 }
             }
         }
@@ -234,7 +234,7 @@ DI_create_dejure_tree_sgui = {
                             is_title_created = no
                         }
 
-                        scope:player = { get_title = scope:up_title }
+                        scope:player = { DI_get_title_effect = { TITLE = scope:up_title } }
                     }
 
                     every_in_de_jure_hierarchy = {
@@ -245,7 +245,7 @@ DI_create_dejure_tree_sgui = {
                             tier >= tier_county
                         }
 
-                        scope:player = { get_title = scope:down_title }
+                        scope:player = { DI_get_title_effect = { TITLE = scope:down_title } }
                     }
                 }
             }
