@@ -1,0 +1,27 @@
+# Access control for the Divine Intervention menu and cheat interactions in multiplayer.
+# The host client registers its current character using the global GUI function IsHost.
+# The shared character scope lets interactions check host access without a LobbyView context.
+# Scope: character
+
+DI_is_host_character_trigger = {
+	exists = global_var:DI_host_character
+	this = global_var:DI_host_character
+}
+
+DI_can_access_menu_trigger = {
+	OR = {
+		has_multiple_players = no
+		has_game_rule = DI_accessibility_everyone
+		has_game_rule = DI_accessibility_host_interactions
+		DI_is_host_character_trigger = yes
+	}
+}
+
+DI_can_access_interactions_trigger = {
+	OR = {
+		has_multiple_players = no
+		has_game_rule = DI_accessibility_everyone
+		has_game_rule = DI_accessibility_host_menu
+		DI_is_host_character_trigger = yes
+	}
+}

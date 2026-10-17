@@ -159,6 +159,12 @@
                                     }
                                 }
                             }
+
+                            text_single = {
+                                visible = "[And(Not(GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet), Not(GetScriptedGui('DI_ce_stats_is_immortal').IsValid(GuiScope.SetRoot(Character.MakeScope).End)))]"
+                                text = DI_ce_stats_immortal_only
+                                default_format = "#low"
+                            }
                         }
 
                         vbox = {
@@ -776,13 +782,6 @@
                                     }
                                 }
                             }
-                        }
-
-
-                        text_single = {
-                            visible = "[And(Not(GetPlayer.MakeScope.Var('DI_ce_stats_all').IsSet), Not(GetScriptedGui('DI_ce_stats_is_immortal').IsValid(GuiScope.SetRoot(Character.MakeScope).End)))]"
-                            text = DI_ce_stats_immortal_only
-                            default_format = "#low"
                         }
                     }
                     expand = {}

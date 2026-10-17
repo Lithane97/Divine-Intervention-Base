@@ -10,13 +10,28 @@
 
     state = {
         name = "story_check"
-        trigger_when = "[GetScriptedGui('DI_misc_variable_story_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        trigger_when = "[And(GetPlayer.IsValid, GetScriptedGui('DI_misc_variable_story_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
         on_start = "[GetScriptedGui('DI_misc_variable_story_check').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+
+    # Closes the interaction cheat menu if the game rule says this player may no longer use it
+    state = {
+        name = "access_revoke_check"
+        trigger_when = "[And(GetPlayer.IsValid, GetScriptedGui('DI_revoke_interaction_access_sgui').IsValid(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End))]"
+        on_start = "[GetScriptedGui('DI_revoke_interaction_access_sgui').Execute(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End)]"
+    }
+
+    # IsHost is global: no LobbyView context is needed. Register before checking access.
+    # Re-registers when the host takes over another character or a new host takes over.
+    state = {
+        name = "host_character_check"
+        trigger_when = "[And(GetPlayer.IsValid, And(IsHost, GetScriptedGui('DI_register_host_character_sgui').IsValid(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End)))]"
+        on_start = "[GetScriptedGui('DI_register_host_character_sgui').Execute(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End)]"
     }
 
     flowcontainer = {
         ignoreinvisible = no
-        visible = "[GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End )]" # This has to go here to prevent error log spam from observer mode
+        visible = "[And(GetPlayer.IsValid, And(GetScriptedGui('DI_hide_button_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End ), GetScriptedGui('DI_menu_access_sgui').IsValid(GuiScope.AddScope('DI_access_player', GetPlayer.MakeScope).End)))]" # This has to go here to prevent error log spam from observer mode
 
         button_round = {
             name = "DI_shortcut_button_advcm"
@@ -33,7 +48,7 @@
                 alpha = 0
             }
 
-            visible = "[GetScriptedGui('DI_advcm_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            visible = "[And(GetPlayer.IsValid, GetScriptedGui('DI_advcm_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
 
             onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
             tooltip = DI_button_tt
@@ -74,7 +89,7 @@
                 alpha = 0
             }
 
-            visible = "[Not(GetScriptedGui('DI_advcm_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+            visible = "[And(GetPlayer.IsValid, Not(GetScriptedGui('DI_advcm_check').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)))]"
 
             onclick = "[GetVariableSystem.Toggle('DI_main_visible')]"
             tooltip = DI_button_tt

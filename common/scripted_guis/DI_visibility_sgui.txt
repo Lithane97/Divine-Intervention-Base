@@ -1,0 +1,103 @@
+﻿### Multiplayer access control ###
+# These GUIs deliberately have no character root. In the lobby GetPlayer may be
+# invalid, so callers pass DI_access_player as a named scope and we check it first.
+
+# Called by the host client's GUI using the global IsHost function.
+DI_register_host_character_sgui = {
+    saved_scopes = { DI_access_player }
+
+    is_valid = {
+        trigger_if = {
+            limit = { exists = scope:DI_access_player }
+            scope:DI_access_player = {
+                OR = {
+                    NOT = { exists = global_var:DI_host_character }
+                    NOT = { this = global_var:DI_host_character }
+                }
+            }
+        }
+        trigger_else = { always = no }
+    }
+
+    effect = {
+        if = {
+            limit = { exists = scope:DI_access_player }
+            set_global_variable = {
+                name = DI_host_character
+                value = scope:DI_access_player
+            }
+        }
+    }
+}
+
+# Debug check: has the local player's character been registered as the host?
+DI_host_character_check_sgui = {
+    saved_scopes = { DI_access_player }
+
+    is_valid = {
+        trigger_if = {
+            limit = { exists = scope:DI_access_player }
+            scope:DI_access_player = { DI_is_host_character_trigger = yes }
+        }
+        trigger_else = { always = no }
+    }
+}
+
+# Valid when the character may use the menu / interactions under the current rule.
+DI_menu_access_sgui = {
+    saved_scopes = { DI_access_player }
+
+    is_valid = {
+        trigger_if = {
+            limit = { exists = scope:DI_access_player }
+            scope:DI_access_player = { DI_can_access_menu_trigger = yes }
+        }
+        trigger_else = { always = no }
+    }
+}
+
+DI_interaction_access_sgui = {
+    saved_scopes = { DI_access_player }
+
+    is_valid = {
+        trigger_if = {
+            limit = { exists = scope:DI_access_player }
+            scope:DI_access_player = { DI_can_access_interactions_trigger = yes }
+        }
+        trigger_else = { always = no }
+    }
+}
+
+# Close the interaction cheat menu for characters that lost access.
+DI_revoke_interaction_access_sgui = {
+    saved_scopes = { DI_access_player }
+
+    is_valid = {
+        trigger_if = {
+            limit = { exists = scope:DI_access_player }
+            scope:DI_access_player = {
+                NOT = { DI_can_access_interactions_trigger = yes }
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_cheat_menu
+                }
+            }
+        }
+        trigger_else = { always = no }
+    }
+
+    effect = {
+        if = {
+            limit = { exists = scope:DI_access_player }
+            scope:DI_access_player = {
+                random_owned_story = {
+                    limit = {
+                        story_type = DI_misc_variables_story
+                        has_variable = DI_cheat_menu
+                    }
+                    remove_variable = DI_cheat_menu
+                }
+            }
+        }
+    }
+}
