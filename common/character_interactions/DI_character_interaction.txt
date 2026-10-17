@@ -548,7 +548,7 @@ DI_change_religion_interaction = {
 
     is_shown = {
         NOT = { scope:recipient = scope:actor }
-        NOT = { scope:actor.faith = scope:recipient.faith }
+        NOT = { scope:actor.rite = scope:recipient.rite }
         scope:actor = {
             is_ai = no
             any_owned_story = {
@@ -560,7 +560,8 @@ DI_change_religion_interaction = {
 
     on_accept = {
         scope:recipient = {
-            set_character_faith = scope:actor.faith
+            # 1.20: convert to the actor's rite, not just the faith (a faith change alone gives the faith's main rite)
+            set_character_rite = scope:actor.rite
         }
     }
 
@@ -4095,7 +4096,7 @@ DI_change_every_county = {
                 }
                 scope:DI_change_religion_every_county = {
                     every_sub_realm_county = {
-                        set_county_faith = scope:recipient.faith
+                        set_county_rite = scope:recipient.rite
                     }
                 }
                 scope:DI_change_culture_every_county = {

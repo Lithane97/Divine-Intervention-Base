@@ -1337,10 +1337,11 @@ template DI_vbox_character_single
                             icon = {
                                 parentanchor = left
                                 size = { 35 35 }
-                                texture = "[Character.GetFaith.GetIcon]"
+                                texture = "[Character.GetRite.GetIcon]"
                             }
 
                             button_standard = {
+                                size = { 210 33 } # rite names are longer than faith names
                                 onclick = "[GetVariableSystem.Set('DI_religion_window_mode', 'pinned_character')]"
                                 onclick = "[GetVariableSystem.Toggle('DI_religion_window_visible')]"
 
@@ -1350,7 +1351,7 @@ template DI_vbox_character_single
                                     parentanchor = center
                                     margin_bottom = 4
 
-                                    text = "[Character.GetFaith.GetNameNoTooltip]"
+                                    text = "[Character.GetRite.GetNameNoTooltip]"
                                     default_format = "#high"
                                 }
 
@@ -2147,7 +2148,7 @@ template DI_widget_character_list_item_finder
                                                 tooltipwidget = { faith_tooltip = {} }
                                                 using = tooltip_se
 
-                                                texture = "[Faith.GetIcon]"
+                                                texture = "[Character.GetRite.GetIcon]"
                                             }
 
                                             hbox = {
