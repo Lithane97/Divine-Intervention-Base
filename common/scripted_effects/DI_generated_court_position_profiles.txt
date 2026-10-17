@@ -2113,6 +2113,10 @@ DI_apply_court_position_validity_effect = {
                 }
             }
             set_character_faith = scope:target.faith
+            if = {
+                limit = { exists = scope:target.rite }
+                set_character_rite = scope:target.rite
+            }
         }
         court_position_type:champion_court_position = {
             remove_trait = blind
@@ -2769,35 +2773,6 @@ DI_apply_court_position_extended_validity_effect = {
                 limit = { NOT = { has_trait_xp = { trait = lifestyle_mystic value >= 50 } } }
                 add_trait = lifestyle_mystic
                 add_trait_xp = { trait = lifestyle_mystic value = 50 }
-            }
-        }
-        court_position_type:chief_qadi_court_position = {
-            if = {
-                limit = {
-                    AND = {
-                        scope:target.rite = {
-                            rite_has_doctrine = doctrine_gender_male_dominated
-                        }
-                    }
-                }
-            }
-            else_if = {
-                limit = {
-                    NOT = {
-                        AND = {
-                            scope:target.rite = {
-                                rite_has_doctrine = doctrine_gender_male_dominated
-                            }
-                        }
-                    }
-                    AND = {
-                        scope:target.rite = {
-                            rite_has_doctrine = doctrine_gender_female_dominated
-                        }
-                    }
-                }
-            }
-            else = {
             }
         }
         court_position_type:court_artificer_court_position = {

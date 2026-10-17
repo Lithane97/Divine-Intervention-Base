@@ -108,7 +108,8 @@
         "valid_camp_officer_trigger={ OFFICER=bodyguard }"
       ],
       "employer_requirements": [
-        "trigger_if={ limit={ government_has_flag=government_is_nomadic } domicile?={ has_domicile_building_or_higher=character_warfare_yurt_01 } }"
+        "trigger_if={ limit={ government_has_flag=government_is_nomadic } domicile?={ has_domicile_building_or_higher=character_warfare_yurt_01 } }",
+        "trigger_else={ OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_landless_adventurer } }"
       ],
       "review_reasons": [],
       "modifier_adjustments": {
@@ -403,7 +404,7 @@
         "highest_held_title_tier>=tier_kingdom"
       ],
       "review_reasons": [
-        "conditional gender requirement needs review"
+        "character:scope:liege.rite={ rite_has_dominant_ruling_gender=prev } via chief_qadi_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:774]"
       ],
       "modifier_adjustments": {
         "add": [],
@@ -412,43 +413,7 @@
       "runtime_conditions": [
         "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
       ],
-      "conditional_requirements": [
-        {
-          "when": [
-            "AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_male_dominated } }"
-          ],
-          "satisfiable": true,
-          "modifier_adjustments": {
-            "add": [],
-            "remove": []
-          },
-          "review_reasons": []
-        },
-        {
-          "when": [
-            "NOT={ AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_male_dominated } } }",
-            "AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_female_dominated } }"
-          ],
-          "satisfiable": true,
-          "modifier_adjustments": {
-            "add": [],
-            "remove": []
-          },
-          "review_reasons": []
-        },
-        {
-          "when": [
-            "NOT={ AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_male_dominated } } }",
-            "NOT={ AND={ scope:liege.rite={ rite_has_doctrine=doctrine_gender_female_dominated } } }"
-          ],
-          "satisfiable": true,
-          "modifier_adjustments": {
-            "add": [],
-            "remove": []
-          },
-          "review_reasons": []
-        }
-      ]
+      "conditional_requirements": []
     },
     {
       "position": "chronicler_court_position",
@@ -1415,7 +1380,7 @@
         "rite={ rite_has_parameter=master_assassin_court_position_unlocked }"
       ],
       "review_reasons": [
-        "character:rite={ rite_has_parameter=master_assassin_court_position_unlocked NOR={ rite_has_tenet=tenet_pacifism rite_has_tenet=tenet_dharmic_pacifism } } via master_assassin_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:898]"
+        "character:rite={ rite_has_parameter=master_assassin_court_position_unlocked NOR={ rite_has_tenet=tenet_pacifism rite_has_tenet=tenet_dharmic_pacifism } } via master_assassin_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:887]"
       ],
       "modifier_adjustments": {
         "add": [],
