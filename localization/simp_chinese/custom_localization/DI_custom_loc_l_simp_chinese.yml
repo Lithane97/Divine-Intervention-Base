@@ -1,60 +1,89 @@
 ﻿l_simp_chinese:
+ ### Diplomacy ###
  DIAnd1: "和"
  DIAnd2: ""
  DIOf1: "的"
  DIOf2: ""
+ # Primary Character #
  DI_primary_character_0: "主要角色"
  DI_primary_character_1: "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]"
  DI_primary_character_2: ""
+ # Secondary Character #
  DI_secondary_character_0: "次要角色"
  DI_secondary_character_1: "[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]"
+ # Tertiary Character #
  DI_tertiary_character_0: "第三个角色"
  DI_tertiary_character_1: "[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]"
  DI_tertiary_character_2: " "
+ ### Family ###
  DIAdopt: "收养"
  DIAdopts: "收养"
+
  DI_father_check_1: "将[GetPlayer.Custom('DI_flip_primary_character')]的父亲重置为其亲生父亲。"
  DI_father_check_2: "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFather.GetNameNoTooltip]被确认为[GetPlayer.Custom('DI_flip_primary_character')]的亲生父亲。"
  DI_betrothed_check_1: "[GetPlayer.Custom('DI_flip_primary_character')]解除其婚约。"
  DI_betrothed_check_2: "[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]解除了与[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetBetrothed.GetNameNoTooltip]的婚约。"
+
  DI_choose_primary_character: "\n#color_yellow 必须选择一个主要角色。#!"
  DI_choose_secondary_character: "\n#color_yellow 必须选择一个次要角色。#!"
  DI_choose_tertiary_character: "\n#color_yellow 必须选择第三个角色。#!"
  DI_choose_primary_and_secondary_characters: "[Localize('DI_choose_primary_character')][Localize('DI_choose_secondary_character')]"
  DI_choose_primary_and_tertiary_characters: "[Localize('DI_choose_primary_character')][Localize('DI_choose_tertiary_character')]"
+
+ ### Adoption Localization Strings ###
  DI_adoption_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]必须比[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]年长。#!"
  DI_adoption_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]必须比[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]年长。#!"
  DI_adoption_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]和[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]已经是[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]的父母了。#!"
  DI_adoption_triggered_desc_4: "\n#color_yellow 不能有两位男性父母。#!"
  DI_adoption_triggered_desc_5: "\n#color_yellow 不能有两位女性父母。#!"
+
+ ### Adoption House Localization Strings ###
  DI_adoption_house_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]已是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetHouse.GetBaseName]家族的成员。#!"
+
+ ### Custom Cadet Branch Localization Strings ###
  DI_cadet_branch_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]不得成为宗族首领。#!"
  DI_cadet_branch_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]不得成为家族首领。#!"
  DI_cadet_branch_triggered_desc_3: "[Localize('DI_cadet_branch_triggered_desc_1')][Localize('DI_cadet_branch_triggered_desc_2')]"
+
+ ### Custom Pregnancy Localization Strings ###
  DI_pregnancy_triggered_desc_1: "\n#color_yellow 不能有两个男性角色。#!"
  DI_pregnancy_triggered_desc_2: "\n#color_yellow 不能有两个女性角色。#!"
  DI_pregnancy_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]必须怀孕。#!"
+
+ ### Custom Set Real Father Localization Strings ###
  DI_set_real_father_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]本就是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]的亲生父亲。#!"
  DI_set_real_father_triggered_desc_2: "\n#color_yellow 亲生父亲必须是男性。#!"
  DI_set_real_father_triggered_desc_3: "\n#color_yellow 亲生父亲必须比孩子年长。#!"
  DI_set_father_as_real_father_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]没有可以重置的亲生父亲。#!"
  DI_set_father_as_real_father_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetFather.GetNameNoTooltip]本就是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]的亲生父亲。#!"
+
+ ### Custom Marry Localization Strings ###
  DI_marry_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]已经与[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetPrimarySpouse.GetNameNoTooltip]结婚。#!"
  DI_marry_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]已与[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetPrimarySpouse.GetNameNoTooltip]结婚。#!"
  DI_marry_triggered_desc_3: "[Localize('DI_marry_triggered_desc_1')][Localize('DI_marry_triggered_desc_2')]"
- DI_betrothal_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]已经与[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetPrimarySpouse.GetNameNoTooltip]结婚。#!"
- DI_betrothal_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]已经与[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetPrimarySpouse.GetNameNoTooltip]结婚。#!"
- DI_break_betrothal_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]尚未订婚。#!"
- DI_divorce_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]并未与[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]结婚。#!"
- DI_make_siblings_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]与[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]已是兄弟姐妹。#!"
- DI_make_siblings_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]是[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]的父母之一。#!"
- DI_make_siblings_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]的父母之一。#!"
+
+ ### Custom Concubine Localization Strings ###
  DI_add_concubine_triggered_desc_1: "\n#color_yellow 角色不能成为自己的妾室。#!"
  DI_add_concubine_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]已经是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]的妾室了。#!"
  DI_add_concubine_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]不能结婚。#!"
  DI_add_concubine_triggered_desc_4: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]不得订婚。#!"
  DI_add_concubine_triggered_desc_5: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]已经是别人的妾室。#!"
  DI_remove_concubine_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]不是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]的妾室。#!"
+
+ ### Custom Betrothal Localization Strings ###
+ DI_betrothal_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]已经与[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetPrimarySpouse.GetNameNoTooltip]结婚。#!"
+ DI_betrothal_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]已经与[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetPrimarySpouse.GetNameNoTooltip]结婚。#!"
+ DI_break_betrothal_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]尚未订婚。#!"
+
+ ### Custom Divorce Localization Strings ###
+ DI_divorce_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]并未与[GetPlayer.MakeScope.Var('DI_tertiary_character').Char.GetNameNoTooltip]结婚。#!"
+
+ ### Custom Make Siblings Localization Strings ###
+ DI_make_siblings_triggered_desc_1: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]与[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]已是兄弟姐妹。#!"
+ DI_make_siblings_triggered_desc_2: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]是[GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]的父母之一。#!"
+ DI_make_siblings_triggered_desc_3: "\n#color_yellow [GetPlayer.MakeScope.Var('DI_secondary_character').Char.GetNameNoTooltip]是[GetPlayer.MakeScope.Var('DI_primary_character').Char.GetNameNoTooltip]的父母之一。#!"
+
+### Diplomacy manager updates ###
  DI_dip_court_word: "宫廷"
  DI_dip_camp_word: "营地"
  DI_dip_empty_text: ""
@@ -67,6 +96,7 @@
  DI_dip_additional_parent_text: "和[GetPlayer.Custom('DI_flip_tertiary_character')]"
  DI_dip_parents_description_text: "将[GetPlayer.Custom('DI_flip_primary_character')][GetPlayer.Custom('DI_dip_additional_parent')]设为[GetPlayer.Custom('DI_flip_secondary_character')]的[GetPlayer.Custom('DI_dip_parent_role')]。[Localize('DI_dip_parents_selection_conflicts_text')][Localize('DI_dip_parents_status_conflicts_text')][Localize('DI_dip_parents_relationship_conflicts_text')]"
  DI_dip_wars_description_text: "查看[GetPlayer.Custom('DI_flip_primary_character')]的所有战争。[Localize('DI_dip_wars_selection_conflicts_text')][Localize('DI_dip_wars_status_conflicts_text')]"
+
  DI_dip_parent_role_plural: "父母"
  DI_dip_parent_role_single: "父母"
  DI_dip_conflict_primary_missing_text: "\n#color_yellow 选择一位主要角色。#!"
