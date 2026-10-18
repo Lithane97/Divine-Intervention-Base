@@ -196,7 +196,8 @@ window = {
     movable = yes
     using = Window_Background
     using = Window_Decoration
-    visible = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), Or(Or(GetPlayer.MakeScope.Var('DI_fe_old_tenet').TenetType.IsValid, GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet), Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet)))]"
+    # Keep window visibility free of 1.20-only datatypes so older engines can hide it.
+    visible = "[And(GetVariableSystem.Exists('DI_faith_editor_window_visible'), Or(Or(GetPlayer.MakeScope.Var('DI_fe_old_tenet').IsSet, GetPlayer.MakeScope.Var('DI_fe_add_tenet_mode').IsSet), Or(GetPlayer.MakeScope.Var('DI_fe_personal_add_mode').IsSet, GetPlayer.MakeScope.Var('DI_fe_personal_remove_mode').IsSet)))]"
     datacontext = "[GetPlayer.MakeScope.Var('DI_fe_rite').Rite]"
     datacontext = "[Rite.GetFaith]"
     state = {
@@ -303,10 +304,23 @@ window = {
     }
 }
 
-# Inert compatibility anchor for hot reloads of the old editor. No catalogue loading.
+# Explicit player-ready trigger: a plain widget does not reliably enter _show on save load.
+# This GUI-only latch is reset on widget creation, not persisted in the save.
 widget = {
     name = "DI_faith_editor_loader"
     size = { 0 0 }
-    visible = no
+    visible = yes
     alwaystransparent = yes
+    oncreate = "[GetVariableSystem.Clear('DI_fe_catalogue_session_loaded')]"
+    state = {
+        name = DI_fe_catalogue_wait_for_player
+        trigger_when = "[Not(GetPlayer.IsValid)]"
+        on_start = "[GetVariableSystem.Clear('DI_fe_catalogue_session_loaded')]"
+    }
+    state = {
+        name = DI_fe_catalogue_session_load
+        trigger_when = "[And(GetPlayer.IsValid, Not(GetVariableSystem.Exists('DI_fe_catalogue_session_loaded')))]"
+        on_start = "[GetScriptedGui('DI_fe_catalogue_load_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetVariableSystem.Set('DI_fe_catalogue_session_loaded', 'yes')]"
+    }
 }

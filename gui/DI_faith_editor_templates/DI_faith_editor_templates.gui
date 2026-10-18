@@ -1,4 +1,4 @@
-﻿# Refresh only editor state; catalogues and active-choice styling are live.
+﻿# Initialize cached group membership; visibility and active-choice styling stay live.
 template DI_Faith_Editor_Anim {
     state = {
         name = _show
@@ -171,6 +171,9 @@ types DI_Faith_Editor_Types {
             flowcontainer = {
                 ignoreinvisible = yes
                 block "DI_fe_group_icons" {}
+                item = {
+                    DI_fe_selected_doctrine_icon = { datacontext = "[Scope.DoctrineType]" }
+                }
             }
             divider_light = { layoutpolicy_vertical = expanding }
             vbox = {
@@ -178,6 +181,9 @@ types DI_Faith_Editor_Types {
                 spacing = 2
                 ignoreinvisible = yes
                 block "DI_fe_group_rows" {}
+                item = {
+                    DI_fe_doctrine_row = { datacontext = "[Scope.DoctrineType]" }
+                }
             }
         }
     }

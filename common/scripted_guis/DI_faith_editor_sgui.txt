@@ -1,9 +1,10 @@
-﻿# Faith editor for CK3 1.20. Live GUI catalogues; no saved catalogue lists.
+﻿# Faith editor for CK3 1.20. Cached doctrine membership; live visibility and editing.
 # All mutations revalidate the selected character and rite at execution time.
 
 DI_faith_editor_init_sgui = {
     scope = character
     effect = {
+        DI_fe_ensure_catalogue_effect = yes
         if = { limit = { NOT = { exists = var:DI_primary_character } } set_variable = { name = DI_primary_character value = root } }
         remove_variable = DI_fe_main_rite_mode
         remove_variable = DI_fe_add_tenet_mode

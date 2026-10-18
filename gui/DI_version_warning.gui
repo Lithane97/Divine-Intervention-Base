@@ -1,0 +1,77 @@
+﻿# Standalone in-game warning. Dismissal is GUI-only and resets on widget creation.
+# Keep this component usable on 1.19: no rite/tenet types or scripted GUI calls.
+window = {
+    name = "DI_scribe_version_warning"
+    # Use native modality to block interaction with the UI behind the warning.
+    modal = yes
+    modality = all
+    movable = no
+    oncreate = "[GetVariableSystem.Clear('DI_scribe_warning_dismissed')]"
+    size = { 100% 100% }
+    layer = confirmation
+    filter_mouse = all
+    visible = "[And(GetPlayer.IsValid, And(EqualTo_string(TrimBackChars(GetGameVersionInfoShort, '0123456789.() '), 'Scribe'), Not(GetVariableSystem.Exists('DI_scribe_warning_dismissed'))))]"
+
+    background = {
+        texture = "gfx/interface/colors/black.dds"
+        alpha = 0.65
+    }
+    widget = {
+        name = "DI_version_warning_dialog"
+        parentanchor = center
+        size = { 900 520 }
+        using = Window_Background
+        using = Window_Decoration
+        vbox = {
+            using = Window_Margins
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            spacing = 12
+            header_pattern = {
+                layoutpolicy_horizontal = expanding
+                blockoverride "header_text" {
+                    text = "DI_version_warning_title"
+                    # Override the shared header's 400px cap; reserve room for close.
+                    maximumsize = { 720 -1 }
+                    fontsize = 24
+                    fontsize_min = 22
+                }
+                blockoverride "button_close" {
+                    onclick = "[GetVariableSystem.Set('DI_scribe_warning_dismissed', 'yes')]"
+                }
+            }
+            # Expand the textbox itself, rather than leaving the default 45px height.
+            text_multi = {
+                size = { 0 280 }
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                autoresize = no
+                multiline = yes
+                align = top|left
+                fontsize = 22
+                fontsize_min = 22
+                text = "DI_version_warning_description"
+                default_format = "#high"
+                margin = { 12 8 }
+            }
+            button_standard = {
+                size = { 0 48 }
+                layoutpolicy_horizontal = expanding
+                text = "DI_version_warning_dismiss"
+                buttonText = {
+                    text_single = {
+                        size = { 100% 100% }
+                        autoresize = no
+                        align = center|nobaseline
+                        fontsize = 22
+                        fontsize_min = 22
+                        text = "DI_version_warning_dismiss"
+                        default_format = "#clickable"
+                        alwaystransparent = yes
+                    }
+                }
+                onclick = "[GetVariableSystem.Set('DI_scribe_warning_dismissed', 'yes')]"
+            }
+        }
+    }
+}
