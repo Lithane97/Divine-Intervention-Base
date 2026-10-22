@@ -29,31 +29,69 @@ DI_remove_tradition = {
 				remove_culture_tradition = scope:tradition
 			}
 		}
-	}
+        if = {
+            limit = {
+                exists = var:DI_tradition_to_replace
+                var:DI_tradition_to_replace = scope:tradition
+                var:DI_tradition_replace_culture = var:DI_innovation_selected_culture
+            }
+            remove_variable = DI_tradition_to_replace
+            remove_variable = DI_tradition_replace_culture
+        }
+    }
 }
 
 ### DI_set_tradition ###
 DI_set_tradition = {
     scope = character
     saved_scopes = { tradition }
+    is_valid = { DI_tradition_picker_selection_valid_trigger = yes }
+    effect = {
+        if = {
+            limit = { DI_tradition_picker_selection_valid_trigger = yes }
+            if = {
+                limit = { exists = var:DI_tradition_to_replace }
+                var:DI_tradition_to_replace = { save_scope_as = DI_old_tradition }
+                var:DI_innovation_selected_culture = {
+                    remove_culture_tradition = scope:DI_old_tradition
+                    add_culture_tradition = scope:tradition
+                }
+                # Keep editing the same slot, now occupied by the selected tradition.
+                set_variable = { name = DI_tradition_to_replace value = scope:tradition }
+            }
+            else = {
+                var:DI_innovation_selected_culture = { add_culture_tradition = scope:tradition }
+            }
+        }
+    }
+}
+
+DI_tradition_begin_replacement_sgui = {
+    scope = character
+    saved_scopes = { tradition }
     is_valid = {
         exists = var:DI_innovation_selected_culture
-        DI_tradition_dlc_available_trigger = yes
+        exists = scope:tradition
+        var:DI_innovation_selected_culture = { has_cultural_tradition = scope:tradition }
     }
     effect = {
-        # Execute is guarded too, so another GUI caller cannot bypass the DLC check.
         if = {
             limit = {
                 exists = var:DI_innovation_selected_culture
-                DI_tradition_dlc_available_trigger = yes
+                exists = scope:tradition
+                var:DI_innovation_selected_culture = { has_cultural_tradition = scope:tradition }
             }
-            var:DI_innovation_selected_culture = {
-                if = {
-                    limit = { NOT = { has_cultural_tradition = scope:tradition } }
-                    add_culture_tradition = scope:tradition
-                }
-            }
+            set_variable = { name = DI_tradition_to_replace value = scope:tradition }
+            set_variable = { name = DI_tradition_replace_culture value = var:DI_innovation_selected_culture }
         }
+    }
+}
+
+DI_tradition_clear_replacement_sgui = {
+    scope = character
+    effect = {
+        remove_variable = DI_tradition_to_replace
+        remove_variable = DI_tradition_replace_culture
     }
 }
 
@@ -75,4 +113,28 @@ DI_tradition_dlc_available_sgui = {
     scope = character
     saved_scopes = { tradition }
     is_valid = { DI_tradition_dlc_available_trigger = yes }
+}
+
+# Picker removal is available only in normal add/remove mode.
+# Keep the effect guarded because Execute callers can bypass is_valid.
+DI_tradition_picker_remove_sgui = {
+    scope = character
+    saved_scopes = { tradition }
+    is_valid = {
+        NOT = { has_variable = DI_tradition_to_replace }
+        exists = var:DI_innovation_selected_culture
+        exists = scope:tradition
+        var:DI_innovation_selected_culture = { has_cultural_tradition = scope:tradition }
+    }
+    effect = {
+        if = {
+            limit = {
+                NOT = { has_variable = DI_tradition_to_replace }
+                exists = var:DI_innovation_selected_culture
+                exists = scope:tradition
+                var:DI_innovation_selected_culture = { has_cultural_tradition = scope:tradition }
+            }
+            var:DI_innovation_selected_culture = { remove_culture_tradition = scope:tradition }
+        }
+    }
 }

@@ -25,6 +25,7 @@ window = {
 	state = {
 		name = _hide
 		using = Animation_FadeOut_Quick
+		on_start = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 	}
 
 	visible = "[GetVariableSystem.Exists('DI_tradition_editor_window_visible')]"
@@ -38,13 +39,21 @@ window = {
 
 			blockoverride "header_text"
 			{
-				text = "[SelectLocalization(GetVariableSystem.HasValue('reformation_mode', 'show'), 'REPLACE_TRADITION_WINDOW_TITLE', 'ADD_TRADITION_WINDOW_TITLE')]"
+				text = "[SelectLocalization(GetPlayer.MakeScope.Var('DI_tradition_to_replace').IsSet, 'REPLACE_TRADITION_WINDOW_TITLE', 'ADD_TRADITION_WINDOW_TITLE')]"
 			}
 
 			blockoverride "button_close"
 			{
-				onclick = "[GetVariableSystem.Toggle('DI_tradition_editor_window_visible')]"
+				onclick = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+			onclick = "[GetVariableSystem.Toggle('DI_tradition_editor_window_visible')]"
 			}
+		}
+
+		text_multi = {
+			layoutpolicy_horizontal = expanding
+			align = center
+			visible = "[GetPlayer.MakeScope.Var('DI_tradition_to_replace').IsSet]"
+			text = "DI_tradition_replacing_status"
 		}
 
 		hbox = {
@@ -253,7 +262,7 @@ types DI_CultureAddTraditionTypes
 				tooltip = "DI_tradition_picker_tooltip"
 				using = tooltip_es
 				onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+				onrightclick = "[GetScriptedGui('DI_tradition_picker_remove_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
 				button_ignore = none
 
 				widget_tradition_icon = {

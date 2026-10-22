@@ -588,17 +588,21 @@ window = {
 
                                 item = {
                                     container = {
-                                        widget = {
+                                        button_standard = {
                                             name = "exisiting_tradition"
                                             datacontext = "[GuiCultureTradition.GetTradition]"
                                             visible = "[Not(GuiCultureTradition.IsEmpty)]"
                                             size = { 276 168 }
 
-                                            tooltipwidget = {
-                                                using = culture_tradition_tooltip
-                                            }
+                                            button_ignore = none
+                                            onclick = "[GetScriptedGui('DI_tradition_begin_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+                                            onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_visible', 'yes')]"
+                                            onrightclick = "[GetScriptedGui('DI_remove_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+                                            tooltip = "DI_tradition_current_tooltip"
+                                            using = tooltip_es
 
                                             DI_widget_tradition_icon = {
+                                                alwaystransparent = yes
                                                 visible = "[Not(GuiCultureTradition.IsEmpty)]"
 
                                                 block "icon_size" {
@@ -608,6 +612,7 @@ window = {
 
                                             text_label_center = {
                                                 name = "name_replacing"
+                                                alwaystransparent = yes
                                                 visible = "[Not(GuiCultureTradition.IsEmpty)]"
                                                 parentanchor = bottom|hcenter
                                                 text = "[CultureTradition.GetNameNoTooltip]"
@@ -727,14 +732,6 @@ window = {
                             margin_bottom = 6
                         }
 
-                        button_standard = {
-                            name = "hybridize"
-                            visible = "[And( Not( ObjectsEqual(Culture.GetHeritage, GetPlayer.GetCulture.GetHeritage ) ), And( Not( GetPlayer.GetCulture.IsChildOf( Culture.Self ) ), Not( Culture.IsChildOf( GetPlayer.GetCulture ) ) ) )]"
-                            onclick = "[Culture.OpenHybridizationWindow]"
-                            text = "HYBRIDIZE_CULTURE_LABEL"
-                            tooltip = "HYBRIDIZE_CULTURE_TOOLTIP"
-                            using = tooltip_nw
-                        }
                     }
 
                     hbox = {
@@ -742,6 +739,7 @@ window = {
                         button_standard = {
                             name = "DI_edit_tradition"
                             text = DI_edit_tradition
+                            onclick = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                             onclick = "[GetVariableSystem.Toggle( 'DI_tradition_editor_window_visible')]"
                             down = "[IsGameViewOpen('add_culture_tradition')]"
                             tooltip = "ADD_TRADITION_TOOLTIP"
@@ -761,10 +759,24 @@ window = {
 
                         button_standard = {
                             name = "DI_diverge_culture"
-                            visible = "[And( ObjectsEqual(Culture.Self, GetPlayer.GetCulture ), HasDlcFeature( 'diverge_culture' ) )]"
-                            onclick = "[Culture.OpenDivergenceWindow]"
+                            visible = "[HasDlcFeature('diverge_culture')]"
+                            onclick = "[GetScriptedGui('DI_cd_pillar_catalogue_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tradition_picker_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_cd_begin_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('source', Culture.MakeScope).AddScope('founder', GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.MakeScope).AddScope('ethos', Culture.GetEthos.MakeScope).AddScope('heritage', Culture.GetHeritage.MakeScope).AddScope('language', Culture.GetLanguage.MakeScope).AddScope('martial_custom', Culture.GetMartial.MakeScope).End)]"
                             text = "DIVERGE_CULTURE_LABEL"
                             tooltip = "DIVERGE_CULTURE_TOOLTIP"
+                            using = tooltip_nw
+                        }
+
+                        button_standard = {
+                            name = "DI_hybridize_culture"
+                            visible = "[HasDlcFeature('hybridize_culture')]"
+                            enabled = "[And(GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char.IsValid, Not(ObjectsEqual(Culture.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char.GetCulture)))]"
+                            onclick = "[GetScriptedGui('DI_cd_pillar_catalogue_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_tradition_picker_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_cd_begin_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('source', Culture.MakeScope).AddScope('secondary', GetPlayer.MakeScope.Var('DI_innovation_selected_char_copy').Char.GetCulture.MakeScope).AddScope('founder', GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.MakeScope).AddScope('ethos', Culture.GetEthos.MakeScope).AddScope('heritage', Culture.GetHeritage.MakeScope).AddScope('language', Culture.GetLanguage.MakeScope).AddScope('martial_custom', Culture.GetMartial.MakeScope).End)]"
+                            text = "HYBRIDIZE_CULTURE_LABEL"
+                            tooltip = "DI_ch_begin_tt"
                             using = tooltip_nw
                         }
                     }

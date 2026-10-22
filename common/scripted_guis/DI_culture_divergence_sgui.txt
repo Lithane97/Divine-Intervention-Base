@@ -1,0 +1,219 @@
+﻿# Draft data belongs to the player. No culture is created before Finalize.
+DI_cd_begin_sgui = {
+    scope = character
+    saved_scopes = { source secondary founder ethos heritage language martial_custom }
+    is_valid = {
+        exists = scope:source
+        exists = scope:founder
+        OR = {
+            AND = { NOT = { exists = scope:secondary } has_dlc_feature = diverge_culture }
+            AND = { exists = scope:secondary has_dlc_feature = hybridize_culture scope:source = { this != scope:secondary } }
+        }
+    }
+    effect = {
+        DI_cd_cleanup_effect = yes
+        save_scope_as = DI_cd_owner
+        set_variable = { name = DI_cd_source value = scope:source }
+        if = { limit = { exists = scope:secondary } set_variable = { name = DI_cd_secondary value = scope:secondary } }
+        set_variable = { name = DI_cd_founder value = scope:founder }
+        set_variable = { name = DI_cd_ethos value = scope:ethos }
+        set_variable = { name = DI_cd_heritage value = scope:heritage }
+        set_variable = { name = DI_cd_language value = scope:language }
+        set_variable = { name = DI_cd_martial_custom value = scope:martial_custom }
+        scope:source = {
+            every_tradition = {
+                save_scope_as = DI_cd_candidate
+                scope:DI_cd_owner = { add_to_variable_list = { name = DI_cd_traditions target = scope:DI_cd_candidate } }
+            }
+        }
+        if = {
+            limit = { exists = var:DI_cd_secondary }
+            var:DI_cd_secondary = {
+                every_tradition = {
+                    save_scope_as = DI_cd_candidate
+                    scope:DI_cd_owner = {
+                        if = {
+                            limit = { NOT = { any_in_list = { variable = DI_cd_traditions this = scope:DI_cd_candidate } } }
+                            add_to_variable_list = { name = DI_cd_traditions target = scope:DI_cd_candidate }
+                        }
+                    }
+                }
+            }
+        }
+        if = { limit = { has_global_variable_list = DI_cd_innovations_tribal } clear_global_variable_list = DI_cd_innovations_tribal }
+        if = { limit = { has_global_variable_list = DI_cd_innovations_early_medieval } clear_global_variable_list = DI_cd_innovations_early_medieval }
+        if = { limit = { has_global_variable_list = DI_cd_innovations_high_medieval } clear_global_variable_list = DI_cd_innovations_high_medieval }
+        if = { limit = { has_global_variable_list = DI_cd_innovations_late_medieval } clear_global_variable_list = DI_cd_innovations_late_medieval }
+        if = { limit = { has_global_variable_list = DI_cd_innovations_other } clear_global_variable_list = DI_cd_innovations_other }
+        every_culture_innovation = {
+            save_scope_as = DI_cd_candidate
+            if = {
+                limit = { innovation_era = culture_era_tribal }
+                add_to_global_variable_list = { name = DI_cd_innovations_tribal target = this }
+            }
+            else_if = {
+                limit = { innovation_era = culture_era_early_medieval }
+                add_to_global_variable_list = { name = DI_cd_innovations_early_medieval target = this }
+            }
+            else_if = {
+                limit = { innovation_era = culture_era_high_medieval }
+                add_to_global_variable_list = { name = DI_cd_innovations_high_medieval target = this }
+            }
+            else_if = {
+                limit = { innovation_era = culture_era_late_medieval }
+                add_to_global_variable_list = { name = DI_cd_innovations_late_medieval target = this }
+            }
+            else = { add_to_global_variable_list = { name = DI_cd_innovations_other target = this } }
+            scope:source = {
+                if = {
+                    limit = { OR = {
+                        has_innovation = scope:DI_cd_candidate
+                        scope:DI_cd_owner = { exists = var:DI_cd_secondary var:DI_cd_secondary = { has_innovation = scope:DI_cd_candidate } }
+                    } }
+                    scope:DI_cd_owner = { add_to_variable_list = { name = DI_cd_innovations target = scope:DI_cd_candidate } }
+                }
+            }
+        }
+    }
+}
+DI_cd_cancel_sgui = { scope = character effect = { DI_cd_cleanup_effect = yes } }
+DI_cd_toggle_adoption_sgui = {
+    scope = character
+    effect = {
+        if = { limit = { has_variable = DI_cd_keep_founder_culture } remove_variable = DI_cd_keep_founder_culture }
+        else = { set_variable = { name = DI_cd_keep_founder_culture value = 1 } }
+    }
+}
+DI_cd_select_ethos_sgui = {
+    scope = character
+    saved_scopes = { pillar }
+    is_valid = { has_variable = DI_cd_source exists = scope:pillar }
+    effect = { if = { limit = { has_variable = DI_cd_source } set_variable = { name = DI_cd_ethos value = scope:pillar } } }
+}
+DI_cd_select_heritage_sgui = {
+    scope = character
+    saved_scopes = { pillar }
+    is_valid = { has_variable = DI_cd_source exists = scope:pillar }
+    effect = { if = { limit = { has_variable = DI_cd_source } set_variable = { name = DI_cd_heritage value = scope:pillar } } }
+}
+DI_cd_select_language_sgui = {
+    scope = character
+    saved_scopes = { pillar }
+    is_valid = { has_variable = DI_cd_source exists = scope:pillar }
+    effect = { if = { limit = { has_variable = DI_cd_source } set_variable = { name = DI_cd_language value = scope:pillar } } }
+}
+DI_cd_select_martial_custom_sgui = {
+    scope = character
+    saved_scopes = { pillar }
+    is_valid = { has_variable = DI_cd_source exists = scope:pillar }
+    effect = { if = { limit = { has_variable = DI_cd_source } set_variable = { name = DI_cd_martial_custom value = scope:pillar } } }
+}
+DI_cd_tradition_selected_sgui = {
+    scope = character
+    saved_scopes = { tradition }
+    is_valid = { any_in_list = { variable = DI_cd_traditions this = scope:tradition } }
+}
+DI_cd_add_tradition_sgui = {
+    scope = character
+    saved_scopes = { tradition }
+    is_valid = { has_variable = DI_cd_source OR = { DI_tradition_dlc_available_trigger = yes var:DI_cd_source = { has_cultural_tradition = scope:tradition } AND = { exists = var:DI_cd_secondary var:DI_cd_secondary = { has_cultural_tradition = scope:tradition } } } }
+    effect = {
+        if = {
+            limit = { has_variable = DI_cd_source OR = { DI_tradition_dlc_available_trigger = yes var:DI_cd_source = { has_cultural_tradition = scope:tradition } AND = { exists = var:DI_cd_secondary var:DI_cd_secondary = { has_cultural_tradition = scope:tradition } } } NOT = { any_in_list = { variable = DI_cd_traditions this = scope:tradition } } }
+            add_to_variable_list = { name = DI_cd_traditions target = scope:tradition }
+        }
+    }
+}
+DI_cd_remove_tradition_sgui = {
+    scope = character
+    saved_scopes = { tradition }
+    effect = { remove_list_variable = { name = DI_cd_traditions target = scope:tradition } }
+}
+DI_cd_innovation_selected_sgui = {
+    scope = character
+    saved_scopes = { innovation }
+    is_valid = { any_in_list = { variable = DI_cd_innovations this = scope:innovation } }
+}
+DI_cd_add_innovation_sgui = {
+    scope = character
+    saved_scopes = { innovation }
+    is_valid = { has_variable = DI_cd_source always = yes }
+    effect = {
+        if = {
+            limit = { has_variable = DI_cd_source always = yes NOT = { any_in_list = { variable = DI_cd_innovations this = scope:innovation } } }
+            add_to_variable_list = { name = DI_cd_innovations target = scope:innovation }
+        }
+    }
+}
+DI_cd_remove_innovation_sgui = {
+    scope = character
+    saved_scopes = { innovation }
+    effect = { remove_list_variable = { name = DI_cd_innovations target = scope:innovation } }
+}
+DI_cd_finalize_sgui = {
+    scope = character
+    is_valid = { DI_cd_creation_valid_trigger = yes }
+    effect = {
+        if = {
+            limit = { DI_cd_creation_valid_trigger = yes }
+            save_scope_as = DI_cd_owner
+            var:DI_cd_source = { save_scope_as = DI_cd_source }
+            if = { limit = { exists = var:DI_cd_secondary } var:DI_cd_secondary = { save_scope_as = DI_cd_secondary } }
+            var:DI_cd_founder = {
+                culture = { save_scope_as = DI_cd_founder_original_culture }
+                # The native effect branches from the acting character's culture.
+                # Switching to the chosen source happens only at finalization.
+                if = { limit = { culture != scope:DI_cd_source } set_culture = scope:DI_cd_source }
+                if = {
+                    limit = { scope:DI_cd_owner = { exists = var:DI_cd_secondary } }
+                    create_hybrid_culture = scope:DI_cd_secondary
+                }
+                else = { create_divergent_culture = yes }
+                if = {
+                    limit = { exists = scope:new_culture }
+                    scope:new_culture = {
+                        set_culture_name = { noun = DI_cd_name_value collective_noun = DI_cd_collective_value prefix = DI_cd_prefix_value }
+                        DI_cd_apply_pillars_effect = yes
+                        clear_culture_traditions = yes
+                    }
+                    scope:DI_cd_owner = {
+                        every_in_list = {
+                            variable = DI_cd_traditions
+                            save_scope_as = tradition
+                            if = {
+                                limit = { OR = {
+                                    scope:DI_cd_owner = { DI_tradition_dlc_available_trigger = yes }
+                                    scope:DI_cd_source = { has_cultural_tradition = scope:tradition }
+                                    scope:DI_cd_owner = { exists = var:DI_cd_secondary var:DI_cd_secondary = { has_cultural_tradition = scope:tradition } }
+                                } }
+                                scope:new_culture = { add_culture_tradition = scope:tradition }
+                            }
+                        }
+                    }
+                    every_culture_innovation = {
+                        save_scope_as = innovation
+                        if = {
+                            limit = { scope:DI_cd_owner = { any_in_list = { variable = DI_cd_innovations this = scope:innovation } } }
+                            scope:new_culture = {
+                                if = { limit = { NOT = { has_innovation = scope:innovation } } add_innovation = scope:innovation }
+                            }
+                        }
+                        else = { scope:new_culture = {
+                            if = { limit = { has_innovation = scope:innovation } remove_innovation = scope:innovation }
+                        } }
+                    }
+                    scope:DI_cd_owner = { set_variable = { name = DI_innovation_selected_culture value = scope:new_culture } }
+                    if = {
+                        limit = { scope:DI_cd_owner = { has_variable = DI_cd_keep_founder_culture } }
+                        set_culture = scope:DI_cd_founder_original_culture
+                    }
+                    scope:DI_cd_owner = { DI_cd_cleanup_effect = yes }
+                }
+                else = { set_culture = scope:DI_cd_founder_original_culture }
+            }
+        }
+    }
+}
+DI_cd_edit_name_sgui = { scope = character effect = { if = { limit = { has_variable = DI_cd_source } trigger_event = DI_culture_divergence.1 } } }
+DI_cd_edit_collective_sgui = { scope = character effect = { if = { limit = { has_variable = DI_cd_source } trigger_event = DI_culture_divergence.2 } } }
+DI_cd_edit_prefix_sgui = { scope = character effect = { if = { limit = { has_variable = DI_cd_source } trigger_event = DI_culture_divergence.3 } } }

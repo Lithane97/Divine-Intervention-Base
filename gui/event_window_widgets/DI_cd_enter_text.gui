@@ -1,0 +1,29 @@
+﻿vbox = {
+    name = "DI_cd_enter_text"
+    layoutpolicy_horizontal = expanding
+    spacing = 8
+    margin_widget = {
+        size = { 460 36 }
+        background = { texture = "gfx/interface/component_tiles/tile_editbox.dds" spriteType = Corneredtiled spriteborder = { 16 16 } }
+        editbox = {
+            name = "enter_text"
+            ontextedited = "[EventWindowWidgetEnterText.OnEdit]"
+            size = { 100% 100% }
+            alwaystransparent = no focuspolicy = all default_format = "#high"
+        }
+    }
+    vbox = {
+        name = "default_entries"
+        datamodel = "[EventWindowWidgetEnterText.AccessDefaultEntries]"
+        item = { widget = {
+            size = { 0 0 }
+            oncreate = "[EventWindowWidgetEnterTextDefaultEntry.Select]"
+            state = {
+                name = DI_cd_reset_text
+                trigger_when = "[GetVariableSystem.Exists('DI_cd_reset_text')]"
+                on_start = "[EventWindowWidgetEnterTextDefaultEntry.Select]"
+                on_start = "[GetVariableSystem.Clear('DI_cd_reset_text')]"
+            }
+        } }
+    }
+}

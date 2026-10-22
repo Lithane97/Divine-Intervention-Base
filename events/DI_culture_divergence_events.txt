@@ -1,0 +1,61 @@
+﻿namespace = DI_culture_divergence
+
+DI_culture_divergence.1 = {
+    type = character_event
+    trigger = { has_variable = DI_cd_source }
+    title = DI_cd_name_event_title
+    desc = DI_cd_name_event_desc
+    theme = default
+    window = DI_cd_text_event
+    widget = {
+        gui = "DI_cd_enter_text"
+        container = "dynamic_birth_name"
+        controller = { type = text data = {
+            key = DI_cd_name
+            default = { localization_key = DI_cd_name_value trigger = { always = yes } }
+        } }
+        setup_scope = { root = { save_scope_as = text_target } }
+    }
+    option = { name = DI_cd_apply_name }
+    option = { name = DI_cd_cancel_name }
+}
+
+DI_culture_divergence.2 = {
+    type = character_event
+    trigger = { has_variable = DI_cd_source }
+    title = DI_cd_collective_event_title
+    desc = DI_cd_name_event_desc
+    theme = default
+    window = DI_cd_text_event
+    widget = {
+        gui = "DI_cd_enter_text"
+        container = "dynamic_birth_name"
+        controller = { type = text data = {
+            key = DI_cd_collective
+            default = { localization_key = DI_cd_collective_value trigger = { always = yes } }
+        } }
+        setup_scope = { root = { save_scope_as = text_target } }
+    }
+    option = { name = DI_cd_apply_name }
+    option = { name = DI_cd_cancel_name }
+}
+
+DI_culture_divergence.3 = {
+    type = character_event
+    trigger = { has_variable = DI_cd_source }
+    title = DI_cd_prefix_event_title
+    desc = DI_cd_name_event_desc
+    theme = default
+    window = DI_cd_text_event
+    widget = {
+        gui = "DI_cd_enter_text"
+        container = "dynamic_birth_name"
+        controller = { type = text data = {
+            key = DI_cd_prefix
+            default = { localization_key = DI_cd_prefix_value trigger = { always = yes } }
+        } }
+        setup_scope = { root = { save_scope_as = text_target } }
+    }
+    option = { name = DI_cd_apply_name }
+    option = { name = DI_cd_cancel_name }
+}

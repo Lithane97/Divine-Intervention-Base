@@ -1,0 +1,13 @@
+﻿# Preserve the original unless a new, DLC-valid tradition can be selected.
+DI_tradition_picker_selection_valid_trigger = {
+    exists = var:DI_innovation_selected_culture
+    exists = scope:tradition
+    DI_tradition_dlc_available_trigger = yes
+    var:DI_innovation_selected_culture = { NOT = { has_cultural_tradition = scope:tradition } }
+    trigger_if = {
+        limit = { exists = var:DI_tradition_to_replace }
+        exists = var:DI_tradition_replace_culture
+        var:DI_tradition_replace_culture = var:DI_innovation_selected_culture
+        var:DI_innovation_selected_culture = { has_cultural_tradition = root.var:DI_tradition_to_replace }
+    }
+}

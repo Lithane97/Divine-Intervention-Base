@@ -1,0 +1,17 @@
+﻿# Shared validation for divergence and hybridization draft finalization.
+DI_cd_creation_valid_trigger = {
+    exists = var:DI_cd_source
+    exists = var:DI_cd_founder
+    exists = var:DI_cd_ethos
+    exists = var:DI_cd_heritage
+    exists = var:DI_cd_language
+    exists = var:DI_cd_martial_custom
+    OR = {
+        AND = { NOT = { exists = var:DI_cd_secondary } has_dlc_feature = diverge_culture }
+        AND = {
+            exists = var:DI_cd_secondary
+            has_dlc_feature = hybridize_culture
+            NOT = { var:DI_cd_source = var:DI_cd_secondary }
+        }
+    }
+}

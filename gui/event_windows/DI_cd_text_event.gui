@@ -1,0 +1,33 @@
+﻿window = {
+    name = "DI_cd_text_event"
+    size = { 600 300 }
+    parentanchor = center widgetanchor = center layer = events allow_outside = yes
+    datacontext = "[EventWindow.AccessEventWindowData]"
+    using = Window_Background using = Window_Decoration
+    vbox = {
+        size = { 100% 100% } margin = { 30 30 } spacing = 12
+        text_multi = { layoutpolicy_horizontal = expanding text = "[EventWindowData.GetTitle]" default_format = "#T" }
+        text_multi = { layoutpolicy_horizontal = expanding text = "[EventWindowData.GetDescription]" default_format = "#low" }
+        hbox = { name = "dynamic_birth_name" layoutpolicy_horizontal = expanding }
+        hbox = { name = "custom_widgets_container" layoutpolicy_horizontal = expanding }
+        fixedgridbox = {
+            name = "option_grid" addcolumn = 235 addrow = 42
+            datamodel = "[EventWindowData.GetOptions]"
+            item = { widget = { size = { 230 36 }
+                button_eventoption = {
+                    visible = "[Not(EqualTo_string(EventOption.GetText, Localize('DI_cd_cancel_name')))]"
+                    blockoverride "button_size" { size = { 230 36 } }
+                }
+                button_eventoption = {
+                    visible = "[EqualTo_string(EventOption.GetText, Localize('DI_cd_cancel_name'))]"
+                    blockoverride "button_size" { size = { 230 36 } }
+                    blockoverride "onmousehierarchy_callbacks" {
+                        onmousehierarchyenter = "[EventOption.OnEnter]"
+                        onmousehierarchyenter = "[GetVariableSystem.Set('DI_cd_reset_text', 'yes')]"
+                        onmousehierarchyleave = "[EventOption.OnLeave]"
+                    }
+                }
+            } }
+        }
+    }
+}
