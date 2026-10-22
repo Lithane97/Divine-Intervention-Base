@@ -1,0 +1,57 @@
+﻿# Rebuild from the loaded tradition database whenever the picker opens.
+# Clear first so reopening or loading an existing save cannot duplicate entries.
+DI_tradition_picker_init_sgui = {
+    scope = character
+    effect = {
+        if = {
+            limit = { has_global_variable_list = DI_tradition_picker_realm }
+            clear_global_variable_list = DI_tradition_picker_realm
+        }
+        if = {
+            limit = { has_global_variable_list = DI_tradition_picker_combat }
+            clear_global_variable_list = DI_tradition_picker_combat
+        }
+        if = {
+            limit = { has_global_variable_list = DI_tradition_picker_societal }
+            clear_global_variable_list = DI_tradition_picker_societal
+        }
+        if = {
+            limit = { has_global_variable_list = DI_tradition_picker_ritual }
+            clear_global_variable_list = DI_tradition_picker_ritual
+        }
+        if = {
+            limit = { has_global_variable_list = DI_tradition_picker_regional }
+            clear_global_variable_list = DI_tradition_picker_regional
+        }
+        if = {
+            limit = { has_global_variable_list = DI_tradition_picker_other }
+            clear_global_variable_list = DI_tradition_picker_other
+        }
+        every_culture_tradition = {
+            if = {
+                limit = { has_tradition_category = realm }
+                add_to_global_variable_list = { name = DI_tradition_picker_realm target = this }
+            }
+            else_if = {
+                limit = { has_tradition_category = combat }
+                add_to_global_variable_list = { name = DI_tradition_picker_combat target = this }
+            }
+            else_if = {
+                limit = { has_tradition_category = societal }
+                add_to_global_variable_list = { name = DI_tradition_picker_societal target = this }
+            }
+            else_if = {
+                limit = { has_tradition_category = ritual }
+                add_to_global_variable_list = { name = DI_tradition_picker_ritual target = this }
+            }
+            else_if = {
+                limit = { has_tradition_category = regional }
+                add_to_global_variable_list = { name = DI_tradition_picker_regional target = this }
+            }
+            else = {
+                # Overflow only: none of the five vanilla categories matched.
+                add_to_global_variable_list = { name = DI_tradition_picker_other target = this }
+            }
+        }
+    }
+}

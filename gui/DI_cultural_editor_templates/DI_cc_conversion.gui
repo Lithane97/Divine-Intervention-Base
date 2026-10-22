@@ -46,11 +46,9 @@ types DI_cc_conversion_types {
             }
         }
 
-        # Keep list height bounded while the surrounding sections size to their text.
+        # Fill the height left by the surrounding controls.
         DI_culture_scrollbox = {
-            size = { 680 270 }
-            minimumsize = { 0 270 }
-            maximumsize = { 680 270 }
+            size = { 680 0 }
             blockoverride "DI_culture_picker_category_selection" {
                 down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cc_conversion_culture').Culture.GetHeritage)]"
             }

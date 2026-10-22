@@ -34,20 +34,45 @@ DI_remove_tradition = {
 
 ### DI_set_tradition ###
 DI_set_tradition = {
-	scope = character
+    scope = character
+    saved_scopes = { tradition }
+    is_valid = {
+        exists = var:DI_innovation_selected_culture
+        DI_tradition_dlc_available_trigger = yes
+    }
+    effect = {
+        # Execute is guarded too, so another GUI caller cannot bypass the DLC check.
+        if = {
+            limit = {
+                exists = var:DI_innovation_selected_culture
+                DI_tradition_dlc_available_trigger = yes
+            }
+            var:DI_innovation_selected_culture = {
+                if = {
+                    limit = { NOT = { has_cultural_tradition = scope:tradition } }
+                    add_culture_tradition = scope:tradition
+                }
+            }
+        }
+    }
+}
 
-	saved_scopes = {
-		tradition # selected tradition
-	}
+# Read-only status for the tradition cards; follows the culture being edited.
+DI_tradition_is_current_sgui = {
+    scope = character
+    saved_scopes = { tradition }
+    is_valid = {
+        exists = var:DI_innovation_selected_culture
+        exists = scope:tradition
+        var:DI_innovation_selected_culture = {
+            has_cultural_tradition = scope:tradition
+        }
+    }
+}
 
-	effect = {
-		var:DI_innovation_selected_culture = {
-			if = {
-				limit = {
-					NOT = { has_cultural_tradition = scope:tradition }
-				}
-				add_culture_tradition = scope:tradition
-			}
-		}
-	}
+# DLC ownership/configuration only. Existing traditions remain removable.
+DI_tradition_dlc_available_sgui = {
+    scope = character
+    saved_scopes = { tradition }
+    is_valid = { DI_tradition_dlc_available_trigger = yes }
 }

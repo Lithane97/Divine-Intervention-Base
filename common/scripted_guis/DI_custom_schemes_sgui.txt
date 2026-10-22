@@ -1,0 +1,39 @@
+# Custom modifier actions use the same player/pinned targeting as the editor.
+
+DI_add_modifier_buff_schemes = {
+    scope = character
+    effect = {
+        if = {
+            limit = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_pinned_char_var
+                }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+                add_character_modifier = DI_buff_schemes
+            }
+        }
+        else = { add_character_modifier = DI_buff_schemes }
+    }
+}
+
+DI_remove_modifier_buff_schemes = {
+    scope = character
+    effect = {
+        if = {
+            limit = {
+                any_owned_story = {
+                    story_type = DI_misc_variables_story
+                    has_variable = DI_pinned_char_var
+                }
+            }
+            every_living_character = {
+                limit = { has_character_flag = pinned_for_edit }
+                remove_character_modifier = DI_buff_schemes
+            }
+        }
+        else = { remove_character_modifier = DI_buff_schemes }
+    }
+}
