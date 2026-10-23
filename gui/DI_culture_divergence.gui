@@ -14,9 +14,13 @@
         using = Window_Background
         using = Window_Decoration
         vbox = {
-            size = { 100% 100% }
+            name = "DI_cd_window_content"
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            maximumsize = { 900 -1 }
             using = Window_Margins
             spacing = 8
+            ignoreinvisible = yes
             header_pattern = {
                 layoutpolicy_horizontal = expanding
                 blockoverride "header_text" { text = "DI_cd_title" }
@@ -28,12 +32,23 @@
                 margin_left = 24
                 margin_right = 24
                 spacing = 8
-                text_multi = { layoutpolicy_horizontal = expanding text = "DI_cd_source" default_format = "#high" }
-                text_multi = { layoutpolicy_horizontal = expanding visible = "[GetPlayer.MakeScope.Var('DI_cd_secondary').IsSet]" text = "DI_ch_secondary" default_format = "#high" }
-                text_multi = { layoutpolicy_horizontal = expanding text = "DI_cd_help" default_format = "#low" }
+                ignoreinvisible = yes
+                vbox = {
+                    name = "DI_cd_parent_summary"
+                    layoutpolicy_horizontal = expanding
+                    ignoreinvisible = yes
+                    spacing = 4
+                    margin = { 12 8 }
+                    background = { using = Background_Area_Dark }
+                    text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 820 text = "DI_cd_source" default_format = "#high" }
+                    text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 820 visible = "[GetPlayer.MakeScope.Var('DI_cd_secondary').IsSet]" text = "DI_ch_secondary" default_format = "#high" }
+                }
+                text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 840 text = "DI_cd_help" default_format = "#low" }
             }
             hbox = {
                 layoutpolicy_horizontal = expanding
+                margin_left = 12
+                margin_right = 12
                 button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_names"
                     onclick = "[GetVariableSystem.Set('DI_cd_tab', 'names')]"
                     down = "[GetVariableSystem.HasValue('DI_cd_tab', 'names')]" }
@@ -47,195 +62,562 @@
                     onclick = "[GetVariableSystem.Set('DI_cd_tab', 'innovations')]"
                     down = "[GetVariableSystem.HasValue('DI_cd_tab', 'innovations')]" }
             }
-            scrollbox = {
+            vbox = {
+                name = "DI_cd_category_tabs"
+                layoutpolicy_horizontal = expanding
+                ignoreinvisible = yes
+                margin = { 8 8 }
+                visible = "[Or(Or(GetVariableSystem.HasValue('DI_cd_tab', 'pillars'), GetVariableSystem.HasValue('DI_cd_tab', 'traditions')), GetVariableSystem.HasValue('DI_cd_tab', 'innovations'))]"
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'pillars')]"
+                    button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_ethos"
+                        onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'ethos')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'ethos')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_heritage"
+                        onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'heritage')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'heritage')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_language"
+                        onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'language')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'language')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_martial_custom"
+                        onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'martial_custom')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'martial_custom')]" }
+                }
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'traditions')]"
+                    button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_realm"
+                        onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'realm')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'realm')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_combat"
+                        onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'combat')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'combat')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_societal"
+                        onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'societal')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'societal')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_ritual"
+                        onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'ritual')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'ritual')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_regional"
+                        onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'regional')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'regional')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "DI_tradition_picker_other"
+                        onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'other')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'other')]" }
+                }
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'innovations')]"
+                    button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_tribal"
+                        onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'tribal')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'tribal')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_early_medieval"
+                        onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'early_medieval')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'early_medieval')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_high_medieval"
+                        onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'high_medieval')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'high_medieval')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_late_medieval"
+                        onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'late_medieval')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'late_medieval')]" }
+                    button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_innovation_other"
+                        onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'other')]"
+                        down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'other')]" }
+                }
+            }
+            widget = {
+                name = "DI_cd_scroll_area"
                 layoutpolicy_horizontal = expanding
                 layoutpolicy_vertical = expanding
-                blockoverride "scrollbox_content" {
-                    vbox = {
-                        layoutpolicy_horizontal = expanding
-                        spacing = 10
-                        ignoreinvisible = yes
+                scrollbox = {
+                    size = { 100% 100% }
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+                    blockoverride "scrollbox_content" {
                         vbox = {
                             layoutpolicy_horizontal = expanding
-                            spacing = 12
-                            visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'names')]"
-                            text_single = { layoutpolicy_horizontal = expanding align = center text = "DI_cd_name" default_format = "#high" }
-                            hbox = { layoutpolicy_horizontal = expanding spacing = 12
-                                spacer = { size = { 100 35 } }
-                                text_multi = { layoutpolicy_horizontal = expanding align = center text = "DI_cd_name_value" }
-                                button_standard = { size = { 100 35 } text = "DI_cd_edit" onclick = "[GetScriptedGui('DI_cd_edit_name_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                            spacing = 10
+                            ignoreinvisible = yes
+                            vbox = {
+                                name = "DI_cd_names_content"
+                                ignoreinvisible = yes
+                                layoutpolicy_horizontal = expanding
+                                margin_left = 36
+                                margin_right = 36
+                                margin_top = 4
+                                margin_bottom = 4
+                                spacing = 6
+                                visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'names')]"
+                                vbox = {
+                                    name = "DI_cd_name_row"
+                                    layoutpolicy_horizontal = expanding
+                                    margin = { 16 4 }
+                                    spacing = 2
+                                    background = { using = Background_Area }
+                                    text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_name" default_format = "#low" }
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 12
+                                        spacer = { size = { 100 35 } }
+                                        text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 500 align = center text = "DI_cd_name_value" default_format = "#high" }
+                                        button_standard = { size = { 100 35 } text = "DI_cd_edit" onclick = "[GetScriptedGui('DI_cd_edit_name_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                                    }
+                                }
+                                vbox = {
+                                    name = "DI_cd_collective_row"
+                                    layoutpolicy_horizontal = expanding
+                                    margin = { 16 4 }
+                                    spacing = 2
+                                    background = { using = Background_Area }
+                                    text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_collective" default_format = "#low" }
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 12
+                                        spacer = { size = { 100 35 } }
+                                        text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 500 align = center text = "DI_cd_collective_value" default_format = "#high" }
+                                        button_standard = { size = { 100 35 } text = "DI_cd_edit" onclick = "[GetScriptedGui('DI_cd_edit_collective_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                                    }
+                                }
+                                vbox = {
+                                    name = "DI_cd_prefix_row"
+                                    layoutpolicy_horizontal = expanding
+                                    margin = { 16 4 }
+                                    spacing = 2
+                                    background = { using = Background_Area }
+                                    text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_prefix" default_format = "#low" }
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 12
+                                        spacer = { size = { 100 35 } }
+                                        text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 500 align = center text = "DI_cd_prefix_value" default_format = "#high" }
+                                        button_standard = { size = { 100 35 } text = "DI_cd_edit" onclick = "[GetScriptedGui('DI_cd_edit_prefix_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                                    }
+                                }
+                                text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 780 align = center text = "DI_cd_name_help" default_format = "#low" }
+                                vbox = {
+                                    name = "DI_cd_draft_summary"
+                                    layoutpolicy_horizontal = expanding
+                                    margin = { 16 6 }
+                                    spacing = 6
+                                    background = { using = Background_Area_Dark }
+                                    text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_selected_pillars" default_format = "#high" }
+                                    divider_light = { layoutpolicy_horizontal = expanding }
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 24
+                                        vbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            spacing = 4
+                                            text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 340 text = "DI_cd_summary_ethos" }
+                                            text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 340 text = "DI_cd_summary_heritage" }
+                                        }
+                                        vbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            spacing = 4
+                                            text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 340 text = "DI_cd_summary_language" }
+                                            text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 340 text = "DI_cd_summary_martial_custom" }
+                                        }
+                                    }
+                                    text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 744 text = "DI_cd_inherit" default_format = "#low" }
+                                }
+                                vbox = {
+                                    name = "DI_ch_parent_pillars_panel"
+                                    layoutpolicy_horizontal = expanding
+                                    visible = "[GetPlayer.MakeScope.Var('DI_cd_secondary').IsSet]"
+                                    margin = { 16 6 }
+                                    spacing = 6
+                                    background = { using = Background_Area_Dark }
+                                    text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_ch_parent_pillars" default_format = "#high" }
+                                    text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 744 align = center text = "DI_ch_parent_pillars_hint" default_format = "#low" }
+                                    divider_light = { layoutpolicy_horizontal = expanding }
+                                    hbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 24
+                                        vbox = {
+                                            name = "DI_ch_source_pillar_choices"
+                                            layoutpolicy_horizontal = expanding
+                                            maximumsize = { 360 -1 }
+                                            spacing = 4
+                                            text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 340 align = center text = "DI_ch_source_pillars" default_format = "#high" }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_ethos" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_source_ethos"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_source').Culture.GetEthos]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_ethos_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]" }
+                                                }
+                                            }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_heritage" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_source_heritage"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_source').Culture.GetHeritage]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_heritage_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]" }
+                                                }
+                                            }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_language" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_source_language"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_source').Culture.GetLanguage]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_language_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]" }
+                                                }
+                                            }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_martial_custom" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_source_martial_custom"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_source').Culture.GetMartial]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_martial_custom_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]" }
+                                                }
+                                            }
+                                        }
+                                        vbox = {
+                                            name = "DI_ch_secondary_pillar_choices"
+                                            layoutpolicy_horizontal = expanding
+                                            maximumsize = { 360 -1 }
+                                            spacing = 4
+                                            text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 340 align = center text = "DI_ch_secondary" default_format = "#high" }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_ethos" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_secondary_ethos"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_secondary').Culture.GetEthos]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_ethos_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]" }
+                                                }
+                                            }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_heritage" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_secondary_heritage"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_secondary').Culture.GetHeritage]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_heritage_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]" }
+                                                }
+                                            }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_language" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_secondary_language"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_secondary').Culture.GetLanguage]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_language_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]" }
+                                                }
+                                            }
+                                            vbox = {
+                                                layoutpolicy_horizontal = expanding
+                                                spacing = 2
+                                                text_label_center = { layoutpolicy_horizontal = expanding margin_bottom = 1 text = "DI_cd_martial_custom" default_format = "#low" }
+                                                DI_cd_checked_button = {
+                                                    name = "DI_ch_secondary_martial_custom"
+                                                    layoutpolicy_horizontal = expanding
+                                                    size = { 350 40 }
+                                                    datacontext = "[GetPlayer.MakeScope.Var('DI_cd_secondary').Culture.GetMartial]"
+                                                    text = "[CulturePillar.GetNameNoTooltip]"
+                                                    tooltip = "DI_ch_parent_pillars_hint"
+                                                    using = tooltip_es
+                                                    down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]"
+                                                    onclick = "[GetScriptedGui('DI_cd_select_martial_custom_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                                    blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]" }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            text_single = { layoutpolicy_horizontal = expanding align = center text = "DI_cd_collective" default_format = "#high" }
-                            hbox = { layoutpolicy_horizontal = expanding spacing = 12
-                                spacer = { size = { 100 35 } }
-                                text_multi = { layoutpolicy_horizontal = expanding align = center text = "DI_cd_collective_value" }
-                                button_standard = { size = { 100 35 } text = "DI_cd_edit" onclick = "[GetScriptedGui('DI_cd_edit_collective_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
-                            }
-                            text_single = { layoutpolicy_horizontal = expanding align = center text = "DI_cd_prefix" default_format = "#high" }
-                            hbox = { layoutpolicy_horizontal = expanding spacing = 12
-                                spacer = { size = { 100 35 } }
-                                text_multi = { layoutpolicy_horizontal = expanding align = center text = "DI_cd_prefix_value" }
-                                button_standard = { size = { 100 35 } text = "DI_cd_edit" onclick = "[GetScriptedGui('DI_cd_edit_prefix_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
-                            }
-                            text_multi = { layoutpolicy_horizontal = expanding text = "DI_cd_name_help" default_format = "#low" }
-                            text_multi = { layoutpolicy_horizontal = expanding text = "DI_cd_inherit" default_format = "#low" }
-                            text_single = { text = "DI_cd_summary_ethos" }
-                            text_single = { text = "DI_cd_summary_heritage" }
-                            text_single = { text = "DI_cd_summary_language" }
-                            text_single = { text = "DI_cd_summary_martial_custom" }
-                        }
-                        vbox = {
-                            layoutpolicy_horizontal = expanding
-                            margin_right = 24
-                            visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'pillars')]"
-                            hbox = { layoutpolicy_horizontal = expanding
-                                button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_ethos"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'ethos')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'ethos')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_heritage"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'heritage')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'heritage')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_language"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'language')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'language')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_martial_custom"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_pillar_tab', 'martial_custom')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'martial_custom')]" }
-                            }
-                            vbox = { layoutpolicy_horizontal = expanding
-                                visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'ethos')]"
-                                text_single = { text = "DI_cd_summary_ethos" default_format = "#high" }
-                                fixedgridbox = {
-                                    datamodel = "[GetGlobalList('DI_cd_pillars_ethos')]"
-                                    flipdirection = yes addcolumn = 288 addrow = 56 datamodel_wrap = 3
-                                    item = { button_standard = { size = { 276 48 }
-                                        datacontext = "[Scope.CulturePillar]"
-                                        text = "[CulturePillar.GetNameNoTooltip]"
-                                        down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]"
-                                        onclick = "[GetScriptedGui('DI_cd_select_ethos_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
-                                    } }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                margin_right = 24
+                                visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'pillars')]"
+                                vbox = { layoutpolicy_horizontal = expanding
+                                    visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'ethos')]"
+                                    text_single = { text = "DI_cd_summary_ethos" default_format = "#high" }
+                                    fixedgridbox = {
+                                        datamodel = "[GetGlobalList('DI_cd_pillars_ethos')]"
+                                        flipdirection = yes addcolumn = 284 addrow = 56 datamodel_wrap = 3
+                                        item = { DI_cd_checked_button = { size = { 276 48 }
+                                            datacontext = "[Scope.CulturePillar]"
+                                            text = "[CulturePillar.GetNameNoTooltip]"
+                                            down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]"
+                                            onclick = "[GetScriptedGui('DI_cd_select_ethos_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                            blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_ethos').CulturePillar)]" }
+                                        } }
+                                    }
+                                }
+                                vbox = { layoutpolicy_horizontal = expanding
+                                    visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'heritage')]"
+                                    text_single = { text = "DI_cd_summary_heritage" default_format = "#high" }
+                                    fixedgridbox = {
+                                        datamodel = "[GetGlobalList('DI_cd_pillars_heritage')]"
+                                        flipdirection = yes addcolumn = 284 addrow = 56 datamodel_wrap = 3
+                                        item = { DI_cd_checked_button = { size = { 276 48 }
+                                            datacontext = "[Scope.CulturePillar]"
+                                            text = "[CulturePillar.GetNameNoTooltip]"
+                                            down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]"
+                                            onclick = "[GetScriptedGui('DI_cd_select_heritage_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                            blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]" }
+                                        } }
+                                    }
+                                }
+                                vbox = { layoutpolicy_horizontal = expanding
+                                    visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'language')]"
+                                    text_single = { text = "DI_cd_summary_language" default_format = "#high" }
+                                    fixedgridbox = {
+                                        datamodel = "[GetGlobalList('DI_cd_pillars_language')]"
+                                        flipdirection = yes addcolumn = 284 addrow = 56 datamodel_wrap = 3
+                                        item = { DI_cd_checked_button = { size = { 276 48 }
+                                            datacontext = "[Scope.CulturePillar]"
+                                            text = "[CulturePillar.GetNameNoTooltip]"
+                                            down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]"
+                                            onclick = "[GetScriptedGui('DI_cd_select_language_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                            blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]" }
+                                        } }
+                                    }
+                                }
+                                vbox = { layoutpolicy_horizontal = expanding
+                                    visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'martial_custom')]"
+                                    text_single = { text = "DI_cd_summary_martial_custom" default_format = "#high" }
+                                    fixedgridbox = {
+                                        datamodel = "[GetGlobalList('DI_cd_pillars_martial_custom')]"
+                                        flipdirection = yes addcolumn = 284 addrow = 56 datamodel_wrap = 3
+                                        item = { DI_cd_checked_button = { size = { 276 48 }
+                                            datacontext = "[Scope.CulturePillar]"
+                                            text = "[CulturePillar.GetNameNoTooltip]"
+                                            down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]"
+                                            onclick = "[GetScriptedGui('DI_cd_select_martial_custom_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
+                                            blockoverride "DI_cd_selected_check" { visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]" }
+                                        } }
+                                    }
                                 }
                             }
                             vbox = { layoutpolicy_horizontal = expanding
-                                visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'heritage')]"
-                                text_single = { text = "DI_cd_summary_heritage" default_format = "#high" }
-                                fixedgridbox = {
-                                    datamodel = "[GetGlobalList('DI_cd_pillars_heritage')]"
-                                    flipdirection = yes addcolumn = 288 addrow = 56 datamodel_wrap = 3
-                                    item = { button_standard = { size = { 276 48 }
-                                        datacontext = "[Scope.CulturePillar]"
-                                        text = "[CulturePillar.GetNameNoTooltip]"
-                                        down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_heritage').CulturePillar)]"
-                                        onclick = "[GetScriptedGui('DI_cd_select_heritage_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
-                                    } }
+                                margin_right = 24
+                                visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'traditions')]"
+                                vbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    ignoreinvisible = yes
+                                    spacing = 12
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_maa'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "game_concept_men_at_arms" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_maa'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_terrain'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "game_concept_terrain" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_terrain'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_knights'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_knights" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_knights'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_buildings'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_buildings" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_buildings'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_learning'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_learning" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_learning'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_adventurers'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_adventurers" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_adventurers'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_general'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_general" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_general'))]" }
+                                            expand = {}
+                                        }
+                                    }
+                                    vbox = {
+                                        layoutpolicy_horizontal = expanding
+                                        spacing = 6
+                                        visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_locked'))), '(int32)0')]"
+                                        text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_locked" }
+                                        hbox = {
+                                            layoutpolicy_horizontal = expanding
+                                            DI_cd_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')), '_locked'))]" }
+                                            expand = {}
+                                        }
+                                    }
                                 }
                             }
                             vbox = { layoutpolicy_horizontal = expanding
-                                visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'language')]"
-                                text_single = { text = "DI_cd_summary_language" default_format = "#high" }
-                                fixedgridbox = {
-                                    datamodel = "[GetGlobalList('DI_cd_pillars_language')]"
-                                    flipdirection = yes addcolumn = 288 addrow = 56 datamodel_wrap = 3
-                                    item = { button_standard = { size = { 276 48 }
-                                        datacontext = "[Scope.CulturePillar]"
-                                        text = "[CulturePillar.GetNameNoTooltip]"
-                                        down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_language').CulturePillar)]"
-                                        onclick = "[GetScriptedGui('DI_cd_select_language_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
-                                    } }
+                                margin_right = 24
+                                visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'innovations')]"
+                                ignoreinvisible = yes
+                                spacing = 8
+                                vbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 8
+                                    visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_military'))), '(int32)0')]"
+                                    text_label_left = { layoutpolicy_horizontal = expanding text = "culture_group_military" }
+                                    DI_cd_innovation_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_military'))]" }
                                 }
-                            }
-                            vbox = { layoutpolicy_horizontal = expanding
-                                visible = "[GetVariableSystem.HasValue('DI_cd_pillar_tab', 'martial_custom')]"
-                                text_single = { text = "DI_cd_summary_martial_custom" default_format = "#high" }
-                                fixedgridbox = {
-                                    datamodel = "[GetGlobalList('DI_cd_pillars_martial_custom')]"
-                                    flipdirection = yes addcolumn = 288 addrow = 56 datamodel_wrap = 3
-                                    item = { button_standard = { size = { 276 48 }
-                                        datacontext = "[Scope.CulturePillar]"
-                                        text = "[CulturePillar.GetNameNoTooltip]"
-                                        down = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_cd_martial_custom').CulturePillar)]"
-                                        onclick = "[GetScriptedGui('DI_cd_select_martial_custom_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('pillar', CulturePillar.MakeScope).End)]"
-                                    } }
+                                vbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 8
+                                    visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_civic'))), '(int32)0')]"
+                                    text_label_left = { layoutpolicy_horizontal = expanding text = "culture_group_civic" }
+                                    DI_cd_innovation_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_civic'))]" }
                                 }
-                            }
-                        }
-                        vbox = { layoutpolicy_horizontal = expanding
-                            margin_right = 24
-                            visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'traditions')]"
-                            hbox = { layoutpolicy_horizontal = expanding
-                                button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_realm"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'realm')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'realm')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_combat"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'combat')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'combat')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_societal"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'societal')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'societal')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_ritual"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'ritual')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'ritual')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "tradition_group_regional"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'regional')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'regional')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "DI_tradition_picker_other"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'other')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_tradition_tab', 'other')]" }
-                            }
-                            fixedgridbox = {
-                                datamodel = "[GetGlobalList(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_cd_tradition_tab')))]"
-                                flipdirection = yes addcolumn = 288 addrow = 170 datamodel_wrap = 3
-                                item = { button_standard = {
-                                    datacontext = "[Scope.CultureTradition]"
-                                    size = { 276 160 }
-                                    down = "[GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-                                    enabled = "[Or(GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End), GetScriptedGui('DI_cd_add_tradition_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End))]"
-                                    onclick = "[GetScriptedGui('DI_cd_add_tradition_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-                                    onrightclick = "[GetScriptedGui('DI_cd_remove_tradition_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-                                    button_ignore = none
-                                    tooltip = "DI_tradition_picker_tooltip" using = tooltip_es
-                                    widget_tradition_icon = { alwaystransparent = yes block "icon_size" { size = { 276 112 } } }
-                                    text_multi = { parentanchor = bottom|hcenter widgetanchor = bottom|hcenter size = { 258 44 }
-                                        autoresize = no align = center text = "[CultureTradition.GetNameNoTooltip]" alwaystransparent = yes }
-                                    icon = { parentanchor = top|right position = { -6 6 } size = { 28 28 } alwaystransparent = yes
-                                        visible = "[GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]" texture = "gfx/interface/icons/symbols/icon_check.dds" }
-                                } }
-                            }
-                        }
-                        vbox = { layoutpolicy_horizontal = expanding
-                            margin_right = 24
-                            visible = "[GetVariableSystem.HasValue('DI_cd_tab', 'innovations')]"
-                            hbox = { layoutpolicy_horizontal = expanding
-                                button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_tribal"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'tribal')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'tribal')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_early_medieval"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'early_medieval')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'early_medieval')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_high_medieval"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'high_medieval')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'high_medieval')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "culture_era_late_medieval"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'late_medieval')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'late_medieval')]" }
-                                button_tab = { layoutpolicy_horizontal = expanding text = "DI_cd_innovation_other"
-                                    onclick = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'other')]"
-                                    down = "[GetVariableSystem.HasValue('DI_cd_innovation_tab', 'other')]" }
-                            }
-                            fixedgridbox = {
-                                datamodel = "[GetGlobalList(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')))]"
-                                flipdirection = yes addcolumn = 432 addrow = 48 datamodel_wrap = 2
-                                item = { button_standard = { size = { 420 42 }
-                                    datacontext = "[Scope.CultureInnovationType]"
-                                    text = "[CultureInnovationType.GetName]"
-                                    down = "[GetScriptedGui('DI_cd_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
-                                    onclick = "[GetScriptedGui('DI_cd_add_innovation_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
-                                    onrightclick = "[GetScriptedGui('DI_cd_remove_innovation_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
-                                    button_ignore = none
-                                } }
+                                vbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 8
+                                    visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_regional'))), '(int32)0')]"
+                                    text_label_left = { layoutpolicy_horizontal = expanding text = "culture_group_regional" }
+                                    DI_cd_innovation_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_regional'))]" }
+                                }
+                                vbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 8
+                                    visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_other'))), '(int32)0')]"
+                                    text_label_left = { layoutpolicy_horizontal = expanding text = "DI_cd_innovation_other" }
+                                    DI_cd_innovation_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_other'))]" }
+                                }
+                                vbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    spacing = 8
+                                    visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_silk_road'))), '(int32)0')]"
+                                    text_label_left = { layoutpolicy_horizontal = expanding text = "game_concept_silk_road_innovations" }
+                                    DI_cd_innovation_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_cd_innovations_', GetVariableSystem.Get('DI_cd_innovation_tab')), '_silk_road'))]" }
+                                }
                             }
                         }
                     }
+                }
+
+                text_multi = {
+                    name = "DI_cd_traditions_other_empty_message"
+                    parentanchor = center
+                    widgetanchor = center
+                    size = { 90% 100 }
+                    autoresize = no
+                    align = center|nobaseline
+                    alwaystransparent = yes
+                    default_format = "#high"
+                    visible = "[And(And(GetVariableSystem.HasValue('DI_cd_tab', 'traditions'), GetVariableSystem.HasValue('DI_cd_tradition_tab', 'other')), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_tradition_picker_other')), '(int32)0'))]"
+                    text = "DI_tradition_picker_other_empty"
+                }
+
+                text_multi = {
+                    name = "DI_cd_innovations_other_empty_message"
+                    parentanchor = center
+                    widgetanchor = center
+                    size = { 90% 100 }
+                    autoresize = no
+                    align = center|nobaseline
+                    alwaystransparent = yes
+                    default_format = "#high"
+                    visible = "[And(And(GetVariableSystem.HasValue('DI_cd_tab', 'innovations'), GetVariableSystem.HasValue('DI_cd_innovation_tab', 'other')), And(And(And(And(EqualTo_int32(GetDataModelSize(GetGlobalList('DI_cd_innovations_other_military')), '(int32)0'), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_cd_innovations_other_civic')), '(int32)0')), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_cd_innovations_other_regional')), '(int32)0')), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_cd_innovations_other_other')), '(int32)0')), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_cd_innovations_other_silk_road')), '(int32)0')))]"
+                    text = "DI_cd_innovations_other_empty"
                 }
             }
             vbox = {
@@ -243,15 +625,20 @@
                 layoutpolicy_horizontal = expanding
                 margin_left = 24
                 margin_right = 24
-                spacing = 8
-                button_standard = { layoutpolicy_horizontal = expanding text = "DI_cd_adoption"
-                    down = "[Not(GetPlayer.MakeScope.Var('DI_cd_keep_founder_culture').IsSet)]" onclick = "[GetScriptedGui('DI_cd_toggle_adoption_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
-                text_multi = { layoutpolicy_horizontal = expanding text = "DI_cd_scope_help" default_format = "#low" }
-                hbox = { layoutpolicy_horizontal = expanding spacing = 12
+                spacing = 10
+                divider_light = { layoutpolicy_horizontal = expanding }
+                text_multi = { layoutpolicy_horizontal = expanding autoresize = yes max_width = 840 text = "DI_cd_scope_help" default_format = "#low" }
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    spacing = 12
                     margin_bottom = 18
-                    button_standard = { size = { 180 40 } text = "DI_cd_cancel" onclick = "[GetScriptedGui('DI_cd_cancel_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                    DI_cd_checked_button = { size = { 380 40 } text = "DI_cd_adoption"
+                        down = "[Not(GetPlayer.MakeScope.Var('DI_cd_keep_founder_culture').IsSet)]" onclick = "[GetScriptedGui('DI_cd_toggle_adoption_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        blockoverride "DI_cd_selected_check" { visible = "[Not(GetPlayer.MakeScope.Var('DI_cd_keep_founder_culture').IsSet)]" }
+                    }
                     expand = {}
-                    button_primary = { size = { 240 40 } text = "DI_cd_create" tooltip = "DI_cd_finalize_tt" using = tooltip_es
+                    button_standard = { size = { 160 40 } text = "DI_cd_cancel" onclick = "[GetScriptedGui('DI_cd_cancel_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
+                    button_primary = { size = { 220 40 } text = "DI_cd_create" tooltip = "DI_cd_finalize_tt" using = tooltip_es
                         enabled = "[GetScriptedGui('DI_cd_finalize_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" onclick = "[GetScriptedGui('DI_cd_finalize_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]" }
                 }
             }
@@ -266,5 +653,86 @@ template DI_cd_draft_animation {
         on_start = "[GetVariableSystem.Set('DI_cd_tradition_tab', 'realm')]"
         on_start = "[GetVariableSystem.Set('DI_cd_innovation_tab', 'tribal')]"
         on_finish = "[PdxGuiWidget.StackTop]"
+    }
+}
+
+
+types DI_CultureDraftInnovationTypes
+{
+    type DI_cd_innovation_grid = fixedgridbox {
+        flipdirection = yes addcolumn = 284 addrow = 84 datamodel_wrap = 3
+        item = {
+            DI_picker_selection_card = {
+                datacontext = "[Scope.CultureInnovationType]"
+                down = "[GetScriptedGui('DI_cd_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_cd_add_innovation_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_cd_remove_innovation_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
+                tooltipwidget = { using = DI_culture_innovation_tooltip }
+                blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_cd_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]" }
+                blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_cd_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]" }
+                blockoverride "DI_card_image" {
+                    DI_icon_innovation = { parentanchor = center alwaystransparent = yes }
+                }
+                blockoverride "DI_card_text" { text = "[CultureInnovationType.GetName]" }
+            }
+        }
+    }
+}
+
+
+types DI_CultureDraftTraditionUseGridTypes
+{
+    type DI_cd_tradition_use_grid = fixedgridbox {
+        parentanchor = top|left
+        widgetanchor = top|left
+        flipdirection = yes addcolumn = 284 addrow = 96 datamodel_wrap = 3
+        item = {
+            DI_picker_tradition_card = {
+                datacontext = "[Scope.CultureTradition]"
+                down = "[GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+                enabled = "[Or(GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End), GetScriptedGui('DI_cd_add_tradition_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End))]"
+                onclick = "[GetScriptedGui('DI_cd_add_tradition_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_cd_remove_tradition_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+                tooltip = "DI_tradition_picker_tooltip"
+                blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]" }
+                blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_cd_tradition_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]" }
+                blockoverride "DI_card_image" {
+                    widget_tradition_icon = {
+                        parentanchor = center
+                        alwaystransparent = yes
+                        block "icon_size" { size = { 102 72 } }
+                    }
+                }
+                blockoverride "DI_card_text" { text = "[CultureTradition.GetNameNoTooltip]" }
+            }
+        }
+    }
+}
+
+
+# Reserve a permanent check column so selecting a button never shifts its label.
+types DI_CultureDraftCheckedButtonTypes
+{
+    type DI_cd_checked_button = button_standard {
+        buttonText = {
+            text_single = {
+                size = { 100% 100% }
+                autoresize = no
+                margin = { 36 0 }
+                align = center|nobaseline
+                default_format = "#clickable"
+                alwaystransparent = yes
+            }
+        }
+        icon = {
+            name = "DI_cd_selection_check"
+            parentanchor = right|vcenter
+            widgetanchor = right|vcenter
+            position = { -8 0 }
+            size = { 24 24 }
+            texture = "gfx/interface/icons/symbols/icon_check.dds"
+            alwaystransparent = yes
+            block "DI_cd_selected_check" { visible = no }
+        }
     }
 }

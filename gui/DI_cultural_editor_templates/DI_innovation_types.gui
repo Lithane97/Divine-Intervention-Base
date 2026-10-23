@@ -1,108 +1,25 @@
 types DI_Innovation_Types
 {
-    type DI_innovation_flowcontainer = flowcontainer
-    {
-        datacontext = "[CultureInnovationType]"
-
-        visible = "[GetVariableSystem.HasValue('DI_culture_era_tab', CultureInnovationType.GetCultureEraType.GetName)]"
-
-        direction = horizontal
-        allow_outside = yes
-        using = tooltip_es
-        ignoreinvisible = yes
-        margin_right = 20
-        margin_left = 10
-
-        tooltipwidget = { using = DI_culture_innovation_tooltip }
-
-        button_standard_hover = {
-            block "has_visible" { visible = no }
-            size = { 256 66 }
-            block "on_remove" {}
-            button_ignore = none
-
-            hbox = {
-                margin = { 3 3 }
-                margin_right = 8
-                spacing = 5
-
-                background = {
-                    using = Background_Area
+    type DI_ce_innovation_grid = fixedgridbox {
+        parentanchor = top|left
+        widgetanchor = top|left
+        flipdirection = yes
+        addcolumn = 311
+        addrow = 84
+        datamodel_wrap = 2
+        item = {
+            DI_picker_selection_card = {
+                datacontext = "[Scope.CultureInnovationType]"
+                down = "[GetScriptedGui('DI_ce_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_ce_add_innovation_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
+                onrightclick = "[GetScriptedGui('DI_ce_remove_innovation_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]"
+                tooltipwidget = { using = DI_culture_innovation_tooltip }
+                blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_ce_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]" }
+                blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_ce_innovation_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('innovation', CultureInnovationType.MakeScope).End)]" }
+                blockoverride "DI_card_image" {
+                    DI_icon_innovation = { parentanchor = center alwaystransparent = yes }
                 }
-
-                widget = {
-                    size = { 90 60 }
-
-                    DI_icon_innovation = { parentanchor = center }
-                }
-
-                widget = {
-                    size = { 150 60 }
-
-                    vbox = {
-                        position = {0 -1}
-
-                        ignoreinvisible = yes
-
-                        text_multi = {
-                            name = "name_unlocked"
-                            layoutpolicy_horizontal = expanding
-                            text = "[CultureInnovationType.GetName]"
-                            max_width = 150
-                            align = nobaseline
-                            margin = { 3 0 }
-                            default_format = "#P"
-                            alpha = 0.7
-                        }
-
-                    }
-                }
-            }
-        }
-
-        button_standard_hover = {
-            block "not_has_visible" { visible = no }
-            size = { 256 66 }
-            block "on_add" {}
-
-            hbox = {
-                margin = { 3 3 }
-                margin_right = 8
-                spacing = 5
-                allow_outside = yes
-                ignoreinvisible = yes
-
-                background = {
-                    using = Background_Area
-                }
-
-                widget = {
-                    size = { 90 60 }
-
-                    DI_icon_innovation = {
-                        parentanchor = center
-                        blockoverride "icon_highlight"       { tintcolor = { 1 1 1 0.5 } }
-                        blockoverride "icon_frame_highlight" { tintcolor = { 1 1 1 0.5 } }
-                    }
-                }
-
-                widget = {
-                    size = { 150 60 }
-                    alwaystransparent = yes
-
-                    vbox = {
-                        ignoreinvisible = yes
-
-                        text_multi = {
-                            name = "name_clickable"
-                            layoutpolicy_horizontal = expanding
-                            text = "[CultureInnovationType.GetName]"
-                            align = left
-                            margin = { 3 0 }
-                            default_format = "#clickable"
-                        }
-                    }
-                }
+                blockoverride "DI_card_text" { text = "[CultureInnovationType.GetName]" }
             }
         }
     }

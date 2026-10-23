@@ -285,12 +285,13 @@ types DICulturePillarTypes
             button_standard = {
                 size = {  300 60  }
                 block "onclick" {}
+                down = "[Or(Or(ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetEthos), ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetHeritage)), Or(ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetLanguage), ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetMartial)))]"
 
                 block "highlight"
                 {
                     highlight_icon = {
                         name = "ethos_icon"
-                        visible = "[GetVariableSystem.HasValue('is_martial', 'no')]"
+                        visible = "[GetVariableSystem.HasValue('DI_cultural_editor_is_martial', 'no')]"
                         block "icon_size" {
                             size = { 300 60 }
                         }
@@ -299,9 +300,31 @@ types DICulturePillarTypes
                     }
                 }
 
+                widget = {
+                    name = "DI_regular_pillar_selection_highlight"
+                    size = { 100% 100% }
+                    alwaystransparent = yes
+                    visible = "[Or(Or(ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetEthos), ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetHeritage)), Or(ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetLanguage), ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetMartial)))]"
+                    background = {
+                        texture = "gfx/interface/colors/white.dds"
+                        color = { 0.85 0.65 0.25 0.20 }
+                        margin = { 2 2 }
+                    }
+                }
+                icon = {
+                    name = "DI_regular_pillar_selection_check"
+                    parentanchor = right|vcenter
+                    widgetanchor = right|vcenter
+                    position = { -8 0 }
+                    size = { 24 24 }
+                    texture = "gfx/interface/icons/symbols/icon_check.dds"
+                    alwaystransparent = yes
+                    visible = "[Or(Or(ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetEthos), ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetHeritage)), Or(ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetLanguage), ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetMartial)))]"
+                }
+
                 hbox = {
                     margin_top = 10
-                    margin_right = 10
+                    margin_right = 42
                     margin_bottom = 10
                     margin_left = 10
 
@@ -311,7 +334,7 @@ types DICulturePillarTypes
                     {
                         icon_doctrine = {
                             name = "doctrine_icon"
-                            visible = "[GetVariableSystem.HasValue('is_martial', 'yes')]"
+                            visible = "[GetVariableSystem.HasValue('DI_cultural_editor_is_martial', 'yes')]"
                             size = { 44 44 }
                             texture = "[CulturePillar.GetIcon]"
                         }
@@ -323,7 +346,7 @@ types DICulturePillarTypes
 
                     text_label_center = {
                         name = "name"
-                        visible = "[GetVariableSystem.HasValue('is_martial', 'no')]"
+                        visible = "[GetVariableSystem.HasValue('DI_cultural_editor_is_martial', 'no')]"
                         text = "[CulturePillar.GetNameNoTooltip]"
                         maximumsize = { 180 44 }
                         fontsize_min = 12
@@ -339,7 +362,7 @@ types DICulturePillarTypes
 
                     text_label_center = {
                         name = "name2"
-                        visible = "[GetVariableSystem.HasValue('is_martial', 'yes')]"
+                        visible = "[GetVariableSystem.HasValue('DI_cultural_editor_is_martial', 'yes')]"
                         text = "[CulturePillar.GetNameNoTooltip]"
                         maximumsize = { 180 44 }
                         fontsize_min = 12
@@ -351,6 +374,95 @@ types DICulturePillarTypes
 
                     expand = {}
 
+                }
+            }
+        }
+    }
+}
+
+
+types DI_EthosPillarPickerTypes
+{
+    type DI_widget_ethos_pillar_item = widget {
+        size = { 380 90 }
+        block "datacontext" {}
+        tooltipwidget = { using = culture_pillar_tooltip }
+        hbox = {
+            size = { 380 60 }
+            # Equal side columns keep the 300px button centered in its row.
+            spacer = { size = { 40 60 } }
+            button_standard = {
+                size = { 300 60 }
+                block "onclick" {}
+                highlight_icon = {
+                    size = { 300 60 }
+                    texture = "[CulturePillar.GetIcon]"
+                    using = Mask_Rough_Edges
+                }
+                text_label_center = {
+                    parentanchor = center
+                    widgetanchor = center
+                    size = { 180 44 }
+                    autoresize = no
+                    margin_bottom = 0
+                    text = "[CulturePillar.GetNameNoTooltip]"
+                    default_format = "#high"
+                    fontsize_min = 12
+                    multiline = yes
+                    elide = right
+                    alwaystransparent = yes
+                    using = Font_Size_Medium
+                }
+                widget = {
+                    name = "DI_ethos_selection_outline"
+                    size = { 100% 100% }
+                    alwaystransparent = yes
+                    visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetEthos)]"
+                    icon = {
+                        parentanchor = top
+                        widgetanchor = top
+                        size = { 100% 2 }
+                        texture = "gfx/interface/colors/white.dds"
+                        color = { 0.85 0.65 0.25 1.0 }
+                        alwaystransparent = yes
+                    }
+                    icon = {
+                        parentanchor = bottom
+                        widgetanchor = bottom
+                        size = { 100% 2 }
+                        texture = "gfx/interface/colors/white.dds"
+                        color = { 0.85 0.65 0.25 1.0 }
+                        alwaystransparent = yes
+                    }
+                    icon = {
+                        parentanchor = left
+                        widgetanchor = left
+                        size = { 2 100% }
+                        texture = "gfx/interface/colors/white.dds"
+                        color = { 0.85 0.65 0.25 1.0 }
+                        alwaystransparent = yes
+                    }
+                    icon = {
+                        parentanchor = right
+                        widgetanchor = right
+                        size = { 2 100% }
+                        texture = "gfx/interface/colors/white.dds"
+                        color = { 0.85 0.65 0.25 1.0 }
+                        alwaystransparent = yes
+                    }
+                }
+            }
+            widget = {
+                name = "DI_ethos_check_column"
+                size = { 40 60 }
+                alwaystransparent = yes
+                icon = {
+                    parentanchor = center
+                    widgetanchor = center
+                    size = { 24 24 }
+                    texture = "gfx/interface/icons/symbols/icon_check.dds"
+                    visible = "[ObjectsEqual(CulturePillar.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetEthos)]"
+                    alwaystransparent = yes
                 }
             }
         }

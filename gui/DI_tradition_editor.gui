@@ -1,334 +1,360 @@
 ﻿### Tradition Editor Window ###
 
 window = {
-	name = "DI_tradition_editor_window"
-	parentanchor = center
-	size = { 820 950 }
-	layer = windows_layer
+    name = "DI_tradition_editor_window"
+    parentanchor = center
+    size = { 980 950 }
+    layer = windows_layer
 
-	using = Window_Background
-	using = Window_Decoration
-	
-	datacontext = "[GetVariableSystem]"
-	datacontext = "[GetPlayer]"
-	datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
+    using = Window_Background
+    using = Window_Decoration
 
-	state = {
-		name = _show
-		using = Animation_FadeIn_Quick
+    datacontext = "[GetVariableSystem]"
+    datacontext = "[GetPlayer]"
+    datacontext = "[GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture]"
 
-		on_start = "[GetScriptedGui('DI_tradition_picker_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-		on_start = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
-		on_finish = "[PdxGuiWidget.StackTop]"
-	}
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
 
-	state = {
-		name = _hide
-		using = Animation_FadeOut_Quick
-		on_start = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-	}
+        on_start = "[GetScriptedGui('DI_tradition_picker_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
 
-	visible = "[GetVariableSystem.Exists('DI_tradition_editor_window_visible')]"
-	
-	vbox = {
-		using = Window_Margins
-		minimumsize = { 820 0 }
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+        on_start = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
 
-		header_pattern = {
-			layoutpolicy_horizontal = expanding
+    visible = "[GetVariableSystem.Exists('DI_tradition_editor_window_visible')]"
 
-			blockoverride "header_text"
-			{
-				text = "[SelectLocalization(GetPlayer.MakeScope.Var('DI_tradition_to_replace').IsSet, 'REPLACE_TRADITION_WINDOW_TITLE', 'ADD_TRADITION_WINDOW_TITLE')]"
-			}
+    vbox = {
+        using = Window_Margins
+        minimumsize = { 980 0 }
 
-			blockoverride "button_close"
-			{
-				onclick = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-			onclick = "[GetVariableSystem.Toggle('DI_tradition_editor_window_visible')]"
-			}
-		}
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
 
-		text_multi = {
-			layoutpolicy_horizontal = expanding
-			align = center
-			visible = "[GetPlayer.MakeScope.Var('DI_tradition_to_replace').IsSet]"
-			text = "DI_tradition_replacing_status"
-		}
+            blockoverride "header_text"
+            {
+                text = "[SelectLocalization(GetPlayer.MakeScope.Var('DI_tradition_to_replace').IsSet, 'REPLACE_TRADITION_WINDOW_TITLE', 'ADD_TRADITION_WINDOW_TITLE')]"
+            }
 
-		hbox = {
-			layoutpolicy_horizontal = expanding
-			margin = { 4 0 }
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
-				down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						align = center
-						text = "tradition_group_realm"
-					}
-					text_single = {
-						align = center
-						text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_realm'))]"
-					}
-				}
-			}
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'combat')]"
-				down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'combat')]"
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						align = center
-						text = "tradition_group_combat"
-					}
-					text_single = {
-						align = center
-						text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_combat'))]"
-					}
-				}
-			}
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'societal')]"
-				down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'societal')]"
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						align = center
-						text = "tradition_group_societal"
-					}
-					text_single = {
-						align = center
-						text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_societal'))]"
-					}
-				}
-			}
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'ritual')]"
-				down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'ritual')]"
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						align = center
-						text = "tradition_group_ritual"
-					}
-					text_single = {
-						align = center
-						text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_ritual'))]"
-					}
-				}
-			}
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'regional')]"
-				down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'regional')]"
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						align = center
-						text = "tradition_group_regional"
-					}
-					text_single = {
-						align = center
-						text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_regional'))]"
-					}
-				}
-			}
-			button_tab = {
-				layoutpolicy_horizontal = expanding
-				onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'other')]"
-				down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'other')]"
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					text_single = {
-						layoutpolicy_horizontal = expanding
-						align = center
-						text = "DI_tradition_picker_other"
-					}
-					text_single = {
-						align = center
-						text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_other'))]"
-					}
-				}
-			}
-		}
+            blockoverride "button_close"
+            {
+                onclick = "[GetScriptedGui('DI_tradition_clear_replacement_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetVariableSystem.Toggle('DI_tradition_editor_window_visible')]"
+            }
+        }
 
-		vbox = {
-			name = "DI_tradition_selection"
-			ignoreinvisible = yes
-			margin = { 0 8 }
-			spacing = 6
+        text_multi = {
+            layoutpolicy_horizontal = expanding
+            align = center
+            visible = "[GetPlayer.MakeScope.Var('DI_tradition_to_replace').IsSet]"
+            text = "DI_tradition_replacing_status"
+        }
 
-			layoutpolicy_horizontal = expanding
-			layoutpolicy_vertical = expanding
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            margin = { 4 0 }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'realm')]"
+                down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'realm')]"
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        align = center
+                        text = "tradition_group_realm"
+                    }
+                    text_single = {
+                        align = center
+                        text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_realm'))]"
+                    }
+                }
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'combat')]"
+                down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'combat')]"
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        align = center
+                        text = "tradition_group_combat"
+                    }
+                    text_single = {
+                        align = center
+                        text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_combat'))]"
+                    }
+                }
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'societal')]"
+                down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'societal')]"
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        align = center
+                        text = "tradition_group_societal"
+                    }
+                    text_single = {
+                        align = center
+                        text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_societal'))]"
+                    }
+                }
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'ritual')]"
+                down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'ritual')]"
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        align = center
+                        text = "tradition_group_ritual"
+                    }
+                    text_single = {
+                        align = center
+                        text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_ritual'))]"
+                    }
+                }
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'regional')]"
+                down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'regional')]"
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        align = center
+                        text = "tradition_group_regional"
+                    }
+                    text_single = {
+                        align = center
+                        text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_regional'))]"
+                    }
+                }
+            }
+            button_tab = {
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetVariableSystem.Set('DI_tradition_editor_window_tab', 'other')]"
+                down = "[GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'other')]"
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    text_single = {
+                        layoutpolicy_horizontal = expanding
+                        align = center
+                        text = "DI_tradition_picker_other"
+                    }
+                    text_single = {
+                        align = center
+                        text = "[GetDataModelSize(GetGlobalList('DI_tradition_picker_other'))]"
+                    }
+                }
+            }
+        }
 
-			widget = {
-				name = "DI_traditions_scroll_area"
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-				scrollbox = {
-					name = "DI_traditions_category_scrollbox"
-					size = { 100% 100% }
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = expanding
+        vbox = {
+            name = "DI_tradition_selection"
+            ignoreinvisible = yes
+            margin = { 0 8 }
+            spacing = 6
 
-					blockoverride "scrollbox_content"
-					{
-						fixedgridbox = {
-							datamodel = "[GetGlobalList(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')))]"
-							flipdirection = yes
-							addcolumn = 240
-							addrow = 192
-							datamodel_wrap = 3
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
 
-							item = {
-								DI_widget_tradition_item = {
-									datacontext = "[Scope.CultureTradition]"
-								}
-							}
-						}
-					}
-				}
+            widget = {
+                name = "DI_traditions_scroll_area"
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                scrollbox = {
+                    name = "DI_traditions_category_scrollbox"
+                    size = { 100% 100% }
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
 
-				# Center in the viewport, even when the scroll content has no rows.
-				text_multi = {
-					name = "DI_tradition_other_empty_message"
-					parentanchor = center
-					widgetanchor = center
-					size = { 90% 80 }
-					autoresize = no
-					align = center|nobaseline
-					visible = "[And(GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'other'), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_tradition_picker_other')), '(int32)0'))]"
-					text = "DI_tradition_picker_other_empty"
-					default_format = "#high"
-					alwaystransparent = yes
-				}
-			}
+                    blockoverride "scrollbox_content"
+                    {
+                        vbox = {
+                            layoutpolicy_horizontal = expanding
+                            ignoreinvisible = yes
+                            spacing = 12
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_maa'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "game_concept_men_at_arms" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_maa'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_terrain'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "game_concept_terrain" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_terrain'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_knights'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_knights" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_knights'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_buildings'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_buildings" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_buildings'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_learning'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_learning" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_learning'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_adventurers'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_adventurers" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_adventurers'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_general'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_general" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_general'))]" }
+                                    expand = {}
+                                }
+                            }
+                            vbox = {
+                                layoutpolicy_horizontal = expanding
+                                spacing = 6
+                                visible = "[GreaterThan_int32(GetDataModelSize(GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_locked'))), '(int32)0')]"
+                                text_label_left = { layoutpolicy_horizontal = expanding text = "DI_tradition_use_locked" }
+                                hbox = {
+                                    layoutpolicy_horizontal = expanding
+                                    DI_tradition_use_grid = { datamodel = "[GetGlobalList(ConcatIfNeitherEmpty(ConcatIfNeitherEmpty('DI_tradition_picker_', GetVariableSystem.Get('DI_tradition_editor_window_tab')), '_locked'))]" }
+                                    expand = {}
+                                }
+                            }
+                        }
+                    }
+                }
 
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				margin = { 44 8 }
-				spacing = 20
+                # Center in the viewport, even when the scroll content has no rows.
+                text_multi = {
+                    name = "DI_tradition_other_empty_message"
+                    parentanchor = center
+                    widgetanchor = center
+                    size = { 90% 80 }
+                    autoresize = no
+                    align = center|nobaseline
+                    visible = "[And(GetVariableSystem.HasValue('DI_tradition_editor_window_tab', 'other'), EqualTo_int32(GetDataModelSize(GetGlobalList('DI_tradition_picker_other')), '(int32)0'))]"
+                    text = "DI_tradition_picker_other_empty"
+                    default_format = "#high"
+                    alwaystransparent = yes
+                }
+            }
 
-				button_standard = {
-					name = "clear_traditions"
-					text = DI_CLEAR_ALL_TRADITIONS
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                margin = { 44 8 }
+                spacing = 20
 
-					onclick = "[GetScriptedGui('DI_clear_all_traditions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				}
+                button_standard = {
+                    name = "clear_traditions"
+                    text = DI_CLEAR_ALL_TRADITIONS
 
-				# button_standard = {
-				# 	name = "DI_all_traditions"
-				# 	text = DI_all_traditions
+                    onclick = "[GetScriptedGui('DI_clear_all_traditions').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                }
 
-				# 	onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', GetCultureTradition('tradition_winter_warriors').MakeScope).End)]"
-				# }
-			}
-		}
-	}
+                # button_standard = {
+                # 	name = "DI_all_traditions"
+                # 	text = DI_all_traditions
+
+                # 	onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', GetCultureTradition('tradition_winter_warriors').MakeScope).End)]"
+                # }
+            }
+        }
+    }
 }
 
 types DI_CultureAddTraditionTypes
 {
-	type DI_widget_tradition_item = widget {
-		size = { 240 192 }
+    type DI_widget_tradition_item = DI_picker_tradition_card {
+        visible = "[CultureTradition.IsValid]"
+        down = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+        enabled = "[Or(GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End), GetScriptedGui('DI_tradition_dlc_available_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End))]"
+        tooltip = "DI_tradition_picker_tooltip"
+        onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+        onrightclick = "[GetScriptedGui('DI_tradition_picker_remove_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
+        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]" }
+        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]" }
+        blockoverride "DI_card_image" {
+            widget_tradition_icon = {
+                parentanchor = center
+                alwaystransparent = yes
+                block "icon_size" { size = { 102 72 } }
+            }
+        }
+        blockoverride "DI_card_text" { text = "[CultureTradition.GetNameNoTooltip]" }
+    }
+}
 
-		# Match the faith editor tenet cards, using live membership in the edited culture.
-		background = {
-			visible = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-			using = Status_Good
-			using = Color_Blue
-			alpha = 0.45
-		}
 
-		tooltip = "DI_tradition_picker_tooltip"
-		using = tooltip_es
+types DI_TraditionUseGridTypes
+{
+    type DI_tradition_use_grid = fixedgridbox {
+        parentanchor = top|left
+        widgetanchor = top|left
+        flipdirection = yes
+        addcolumn = 288
+        addrow = 96
+        datamodel_wrap = 3
 
-		vbox = {
-			visible = "[CultureTradition.IsValid]"
-			button_standard = {
-				size = {  220 120  }
-				enabled = "[Or(GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End), GetScriptedGui('DI_tradition_dlc_available_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End))]"
-				tooltip = "DI_tradition_picker_tooltip"
-				using = tooltip_es
-				onclick = "[GetScriptedGui('DI_set_tradition').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_tradition_picker_remove_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-				button_ignore = none
-
-				widget_tradition_icon = {
-					alwaystransparent = yes
-					block "icon_size" {
-						size = { 220 120 }
-					}
-				}
-
-				widget = {
-					name = "DI_tradition_current_gold_glow"
-					visible = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-					parentanchor = center
-					size = { 100% 100% }
-					alwaystransparent = yes
-					alpha = 0.85
-					background = {
-						texture = "gfx/interface/component_effects/innovation_glow.dds"
-						margin = { 14 12 }
-						spriteType = Corneredstretched
-						spriteborder = { 30 30 }
-						tintcolor = { 1 0.78 0.25 1 }
-					}
-				}
-
-				icon = {
-					name = "DI_tradition_current_check"
-					visible = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-					parentanchor = top|right
-					position = { -6 6 }
-					size = { 32 32 }
-					texture = "gfx/interface/icons/symbols/icon_check.dds"
-					alwaystransparent = yes
-				}
-
-			}
-
-			hbox = {
-				margin_top = 4
-
-				text_label_center = {
-					name = "name"
-					text = "[CultureTradition.GetNameNoTooltip]"
-					tooltip = "DI_tradition_picker_tooltip"
-					using = tooltip_es
-					maximumsize = { 180 44 }
-					multiline = yes
-					align = center|nobaseline
-
-					using = Font_Size_Medium
-				}
-			}
-
-			text_single = {
-				size = { 220 20 }
-				align = center|nobaseline
-				visible = "[GetScriptedGui('DI_tradition_is_current_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('tradition', CultureTradition.MakeScope).End)]"
-				text = "DI_fe_current"
-				default_format = "#high;bold"
-				background = {
-					using = Status_Good
-					using = Color_Blue
-					alpha = 0.9
-				}
-				alwaystransparent = yes
-			}
-		}
-	}
+        item = {
+            DI_widget_tradition_item = {
+                datacontext = "[Scope.CultureTradition]"
+            }
+        }
+    }
 }

@@ -85,9 +85,9 @@ window = {
 
             button_tab = {
                 layoutpolicy_horizontal = expanding
-                onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
-                onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-                down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'overview' )]"
+                onclick = "[GetVariableSystem.Set( 'DI_culture_view_tabs', 'overview' )]"
+                onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_reformation_mode', 'hide' )]"
+                down = "[GetVariableSystem.HasValue( 'DI_culture_view_tabs', 'overview' )]"
 
                 text_single = {
                     parentanchor = center
@@ -100,9 +100,9 @@ window = {
             button_tab = {
                 name = "innovations_tab"
                 layoutpolicy_horizontal = expanding
-                onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'innovations' )]"
-                onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-                down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' )]"
+                onclick = "[GetVariableSystem.Set( 'DI_culture_view_tabs', 'innovations' )]"
+                onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_reformation_mode', 'hide' )]"
+                down = "[GetVariableSystem.HasValue( 'DI_culture_view_tabs', 'innovations' )]"
 
                 text_single = {
                     parentanchor = center
@@ -115,9 +115,9 @@ window = {
             button_tab = {
                 name = "acceptance_tab"
                 layoutpolicy_horizontal = expanding
-                onclick = "[GetVariableSystem.Set('culture_view_tabs', 'acceptance')]"
-                onclick = "[GetVariableSystem.Set('reformation_mode', 'hide')]"
-                down = "[GetVariableSystem.HasValue('culture_view_tabs', 'acceptance')]"
+                onclick = "[GetVariableSystem.Set('DI_culture_view_tabs', 'acceptance')]"
+                onclick = "[GetVariableSystem.Set('DI_cultural_editor_reformation_mode', 'hide')]"
+                down = "[GetVariableSystem.HasValue('DI_culture_view_tabs', 'acceptance')]"
                 text_single = {
                     parentanchor = center
                     text = DI_ca_tab
@@ -129,9 +129,9 @@ window = {
             button_tab = {
                 name = "convert_culture_tab"
                 layoutpolicy_horizontal = expanding
-                onclick = "[GetVariableSystem.Set( 'culture_view_tabs', 'convert' )]"
-                onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
-                down = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'convert' )]"
+                onclick = "[GetVariableSystem.Set( 'DI_culture_view_tabs', 'convert' )]"
+                onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_reformation_mode', 'hide' )]"
+                down = "[GetVariableSystem.HasValue( 'DI_culture_view_tabs', 'convert' )]"
 
                 text_single = {
                     parentanchor = center
@@ -148,11 +148,11 @@ window = {
             layoutpolicy_vertical = expanding
             scrollbox = {
                 size = { 100% 100% }
-                visible = "[GetVariableSystem.HasValue('culture_view_tabs', 'acceptance')]"
+                visible = "[GetVariableSystem.HasValue('DI_culture_view_tabs', 'acceptance')]"
                 blockoverride "scrollbox_content" {
                     vbox = {
                         name = "cultural_acceptance_tab"
-                        visible = "[GetVariableSystem.HasValue('culture_view_tabs', 'acceptance')]"
+                        visible = "[GetVariableSystem.HasValue('DI_culture_view_tabs', 'acceptance')]"
                         layoutpolicy_horizontal = expanding
                         margin = { 20 10 }
                         spacing = 10
@@ -311,7 +311,7 @@ window = {
                 name = "traditions_and_pillars_tab"
                 size = { 100% 100% }
                 ignoreinvisible = yes
-                visible = "[GetVariableSystem.HasValue( 'culture_view_tabs', 'overview' )]"
+                visible = "[GetVariableSystem.HasValue( 'DI_culture_view_tabs', 'overview' )]"
                 layoutpolicy_horizontal = expanding
 
                 using = Animation_Tab_Switch
@@ -324,9 +324,9 @@ window = {
                     }
 
                     button_round = {
-                        # visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+                        # visible = "[GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'show' )]"
                         parentanchor = bottom|right
-                        onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+                        onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_is_martial', 'no' )]"
                         onclick = "[GetVariableSystem.Toggle( 'DI_ethos_window_visible' )]"
                         position = { -8 -8 }
 
@@ -399,7 +399,7 @@ window = {
                                     }
 
                                     button_change = {
-                                        onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+                                        onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_is_martial', 'no' )]"
                                         onclick = "[GetVariableSystem.Toggle( 'DI_heritage_window_visible' )]"
 
                                         tooltip = "CULTURE_CLICK_TO_REPLACE"
@@ -445,7 +445,7 @@ window = {
                                         }
 
                                         button_change = {
-                                            onclick = "[GetVariableSystem.Set( 'is_martial', 'yes' )]"
+                                            onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_is_martial', 'yes' )]"
                                             onclick = "[GetVariableSystem.Toggle( 'DI_martial_custom_window_visible' )]"
 
                                             tooltip = "CULTURE_CLICK_TO_REPLACE"
@@ -456,7 +456,7 @@ window = {
 
                                     hbox = {
                                         layoutpolicy_horizontal = expanding
-                                        visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetMartial), Not(GetVariableSystem.HasValue( 'reformation_mode', 'show' )))]"
+                                        visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetMartial), Not(GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'show' )))]"
 
                                         margin_top = 3
 
@@ -521,7 +521,7 @@ window = {
                                     button_change = {
                                         layoutpolicy_horizontal = expanding
 
-                                        onclick = "[GetVariableSystem.Set( 'is_martial', 'no' )]"
+                                        onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_is_martial', 'no' )]"
                                         onclick = "[GetVariableSystem.Toggle( 'DI_language_window_visible' )]"
                                         visible = "[HasDlcFeature( 'royal_court' )]"
 
@@ -580,7 +580,7 @@ window = {
                         vbox = {
                             fixedgridbox = {
                                 datamodel = "[Culture.GetTraditions]"
-                                visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
+                                visible = "[GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'hide' )]"
                                 flipdirection = yes
                                 addcolumn = 284
                                 addrow = 180
@@ -627,7 +627,7 @@ window = {
 
                             fixedgridbox = {
                                 datamodel = "[Culture.GetTraditions]"
-                                visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+                                visible = "[GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'show' )]"
                                 flipdirection = yes
                                 addcolumn = 284
                                 addrow = 180
@@ -686,7 +686,7 @@ window = {
 
 
                 vbox = {
-                    visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'hide' )]"
+                    visible = "[GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'hide' )]"
                     layoutpolicy_horizontal = expanding
                     ignoreinvisible = yes
                     margin_top = 20
@@ -751,7 +751,7 @@ window = {
                         #     visible = "[And(And(ObjectsEqual(Culture.GetCultureHead.Self, GetPlayer ), HasDlcFeature( 'reform_culture' )), GetPlayer.IsValid)]"
                         #     enabled = "[Not(Culture.IsReforming)]"
                         #     text = "REFORM_CULTURE_LABEL"
-                        #     onclick = "[GetVariableSystem.Set( 'reformation_mode', 'show' )]"
+                        #     onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_reformation_mode', 'show' )]"
                         #     down = "[IsGameViewOpen('add_culture_tradition')]"
                         #     tooltip = "REFORM_CULTURE_TOOLTIP"
                         #     using = tooltip_nw
@@ -783,7 +783,7 @@ window = {
                 }
 
                 vbox = {
-                    visible = "[GetVariableSystem.HasValue( 'reformation_mode', 'show' )]"
+                    visible = "[GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'show' )]"
                     layoutpolicy_horizontal = expanding
                     ignoreinvisible = yes
                     margin = { 10 8 }
@@ -793,7 +793,7 @@ window = {
                         button_standard = {
                             name = "cancel_reform_culture"
                             text = "REFORM_CULTURE_CLOSE_LABEL"
-                            onclick = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+                            onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_reformation_mode', 'hide' )]"
                             down = "[IsGameViewOpen('add_culture_tradition')]"
                             tooltip = "REFORM_CULTURE_CLOSE_TOOLTIP"
                             using = tooltip_nw
@@ -806,7 +806,7 @@ window = {
                 size = { 100% 100% }
                 ignoreinvisible = yes
                 spacing = 6
-                visible = "[And(GetVariableSystem.HasValue( 'culture_view_tabs', 'innovations' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
+                visible = "[And(GetVariableSystem.HasValue( 'DI_culture_view_tabs', 'innovations' ), GetPlayer.MakeScope.Var('DI_innovation_selected_char').Char.IsValid)]"
                 text_label_center = {
                     size = { 680 30 }
                     text = "CULTURE_WINDOW_INNOVATIONS"
@@ -833,7 +833,7 @@ window = {
                         name = init
                         trigger_on_create = yes
 
-                        on_start = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'all' )]"
+                        on_start = "[GetVariableSystem.Set( 'DI_cultural_editor_innovation_tabs', 'all' )]"
                     }
                     margin_top = 10
                     spacing = 10
@@ -844,8 +844,8 @@ window = {
 
                         button_tab = {
                             layoutpolicy_horizontal = expanding
-                            onclick = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'all' )]"
-                            down = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'all' )]"
+                            onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_innovation_tabs', 'all' )]"
+                            down = "[GetVariableSystem.HasValue( 'DI_cultural_editor_innovation_tabs', 'all' )]"
 
                             text_single = {
                                 parentanchor = center
@@ -858,8 +858,8 @@ window = {
                         # era tab
                         button_tab = {
                             layoutpolicy_horizontal = expanding
-                            onclick = "[GetVariableSystem.Set( 'cultural_editor_innovation_tabs', 'era' )]"
-                            down = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'era' )]"
+                            onclick = "[GetVariableSystem.Set( 'DI_cultural_editor_innovation_tabs', 'era' )]"
+                            down = "[GetVariableSystem.HasValue( 'DI_cultural_editor_innovation_tabs', 'era' )]"
 
                             text_single = {
                                 parentanchor = center
@@ -872,7 +872,7 @@ window = {
 
                     hbox = {
                         spacing = 20
-                        visible = "[GetVariableSystem.HasValue( 'cultural_editor_innovation_tabs', 'all' )]"
+                        visible = "[GetVariableSystem.HasValue( 'DI_cultural_editor_innovation_tabs', 'all' )]"
 
                         # Add all innovations to culture
                         button_standard = {
@@ -947,7 +947,7 @@ types CulturalEditorShared
                 hbox = {
                     layoutpolicy_horizontal = expanding
                     spacing = 5
-                    visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetEthos), GetVariableSystem.HasValue( 'reformation_mode', 'show' ))]"
+                    visible = "[And(CultureReformation.IsReformingSamePillarTypeAs(Culture.GetEthos), GetVariableSystem.HasValue( 'DI_cultural_editor_reformation_mode', 'show' ))]"
 
                     background = {
                         using = Background_Area_Dark
@@ -1178,7 +1178,7 @@ types CulturalEditorShared
 
             highlight_icon = {
                 parentanchor = center
-                size = { 248 128 }
+                size = { 266 128 }
                 texture = "[CultureEraType.GetIllustration]"
                 using = Mask_Rough_Edges
 
@@ -1439,6 +1439,28 @@ template DI_culture_innovation_tooltip {
                 }
             }
 
+            flowcontainer = {
+                name = "DI_innovation_effects"
+                minimumsize = { 500 0 }
+                direction = vertical
+                ignoreinvisible = yes
+                visible = "[CultureInnovationType.HasEffects(Culture.Self, GetPlayer)]"
+
+                text_single = {
+                    text = "INNOVATION_ERA_TOOLTIP_EFFECTS"
+                    fonttintcolor = "[TooltipInfo.GetTintColor]"
+                }
+
+                textbox = {
+                    autoresize = yes
+                    multiline = yes
+                    max_width = 500
+                    using = DefaultTooltipText
+                    fonttintcolor = "[TooltipInfo.GetTintColor]"
+                    text = "[CultureInnovationType.GetEffectsDesc(Culture.Self, GetPlayer)]"
+                }
+            }
+
             container = {
                 using = era_innov_flavor
 
@@ -1449,6 +1471,14 @@ template DI_culture_innovation_tooltip {
             }
 
             block "AfterDescription" {}
+
+            textbox = {
+                autoresize = yes
+                multiline = yes
+                max_width = 500
+                using = DefaultTooltipText
+                text = "DI_innovation_picker_click_hint"
+            }
         }
     }
 }
@@ -1462,8 +1492,8 @@ template DI_Innovation_Anim
         trigger_on_create = yes
 
         on_start = "[GetVariableSystem.Set('DI_culture_era_tab', Localize('culture_era_tribal'))]"
-        on_start = "[GetVariableSystem.Set( 'culture_view_tabs', 'overview' )]"
-        on_start = "[GetVariableSystem.Set( 'cultural_editor_convert_tabs', 'people' )]"
+        on_start = "[GetVariableSystem.Set( 'DI_culture_view_tabs', 'overview' )]"
+        on_start = "[GetVariableSystem.Set( 'DI_cultural_editor_convert_tabs', 'people' )]"
     }
 
     state = {
@@ -1471,8 +1501,9 @@ template DI_Innovation_Anim
         using = Animation_FadeIn_Quick
         using = Sound_WindowShow_Standard
 
-        on_start = "[GetVariableSystem.Set( 'reformation_mode', 'hide' )]"
+        on_start = "[GetVariableSystem.Set( 'DI_cultural_editor_reformation_mode', 'hide' )]"
         on_start = "[GetScriptedGui('DI_culture_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetScriptedGui('DI_ce_init_innovation_lists_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_start = "[GetScriptedGui('DI_cc_conversion_init_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_finish = "[GetScriptedGui('DI_reload_selected_culture').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
         on_finish = "[PdxGuiWidget.StackTop]"
@@ -1563,5 +1594,73 @@ template DI_culture_era_tooltip {
                 }
             }
         }
+    }
+}
+
+
+# Shared by the regular editor and the divergence/hybridization draft pickers.
+types DI_CulturePickerCardTypes
+{
+    type DI_picker_selection_card = button_standard_hover {
+        size = { 276 76 }
+        button_ignore = none
+        using = tooltip_es
+        background = { using = Background_Area }
+
+        widget = {
+            name = "DI_picker_selection_highlight"
+            size = { 100% 100% }
+            alwaystransparent = yes
+            block "DI_card_highlight" { visible = no }
+            background = {
+                texture = "gfx/interface/colors/white.dds"
+                color = { 0.85 0.65 0.25 0.20 }
+                margin = { 2 2 }
+            }
+        }
+
+        hbox = {
+            parentanchor = center
+            widgetanchor = center
+            block "DI_card_content_size" { size = { 264 60 } }
+            spacing = 8
+            alwaystransparent = yes
+
+            widget = {
+                block "DI_card_image_size" { size = { 90 60 } }
+                alwaystransparent = yes
+                block "DI_card_image" {}
+            }
+
+            text_multi = {
+                block "DI_card_text_size" { size = { 134 60 } }
+                autoresize = no
+                align = left|vcenter
+                default_format = "#high"
+                alwaystransparent = yes
+                block "DI_card_text" { text = "" }
+            }
+
+            widget = {
+                name = "DI_picker_check_column"
+                block "DI_card_check_column_size" { size = { 24 60 } }
+                alwaystransparent = yes
+                icon = {
+                    parentanchor = center
+                    size = { 24 24 }
+                    alwaystransparent = yes
+                    texture = "gfx/interface/icons/symbols/icon_check.dds"
+                    block "DI_card_check" { visible = no }
+                }
+            }
+        }
+    }
+
+    type DI_picker_tradition_card = DI_picker_selection_card {
+        size = { 276 88 }
+        blockoverride "DI_card_content_size" { size = { 264 72 } }
+        blockoverride "DI_card_image_size" { size = { 102 72 } }
+        blockoverride "DI_card_text_size" { size = { 122 72 } }
+        blockoverride "DI_card_check_column_size" { size = { 24 72 } }
     }
 }

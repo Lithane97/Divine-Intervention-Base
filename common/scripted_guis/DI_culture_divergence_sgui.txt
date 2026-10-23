@@ -40,30 +40,26 @@ DI_cd_begin_sgui = {
                 }
             }
         }
-        if = { limit = { has_global_variable_list = DI_cd_innovations_tribal } clear_global_variable_list = DI_cd_innovations_tribal }
-        if = { limit = { has_global_variable_list = DI_cd_innovations_early_medieval } clear_global_variable_list = DI_cd_innovations_early_medieval }
-        if = { limit = { has_global_variable_list = DI_cd_innovations_high_medieval } clear_global_variable_list = DI_cd_innovations_high_medieval }
-        if = { limit = { has_global_variable_list = DI_cd_innovations_late_medieval } clear_global_variable_list = DI_cd_innovations_late_medieval }
-        if = { limit = { has_global_variable_list = DI_cd_innovations_other } clear_global_variable_list = DI_cd_innovations_other }
+        DI_cd_clear_innovation_categories_effect = yes
         every_culture_innovation = {
             save_scope_as = DI_cd_candidate
             if = {
                 limit = { innovation_era = culture_era_tribal }
-                add_to_global_variable_list = { name = DI_cd_innovations_tribal target = this }
+                DI_cd_categorize_innovation_effect = { PREFIX = DI_cd_innovations ERA = tribal }
             }
             else_if = {
                 limit = { innovation_era = culture_era_early_medieval }
-                add_to_global_variable_list = { name = DI_cd_innovations_early_medieval target = this }
+                DI_cd_categorize_innovation_effect = { PREFIX = DI_cd_innovations ERA = early_medieval }
             }
             else_if = {
                 limit = { innovation_era = culture_era_high_medieval }
-                add_to_global_variable_list = { name = DI_cd_innovations_high_medieval target = this }
+                DI_cd_categorize_innovation_effect = { PREFIX = DI_cd_innovations ERA = high_medieval }
             }
             else_if = {
                 limit = { innovation_era = culture_era_late_medieval }
-                add_to_global_variable_list = { name = DI_cd_innovations_late_medieval target = this }
+                DI_cd_categorize_innovation_effect = { PREFIX = DI_cd_innovations ERA = late_medieval }
             }
-            else = { add_to_global_variable_list = { name = DI_cd_innovations_other target = this } }
+            else = { DI_cd_categorize_innovation_effect = { PREFIX = DI_cd_innovations ERA = other } }
             scope:source = {
                 if = {
                     limit = { OR = {

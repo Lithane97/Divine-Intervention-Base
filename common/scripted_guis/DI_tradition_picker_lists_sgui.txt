@@ -3,6 +3,8 @@
 DI_tradition_picker_init_sgui = {
     scope = character
     effect = {
+        save_scope_as = DI_tradition_picker_owner
+        DI_tradition_picker_clear_uses_effect = yes
         if = {
             limit = { has_global_variable_list = DI_tradition_picker_realm }
             clear_global_variable_list = DI_tradition_picker_realm
@@ -28,29 +30,36 @@ DI_tradition_picker_init_sgui = {
             clear_global_variable_list = DI_tradition_picker_other
         }
         every_culture_tradition = {
+            save_scope_as = tradition
             if = {
                 limit = { has_tradition_category = realm }
                 add_to_global_variable_list = { name = DI_tradition_picker_realm target = this }
+                DI_tradition_picker_classify_use_effect = { CATEGORY = realm }
             }
             else_if = {
                 limit = { has_tradition_category = combat }
                 add_to_global_variable_list = { name = DI_tradition_picker_combat target = this }
+                DI_tradition_picker_classify_use_effect = { CATEGORY = combat }
             }
             else_if = {
                 limit = { has_tradition_category = societal }
                 add_to_global_variable_list = { name = DI_tradition_picker_societal target = this }
+                DI_tradition_picker_classify_use_effect = { CATEGORY = societal }
             }
             else_if = {
                 limit = { has_tradition_category = ritual }
                 add_to_global_variable_list = { name = DI_tradition_picker_ritual target = this }
+                DI_tradition_picker_classify_use_effect = { CATEGORY = ritual }
             }
             else_if = {
                 limit = { has_tradition_category = regional }
                 add_to_global_variable_list = { name = DI_tradition_picker_regional target = this }
+                DI_tradition_picker_classify_use_effect = { CATEGORY = regional }
             }
             else = {
                 # Overflow only: none of the five vanilla categories matched.
                 add_to_global_variable_list = { name = DI_tradition_picker_other target = this }
+                DI_tradition_picker_classify_use_effect = { CATEGORY = other }
             }
         }
     }
