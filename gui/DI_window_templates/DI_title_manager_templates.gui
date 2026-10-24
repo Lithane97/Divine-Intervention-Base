@@ -5,6 +5,7 @@ template DI_Title_Manager_Anim
         using = Animation_FadeIn_Quick
         using = Sound_WindowShow_Standard
 
+        on_start = "[GetScriptedGui('DI_tm_initialize_building_level_sgui').Execute(GuiScope.AddScope('DI_tm_player', GetPlayer.MakeScope).End)]"
         on_finish = "[PdxGuiWidget.StackTop]"
     }
 
@@ -19,11 +20,10 @@ template DI_Title_Manager_Anim
         using = Animation_FadeIn_Quick
         trigger_on_create = yes
 
-        trigger_when = "[GetScriptedGui('DI_load_title_manager_dropdown').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        trigger_when = "[GetScriptedGui('DI_load_title_manager_dropdown').IsValid(GuiScope.End)]"
 
-        on_start = "[GetScriptedGui('DI_load_title_manager_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        on_start = "[GetScriptedGui('DI_load_title_manager_dropdown').Execute(GuiScope.End)]"
         on_finish = "[GetVariableSystem.Set( 'title_manager_tab', 'quick_actions' )]"
-        on_finish = "[GetScriptedGui('DI_tm_select_building_level_1_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
     }
 }
 

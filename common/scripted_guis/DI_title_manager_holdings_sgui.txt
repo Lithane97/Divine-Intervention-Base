@@ -155,8 +155,7 @@ DI_set_holding_type_sgui = {
 }
 
 DI_load_province_dropdown = {
-    scope = character # Player Character
-
+    # Global filter choices can be initialized before a character is selected.
     is_valid = {
         OR = {
             NOT = { has_global_variable_list = DI_province_filter_choices }
@@ -165,8 +164,6 @@ DI_load_province_dropdown = {
     }
 
     effect = {
-        save_scope_as = player
-
         clear_global_variable_list = DI_province_filter_choices
         set_global_variable = DI_province_filters_1d1f2c245368_loaded
 
