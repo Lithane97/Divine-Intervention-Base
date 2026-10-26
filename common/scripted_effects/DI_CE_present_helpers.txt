@@ -127,43 +127,139 @@ DI_ce_take_primary_title_target_effect = {
     }
 }
 
+# Sets the scoped ruler's government authority law to the given LEVEL (0-3).
+# Every authority law group with four levels is handled: Crown Authority (feudal, clan),
+# Church Authority (theocracy, ecclesiastical), Imperial Bureaucracy (administrative),
+# Tribal Authority, and the Celestial, Meritocratic and Japanese bureaucracies.
+# Nomadic Authority has five levels and is not handled.
+# Vassals whose law must match their liege's (should_synchronize_liege_law) are skipped.
 DI_ce_set_crown_authority_target_effect = {
     if = {
         limit = {
-            OR = {
-                has_realm_law = crown_authority_0
-                has_realm_law = crown_authority_1
-                has_realm_law = crown_authority_2
-                has_realm_law = crown_authority_3
-            }
-            NOT = {
-                has_realm_law = $LAW$
-            }
+            is_ruler = yes
+            should_synchronize_liege_law = no
         }
-        add_realm_law = $LAW$
+        if = {
+            limit = {
+                OR = {
+                    has_realm_law = crown_authority_0
+                    has_realm_law = crown_authority_1
+                    has_realm_law = crown_authority_2
+                    has_realm_law = crown_authority_3
+                }
+                NOT = {
+                    has_realm_law = crown_authority_$LEVEL$
+                }
+            }
+            add_realm_law = crown_authority_$LEVEL$
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    has_realm_law = church_authority_0
+                    has_realm_law = church_authority_1
+                    has_realm_law = church_authority_2
+                    has_realm_law = church_authority_3
+                }
+                NOT = {
+                    has_realm_law = church_authority_$LEVEL$
+                }
+            }
+            add_realm_law = church_authority_$LEVEL$
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    has_realm_law = imperial_bureaucracy_0
+                    has_realm_law = imperial_bureaucracy_1
+                    has_realm_law = imperial_bureaucracy_2
+                    has_realm_law = imperial_bureaucracy_3
+                }
+                NOT = {
+                    has_realm_law = imperial_bureaucracy_$LEVEL$
+                }
+            }
+            add_realm_law = imperial_bureaucracy_$LEVEL$
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    has_realm_law = tribal_authority_0
+                    has_realm_law = tribal_authority_1
+                    has_realm_law = tribal_authority_2
+                    has_realm_law = tribal_authority_3
+                }
+                NOT = {
+                    has_realm_law = tribal_authority_$LEVEL$
+                }
+            }
+            add_realm_law = tribal_authority_$LEVEL$
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    has_realm_law = celestial_bureaucracy_0
+                    has_realm_law = celestial_bureaucracy_1
+                    has_realm_law = celestial_bureaucracy_2
+                    has_realm_law = celestial_bureaucracy_3
+                }
+                NOT = {
+                    has_realm_law = celestial_bureaucracy_$LEVEL$
+                }
+            }
+            add_realm_law = celestial_bureaucracy_$LEVEL$
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    has_realm_law = meritocratic_bureaucracy_0
+                    has_realm_law = meritocratic_bureaucracy_1
+                    has_realm_law = meritocratic_bureaucracy_2
+                    has_realm_law = meritocratic_bureaucracy_3
+                }
+                NOT = {
+                    has_realm_law = meritocratic_bureaucracy_$LEVEL$
+                }
+            }
+            add_realm_law = meritocratic_bureaucracy_$LEVEL$
+        }
+        else_if = {
+            limit = {
+                OR = {
+                    has_realm_law = japanese_bureaucracy_0
+                    has_realm_law = japanese_bureaucracy_1
+                    has_realm_law = japanese_bureaucracy_2
+                    has_realm_law = japanese_bureaucracy_3
+                }
+                NOT = {
+                    has_realm_law = japanese_bureaucracy_$LEVEL$
+                }
+            }
+            add_realm_law = japanese_bureaucracy_$LEVEL$
+        }
     }
 }
 
 DI_ce_set_crown_authority_1_target_effect = {
     DI_ce_set_crown_authority_target_effect = {
-        LAW = crown_authority_0
+        LEVEL = 0
     }
 }
 
 DI_ce_set_crown_authority_2_target_effect = {
     DI_ce_set_crown_authority_target_effect = {
-        LAW = crown_authority_1
+        LEVEL = 1
     }
 }
 
 DI_ce_set_crown_authority_3_target_effect = {
     DI_ce_set_crown_authority_target_effect = {
-        LAW = crown_authority_2
+        LEVEL = 2
     }
 }
 
 DI_ce_set_crown_authority_4_target_effect = {
     DI_ce_set_crown_authority_target_effect = {
-        LAW = crown_authority_3
+        LEVEL = 3
     }
 }
