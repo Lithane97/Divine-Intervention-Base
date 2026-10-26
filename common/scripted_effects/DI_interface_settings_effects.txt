@@ -1,0 +1,53 @@
+﻿DI_shortcut_use_rule_effect = {
+    random_owned_story = {
+        limit = { story_type = DI_misc_variables_story }
+        remove_variable = DI_button_column_override
+    }
+}
+DI_shortcut_right_column_effect = {
+    random_owned_story = {
+        limit = { story_type = DI_misc_variables_story }
+        set_variable = { name = DI_button_column_override value = flag:DI_button_position_sidebar }
+    }
+}
+DI_shortcut_left_column_effect = {
+    random_owned_story = {
+        limit = { story_type = DI_misc_variables_story }
+        set_variable = { name = DI_button_column_override value = flag:DI_button_position_new_column }
+    }
+}
+DI_shortcut_move_up_effect = {
+    if = {
+        limit = { DI_shortcut_can_move_up_trigger = yes }
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            if = { limit = { NOT = { has_variable = DI_button_rows_up } } set_variable = { name = DI_button_rows_up value = 0 } }
+            change_variable = { name = DI_button_rows_up add = 1 }
+        }
+    }
+}
+DI_shortcut_move_down_effect = {
+    if = {
+        limit = { DI_shortcut_can_move_down_trigger = yes }
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            change_variable = { name = DI_button_rows_up subtract = 1 }
+            if = { limit = { var:DI_button_rows_up <= 0 } remove_variable = DI_button_rows_up }
+        }
+    }
+}
+DI_shortcut_move_top_effect = {
+    random_owned_story = {
+        limit = { story_type = DI_misc_variables_story }
+        if = {
+            limit = { has_variable = DI_button_spacer_count }
+            set_variable = { name = DI_button_rows_up value = var:DI_button_spacer_count }
+        }
+    }
+}
+DI_shortcut_move_bottom_effect = {
+    random_owned_story = {
+        limit = { story_type = DI_misc_variables_story }
+        remove_variable = DI_button_rows_up
+    }
+}

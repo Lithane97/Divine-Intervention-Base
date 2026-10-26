@@ -1,0 +1,21 @@
+﻿# Paired with the Base DI show/hide shortcut entry at priority -1001.
+DI_button_position_interaction = {
+    interface_priority = -1000
+    category = interaction_category_cheat_menu
+    common_interaction = no
+    desc = DI_button_position_interaction_desc
+    auto_accept = yes
+    use_diplomatic_range = no
+    ignores_pending_interaction_block = yes
+    is_shown = {
+        scope:recipient = scope:actor
+        scope:actor = {
+            is_ai = no
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_cheat_menu
+            }
+        }
+    }
+    on_accept = { scope:actor = { trigger_event = DI_interface_settings.1 } }
+}

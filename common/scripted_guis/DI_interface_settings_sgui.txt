@@ -1,0 +1,35 @@
+﻿DI_shortcut_new_column_check = {
+    scope = character
+    is_valid = {
+        OR = {
+            any_owned_story = {
+                story_type = DI_misc_variables_story
+                has_variable = DI_button_column_override
+                var:DI_button_column_override = flag:DI_button_position_new_column
+            }
+            AND = {
+                NOT = {
+                    any_owned_story = {
+                        story_type = DI_misc_variables_story
+                        has_variable = DI_button_column_override
+                    }
+                }
+                has_game_rule = DI_button_position_new_column
+            }
+        }
+    }
+}
+DI_shortcut_sync_spacer_count = {
+    scope = character
+    saved_scopes = { count }
+    effect = {
+        random_owned_story = {
+            limit = { story_type = DI_misc_variables_story }
+            set_variable = { name = DI_button_spacer_count value = scope:count }
+            if = {
+                limit = { has_variable = DI_button_rows_up var:DI_button_rows_up > scope:count }
+                set_variable = { name = DI_button_rows_up value = scope:count }
+            }
+        }
+    }
+}

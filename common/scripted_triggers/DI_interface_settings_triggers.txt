@@ -1,0 +1,24 @@
+﻿DI_shortcut_can_move_up_trigger = {
+    any_owned_story = {
+        story_type = DI_misc_variables_story
+        has_variable = DI_button_spacer_count
+        trigger_if = {
+            limit = { has_variable = DI_button_spacer_count }
+            var:DI_button_spacer_count > 0
+            trigger_if = {
+                limit = { has_variable = DI_button_rows_up }
+                var:DI_button_rows_up < var:DI_button_spacer_count
+            }
+        }
+    }
+}
+DI_shortcut_can_move_down_trigger = {
+    any_owned_story = {
+        story_type = DI_misc_variables_story
+        has_variable = DI_button_rows_up
+        trigger_if = {
+            limit = { has_variable = DI_button_rows_up }
+            var:DI_button_rows_up > 0
+        }
+    }
+}
