@@ -116990,7 +116990,7 @@ DI_dm_remove_zealous_people_yurt_06_effect = {
 
 DI_dm_ensure_filter_effect = {
     if = {
-        limit = { OR = { NOT = { has_variable = DI_dm_filter_schema } var:DI_dm_filter_schema != 264738681 } }
+        limit = { NOT = { var:DI_dm_filter_schema ?= 264738681 } }
         clear_variable_list = DI_dm_filter_choices
         add_to_variable_list = { name = DI_dm_filter_choices target = flag:DI_dm_filter_all }
         add_to_variable_list = { name = DI_dm_filter_choices target = flag:DI_dm_filter_type_camp }
@@ -117000,6 +117000,10 @@ DI_dm_ensure_filter_effect = {
         add_to_variable_list = { name = DI_dm_filter_choices target = flag:DI_dm_filter_type_japanese_manor }
         add_to_variable_list = { name = DI_dm_filter_choices target = flag:DI_dm_filter_type_yurt }
         set_variable = { name = DI_dm_filter_schema value = 264738681 }
+    }
+    if = {
+        limit = { NOT = { has_variable = DI_dm_filter_choice } }
+        set_variable = { name = DI_dm_filter_choice value = flag:DI_dm_filter_all }
     }
     if = {
         limit = { NOT = { OR = { var:DI_dm_filter_choice = flag:DI_dm_filter_all var:DI_dm_filter_choice = flag:DI_dm_filter_type_camp var:DI_dm_filter_choice = flag:DI_dm_filter_type_east_asian_estate var:DI_dm_filter_choice = flag:DI_dm_filter_type_ecclesiastical_domicile var:DI_dm_filter_choice = flag:DI_dm_filter_type_estate var:DI_dm_filter_choice = flag:DI_dm_filter_type_japanese_manor var:DI_dm_filter_choice = flag:DI_dm_filter_type_yurt } } }
