@@ -346,6 +346,7 @@ DI_reset_pinned_relations = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = pinned_character
 
             scope:primary_char = {
@@ -374,12 +375,14 @@ DI_reset_all_pinned_relations = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = DI_relation_first
 
             scope:DI_relation_player = {
                 every_in_list = {
                     variable = pinned_characters
                     limit = {
+                        is_alive = yes
                         NOT = { this = scope:DI_relation_first }
                         NOT = { is_in_list = DI_processed_pinned_characters }
                     }
@@ -421,7 +424,7 @@ DI_apply_pinned_relations = {
     scope = character # Player
 
     is_valid = {
-        has_variable_list = pinned_characters
+        DI_pins_has_living_characters_trigger = yes
         DI_has_selected_relation_trigger = yes
         DI_selected_relations_are_compatible_trigger = yes
     }
@@ -432,7 +435,8 @@ DI_apply_pinned_relations = {
 
         every_in_list = {
             variable = pinned_characters
-            limit = { NOT = { this = scope:primary_char } }
+            limit = {
+                is_alive = yes NOT = { this = scope:primary_char } }
             save_scope_as = pinned_character
 
             scope:primary_char = {
@@ -447,7 +451,7 @@ DI_apply_all_pinned_relations = {
     scope = character # Player
 
     is_valid = {
-        has_variable_list = pinned_characters
+        DI_pins_has_living_characters_trigger = yes
         DI_has_selected_relation_trigger = yes
         DI_selected_relations_are_compatible_trigger = yes
     }
@@ -457,12 +461,14 @@ DI_apply_all_pinned_relations = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = DI_relation_first
 
             scope:DI_relation_player = {
                 every_in_list = {
                     variable = pinned_characters
                     limit = {
+                        is_alive = yes
                         NOT = { this = scope:DI_relation_first }
                         NOT = { is_in_list = DI_processed_pinned_characters }
                     }
@@ -481,7 +487,7 @@ DI_remove_selected_all_pinned_relations = {
     scope = character # Player
 
     is_valid = {
-        has_variable_list = pinned_characters
+        DI_pins_has_living_characters_trigger = yes
         DI_has_selected_relation_trigger = yes
     }
 
@@ -490,12 +496,14 @@ DI_remove_selected_all_pinned_relations = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = DI_relation_first
 
             scope:DI_relation_player = {
                 every_in_list = {
                     variable = pinned_characters
                     limit = {
+                        is_alive = yes
                         NOT = { this = scope:DI_relation_first }
                         NOT = { is_in_list = DI_processed_pinned_characters }
                     }
@@ -1140,6 +1148,7 @@ DI_dip_all_treaty = {
 
             every_in_list = {
                 variable = pinned_characters
+                limit = { is_alive = yes }
 
                 scope:player.var:DI_primary_character = {
                     if = {
@@ -1188,6 +1197,7 @@ DI_dip_all_break_treaty = {
 
             every_in_list = {
                 variable = pinned_characters
+                limit = { is_alive = yes }
 
                 scope:player.var:DI_primary_character = {
                     if = {
@@ -1218,11 +1228,13 @@ DI_dip_every_pinned_treaty = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = first_character
 
             scope:player = {
                 every_in_list = {
                     variable = pinned_characters
+                    limit = { is_alive = yes }
 
                     if = {
                         limit = {
@@ -1264,11 +1276,13 @@ DI_dip_every_pinned_break_treaty = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = first_character
 
             scope:player = {
                 every_in_list = {
                     variable = pinned_characters
+                    limit = { is_alive = yes }
 
                     if = {
                         limit = {
@@ -1445,6 +1459,7 @@ DI_dip_all_alliance = {
 
             every_in_list = {
                 variable = pinned_characters
+                limit = { is_alive = yes }
                 save_scope_as = first_character
 
                 scope:player.var:DI_primary_character = {
@@ -1488,6 +1503,7 @@ DI_dip_all_break_alliance = {
 
             every_in_list = {
                 variable = pinned_characters
+                limit = { is_alive = yes }
                 save_scope_as = first_character
 
                 scope:player.var:DI_primary_character = {
@@ -1516,11 +1532,13 @@ DI_dip_every_pinned_alliance = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = first_character
 
             scope:player = {
                 every_in_list = {
                     variable = pinned_characters
+                    limit = { is_alive = yes }
                     save_scope_as = second_character
 
                     if = {
@@ -1558,11 +1576,13 @@ DI_dip_every_pinned_break_alliance = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = first_character
 
             scope:player = {
                 every_in_list = {
                     variable = pinned_characters
+                    limit = { is_alive = yes }
 
                     if = {
                         limit = {

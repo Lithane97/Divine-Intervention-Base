@@ -229,8 +229,9 @@ DI_levy_effect = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 save_scope_as = target
 
                 spawn_army = {

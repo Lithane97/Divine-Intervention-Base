@@ -47,8 +47,9 @@ DI_add_trait = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     add_trait = scope:trait
@@ -82,8 +83,9 @@ DI_remove_trait = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     remove_trait = scope:trait
@@ -114,8 +116,9 @@ DI_sexuality_heterosexual = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_sexuality = heterosexual
@@ -145,8 +148,9 @@ DI_sexuality_homosexual = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_sexuality = homosexual
@@ -176,8 +180,9 @@ DI_sexuality_bisexual = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_sexuality = bisexual
@@ -207,8 +212,9 @@ DI_sexuality_asexual = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_sexuality = asexual
@@ -225,22 +231,7 @@ DI_sexuality_asexual = {
 
 DI_clear_all_pins = {
     scope = character
-
-    effect = {
-        every_living_character = {
-            limit = { has_character_flag = pinned_for_edit }
-
-            hidden_effect = {
-                remove_character_flag = pinned_for_edit
-            }
-        }
-        if = {
-            limit = {
-                has_variable_list = pinned_characters
-            }
-            clear_variable_list = pinned_characters
-        }
-    }
+    effect = { DI_pins_clear_effect = yes }
 }
 
 DI_age_add = {
@@ -642,8 +633,9 @@ DI_culture_change = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_culture = scope:selected_culture
@@ -682,8 +674,9 @@ DI_change_myculture = {
     scope = character
 
     effect = {
-        every_living_character = {
-            limit = { has_character_flag = pinned_for_edit }
+        every_in_list = {
+            variable = pinned_characters
+            limit = { is_alive = yes }
 
 
             hidden_effect = {
@@ -697,8 +690,9 @@ DI_change_myculture_county = {
     scope = character
 
     effect = {
-        every_living_character = {
-            limit = { has_character_flag = pinned_for_edit }
+        every_in_list = {
+            variable = pinned_characters
+            limit = { is_alive = yes }
 
             every_sub_realm_county = {
                 set_county_culture = root.culture
@@ -732,8 +726,9 @@ DI_religion_change = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_character_faith = scope:selected_faith
@@ -788,8 +783,9 @@ DI_rite_change = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     set_character_rite = scope:selected_rite
@@ -808,8 +804,9 @@ DI_change_myreligion = {
     scope = character
 
     effect = {
-        every_living_character = {
-            limit = { has_character_flag = pinned_for_edit }
+        every_in_list = {
+            variable = pinned_characters
+            limit = { is_alive = yes }
 
 
             hidden_effect = {
@@ -823,8 +820,9 @@ DI_change_myreligion_county = {
     scope = character
 
     effect = {
-        every_living_character = {
-            limit = { has_character_flag = pinned_for_edit }
+        every_in_list = {
+            variable = pinned_characters
+            limit = { is_alive = yes }
 
             every_sub_realm_county = {
                 set_county_rite = root.rite
@@ -844,6 +842,7 @@ DI_pinned_char_var_sgui = {
     scope = character
 
     effect = {
+        DI_pins_normalize_effect = yes
         random_owned_story = {
             limit = {
                 story_type = DI_misc_variables_story
@@ -1006,7 +1005,7 @@ DI_vbox_character_list = {
     scope = character
 
     is_valid = {
-        NOT = { has_variable_list = pinned_characters }
+        NOT = { DI_pins_has_living_characters_trigger = yes }
     }
 }
 

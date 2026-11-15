@@ -1,34 +1,20 @@
 ﻿# Pin all living characters
 DI_pin_all_living = {
     scope = character
-
     effect = {
+        DI_pins_normalize_effect = yes
         every_living_character = {
-            limit = { NOT = { has_character_flag = pinned_for_edit } }
-
-            hidden_effect = {
-                add_character_flag = pinned_for_edit
-                root = {
-                    add_to_variable_list = { name = pinned_characters target = prev }
-                }
-            }
+            DI_pins_add_effect = { OWNER = root }
         }
     }
 }
 
 DI_pin_pinned = {
     scope = character
-
     effect = {
+        DI_pins_normalize_effect = yes
         every_pinned_character = {
-            limit = { NOT = { has_character_flag = pinned_for_edit } }
-
-            hidden_effect = {
-                add_character_flag = pinned_for_edit
-                root = {
-                    add_to_variable_list = { name = pinned_characters target = prev }
-                }
-            }
+            DI_pins_add_effect = { OWNER = root }
         }
     }
 }
@@ -473,15 +459,9 @@ DI_remove_merit_level_effect = {
 
 DI_clear_pinned_character = {
     scope = character
-
-    saved_scopes = {
-        root # player character
-        target # selected character
-    }
-
+    saved_scopes = { target }
     effect = {
-        scope:target = { remove_character_flag = pinned_for_edit }
-        remove_list_variable = { name = pinned_characters target = scope:target }
+        DI_pins_remove_effect = { CHARACTER = scope:target }
     }
 }
 

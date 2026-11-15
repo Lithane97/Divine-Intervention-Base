@@ -1,0 +1,74 @@
+# Pinned membership belongs exclusively to the character issuing the command.
+# Add: current scope is the candidate; OWNER is the character owning the list.
+# No helper reads target-character flags or imports membership from another player.
+DI_pins_add_effect = {
+    if = {
+        limit = { is_alive = yes }
+        save_scope_as = DI_pins_candidate
+        $OWNER$ = {
+            if = {
+                limit = {
+                    NOT = {
+                        DI_pins_contains_character_trigger = { CHARACTER = scope:DI_pins_candidate }
+                    }
+                }
+                add_to_variable_list = { name = pinned_characters target = scope:DI_pins_candidate }
+            }
+        }
+    }
+}
+
+# Remove and clear: current scope is the list owner.
+DI_pins_remove_effect = {
+    remove_list_variable = { name = pinned_characters target = $CHARACTER$ }
+}
+
+DI_pins_clear_effect = {
+    clear_variable_list = pinned_characters
+}
+
+# Rebuild from this owner's existing list only. The snapshot is local to this
+# effect chain, explicitly cleared before/after use, and never a persistent cache.
+# Add deduplicates old entries; living checks exclude dead targets from old saves.
+DI_pins_normalize_effect = {
+    save_scope_as = DI_pins_normalize_owner
+    clear_local_variable_list = DI_pins_live_snapshot
+    every_in_list = {
+        variable = pinned_characters
+        limit = { is_alive = yes }
+        add_to_local_variable_list = { name = DI_pins_live_snapshot target = this }
+    }
+    DI_pins_clear_effect = yes
+    every_in_local_list = {
+        variable = DI_pins_live_snapshot
+        DI_pins_add_effect = { OWNER = scope:DI_pins_normalize_owner }
+    }
+    clear_local_variable_list = DI_pins_live_snapshot
+}
+
+# Called only from on_player_character_change: root/current scope is the actual
+# new player, previous_player_character is supplied by the engine. Transfer on
+# death only; a manual switch to a living character keeps independent lists.
+# Clearing the source makes the transfer idempotent if the hook is repeated.
+DI_pins_player_changed_effect = {
+    if = {
+        limit = {
+            exists = scope:previous_player_character
+            scope:previous_player_character = {
+                is_alive = no
+                has_variable_list = pinned_characters
+            }
+        }
+        save_scope_as = DI_pins_successor
+        DI_pins_clear_effect = yes
+        scope:previous_player_character = {
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
+                DI_pins_add_effect = { OWNER = scope:DI_pins_successor }
+            }
+            DI_pins_clear_effect = yes
+        }
+    }
+    DI_pins_normalize_effect = yes
+}

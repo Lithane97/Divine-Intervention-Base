@@ -14,8 +14,9 @@ DI_clear_all_traits_sgui = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
 
 
@@ -309,8 +310,9 @@ DI_add_trait_xp = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 hidden_effect = {
                     if = {

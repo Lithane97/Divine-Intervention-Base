@@ -14,10 +14,9 @@ DI_ce_eliminate_health_issues = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_set_weight_0 = yes
                 DI_eliminated_health_problem_effect = yes
             }
@@ -45,10 +44,9 @@ DI_ce_add_good_genes = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_remove_health_conflict_effect = yes
 
                 add_trait = physique_good_3
@@ -85,10 +83,9 @@ DI_ce_remove_good_genes = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 remove_trait = physique_good_3
                 remove_trait = intellect_good_3
@@ -123,10 +120,9 @@ DI_ce_add_bad_genes = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_remove_health_conflict_forbadgene_effect = yes
                 remove_trait = physique_good_3
                 remove_trait = intellect_good_3
@@ -172,10 +168,9 @@ DI_ce_remove_bad_genes = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = beauty_bad_3
                 remove_trait = intellect_bad_3
                 remove_trait = physique_bad_3
@@ -209,10 +204,9 @@ DI_ce_lock_stress = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 add_character_modifier = no_stress_change
             }
         }
@@ -237,10 +231,9 @@ DI_ce_unlock_stress = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_character_modifier = no_stress_change
             }
         }
@@ -266,10 +259,9 @@ DI_ce_lock_tyranny = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 add_character_modifier = no_tyranny_change
             }
         }
@@ -294,10 +286,9 @@ DI_ce_unlock_tyranny = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_character_modifier = no_tyranny_change
             }
         }
@@ -323,10 +314,9 @@ DI_ce_lock_dread = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 add_character_modifier = no_dread_change
             }
         }
@@ -351,10 +341,9 @@ DI_ce_unlock_dread = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_character_modifier = no_dread_change
             }
         }
@@ -380,10 +369,9 @@ DI_ce_randomize_personality = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_clear_personality_traits_effect = yes
                 DI_personality_trait_randomizer_effect = yes
             }
@@ -411,10 +399,9 @@ DI_ce_clear_personality = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_clear_personality_traits_effect = yes
             }
         }
@@ -441,10 +428,9 @@ DI_ce_add_special_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 add_trait = DI_immortal
                 set_immortal_age = 30
                 add_trait = 100_stat_man
@@ -482,10 +468,9 @@ DI_ce_remove_special_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = DI_immortal
                 remove_trait = 100_stat_man
                 remove_trait = nnn_challenger
@@ -521,10 +506,9 @@ DI_ce_add_commander_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_add_commander_traits_effect = yes
             }
         }
@@ -550,10 +534,9 @@ DI_ce_remove_commander_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_remove_commander_traits_effect = yes
             }
         }
@@ -580,10 +563,9 @@ DI_ce_add_education_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_remove_education_traits_effect = yes
                 DI_add_education_traits_effect = yes
             }
@@ -611,10 +593,9 @@ DI_ce_remove_education_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_remove_education_traits_effect = yes
             }
         }
@@ -640,10 +621,9 @@ DI_ce_boost_education = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_boost_education_traits_effect = yes
             }
         }
@@ -669,10 +649,9 @@ DI_ce_boost_education_extra_perks = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_boost_education_extra_traits_effect = yes
             }
         }
@@ -699,10 +678,9 @@ DI_ce_add_aggressive_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_clear_personality_traits_effect = yes
                 add_trait = wrathful
                 add_trait = brave
@@ -734,10 +712,9 @@ DI_ce_remove_aggressive_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = wrathful
                 remove_trait = brave
                 remove_trait = vengeful
@@ -767,10 +744,9 @@ DI_ce_add_timid_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_clear_personality_traits_effect = yes
                 add_trait = shy
                 add_trait = craven
@@ -801,10 +777,9 @@ DI_ce_remove_timid_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = shy
                 remove_trait = craven
                 remove_trait = forgiving
@@ -834,10 +809,9 @@ DI_ce_correct_personality = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 if = { limit = { has_trait = gluttonous } remove_trait = gluttonous add_trait = temperate }
                 if = { limit = { has_trait = greedy } remove_trait = greedy add_trait = generous }
                 if = { limit = { has_trait = wrathful } remove_trait = wrathful add_trait = calm }
@@ -889,10 +863,9 @@ DI_ce_add_giant_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = dwarf
                 remove_trait = physique_good_1
                 remove_trait = physique_good_2
@@ -934,10 +907,9 @@ DI_ce_remove_giant_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 DI_set_weight_0 = yes
                 remove_trait = physique_good_3
                 remove_trait = giant
@@ -967,10 +939,9 @@ DI_ce_add_dwarf_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = giant
                 remove_trait = physique_good_1
                 remove_trait = physique_good_2
@@ -1012,10 +983,9 @@ DI_ce_remove_dwarf_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = physique_bad_3
                 remove_trait = dwarf
             }
@@ -1043,10 +1013,9 @@ DI_ce_add_albino_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 change_current_weight = 0
                 add_trait = albino
                 add_trait = spindly
@@ -1076,10 +1045,9 @@ DI_ce_remove_albino_traits = {
             limit = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_trait = albino
                 remove_trait = spindly
             }

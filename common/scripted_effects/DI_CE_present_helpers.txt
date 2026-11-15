@@ -14,10 +14,9 @@ DI_ce_apply_to_edit_targets_effect = {
                 has_variable = DI_pinned_char_var
             }
         }
-        every_living_character = {
-            limit = {
-                has_character_flag = pinned_for_edit
-            }
+        every_in_list = {
+            variable = pinned_characters
+            limit = { is_alive = yes }
             $TARGET_EFFECT$ = yes
         }
     }
@@ -27,10 +26,9 @@ DI_ce_apply_to_edit_targets_effect = {
 }
 
 DI_ce_apply_to_pinned_characters_effect = {
-    every_living_character = {
-        limit = {
-            has_character_flag = pinned_for_edit
-        }
+    every_in_list = {
+        variable = pinned_characters
+        limit = { is_alive = yes }
         $TARGET_EFFECT$ = yes
     }
 }

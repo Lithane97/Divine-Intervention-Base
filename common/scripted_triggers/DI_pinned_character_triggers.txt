@@ -1,0 +1,11 @@
+# Current scope is always the owner of pinned_characters.
+DI_pins_contains_character_trigger = {
+    is_target_in_variable_list = { name = pinned_characters target = $CHARACTER$ }
+}
+
+DI_pins_has_living_characters_trigger = {
+    any_in_list = {
+        variable = pinned_characters
+        is_alive = yes
+    }
+}

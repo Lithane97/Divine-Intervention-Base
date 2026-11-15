@@ -44,6 +44,7 @@ DI_ce_convert_all_pinned_counties = {
             variable = pinned_characters
 
             limit = {
+                is_alive = yes
                 NOR = {
                     this = scope:player_character.var:DI_innovation_selected_char_copy
                     this.culture = scope:copy_culture
@@ -75,6 +76,7 @@ DI_ce_convert_all_pinned = {
             variable = pinned_characters
 
             limit = {
+                is_alive = yes
                 NOR = {
                     this = scope:player_character.var:DI_innovation_selected_char_copy
                     this.culture = scope:copy_culture
@@ -111,6 +113,7 @@ DI_ce_convert_to_player = {
             variable = pinned_characters
 
             limit = {
+                is_alive = yes
                 NOR = {
                     this = scope:player_character
                 }
@@ -130,6 +133,7 @@ DI_ce_convert_to_player_counties = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
 
             every_sub_realm_county = {
                 limit = {
@@ -148,6 +152,7 @@ DI_ce_convert_to_own_counties = {
     effect = {
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
             save_scope_as = pinned_character
             culture = { save_scope_as = pinned_culture }
 
@@ -276,6 +281,7 @@ DI_convert_all_pinned_realm_culture = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
 
             this.top_liege = {
                 set_culture = scope:copy_culture
@@ -318,6 +324,7 @@ DI_convert_all_pinned_to_player_culture = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
 
             this.top_liege = {
                 set_culture = scope:player_character.culture
@@ -440,6 +447,7 @@ DI_convert_all_pinned_sub_realm_culture = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
 
             set_culture = scope:copy_culture
 
@@ -480,6 +488,7 @@ DI_convert_all_pinned_to_player_sub_realm_culture = {
 
         every_in_list = {
             variable = pinned_characters
+            limit = { is_alive = yes }
 
             set_culture = scope:player_character.culture
 

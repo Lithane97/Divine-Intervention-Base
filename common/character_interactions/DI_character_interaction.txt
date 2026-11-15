@@ -151,20 +151,14 @@ DI_pin_character_interaction = {
             if = {
                 limit = {scope:character = yes}
 
-                add_character_flag = pinned_for_edit
-                scope:actor = {
-                    add_to_variable_list = { name = pinned_characters target = prev }
-                }
+                DI_pins_add_effect = { OWNER = scope:actor }
             }
 
             if = {
                 limit = {scope:vassals = yes}
 
                 every_vassal = {
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -172,10 +166,7 @@ DI_pin_character_interaction = {
                 limit = {scope:courtiers = yes}
 
                 every_courtier = {
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -183,10 +174,7 @@ DI_pin_character_interaction = {
                 limit = {scope:councillors = yes}
 
                 every_councillor = {
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -195,10 +183,7 @@ DI_pin_character_interaction = {
 
                 scope:recipient.house = {
                     every_house_member = {
-                        add_character_flag = pinned_for_edit
-                        scope:actor = {
-                            add_to_variable_list = { name = pinned_characters target = prev }
-                        }
+                        DI_pins_add_effect = { OWNER = scope:actor }
                     }
                 }
             }
@@ -208,10 +193,7 @@ DI_pin_character_interaction = {
 
                 scope:recipient.dynasty = {
                     every_dynasty_member = {
-                        add_character_flag = pinned_for_edit
-                        scope:actor = {
-                            add_to_variable_list = { name = pinned_characters target = prev }
-                        }
+                        DI_pins_add_effect = { OWNER = scope:actor }
                     }
                 }
             }
@@ -221,18 +203,12 @@ DI_pin_character_interaction = {
 
                 every_relation = {
                     type = lover
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
 
                 every_relation = {
                     type = soulmate
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -242,10 +218,7 @@ DI_pin_character_interaction = {
                 scope:recipient.house.house_head.house.house_confederation = {  #Stupid fucking shit why does it only work through the house head i sped 2 hours on this shit.
                     every_confederation_member_house = {
                         every_house_member = {
-                            add_character_flag = pinned_for_edit
-                            scope:actor = {
-                                add_to_variable_list = { name = pinned_characters target = prev }
-                            }
+                            DI_pins_add_effect = { OWNER = scope:actor }
                         }
                     }
                 }
@@ -255,10 +228,7 @@ DI_pin_character_interaction = {
                 limit = {scope:every_close_family_member = yes}
 
                 every_close_family_member = {
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -266,10 +236,7 @@ DI_pin_character_interaction = {
                 limit = {scope:every_extended_family_member = yes}
 
                 every_extended_family_member = {
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -281,10 +248,7 @@ DI_pin_character_interaction = {
                         faith = scope:recipient.faith
                     }
 
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
 
@@ -296,10 +260,7 @@ DI_pin_character_interaction = {
                         culture = scope:recipient.culture
                     }
 
-                    add_character_flag = pinned_for_edit
-                    scope:actor = {
-                        add_to_variable_list = { name = pinned_characters target = prev }
-                    }
+                    DI_pins_add_effect = { OWNER = scope:actor }
                 }
             }
         }

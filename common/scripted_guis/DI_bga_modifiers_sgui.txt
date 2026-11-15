@@ -16,10 +16,9 @@ DI_add_modifier_DI_divine_grace = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
 
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 add_character_modifier = DI_divine_grace
             }
@@ -46,10 +45,9 @@ DI_remove_modifier_DI_divine_grace = {
                 scope:DI_story = { has_variable = DI_pinned_char_var }
             }
 
-            every_living_character = {
-                limit = {
-                    has_character_flag = pinned_for_edit
-                }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 remove_character_modifier = DI_divine_grace
             }

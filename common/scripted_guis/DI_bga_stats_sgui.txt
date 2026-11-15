@@ -211,6 +211,7 @@ DI_ce_stats_grace_fulfillment = {
             limit = { has_variable = DI_ce_stats_all }
             every_in_list = {
                 variable = pinned_characters
+                limit = { is_alive = yes }
                 if = { limit = { NOT = { has_character_modifier = DI_divine_grace } } add_character_modifier = DI_divine_grace }
             }
         }
@@ -227,6 +228,7 @@ DI_ce_stats_ungrace_fulfillment = {
             limit = { has_variable = DI_ce_stats_all }
             every_in_list = {
                 variable = pinned_characters
+                limit = { is_alive = yes }
                 remove_character_modifier = DI_divine_grace
             }
         }

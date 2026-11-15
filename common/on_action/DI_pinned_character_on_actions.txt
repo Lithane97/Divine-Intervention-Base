@@ -1,0 +1,21 @@
+# Normalize each player's existing save data independently after the lobby.
+# every_player avoids a world scan and also covers loading an existing save.
+on_game_start_after_lobby = {
+    on_actions = { DI_pins_on_game_start }
+}
+
+DI_pins_on_game_start = {
+    effect = {
+        every_player = { DI_pins_normalize_effect = yes }
+    }
+}
+
+# Vanilla documents root as the new player and previous_player_character as the
+# old player. Do not transfer based on primary_heir or a title's new holder.
+on_player_character_change = {
+    on_actions = { DI_pins_on_player_character_change }
+}
+
+DI_pins_on_player_character_change = {
+    effect = { DI_pins_player_changed_effect = yes }
+}

@@ -515,8 +515,9 @@ DI_apply_title_manager_filter_choice = {
             clear_variable_list = DI_selected_titles
 
             # Select all titles held by pinned characters
-            every_living_character = {
-                limit = { has_character_flag = pinned_for_edit }
+            every_in_list = {
+                variable = pinned_characters
+                limit = { is_alive = yes }
 
                 every_held_title = {
                     limit = {
