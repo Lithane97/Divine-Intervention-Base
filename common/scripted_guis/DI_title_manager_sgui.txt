@@ -861,71 +861,7 @@ DI_convert_titles_dejure_sgui = {
 ### DI_province_list_load ###
 DI_province_list_load = {
     scope = character # Player Character
-
-    effect = {
-        save_scope_as = player
-
-        clear_variable_list = DI_selected_titles_provinces
-        clear_variable_list = DI_shown_provinces
-        clear_variable_list = DI_action_provinces
-
-        every_in_list = {
-            variable = DI_selected_titles
-            save_scope_as = title
-            if = {
-                limit = {
-                    tier = tier_county
-                }
-                every_county_province = {
-                    save_scope_as = province
-
-                    scope:player = {
-                        add_to_variable_list = {
-                            name = DI_selected_titles_provinces
-                            target = scope:province
-                        }
-
-                        add_to_variable_list = {
-                            name = DI_action_provinces
-                            target = scope:province
-                        }
-
-                        add_to_variable_list = {
-                            name = DI_shown_provinces
-                            target = scope:province
-                        }
-                    }
-                }
-            }
-            else_if = {
-                limit = {
-                    tier < tier_empire
-                }
-                every_de_jure_county = {
-                    every_county_province = {
-                        save_scope_as = province
-
-                        scope:player = {
-                            add_to_variable_list = {
-                                name = DI_selected_titles_provinces
-                                target = scope:province
-                            }
-
-                            add_to_variable_list = {
-                                name = DI_action_provinces
-                                target = scope:province
-                            }
-
-                            add_to_variable_list = {
-                                name = DI_shown_provinces
-                                target = scope:province
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    effect = { DI_tm_load_all_province_lists_effect = yes }
 }
 
 DI_title_manager_county_stats_load = {

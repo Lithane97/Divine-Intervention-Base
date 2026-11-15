@@ -17,6 +17,30 @@ window = {
 
     using = DI_Title_Manager_Anim
 
+    # Keep the load animation alive when the province tab is hidden. This
+    # controller deliberately has no tab visibility or tab-switch animations.
+    widget = {
+        name = "di_tm_province_load_controller"
+        size = { 1 1 }
+        alwaystransparent = yes
+
+        # Start explicitly from the button, rather than depending on a Boolean
+        # trigger observing a false value between two rapid requests. Let the
+        # loading view paint before starting the expensive scripted effect.
+        state = {
+            name = request
+            duration = 0.05
+            on_finish = "[PdxGuiWidget.TriggerAnimation('reload')]"
+        }
+
+        state = {
+            name = reload
+            using = Animation_FadeIn_Quick
+            on_start = "[GetScriptedGui('DI_province_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            on_finish = "[GetVariableSystem.Set('DI_loading', 'false')]"
+        }
+    }
+
     vbox = {
         using = Window_Margins
         using = DI_Title_Manager_Header
@@ -58,8 +82,13 @@ window = {
             # Province Management
             button_tab = {
                 layoutpolicy_horizontal = expanding
+                # The button is three levels below the window. Other tabs stay
+                # usable; this gate only prevents overlapping province requests.
+                enabled = "[Not(GetVariableSystem.HasValue('DI_loading', 'true'))]"
                 onclick = "[GetVariableSystem.Set('DI_loading', 'true')]"
                 onclick = "[GetVariableSystem.Set('title_manager_tab', 'province_management')]"
+                onclick = "[PdxGuiWidget.AccessParent.AccessParent.AccessParent.FindChild('di_tm_province_load_controller').InterruptAnimation('request')]"
+                onclick = "[PdxGuiWidget.AccessParent.AccessParent.AccessParent.FindChild('di_tm_province_load_controller').InterruptThenTriggerAnimation('reload', 'request')]"
                 down = "[GetVariableSystem.HasValue('title_manager_tab', 'province_management')]"
 
                 text_single = {
@@ -101,6 +130,7 @@ window = {
                 }
                 tooltip = DI_tab_county_stats_tt
             }
+
         }
 
         widget = {
@@ -403,15 +433,6 @@ window = {
                         on_start = "[GetScriptedGui('DI_load_province_dropdown').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                     }
 
-                    state = {
-                        name = reload
-                        using = Animation_FadeIn_Quick
-
-                        trigger_when = "[GetVariableSystem.HasValue('DI_loading', 'true')]"
-                        on_start = "[GetScriptedGui('DI_province_list_load').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                        on_finish = "[GetVariableSystem.Set('DI_loading', 'false')]"
-                    }
-
                     vbox = {
                         visible = "[GetVariableSystem.HasValue('DI_loading', 'false')]"
                         spacing = 10
@@ -666,8 +687,15 @@ window = {
                 }
 
                 vbox = {
-                    using = DI_Loading_Screen
                     visible = "[Not(GetVariableSystem.HasValue('title_manager_tab', 'domiciles'))]"
+
+                    # Hide the entire loading layout outside Province, including
+                    # its spacer. The independent controller continues running.
+                    vbox = {
+                        name = "di_tm_province_loading_view"
+                        visible = "[And(GetVariableSystem.HasValue('title_manager_tab', 'province_management'), GetVariableSystem.HasValue('DI_loading', 'true'))]"
+                        using = DI_Loading_Screen
+                    }
 
                     vbox = {
                         visible = "[And(Not(GetVariableSystem.HasValue('title_manager_tab', 'filter')), And(Not(GetVariableSystem.HasValue('title_manager_tab', 'province_management')), Not(GetVariableSystem.HasValue('title_manager_tab', 'county_stats'))))]"
@@ -874,7 +902,6 @@ types DITitleManagerShared
                 layoutpolicy_horizontal = expanding
                 visible = "[Or(Not(GetScriptedGui('DI_selected_titles_exists').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)), Or(GetScriptedGui('DI_title_selected').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Title.MakeScope).End), Not(GetScriptedGui('DI_titles_hide_toggle_on').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))))]"
 
-
                 background = {
                     using = Background_Area_Dark
 
@@ -931,80 +958,90 @@ types DITitleManagerShared
     }
 
     # type selected titles provinces
-    type vbox_DI_title_province_content = vbox
+    # Keep the existing type name for callers; use the tested fixed-grid layout.
+    # Leave 10px between the rows and the scrollbar in the 400px scrollbox.
+    type vbox_DI_title_province_content = fixedgridbox
     {
-        datacontext = "[GetPlayer]"
-        spacing = 3
+        layoutpolicy_horizontal = expanding
+        margin_right = 10
+        minimumsize = { 370 39 }
+        maxhorizontalslots = 1
+        addcolumn = 370
+        addrow = 39
+        datamodel_reuse_widgets = yes
 
         item = {
-            hbox = {
+            widget = {
                 datacontext = "[Scope.Province]"
-                layoutpolicy_horizontal = expanding
-                background = {
-                    using = Background_Area_Dark
-
-                    modify_texture = {
-                        texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-                        blend_mode = alphamultiply
-                        alpha = 0.5
-                        rotate_uv = 180
-                        mirror = horizontal
-                    }
-                }
-
+                size = { 370 36 }
                 hbox = {
+                    size = { 370 36 }
                     layoutpolicy_horizontal = expanding
-                    spacing = 10
+                    background = {
+                        using = Background_Area_Dark
 
-                    coa_title_tiny_crown = {
-                        datacontext = "[Province.GetCoATitle]"
+                        modify_texture = {
+                            texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                            blend_mode = alphamultiply
+                            alpha = 0.5
+                            rotate_uv = 180
+                            mirror = horizontal
+                        }
                     }
 
-                    text_single = {
-                        text = "[Province.GetNameNoTooltip]"
-                        default_format = "#bold"
+                    hbox = {
+                        layoutpolicy_horizontal = expanding
+                        spacing = 10
+
+                        coa_title_tiny_crown = {
+                            datacontext = "[Province.GetCoATitle]"
+                        }
+
+                        text_single = {
+                            text = "[Province.GetNameNoTooltip]"
+                            default_format = "#bold"
+                        }
+                        expand = {}
                     }
+
                     expand = {}
-                }
 
-                expand = {}
-
-                button_move_capital = {
-                    name = "button_set_realm_capital"
-                    size = { 25 25 }
-                    visible = "[GetScriptedGui('DI_tm_move_realm_capital').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
-                    onclick = "[GetScriptedGui('DI_tm_move_realm_capital').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
-                    tooltip = DI_tm_realm_capital_tt
-                }
-
-                # Clickable only when NOT already the county capital
-                button_move_capital = {
-                    name = "button_set_county_capital"
-                    size = { 25 25 }
-                    visible = "[GetScriptedGui('DI_set_county_capital_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
-                    onclick = "[GetScriptedGui('DI_set_county_capital_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
-                    tooltip = DI_make_county_capital_tt
-                }
-
-                # Optional: show a non-clickable crown when it’s already the county capital
-                button_move_capital = {
-                    name = "button_is_county_capital"
-                    size = { 25 25 }
-                    visible = "[Not(GetScriptedGui('DI_set_county_capital_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End))]"
-                    enabled = no
-                    tooltip = DI_already_county_capital_tt
-                }
-
-
-                # --- NEW: checkbox that toggles province in/out of DI_action_provinces ---
-                button_checkbox_label = {
-                    onclick = "[GetScriptedGui('DI_toggle_action_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('province', Province.MakeScope).End)]"
-
-                    blockoverride "checkbox" {
-                        checked = "[GetScriptedGui('DI_is_action_province').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                    button_move_capital = {
+                        name = "button_set_realm_capital"
+                        size = { 25 25 }
+                        visible = "[GetScriptedGui('DI_tm_move_realm_capital').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                        onclick = "[GetScriptedGui('DI_tm_move_realm_capital').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                        tooltip = DI_tm_realm_capital_tt
                     }
 
-                    blockoverride "text" { text = "" }
+                    # Clickable only when NOT already the county capital
+                    button_move_capital = {
+                        name = "button_set_county_capital"
+                        size = { 25 25 }
+                        visible = "[GetScriptedGui('DI_set_county_capital_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                        onclick = "[GetScriptedGui('DI_set_county_capital_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                        tooltip = DI_make_county_capital_tt
+                    }
+
+                    # Optional: show a non-clickable crown when it’s already the county capital
+                    button_move_capital = {
+                        name = "button_is_county_capital"
+                        size = { 25 25 }
+                        visible = "[Not(GetScriptedGui('DI_set_county_capital_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('barony', Province.GetCoATitle.MakeScope).AddScope('province', Province.MakeScope).End))]"
+                        enabled = no
+                        tooltip = DI_already_county_capital_tt
+                    }
+
+                    # --- NEW: checkbox that toggles province in/out of DI_action_provinces ---
+                    button_checkbox_label = {
+                        onclick = "[GetScriptedGui('DI_toggle_action_province').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('province', Province.MakeScope).End)]"
+
+                        blockoverride "checkbox" {
+                            checked = "[GetScriptedGui('DI_is_action_province').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('province', Province.MakeScope).End)]"
+                        }
+
+                        blockoverride "text" { text = "" }
+                    }
                 }
             }
         }
@@ -1086,7 +1123,6 @@ window = {
         header_pattern = {
             layoutpolicy_horizontal = expanding
 
-
             blockoverride "header_text"
             {
                 text = DI_tm_rite_menu_title
@@ -1155,7 +1191,6 @@ window = {
 
         header_pattern = {
             layoutpolicy_horizontal = expanding
-
 
             blockoverride "header_text"
             {
@@ -1228,7 +1263,6 @@ window = {
 
         header_pattern = {
             layoutpolicy_horizontal = expanding
-
 
             blockoverride "header_text"
             {

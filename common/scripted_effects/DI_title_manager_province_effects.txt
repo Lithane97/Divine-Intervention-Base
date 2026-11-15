@@ -1,0 +1,78 @@
+# Current scope: a province. scope:player owns the Title Manager lists.
+DI_tm_add_loaded_province_effect = {
+    save_scope_as = province
+    scope:player = {
+        add_to_variable_list = { name = DI_selected_titles_provinces target = scope:province }
+        add_to_variable_list = { name = DI_action_provinces target = scope:province }
+        add_to_variable_list = { name = DI_shown_provinces target = scope:province }
+    }
+}
+
+# Current scope: one selected title. Check its current de jure ancestor chain,
+# rather than comparing every pair of selected titles or expanding overlapping
+# counties repeatedly. Saved scopes/values live only for this invocation chain;
+# nothing is cached between province-tab visits.
+DI_tm_load_title_provinces_effect = {
+    save_scope_as = DI_tm_province_ancestor
+    save_scope_value_as = { name = DI_tm_province_covered value = 0 }
+    while = {
+        limit = {
+            scope:DI_tm_province_covered = 0
+            exists = scope:DI_tm_province_ancestor.de_jure_liege
+        }
+        scope:DI_tm_province_ancestor.de_jure_liege = {
+            save_scope_as = DI_tm_province_ancestor
+            scope:player = {
+                if = {
+                    limit = {
+                        is_target_in_variable_list = {
+                            name = DI_selected_titles
+                            target = scope:DI_tm_province_ancestor
+                        }
+                    }
+                    save_scope_value_as = { name = DI_tm_province_covered value = 1 }
+                }
+            }
+        }
+    }
+
+    if = {
+        limit = { scope:DI_tm_province_covered = 0 }
+        if = {
+            limit = { tier = tier_county }
+            every_county_province = { DI_tm_add_loaded_province_effect = yes }
+        }
+        else_if = {
+            limit = { tier > tier_county }
+            # No upper tier limit: duchies, kingdoms, empires and hegemonies.
+            every_de_jure_county = {
+                every_county_province = { DI_tm_add_loaded_province_effect = yes }
+            }
+        }
+    }
+}
+
+DI_tm_collect_selected_title_provinces_effect = {
+    clear_local_variable_list = DI_tm_province_seen_titles
+    every_in_list = {
+        variable = DI_selected_titles
+        limit = {
+            NOT = {
+                is_target_in_local_variable_list = { name = DI_tm_province_seen_titles target = this }
+            }
+        }
+        add_to_local_variable_list = { name = DI_tm_province_seen_titles target = this }
+        save_scope_as = title
+        DI_tm_load_title_provinces_effect = yes
+    }
+    clear_local_variable_list = DI_tm_province_seen_titles
+}
+
+# Rebuild the full province lists on every visit to Province Management.
+DI_tm_load_all_province_lists_effect = {
+    save_scope_as = player
+    clear_variable_list = DI_selected_titles_provinces
+    clear_variable_list = DI_shown_provinces
+    clear_variable_list = DI_action_provinces
+    DI_tm_collect_selected_title_provinces_effect = yes
+}

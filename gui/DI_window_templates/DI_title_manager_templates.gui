@@ -5,6 +5,11 @@ template DI_Title_Manager_Anim
         using = Animation_FadeIn_Quick
         using = Sound_WindowShow_Standard
 
+        # A window close may interrupt the controller. Reopening must always
+        # discard pending/running requests before accepting another click.
+        on_start = "[PdxGuiWidget.FindChild('di_tm_province_load_controller').InterruptAnimation('request')]"
+        on_start = "[PdxGuiWidget.FindChild('di_tm_province_load_controller').InterruptAnimation('reload')]"
+        on_start = "[GetVariableSystem.Set('DI_loading', 'false')]"
         on_finish = "[PdxGuiWidget.StackTop]"
     }
 
@@ -12,6 +17,9 @@ template DI_Title_Manager_Anim
         name = _hide
         using = Animation_FadeOut_Quick
         using = Sound_WindowHide_Standard
+        on_start = "[PdxGuiWidget.FindChild('di_tm_province_load_controller').InterruptAnimation('request')]"
+        on_start = "[PdxGuiWidget.FindChild('di_tm_province_load_controller').InterruptAnimation('reload')]"
+        on_start = "[GetVariableSystem.Set('DI_loading', 'false')]"
     }
 
     state = {
