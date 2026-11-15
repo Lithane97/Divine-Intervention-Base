@@ -1,0 +1,180 @@
+﻿# Title Manager domicile controls, maintained in Base DI.
+
+
+template DI_TM_Domicile_Content
+{
+    vbox = {
+        visible = "[GetVariableSystem.HasValue('title_manager_tab', 'domiciles')]"
+        layoutpolicy_horizontal = expanding
+        spacing = 5
+        margin = { 15 5 }
+        hbox = {
+            spacing = 5
+            layoutpolicy_horizontal = expanding
+
+button_standard = {
+    layoutpolicy_horizontal = expanding
+    text = DI_dm_load_pinned
+    onclick = "[GetScriptedGui('DI_dm_load_pinned_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+}
+button_standard = {
+    layoutpolicy_horizontal = expanding
+    text = DI_dm_load_self
+    onclick = "[GetScriptedGui('DI_dm_load_self_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+}
+button_standard = {
+    layoutpolicy_horizontal = expanding
+    text = DI_dm_refresh
+    onclick = "[GetScriptedGui('DI_dm_refresh_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+}
+        }
+        hbox = { spacing = 5 layoutpolicy_horizontal = expanding
+button_standard = {
+    layoutpolicy_horizontal = expanding
+    text = DI_dm_select_all
+    tooltip = DI_dm_select_all_tt
+    onclick = "[GetScriptedGui('DI_dm_select_all_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+}
+button_standard = {
+    layoutpolicy_horizontal = expanding
+    text = DI_dm_clear
+    onclick = "[GetScriptedGui('DI_dm_clear_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+}
+        }
+
+        dropdown_menu_standard = {
+            name = "DI_dm_type_dropdown"
+            blockoverride "dropdown_size" { size = { 260 32 } }
+            blockoverride "dropdown_list_maxsize" { maximumsize = { 300 300 } }
+            blockoverride "dropdown_properties" {
+                datamodel = "[GetPlayer.MakeScope.GetList('DI_dm_filter_choices')]"
+                onselectionchanged = "[PdxGuiWidget.FindChild('DI_dm_type_dropdown_active').TriggerAnimation('apply_domicile_filter')]"
+            }
+            blockoverride "dropdown_active_item_properties" {
+                name = "DI_dm_type_dropdown_active"
+                tooltip = DI_dm_filter_help
+                text = "[Localize(Concatenate(GetPlayer.MakeScope.Var('DI_dm_filter_choice').GetFlagName, '_loc'))]"
+                state = {
+                    name = apply_domicile_filter
+                    on_finish = "[GetScriptedGui('DI_dm_apply_filter_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('filter_choice', MakeScopeFlag(Scope.GetFlagName)).End)]"
+                }
+            }
+            blockoverride "dropdown_item_properties" {
+                text = "[Localize(Concatenate(Scope.GetFlagName, '_loc'))]"
+            }
+        }
+
+        text_single = { text = DI_dm_counts }
+        text_single = { text = DI_dm_selection_help default_format = "#low" }
+        scrollbox = {
+            size = { 540 320 }
+            layoutpolicy_horizontal = expanding
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    # Fixed vertical rows avoid recursive dynamic-grid sizing on bulk loads.
+                    vbox = {
+                        spacing = 3
+                        datamodel = "[GetPlayer.MakeScope.GetList('DI_dm_shown')]"
+                        layoutpolicy_horizontal = expanding
+                        item = {
+                            hbox = {
+                                datacontext = "[Scope.Domicile]"
+                                size = { 520 48 }
+                                spacing = 5
+                                vbox = {
+                                    size = { 470 48 }
+                                    text_single = {
+                                        maximumsize = { 470 24 }
+                                        elide = right
+                                        text = "[Domicile.GetName] ([Domicile.GetType.GetNameNoTooltip])"
+                                    }
+                                    text_single = {
+                                        maximumsize = { 470 24 }
+                                        elide = right
+                                        text = "[Domicile.GetOwner.GetShortUINameNoTooltip] - [Domicile.GetLocation.GetNameNoTooltip]"
+                                        default_format = "#low"
+                                    }
+                                }
+                                button_checkbox_label = {
+                                    onclick = "[GetScriptedGui('DI_dm_toggle_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('domicile', Domicile.MakeScope).End)]"
+                                    blockoverride "checkbox" {
+                                        checked = "[GetScriptedGui('DI_dm_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('domicile', Domicile.MakeScope).End)]"
+                                    }
+                                    blockoverride "text" { text = "" }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        button_standard = {
+            layoutpolicy_horizontal = expanding
+            text = DI_dm_upgrade
+            tooltip = DI_dm_upgrade_tt
+            enabled = "[GetScriptedGui('DI_dm_upgrade_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_dm_upgrade_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+        button_standard = {
+            layoutpolicy_horizontal = expanding
+            text = DI_dm_construct
+            tooltip = DI_dm_construct_tt
+            enabled = "[GetScriptedGui('DI_dm_upgrade_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_dm_construction_open_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetVariableSystem.Set('DI_dm_construction_window_visible', 'true')]"
+        }
+        text_single = { text = DI_dm_last_action tooltip = DI_dm_construct_tt }
+    }
+}
+
+# The window frame and fixed controls belong to Base DI. The updater supplies
+# only the level selector and building catalogue referenced inside it.
+window = {
+    name = "DI_dm_construction_window"
+    parentanchor = top|right
+    position = { -600 100 }
+    size = { 500 760 }
+    layer = windows_layer
+    filter_mouse = all
+    allow_outside = yes
+    alwaystransparent = no
+    using = Window_Background
+    using = Window_Decoration
+    movable = yes
+    visible = "[And(GetVariableSystem.Exists('DI_dm_construction_window_visible'), GetVariableSystem.Exists('DI_title_manager_window_visible'))]"
+
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+    state = { name = _hide using = Animation_FadeOut_Quick }
+
+    vbox = {
+        restrictparent_min = yes
+        using = Window_Margins
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+            blockoverride "header_text" { text = DI_dm_construction_title }
+            blockoverride "button_close" {
+                onclick = "[GetVariableSystem.Toggle('DI_dm_construction_window_visible')]"
+            }
+        }
+        vbox = {
+            layoutpolicy_horizontal = expanding
+            margin = { 0 6 }
+            using = DI_DM_Level_Selector_Template
+        }
+        scrollbox = {
+            size = { 400 600 }
+            layoutpolicy_horizontal = expanding
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    using = DI_TM_Domicile_Building_Catalogue
+                }
+            }
+        }
+    }
+}

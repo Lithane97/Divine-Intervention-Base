@@ -70,6 +70,22 @@ window = {
                 }
             }
 
+            button_tab = {
+                name = "domiciles_tab"
+                layoutpolicy_horizontal = expanding
+                onclick = "[GetScriptedGui('DI_dm_refresh_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                onclick = "[GetVariableSystem.Set('title_manager_tab', 'domiciles')]"
+                down = "[GetVariableSystem.HasValue('title_manager_tab', 'domiciles')]"
+                text_single = { parentanchor = center text = DI_dm_tab default_format = "#low" }
+            }
+
+        }
+
+        hbox = {
+            name = "tabs_secondary"
+            layoutpolicy_horizontal = expanding
+            margin_top = 0
+
             # County stats
             button_tab = {
                 layoutpolicy_horizontal = expanding
@@ -94,8 +110,10 @@ window = {
                 layoutpolicy_vertical = expanding
 
                 expand = {
-                    visible = "[Not(GetVariableSystem.HasValue('title_manager_tab', 'county_stats'))]"
+                    visible = "[And(Not(GetVariableSystem.HasValue('title_manager_tab', 'county_stats')), Not(GetVariableSystem.HasValue('title_manager_tab', 'domiciles')))]"
                 }
+
+                using = DI_TM_Domicile_Content
 
                 # Quick Actions Tab
                 vbox = {
@@ -649,6 +667,7 @@ window = {
 
                 vbox = {
                     using = DI_Loading_Screen
+                    visible = "[Not(GetVariableSystem.HasValue('title_manager_tab', 'domiciles'))]"
 
                     vbox = {
                         visible = "[And(Not(GetVariableSystem.HasValue('title_manager_tab', 'filter')), And(Not(GetVariableSystem.HasValue('title_manager_tab', 'province_management')), Not(GetVariableSystem.HasValue('title_manager_tab', 'county_stats'))))]"
