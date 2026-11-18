@@ -1,4 +1,4 @@
-template DI_CE_Modifiers_Income
+﻿template DI_CE_Modifiers_Income
 {
 	### income MODIFIER PANEL ### 
 	vbox = {
@@ -108,26 +108,7 @@ template DI_CE_Modifiers_Income
 				}
 			}
 			
-			dockable_button = {
-				name = "DI_modifier_tax_mult_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_tax_mult').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne 
-				
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('tax_mult')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}                                
-				}
-			}
+
 
 			dockable_button = {
 				name = "DI_modifier_domain_tax_mult_button"
@@ -365,26 +346,7 @@ template DI_CE_Modifiers_Income
 				}
 			}
 			
-			dockable_button = {
-				name = "DI_modifier_tax_mult_neg_button"
-				onclick = "[GetScriptedGui('DI_add_modifier_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				onrightclick = "[GetScriptedGui('DI_remove_modifier_tax_mult_neg').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-				button_ignore = none
-				using = tooltip_ne 
-				
-				icon = {
-					datacontext = "[GetPlayer]"
-					datacontext = "[GetModifier('tax_mult_neg')]"
-					datacontext = "[GetPlayer.GetFaith]"
-					parentanchor = center
-					position = { 0 1 }
-					size = { 30 30 }
-					texture = "[StaticModifier.GetIcon]"
-					tooltipwidget = {
-						using = modifier_DI_tooltip
-					}                                
-				}
-			}
+
 
 			dockable_button = {
 				name = "DI_modifier_domain_tax_mult_neg_button"

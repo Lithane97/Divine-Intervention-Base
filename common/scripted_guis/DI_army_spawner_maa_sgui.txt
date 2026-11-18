@@ -1611,6 +1611,52 @@ DI_cloud_ladder_effect = {
 	}
 }
 
+### Condottieri Spawner
+DI_condottieri_effect = {
+	scope = character
+
+	effect = {
+		random_owned_story = {
+			limit = {
+				story_type = DI_misc_variables_story
+			}
+			save_scope_as = DI_story
+		}
+		
+		if = {
+			limit = {
+				scope:DI_story = { has_variable = DI_pinned_char_var }
+			}
+			every_in_list = {
+				variable = pinned_characters
+				limit = { is_alive = yes }
+				save_scope_as = target
+
+				spawn_army = {
+					men_at_arms = {
+						type = condottieri
+						men = scope:DI_story.var:DI_army_spawner_increment_value
+					}
+					location = scope:target.location
+					inheritable = no
+					name = condottieri
+				}
+			}
+		}
+		else = {
+			spawn_army = {
+				men_at_arms = {
+					type = condottieri
+					men = scope:DI_story.var:DI_army_spawner_increment_value
+				}
+				location = root.location
+				inheritable = no
+				name = condottieri
+			}
+		}
+	}
+}
+
 ### Conrois Spawner
 DI_conrois_effect = {
 	scope = character

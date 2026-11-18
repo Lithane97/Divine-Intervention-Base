@@ -309,6 +309,14 @@ template DI_AS_All_Types
         }
 
         DI_army_spawner_vbox = {
+            datacontext = "[GetMenAtArmsType('condottieri')]"
+
+            blockoverride "on_add" {
+                onclick = "[GetScriptedGui('DI_condottieri_effect').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+        }
+
+        DI_army_spawner_vbox = {
             datacontext = "[GetMenAtArmsType('conrois')]"
 
             blockoverride "on_add" {

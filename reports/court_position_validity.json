@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "counts": {
-    "supported": 2,
-    "game_checked": 75,
+    "supported": 68,
+    "game_checked": 16,
     "best_effort": 1,
     "disabled_by_mod": 0,
-    "needs_review": 3
+    "needs_review": 2
   },
   "profiles": [
     {
@@ -27,38 +27,38 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
     },
     {
       "position": "antiquarian_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ antiquarian_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
-        "trigger_if={ limit={ is_ai=yes } has_any_artifact=yes }"
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic government_has_flag=government_is_merchant }",
+        "trigger_if={ limit={ is_ai=yes } has_any_artifact=yes }",
+        "trigger_if={ limit={ government_has_flag=government_is_merchant } custom_tooltip={ text=antiquarian_court_position_parameter_tt has_realm_law=company_purpose_artisan } }"
       ],
       "review_reasons": [],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "archer_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=archer_captain }"
@@ -72,15 +72,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "armorer_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=armorer }"
@@ -94,9 +93,29 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+      "rite_adjustments": [],
+      "runtime_conditions": [],
+      "conditional_requirements": []
+    },
+    {
+      "position": "bailiff_court_position",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
+      "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_gdp_associate_positions.txt",
+      "requirements": [
+        "scope:employee={ bailiff_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
+      "employer_requirements": [
+        "custom_tooltip={ text=merchant_government_tt government_has_flag=government_is_merchant }",
+        "custom_tooltip={ text=bailiff_court_position_parameter_tt has_realm_law=company_purpose_creditor }"
+      ],
+      "review_reasons": [],
+      "modifier_adjustments": {
+        "add": [],
+        "remove": []
+      },
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -109,15 +128,15 @@
       ],
       "employer_requirements": [
         "trigger_if={ limit={ government_has_flag=government_is_nomadic } domicile?={ has_domicile_building_or_higher=character_warfare_yurt_01 } }",
-        "trigger_else={ OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_landless_adventurer } }"
+        "trigger_else={ OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_landless_adventurer government_has_flag=government_is_merchant } }"
       ],
       "review_reasons": [],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
@@ -131,7 +150,7 @@
         "scope:employee={ bookmaker_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative_or_theocratic=yes",
+        "OR={ government_has_flag=government_is_merchant is_landed_or_landless_administrative_or_theocratic=yes }",
         "culture={ has_cultural_parameter=hosts_chariot_races }"
       ],
       "review_reasons": [],
@@ -139,6 +158,7 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [],
       "conditional_requirements": []
     },
@@ -159,8 +179,8 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }",
         "government_has_flag=government_is_nomadic"
       ],
@@ -168,8 +188,8 @@
     },
     {
       "position": "camelry_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=camelry_captain }"
@@ -183,15 +203,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "camp_cook_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=camp_cook }"
@@ -205,15 +224,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "camp_priest_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=camp_priest }"
@@ -227,15 +245,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "cave_hermit_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ cave_hermit_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -249,9 +266,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -263,15 +279,15 @@
         "scope:employee={ champion_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative_or_theocratic=yes"
+        "OR={ government_has_flag=government_is_merchant is_landed_or_landless_administrative_or_theocratic=yes }"
       ],
       "review_reasons": [],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
@@ -293,6 +309,7 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
@@ -315,8 +332,8 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }",
         "government_has_flag=government_is_nomadic"
       ],
@@ -324,8 +341,8 @@
     },
     {
       "position": "chief_engineer_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=chief_engineer }"
@@ -339,15 +356,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "chief_eunuch_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ liege?=scope:liege chief_eunuch_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -363,15 +379,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "chief_forager_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=chief_forager }"
@@ -385,9 +400,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -404,43 +418,41 @@
         "highest_held_title_tier>=tier_kingdom"
       ],
       "review_reasons": [
-        "character:scope:liege.rite={ rite_has_dominant_ruling_gender=prev } via chief_qadi_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:774]"
+        "character:scope:liege.rite={ rite_has_dominant_ruling_gender=prev } via chief_qadi_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:854]"
       ],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "chronicler_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ chronicler_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
         "trigger_if={ limit={ government_has_flag=government_is_nomadic } domicile?={ has_domicile_building_or_higher=court_yurt_01 } }",
-        "trigger_else={ is_landed_or_landless_administrative_or_theocratic=yes }"
+        "trigger_else={ OR={ government_has_flag=government_is_merchant is_landed_or_landless_administrative_or_theocratic=yes } }"
       ],
       "review_reasons": [],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_artificer_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=court_artificer }"
@@ -454,15 +466,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_astrologer_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_mpo_court_positions.txt",
       "requirements": [
         "scope:employee={ liege=scope:liege court_astrologer_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -476,15 +487,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_brahmin_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_mandala_court_positions.txt",
       "requirements": [
         "scope:employee={ court_brahmin_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -498,37 +508,35 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_brewmaster_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ liege=scope:liege court_brewmaster_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
-        "custom_tooltip={ text=court_brewmaster_requirement_tt any_sub_realm_barony={ county.holder=root title_province={ has_building_or_higher=breweries_01 } } }"
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic government_has_flag=government_is_merchant }",
+        "custom_tooltip={ text=court_brewmaster_requirement_tt any_sub_realm_barony={ county.holder=root title_province={ has_building_or_higher=beer_brewery_1 } } }"
       ],
       "review_reasons": [],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_gardener_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ court_gardener_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -542,15 +550,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_guru_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_mandala_court_positions.txt",
       "requirements": [
         "scope:employee={ court_guru_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -563,15 +570,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_jester_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ court_jester_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -585,15 +591,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_musician_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ court_musician_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -610,15 +615,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_physician_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=court_physician }"
@@ -629,15 +633,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_poet_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ court_poet_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -655,15 +658,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_scholar_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ court_scholar_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -679,21 +681,21 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "court_tutor_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ court_tutor_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
         "trigger_if={ limit={ government_has_flag=government_is_nomadic } custom_tooltip={ text=has_court_tutor_domicile_building domicile?={ has_domicile_parameter=nomad_unlock_court_tutor } } }",
+        "trigger_else_if={ limit={ government_has_flag=government_is_merchant } always=yes }",
         "trigger_else={ is_landed_or_landless_administrative_or_theocratic=yes }"
       ],
       "review_reasons": [],
@@ -701,15 +703,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "cultural_emissary_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=cultural_emissary }"
@@ -722,15 +723,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "cupbearer_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ cupbearer_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -744,15 +744,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "elephantry_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=elephantry_captain }"
@@ -766,15 +765,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "eparch_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_admin_court_position.txt",
       "requirements": [
         "scope:employee={ eparch_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -787,9 +785,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -809,6 +806,7 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
@@ -831,6 +829,7 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
         "is_councillor_of=scope:liege"
       ],
@@ -838,8 +837,8 @@
     },
     {
       "position": "fire_dragon_engineer_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_celestial_court_positions.txt",
       "requirements": [
         "scope:employee={ fire_dragon_engineer_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -853,9 +852,28 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+      "rite_adjustments": [],
+      "runtime_conditions": [],
+      "conditional_requirements": []
+    },
+    {
+      "position": "fixer_court_position",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
+      "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_gdp_associate_positions.txt",
+      "requirements": [
+        "scope:employee={ fixer_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
+      "employer_requirements": [
+        "custom_tooltip={ text=merchant_government_tt government_has_flag=government_is_merchant }"
+      ],
+      "review_reasons": [],
+      "modifier_adjustments": {
+        "add": [],
+        "remove": []
+      },
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -867,7 +885,7 @@
         "scope:employee={ food_taster_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "is_landed_or_landless_administrative_or_theocratic=yes",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_merchant }",
         "trigger_if={ limit={ root.culture?={ has_cultural_parameter=better_food_tasters } } highest_held_title_tier>=tier_duchy }",
         "trigger_else={ highest_held_title_tier>=tier_kingdom }"
       ],
@@ -876,8 +894,8 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": [
@@ -896,8 +914,8 @@
     },
     {
       "position": "foreign_emissary_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_mpo_court_positions.txt",
       "requirements": [
         "scope:employee={ liege=scope:liege foreign_emissary_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -911,9 +929,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -934,16 +951,16 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
     },
     {
       "position": "grand_guardian_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_celestial_court_positions.txt",
       "requirements": [
         "scope:employee={ grand_guardian_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -958,15 +975,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "grand_mentor_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_celestial_court_positions.txt",
       "requirements": [
         "scope:employee={ grand_mentor_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -981,15 +997,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "grand_preceptor_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_celestial_court_positions.txt",
       "requirements": [
         "scope:employee={ grand_preceptor_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1004,15 +1019,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "head_groom_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=head_groom }"
@@ -1026,15 +1040,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "head_porter_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=head_porter }"
@@ -1048,15 +1061,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "heavy_cavalry_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=heavy_cavalry_captain }"
@@ -1070,15 +1082,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "heavy_infantry_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=heavy_infantry_captain }"
@@ -1092,15 +1103,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "high_almoner_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ high_almoner_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1116,15 +1126,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "horse_archer_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=horse_archer_captain }"
@@ -1138,15 +1147,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "huntperson_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=huntperson }"
@@ -1160,15 +1168,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "keeper_of_swans_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ keeper_of_swans_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1183,15 +1190,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "keeper_of_the_harem_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_celestial_court_positions.txt",
       "requirements": [
         "scope:employee={ keeper_of_the_harem_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1207,9 +1213,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -1229,16 +1234,16 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "government_has_flag=government_is_nomadic"
       ],
       "conditional_requirements": []
     },
     {
       "position": "kennelperson_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=kennelperson }"
@@ -1252,15 +1257,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "khlon_glan_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_mandala_court_positions.txt",
       "requirements": [
         "scope:employee={ khlon_glan_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1273,15 +1277,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "lady_in_waiting_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ lady_in_waiting_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1296,15 +1299,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "laureate_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=laureate }"
@@ -1318,15 +1320,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "light_cavalry_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=light_cavalry_captain }"
@@ -1340,15 +1341,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "light_infantry_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=light_infantry_captain }"
@@ -1362,41 +1362,63 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+      "rite_adjustments": [],
+      "runtime_conditions": [],
+      "conditional_requirements": []
+    },
+    {
+      "position": "market_agent_court_position",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
+      "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_gdp_associate_positions.txt",
+      "requirements": [
+        "scope:employee={ market_agent_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
+      "employer_requirements": [
+        "custom_tooltip={ text=merchant_government_tt government_has_flag=government_is_merchant }",
+        "custom_tooltip={ text=market_agent_court_position_parameter_tt has_realm_law=company_purpose_caravaneer }"
+      ],
+      "review_reasons": [],
+      "modifier_adjustments": {
+        "add": [],
+        "remove": []
+      },
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "master_assassin_court_position",
-      "status": "needs_review",
-      "explanation": "Some requirements cannot be generated. Spawning and the assignment attempt still proceed.",
+      "status": "game_checked",
+      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ master_assassin_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic government_has_flag=government_is_merchant }",
         "rite={ rite_has_parameter=master_assassin_court_position_unlocked }"
       ],
-      "review_reasons": [
-        "character:rite={ rite_has_parameter=master_assassin_court_position_unlocked NOR={ rite_has_tenet=tenet_pacifism rite_has_tenet=tenet_dharmic_pacifism } } via master_assassin_validity_trigger [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\scripted_triggers\\00_court_position_triggers.txt:887]"
-      ],
+      "review_reasons": [],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [
+        "rite_has_parameter=master_assassin_court_position_unlocked",
+        "NOR={ rite_has_tenet=tenet_pacifism rite_has_tenet=tenet_dharmic_pacifism }"
+      ],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "government_has_flag=government_is_herder",
+        "rite={ rite_has_parameter=master_assassin_court_position_unlocked NOR={ rite_has_tenet=tenet_pacifism rite_has_tenet=tenet_dharmic_pacifism } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
     },
     {
       "position": "master_bard_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=master_bard }"
@@ -1410,15 +1432,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "master_of_arms_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=master_of_arms }"
@@ -1432,15 +1453,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "master_of_horse_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ master_of_horse_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1454,9 +1474,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -1468,26 +1487,26 @@
         "scope:employee={ master_of_hunt_validity_trigger={ EMPLOYER=scope:liege } NOT={ culture={ has_cultural_parameter=cannot_hunt } } }"
       ],
       "employer_requirements": [
-        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic }",
+        "OR={ is_landed_or_landless_administrative_or_theocratic=yes government_has_flag=government_is_nomadic government_has_flag=government_is_merchant }",
         "NOT={ culture={ has_cultural_parameter=cannot_hunt } }"
       ],
       "review_reasons": [
-        "culture:NOT { has_cultural_parameter=cannot_hunt } [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt:4226]"
+        "culture:NOT { has_cultural_parameter=cannot_hunt } [D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt:4481]"
       ],
       "modifier_adjustments": {
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "can_be_combatant_based_on_gender_trigger={ ARMY_OWNER=scope:liege }"
       ],
       "conditional_requirements": []
     },
     {
       "position": "master_of_spoils_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=master_of_spoils }"
@@ -1501,15 +1520,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "master_thief_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=master_thief }"
@@ -1523,9 +1541,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -1544,13 +1561,46 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
-      "position": "person_haggler_camp_officer",
+      "position": "partner_court_position",
       "status": "game_checked",
       "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_gdp_associate_positions.txt",
+      "requirements": [
+        "scope:employee={ partner_validity_trigger={ EMPLOYER=scope:liege } }"
+      ],
+      "employer_requirements": [
+        "custom_tooltip={ text=merchant_government_tt government_has_flag=government_is_merchant }"
+      ],
+      "review_reasons": [],
+      "modifier_adjustments": {
+        "add": [],
+        "remove": []
+      },
+      "rite_adjustments": [],
+      "runtime_conditions": [],
+      "conditional_requirements": [
+        {
+          "when": [
+            "AND={ exists=assigned_trade_route }"
+          ],
+          "satisfiable": true,
+          "modifier_adjustments": {
+            "add": [],
+            "remove": []
+          },
+          "review_reasons": []
+        }
+      ]
+    },
+    {
+      "position": "person_haggler_camp_officer",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=person_haggler }"
@@ -1564,15 +1614,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "pike_captain_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=pike_captain }"
@@ -1586,15 +1635,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "quartermaster_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=quartermaster }"
@@ -1608,15 +1656,32 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+      "rite_adjustments": [],
+      "runtime_conditions": [],
+      "conditional_requirements": []
+    },
+    {
+      "position": "roman_censor_court_position",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
+      "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_republic_court_positions.txt",
+      "requirements": [
+        "scope:employee={ roman_censor_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
+      "employer_requirements": [],
+      "review_reasons": [],
+      "modifier_adjustments": {
+        "add": [],
+        "remove": []
+      },
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "royal_architect_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ royal_architect_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1630,15 +1695,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "second_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=second }"
@@ -1652,15 +1716,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "seneschal_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_court_positions.txt",
       "requirements": [
         "scope:employee={ seneschal_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1673,15 +1736,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "siege_engineer_court_position",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_mpo_court_positions.txt",
       "requirements": [
         "scope:employee={ liege=scope:liege siege_engineer_validity_trigger={ EMPLOYER=scope:liege } }"
@@ -1695,15 +1757,14 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
       "position": "stooge_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=stooge }"
@@ -1716,9 +1777,28 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
+      "rite_adjustments": [],
+      "runtime_conditions": [],
+      "conditional_requirements": []
+    },
+    {
+      "position": "translator_court_position",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
+      "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_gdp_associate_positions.txt",
+      "requirements": [
+        "scope:employee={ translator_validity_trigger={ EMPLOYER=scope:liege } }"
       ],
+      "employer_requirements": [
+        "custom_tooltip={ text=merchant_government_tt government_has_flag=government_is_merchant }"
+      ],
+      "review_reasons": [],
+      "modifier_adjustments": {
+        "add": [],
+        "remove": []
+      },
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -1735,14 +1815,15 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
-        "is_clergy=no"
+        "is_clergy=no",
+        "NOT={ liege?={ NOR={ is_landless_adventurer=yes has_diarchy_type=grand_secretariat } } }"
       ],
       "conditional_requirements": [
         {
           "when": [
-            "AND={ bannable_serving_diarch_trigger=yes }"
+            "AND={ exists=assigned_trade_route }"
           ],
           "satisfiable": true,
           "modifier_adjustments": {
@@ -1770,16 +1851,16 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "government_has_flag=government_is_herder"
       ],
       "conditional_requirements": []
     },
     {
       "position": "witness_camp_officer",
-      "status": "game_checked",
-      "explanation": "Apply generated adjustments and attempt assignment; the game checks the remaining character and employer conditions.",
+      "status": "supported",
+      "explanation": "Requirements are generated or satisfied by the fresh-character context.",
       "source_file": "D:\\SteamLibrary\\steamapps\\common\\Crusader Kings III\\game\\common\\court_positions\\types\\00_camp_officers.txt",
       "requirements": [
         "valid_camp_officer_trigger={ OFFICER=witness }"
@@ -1793,9 +1874,8 @@
         "add": [],
         "remove": []
       },
-      "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }"
-      ],
+      "rite_adjustments": [],
+      "runtime_conditions": [],
       "conditional_requirements": []
     },
     {
@@ -1815,8 +1895,8 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "government_has_flag=government_is_nomadic"
       ],
       "conditional_requirements": []
@@ -1838,8 +1918,8 @@
         "add": [],
         "remove": []
       },
+      "rite_adjustments": [],
       "runtime_conditions": [
-        "NOT={ trigger_if={ limit={ tgp_realm_has_ceremonial_liege_trigger=yes } custom_tooltip={ text=tgp_has_ceremonial_liege_title_tt has_title=top_liege.primary_title.var:administrative_ui_special_title } } trigger_else={ custom_tooltip={ text=tgp_has_ceremonial_liege_title_no_title_tt always=no } } }",
         "government_has_flag=government_is_nomadic"
       ],
       "conditional_requirements": []

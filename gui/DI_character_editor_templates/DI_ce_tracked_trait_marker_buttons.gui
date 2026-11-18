@@ -10,8 +10,8 @@
     type widget_DI_tracked_trait_marker_buttons = widget
     {
         parentanchor = center
-        size = { 0 40 }
-        position = { -15 5 }
+        size = { 30 40 }
+        position = { 0 5 }
         allow_outside = yes
 
         DI_tracked_trait_marker_button = {
@@ -19,6 +19,14 @@
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
             onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag(TraitLevelTrack.GetName)).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # artisan
+        DI_tracked_trait_marker_button = {
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_artisan'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('artisan')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
         }
 
         # bandit
@@ -35,6 +43,22 @@
             datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
             raw_text = "[TraitLevelTrackEntry.GetLevel]"
             onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('bow')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # caravaneer
+        DI_tracked_trait_marker_button = {
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_caravaneer'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('caravaneer')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
+        }
+
+        # creditor
+        DI_tracked_trait_marker_button = {
+            visible = "[EqualTo_string( TraitLevelTrack.GetName, Localize('trait_track_creditor'))]"
+            datacontext = "[TraitLevelTrack.GetEntryForXp( ComplexBarItem.GetValue )]"
+            raw_text = "[TraitLevelTrackEntry.GetLevel]"
+            onclick = "[GetScriptedGui('DI_add_trait_xp').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('trait', Trait.MakeScope).AddScope('track', MakeScopeFlag('creditor')).AddScope('xp', MakeScopeValue(TraitLevelTrackEntry.GetXpRequired)).End)]"
         }
 
         # danger

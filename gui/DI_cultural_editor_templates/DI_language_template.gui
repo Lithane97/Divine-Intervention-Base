@@ -385,6 +385,23 @@ template DI_language_template
             blockoverride "icon" {}
         }
 
+        # arpitan
+        DI_widget_martial_pillar_item = {
+            blockoverride "datacontext"
+            {
+                datacontext = "[GetCulturePillar('language_arpitan')]"
+                datacontext = "[GetPlayer.GetCulture]"
+            }
+
+            blockoverride "onclick"
+            {
+                onclick = "[GetScriptedGui('DI_language_arpitan_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            }
+
+            blockoverride "highlight" {}
+            blockoverride "icon" {}
+        }
+
         # frankish
         DI_widget_martial_pillar_item = {
             blockoverride "datacontext"

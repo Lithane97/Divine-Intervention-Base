@@ -18,7 +18,58 @@ DI_tm_county_control_mid_delta = {
     subtract = county_control
 }
 
-DI_tm_county_development_mid_delta = {
+DI_tm_county_prosperity_min_delta = {
+    value = 0
+    subtract = prosperity_level
+}
+
+DI_tm_county_prosperity_mid_delta = {
     value = 50
-    subtract = development_level
+    subtract = prosperity_level
+}
+
+DI_tm_county_prosperity_max_delta = {
+    value = 100
+    subtract = prosperity_level
+}
+
+DI_tm_county_prosperity_add_delta = {
+    value = DI_tm_county_stats_step_value
+    max = { value = 100 subtract = prosperity_level }
+    min = 0
+}
+
+DI_tm_county_prosperity_subtract_delta = {
+    value = DI_tm_county_stats_step_value
+    max = prosperity_level
+    min = 0
+    multiply = -1
+}
+
+DI_tm_county_popular_opinion_min_delta = {
+    value = -100
+    subtract = popular_opinion
+}
+
+DI_tm_county_popular_opinion_mid_delta = {
+    value = 0
+    subtract = popular_opinion
+}
+
+DI_tm_county_popular_opinion_max_delta = {
+    value = 100
+    subtract = popular_opinion
+}
+
+DI_tm_county_popular_opinion_add_delta = {
+    value = DI_tm_county_stats_step_value
+    max = { value = 100 subtract = popular_opinion }
+    min = 0
+}
+
+DI_tm_county_popular_opinion_subtract_delta = {
+    value = DI_tm_county_stats_step_value
+    max = { value = popular_opinion add = 100 }
+    min = 0
+    multiply = -1
 }

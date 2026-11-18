@@ -710,6 +710,10 @@ template DI_character_trait_tooltip {
             }
         }
 
+        blockoverride "input_info_text" {
+            text = DI_trait_button_tt
+        }
+
         blockoverride "extra_data_after_description"
         {
             vbox = {
@@ -754,6 +758,7 @@ template DI_character_trait_tooltip {
                                 }
 
                                 vbox = {
+                                    allow_outside = yes
                                     layoutpolicy_horizontal = expanding
                                     spacing = 5
 
@@ -811,7 +816,17 @@ types DI_trait_menu_types
                 {
                     visible = yes
                 }
-                button_standard = {
+                button_standard_clean = {
+                    background = {
+                        using = Background_Area_Dark
+                        modify_texture = {
+                            texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                            blend_mode = alphamultiply
+                            alpha = 0.3
+                            rotate_uv = 90
+                            mirror = vertical
+                        }
+                    }
                     name = "trait_item"
                     layoutpolicy_horizontal = expanding
                     size = { 0 50 }
@@ -830,10 +845,6 @@ types DI_trait_menu_types
                             {
                                 datacontext = "[GetPlayer.GetFaith]"
                             }
-                            blockoverride "tooltip_placement"
-                            {
-                                using = tooltip_ws
-                            }
                         }
 
                         text_single = {
@@ -841,10 +852,13 @@ types DI_trait_menu_types
 
                             text = "[Trait.GetNameNoTooltip( Character.Self )]"
 
-                            default_format = "#clickable"
+                            default_format = "#bold"
                         }
                     }
-                    tooltip = DI_trait_button_tt
+                    using = tooltip_ws
+                    tooltipwidget = {
+                        using = DI_character_trait_tooltip
+                    }
                 }
 
                 hbox = {
@@ -887,7 +901,17 @@ types DI_trait_menu_types
                 hbox = {
                     layoutpolicy_horizontal = expanding
 
-                    button_standard = {
+                    button_standard_clean = {
+                        background = {
+                            using = Background_Area_Dark
+                            modify_texture = {
+                                texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
+                                blend_mode = alphamultiply
+                                alpha = 0.3
+                                rotate_uv = 90
+                                mirror = vertical
+                            }
+                        }
                         name = "trait_item"
                         layoutpolicy_horizontal = expanding
                         size = { 0 50 }
@@ -906,10 +930,6 @@ types DI_trait_menu_types
                                 {
                                     datacontext = "[GetPlayer.GetFaith]"
                                 }
-                                blockoverride "tooltip_placement"
-                                {
-                                    using = tooltip_ws
-                                }
                             }
 
                             text_single = {
@@ -917,10 +937,13 @@ types DI_trait_menu_types
 
                                 text = "[Trait.GetNameNoTooltip( Character.Self )]"
 
-                                default_format = "#clickable"
+                                default_format = "#bold"
                             }
                         }
-                        tooltip = DI_trait_button_tt
+                        using = tooltip_ws
+                        tooltipwidget = {
+                            using = DI_character_trait_tooltip
+                        }
                     }
 
                     hbox = {
@@ -964,6 +987,7 @@ types DI_trait_menu_types
                             }
 
                             vbox = {
+                                allow_outside = yes
                                 layoutpolicy_horizontal = expanding
                                 spacing = 5
 
@@ -1028,17 +1052,11 @@ types DI_trait_menu_types
     {
         alwaystransparent = yes
 
-        tooltipwidget = {
-            using = DI_character_trait_tooltip
-        }
-        block "tooltip_placement"
-        {
-            using = tooltip_se
-        }
     }
 
     type DI_icon_trait = container
     {
+        alwaystransparent = yes
         block "faith_context"
         {
             datacontext = "[Character.GetFaith]"

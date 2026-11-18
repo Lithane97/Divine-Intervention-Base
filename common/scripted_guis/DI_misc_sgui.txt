@@ -236,21 +236,19 @@ DI_clear_all_pins = {
 
 DI_age_add = {
     scope = character
-
-    effect = {
-        change_age = 1
-    }
+    saved_scopes = { age_step }
+    effect = { change_age = DI_ce_age_step_value }
 }
 
 DI_age_subtract = {
     scope = character
-
-    is_valid = {
-        age > 1
-    }
-
+    saved_scopes = { age_step }
+    is_valid = { age > 1 }
     effect = {
-        change_age = -1
+        if = {
+            limit = { age > 1 }
+            change_age = DI_ce_age_subtract_delta
+        }
     }
 }
 

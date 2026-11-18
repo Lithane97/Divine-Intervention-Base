@@ -1,4 +1,4 @@
-window = {
+﻿window = {
     name = "DI_pinned_characters_window"
     parentanchor = top|right
     position = { -600 100 }
@@ -820,10 +820,11 @@ template DI_character_age_or_death_text
         block "character_age"
         {
             button_round = {
+                tooltip = DI_ce_age_subtract_step_tt
                 size = { 20 20 }
                 parentanchor = left
-                enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
-                onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('age_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('age_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
 
                 button_minus_small = {
                     size = { 14 14 }
@@ -839,8 +840,9 @@ template DI_character_age_or_death_text
             }
 
             button_round = {
+                tooltip = DI_ce_age_add_step_tt
                 size = { 20 20 }
-                onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('age_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
 
                 button_plus_small = {
                     size = { 14 14 }

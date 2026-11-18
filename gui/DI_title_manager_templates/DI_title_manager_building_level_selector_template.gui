@@ -22,6 +22,18 @@ template DI_TM_Building_Level_Selector_Template
 
             button_tab = {
                 size = { 42 32 }
+                onclick = "[GetScriptedGui('DI_tm_select_building_level_0_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                down = "[GetScriptedGui('DI_tm_building_level_0_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
+                text_single = {
+                    parentanchor = center
+                    raw_text = "0"
+                    default_format = "#low"
+                }
+            }
+
+            button_tab = {
+                size = { 42 32 }
                 onclick = "[GetScriptedGui('DI_tm_select_building_level_1_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
                 down = "[GetScriptedGui('DI_tm_building_level_1_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
@@ -79,6 +91,11 @@ template DI_TM_Building_Level_Selector_Template
                     default_format = "#low"
                 }
             }
+        }
+
+        hbox = {
+            layoutpolicy_horizontal = expanding
+            spacing = 2
 
             button_tab = {
                 size = { 42 32 }
@@ -91,11 +108,6 @@ template DI_TM_Building_Level_Selector_Template
                     default_format = "#low"
                 }
             }
-        }
-
-        hbox = {
-            layoutpolicy_horizontal = expanding
-            spacing = 2
 
             button_tab = {
                 size = { 42 32 }
@@ -123,44 +135,36 @@ template DI_TM_Building_Level_Selector_Template
 
             button_tab = {
                 size = { 42 32 }
-                alpha = 0
+                onclick = "[GetScriptedGui('DI_tm_select_building_level_9_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                down = "[GetScriptedGui('DI_tm_building_level_9_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                 text_single = {
                     parentanchor = center
-                    raw_text = ""
+                    raw_text = "9"
                     default_format = "#low"
                 }
             }
 
             button_tab = {
                 size = { 42 32 }
-                alpha = 0
+                onclick = "[GetScriptedGui('DI_tm_select_building_level_10_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                down = "[GetScriptedGui('DI_tm_building_level_10_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                 text_single = {
                     parentanchor = center
-                    raw_text = ""
+                    raw_text = "10"
                     default_format = "#low"
                 }
             }
 
             button_tab = {
                 size = { 42 32 }
-                alpha = 0
+                onclick = "[GetScriptedGui('DI_tm_select_building_level_max_sgui').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                down = "[GetScriptedGui('DI_tm_building_level_max_selected_sgui').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
 
                 text_single = {
                     parentanchor = center
-                    raw_text = ""
-                    default_format = "#low"
-                }
-            }
-
-            button_tab = {
-                size = { 42 32 }
-                alpha = 0
-
-                text_single = {
-                    parentanchor = center
-                    raw_text = ""
+                    text = "DI_tm_level_max"
                     default_format = "#low"
                 }
             }

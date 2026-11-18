@@ -1,4 +1,4 @@
-template DI_vbox_character_single
+﻿template DI_vbox_character_single
 {
     vbox = {
         name = "character_single"
@@ -180,10 +180,11 @@ template DI_vbox_character_single
 
                     hbox = {
                         button_round = {
+                            tooltip = DI_ce_age_subtract_step_tt
                             size = { 25 25 }
                             parentanchor = left
-                            enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).End)]"
-                            onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            enabled = "[GetScriptedGui('DI_age_subtract').IsValid(GuiScope.SetRoot(Character.MakeScope).AddScope('age_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_age_subtract').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('age_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
 
                             button_minus_small = {
                                 name = "decrease_skill"
@@ -193,8 +194,9 @@ template DI_vbox_character_single
                         }
 
                         button_round = {
+                            tooltip = DI_ce_age_add_step_tt
                             size = { 25 25 }
-                            onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_age_add').Execute(GuiScope.SetRoot(Character.MakeScope).AddScope('age_step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
 
                             button_plus_small = {
                                 name = "increase_skill"
@@ -227,6 +229,55 @@ template DI_vbox_character_single
                     }
 
                     expand = {}
+
+                    hbox = {
+                        name = "DI_pinned_skill_target_selector"
+                        margin_left = 40
+                        spacing = 3
+                        text_single = {
+                            size = { 36 25 }
+                            text = "[GetPlayer.MakeScope.ScriptValue('DI_ce_shared_skill_target_value')|0]"
+                            tooltip = DI_ce_shared_skill_target_label
+                            default_format = "#high"
+                            using = Font_Size_Medium
+                            align = center
+                        }
+                        button_standard = {
+                            size = { 48 25 }
+                            raw_text = "0"
+                            tooltip = DI_ce_shared_skill_min_tt
+                            enabled = "[GetScriptedGui('DI_ce_shared_skill_target_min').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_shared_skill_target_min').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        button_standard = {
+                            size = { 48 25 }
+                            raw_text = "-"
+                            tooltip = DI_ce_shared_skill_subtract_tt
+                            enabled = "[GetScriptedGui('DI_ce_shared_skill_target_subtract').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_shared_skill_target_subtract').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                        }
+                        button_standard = {
+                            size = { 48 25 }
+                            raw_text = "50"
+                            tooltip = DI_ce_shared_skill_mid_tt
+                            enabled = "[GetScriptedGui('DI_ce_shared_skill_target_mid').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_shared_skill_target_mid').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                        button_standard = {
+                            size = { 48 25 }
+                            raw_text = "+"
+                            tooltip = DI_ce_shared_skill_add_tt
+                            enabled = "[GetScriptedGui('DI_ce_shared_skill_target_add').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_shared_skill_target_add').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('step', MakeScopeValue(Select_CFixedPoint(IsCtrlDown, '(CFixedPoint)10', Select_CFixedPoint(IsShiftDown, '(CFixedPoint)5', '(CFixedPoint)1')))).End)]"
+                        }
+                        button_standard = {
+                            size = { 48 25 }
+                            raw_text = "100"
+                            tooltip = DI_ce_shared_skill_max_tt
+                            enabled = "[GetScriptedGui('DI_ce_shared_skill_target_max').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                            onclick = "[GetScriptedGui('DI_ce_shared_skill_target_max').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        }
+                    }
 
                     # unpin character
                     button_round = {
@@ -264,43 +315,17 @@ template DI_vbox_character_single
                         hbox = {
                             spacing = 5
 
-                            hbox = {
-                                button_round = {
-                                    size = { 25 25 }
-                                    parentanchor = left
-                                    onclick = "[GetScriptedGui('DI_remove_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    enabled = "[GetScriptedGui('DI_remove_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                    button_minus_small = {
-                                        name = "decrease_skill"
-                                        parentanchor = center
-                                        alwaystransparent = yes
-                                    }
-                                }
-
-                                button_round = {
-                                    size = { 25 25 }
-                                    onclick = "[GetScriptedGui('DI_add_1_dip').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    enabled = "[GetScriptedGui('DI_add_1_dip').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                    button_plus_small = {
-                                        name = "increase_skill"
-                                        parentanchor = center
-                                        alwaystransparent = yes
-                                    }
-                                }
-                            }
 
                             button_standard = {
                                 name = "apply_diplomacy"
                                 size = { 60 25 }
                                 button_ignore = none
 
-                                onclick = "[GetScriptedGui('DI_add_diplomacy_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                onrightclick = "[GetScriptedGui('DI_remove_diplomacy_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_ce_shared_diplomacy_set_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
+                                enabled = "[GetScriptedGui('DI_ce_shared_diplomacy_set_character').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
 
                                 text = DI_apply_skill
-                                tooltip = "DI_skill_diplomacy_tt"
+                                tooltip = DI_ce_shared_pinned_skill_diplomacy_tt
                                 using = tooltip_ne
                             }
 
@@ -337,43 +362,17 @@ template DI_vbox_character_single
                             hbox = {
                                 spacing = 5
 
-                                hbox = {
-                                    button_round = {
-                                        size = { 25 25 }
-                                        parentanchor = left
-                                        onclick = "[GetScriptedGui('DI_remove_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                        enabled = "[GetScriptedGui('DI_remove_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                        button_minus_small = {
-                                            name = "decrease_skill"
-                                            parentanchor = center
-                                            alwaystransparent = yes
-                                        }
-                                    }
-
-                                    button_round = {
-                                        size = { 25 25 }
-                                        onclick = "[GetScriptedGui('DI_add_1_mar').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                        enabled = "[GetScriptedGui('DI_add_1_mar').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                        button_plus_small = {
-                                            name = "increase_skill"
-                                            parentanchor = center
-                                            alwaystransparent = yes
-                                        }
-                                    }
-                                }
 
                                 button_standard = {
                                     name = "apply_martial"
                                     size = { 60 25 }
                                     button_ignore = none
 
-                                    onclick = "[GetScriptedGui('DI_add_martial_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    onrightclick = "[GetScriptedGui('DI_remove_martial_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_shared_martial_set_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_ce_shared_martial_set_character').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
 
                                     text = DI_apply_skill
-                                    tooltip = "DI_skill_martial_tt"
+                                    tooltip = DI_ce_shared_pinned_skill_martial_tt
                                     using = tooltip_ne
                                 }
 
@@ -412,43 +411,17 @@ template DI_vbox_character_single
                         hbox = {
                             spacing = 5
 
-                            hbox = {
-                                button_round = {
-                                    size = { 25 25 }
-                                    parentanchor = left
-                                    onclick = "[GetScriptedGui('DI_remove_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    enabled = "[GetScriptedGui('DI_remove_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                    button_minus_small = {
-                                        name = "decrease_skill"
-                                        parentanchor = center
-                                        alwaystransparent = yes
-                                    }
-                                }
-
-                                button_round = {
-                                    size = { 25 25 }
-                                    onclick = "[GetScriptedGui('DI_add_1_ste').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    enabled = "[GetScriptedGui('DI_add_1_ste').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                    button_plus_small = {
-                                        name = "increase_skill"
-                                        parentanchor = center
-                                        alwaystransparent = yes
-                                    }
-                                }
-                            }
 
                             button_standard = {
                                 name = "apply_stewardship"
                                 size = { 60 25 }
                                 button_ignore = none
 
-                                onclick = "[GetScriptedGui('DI_add_stewardship_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                onrightclick = "[GetScriptedGui('DI_remove_stewardship_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_ce_shared_stewardship_set_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
+                                enabled = "[GetScriptedGui('DI_ce_shared_stewardship_set_character').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
 
                                 text = DI_apply_skill
-                                tooltip = "DI_skill_stewardship_tt"
+                                tooltip = DI_ce_shared_pinned_skill_stewardship_tt
                                 using = tooltip_ne
                             }
 
@@ -486,43 +459,17 @@ template DI_vbox_character_single
                             hbox = {
                                 spacing = 5
 
-                                hbox = {
-                                    button_round = {
-                                        size = { 25 25 }
-                                        parentanchor = left
-                                        onclick = "[GetScriptedGui('DI_remove_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                        enabled = "[GetScriptedGui('DI_remove_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                        button_minus_small = {
-                                            name = "decrease_skill"
-                                            parentanchor = center
-                                            alwaystransparent = yes
-                                        }
-                                    }
-
-                                    button_round = {
-                                        size = { 25 25 }
-                                        onclick = "[GetScriptedGui('DI_add_1_int').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                        enabled = "[GetScriptedGui('DI_add_1_int').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                        button_plus_small = {
-                                            name = "increase_skill"
-                                            parentanchor = center
-                                            alwaystransparent = yes
-                                        }
-                                    }
-                                }
 
                                 button_standard = {
                                     name = "apply_intrigue"
                                     size = { 60 25 }
                                     button_ignore = none
 
-                                    onclick = "[GetScriptedGui('DI_add_intrigue_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    onrightclick = "[GetScriptedGui('DI_remove_intrigue_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_shared_intrigue_set_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_ce_shared_intrigue_set_character').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
 
                                     text = DI_apply_skill
-                                    tooltip = "DI_skill_intrigue_tt"
+                                    tooltip = DI_ce_shared_pinned_skill_intrigue_tt
                                     using = tooltip_ne
                                 }
 
@@ -561,43 +508,17 @@ template DI_vbox_character_single
                         hbox = {
                             spacing = 5
 
-                            hbox = {
-                                button_round = {
-                                    size = { 25 25 }
-                                    parentanchor = left
-                                    onclick = "[GetScriptedGui('DI_remove_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    enabled = "[GetScriptedGui('DI_remove_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                    button_minus_small = {
-                                        name = "decrease_skill"
-                                        parentanchor = center
-                                        alwaystransparent = yes
-                                    }
-                                }
-
-                                button_round = {
-                                    size = { 25 25 }
-                                    onclick = "[GetScriptedGui('DI_add_1_ler').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    enabled = "[GetScriptedGui('DI_add_1_ler').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                    button_plus_small = {
-                                        name = "increase_skill"
-                                        parentanchor = center
-                                        alwaystransparent = yes
-                                    }
-                                }
-                            }
 
                             button_standard = {
                                 name = "apply_learning"
                                 size = { 60 25 }
                                 button_ignore = none
 
-                                onclick = "[GetScriptedGui('DI_add_learning_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                onrightclick = "[GetScriptedGui('DI_remove_learning_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                onclick = "[GetScriptedGui('DI_ce_shared_learning_set_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
+                                enabled = "[GetScriptedGui('DI_ce_shared_learning_set_character').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
 
                                 text = DI_apply_skill
-                                tooltip = "DI_skill_learning_tt"
+                                tooltip = DI_ce_shared_pinned_skill_learning_tt
                                 using = tooltip_ne
                             }
 
@@ -635,43 +556,17 @@ template DI_vbox_character_single
                             hbox = {
                                 spacing = 5
 
-                                hbox = {
-                                    button_round = {
-                                        size = { 25 25 }
-                                        parentanchor = left
-                                        onclick = "[GetScriptedGui('DI_remove_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                        enabled = "[GetScriptedGui('DI_remove_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                        button_minus_small = {
-                                            name = "decrease_skill"
-                                            parentanchor = center
-                                            alwaystransparent = yes
-                                        }
-                                    }
-
-                                    button_round = {
-                                        size = { 25 25 }
-                                        onclick = "[GetScriptedGui('DI_add_1_pro').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                        enabled = "[GetScriptedGui('DI_add_1_pro').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-
-                                        button_plus_small = {
-                                            name = "increase_skill"
-                                            parentanchor = center
-                                            alwaystransparent = yes
-                                        }
-                                    }
-                                }
 
                                 button_standard = {
                                     name = "apply_prowess"
                                     size = { 60 25 }
                                     button_ignore = none
 
-                                    onclick = "[GetScriptedGui('DI_add_prowess_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-                                    onrightclick = "[GetScriptedGui('DI_remove_prowess_primary').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                                    onclick = "[GetScriptedGui('DI_ce_shared_prowess_set_character').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
+                                    enabled = "[GetScriptedGui('DI_ce_shared_prowess_set_character').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('recipient', Character.MakeScope).End)]"
 
                                     text = DI_apply_skill
-                                    tooltip = "DI_skill_prowess_tt"
+                                    tooltip = DI_ce_shared_pinned_skill_prowess_tt
                                     using = tooltip_ne
                                 }
 

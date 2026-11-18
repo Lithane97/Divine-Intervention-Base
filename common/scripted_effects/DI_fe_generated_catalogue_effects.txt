@@ -1791,6 +1791,84 @@ DI_fe_rebuild_catalogue_effect = {
             add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
         }
     }
+    clear_global_variable_list = DI_fe_group_doctrine_usury_doctrines
+    if = {
+        limit = { OR = {
+            exists = doctrine:doctrine_usury_accepted
+            exists = doctrine:doctrine_usury_discouraged
+            exists = doctrine:doctrine_usury_outsiders_only
+            exists = doctrine:doctrine_usury_forbidden
+        } }
+        if = {
+            limit = { exists = doctrine:doctrine_usury_accepted }
+            doctrine:doctrine_usury_accepted = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:doctrine_usury_discouraged }
+            doctrine:doctrine_usury_discouraged = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:doctrine_usury_outsiders_only }
+            doctrine:doctrine_usury_outsiders_only = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:doctrine_usury_forbidden }
+            doctrine:doctrine_usury_forbidden = { save_scope_as = DI_fe_group_anchor }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_usury_accepted }
+            doctrine:doctrine_usury_accepted = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_doctrine_usury_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_usury_discouraged }
+            doctrine:doctrine_usury_discouraged = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_doctrine_usury_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_usury_outsiders_only }
+            doctrine:doctrine_usury_outsiders_only = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_doctrine_usury_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_usury_forbidden }
+            doctrine:doctrine_usury_forbidden = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_doctrine_usury_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        every_doctrine = {
+            limit = {
+                doctrine_in_same_group = scope:DI_fe_group_anchor
+                NOT = { is_target_in_global_variable_list = { name = DI_fe_group_doctrine_usury_doctrines target = this } }
+            }
+            save_scope_as = DI_fe_matched_doctrine
+            add_to_global_variable_list = { name = DI_fe_group_doctrine_usury_doctrines target = scope:DI_fe_matched_doctrine }
+            add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+        }
+    }
     clear_global_variable_list = DI_fe_group_doctrine_muhammad_succession_doctrines
     if = {
         limit = { OR = {
@@ -2173,6 +2251,36 @@ DI_fe_rebuild_catalogue_effect = {
             add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
         }
     }
+    clear_global_variable_list = DI_fe_group_is_yazidi_faith_doctrines
+    if = {
+        limit = { OR = {
+            exists = doctrine:special_doctrine_is_yazidi_faith
+        } }
+        if = {
+            limit = { exists = doctrine:special_doctrine_is_yazidi_faith }
+            doctrine:special_doctrine_is_yazidi_faith = { save_scope_as = DI_fe_group_anchor }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_is_yazidi_faith }
+            doctrine:special_doctrine_is_yazidi_faith = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_is_yazidi_faith_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        every_doctrine = {
+            limit = {
+                doctrine_in_same_group = scope:DI_fe_group_anchor
+                NOT = { is_target_in_global_variable_list = { name = DI_fe_group_is_yazidi_faith_doctrines target = this } }
+            }
+            save_scope_as = DI_fe_matched_doctrine
+            add_to_global_variable_list = { name = DI_fe_group_is_yazidi_faith_doctrines target = scope:DI_fe_matched_doctrine }
+            add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+        }
+    }
     clear_global_variable_list = DI_fe_group_special_tolerance_doctrines
     if = {
         limit = { OR = {
@@ -2306,6 +2414,224 @@ DI_fe_rebuild_catalogue_effect = {
             }
             save_scope_as = DI_fe_matched_doctrine
             add_to_global_variable_list = { name = DI_fe_group_nudity_doctrine_doctrines target = scope:DI_fe_matched_doctrine }
+            add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+        }
+    }
+    clear_global_variable_list = DI_fe_group_ahimsa_doctrine_doctrines
+    if = {
+        limit = { OR = {
+            exists = doctrine:special_doctrine_ahimsa
+        } }
+        if = {
+            limit = { exists = doctrine:special_doctrine_ahimsa }
+            doctrine:special_doctrine_ahimsa = { save_scope_as = DI_fe_group_anchor }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_ahimsa }
+            doctrine:special_doctrine_ahimsa = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_ahimsa_doctrine_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        every_doctrine = {
+            limit = {
+                doctrine_in_same_group = scope:DI_fe_group_anchor
+                NOT = { is_target_in_global_variable_list = { name = DI_fe_group_ahimsa_doctrine_doctrines target = this } }
+            }
+            save_scope_as = DI_fe_matched_doctrine
+            add_to_global_variable_list = { name = DI_fe_group_ahimsa_doctrine_doctrines target = scope:DI_fe_matched_doctrine }
+            add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+        }
+    }
+    clear_global_variable_list = DI_fe_group_alcohol_restrictions_doctrines
+    if = {
+        limit = { OR = {
+            exists = doctrine:doctrine_alcohol_permitted
+            exists = doctrine:doctrine_alcohol_highborn_only
+            exists = doctrine:special_doctrine_alcohol_forbidden
+        } }
+        if = {
+            limit = { exists = doctrine:doctrine_alcohol_permitted }
+            doctrine:doctrine_alcohol_permitted = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:doctrine_alcohol_highborn_only }
+            doctrine:doctrine_alcohol_highborn_only = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:special_doctrine_alcohol_forbidden }
+            doctrine:special_doctrine_alcohol_forbidden = { save_scope_as = DI_fe_group_anchor }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_alcohol_permitted }
+            doctrine:doctrine_alcohol_permitted = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_alcohol_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_alcohol_highborn_only }
+            doctrine:doctrine_alcohol_highborn_only = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_alcohol_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_alcohol_forbidden }
+            doctrine:special_doctrine_alcohol_forbidden = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_alcohol_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        every_doctrine = {
+            limit = {
+                doctrine_in_same_group = scope:DI_fe_group_anchor
+                NOT = { is_target_in_global_variable_list = { name = DI_fe_group_alcohol_restrictions_doctrines target = this } }
+            }
+            save_scope_as = DI_fe_matched_doctrine
+            add_to_global_variable_list = { name = DI_fe_group_alcohol_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+            add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+        }
+    }
+    clear_global_variable_list = DI_fe_group_dietary_restrictions_doctrines
+    if = {
+        limit = { OR = {
+            exists = doctrine:special_doctrine_meat_only
+            exists = doctrine:doctrine_diet_unrestricted
+            exists = doctrine:special_doctrine_meat_forbidden_temples_fish
+            exists = doctrine:special_doctrine_meat_forbidden_temples
+            exists = doctrine:special_doctrine_meat_forbidden_fish
+            exists = doctrine:special_doctrine_meat_forbidden
+            exists = doctrine:special_doctrine_nothing_of_the_slain
+        } }
+        if = {
+            limit = { exists = doctrine:special_doctrine_meat_only }
+            doctrine:special_doctrine_meat_only = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:doctrine_diet_unrestricted }
+            doctrine:doctrine_diet_unrestricted = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden_temples_fish }
+            doctrine:special_doctrine_meat_forbidden_temples_fish = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden_temples }
+            doctrine:special_doctrine_meat_forbidden_temples = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden_fish }
+            doctrine:special_doctrine_meat_forbidden_fish = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden }
+            doctrine:special_doctrine_meat_forbidden = { save_scope_as = DI_fe_group_anchor }
+        }
+        else_if = {
+            limit = { exists = doctrine:special_doctrine_nothing_of_the_slain }
+            doctrine:special_doctrine_nothing_of_the_slain = { save_scope_as = DI_fe_group_anchor }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_meat_only }
+            doctrine:special_doctrine_meat_only = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:doctrine_diet_unrestricted }
+            doctrine:doctrine_diet_unrestricted = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden_temples_fish }
+            doctrine:special_doctrine_meat_forbidden_temples_fish = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden_temples }
+            doctrine:special_doctrine_meat_forbidden_temples = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden_fish }
+            doctrine:special_doctrine_meat_forbidden_fish = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_meat_forbidden }
+            doctrine:special_doctrine_meat_forbidden = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        if = {
+            limit = { exists = doctrine:special_doctrine_nothing_of_the_slain }
+            doctrine:special_doctrine_nothing_of_the_slain = {
+                if = {
+                    limit = { doctrine_in_same_group = scope:DI_fe_group_anchor }
+                    save_scope_as = DI_fe_matched_doctrine
+                    add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
+                    add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
+                }
+            }
+        }
+        every_doctrine = {
+            limit = {
+                doctrine_in_same_group = scope:DI_fe_group_anchor
+                NOT = { is_target_in_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = this } }
+            }
+            save_scope_as = DI_fe_matched_doctrine
+            add_to_global_variable_list = { name = DI_fe_group_dietary_restrictions_doctrines target = scope:DI_fe_matched_doctrine }
             add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
         }
     }
@@ -2705,7 +3031,7 @@ DI_fe_rebuild_catalogue_effect = {
             add_to_global_variable_list = { name = DI_fe_covered_doctrines target = scope:DI_fe_matched_doctrine }
         }
     }
-    set_global_variable = { name = DI_fe_catalogue_version value = flag:DI_fe_catalogue_v2_0b03903293444f3b }
+    set_global_variable = { name = DI_fe_catalogue_version value = flag:DI_fe_catalogue_v2_33ed176cd1211954 }
 }
 
 DI_fe_ensure_catalogue_effect = {
@@ -2713,7 +3039,7 @@ DI_fe_ensure_catalogue_effect = {
         limit = {
             OR = {
                 NOT = { has_global_variable = DI_fe_catalogue_version }
-                NOT = { global_var:DI_fe_catalogue_version = flag:DI_fe_catalogue_v2_0b03903293444f3b }
+                NOT = { global_var:DI_fe_catalogue_version = flag:DI_fe_catalogue_v2_33ed176cd1211954 }
             }
         }
         DI_fe_rebuild_catalogue_effect = yes

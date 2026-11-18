@@ -4007,7 +4007,7 @@ DI_sleep_with_character = {
     auto_accept = yes
 }
 
-### Change Every County Control / Development
+### Change Every County Control / Settlement Size
 DI_change_every_county = {
     category = interaction_category_cheat_menu
     use_diplomatic_range = no
@@ -4028,9 +4028,9 @@ DI_change_every_county = {
         flag = debug_change_every_county_max_control
         localization = DI_change_every_county_control
     }
-    send_option = { # Set Development to Max (100)
-        flag = debug_change_every_county_max_development
-        localization = DI_change_every_county_development
+    send_option = { # Set Settlement Size to Max
+        flag = debug_change_every_county_max_settlement_size
+        localization = DI_change_every_county_settlement_size
     }
     send_option = {
         flag = DI_change_religion_every_county
@@ -4050,9 +4050,15 @@ DI_change_every_county = {
                         change_county_control = 100
                     }
                 }
-                scope:debug_change_every_county_max_development = {
+                scope:debug_change_every_county_max_settlement_size = {
                     every_sub_realm_county = {
-                        change_development_level = 100
+                        every_county_province = {
+                            limit = { has_holding = yes }
+                            change_province_size_progress = {
+                                value = define:NProvince|MAX_PROVINCE_SIZE_VALUE
+                                subtract = province_size
+                            }
+                        }
                     }
                 }
                 scope:DI_change_religion_every_county = {
@@ -5935,4 +5941,3 @@ DI_toggle_menu_button_interaction = {
         }
     }
 }
-
