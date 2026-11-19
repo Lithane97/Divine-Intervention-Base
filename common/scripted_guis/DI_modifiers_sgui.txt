@@ -8086,7 +8086,10 @@ DI_add_modifier_domain_limit = {
                 while = { count = scope:DI_story.var:DI_modifier_increment_value
                 if = {
                     limit = {
-                        NOT = { government_has_flag = government_uses_domain_limit }
+                        OR = {
+                            NOT = { government_has_flag = government_uses_domain_limit }
+                            government_has_flag = government_is_republic
+                        }
                     }
                     add_character_modifier = domain_limit_max
                 }
@@ -8099,7 +8102,10 @@ DI_add_modifier_domain_limit = {
         while = { count = scope:DI_story.var:DI_modifier_increment_value
         if = {
             limit = {
-                NOT = { government_has_flag = government_uses_domain_limit }
+                OR = {
+                    NOT = { government_has_flag = government_uses_domain_limit }
+                    government_has_flag = government_is_republic
+                }
             }
             add_character_modifier = domain_limit_max
         }
@@ -46311,7 +46317,10 @@ DI_add_modifier_DI_domain_limit = {
                 limit = { is_alive = yes }
                 if = {
                     limit = {
-                        NOT = { government_has_flag = government_uses_domain_limit }
+                        OR = {
+                            NOT = { government_has_flag = government_uses_domain_limit }
+                            government_has_flag = government_is_republic
+                        }
                     }
                     add_character_modifier = DI_domain_limit_max
                 }
@@ -46322,7 +46331,10 @@ DI_add_modifier_DI_domain_limit = {
         else = {
             if = {
                 limit = {
-                    NOT = { government_has_flag = government_uses_domain_limit }
+                    OR = {
+                        NOT = { government_has_flag = government_uses_domain_limit }
+                        government_has_flag = government_is_republic
+                    }
                 }
                 add_character_modifier = DI_domain_limit_max
             }
