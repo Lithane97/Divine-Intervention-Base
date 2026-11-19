@@ -39,6 +39,65 @@ DI_dip_can_make_tributary = {
     }
 }
 
+DI_dip_can_make_puppet = {
+    DI_dip_pair_valid = yes
+    var:DI_primary_character = {
+        NOT = { puppeteer ?= root.var:DI_secondary_character }
+    }
+    var:DI_secondary_character = {
+        is_ai = yes
+        NOT = { has_trait = incapable }
+        NOT = { exists = puppeteer }
+    }
+    OR = {
+        DI_dip_realm_priest_puppet_available = yes
+        DI_dip_clerical_puppet_available = yes
+        DI_dip_ruler_puppet_available = yes
+    }
+}
+
+DI_dip_realm_priest_puppet_available = {
+    var:DI_primary_character = {
+        has_puppet_type = theological_agent_puppet
+        NOT = { exists = puppet:theological_agent_puppet }
+        cp:councillor_court_chaplain ?= root.var:DI_secondary_character
+    }
+    var:DI_secondary_character = { is_clergy = yes is_adult = yes }
+}
+
+DI_dip_clerical_puppet_available = {
+    var:DI_primary_character = {
+        has_puppet_type = external_theological_agent_puppet
+        NOT = { exists = puppet:external_theological_agent_puppet }
+        NOT = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character }
+    }
+    var:DI_secondary_character = {
+        is_clergy = yes
+        is_ruler = yes
+        is_adult = yes
+        faith = root.var:DI_primary_character.faith
+        NOT = { has_title = title:e_minister_of_rites }
+    }
+}
+
+DI_dip_ruler_puppet_available = {
+    var:DI_primary_character = {
+        has_puppet_type = external_ruler_puppet
+        NOT = { exists = puppet:external_ruler_puppet }
+    }
+    var:DI_secondary_character = {
+        is_clergy = no
+        is_landed = yes
+        is_ruler = yes
+        age >= 6
+    }
+}
+
+DI_dip_can_free_puppet = {
+    exists = var:DI_primary_character
+    var:DI_primary_character = { is_alive = yes exists = puppeteer }
+}
+
 DI_dip_can_break_vassalage = {
     exists = var:DI_primary_character
     var:DI_primary_character = {

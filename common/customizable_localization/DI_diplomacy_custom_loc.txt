@@ -1202,3 +1202,226 @@ DI_dip_conflict_pinned_titles_missing = {
     }
     text = { fallback = yes localization_key = DI_dip_empty_text }
 }
+
+DI_dip_conflict_puppet_player = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_ai = no }
+        }
+        localization_key = DI_dip_conflict_puppet_player_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_incapable = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { has_trait = incapable }
+        }
+        localization_key = DI_dip_conflict_puppet_incapable_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_controlled = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { exists = puppeteer }
+        }
+        localization_key = DI_dip_conflict_puppet_controlled_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_reversed = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_primary_character = { puppeteer ?= root.var:DI_secondary_character }
+        }
+        localization_key = DI_dip_conflict_puppet_reversed_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_land = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = no }
+            var:DI_secondary_character = { NAND = { is_ruler = yes is_landed = yes } }
+        }
+        localization_key = DI_dip_conflict_puppet_land_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_age = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = no }
+            var:DI_secondary_character = { age < 6 }
+        }
+        localization_key = DI_dip_conflict_puppet_age_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_adult = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_secondary_character = { is_adult = no }
+        }
+        localization_key = DI_dip_conflict_puppet_adult_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_ruler = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { NOT = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character } }
+            var:DI_secondary_character = { is_ruler = no }
+        }
+        localization_key = DI_dip_conflict_puppet_ruler_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_faith = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { NOT = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character } }
+            var:DI_secondary_character = { NOT = { faith = root.var:DI_primary_character.faith } }
+        }
+        localization_key = DI_dip_conflict_puppet_faith_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_rites = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { NOT = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character } }
+            var:DI_secondary_character = { has_title = title:e_minister_of_rites }
+        }
+        localization_key = DI_dip_conflict_puppet_rites_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_priest_unavailable = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character }
+            var:DI_primary_character = { NOT = { has_puppet_type = theological_agent_puppet } }
+        }
+        localization_key = DI_dip_conflict_puppet_priest_unavailable_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_priest_occupied = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character }
+            var:DI_primary_character = { exists = puppet:theological_agent_puppet }
+        }
+        localization_key = DI_dip_conflict_puppet_priest_occupied_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_cleric_unavailable = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { NOT = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character } }
+            var:DI_primary_character = { NOT = { has_puppet_type = external_theological_agent_puppet } }
+        }
+        localization_key = DI_dip_conflict_puppet_cleric_unavailable_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_cleric_occupied = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = yes }
+            var:DI_primary_character = { NOT = { cp:councillor_court_chaplain ?= root.var:DI_secondary_character } }
+            var:DI_primary_character = { exists = puppet:external_theological_agent_puppet }
+        }
+        localization_key = DI_dip_conflict_puppet_cleric_occupied_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_ruler_unavailable = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = no }
+            var:DI_primary_character = { NOT = { has_puppet_type = external_ruler_puppet } }
+        }
+        localization_key = DI_dip_conflict_puppet_ruler_unavailable_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_ruler_occupied = {
+    type = character
+    text = {
+        trigger = {
+            DI_dip_pair_valid = yes
+            var:DI_secondary_character = { is_clergy = no }
+            var:DI_primary_character = { exists = puppet:external_ruler_puppet }
+        }
+        localization_key = DI_dip_conflict_puppet_ruler_occupied_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}
+
+DI_dip_conflict_puppet_free = {
+    type = character
+    text = {
+        trigger = {
+            exists = var:DI_primary_character
+            var:DI_primary_character = { is_alive = yes NOT = { exists = puppeteer } }
+        }
+        localization_key = DI_dip_conflict_puppet_free_text
+    }
+    text = { fallback = yes localization_key = DI_dip_empty_text }
+}

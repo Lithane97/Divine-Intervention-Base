@@ -32,6 +32,48 @@ DI_dip_make_tributary = {
     }
 }
 
+DI_dip_make_puppet = {
+    scope = character
+    is_valid = { DI_dip_can_make_puppet = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_make_puppet = yes }
+            if = {
+                limit = { DI_dip_realm_priest_puppet_available = yes }
+                var:DI_primary_character = {
+                    set_puppet = { target = root.var:DI_secondary_character type = theological_agent_puppet }
+                }
+            }
+            else_if = {
+                limit = { DI_dip_clerical_puppet_available = yes }
+                var:DI_primary_character = {
+                    set_puppet = { target = root.var:DI_secondary_character type = external_theological_agent_puppet }
+                }
+            }
+            else_if = {
+                limit = { DI_dip_ruler_puppet_available = yes }
+                var:DI_primary_character = {
+                    set_puppet = { target = root.var:DI_secondary_character type = external_ruler_puppet }
+                }
+            }
+        }
+    }
+}
+
+DI_dip_free_puppet = {
+    scope = character
+    is_valid = { DI_dip_can_free_puppet = yes }
+    effect = {
+        if = {
+            limit = { DI_dip_can_free_puppet = yes }
+            var:DI_primary_character = {
+                clear_puppet_status = yes
+                remove_puppet_modifiers_effect = yes
+            }
+        }
+    }
+}
+
 DI_dip_break_vassalage = {
     scope = character
     is_valid = { DI_dip_can_break_vassalage = yes }
