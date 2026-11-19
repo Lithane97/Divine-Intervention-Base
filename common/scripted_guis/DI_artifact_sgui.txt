@@ -48,6 +48,18 @@ DI_take_artifact = {
     }
 }
 
+DI_stop_artifact_decay = {
+    scope = character
+    saved_scopes = { selected_artifact }
+    is_valid = {
+        exists = scope:selected_artifact
+        scope:selected_artifact = { should_decay = yes }
+    }
+    effect = {
+        scope:selected_artifact ?= { set_should_decay = no }
+    }
+}
+
 DI_destroy_artifact = {
     scope = character
 

@@ -728,6 +728,19 @@ types DI_artifact_creator_types
                     tooltip = "ARTIFACT_DETAILS"
                 }
 
+                button_round = {
+                    name = "stop_artifact_decay"
+                    size = { 50 50 }
+                    button_icon_highlight = {
+                        parentanchor = center
+                        size = { 25 25 }
+                        texture = "gfx/interface/icons/flat_icons/artifact.dds"
+                    }
+                    enabled = "[GetScriptedGui('DI_stop_artifact_decay').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_artifact', Artifact.MakeScope).End)]"
+                    onclick = "[GetScriptedGui('DI_stop_artifact_decay').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_artifact', Artifact.MakeScope).End)]"
+                    tooltip = "[SelectLocalization(GetScriptedGui('DI_stop_artifact_decay').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('selected_artifact', Artifact.MakeScope).End), 'DI_stop_artifact_decay_tt', 'DI_artifact_decay_stopped_tt')]"
+                }
+
                 expand = {}
             }
         }
