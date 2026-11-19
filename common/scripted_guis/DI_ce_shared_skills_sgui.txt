@@ -39,7 +39,7 @@ DI_ce_shared_skill_target_add = {
     scope = character
     saved_scopes = { step }
     is_valid = {
-        trigger_if = { limit = { has_variable = DI_ce_shared_skill_target } var:DI_ce_shared_skill_target < 100 }
+        trigger_if = { limit = { has_variable = DI_ce_shared_skill_target } var:DI_ce_shared_skill_target < 1000 }
         trigger_else = { always = yes }
     }
     effect = {
@@ -51,7 +51,7 @@ DI_ce_shared_skill_target_max = {
     scope = character
     saved_scopes = { step }
     is_valid = {
-        trigger_if = { limit = { has_variable = DI_ce_shared_skill_target } var:DI_ce_shared_skill_target < 100 }
+        trigger_if = { limit = { has_variable = DI_ce_shared_skill_target } NOT = { var:DI_ce_shared_skill_target = 100 } }
         trigger_else = { always = yes }
     }
     effect = {
@@ -74,7 +74,8 @@ DI_ce_shared_diplomacy_set = {
                 variable = pinned_characters
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_diplomacy_skill = { value = scope:DI_ce_skill_selected_target subtract = diplomacy }
+                    add_diplomacy_skill = { value = define:NSkills|MAX_DIPLOMACY multiply = -1 }
+                    add_diplomacy_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -83,7 +84,8 @@ DI_ce_shared_diplomacy_set = {
             if = {
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_diplomacy_skill = { value = scope:DI_ce_skill_selected_target subtract = diplomacy }
+                    add_diplomacy_skill = { value = define:NSkills|MAX_DIPLOMACY multiply = -1 }
+                    add_diplomacy_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -101,7 +103,8 @@ DI_ce_shared_diplomacy_set_character = {
             save_scope_value_as = { name = DI_ce_skill_selected_target value = DI_ce_shared_skill_target_value }
             scope:recipient = {
                 hidden_effect = {
-                    add_diplomacy_skill = { value = scope:DI_ce_skill_selected_target subtract = diplomacy }
+                    add_diplomacy_skill = { value = define:NSkills|MAX_DIPLOMACY multiply = -1 }
+                    add_diplomacy_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -124,7 +127,8 @@ DI_ce_shared_martial_set = {
                 variable = pinned_characters
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_martial_skill = { value = scope:DI_ce_skill_selected_target subtract = martial }
+                    add_martial_skill = { value = define:NSkills|MAX_MARTIAL multiply = -1 }
+                    add_martial_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -133,7 +137,8 @@ DI_ce_shared_martial_set = {
             if = {
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_martial_skill = { value = scope:DI_ce_skill_selected_target subtract = martial }
+                    add_martial_skill = { value = define:NSkills|MAX_MARTIAL multiply = -1 }
+                    add_martial_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -151,7 +156,8 @@ DI_ce_shared_martial_set_character = {
             save_scope_value_as = { name = DI_ce_skill_selected_target value = DI_ce_shared_skill_target_value }
             scope:recipient = {
                 hidden_effect = {
-                    add_martial_skill = { value = scope:DI_ce_skill_selected_target subtract = martial }
+                    add_martial_skill = { value = define:NSkills|MAX_MARTIAL multiply = -1 }
+                    add_martial_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -174,7 +180,8 @@ DI_ce_shared_stewardship_set = {
                 variable = pinned_characters
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_stewardship_skill = { value = scope:DI_ce_skill_selected_target subtract = stewardship }
+                    add_stewardship_skill = { value = define:NSkills|MAX_STEWARDSHIP multiply = -1 }
+                    add_stewardship_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -183,7 +190,8 @@ DI_ce_shared_stewardship_set = {
             if = {
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_stewardship_skill = { value = scope:DI_ce_skill_selected_target subtract = stewardship }
+                    add_stewardship_skill = { value = define:NSkills|MAX_STEWARDSHIP multiply = -1 }
+                    add_stewardship_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -201,7 +209,8 @@ DI_ce_shared_stewardship_set_character = {
             save_scope_value_as = { name = DI_ce_skill_selected_target value = DI_ce_shared_skill_target_value }
             scope:recipient = {
                 hidden_effect = {
-                    add_stewardship_skill = { value = scope:DI_ce_skill_selected_target subtract = stewardship }
+                    add_stewardship_skill = { value = define:NSkills|MAX_STEWARDSHIP multiply = -1 }
+                    add_stewardship_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -224,7 +233,8 @@ DI_ce_shared_intrigue_set = {
                 variable = pinned_characters
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_intrigue_skill = { value = scope:DI_ce_skill_selected_target subtract = intrigue }
+                    add_intrigue_skill = { value = define:NSkills|MAX_INTRIGUE multiply = -1 }
+                    add_intrigue_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -233,7 +243,8 @@ DI_ce_shared_intrigue_set = {
             if = {
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_intrigue_skill = { value = scope:DI_ce_skill_selected_target subtract = intrigue }
+                    add_intrigue_skill = { value = define:NSkills|MAX_INTRIGUE multiply = -1 }
+                    add_intrigue_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -251,7 +262,8 @@ DI_ce_shared_intrigue_set_character = {
             save_scope_value_as = { name = DI_ce_skill_selected_target value = DI_ce_shared_skill_target_value }
             scope:recipient = {
                 hidden_effect = {
-                    add_intrigue_skill = { value = scope:DI_ce_skill_selected_target subtract = intrigue }
+                    add_intrigue_skill = { value = define:NSkills|MAX_INTRIGUE multiply = -1 }
+                    add_intrigue_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -274,7 +286,8 @@ DI_ce_shared_learning_set = {
                 variable = pinned_characters
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_learning_skill = { value = scope:DI_ce_skill_selected_target subtract = learning }
+                    add_learning_skill = { value = define:NSkills|MAX_LEARNING multiply = -1 }
+                    add_learning_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -283,7 +296,8 @@ DI_ce_shared_learning_set = {
             if = {
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_learning_skill = { value = scope:DI_ce_skill_selected_target subtract = learning }
+                    add_learning_skill = { value = define:NSkills|MAX_LEARNING multiply = -1 }
+                    add_learning_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -301,7 +315,8 @@ DI_ce_shared_learning_set_character = {
             save_scope_value_as = { name = DI_ce_skill_selected_target value = DI_ce_shared_skill_target_value }
             scope:recipient = {
                 hidden_effect = {
-                    add_learning_skill = { value = scope:DI_ce_skill_selected_target subtract = learning }
+                    add_learning_skill = { value = define:NSkills|MAX_LEARNING multiply = -1 }
+                    add_learning_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -324,7 +339,8 @@ DI_ce_shared_prowess_set = {
                 variable = pinned_characters
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_prowess_skill = { value = scope:DI_ce_skill_selected_target subtract = prowess }
+                    add_prowess_skill = { value = define:NSkills|MAX_PROWESS multiply = -1 }
+                    add_prowess_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -333,7 +349,8 @@ DI_ce_shared_prowess_set = {
             if = {
                 limit = { is_alive = yes }
                 hidden_effect = {
-                    add_prowess_skill = { value = scope:DI_ce_skill_selected_target subtract = prowess }
+                    add_prowess_skill = { value = define:NSkills|MAX_PROWESS multiply = -1 }
+                    add_prowess_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
@@ -351,7 +368,8 @@ DI_ce_shared_prowess_set_character = {
             save_scope_value_as = { name = DI_ce_skill_selected_target value = DI_ce_shared_skill_target_value }
             scope:recipient = {
                 hidden_effect = {
-                    add_prowess_skill = { value = scope:DI_ce_skill_selected_target subtract = prowess }
+                    add_prowess_skill = { value = define:NSkills|MAX_PROWESS multiply = -1 }
+                    add_prowess_skill = scope:DI_ce_skill_selected_target
                     force_character_skill_recalculation = yes
                 }
             }
