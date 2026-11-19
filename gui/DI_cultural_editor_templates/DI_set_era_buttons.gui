@@ -1,0 +1,47 @@
+﻿template DI_set_era_buttons
+{
+    vbox = {
+        layoutpolicy_horizontal = expanding
+        ignoreinvisible = yes
+        button_standard = {
+            size = { 0 30 }
+            layoutpolicy_horizontal = expanding
+            visible = "[EqualTo_string(CultureEraType.GetName, Localize('culture_era_tribal'))]"
+            text = "[SelectLocalization(And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType)), 'DI_ce_current_era', 'DI_ce_set_era')]"
+            down = "[And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType))]"
+            tooltip = "[CultureEraType.GetName]"
+            enabled = "[GetScriptedGui('DI_ce_set_culture_era_tribal').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_ce_set_culture_era_tribal').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+        button_standard = {
+            size = { 0 30 }
+            layoutpolicy_horizontal = expanding
+            visible = "[EqualTo_string(CultureEraType.GetName, Localize('culture_era_early_medieval'))]"
+            text = "[SelectLocalization(And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType)), 'DI_ce_current_era', 'DI_ce_set_era')]"
+            down = "[And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType))]"
+            tooltip = "[CultureEraType.GetName]"
+            enabled = "[GetScriptedGui('DI_ce_set_culture_era_early_medieval').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_ce_set_culture_era_early_medieval').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+        button_standard = {
+            size = { 0 30 }
+            layoutpolicy_horizontal = expanding
+            visible = "[EqualTo_string(CultureEraType.GetName, Localize('culture_era_high_medieval'))]"
+            text = "[SelectLocalization(And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType)), 'DI_ce_current_era', 'DI_ce_set_era')]"
+            down = "[And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType))]"
+            tooltip = "[CultureEraType.GetName]"
+            enabled = "[GetScriptedGui('DI_ce_set_culture_era_high_medieval').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_ce_set_culture_era_high_medieval').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+        button_standard = {
+            size = { 0 30 }
+            layoutpolicy_horizontal = expanding
+            visible = "[EqualTo_string(CultureEraType.GetName, Localize('culture_era_late_medieval'))]"
+            text = "[SelectLocalization(And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType)), 'DI_ce_current_era', 'DI_ce_set_era')]"
+            down = "[And(GetPlayer.MakeScope.Var('DI_innovation_selected_culture').IsSet, ObjectsEqual(CultureEraType.Self, GetPlayer.MakeScope.Var('DI_innovation_selected_culture').Culture.GetCultureEra.GetType))]"
+            tooltip = "[CultureEraType.GetName]"
+            enabled = "[GetScriptedGui('DI_ce_set_culture_era_late_medieval').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+            onclick = "[GetScriptedGui('DI_ce_set_culture_era_late_medieval').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+        }
+    }
+}

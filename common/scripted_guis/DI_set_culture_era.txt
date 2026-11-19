@@ -1,0 +1,54 @@
+﻿DI_ce_set_culture_era_tribal = {
+    scope = character
+    is_valid = {
+        exists = var:DI_innovation_selected_culture
+        var:DI_innovation_selected_culture = { OR = { NOT = { has_cultural_era_or_later = culture_era_tribal } has_cultural_era_or_later = culture_era_early_medieval } }
+    }
+    effect = {
+        var:DI_innovation_selected_culture ?= {
+            if = { limit = { NOT = { has_cultural_era_or_later = culture_era_tribal } } join_era = culture_era_tribal }
+            else_if = { limit = { has_cultural_era_or_later = culture_era_early_medieval } leave_era = culture_era_early_medieval }
+        }
+    }
+}
+
+DI_ce_set_culture_era_early_medieval = {
+    scope = character
+    is_valid = {
+        exists = var:DI_innovation_selected_culture
+        var:DI_innovation_selected_culture = { OR = { NOT = { has_cultural_era_or_later = culture_era_early_medieval } has_cultural_era_or_later = culture_era_high_medieval } }
+    }
+    effect = {
+        var:DI_innovation_selected_culture ?= {
+            if = { limit = { NOT = { has_cultural_era_or_later = culture_era_early_medieval } } join_era = culture_era_early_medieval }
+            else_if = { limit = { has_cultural_era_or_later = culture_era_high_medieval } leave_era = culture_era_high_medieval }
+        }
+    }
+}
+
+DI_ce_set_culture_era_high_medieval = {
+    scope = character
+    is_valid = {
+        exists = var:DI_innovation_selected_culture
+        var:DI_innovation_selected_culture = { OR = { NOT = { has_cultural_era_or_later = culture_era_high_medieval } has_cultural_era_or_later = culture_era_late_medieval } }
+    }
+    effect = {
+        var:DI_innovation_selected_culture ?= {
+            if = { limit = { NOT = { has_cultural_era_or_later = culture_era_high_medieval } } join_era = culture_era_high_medieval }
+            else_if = { limit = { has_cultural_era_or_later = culture_era_late_medieval } leave_era = culture_era_late_medieval }
+        }
+    }
+}
+
+DI_ce_set_culture_era_late_medieval = {
+    scope = character
+    is_valid = {
+        exists = var:DI_innovation_selected_culture
+        var:DI_innovation_selected_culture = { NOT = { has_cultural_era_or_later = culture_era_late_medieval } }
+    }
+    effect = {
+        var:DI_innovation_selected_culture ?= {
+            if = { limit = { NOT = { has_cultural_era_or_later = culture_era_late_medieval } } join_era = culture_era_late_medieval }
+        }
+    }
+}
