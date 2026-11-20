@@ -159,6 +159,12 @@ window = {
                     vbox = {
                         spacing = 10
 
+                        button_standard = {
+                            text = DI_tm_browser_header
+                            onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_refresh')).End)]"
+                            onclick = "[GetVariableSystem.Set('DI_tm_browser_visible', 'yes')]"
+                        }
+
                         hbox = {
                             layoutpolicy_horizontal = expanding
                             spacing = 20
@@ -224,6 +230,7 @@ window = {
                     expand = {}
 
                     hbox = {
+                        margin_top = 10
                         spacing = 20
                         vbox = {
                             using = DI_title_manager_filter

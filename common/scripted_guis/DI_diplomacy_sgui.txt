@@ -1382,6 +1382,7 @@ DI_dip_claim_titles = {
 
             every_in_list = {
                 variable = DI_selected_titles
+                limit = { is_title_created = yes }
                 save_scope_as = selected_title
 
                 scope:player.var:DI_primary_character = {
@@ -1629,11 +1630,15 @@ DI_dip_war = {
                 if = {
                     limit = {
                         scope:casus_belli = flag:claim_cb
+                        scope:player = {
+                            any_in_list = { variable = DI_selected_titles is_title_created = yes }
+                        }
                     }
 
                     scope:player = {
                         every_in_list = {
                             variable = DI_selected_titles
+                            limit = { is_title_created = yes }
                             save_scope_as = selected_title
 
                             scope:player = {

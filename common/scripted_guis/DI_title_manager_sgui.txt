@@ -47,29 +47,30 @@ DI_unpin_title = {
     }
 
     effect = {
-        save_scope_as = player
-
-        remove_list_variable = {
-            name = DI_pinned_titles
-            target = scope:title
-        }
-
-        change_variable = { name = DI_pinned_count subtract = 1 }
-
         if = {
-            limit = {
-                is_target_in_variable_list = {
-                    name = DI_selected_titles
-                    target = scope:title
-                }
+            limit = { is_target_in_variable_list = { name = DI_pinned_titles target = scope:title } }
+            remove_list_variable = {
+                name = DI_pinned_titles
+                target = scope:title
             }
 
-            change_variable = { name = DI_selected_count subtract = 1 }
-        }
+            change_variable = { name = DI_pinned_count subtract = 1 }
 
-        remove_list_variable = {
-            name = DI_selected_titles
-            target = scope:title
+            if = {
+                limit = {
+                    is_target_in_variable_list = {
+                        name = DI_selected_titles
+                        target = scope:title
+                    }
+                }
+
+                change_variable = { name = DI_selected_count subtract = 1 }
+            }
+
+            remove_list_variable = {
+                name = DI_selected_titles
+                target = scope:title
+            }
         }
     }
 }
@@ -117,6 +118,7 @@ DI_claim_titles_sgui = {
 
         every_in_list = {
             variable = DI_selected_titles
+            limit = { is_title_created = yes }
             save_scope_as = title
 
             scope:player = {
@@ -153,6 +155,7 @@ DI_destroy_titles_sgui = {
 
         every_in_list = {
             variable = DI_selected_titles
+            limit = { is_title_created = yes }
             save_scope_as = title
 
             scope:player = {
@@ -175,7 +178,8 @@ DI_create_dejure_liege_title_sgui = {
                 save_scope_as = title
 
                 limit = {
-                    this.de_jure_liege = {
+                    exists = de_jure_liege
+                    de_jure_liege = {
                         is_title_created = no
                     }
                 }
@@ -203,9 +207,10 @@ DI_create_direct_dejure_vassals_sgui = {
                 every_in_de_jure_hierarchy = {
                     save_scope_as = dj_title
                     limit = {
+                        exists = de_jure_liege
                         de_jure_liege = { this = scope:title }  # direct child only
                         is_title_created = no
-                        tier >= county
+                        tier >= tier_county
                     }
                     scope:player = { DI_get_title_effect = { TITLE = scope:dj_title } }
                 }

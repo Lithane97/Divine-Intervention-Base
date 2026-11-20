@@ -1,0 +1,252 @@
+﻿window = {
+    name = "DI_tm_uncreated_titles_window"
+    parentanchor = top|right
+    position = { -600 100 }
+    size = { 640 650 }
+    layer = windows_layer
+    filter_mouse = all
+    movable = yes
+    allow_outside = yes
+    using = Window_Background
+    using = Window_Decoration
+    visible = "[And(GetVariableSystem.Exists('DI_title_manager_window_visible'), GetVariableSystem.Exists('DI_tm_browser_visible'))]"
+
+    state = {
+        name = _show
+        using = Animation_FadeIn_Quick
+        on_finish = "[PdxGuiWidget.StackTop]"
+    }
+    state = {
+        name = _hide
+        using = Animation_FadeOut_Quick
+        on_start = "[GetVariableSystem.Clear('DI_tm_browser_filter_menu')]"
+        on_start = "[GetVariableSystem.Clear('DI_tm_browser_visible')]"
+        on_start = "[GetScriptedGui('DI_tm_browser_close').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+    }
+    vbox = {
+        size = { 100% 100% }
+        using = Window_Margins
+        margin_right = 60
+        spacing = 6
+        header_pattern = {
+            layoutpolicy_horizontal = expanding
+            blockoverride "header_text" { text = DI_tm_browser_header }
+            blockoverride "button_close" { onclick = "[GetVariableSystem.Clear('DI_tm_browser_visible')]" }
+        }
+        hbox = {
+            spacing = 8
+            # Standalone multi-select opener with the vanilla dropdown appearance.
+            button_normal = {
+                gfxtype = framedbuttongfx
+                effectname = "NoHighlight"
+                upframe = 1
+                overframe = 2
+                downframe = 3
+                disableframe = 4
+                texture = "gfx/interface/buttons/button_drop_down.dds"
+                framesize = { 225 33 }
+                spriteType = Corneredtiled
+                spriteborder = { 75 11 }
+                clicksound = "event:/SFX/UI/Generic/sfx_ui_generic_checkbox"
+
+                buttonText = {
+                    text_single = {
+                        size = { 100% 100% }
+                        autoresize = no
+                        margin = { 15 0 }
+                        margin_right = 25
+                        align = left|nobaseline
+                        default_format = "#clickable"
+                        alwaystransparent = yes
+                    }
+                }
+                size = { 250 34 }
+                text = DI_title_manager_filter_loc
+                onclick = "[GetVariableSystem.Toggle('DI_tm_browser_filter_menu')]"
+            }
+            button_standard = {
+                text = DI_tm_browser_refresh_label
+                onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_refresh')).End)]"
+            }
+        }
+        scrollbox = {
+            visible = "[GetVariableSystem.Exists('DI_tm_browser_filter_menu')]"
+            size = { 532 210 }
+            using = Background_DropDown
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    spacing = 2
+                    text_single = { text = DI_tm_browser_tier_heading }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_duchy')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_duchy')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_duchy')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_title_filter_duchy_loc }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_kingdom')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_kingdom')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_kingdom')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_title_filter_kingdom_loc }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_empire')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_empire')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_empire')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_title_filter_empire_loc }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_hegemony')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_hegemony')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_title_filter_hegemony')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_title_filter_hegemony_loc }
+                    }
+                    text_single = { text = DI_tm_browser_additional_heading }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_titular')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_titular')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_titular')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_titular_label }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_parentless')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_parentless')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_parentless')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_parentless_label }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_created')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_created')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_created')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_created_label }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_uncreated')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_uncreated')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_uncreated')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_uncreated_label }
+                    }
+                    DI_tm_browser_option = {
+                        tooltip = DI_tm_browser_area_hint
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_in_area')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_in_area')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_in_area')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_in_area_label }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_has_counties')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_has_counties')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_has_counties')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_has_counties_label }
+                    }
+                    DI_tm_browser_option = {
+                        tooltip = DI_tm_browser_area_hint
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_capital_area')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_capital_area')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_capital_area')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_capital_area_label }
+                    }
+                    DI_tm_browser_option = {
+                        onclick = "[GetScriptedGui('DI_tm_browser_filter').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_previously_held')).End)]"
+                        blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_previously_held')).End)]" }
+                        blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_filter_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', MakeScopeFlag('DI_tm_browser_previously_held')).End)]" }
+                        blockoverride "DI_card_text" { text = DI_tm_browser_previously_held_label }
+                    }
+                    text_single = { text = DI_tm_browser_type_heading }
+                    vbox = {
+                        spacing = 2
+                        datamodel = "[GetPlayer.MakeScope.GetList('DI_tm_browser_types')]"
+                        item = {
+                            DI_tm_browser_option = {
+                                onclick = "[GetScriptedGui('DI_tm_browser_toggle_type').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', Scope.TitleType.MakeScope).End)]"
+                                blockoverride "DI_card_highlight" { visible = "[GetScriptedGui('DI_tm_browser_type_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', Scope.TitleType.MakeScope).End)]" }
+                                blockoverride "DI_card_check" { visible = "[GetScriptedGui('DI_tm_browser_type_active').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', Scope.TitleType.MakeScope).End)]" }
+                                blockoverride "DI_card_text" { text = "[Scope.TitleType.GetNameNoTooltip]" }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        text_single = {
+            text = DI_tm_browser_empty
+            visible = "[Or(IsDataModelEmpty(GetPlayer.MakeScope.GetList('DI_tm_uncreated_results')), And(GetScriptedGui('DI_tm_browser_types_filtered').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), IsZero(PdxGuiWidget.AccessParent.FindChild('DI_tm_browser_rows').CountVisibleChildren)))]"
+        }
+        scrollbox = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+            blockoverride "scrollbox_content" {
+                vbox = {
+                    layoutpolicy_horizontal = expanding
+                    # Bind the inactive layout to an empty list so it builds no title cards.
+                    fixedgridbox = {
+                        visible = "[Not(GetScriptedGui('DI_tm_browser_types_filtered').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End))]"
+                        layoutpolicy_horizontal = expanding
+                        minimumsize = { 492 60 }
+                        maxhorizontalslots = 1
+                        addcolumn = 492
+                        addrow = 60
+                        datamodel_reuse_widgets = yes
+                        datamodel = "[GetPlayer.MakeScope.GetList(Select_CString(GetScriptedGui('DI_tm_browser_types_filtered').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'DI_tm_browser_empty_rows', 'DI_tm_uncreated_results'))]"
+                        item = { DI_tm_browser_result = {} }
+                    }
+                    # Only the GUI exposes the title type. Collapse nonmatching rows here.
+                    vbox = {
+                        name = "DI_tm_browser_rows"
+                        visible = "[GetScriptedGui('DI_tm_browser_types_filtered').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+                        spacing = 2
+                        datamodel = "[GetPlayer.MakeScope.GetList(Select_CString(GetScriptedGui('DI_tm_browser_types_filtered').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).End), 'DI_tm_uncreated_results', 'DI_tm_browser_empty_rows'))]"
+                        item = {
+                            DI_tm_browser_result = {
+                                visible = "[GetScriptedGui('DI_tm_browser_type_matches').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('choice', Scope.Title.GetTitleType.MakeScope).End)]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+types DIUncreatedTitleFilterTypes
+{
+    type DI_tm_browser_result = DI_picker_selection_card {
+        size = { 492 58 }
+        blockoverride "DI_card_content_size" { size = { 482 54 } }
+        blockoverride "DI_card_image_size" { size = { 60 54 } }
+        blockoverride "DI_card_text_size" { size = { 376 50 } }
+        blockoverride "DI_card_check_column_size" { size = { 24 50 } }
+        blockoverride "DI_card_image" {
+            coa_title_tiny_crown = {
+                parentanchor = top|left
+                widgetanchor = top|left
+                size = { 36 54 }
+                datacontext = "[Scope.Title]"
+                alwaystransparent = yes
+                blockoverride "position" { position = { 0 0 } }
+                blockoverride "coa_button" {}
+                blockoverride "coa_hover_glow_visible" { visible = no }
+            }
+        }
+        blockoverride "DI_card_text" { text = "[Scope.Title.GetNameNoTooltip]" }
+        button_ignore = none
+        tooltipwidget = {
+            LandedTitleTooltipBase = {
+                datacontext = "[Scope.Title]"
+                blockoverride "input_info_text" { text = DI_tm_browser_pin_tt }
+            }
+        }
+        blockoverride "DI_card_highlight" { visible = "[Not(GetScriptedGui('DI_tm_browser_pin').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Scope.Title.MakeScope).End))]" }
+        blockoverride "DI_card_check" { visible = "[Not(GetScriptedGui('DI_tm_browser_pin').IsValid(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Scope.Title.MakeScope).End))]" }
+        onclick = "[GetScriptedGui('DI_tm_browser_pin').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Scope.Title.MakeScope).End)]"
+        onrightclick = "[GetScriptedGui('DI_unpin_title').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).AddScope('title', Scope.Title.MakeScope).End)]"
+    }
+
+    type DI_tm_browser_option = DI_picker_selection_card {
+        size = { 492 32 }
+        blockoverride "DI_card_content_size" { size = { 482 30 } }
+        blockoverride "DI_card_image_size" { size = { 2 30 } }
+        blockoverride "DI_card_text_size" { size = { 422 30 } }
+        blockoverride "DI_card_check_column_size" { size = { 24 30 } }
+    }
+}

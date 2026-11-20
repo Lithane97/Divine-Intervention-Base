@@ -1,0 +1,66 @@
+﻿# Character filter settings are shared by all rank scans.
+DI_tm_browser_filter_enabled = {
+    scope:DI_tm_browser_player = {
+        is_target_in_variable_list = { name = DI_tm_browser_filters target = flag:$FILTER$ }
+    }
+}
+
+# Start in the candidate title or its capital county. Include a selected
+# kingdom/empire itself when browsing that rank.
+DI_tm_browser_in_selected_area = {
+    any_this_title_or_de_jure_above = {
+        OR = { tier = tier_kingdom tier = tier_empire }
+        scope:DI_tm_browser_player = {
+            is_target_in_variable_list = { name = DI_selected_titles target = prev }
+        }
+    }
+}
+
+DI_tm_browser_matches = {
+    # Neither or both status filters includes both statuses.
+    trigger_if = {
+        limit = {
+            DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_created }
+            NOT = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_uncreated } }
+        }
+        is_title_created = yes
+    }
+    trigger_else_if = {
+        limit = {
+            DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_uncreated }
+            NOT = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_created } }
+        }
+        is_title_created = no
+    }
+    trigger_else = { always = yes }
+    trigger_if = {
+        limit = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_titular } }
+        is_titular = yes
+    }
+    trigger_if = {
+        limit = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_parentless } }
+        NOT = { exists = de_jure_liege }
+    }
+    trigger_if = {
+        limit = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_in_area } }
+        DI_tm_browser_in_selected_area = yes
+    }
+    trigger_if = {
+        limit = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_has_counties } }
+        any_de_jure_county = { always = yes }
+    }
+    trigger_if = {
+        limit = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_capital_area } }
+        exists = title_capital_county
+        title_capital_county = { DI_tm_browser_in_selected_area = yes }
+    }
+    trigger_if = {
+        limit = { DI_tm_browser_filter_enabled = { FILTER = DI_tm_browser_previously_held } }
+        any_past_holder = { always = yes }
+    }
+}
+
+DI_tm_browser_can_pin = {
+    exists = scope:title
+    NOT = { is_target_in_variable_list = { name = DI_pinned_titles target = scope:title } }
+}

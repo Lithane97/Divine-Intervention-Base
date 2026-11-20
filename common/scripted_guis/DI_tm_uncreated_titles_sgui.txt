@@ -1,0 +1,143 @@
+﻿DI_tm_browser_filter = {
+    scope = character
+    saved_scopes = { choice }
+    effect = {
+        save_scope_as = DI_tm_browser_player
+        if = {
+            limit = { NOT = { has_variable = DI_tm_browser_initialized } }
+            set_variable = DI_tm_browser_initialized
+            if = {
+                limit = { has_variable = DI_tm_browser_rank }
+                add_to_variable_list = { name = DI_tm_browser_filters target = var:DI_tm_browser_rank }
+                remove_variable = DI_tm_browser_rank
+            }
+            else = { add_to_variable_list = { name = DI_tm_browser_filters target = flag:DI_title_filter_duchy } }
+            if = {
+                limit = { has_variable = DI_tm_browser_titular }
+                add_to_variable_list = { name = DI_tm_browser_filters target = flag:DI_tm_browser_titular }
+                remove_variable = DI_tm_browser_titular
+            }
+            if = {
+                limit = { has_variable = DI_tm_browser_parentless }
+                add_to_variable_list = { name = DI_tm_browser_filters target = flag:DI_tm_browser_parentless }
+                remove_variable = DI_tm_browser_parentless
+            }
+        }
+        if = {
+            limit = { scope:choice = flag:DI_tm_browser_refresh }
+            clear_variable_list = DI_tm_browser_types
+            every_title_type = {
+                scope:DI_tm_browser_player = { add_to_variable_list = { name = DI_tm_browser_types target = prev } }
+            }
+        }
+        else_if = {
+            limit = { is_target_in_variable_list = { name = DI_tm_browser_filters target = scope:choice } }
+            remove_list_variable = { name = DI_tm_browser_filters target = scope:choice }
+        }
+        else = { add_to_variable_list = { name = DI_tm_browser_filters target = scope:choice } }
+        clear_variable_list = DI_tm_uncreated_results
+        if = {
+            limit = { is_target_in_variable_list = { name = DI_tm_browser_filters target = flag:DI_title_filter_duchy } }
+            every_duchy = {
+                limit = { DI_tm_browser_matches = yes }
+                scope:DI_tm_browser_player = {
+                    add_to_variable_list = { name = DI_tm_uncreated_results target = prev }
+                }
+            }
+        }
+        if = {
+            limit = { is_target_in_variable_list = { name = DI_tm_browser_filters target = flag:DI_title_filter_kingdom } }
+            every_kingdom = {
+                limit = { DI_tm_browser_matches = yes }
+                scope:DI_tm_browser_player = {
+                    add_to_variable_list = { name = DI_tm_uncreated_results target = prev }
+                }
+            }
+        }
+        if = {
+            limit = { is_target_in_variable_list = { name = DI_tm_browser_filters target = flag:DI_title_filter_empire } }
+            every_empire = {
+                limit = { DI_tm_browser_matches = yes }
+                scope:DI_tm_browser_player = {
+                    add_to_variable_list = { name = DI_tm_uncreated_results target = prev }
+                }
+            }
+        }
+        if = {
+            limit = { is_target_in_variable_list = { name = DI_tm_browser_filters target = flag:DI_title_filter_hegemony } }
+            every_hegemony = {
+                limit = { DI_tm_browser_matches = yes }
+                scope:DI_tm_browser_player = {
+                    add_to_variable_list = { name = DI_tm_uncreated_results target = prev }
+                }
+            }
+        }
+    }
+}
+
+DI_tm_browser_filter_active = {
+    scope = character
+    saved_scopes = { choice }
+    is_valid = { is_target_in_variable_list = { name = DI_tm_browser_filters target = scope:choice } }
+}
+
+DI_tm_browser_toggle_type = {
+    scope = character
+    saved_scopes = { choice }
+    effect = {
+        if = {
+            limit = { is_target_in_variable_list = { name = DI_tm_browser_selected_types target = scope:choice } }
+            remove_list_variable = { name = DI_tm_browser_selected_types target = scope:choice }
+        }
+        else = { add_to_variable_list = { name = DI_tm_browser_selected_types target = scope:choice } }
+    }
+}
+
+DI_tm_browser_type_active = {
+    scope = character
+    saved_scopes = { choice }
+    is_valid = { is_target_in_variable_list = { name = DI_tm_browser_selected_types target = scope:choice } }
+}
+
+DI_tm_browser_types_filtered = {
+    scope = character
+    is_valid = { has_variable_list = DI_tm_browser_selected_types }
+}
+
+DI_tm_browser_type_matches = {
+    scope = character
+    saved_scopes = { choice }
+    is_valid = {
+        OR = {
+            NOT = { has_variable_list = DI_tm_browser_selected_types }
+            is_target_in_variable_list = { name = DI_tm_browser_selected_types target = scope:choice }
+        }
+    }
+}
+
+DI_tm_browser_pin = {
+    scope = character
+    saved_scopes = { title }
+    is_valid = { DI_tm_browser_can_pin = yes }
+    effect = {
+        if = {
+            limit = { DI_tm_browser_can_pin = yes }
+            add_to_variable_list = { name = DI_pinned_titles target = scope:title }
+            if = {
+                limit = {
+                    NOT = { is_target_in_variable_list = { name = DI_selected_titles target = scope:title } }
+                }
+                add_to_variable_list = { name = DI_selected_titles target = scope:title }
+            }
+            DI_recount_title_counters = yes
+        }
+    }
+}
+
+DI_tm_browser_close = {
+    scope = character
+    effect = {
+        clear_variable_list = DI_tm_uncreated_results
+        clear_variable_list = DI_tm_browser_types
+    }
+}
