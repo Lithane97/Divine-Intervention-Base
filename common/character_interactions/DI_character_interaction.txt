@@ -4630,6 +4630,27 @@ DI_change_government = {
                     scope:recipient = {
                         change_government = republic_government
 
+                        # A subordinate republic uses its liege's tier law.
+                        if = {
+                            limit = { gdp_is_assembly_head_trigger = yes }
+                            if = {
+                                limit = { highest_held_title_tier >= tier_empire }
+                                add_realm_law_skip_effects = republic_tier_empire
+                            }
+                            else_if = {
+                                limit = { highest_held_title_tier = tier_kingdom }
+                                add_realm_law_skip_effects = republic_tier_kingdom
+                            }
+                            else_if = {
+                                limit = { highest_held_title_tier = tier_duchy }
+                                add_realm_law_skip_effects = republic_tier_duchy
+                            }
+                            else_if = {
+                                limit = { highest_held_title_tier = tier_county }
+                                add_realm_law_skip_effects = republic_tier_county
+                            }
+                        }
+
                         every_vassal_or_below = {
                             limit = {
                                 highest_held_title_tier > tier_barony
